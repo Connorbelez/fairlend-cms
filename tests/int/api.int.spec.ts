@@ -4,8 +4,9 @@ import config from '@/payload.config'
 import { describe, it, beforeAll, expect } from 'vitest'
 
 let payload: Payload
+const describeWithDatabase = process.env.POSTGRES_URL ? describe : describe.skip
 
-describe('API', () => {
+describeWithDatabase('API', () => {
   beforeAll(async () => {
     const payloadConfig = await config
     payload = await getPayload({ config: payloadConfig })

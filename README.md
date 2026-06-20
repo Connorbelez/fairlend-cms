@@ -35,6 +35,11 @@ Set up the following services and secrets and then once the app has been built a
 
 From this point on you can access your admin panel at `/admin` of your app URL, create an admin user and then click the 'Seed the database' button in the dashboard to add content into your app.
 
+### Build command
+
+Vercel should run `pnpm run ci`, which applies Payload migrations before running `next build`.
+The build reads from Postgres while collecting static page data, so `POSTGRES_URL` must be present and reachable during the build.
+
 ### Services
 
 This project uses the following services integrated into Vercel which you will need to click "Add" and "Connect" for:
@@ -54,6 +59,8 @@ CRON_SECRET - used for running cron on Vercel
 PAYLOAD_SECRET - used by Payload to sign secrets like JWT tokens
 
 PREVIEW_SECRET - used by Payload for secured live previews of your content
+
+BLOB_READ_WRITE_TOKEN - used by Vercel Blob for media uploads; this is normally added automatically when Blob storage is connected
 
 ## Quick Start - local setup
 
