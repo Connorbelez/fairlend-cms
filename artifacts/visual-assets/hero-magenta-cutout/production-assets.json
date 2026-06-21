@@ -1,0 +1,28 @@
+{
+  "image_asset_count": 1,
+  "mode": "extraction",
+  "notes": "User requested the exact supplied hero image with only the magenta background removed. This run intentionally uses chroma-key extraction rather than image regeneration.",
+  "assets": [
+    {
+      "id": "hero-isometric-map-cutout",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/hero-magenta-cutout/crops/hero-isometric-map-cutout.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/hero-magenta-cutout/generated/raw/hero-isometric-map-cutout.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/hero-isometric-map-cutout.webp",
+      "artifact_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/hero-magenta-cutout/generated/webp/hero-isometric-map-cutout.webp",
+      "imagegen_prompt": "Extraction mode: preserve the supplied hero image exactly and remove only the magenta chroma-key background to produce a transparent standalone hero asset.",
+      "transparent": true,
+      "extraction_method": "Border-connected magenta chroma key with soft edge alpha and magenta despill.",
+      "validation": {
+        "webp_size": {
+          "width": 1631,
+          "height": 919
+        },
+        "transparent_pixels": 259058,
+        "partial_alpha_pixels": 4245,
+        "opaque_pixels": 1235586,
+        "visible_magenta_like_pixels": 0,
+        "file_size_bytes": 252732
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "image_asset_count": 1,
+  "mode": "extraction",
+  "notes": "V2 extraction from the original source image. This pass removes the residual magenta edge contamination found in the first WebP output.",
+  "assets": [
+    {
+      "id": "hero-isometric-map-cutout",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/hero-magenta-cutout-v2/crops/hero-isometric-map-cutout.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/hero-magenta-cutout-v2/generated/raw/hero-isometric-map-cutout.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/hero-isometric-map-cutout.webp",
+      "artifact_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/hero-magenta-cutout-v2/generated/webp/hero-isometric-map-cutout.webp",
+      "imagegen_prompt": "Extraction mode: preserve the supplied hero image exactly and remove only the magenta chroma-key background, including anti-aliased magenta edge residue, to produce a transparent standalone hero asset.",
+      "transparent": true,
+      "extraction_method": "Border-connected magenta chroma key, one-pixel mask expansion, transparent/partial-edge inpaint despill, ImageMagick trim, and ImageMagick WebP export at quality 94.",
+      "validation": {
+        "webp_size": {
+          "width": 1630,
+          "height": 918
+        },
+        "transparent_pixels": 260935,
+        "partial_alpha_pixels": 3330,
+        "opaque_pixels": 1232075,
+        "partial_magenta_residue_pixels": 0,
+        "edge_magenta_residue_pixels": 0,
+        "visible_magenta_residue_pixels": 0,
+        "file_size_bytes": 329790
+      }
+    }
+  ]
+}
