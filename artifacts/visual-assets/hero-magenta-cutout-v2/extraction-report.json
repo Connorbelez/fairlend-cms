@@ -1,0 +1,31 @@
+{
+  "input": "/Users/connor/Downloads/Image Recreation Request Jun 20 2026.png",
+  "raw_output": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/hero-magenta-cutout-v2/generated/raw/hero-isometric-map-cutout.untrimmed.png",
+  "trimmed_output": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/hero-magenta-cutout-v2/generated/raw/hero-isometric-map-cutout.png",
+  "webp_output": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/hero-magenta-cutout-v2/generated/webp/hero-isometric-map-cutout.webp",
+  "source_size": {
+    "width": 1672,
+    "height": 941
+  },
+  "raw_alpha_bbox": {
+    "x": 42,
+    "y": 23,
+    "width": 1630,
+    "height": 918
+  },
+  "raw_transparent_pixels": 337947,
+  "raw_partial_alpha_pixels": 3330,
+  "raw_opaque_pixels": 1232075,
+  "trimmed_size": {
+    "width": 1630,
+    "height": 918
+  },
+  "webp_size": {
+    "width": 1630,
+    "height": 918
+  },
+  "trimmed_magenta_residue_pixels": 2,
+  "webp_magenta_residue_pixels": 0,
+  "eat_pixels": 1,
+  "webp_quality": 94
+}

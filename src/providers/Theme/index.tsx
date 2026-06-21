@@ -1,12 +1,10 @@
 'use client'
 
-import React, { createContext, useCallback, use, useState } from 'react'
+import React, { createContext, useCallback, use, useEffect, useSyncExternalStore } from 'react'
 
 import type { Theme, ThemeContextType } from './types'
 
-import canUseDOM from '@/utilities/canUseDOM'
-import { defaultTheme, getImplicitPreference, themeLocalStorageKey } from './shared'
-import { themeIsValid } from './types'
+import { defaultTheme, getResolvedTheme, setThemePreference, subscribeToThemePreference } from './shared'
 
 const initialContext: ThemeContextType = {
   setTheme: () => null,
@@ -15,27 +13,26 @@ const initialContext: ThemeContextType = {
 
 const ThemeContext = createContext(initialContext)
 
-export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setThemeState] = useState<Theme | undefined>(() => {
-    if (!canUseDOM) return undefined
-
-    const currentTheme = document.documentElement.getAttribute('data-theme')
-
-    return themeIsValid(currentTheme) ? currentTheme : defaultTheme
-  })
+export const ThemeProvider = ({
+  children,
+  initialTheme = defaultTheme,
+}: {
+  children: React.ReactNode
+  initialTheme?: Theme
+}) => {
+  const theme = useSyncExternalStore(
+    subscribeToThemePreference,
+    getResolvedTheme,
+    () => initialTheme,
+  )
 
   const setTheme = useCallback((themeToSet: Theme | null) => {
-    if (themeToSet === null) {
-      window.localStorage.removeItem(themeLocalStorageKey)
-      const implicitPreference = getImplicitPreference()
-      document.documentElement.setAttribute('data-theme', implicitPreference || '')
-      if (implicitPreference) setThemeState(implicitPreference)
-    } else {
-      setThemeState(themeToSet)
-      window.localStorage.setItem(themeLocalStorageKey, themeToSet)
-      document.documentElement.setAttribute('data-theme', themeToSet)
-    }
+    setThemePreference(themeToSet || 'auto')
   }, [])
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+  }, [theme])
 
   return <ThemeContext value={{ setTheme, theme }}>{children}</ThemeContext>
 }

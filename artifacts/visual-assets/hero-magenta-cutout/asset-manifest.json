@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "project": "fairlend-cms",
+  "notes": "Extraction-mode visual asset run for the supplied isometric hero image. User requested the exact hero with only the magenta background removed.",
+  "source_image": "/Users/connor/Downloads/Image Recreation Request Jun 20 2026.png",
+  "source_size": {
+    "width": 1672,
+    "height": 941
+  },
+  "created_at": "2026-06-20T17:37:21.561327+00:00",
+  "output_dir": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/hero-magenta-cutout",
+  "contact_sheet": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/hero-magenta-cutout/contact-sheet.png",
+  "assets": [
+    {
+      "id": "hero-isometric-map-cutout",
+      "label": "Isometric city and estate hero cutout",
+      "classification": "image",
+      "role": "Transparent hero raster asset",
+      "bbox": {
+        "x": 0,
+        "y": 0,
+        "width": 1672,
+        "height": 941
+      },
+      "rationale": "The isometric miniature city, water, estate, trees, lighting, and shadows are complex raster imagery; the requested deliverable is a transparent WebP cutout.",
+      "generation": {
+        "transparent": true,
+        "asset_type": "hero-cutout",
+        "output_basename": "hero-isometric-map-cutout",
+        "prompt": "Extraction mode: preserve the supplied hero image exactly and remove only the magenta chroma-key background to produce a transparent standalone hero asset."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/hero-magenta-cutout/crops/hero-isometric-map-cutout.png",
+      "crop_size": {
+        "width": 1672,
+        "height": 941
+      }
+    }
+  ]
+}

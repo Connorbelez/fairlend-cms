@@ -1,0 +1,19 @@
+{
+  "input": "/Users/connor/Downloads/Image Recreation Request Jun 20 2026.png",
+  "output": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/hero-magenta-cutout/generated/raw/hero-isometric-map-cutout.png",
+  "source_size": {
+    "width": 1672,
+    "height": 941
+  },
+  "background_pixels": 333521,
+  "transparent_pixels": 333521,
+  "partial_alpha_pixels": 4245,
+  "opaque_pixels": 1235586,
+  "alpha_bbox": {
+    "x": 41,
+    "y": 22,
+    "width": 1631,
+    "height": 919
+  },
+  "edge_width": 1.65
+}

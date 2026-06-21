@@ -1,0 +1,11 @@
+{
+  "input": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/hero-magenta-cutout/generated/raw/hero-isometric-map-cutout.png",
+  "output": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/hero-magenta-cutout/generated/webp/hero-isometric-map-cutout.webp",
+  "size": {
+    "width": 1631,
+    "height": 919
+  },
+  "transparent_background": "none",
+  "inferred_background": null,
+  "quality": 90
+}
