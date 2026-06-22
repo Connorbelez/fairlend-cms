@@ -34,15 +34,22 @@ export default async function Page({ params: paramsPromise }: Args) {
   })
 
   return (
-    <div className="pt-24 pb-24">
+    <main className="bg-[#fbf3ea] pt-16 pb-24 text-[#062c2f]">
       <PageClient />
-      <div className="container mb-16">
-        <div className="prose dark:prose-invert max-w-none">
-          <h1>Posts</h1>
-        </div>
+      <div className="container fairlend-reveal mb-12">
+        <p className="fairlend-kicker-motion mb-4 text-[12px] font-extrabold tracking-[0.28em] text-[var(--fairlend-orange-text)] uppercase">
+          Fairlend Resources
+        </p>
+        <h1 className="m-0 max-w-[760px] font-serif text-[clamp(54px,12vw,104px)] leading-[0.92] font-bold text-[#062c2f]">
+          Financing notes for builders and investors.
+        </h1>
+        <p className="mt-6 max-w-[620px] text-[clamp(18px,2.3vw,22px)] leading-[1.35] font-semibold text-[#33545e]">
+          Practical guidance on private mortgages, construction files, draw schedules, and real
+          estate investment paths.
+        </p>
       </div>
 
-      <div className="container mb-8">
+      <div className="container fairlend-reveal mb-8 text-sm font-extrabold tracking-[0.08em] text-[#486572] uppercase [--fairlend-delay:120ms]">
         <PageRange
           collection="posts"
           currentPage={posts.page}
@@ -58,14 +65,14 @@ export default async function Page({ params: paramsPromise }: Args) {
           <Pagination page={posts.page} totalPages={posts.totalPages} />
         )}
       </div>
-    </div>
+    </main>
   )
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { pageNumber } = await paramsPromise
   return {
-    title: `Payload Website Template Posts Page ${pageNumber || ''}`,
+    title: `Fairlend Resources | Page ${pageNumber || ''}`,
   }
 }
 

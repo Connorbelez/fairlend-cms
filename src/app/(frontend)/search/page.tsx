@@ -60,29 +60,41 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
   })
 
   return (
-    <div className="pt-24 pb-24">
+    <main className="bg-[#fbf3ea] pt-16 pb-24 text-[#062c2f]">
       <PageClient />
-      <div className="container mb-16">
-        <div className="prose dark:prose-invert max-w-none text-center">
-          <h1 className="mb-8 lg:mb-16">Search</h1>
-
-          <div className="max-w-[50rem] mx-auto">
-            <Search />
-          </div>
+      <div className="container fairlend-reveal mb-12 text-center">
+        <p className="fairlend-kicker-motion mb-4 text-[12px] font-extrabold tracking-[0.28em] text-[var(--fairlend-orange-text)] uppercase">
+          Search
+        </p>
+        <h1 className="mx-auto m-0 max-w-[760px] font-serif text-[clamp(54px,12vw,104px)] leading-[0.92] font-bold text-[#062c2f]">
+          Find the right financing signal.
+        </h1>
+        <p className="mx-auto mt-6 max-w-[620px] text-[clamp(18px,2.3vw,22px)] leading-[1.35] font-semibold text-[#33545e]">
+          Search Fairlend resources by property path, lending structure, or investment topic.
+        </p>
+        <div className="fairlend-reveal mx-auto mt-9 max-w-[50rem] [--fairlend-delay:140ms]">
+          <Search />
         </div>
       </div>
 
       {posts.totalDocs > 0 ? (
         <CollectionArchive posts={posts.docs as CardPostData[]} />
       ) : (
-        <div className="container">No results found.</div>
+        <div className="container fairlend-reveal [--fairlend-delay:220ms]">
+          <div className="rounded-[18px] border border-[#e1d1c2] bg-[#fffaf4] p-8 text-center shadow-[0_18px_46px_rgb(63_38_18/7%),inset_0_1px_0_rgb(255_252_248/86%)]">
+            <p className="m-0 text-[19px] font-extrabold text-[#062c2f]">No results found.</p>
+            <p className="mx-auto mt-3 max-w-[520px] text-[15px] leading-[1.45] font-semibold text-[#486572]">
+              Try a property type, city, lending stage, or investor topic.
+            </p>
+          </div>
+        </div>
       )}
-    </div>
+    </main>
   )
 }
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Payload Website Template Search`,
+    title: 'Search Fairlend Resources',
   }
 }

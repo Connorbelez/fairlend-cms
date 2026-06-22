@@ -21,6 +21,9 @@ const nextConfig: NextConfig = {
   images: {
     localPatterns: [
       {
+        pathname: '/assets/**',
+      },
+      {
         pathname: '/api/media/file/**',
       },
     ],
@@ -52,4 +55,14 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default withPayload(nextConfig, { devBundleServerPackages: false })
+const payloadConfig = withPayload(nextConfig, { devBundleServerPackages: false })
+
+// Payload disables this in its Next wrapper because it can break Payload Admin HMR.
+// This site opts back in so Turbopack keeps server-side Fast Refresh enabled.
+export default {
+  ...payloadConfig,
+  experimental: {
+    ...payloadConfig.experimental,
+    turbopackServerFastRefresh: true,
+  },
+} satisfies NextConfig

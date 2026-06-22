@@ -62,6 +62,10 @@ PREVIEW_SECRET - used by Payload for secured live previews of your content
 
 BLOB_READ_WRITE_TOKEN - used by Vercel Blob for media uploads; this is normally added automatically when Blob storage is connected
 
+GOOGLE_MAPS_API_KEY - private server-side Google Places API key used by the homepage and intake address autocomplete. The key's Google Cloud project must have Places API (New) enabled because the app calls `places.googleapis.com/v1/places:autocomplete` and `places.googleapis.com/v1/places/{placeId}`.
+
+The public Fairlend lead flow also writes to the Vercel-provisioned Neon database. `DATABASE_URL` is used when present, and `POSTGRES_URL` is used as the fallback so the lead table can share Payload's existing Neon connection.
+
 ## Quick Start - local setup
 
 To spin up this template locally, follow these steps:
@@ -73,7 +77,7 @@ After you click the `Deploy` button above, you'll want to have standalone copy o
 ### Development
 
 1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `POSTGRES_URL` and `BLOB_READ_WRITE_TOKEN` from your Vercel project to your `.env` if you want to use Vercel Blob and the Neon database that was created for you.
+2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `POSTGRES_URL`, `BLOB_READ_WRITE_TOKEN`, and `GOOGLE_MAPS_API_KEY` from your Vercel project to your `.env` if you want to use Vercel Blob, lead persistence, address autocomplete, and the Neon database that was created for you.
 
    > _NOTE: If the connection string value includes `localhost` or `127.0.0.1`, the code will automatically use a normal postgres adapter instead of Vercel._. You can override this functionality by setting `forceUseVercelPostgres: true` if desired.
 
