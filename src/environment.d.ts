@@ -4,6 +4,7 @@ declare global {
       PAYLOAD_SECRET: string
       POSTGRES_URL: string
       DATABASE_URL: string
+      GOOGLE_MAPS_API_KEY: string
       BLOB_READ_WRITE_TOKEN: string
       CRON_SECRET: string
       NEXT_PUBLIC_SERVER_URL: string

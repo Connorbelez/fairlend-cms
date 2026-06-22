@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "image_asset_count": 1,
+  "assets": [
+    {
+      "id": "toronto-map-hero",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/toronto-map-hero-jun-21/crops/toronto-map-hero.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/toronto-map-hero-jun-21/generated/raw/toronto-map-hero.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-toronto-map-hero.webp",
+      "artifact_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/toronto-map-hero-jun-21/generated/webp/toronto-map-hero.webp",
+      "verification_previews": [
+        "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/toronto-map-hero-jun-21/verification/preview-checker.jpg",
+        "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/toronto-map-hero-jun-21/verification/preview-white.jpg",
+        "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/toronto-map-hero-jun-21/verification/preview-dark.jpg"
+      ],
+      "imagegen_prompt": "Exact hero extraction from supplied Toronto isometric map source. Preserve the map, city, water, house, route glow, shadows, labels, boats, and lighting; remove the magenta chroma-key background; neutralize lower-water key spill; output optimized transparent WebP.",
+      "transparent": true,
+      "notes": "The user requested exact extraction rather than a generated replacement. The crop is retained as the reference, the raw transparent PNG is stored separately, and the final WebP is optimized from that raw transparent asset."
+    }
+  ]
+}

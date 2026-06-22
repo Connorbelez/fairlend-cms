@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "project": "fairlend-cms",
+  "notes": "Reference decomposition from the supplied Our Services design image. Crops are reference-only and must not be shipped as final assets.",
+  "source_image": "/Users/connor/Downloads/ChatGPT Image Jun 21 2026 Service Concepts Design Request (2).png",
+  "source_size": {
+    "width": 1672,
+    "height": 941
+  },
+  "created_at": "2026-06-21T14:23:57.954830+00:00",
+  "output_dir": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets",
+  "contact_sheet": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/contact-sheet.png",
+  "assets": [
+    {
+      "id": "private-mortgage-investments-icon",
+      "label": "Private mortgage investments neumorphic icon",
+      "classification": "image",
+      "role": "Service card illustration for private mortgage investments",
+      "bbox": {
+        "x": 698,
+        "y": 90,
+        "width": 251,
+        "height": 200
+      },
+      "rationale": "Complex generated 3D/isometric neumorphic illustration with phone, chart, miniature house, trees, shadows, and material lighting.",
+      "generation": {
+        "asset_type": "transparent-webp",
+        "output_basename": "private-mortgage-investments-icon",
+        "transparent": true,
+        "prompt": "Use the reference crop only as visual direction. Generate a new standalone polished 3D neumorphic isometric service icon: a tall smartphone angled slightly left with a clean mortgage-return chart on screen, beside a small upscale slate-roof house, tiny shrubs and trees, on a soft cream oval platform. Style: premium financial-services website illustration, rounded forms, ivory and warm beige materials, deep teal accents, subtle blue-gray roof, realistic soft shadows, no card background, no red number badge, no UI card, no surrounding text. Preserve the same subject, camera angle, scale relationship, and calm cream lighting."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/crops/private-mortgage-investments-icon.png",
+      "crop_size": {
+        "width": 251,
+        "height": 200
+      }
+    },
+    {
+      "id": "multi-mortgage-house-shield-icon",
+      "label": "1st 2nd 3rd mortgages house and shield icon",
+      "classification": "image",
+      "role": "Service card illustration for 1st, 2nd, and 3rd mortgages",
+      "bbox": {
+        "x": 1034,
+        "y": 88,
+        "width": 267,
+        "height": 203
+      },
+      "rationale": "Complex generated architectural cutaway with shield, landscaping, glass, shadows, and material lighting.",
+      "generation": {
+        "asset_type": "transparent-webp",
+        "output_basename": "multi-mortgage-house-shield-icon",
+        "transparent": true,
+        "prompt": "Use the reference crop only as visual direction. Generate a new standalone polished 3D neumorphic isometric service icon: a modern two-story cream house with dark slate roof, warm interior windows, rooftop terrace and landscaped platform, with a blue-gray protective shield and white checkmark standing at the front right. Style: premium mortgage-finance website illustration, ivory and beige materials, muted olive landscaping, soft ambient occlusion, realistic but simplified 3D render. No red number badge, no UI card, no surrounding text, no hard rectangular background."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/crops/multi-mortgage-house-shield-icon.png",
+      "crop_size": {
+        "width": 267,
+        "height": 203
+      }
+    },
+    {
+      "id": "construction-project-crane-icon",
+      "label": "Construction project crane neumorphic icon",
+      "classification": "image",
+      "role": "Service card illustration for construction project investments",
+      "bbox": {
+        "x": 1367,
+        "y": 86,
+        "width": 251,
+        "height": 203
+      },
+      "rationale": "Complex 3D construction scene with crane, unfinished building, slab, site details, trees, and shadows.",
+      "generation": {
+        "asset_type": "transparent-webp",
+        "output_basename": "construction-project-crane-icon",
+        "transparent": true,
+        "prompt": "Use the reference crop only as visual direction. Generate a new standalone polished 3D neumorphic isometric service icon: an unfinished multi-story concrete building under construction on a small square platform, a tower crane above it with hook, construction materials and circular site forms on the right, a few stylized trees on the left. Style: premium real-estate finance illustration, warm ivory concrete, light tan wood, muted steel, soft cream lighting, delicate shadows. No red number badge, no UI card, no surrounding text, no hard rectangular background."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/crops/construction-project-crane-icon.png",
+      "crop_size": {
+        "width": 251,
+        "height": 203
+      }
+    },
+    {
+      "id": "build-financing-plans-icon",
+      "label": "Build financing plans neumorphic icon",
+      "classification": "image",
+      "role": "Service card illustration for build financing",
+      "bbox": {
+        "x": 735,
+        "y": 535,
+        "width": 343,
+        "height": 166
+      },
+      "rationale": "Complex 3D construction/architectural planning illustration with tablet, rolled plans, framing, landscape details, and soft shadows.",
+      "generation": {
+        "asset_type": "transparent-webp",
+        "output_basename": "build-financing-plans-icon",
+        "transparent": true,
+        "prompt": "Use the reference crop only as visual direction. Generate a new standalone polished 3D neumorphic isometric service icon: a partially framed residential build with timber beams on a cream base, a small finished wall segment with windows, tiny shrubs and trees, rolled architectural plans, and a tablet displaying a simple floor plan in the front right. Style: premium construction-financing website illustration, warm ivory, pale wood, muted blue-gray tablet frame, soft shadows and rounded materials. No red number badge, no UI card, no surrounding text, no hard rectangular background."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/crops/build-financing-plans-icon.png",
+      "crop_size": {
+        "width": 343,
+        "height": 166
+      }
+    },
+    {
+      "id": "partners-handshake-puzzle-icon",
+      "label": "Partners handshake and puzzle neumorphic icon",
+      "classification": "image",
+      "role": "Service card illustration for partner program",
+      "bbox": {
+        "x": 1237,
+        "y": 540,
+        "width": 308,
+        "height": 170
+      },
+      "rationale": "Complex 3D partner scene with two figures, handshake, puzzle piece, city backdrop, trees, and shadows.",
+      "generation": {
+        "asset_type": "transparent-webp",
+        "output_basename": "partners-handshake-puzzle-icon",
+        "transparent": true,
+        "prompt": "Use the reference crop only as visual direction. Generate a new standalone polished 3D neumorphic isometric service icon: two simplified human figures shaking hands, one warm ivory and one charcoal gray, standing on a soft cream platform, with a blue puzzle piece in the foreground and a faint miniature city skyline behind them, plus small stylized trees. Style: premium partnership website illustration, rounded clay-like 3D forms, ivory, charcoal, deep teal-blue accent, soft ambient shadows. No red number badge, no UI card, no surrounding text, no hard rectangular background."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/crops/partners-handshake-puzzle-icon.png",
+      "crop_size": {
+        "width": 308,
+        "height": 170
+      }
+    },
+    {
+      "id": "toronto-cityscape-map-landscape",
+      "label": "Toronto cityscape and map landscape",
+      "classification": "image",
+      "role": "Lower-left decorative isometric cityscape landscape",
+      "bbox": {
+        "x": 0,
+        "y": 610,
+        "width": 646,
+        "height": 331
+      },
+      "rationale": "Large generated landscape/city composite with waterfront, map streets, trees, buildings, CN Tower, labels, depth, and atmospheric fade.",
+      "generation": {
+        "asset_type": "rectangular-webp",
+        "output_basename": "toronto-cityscape-map-landscape",
+        "transparent": false,
+        "prompt": "Use the reference crop only as visual direction. Generate a new standalone lower-left isometric Toronto cityscape and map landscape illustration for a premium finance website: pale cream map terrain with thin white roads, soft blue lake water along the bottom-left edge, miniature downtown Toronto cluster with a tall CN Tower near the center-right, small buildings, tiny trees, subtle coastline curves, and faint neighborhood labels such as Toronto, North York, Mississauga, and Markham integrated delicately. Remove the overlaid CTA card and any unrelated UI. Style: soft neumorphic/isometric 3D, warm ivory background, light beige terrain, teal-blue water, subtle shadows, airy fade toward the top and right edges."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/crops/toronto-cityscape-map-landscape.png",
+      "crop_size": {
+        "width": 646,
+        "height": 331
+      }
+    }
+  ]
+}

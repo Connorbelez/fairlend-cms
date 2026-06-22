@@ -1,0 +1,11 @@
+{
+  "input": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/gta-leadership-map/generated/raw/gta-leadership-background-map.png",
+  "output": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/gta-leadership-map/generated/webp/gta-leadership-background-map.webp",
+  "size": {
+    "width": 1045,
+    "height": 1505
+  },
+  "transparent_background": "none",
+  "inferred_background": null,
+  "quality": 90
+}
