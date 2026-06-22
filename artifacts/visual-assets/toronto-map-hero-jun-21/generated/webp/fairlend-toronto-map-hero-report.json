@@ -1,0 +1,11 @@
+{
+  "input": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/toronto-map-hero-jun-21/generated/raw/toronto-map-hero.png",
+  "output": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-toronto-map-hero.webp",
+  "size": {
+    "width": 1445,
+    "height": 673
+  },
+  "transparent_background": "none",
+  "inferred_background": null,
+  "quality": 90
+}

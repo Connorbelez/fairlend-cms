@@ -1,0 +1,26 @@
+{
+  "project": "fairlend-cms",
+  "notes": "Reference crop for the pale GTA map texture visible behind the leadership quote cards. The crop is style reference only; the production WebP is generated from geographically accurate Toronto/GTA map data and not from crop pixels.",
+  "assets": [
+    {
+      "id": "gta-leadership-background-map",
+      "label": "GTA leadership background map",
+      "classification": "image",
+      "role": "Pale editorial background map for the Fairlend leadership section",
+      "bbox": {
+        "x": 608,
+        "y": 0,
+        "width": 133,
+        "height": 803
+      },
+      "rationale": "The asset is a complex raster map texture with fine street geometry, pale tonal treatment, district labels, pins, water, and a CN Tower landmark motif. It should be generated as a standalone background image rather than represented as live UI.",
+      "generation": {
+        "asset_type": "map-background",
+        "output_basename": "fairlend-gta-leadership-background-map",
+        "transparent": false,
+        "prompt": "Generate a polished pale editorial background map plate inspired by the reference crop, but geographically accurate to Toronto within the GTA. The map should show the central Toronto / downtown waterfront context, including Yorkville to the north, the Financial District near the center, Harbourfront and Lake Ontario toward the lower area, and a subtle CN Tower landmark marker. Use fine cream and warm-gray street linework, muted district labels, small orange proof pins, soft paper texture, low contrast, no UI cards, no webpage chrome, no unrelated text, no fantasy geography.",
+        "negative_prompt": "Do not render quote cards, people, UI, browser chrome, fake city names, misspelled labels, dark roads, saturated colors, or a copied screenshot crop."
+      }
+    }
+  ]
+}

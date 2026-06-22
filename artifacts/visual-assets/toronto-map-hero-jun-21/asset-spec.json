@@ -1,0 +1,25 @@
+{
+  "project": "fairlend-cms",
+  "notes": "Single hero raster extraction from supplied Toronto isometric map image. The magenta backdrop is a chroma key and is removed for production use.",
+  "assets": [
+    {
+      "id": "toronto-map-hero",
+      "label": "Toronto isometric map hero",
+      "classification": "image",
+      "role": "Primary Fairlend landing hero image",
+      "bbox": {
+        "x": 0,
+        "y": 0,
+        "width": 1672,
+        "height": 941
+      },
+      "rationale": "Complex generated raster scene with map geometry, water, buildings, route glow, and lighting that should remain a single optimized image asset.",
+      "generation": {
+        "asset_type": "transparent-webp-extraction",
+        "output_basename": "fairlend-toronto-map-hero",
+        "transparent": true,
+        "prompt": "Extract the supplied Toronto isometric map hero as a standalone transparent raster asset. Preserve the map, city, water, house, route glow, shadows, labels, boats, and lighting; remove only the magenta chroma-key background."
+      }
+    }
+  ]
+}

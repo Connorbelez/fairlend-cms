@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "manifest_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/gta-leadership-map/asset-manifest.json",
+  "image_asset_count": 1,
+  "assets": [
+    {
+      "id": "gta-leadership-background-map",
+      "label": "GTA leadership background map",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/gta-leadership-map/crops/gta-leadership-background-map.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/gta-leadership-map/generated/raw/gta-leadership-background-map.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/gta-leadership-map/generated/webp/gta-leadership-background-map.webp",
+      "transparent": false,
+      "prompt": "Use case: ads-marketing\nAsset type: Pale editorial background map for the Fairlend leadership section\nPrimary request: Generate a polished pale editorial background map plate inspired by the reference crop, but geographically accurate to Toronto within the GTA. The map should show the central Toronto / downtown waterfront context, including Yorkville to the north, the Financial District near the center, Harbourfront and Lake Ontario toward the lower area, and a subtle CN Tower landmark marker. Use fine cream and warm-gray street linework, muted district labels, small orange proof pins, soft paper texture, low contrast, no UI cards, no webpage chrome, no unrelated text, no fantasy geography.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate as a clean standalone rectangular image asset.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "Do not render quote cards, people, UI, browser chrome, fake city names, misspelled labels, dark roads, saturated colors, or a copied screenshot crop."
+    }
+  ]
+}

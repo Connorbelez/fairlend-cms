@@ -1,0 +1,136 @@
+{
+  "sourcePath": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-desktop-hero.webp",
+  "outputPath": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-desktop-hero-baseplate-preserved.webp",
+  "previewPath": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/hero-ivory-feather/preview-on-ivory.png",
+  "checkerPath": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/hero-ivory-feather/preview-on-checker.png",
+  "mattePath": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/hero-ivory-feather/alpha-matte.png",
+  "width": 1448,
+  "height": 1086,
+  "estimatedSourceBackgroundRgb": [
+    238,
+    226,
+    216
+  ],
+  "targetIvoryRgb": [
+    255,
+    253,
+    247
+  ],
+  "protectedBaseplatePolygon": [
+    [
+      346,
+      135
+    ],
+    [
+      1014,
+      133
+    ],
+    [
+      1167,
+      171
+    ],
+    [
+      1294,
+      212
+    ],
+    [
+      1394,
+      245
+    ],
+    [
+      1448,
+      278
+    ],
+    [
+      1448,
+      498
+    ],
+    [
+      1398,
+      526
+    ],
+    [
+      1284,
+      541
+    ],
+    [
+      1160,
+      565
+    ],
+    [
+      1043,
+      596
+    ],
+    [
+      968,
+      626
+    ],
+    [
+      906,
+      661
+    ],
+    [
+      808,
+      711
+    ],
+    [
+      696,
+      746
+    ],
+    [
+      568,
+      787
+    ],
+    [
+      392,
+      792
+    ],
+    [
+      212,
+      764
+    ],
+    [
+      92,
+      697
+    ],
+    [
+      7,
+      620
+    ],
+    [
+      7,
+      496
+    ],
+    [
+      75,
+      444
+    ],
+    [
+      96,
+      386
+    ],
+    [
+      128,
+      334
+    ],
+    [
+      210,
+      260
+    ]
+  ],
+  "exteriorFeather": {
+    "fullOpacityAtProtectedBoundary": true,
+    "transparentAfterDistancePx": 142
+  },
+  "topAirDissolve": {
+    "fullOpacityAtY": 114
+  },
+  "bottomWaterDissolve": {
+    "startsAtY": 749,
+    "minimumOpacityAtBottom": 0.06
+  },
+  "transparentPixels": 505845,
+  "partialPixels": 334365,
+  "protectedPixels": 700660,
+  "ivoryShiftedPixels": 855781
+}

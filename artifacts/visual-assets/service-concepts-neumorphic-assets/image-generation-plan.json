@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "manifest_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/asset-manifest.json",
+  "image_asset_count": 6,
+  "assets": [
+    {
+      "id": "private-mortgage-investments-icon",
+      "label": "Private mortgage investments neumorphic icon",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/crops/private-mortgage-investments-icon.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/generated/raw/private-mortgage-investments-icon.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/generated/webp/private-mortgage-investments-icon.webp",
+      "transparent": true,
+      "prompt": "Use case: ads-marketing\nAsset type: Service card illustration for private mortgage investments\nPrimary request: Use the reference crop only as visual direction. Generate a new standalone polished 3D neumorphic isometric service icon: a tall smartphone angled slightly left with a clean mortgage-return chart on screen, beside a small upscale slate-roof house, tiny shrubs and trees, on a soft cream oval platform. Style: premium financial-services website illustration, rounded forms, ivory and warm beige materials, deep teal accents, subtle blue-gray roof, realistic soft shadows, no card background, no red number badge, no UI card, no surrounding text. Preserve the same subject, camera angle, scale relationship, and calm cream lighting.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "Do not output a crop, screenshot, webpage, browser frame, collage, neighboring assets, watermark, or placeholder."
+    },
+    {
+      "id": "multi-mortgage-house-shield-icon",
+      "label": "1st 2nd 3rd mortgages house and shield icon",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/crops/multi-mortgage-house-shield-icon.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/generated/raw/multi-mortgage-house-shield-icon.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/generated/webp/multi-mortgage-house-shield-icon.webp",
+      "transparent": true,
+      "prompt": "Use case: ads-marketing\nAsset type: Service card illustration for 1st, 2nd, and 3rd mortgages\nPrimary request: Use the reference crop only as visual direction. Generate a new standalone polished 3D neumorphic isometric service icon: a modern two-story cream house with dark slate roof, warm interior windows, rooftop terrace and landscaped platform, with a blue-gray protective shield and white checkmark standing at the front right. Style: premium mortgage-finance website illustration, ivory and beige materials, muted olive landscaping, soft ambient occlusion, realistic but simplified 3D render. No red number badge, no UI card, no surrounding text, no hard rectangular background.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "Do not output a crop, screenshot, webpage, browser frame, collage, neighboring assets, watermark, or placeholder."
+    },
+    {
+      "id": "construction-project-crane-icon",
+      "label": "Construction project crane neumorphic icon",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/crops/construction-project-crane-icon.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/generated/raw/construction-project-crane-icon.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/generated/webp/construction-project-crane-icon.webp",
+      "transparent": true,
+      "prompt": "Use case: ads-marketing\nAsset type: Service card illustration for construction project investments\nPrimary request: Use the reference crop only as visual direction. Generate a new standalone polished 3D neumorphic isometric service icon: an unfinished multi-story concrete building under construction on a small square platform, a tower crane above it with hook, construction materials and circular site forms on the right, a few stylized trees on the left. Style: premium real-estate finance illustration, warm ivory concrete, light tan wood, muted steel, soft cream lighting, delicate shadows. No red number badge, no UI card, no surrounding text, no hard rectangular background.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "Do not output a crop, screenshot, webpage, browser frame, collage, neighboring assets, watermark, or placeholder."
+    },
+    {
+      "id": "build-financing-plans-icon",
+      "label": "Build financing plans neumorphic icon",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/crops/build-financing-plans-icon.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/generated/raw/build-financing-plans-icon.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/generated/webp/build-financing-plans-icon.webp",
+      "transparent": true,
+      "prompt": "Use case: ads-marketing\nAsset type: Service card illustration for build financing\nPrimary request: Use the reference crop only as visual direction. Generate a new standalone polished 3D neumorphic isometric service icon: a partially framed residential build with timber beams on a cream base, a small finished wall segment with windows, tiny shrubs and trees, rolled architectural plans, and a tablet displaying a simple floor plan in the front right. Style: premium construction-financing website illustration, warm ivory, pale wood, muted blue-gray tablet frame, soft shadows and rounded materials. No red number badge, no UI card, no surrounding text, no hard rectangular background.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "Do not output a crop, screenshot, webpage, browser frame, collage, neighboring assets, watermark, or placeholder."
+    },
+    {
+      "id": "partners-handshake-puzzle-icon",
+      "label": "Partners handshake and puzzle neumorphic icon",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/crops/partners-handshake-puzzle-icon.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/generated/raw/partners-handshake-puzzle-icon.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/generated/webp/partners-handshake-puzzle-icon.webp",
+      "transparent": true,
+      "prompt": "Use case: ads-marketing\nAsset type: Service card illustration for partner program\nPrimary request: Use the reference crop only as visual direction. Generate a new standalone polished 3D neumorphic isometric service icon: two simplified human figures shaking hands, one warm ivory and one charcoal gray, standing on a soft cream platform, with a blue puzzle piece in the foreground and a faint miniature city skyline behind them, plus small stylized trees. Style: premium partnership website illustration, rounded clay-like 3D forms, ivory, charcoal, deep teal-blue accent, soft ambient shadows. No red number badge, no UI card, no surrounding text, no hard rectangular background.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "Do not output a crop, screenshot, webpage, browser frame, collage, neighboring assets, watermark, or placeholder."
+    },
+    {
+      "id": "toronto-cityscape-map-landscape",
+      "label": "Toronto cityscape and map landscape",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/crops/toronto-cityscape-map-landscape.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/generated/raw/toronto-cityscape-map-landscape.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/service-concepts-neumorphic-assets/generated/webp/toronto-cityscape-map-landscape.webp",
+      "transparent": false,
+      "prompt": "Use case: ads-marketing\nAsset type: Lower-left decorative isometric cityscape landscape\nPrimary request: Use the reference crop only as visual direction. Generate a new standalone lower-left isometric Toronto cityscape and map landscape illustration for a premium finance website: pale cream map terrain with thin white roads, soft blue lake water along the bottom-left edge, miniature downtown Toronto cluster with a tall CN Tower near the center-right, small buildings, tiny trees, subtle coastline curves, and faint neighborhood labels such as Toronto, North York, Mississauga, and Markham integrated delicately. Remove the overlaid CTA card and any unrelated UI. Style: soft neumorphic/isometric 3D, warm ivory background, light beige terrain, teal-blue water, subtle shadows, airy fade toward the top and right edges.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate as a clean standalone rectangular image asset.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "Do not output a crop, screenshot, webpage, browser frame, collage, neighboring assets, watermark, or placeholder."
+    }
+  ]
+}

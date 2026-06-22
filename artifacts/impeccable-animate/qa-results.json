@@ -1,0 +1,190 @@
+{
+  "results": [
+    {
+      "route": "/",
+      "viewport": "desktop",
+      "status": 200,
+      "expectedStatus": 200,
+      "title": "Fairlend | Multiplex, Single Family, and Land Financing",
+      "h1": "Multiplex,Single Family,LandFinancingMultiplex,Single family,Land Financing",
+      "overflow": 0,
+      "bodyHeight": 3289,
+      "revealCount": 2,
+      "hasPublicProfanity": false,
+      "screenshot": "/Users/connor/Dev/fairlend-cms/artifacts/impeccable-animate/home-desktop.png"
+    },
+    {
+      "route": "/intake",
+      "viewport": "desktop",
+      "status": 200,
+      "expectedStatus": 200,
+      "title": "DrawFlow Intake | Fairlend",
+      "h1": "Build financing that moves with the work",
+      "overflow": 0,
+      "bodyHeight": 6722,
+      "revealCount": 0,
+      "hasPublicProfanity": false,
+      "screenshot": "/Users/connor/Dev/fairlend-cms/artifacts/impeccable-animate/intake-desktop.png"
+    },
+    {
+      "route": "/fairlend-landing-hero",
+      "viewport": "desktop",
+      "status": 200,
+      "expectedStatus": 200,
+      "title": "Fairlend | Multiplex, Single Family, and Land Financing",
+      "h1": "Multiplex,Single Family,LandFinancingMultiplex,Single family,Land Financing",
+      "overflow": 0,
+      "bodyHeight": 3449,
+      "revealCount": 2,
+      "hasPublicProfanity": false,
+      "screenshot": "/Users/connor/Dev/fairlend-cms/artifacts/impeccable-animate/legacy-landing-desktop.png"
+    },
+    {
+      "route": "/posts",
+      "viewport": "desktop",
+      "status": 200,
+      "expectedStatus": 200,
+      "title": "Fairlend Resources | Construction and Private Mortgage Financing",
+      "h1": "Financing notes for builders and investors.",
+      "overflow": 0,
+      "bodyHeight": 1275,
+      "revealCount": 6,
+      "hasPublicProfanity": false,
+      "screenshot": "/Users/connor/Dev/fairlend-cms/artifacts/impeccable-animate/posts-desktop.png"
+    },
+    {
+      "route": "/search",
+      "viewport": "desktop",
+      "status": 200,
+      "expectedStatus": 200,
+      "title": "Search Fairlend Resources",
+      "h1": "Find the right financing signal.",
+      "overflow": 0,
+      "bodyHeight": 1219,
+      "revealCount": 7,
+      "hasPublicProfanity": false,
+      "screenshot": "/Users/connor/Dev/fairlend-cms/artifacts/impeccable-animate/search-desktop.png"
+    },
+    {
+      "route": "/definitely-not-a-real-route-animate-check",
+      "viewport": "desktop",
+      "status": 404,
+      "expectedStatus": 404,
+      "title": "Payload Website Template",
+      "h1": "This route is not funded.",
+      "overflow": 0,
+      "bodyHeight": 900,
+      "revealCount": 1,
+      "hasPublicProfanity": false,
+      "screenshot": "/Users/connor/Dev/fairlend-cms/artifacts/impeccable-animate/not-found-desktop.png"
+    },
+    {
+      "route": "/",
+      "viewport": "mobile",
+      "status": 200,
+      "expectedStatus": 200,
+      "title": "Fairlend | Multiplex, Single Family, and Land Financing",
+      "h1": "Multiplex,Single Family,LandFinancingMultiplex,Single family,Land Financing",
+      "overflow": 0,
+      "bodyHeight": 5890,
+      "revealCount": 2,
+      "hasPublicProfanity": false,
+      "screenshot": "/Users/connor/Dev/fairlend-cms/artifacts/impeccable-animate/home-mobile.png"
+    },
+    {
+      "route": "/intake",
+      "viewport": "mobile",
+      "status": 200,
+      "expectedStatus": 200,
+      "title": "DrawFlow Intake | Fairlend",
+      "h1": "Build financing that moves with the work",
+      "overflow": 0,
+      "bodyHeight": 11831,
+      "revealCount": 0,
+      "hasPublicProfanity": false,
+      "screenshot": "/Users/connor/Dev/fairlend-cms/artifacts/impeccable-animate/intake-mobile.png"
+    },
+    {
+      "route": "/fairlend-landing-hero",
+      "viewport": "mobile",
+      "status": 200,
+      "expectedStatus": 200,
+      "title": "Fairlend | Multiplex, Single Family, and Land Financing",
+      "h1": "Multiplex,Single Family,LandFinancingMultiplex,Single family,Land Financing",
+      "overflow": 0,
+      "bodyHeight": 6226,
+      "revealCount": 2,
+      "hasPublicProfanity": false,
+      "screenshot": "/Users/connor/Dev/fairlend-cms/artifacts/impeccable-animate/legacy-landing-mobile.png"
+    },
+    {
+      "route": "/posts",
+      "viewport": "mobile",
+      "status": 200,
+      "expectedStatus": 200,
+      "title": "Fairlend Resources | Construction and Private Mortgage Financing",
+      "h1": "Financing notes for builders and investors.",
+      "overflow": 0,
+      "bodyHeight": 2149,
+      "revealCount": 6,
+      "hasPublicProfanity": false,
+      "screenshot": "/Users/connor/Dev/fairlend-cms/artifacts/impeccable-animate/posts-mobile.png"
+    },
+    {
+      "route": "/search",
+      "viewport": "mobile",
+      "status": 200,
+      "expectedStatus": 200,
+      "title": "Search Fairlend Resources",
+      "h1": "Find the right financing signal.",
+      "overflow": 0,
+      "bodyHeight": 2139,
+      "revealCount": 7,
+      "hasPublicProfanity": false,
+      "screenshot": "/Users/connor/Dev/fairlend-cms/artifacts/impeccable-animate/search-mobile.png"
+    },
+    {
+      "route": "/definitely-not-a-real-route-animate-check",
+      "viewport": "mobile",
+      "status": 404,
+      "expectedStatus": 404,
+      "title": "Payload Website Template",
+      "h1": "This route is not funded.",
+      "overflow": 0,
+      "bodyHeight": 844,
+      "revealCount": 1,
+      "hasPublicProfanity": false,
+      "screenshot": "/Users/connor/Dev/fairlend-cms/artifacts/impeccable-animate/not-found-mobile.png"
+    }
+  ],
+  "interaction": {
+    "serviceDetailsVisible": true,
+    "testimonialBefore": 0,
+    "testimonialAfter": 460,
+    "testimonialMoved": true,
+    "selectedOption": {
+      "selectedCount": 1,
+      "selectedText": "Related entity owns it",
+      "selectedAnimation": "bp-option-confirm",
+      "checkAnimation": "bp-check-pop"
+    },
+    "searchUrl": "http://localhost:3000/search?q=construction%20financing",
+    "searchMotion": "0.26s, 0.22s, 0.26s",
+    "reducedMotion": {
+      "revealAnimation": "none",
+      "cardAnimation": "none",
+      "matches": true
+    }
+  },
+  "consoleErrors": [
+    {
+      "viewport": "desktop",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "viewport": "mobile",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    }
+  ],
+  "failedRoutes": []
+}
