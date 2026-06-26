@@ -115,7 +115,7 @@ export function WatermelonFooter({
       <motion.div
         animate="visible"
         className="relative w-full border-y border-[#d8c7b6] bg-[#fffdf8] shadow-[0_26px_70px_rgb(58_37_20/9%),inset_0_1px_0_rgb(255_255_255/76%)]"
-        initial={reduceMotion ? false : 'hidden'}
+        initial="hidden"
         variants={staggerContainer}
       >
         <GridTick className="-top-2 -left-2" />

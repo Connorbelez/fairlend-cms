@@ -1,0 +1,188 @@
+{
+  "bodyScrollWidth": 687,
+  "boxes": {
+    "application": {
+      "x": 60.953125,
+      "y": 751.78125,
+      "width": 565.09375,
+      "height": 158.171875,
+      "bottom": 909.953125,
+      "left": 60.953125,
+      "right": 626.046875,
+      "top": 751.78125
+    },
+    "compactPanel": {
+      "x": 40.71875,
+      "y": 481.9375,
+      "width": 605.5625,
+      "height": 497.578125,
+      "bottom": 979.515625,
+      "left": 40.71875,
+      "right": 646.28125,
+      "top": 481.9375
+    },
+    "compactStats": {
+      "x": 60.953125,
+      "y": 913.953125,
+      "width": 565.09375,
+      "height": 54.953125,
+      "bottom": 968.90625,
+      "left": 60.953125,
+      "right": 626.046875,
+      "top": 913.953125
+    },
+    "copy": {
+      "x": 60.953125,
+      "y": 498.046875,
+      "width": 565.09375,
+      "height": 240,
+      "bottom": 738.046875,
+      "left": 60.953125,
+      "right": 626.046875,
+      "top": 498.046875
+    },
+    "desktopProcess": null,
+    "desktopStats": null,
+    "header": {
+      "x": 0,
+      "y": 12,
+      "width": 687,
+      "height": 68,
+      "bottom": 80,
+      "left": 0,
+      "right": 687,
+      "top": 12
+    },
+    "hero": {
+      "x": 0,
+      "y": 0,
+      "width": 687,
+      "height": 2112,
+      "bottom": 2112,
+      "left": 0,
+      "right": 687,
+      "top": 0
+    },
+    "map": {
+      "x": 16,
+      "y": 96,
+      "width": 655,
+      "height": 900,
+      "bottom": 996,
+      "left": 16,
+      "right": 671,
+      "top": 96
+    },
+    "mobileProcess": {
+      "x": 16,
+      "y": 96,
+      "width": 655,
+      "height": 900,
+      "bottom": 996,
+      "left": 16,
+      "right": 671,
+      "top": 96
+    },
+    "stage": {
+      "x": 16,
+      "y": 96,
+      "width": 655,
+      "height": 900,
+      "bottom": 996,
+      "left": 16,
+      "right": 671,
+      "top": 96
+    },
+    "subtitle": {
+      "x": 60.953125,
+      "y": 682.046875,
+      "width": 520,
+      "height": 56,
+      "bottom": 738.046875,
+      "left": 60.953125,
+      "right": 580.953125,
+      "top": 682.046875
+    },
+    "title": {
+      "x": 60.953125,
+      "y": 498.046875,
+      "width": 565.09375,
+      "height": 184,
+      "bottom": 682.046875,
+      "left": 60.953125,
+      "right": 626.046875,
+      "top": 498.046875
+    }
+  },
+  "currentImage": "http://localhost:3000/assets/mobileHero.png",
+  "failures": [],
+  "processCards": [
+    {
+      "x": 126.84485626220703,
+      "y": 159.00100708007812,
+      "width": 131.99779510498047,
+      "height": 59.998992919921875,
+      "bottom": 219,
+      "left": 126.84485626220703,
+      "right": 258.8426513671875,
+      "top": 159.00100708007812
+    },
+    {
+      "x": 234.93923950195312,
+      "y": 204.01577758789062,
+      "width": 131.96527099609375,
+      "height": 59.984222412109375,
+      "bottom": 264,
+      "left": 234.93923950195312,
+      "right": 366.9045104980469,
+      "top": 204.01577758789062
+    },
+    {
+      "x": 333.287109375,
+      "y": 249.10476684570312,
+      "width": 131.76953125,
+      "height": 59.895233154296875,
+      "bottom": 309,
+      "left": 333.287109375,
+      "right": 465.056640625,
+      "top": 249.10476684570312
+    },
+    {
+      "x": 425.40924072265625,
+      "y": 294.4856872558594,
+      "width": 130.93145751953125,
+      "height": 59.514312744140625,
+      "bottom": 354,
+      "left": 425.40924072265625,
+      "right": 556.3406982421875,
+      "top": 294.4856872558594
+    }
+  ],
+  "processCardSelector": "[data-testid=\"hero-mobile-process-segment\"]",
+  "scrollWidth": 687,
+  "visibility": {
+    "desktopProcess": false,
+    "mobileProcess": true
+  },
+  "visibleRatios": {
+    "application": 1,
+    "compactPanel": 1,
+    "compactStats": 1,
+    "copy": 1,
+    "desktopProcess": null,
+    "desktopStats": null,
+    "header": 1,
+    "hero": 0.5208333333333334,
+    "map": 1,
+    "mobileProcess": 1,
+    "stage": 1,
+    "subtitle": 1,
+    "title": 1
+  },
+  "viewport": {
+    "height": 1100,
+    "id": "compact-687",
+    "mode": "compact",
+    "width": 687
+  }
+}

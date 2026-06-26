@@ -1,0 +1,73 @@
+{
+  "project": "fairlend-cms",
+  "notes": "Landing hero decomposition from supplied Fairlend financing-route mockup. Crops are reference-only and must not be shipped as production image assets.",
+  "assets": [
+    {
+      "id": "financing-route-header",
+      "label": "Financing route editorial header",
+      "classification": "component",
+      "role": "Top hero header with section numbering, brand lockup, and broker descriptor",
+      "bbox": { "x": 15, "y": 15, "width": 1665, "height": 98 },
+      "rationale": "Mostly typography, dividers, border rules, and brand text that should remain editable and responsive.",
+      "implementation": {
+        "component_name": "FairlendFinancingRouteHeader",
+        "suggested_shadcn_search": "separator navigation menubar",
+        "acceptance": "Preserves editorial index styling, rule dividers, Fairlend brand scale, and responsive compression."
+      }
+    },
+    {
+      "id": "financing-route-copy-panel",
+      "label": "Financing route copy and application form",
+      "classification": "component",
+      "role": "Left hero content, title, description, and address CTA",
+      "bbox": { "x": 56, "y": 236, "width": 558, "height": 449 },
+      "rationale": "Live marketing copy and form control should be implemented with React, existing inputs, and address autocomplete primitives.",
+      "implementation": {
+        "component_name": "FairlendFinancingRouteCopyPanel",
+        "suggested_shadcn_search": "input button card field",
+        "acceptance": "Uses existing local input/button/form primitives where possible and preserves headline hierarchy, orange accent rule, and bordered application panel."
+      }
+    },
+    {
+      "id": "financing-route-process-illustration",
+      "label": "Isometric financing process illustration",
+      "classification": "image",
+      "role": "Primary hero illustration showing permit, acquisition, construction, and completion route",
+      "bbox": { "x": 657, "y": 126, "width": 1006, "height": 655 },
+      "rationale": "Complex isometric drawing with skyline, papers, buildings, crane, shadows, grid texture, and route line is better generated as a standalone raster asset.",
+      "generation": {
+        "asset_type": "transparent-illustration",
+        "output_basename": "fairlend-financing-route-process",
+        "transparent": true,
+        "prompt": "Reference image only: generate a new standalone transparent PNG asset of a premium editorial isometric construction-financing route illustration. Cream drafting-paper base plane with faint grid, Toronto skyline sketched in light graphite at the back, four-step orange route line connecting a permit application clipboard, a single-family house acquisition vignette, a mid-rise construction site with tower crane, and a completed boutique apartment building with shield/check medallion. Fine ink outlines, muted warm greys, dark green details, small burnt-orange numbered markers, soft shadows, high-end brokerage presentation style, clean cutout edges, no UI frame, no text that needs to remain readable.",
+        "negative_prompt": "Do not include Fairlend logo, header bars, form inputs, browser chrome, watermarks, blurry text, cropped edges, photorealistic people, or a full webpage screenshot."
+      }
+    },
+    {
+      "id": "financing-route-inline-cta",
+      "label": "Small illustration CTA form",
+      "classification": "component",
+      "role": "Secondary address CTA over the process illustration",
+      "bbox": { "x": 1325, "y": 666, "width": 324, "height": 87 },
+      "rationale": "Text, address input, icon, border, and submit button should remain accessible live UI layered over the illustration.",
+      "implementation": {
+        "component_name": "FairlendInlineApplicationCta",
+        "suggested_shadcn_search": "input button field",
+        "acceptance": "Composable compact variant of the main application form with live placeholder text and keyboard-focus states."
+      }
+    },
+    {
+      "id": "financing-route-stats-strip",
+      "label": "Financing route credibility stats strip",
+      "classification": "component",
+      "role": "Bottom FSRA, experience, financing, and location proof points",
+      "bbox": { "x": 68, "y": 798, "width": 1116, "height": 88 },
+      "rationale": "Icon plus text proof points and separators are simple live UI and should adapt from local icon/stat patterns.",
+      "implementation": {
+        "component_name": "FairlendCredibilityStatsStrip",
+        "suggested_shadcn_search": "separator badge card",
+        "acceptance": "Uses lucide/local icons, stable columns, accessible text, and responsive wrapping without layout shift."
+      }
+    }
+  ]
+}

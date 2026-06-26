@@ -50,7 +50,9 @@ test.describe('Frontend', () => {
         name: /Trusted across builds, investments, and brokered files/i,
       }),
     ).toBeVisible()
-    await expect(testimonials.getByText('Toronto Infill Builder').first()).toBeVisible()
+    await expect(
+      testimonials.getByTestId('testimonials-desktop-grid').getByText('Toronto Infill Builder'),
+    ).toBeVisible()
     await expect(page.getByLabel('FairLend licence information').first()).toContainText(
       'Fairlend Management Inc. operating as FairLend Mortgage',
     )
@@ -170,15 +172,13 @@ test.describe('Frontend', () => {
     }
   })
 
-  test('uses the compact hero treatment through the 700-1200px band', async ({ page }) => {
+  test('uses the compact hero treatment below 1024px', async ({ page }) => {
     test.slow()
 
     const viewports = [
       { height: 1100, width: 687 },
       { height: 1100, width: 870 },
       { height: 1100, width: 993 },
-      { height: 1100, width: 1114 },
-      { height: 1100, width: 1236 },
     ]
 
     for (const viewport of viewports) {
@@ -223,6 +223,80 @@ test.describe('Frontend', () => {
         const card = await processCards.nth(index).boundingBox()
 
         assertBoxWithinViewport(card, viewport, `compact process card ${index + 1}`)
+      }
+    }
+  })
+
+  test('uses the tablet-landscape right-image hero from 1024px through 1279px', async ({
+    page,
+  }) => {
+    test.slow()
+
+    const viewports = [
+      { height: 1100, width: 1114 },
+      { height: 920, width: 1201 },
+      { height: 1100, width: 1236 },
+      { height: 1079, width: 1243 },
+    ]
+
+    for (const viewport of viewports) {
+      await page.setViewportSize(viewport)
+      await page.goto(fairlendLandingPath, { waitUntil: 'domcontentloaded' })
+
+      await expect(page.getByTestId('hero-mobile-process-bar')).toBeVisible()
+      await expect(page.getByTestId('hero-process-bar')).toBeHidden()
+      await expect(page.getByTestId('fairlend-application-form')).toBeVisible()
+      await expect(page.getByTestId('hero-compact-stats-strip')).toBeHidden()
+      await expect
+        .poll(() =>
+          page
+            .locator('main > section picture img')
+            .evaluate((image) => (image as HTMLImageElement).currentSrc),
+        )
+        .toContain('fairlend-desktop-hero.webp')
+
+      const title = await page.locator('#fairlend-hero-title').boundingBox()
+      const subtitle = await page.getByText(/Fairlend is more than a lender/i).boundingBox()
+      const copy = await page.locator('[data-fairlend-hero-copy]').boundingBox()
+      const handwrittenNote = page.locator('[data-testid="hero-handwritten-insertion"]:visible').first()
+      const applicationForm = await page.getByTestId('fairlend-application-form').boundingBox()
+      const mapFrame = await page.getByTestId('hero-map-frame').boundingBox()
+      const processCards = page.getByTestId('hero-mobile-process-segment')
+      const processCardCount = await processCards.count()
+      const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth)
+
+      expect(processCardCount).toBe(4)
+      expect(scrollWidth, `horizontal overflow at ${viewport.width}px`).toBeLessThanOrEqual(
+        viewport.width,
+      )
+      assertBoxWithinViewport(title, viewport, 'tablet-landscape title')
+      assertBoxWithinViewport(subtitle, viewport, 'tablet-landscape subtitle')
+      assertBoxWithinViewport(copy, viewport, 'tablet-landscape copy')
+      assertBoxWithinViewport(applicationForm, viewport, 'tablet-landscape application form')
+      assertBoxWithinViewport(mapFrame, viewport, 'tablet-landscape map frame')
+      await expect(handwrittenNote).toBeVisible()
+
+      expect(
+        applicationForm!.x,
+        `tablet-landscape form right anchor at ${viewport.width}px`,
+      ).toBeGreaterThanOrEqual(viewport.width * 0.48)
+      expect(
+        applicationForm!.y,
+        `tablet-landscape form depth in visual cluster at ${viewport.width}px`,
+      ).toBeGreaterThanOrEqual(mapFrame!.y + mapFrame!.height * 0.45)
+      expect(
+        applicationForm!.y - (mapFrame!.y + mapFrame!.height),
+        `tablet-landscape form detached from image at ${viewport.width}px`,
+      ).toBeLessThanOrEqual(92)
+      expect(
+        applicationForm!.x - (copy!.x + copy!.width),
+        `tablet-landscape copy/form gap at ${viewport.width}px`,
+      ).toBeGreaterThanOrEqual(28)
+
+      for (let index = 0; index < processCardCount; index += 1) {
+        const card = await processCards.nth(index).boundingBox()
+
+        assertBoxWithinViewport(card, viewport, `tablet-landscape process card ${index + 1}`)
       }
     }
   })

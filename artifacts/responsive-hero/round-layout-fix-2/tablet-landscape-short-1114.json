@@ -1,0 +1,193 @@
+{
+  "bodyScrollWidth": 1114,
+  "boxes": {
+    "application": {
+      "x": 613.53125,
+      "y": 379.8125,
+      "width": 467.875,
+      "height": 140.1875,
+      "bottom": 520,
+      "left": 613.53125,
+      "right": 1081.40625,
+      "top": 379.8125
+    },
+    "compactPanel": null,
+    "compactStats": null,
+    "copy": {
+      "x": 33.40625,
+      "y": 159,
+      "width": 500,
+      "height": 282.375,
+      "bottom": 441.375,
+      "left": 33.40625,
+      "right": 533.40625,
+      "top": 159
+    },
+    "desktopProcess": null,
+    "desktopStats": null,
+    "header": {
+      "x": 0,
+      "y": 12,
+      "width": 1114,
+      "height": 68,
+      "bottom": 80,
+      "left": 0,
+      "right": 1114,
+      "top": 12
+    },
+    "handwritten": {
+      "x": 69.51112365722656,
+      "y": 152.7218780517578,
+      "width": 181.75900268554688,
+      "height": 33.556243896484375,
+      "bottom": 186.2781219482422,
+      "left": 69.51112365722656,
+      "right": 251.27012634277344,
+      "top": 152.7218780517578
+    },
+    "handwrittenConnector": {
+      "x": 238.78781127929688,
+      "y": 162.60125732421875,
+      "width": 12.179412841796875,
+      "height": 11.858566284179688,
+      "bottom": 174.45982360839844,
+      "left": 238.78781127929688,
+      "right": 250.96722412109375,
+      "top": 162.60125732421875
+    },
+    "hero": {
+      "x": 0,
+      "y": 0,
+      "width": 1114,
+      "height": 1593,
+      "bottom": 1593,
+      "left": 0,
+      "right": 1114,
+      "top": 0
+    },
+    "map": {
+      "x": 459.796875,
+      "y": 72,
+      "width": 646.109375,
+      "height": 286,
+      "bottom": 358,
+      "left": 459.796875,
+      "right": 1105.90625,
+      "top": 72
+    },
+    "mobileProcess": {
+      "x": 459.796875,
+      "y": 72,
+      "width": 646.109375,
+      "height": 286,
+      "bottom": 358,
+      "left": 459.796875,
+      "right": 1105.90625,
+      "top": 72
+    },
+    "stage": {
+      "x": 33.40625,
+      "y": 68,
+      "width": 1048,
+      "height": 582,
+      "bottom": 650,
+      "left": 33.40625,
+      "right": 1081.40625,
+      "top": 68
+    },
+    "subtitle": {
+      "x": 33.40625,
+      "y": 402.375,
+      "width": 430,
+      "height": 39,
+      "bottom": 441.375,
+      "left": 33.40625,
+      "right": 463.40625,
+      "top": 402.375
+    },
+    "title": {
+      "x": 33.40625,
+      "y": 180,
+      "width": 500,
+      "height": 222.375,
+      "bottom": 402.375,
+      "left": 33.40625,
+      "right": 533.40625,
+      "top": 180
+    }
+  },
+  "currentImage": "http://localhost:3000/assets/fairlend-desktop-hero.webp",
+  "failures": [],
+  "frameworkOverlay": null,
+  "processCards": [
+    {
+      "x": 546.234375,
+      "y": 92.015625,
+      "width": 176,
+      "height": 66.828125,
+      "bottom": 158.84375,
+      "left": 546.234375,
+      "right": 722.234375,
+      "top": 92.015625
+    },
+    {
+      "x": 652.8450927734375,
+      "y": 106.31351470947266,
+      "width": 175.997314453125,
+      "height": 66.82711029052734,
+      "bottom": 173.140625,
+      "left": 652.8450927734375,
+      "right": 828.8424072265625,
+      "top": 106.31351470947266
+    },
+    {
+      "x": 749.7659912109375,
+      "y": 120.60963439941406,
+      "width": 175.999267578125,
+      "height": 66.82786560058594,
+      "bottom": 187.4375,
+      "left": 749.7659912109375,
+      "right": 925.7652587890625,
+      "top": 120.60963439941406
+    },
+    {
+      "x": 840.2236328125,
+      "y": 134.90994262695312,
+      "width": 175.990234375,
+      "height": 66.82443237304688,
+      "bottom": 201.734375,
+      "left": 840.2236328125,
+      "right": 1016.2138671875,
+      "top": 134.90994262695312
+    }
+  ],
+  "processCardSelector": "[data-testid=\"hero-mobile-process-segment\"]",
+  "scrollWidth": 1114,
+  "visibility": {
+    "desktopProcess": false,
+    "mobileProcess": true
+  },
+  "visibleRatios": {
+    "application": 1,
+    "compactPanel": null,
+    "compactStats": null,
+    "copy": 1,
+    "desktopProcess": null,
+    "desktopStats": null,
+    "header": 1,
+    "handwritten": 1,
+    "handwrittenConnector": 1,
+    "hero": 0.40803515379786565,
+    "map": 1,
+    "mobileProcess": 1,
+    "stage": 1,
+    "subtitle": 1,
+    "title": 1
+  },
+  "viewport": {
+    "height": 650,
+    "id": "tablet-landscape-short-1114",
+    "mode": "tabletLandscape",
+    "width": 1114
+  }
+}

@@ -1,169 +1,344 @@
 ---
-name: DrawFlow
-description: Construction draw-management control plane for FairLend
+name: Fairlend Marketing
+description: Public Fairlend brand and marketing design system for the /marketing route
 colors:
-  primary: "oklch(0.841 0.238 128.85)"
-  primary-foreground: "oklch(0.405 0.101 131.063)"
-  background: "oklch(1 0 0)"
-  foreground: "oklch(0.141 0.005 285.823)"
-  muted: "oklch(0.967 0.001 286.375)"
-  muted-foreground: "oklch(0.552 0.016 285.938)"
-  border: "oklch(0.92 0.004 286.32)"
+  paper: "oklch(0.975 0.021 80)"
+  paper-soft: "oklch(0.946 0.028 80)"
+  surface: "oklch(0.986 0.014 82)"
+  ink: "oklch(0.224 0.06 160)"
+  ink-muted: "oklch(0.365 0.032 163)"
+  forest: "oklch(0.35 0.09 145)"
+  sage: "oklch(0.56 0.074 141)"
   success: "oklch(0.58 0.16 145)"
-  warning: "oklch(0.62 0.14 85)"
-  info: "oklch(0.54 0.14 240)"
-  destructive: "oklch(0.577 0.245 27.325)"
+  chartreuse: "oklch(0.841 0.238 128.85)"
+  chartreuse-ink: "oklch(0.405 0.101 131.063)"
+  blueprint: "oklch(0.58 0.118 250)"
+  blueprint-line: "rgb(88 137 207 / 30%)"
+  copper: "oklch(0.66 0.095 58)"
+  line: "oklch(0.224 0.06 160 / 14%)"
 typography:
   display:
-    fontFamily: "Oxanium Variable, sans-serif"
-    fontSize: "clamp(1.5rem, 3vw, 2rem)"
-    fontWeight: 600
-    lineHeight: 1.1
-    letterSpacing: "-0.01em"
-  title:
-    fontFamily: "Oxanium Variable, sans-serif"
-    fontSize: "1.125rem"
-    fontWeight: 600
-    lineHeight: 1.3
+    fontFamily: '"Larken Bold", "Larken", Georgia, "Times New Roman", serif'
+    fontWeight: 700
+    lineHeight: 0.95
+    letterSpacing: "0"
   body:
-    fontFamily: "Oxanium Variable, sans-serif"
-    fontSize: "0.875rem"
+    fontFamily: '"Oxanium Variable", "Avenir Next", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif'
+    fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.5
   label:
-    fontFamily: "Oxanium Variable, sans-serif"
+    fontFamily: '"Oxanium Variable", "Avenir Next", "Segoe UI", system-ui, sans-serif'
     fontSize: "0.75rem"
-    fontWeight: 500
-    letterSpacing: "0.02em"
+    fontWeight: 700
+    lineHeight: 1.1
+    letterSpacing: "0.08em"
 rounded:
-  sm: "calc(0.625rem - 4px)"
-  md: "calc(0.625rem - 2px)"
-  lg: "0.625rem"
-  xl: "calc(0.625rem + 4px)"
-  "2xl": "calc(0.625rem * 1.8)"
+  control: "0.125rem"
+  panel: "0.25rem"
+  image: "0"
 spacing:
-  panel: "20px"
-  frame-gap: "4px"
+  grid: "clamp(16px, 2vw, 32px)"
+  section-y: "clamp(4rem, 9vw, 9rem)"
+  rule: "1px"
 components:
-  button-primary:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.primary-foreground}"
-    rounded: "{rounded.lg}"
-    height: "36px"
-    padding: "0 11px"
-  button-outline:
-    backgroundColor: "{colors.background}"
-    textColor: "{colors.foreground}"
-    rounded: "{rounded.lg}"
-    height: "36px"
-  frame-panel:
-    backgroundColor: "{colors.background}"
-    rounded: "{rounded.xl}"
-    padding: "{spacing.panel}"
+  primary-button:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.paper}"
+    rounded: "{rounded.control}"
+    height: "44px"
+  secondary-button:
+    backgroundColor: "transparent"
+    textColor: "{colors.ink}"
+    borderColor: "{colors.line}"
+    rounded: "{rounded.control}"
+    height: "44px"
+  brand-plate:
+    backgroundColor: "{colors.chartreuse}"
+    textColor: "{colors.chartreuse-ink}"
+    borderColor: "{colors.ink}"
 ---
 
-# Design System: DrawFlow
+# Design System: Fairlend Marketing
 
 ## 1. Overview
 
-**Creative North Star: "The Instrument Panel"**
+**Creative North Star: "Soft Brutalist Blueprint"**
 
-DrawFlow reads like calibrated instrumentation, not a consumer app. It is a control plane where builders plan capital against physical work and brokers release money against verified evidence. The surface is light, near-neutral, and quiet so that the one thing that carries voltage, a high-chroma chartreuse primary, means something every time it appears. Geometry comes from Oxanium, a technical, slightly engineered sans that signals measurement and precision over warmth.
+Fairlend marketing is a public-facing housing capital brand. It should feel assembled from architectural drawings, investment memos, material samples, civic notices, and real neighbourhood photography. The page is not an app dashboard. It is the argument for why Fairlend deserves trust.
 
-Depth is tonal, not theatrical. Surfaces nest through a `Frame` shell (a soft `muted/72` tray) holding `FramePanel` plates (true-background, hairline border, 1px inset highlight). The result feels machined: panels seated in a chassis, not cards floating on a gradient. Density is operator-grade: tight controls, real numbers, audit trails, and state that is always legible.
+The system is louder than authenticated DrawFlow UI. It uses compressed display type, ruled editorial grids, blueprint overlays, stamps, full palette section bands, and real housing imagery. It still shares DrawFlow's discipline: concrete language, auditable implications, and serious interaction patterns.
 
-This system explicitly rejects consumer fintech gloss, generic project-management neutrality, and dark-mode-by-reflex. It does not celebrate with confetti or patronize with tours. It respects that the user knows construction or knows lending.
+Physical scene: a builder, investor, or civic partner is scanning Fairlend on a laptop during a financing decision, with printed plans and numbers nearby. The page must look like the team understands both the construction site and the capital stack.
 
-**Key Characteristics:**
-- Chartreuse primary used sparingly as the single charged signal.
-- Tinted near-neutrals; never pure `#000`/`#fff`.
-- Oxanium everywhere; hierarchy from weight and scale, not font swaps.
-- Frame-in-chassis tonal layering, not drop-shadowed floating cards.
-- Light theme by default: glanced at in daylight, on site and at a desk.
+Color strategy: **Full palette.** Paper and Ink carry the brand base, Blueprint owns data/proof, Chartreuse marks the Fairlend signal and active opportunity, Copper provides warm accent moments.
+
+Key characteristics:
+
+- Paper-based public surfaces with visible construction grids.
+- Forest/ink authority instead of fintech navy.
+- Blueprint sections for data and proof.
+- Chartreuse as the charged Fairlend mark.
+- Copper for warm accent moments.
+- Display serif (Larken) for editorial headlines; Oxanium for body and UI.
+- Real homes, materials, people, and technical documents.
 
 ## 2. Colors
 
-A restrained-to-committed palette: tinted neutrals carry the surface, one chartreuse accent carries action and "go," semantic hues carry state.
+### Core Tokens
 
-### Primary
-- **Charged Chartreuse** (`oklch(0.841 0.238 128.85)`): primary actions, the active draw-plan/"go" signal, focus emphasis, progress fill. High chroma on purpose; its rarity is its meaning. Foreground text on it is the deep olive `oklch(0.405 0.101 131.063)` for contrast, never white.
+| Token | OKLCH | Role |
+|---|---:|---:|
+| Paper | `oklch(0.975 0.021 80)` | Page base, editorial panels, fields |
+| Paper Soft | `oklch(0.946 0.028 80)` | Subtle panel tints |
+| Surface | `oklch(0.986 0.014 82)` | Lightest surfaces, badges |
+| Ink | `oklch(0.224 0.06 160)` | Primary text, dark sections, primary CTAs |
+| Ink Muted | `oklch(0.365 0.032 163)` | Secondary/supporting text |
+| Forest | `oklch(0.35 0.09 145)` | Dark green accents, dark sections |
+| Sage | `oklch(0.56 0.074 141)` | Subtle green labels, eyebrows |
+| Success | `oklch(0.58 0.16 145)` | Completed/approved states |
+| Chartreuse | `oklch(0.841 0.238 128.85)` | Fairlend mark, active state, tags, proof highlight |
+| Chartreuse Ink | `oklch(0.405 0.101 131.063)` | Text on chartreuse |
+| Blueprint | `oklch(0.58 0.118 250)` | Blueprint sections, data proof |
+| Blueprint Line | `rgb(88 137 207 / 30%)` | Blueprint construction lines |
+| Copper | `oklch(0.66 0.095 58)` | Warm accent moments |
+| Line | `oklch(0.224 0.06 160 / 14%)` | Rules, dividers, borders |
 
-### Neutral
-- **Paper** (`oklch(1 0 0)` / `--background`): panel and page base.
-- **Ink** (`oklch(0.141 0.005 285.823)` / `--foreground`): primary text, tinted toward the cool neutral hue.
-- **Muted Tray** (`oklch(0.967 0.001 286.375)`): the `Frame` chassis fill and secondary surfaces.
-- **Muted Ink** (`oklch(0.552 0.016 285.938)`): secondary/supporting text and labels.
-- **Hairline** (`oklch(0.92 0.004 286.32)`): borders and dividers.
+### Rules
 
-### Semantic
-- **Success** (`oklch(0.58 0.16 145)`): completed milestones, approved/verified evidence, released draws.
-- **Warning** (`oklch(0.62 0.14 85)`): missing info, location-unverified evidence, attention-needed.
-- **Info** (`oklch(0.54 0.14 240)`): neutral status, in-review, informational steps.
-- **Destructive** (`oklch(0.577 0.245 27.325)`): reject, delete, irreversible release-side actions.
-
-### Named Rules
-**The One Voltage Rule.** Chartreuse is the only high-chroma color and appears on a small fraction of any screen: the primary CTA, the active state, the progress signal. If two chartreuse elements compete on one view, one is wrong. Semantic hues are reserved for status, never decoration.
+- Use OKLCH in new CSS.
+- Use Paper and Ink instead of pure black or pure white.
+- Chartreuse is the Fairlend voltage. Use it for the logo plate, active opportunities, proof tags, and one or two key moments per viewport.
+- Blueprint should feel structural: plans, data, underwriting, maps, and proof.
+- Copper is a warm, material accent. Use sparingly.
+- Line is substrate: concrete, paper aging, dividers, borders, and inactive states.
 
 ## 3. Typography
 
-**Display / Body / Label Font:** Oxanium Variable (with `sans-serif` fallback).
+### Public Brand Type Stack
 
-**Character:** Oxanium is a geometric, lightly technical sans with squared terminals; it reads as instrumentation and engineering. One family across the whole hierarchy keeps the surface coherent and machined. Hierarchy is built from weight and scale, never from introducing a second typeface.
+Display should be compressed, tall, and architectural.
 
-### Hierarchy
-- **Display** (600, `clamp(1.5rem, 3vw, 2rem)`, 1.1): page and flow titles (onboarding welcome, workspace headers).
-- **Title** (600, 1.125rem, 1.3): panel and section titles.
-- **Body** (400, 0.875rem, 1.5): default operator text; cap measure at 65–75ch in prose-heavy panels.
-- **Label** (500, 0.75rem, +0.02em): field labels, badges, step indicators, metadata.
+- **Display:** `"Larken Bold", "Larken", Georgia, "Times New Roman", serif` — weight 700, tight line-height.
+- **Body/UI:** `"Oxanium Variable", "Avenir Next", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif` — weight 400, line-height 1.5.
+- **Label:** Same as body, weight 700, uppercase, letter-spacing 0.08em.
 
-### Named Rules
-**The Single Family Rule.** Never add a second typeface. Contrast comes from weight (400 / 500 / 600) and scale steps of at least 1.25.
+### Scale
 
-## 4. Elevation
+- **Display headline:** `clamp(2rem, 4vw, 4rem)`, line-height ~0.95.
+- **Section title:** `clamp(1.8rem, 3.5vw, 3.75rem)`, weight 700.
+- **Body:** 1rem to 1.125rem, line-height 1.5.
+- **Small label:** 0.7rem to 0.8rem, uppercase, weight 700.
 
-Depth is tonal and structural, not shadow-heavy. The signature is the `Frame` system: a soft `muted/72` tray (`rounded-2xl`, 1px padding) holding `FramePanel` plates that are true-background, hairline-bordered, with a single 1px inset highlight (`shadow-[0_1px_black/4%]`, inverted in dark). Surfaces are flat at rest; the only ambient shadow is `shadow-xs`. Lift is a response to state, not a default decoration.
+### Rules
 
-### Shadow Vocabulary
-- **Seat highlight** (`box-shadow: 0 1px oklch(0 0 0 / 4%)` inset-style via `::before`): the hairline that seats a panel in its tray.
-- **Resting xs** (`shadow-xs` / `shadow-xs/5`): the only ambient elevation on panels and buttons.
+- Use display type for short, declarative phrases.
+- Body copy must stay readable and sentence-case.
+- Do not set long paragraphs in uppercase.
+- Do not use negative letter spacing.
+- Keep body copy to 65 to 75 characters per line.
 
-### Named Rules
-**The Chassis Rule.** Wrapping/structural containers use `Frame` + `FramePanel`. Content/interactive surfaces use `Card`. Never hand-roll `rounded-* border bg-* p-* shadow-*` wrapper markup, and never nest cards inside cards.
+## 4. Layout
+
+Marketing layout is a visible grid, not a centered SaaS stack.
+
+### Grid System
+
+- Desktop: 12 columns with visible hairline rules where appropriate.
+- Tablet: 6 columns.
+- Mobile: 4 columns or single-column editorial stacking.
+- Use section numbers, stamps, and rule lines to create a designed document feel.
+- Let hero, impact, blueprint, and footer bands span full width.
+- Use `max-width` only where reading comfort demands it.
+
+### Section Rhythm
+
+Rotate through strong section types:
+
+- **Hero construction:** paper copy zone, real housing image, chartreuse brand plate, blueprint overlay.
+- **Metric belt:** horizontal proof strip with icons and numbers.
+- **Featured opportunity:** image-led investment or community card with actual deal details.
+- **Blueprint band:** Civic Blue section with line drawings and concise proof.
+- **Lime strategy band:** source, underwrite, build, manage.
+- **Orange impact band:** bold social outcome plus measured proof.
+- **Black Green footer:** institutional authority and navigation.
+
+Avoid repeating equal icon-card grids. If cards are necessary, vary scale, density, and image treatment.
 
 ## 5. Components
 
+Marketing components may be more expressive than app components, but reuse existing primitives where practical.
+
 ### Buttons
-- **Shape:** `rounded-lg` (0.625rem) with a 1px inset before-ring for tactility.
-- **Primary:** chartreuse fill, deep-olive text, `h-9` (sm `h-8`), subtle top inset highlight; hover drops to `primary/90`.
-- **Outline / Ghost / Secondary:** outline is paper with hairline border and `shadow-xs/5`; ghost is transparent with `accent` hover; secondary is the muted fill. Use outline for "Back/Skip," primary for the single forward action.
-- **Focus:** `ring-2 ring-ring ring-offset-1`.
 
-### Cards / Containers
-- **Frame (chassis):** `rounded-2xl bg-muted/72 p-1`, stacks panels with a 1px gap.
-- **FramePanel (plate):** `rounded-xl border bg-background p-5` with seat highlight. Primary structural surface.
-- **Card:** for content and clickable surfaces; render as the correct interactive element via its API, never a styled div.
+Primary:
 
-### Inputs / Fields
-- **Style:** hairline border, paper background, `rounded-lg`; pair with `Field`/`Label` primitives.
-- **Focus:** ring shift to `--ring`, no glow.
+- Ink fill.
+- Paper text.
+- Square or lightly rounded corners.
+- Arrow icon on the right.
+- Hover: slight ink shift and arrow translation.
 
-### Step / Progress (signature for onboarding)
-- Use the existing `Progress`/`Meter` primitives and `Badge` for step state. Active step carries the chartreuse signal; completed steps carry success; upcoming steps are muted. Never invent a custom stepper div when these primitives compose.
+Secondary:
 
-## 6. Do's and Don'ts
+- Transparent with ink outline.
+- Same geometry as primary.
 
-### Do:
-- **Do** wrap structure in `Frame`/`FramePanel` and content in `Card`; compose existing primitives.
-- **Do** keep chartreuse to the single forward action / active signal per view (The One Voltage Rule).
-- **Do** use Oxanium at varied weights for hierarchy; cap body measure at 65–75ch.
-- **Do** tint every neutral toward the cool neutral hue; use OKLCH.
-- **Do** ease motion with `cubic-bezier(0.22, 1, 0.36, 1)` (the project's view-transition curve); respect `prefers-reduced-motion`.
-- **Do** let experienced builders skip first-run guidance without blocking the product.
+Tertiary:
 
-### Don't:
-- **Don't** use `#000` or `#fff`, gradient text, or `background-clip: text`.
-- **Don't** add side-stripe accent borders (`border-left`/`border-right` >1px) on panels, list items, or alerts.
-- **Don't** use decorative glassmorphism, the hero-metric template, or identical icon+heading+text card grids.
-- **Don't** reach for a modal as the first thought; exhaust inline/progressive disclosure (use `Drawer`/`IntroDisclosure` where a panel won't do).
-- **Don't** introduce a second typeface or a second high-chroma color.
-- **Don't** patronize: no forced tours, no obvious tooltips on standard patterns, no infantilizing celebration. No em dashes in copy.
+- Text link with arrow.
+- No pill background.
+
+### Navigation
+
+Navigation should feel like a brand masthead and investment memo header:
+
+- Fairlend wordmark left.
+- Compact links.
+- Contact or portal action on the right.
+- Hairline bottom rule.
+- Mobile menu should preserve the same editorial tone.
+
+### Cards
+
+Use cards for real content: investments, communities, resources, team, press assets.
+
+Rules:
+
+- No nested cards.
+- No side-stripe accent borders.
+- Include real imagery whenever the card is about a place, person, build, or program.
+- Use hard data where available: location, unit type, target return, term, affordability, or program fit.
+- Use `Card` when composing in React, but override radius and palette to the marketing system.
+
+### Badges
+
+Badges should look like stamped labels:
+
+- `ACTIVE`: Chartreuse.
+- `AFFORDABLE HOUSING`: Chartreuse tint.
+- `DEVELOPMENT`: Blueprint.
+- `COMMUNITY SPACE`: Copper.
+- `INVESTOR UPDATE`: Warm Gray.
+
+### Forms
+
+Forms should feel like better paperwork:
+
+- Paper fields.
+- Hairline ink borders.
+- Compact labels.
+- Clear inline validation.
+- Primary submit uses Ink or Chartreuse depending on context.
+
+## 6. Imagery
+
+Imagery is required on marketing pages.
+
+Preferred subjects:
+
+- Multiplexes, infill, townhomes, garden suites, laneway suites, affordable rentals.
+- Builders, residents, community partners, lenders, and investors in plausible real environments.
+- Architectural drawings, permit-like documents, site plans, underwriting sheets.
+- Material textures: concrete, brick, corten steel, natural wood, matte metal, linen, paper.
+
+Treatment:
+
+- Images must be inspectable. Avoid dark overlays and heavy blur.
+- Pair photos with captions, stamps, rule lines, or blueprint overlays.
+- Use material strips as section breaks when a page needs texture.
+- Do not use generic city skylines as the main proof of housing impact.
+
+## 7. Motion
+
+Motion should feel like plan layers, documents, and evidence coming into alignment.
+
+Allowed:
+
+- Hero blueprint-to-render scroll reveal.
+- Section reveals with small y movement and opacity.
+- Blueprint line draw effects.
+- Arrow translation on hover.
+- Number counters only when tied to proof metrics and triggered once.
+
+Rules:
+
+- Respect `prefers-reduced-motion`.
+- Do not animate layout properties.
+- Use exponential ease-out curves.
+- Avoid bounce and elastic motion.
+- Keep motion purposeful. The page should feel engineered, not theatrical.
+
+## 8. Copy
+
+Tone:
+
+- Confident.
+- Civic.
+- Grounded.
+- Measured.
+- Forward-looking.
+
+Strong copy patterns:
+
+- `Homes people can build a life in.`
+- `Real estate investing. Real impact.`
+- `Built for communities backed by data.`
+- `We underwrite for impact and returns.`
+- `Build stronger. Backed by discipline.`
+- `Local insight. Strong assets. Better outcomes.`
+
+Avoid:
+
+- "Unlock."
+- "Seamless."
+- "Next generation."
+- "All-in-one platform."
+- "Revolutionizing real estate."
+- Investor returns language without community proof.
+- Community language without underwriting proof.
+
+## 9. Implementation Guidance
+
+Use a marketing-scoped token layer:
+
+```css
+.mkt-shell {
+  --mkt-paper: oklch(0.975 0.021 80);
+  --mkt-ink: oklch(0.224 0.06 160);
+  --mkt-chartreuse: oklch(0.841 0.238 128.85);
+  --mkt-blueprint: oklch(0.58 0.118 250);
+  --mkt-line: oklch(0.224 0.06 160 / 14%);
+}
+```
+
+This marketing token layer must not overwrite authenticated app tokens. Root `DESIGN.md` remains product-register for DrawFlow app UI.
+
+Preferred existing primitives:
+
+- `src/components/ui/button.tsx` for CTAs.
+- `src/components/ui/card.tsx` for content cards.
+- `src/components/ui/frame.tsx` only when a structural framed treatment is appropriate.
+- `lucide-react` for recognizable action and object icons.
+- Existing marketing CSS for route-level art direction.
+
+Use route-level CSS for brand-specific composition and motion. Do not force public marketing pages into authenticated app spacing, radius, or palette defaults.
+
+## 10. QA Checklist
+
+Before shipping a marketing page:
+
+- The first viewport shows real housing, people, plans, or an investment artifact.
+- The page reads as Fairlend, not generic fintech, generic SaaS, or generic real estate.
+- The palette uses Paper, Ink, Chartreuse, Blueprint, and Copper deliberately.
+- Chartreuse has one clear job per viewport.
+- Body copy is readable and not all caps.
+- No gradient text.
+- No decorative glassmorphism.
+- No colored side-stripe card accents.
+- No nested cards.
+- No identical card grid as the primary composition.
+- Images are not dark, blurred, or purely atmospheric.
+- CTAs are concrete and serious.
+- Mobile text does not overlap, clip, or shrink below usable size.
+- Keyboard and reduced-motion paths work.

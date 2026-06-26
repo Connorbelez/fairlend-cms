@@ -1,0 +1,177 @@
+{
+  "bodyScrollWidth": 1201,
+  "boxes": {
+    "application": {
+      "x": 245.5015869140625,
+      "y": 800.411376953125,
+      "width": 709.996826171875,
+      "height": 184.59295654296875,
+      "bottom": 985.0043334960938,
+      "left": 245.5015869140625,
+      "right": 955.4984130859375,
+      "top": 800.411376953125
+    },
+    "compactPanel": {
+      "x": 220.5,
+      "y": 451.40625,
+      "width": 760,
+      "height": 616.59375,
+      "bottom": 1068,
+      "left": 220.5,
+      "right": 980.5,
+      "top": 451.40625
+    },
+    "compactStats": {
+      "x": 245.51812744140625,
+      "y": 989.0560913085938,
+      "width": 709.9637451171875,
+      "height": 65.99664306640625,
+      "bottom": 1055.052734375,
+      "left": 245.51812744140625,
+      "right": 955.4818725585938,
+      "top": 989.0560913085938
+    },
+    "copy": {
+      "x": 245.5,
+      "y": 472.40625,
+      "width": 640,
+      "height": 312,
+      "bottom": 784.40625,
+      "left": 245.5,
+      "right": 885.5,
+      "top": 472.40625
+    },
+    "desktopProcess": null,
+    "desktopStats": null,
+    "hero": {
+      "x": 0,
+      "y": 0,
+      "width": 1201,
+      "height": 2707,
+      "bottom": 2707,
+      "left": 0,
+      "right": 1201,
+      "top": 0
+    },
+    "map": {
+      "x": 16,
+      "y": 96,
+      "width": 1169,
+      "height": 996,
+      "bottom": 1092,
+      "left": 16,
+      "right": 1185,
+      "top": 96
+    },
+    "mobileProcess": {
+      "x": 16,
+      "y": 96,
+      "width": 1169,
+      "height": 996,
+      "bottom": 1092,
+      "left": 16,
+      "right": 1185,
+      "top": 96
+    },
+    "stage": {
+      "x": 16,
+      "y": 96,
+      "width": 1169,
+      "height": 996,
+      "bottom": 1092,
+      "left": 16,
+      "right": 1185,
+      "top": 96
+    },
+    "subtitle": {
+      "x": 245.5,
+      "y": 728.40625,
+      "width": 520,
+      "height": 56,
+      "bottom": 784.40625,
+      "left": 245.5,
+      "right": 765.5,
+      "top": 728.40625
+    },
+    "title": {
+      "x": 245.5,
+      "y": 472.40625,
+      "width": 640,
+      "height": 256,
+      "bottom": 728.40625,
+      "left": 245.5,
+      "right": 885.5,
+      "top": 472.40625
+    }
+  },
+  "currentImage": "http://localhost:3000/assets/mobileHero.png",
+  "failures": [],
+  "processCards": [
+    {
+      "x": 244.78594970703125,
+      "y": 166.66860961914062,
+      "width": 173.6781005859375,
+      "height": 71.05014038085938,
+      "bottom": 237.71875,
+      "left": 244.78594970703125,
+      "right": 418.46405029296875,
+      "top": 166.66860961914062
+    },
+    {
+      "x": 440.8999938964844,
+      "y": 219.11563110351562,
+      "width": 167.19998168945312,
+      "height": 68.39999389648438,
+      "bottom": 287.515625,
+      "left": 440.8999938964844,
+      "right": 608.0999755859375,
+      "top": 219.11563110351562
+    },
+    {
+      "x": 616.2593994140625,
+      "y": 268.9125061035156,
+      "width": 167.20001220703125,
+      "height": 68.39999389648438,
+      "bottom": 337.3125,
+      "left": 616.2593994140625,
+      "right": 783.4594116210938,
+      "top": 268.9125061035156
+    },
+    {
+      "x": 779.9156494140625,
+      "y": 318.7093811035156,
+      "width": 167.20001220703125,
+      "height": 68.39999389648438,
+      "bottom": 387.109375,
+      "left": 779.9156494140625,
+      "right": 947.1156616210938,
+      "top": 318.7093811035156
+    }
+  ],
+  "processCardSelector": "[data-testid=\"hero-mobile-process-segment\"]",
+  "scrollWidth": 1201,
+  "visibility": {
+    "desktopProcess": false,
+    "mobileProcess": true
+  },
+  "visibleRatios": {
+    "application": 1,
+    "compactPanel": 1,
+    "compactStats": 1,
+    "copy": 1,
+    "desktopProcess": null,
+    "desktopStats": null,
+    "hero": 0.40635389730328775,
+    "map": 1,
+    "mobileProcess": 1,
+    "stage": 1,
+    "subtitle": 1,
+    "title": 1
+  },
+  "viewport": {
+    "height": 1100,
+    "id": "compact-1201",
+    "mode": "compact",
+    "width": 1201
+  }
+}

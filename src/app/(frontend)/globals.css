@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&family=League+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&family=League+Gothic&family=Oxanium:wght@400;500;600;700;800&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import '../../components/directional-hover-header/header.css';
 @import '../../components/DrawflowIntake/buildpath.css';
+@import '../../components/FairlendAboutStorySection/styles.css';
 
 @config '../../../tailwind.config.mjs';
 
@@ -16,6 +17,8 @@
 @custom-variant hero-max-1120 (@media (max-width: 1120px));
 @custom-variant hero-max-1279 (@media (max-width: 1279px));
 @custom-variant hero-tablet (@media (min-width: 577px) and (max-width: 1279px));
+@custom-variant hero-tablet-landscape (@media (min-width: 1024px) and (max-width: 1279px) and (orientation: landscape));
+@custom-variant hero-tablet-landscape-short (@media (min-width: 1024px) and (max-width: 1279px) and (orientation: landscape) and (max-height: 780px));
 @custom-variant hero-mobile (@media (max-width: 576px));
 @custom-variant hero-compact (@media (max-width: 360px));
 @custom-variant hero-compact-short (@media (max-width: 360px) and (max-height: 620px));
@@ -131,12 +134,16 @@
   @keyframes heroMapIn {
     from {
       opacity: 0;
-      filter: blur(5px);
+      clip-path: inset(3% 0 0 7% round 28px);
+      filter: blur(7px) saturate(0.88);
+      transform: translate3d(18px, 14px, 0) scale(0.992);
     }
 
     to {
       opacity: 1;
-      filter: blur(0);
+      clip-path: inset(0 0 0 0 round 0);
+      filter: blur(0) saturate(1);
+      transform: translate3d(0, 0, 0) scale(1);
     }
   }
 
@@ -144,13 +151,27 @@
     from {
       opacity: 0;
       filter: blur(6px);
-      transform: translateY(18px);
+      transform: translate3d(0, 20px, 0) scale(0.992);
     }
 
     to {
       opacity: 1;
       filter: blur(0);
-      transform: translateY(0);
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes heroTitleLineIn {
+    from {
+      opacity: 0;
+      filter: blur(4px);
+      transform: translate3d(0, 0.28em, 0);
+    }
+
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: translate3d(0, 0, 0);
     }
   }
 
@@ -165,6 +186,30 @@
       opacity: 1;
       filter: blur(0);
       transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes heroHandwrittenNoteIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px) rotate(-8deg) scale(0.97);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) rotate(-4deg) scale(1);
+    }
+  }
+
+  @keyframes heroHandwrittenConnectorIn {
+    from {
+      opacity: 0;
+      transform: rotate(-26deg) scaleY(0.36);
+    }
+
+    to {
+      opacity: 0.9;
+      transform: rotate(-18deg) scaleY(1);
     }
   }
 
@@ -222,11 +267,13 @@
   @keyframes leaderGrowSvg {
     from {
       opacity: 0;
+      filter: drop-shadow(0 1px 3px rgb(255 88 52 / 10%));
       stroke-dashoffset: 1;
     }
 
     to {
-      opacity: 0.7;
+      opacity: 0.8;
+      filter: drop-shadow(0 2px 5px rgb(255 88 52 / 18%));
       stroke-dashoffset: 0;
     }
   }
@@ -246,11 +293,13 @@
   @keyframes routeLeaderGrow {
     from {
       opacity: 0;
-      scale: 1 0;
+      filter: drop-shadow(0 2px 4px rgb(255 88 52 / 10%));
+      scale: 1 0.72;
     }
 
     to {
-      opacity: 1;
+      opacity: 0.9;
+      filter: drop-shadow(0 4px 8px rgb(255 88 52 / 18%));
       scale: 1 1;
     }
   }
@@ -258,11 +307,27 @@
   @keyframes routeCardGrow {
     from {
       opacity: 0;
-      scale: 0.92;
+      filter: blur(2px);
+      scale: 0.94;
     }
 
     to {
       opacity: 1;
+      filter: blur(0);
+      scale: 1;
+    }
+  }
+
+  @keyframes routeMarkerIn {
+    from {
+      opacity: 0;
+      filter: blur(2px);
+      scale: 0.74;
+    }
+
+    to {
+      opacity: 1;
+      filter: blur(0);
       scale: 1;
     }
   }
@@ -487,6 +552,53 @@
   .fairlend-search-motion form:focus-within svg {
     color: oklch(62% 0.22 31deg);
     transform: translateY(-50%) scale(1.06);
+  }
+
+  @keyframes servicesReveal {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes servicesLineX {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes servicesLineY {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+
+  .services-line-x {
+    transform-origin: left;
+  }
+
+  .services-line-y {
+    transform-origin: top;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .services-reveal,
+    .services-line-x,
+    .services-line-y {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
   }
 
   @supports (animation-timeline: view()) {
@@ -832,8 +944,7 @@
   min-height: calc(100svh + 145svh);
 }
 
-[data-fairlend-hero-transition][data-fairlend-hero-reduced='true']
-  [data-fairlend-hero-progress] {
+[data-fairlend-hero-transition][data-fairlend-hero-reduced='true'] [data-fairlend-hero-progress] {
   display: none;
 }
 
@@ -848,6 +959,74 @@
   }
 }
 
+@media (orientation: portrait) and (min-width: 901px) and (min-height: 1200px) {
+  [data-fairlend-hero-scroll] {
+    min-height: calc(100svh + 92svh);
+  }
+
+  [data-fairlend-hero-pin] {
+    position: sticky;
+    top: 0;
+  }
+}
+
+.fairlend-hero-application-card {
+  top: auto;
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) and (orientation: landscape) {
+  .fairlend-hero-application-card {
+    position: absolute;
+    top: auto;
+    right: 0;
+    bottom: clamp(190px, 22svh, 260px);
+    left: auto;
+    width: min(43vw, 520px);
+    min-width: 430px;
+    max-width: calc(100vw - 48px);
+    margin-top: 0;
+  }
+
+  .fairlend-hero-application-card[data-autocomplete-open='true'] {
+    bottom: calc(clamp(190px, 22svh, 260px) + clamp(78px, 7vw, 124px));
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) and (orientation: landscape) and (max-height: 780px) {
+  .fairlend-hero-application-card {
+    bottom: clamp(130px, 20svh, 170px);
+    width: min(42vw, 500px);
+    min-width: 410px;
+  }
+
+  .fairlend-hero-application-card[data-autocomplete-open='true'] {
+    bottom: calc(clamp(130px, 20svh, 170px) + clamp(60px, 9vw, 96px));
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .fairlend-hero-application-card {
+    top: auto;
+    bottom: calc(clamp(128px, 16svh, 210px) + var(--hero-stats-height, 0px));
+  }
+
+  .fairlend-hero-application-card[data-autocomplete-open='true'] {
+    bottom: calc(
+      clamp(128px, 16svh, 210px) + var(--hero-stats-height, 0px) + clamp(78px, 7vw, 124px)
+    );
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) and (max-height: 760px) {
+  .fairlend-hero-application-card {
+    bottom: calc(clamp(36px, 6svh, 64px) + var(--hero-stats-height, 0px));
+  }
+
+  .fairlend-hero-application-card[data-autocomplete-open='true'] {
+    bottom: calc(clamp(36px, 6svh, 64px) + var(--hero-stats-height, 0px) + clamp(72px, 7vw, 112px));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   [data-fairlend-hero-scroll] {
     min-height: 0;
@@ -859,7 +1038,55 @@
     height: auto;
   }
 
+  @media (max-width: 576px) {
+    [data-fairlend-hero-pin] {
+      height: calc(100svh - 96px);
+      min-height: 700px;
+    }
+  }
+
+  @media (min-width: 577px) and (max-width: 1023px) {
+    [data-fairlend-hero-pin] {
+      height: calc(100svh - 116px);
+      min-height: 720px;
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1279px) and (orientation: landscape) {
+    [data-fairlend-hero-pin] {
+      height: calc(100svh - 86px);
+      min-height: 760px;
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1279px) and (orientation: landscape) and (max-height: 780px) {
+    [data-fairlend-hero-pin] {
+      height: calc(100svh - 68px);
+      min-height: 0;
+    }
+  }
+
+  @media (min-width: 1280px) and (orientation: landscape) {
+    [data-fairlend-hero-pin] {
+      height: 100svh;
+      min-height: 100svh;
+    }
+  }
+
   [data-fairlend-hero-progress] {
     display: none;
+  }
+
+  [data-testid='hero-mobile-route-leader'] {
+    opacity: 0.78;
+    stroke-dashoffset: 0;
+  }
+
+  [data-testid='hero-route-leader'],
+  [data-testid='hero-process-segment'],
+  [data-testid='hero-mobile-process-segment'] {
+    filter: none;
+    opacity: 1;
+    scale: 1;
   }
 }

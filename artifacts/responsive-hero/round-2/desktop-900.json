@@ -1,0 +1,97 @@
+{
+  "bodyScrollWidth": 1440,
+  "boxes": {
+    "application": {
+      "bottom": 792.0009765625,
+      "height": 210.546630859375,
+      "left": 936.015869140625,
+      "right": 1408.327880859375,
+      "top": 581.454345703125,
+      "width": 472.31201171875,
+      "x": 936.015869140625,
+      "y": 581.454345703125
+    },
+    "compactPanel": {
+      "bottom": 0,
+      "height": 0,
+      "left": 0,
+      "right": 0,
+      "top": 0,
+      "width": 0,
+      "x": 0,
+      "y": 0
+    },
+    "copy": {
+      "bottom": 660.484375,
+      "height": 440.96875,
+      "left": 46.796875,
+      "right": 526.796875,
+      "top": 219.515625,
+      "width": 480,
+      "x": 46.796875,
+      "y": 219.515625
+    },
+    "hero": {
+      "bottom": 2205,
+      "height": 2205,
+      "left": 0,
+      "right": 1440,
+      "top": 0,
+      "width": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "map": {
+      "bottom": 691.59375,
+      "height": 633.59375,
+      "left": 614.234375,
+      "right": 1459.015625,
+      "top": 58,
+      "width": 844.78125,
+      "x": 614.234375,
+      "y": 58
+    },
+    "stage": {
+      "bottom": 900,
+      "height": 900,
+      "left": 0,
+      "right": 1440,
+      "top": 0,
+      "width": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "title": {
+      "bottom": 540.015625,
+      "height": 296.5,
+      "left": 46.796875,
+      "right": 526.796875,
+      "top": 243.515625,
+      "width": 480,
+      "x": 46.796875,
+      "y": 243.515625
+    }
+  },
+  "currentImage": "http://localhost:3000/assets/fairlend-desktop-hero.webp",
+  "failures": [],
+  "overlaps": {
+    "application:compactPanel": 0,
+    "copy:application": 0,
+    "title:application": 0
+  },
+  "scrollWidth": 1440,
+  "visibleRatios": {
+    "application": 1,
+    "compactPanel": null,
+    "copy": 1,
+    "hero": 0.40816326530612246,
+    "map": 0.9774904746051123,
+    "stage": 1,
+    "title": 1
+  },
+  "viewport": {
+    "height": 900,
+    "id": "desktop-900",
+    "width": 1440
+  }
+}
