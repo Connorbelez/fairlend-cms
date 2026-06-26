@@ -1,0 +1,179 @@
+{
+  "bodyScrollWidth": 2061,
+  "boxes": {
+    "application": {
+      "x": 1439.2294921875,
+      "y": 707.6473388671875,
+      "width": 559.884765625,
+      "height": 210.5035400390625,
+      "bottom": 918.15087890625,
+      "left": 1439.2294921875,
+      "right": 1999.1142578125,
+      "top": 707.6473388671875
+    },
+    "compactPanel": null,
+    "compactStats": null,
+    "copy": {
+      "x": 66.96875,
+      "y": 200.04690551757812,
+      "width": 735.890625,
+      "height": 658.9999694824219,
+      "bottom": 859.046875,
+      "left": 66.96875,
+      "right": 802.859375,
+      "top": 200.04690551757812
+    },
+    "desktopProcess": {
+      "x": 745,
+      "y": 58,
+      "width": 1316,
+      "height": 987,
+      "bottom": 1045,
+      "left": 745,
+      "right": 2061,
+      "top": 58
+    },
+    "desktopStats": {
+      "x": 0.700439453125,
+      "y": 987.7562255859375,
+      "width": 2059.59912109375,
+      "height": 91.9375,
+      "bottom": 1079.6937255859375,
+      "left": 0.700439453125,
+      "right": 2060.299560546875,
+      "top": 987.7562255859375
+    },
+    "header": {
+      "x": 0,
+      "y": 0,
+      "width": 2061,
+      "height": 72,
+      "bottom": 72,
+      "left": 0,
+      "right": 2061,
+      "top": 0
+    },
+    "hero": {
+      "x": 0,
+      "y": 0,
+      "width": 2061,
+      "height": 2644,
+      "bottom": 2644,
+      "left": 0,
+      "right": 2061,
+      "top": 0
+    },
+    "map": {
+      "x": 745,
+      "y": 58,
+      "width": 1316,
+      "height": 987,
+      "bottom": 1045,
+      "left": 745,
+      "right": 2061,
+      "top": 58
+    },
+    "mobileProcess": null,
+    "stage": {
+      "x": 0,
+      "y": 0,
+      "width": 2061,
+      "height": 1079,
+      "bottom": 1079,
+      "left": 0,
+      "right": 2061,
+      "top": 0
+    },
+    "subtitle": {
+      "x": 66.96875,
+      "y": 730.046875,
+      "width": 511,
+      "height": 68,
+      "bottom": 798.046875,
+      "left": 66.96875,
+      "right": 577.96875,
+      "top": 730.046875
+    },
+    "title": {
+      "x": 66.96875,
+      "y": 224.04690551757812,
+      "width": 735.890625,
+      "height": 505.9999694824219,
+      "bottom": 730.046875,
+      "left": 66.96875,
+      "right": 802.859375,
+      "top": 224.04690551757812
+    }
+  },
+  "currentImage": "http://localhost:3000/assets/fairlend-desktop-hero.webp",
+  "failures": [],
+  "processCards": [
+    {
+      "x": 951.2781372070312,
+      "y": 161.765625,
+      "width": 169.10003662109375,
+      "height": 114,
+      "bottom": 275.765625,
+      "left": 951.2781372070312,
+      "right": 1120.378173828125,
+      "top": 161.765625
+    },
+    {
+      "x": 1212.106201171875,
+      "y": 167.046875,
+      "width": 169.10009765625,
+      "height": 114,
+      "bottom": 281.046875,
+      "left": 1212.106201171875,
+      "right": 1381.206298828125,
+      "top": 167.046875
+    },
+    {
+      "x": 1440.168701171875,
+      "y": 158.390625,
+      "width": 169.10009765625,
+      "height": 114,
+      "bottom": 272.390625,
+      "left": 1440.168701171875,
+      "right": 1609.268798828125,
+      "top": 158.390625
+    },
+    {
+      "x": 1800.090576171875,
+      "y": 200.28125,
+      "width": 169.10009765625,
+      "height": 114,
+      "bottom": 314.28125,
+      "left": 1800.090576171875,
+      "right": 1969.190673828125,
+      "top": 200.28125
+    }
+  ],
+  "processCardSelector": "[data-testid=\"hero-process-segment\"]",
+  "scrollWidth": 2061,
+  "visibility": {
+    "desktopProcess": true,
+    "mobileProcess": false
+  },
+  "visibleRatios": {
+    "application": 1,
+    "compactPanel": null,
+    "compactStats": null,
+    "copy": 1,
+    "desktopProcess": 1,
+    "desktopStats": 0.9924543783990483,
+    "header": 1,
+    "hero": 0.40809379727685324,
+    "map": 1,
+    "mobileProcess": null,
+    "stage": 1,
+    "subtitle": 1,
+    "title": 1
+  },
+  "viewport": {
+    "height": 1079,
+    "id": "desktop-2061",
+    "mode": "desktop",
+    "width": 2061
+  }
+}

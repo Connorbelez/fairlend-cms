@@ -27,6 +27,12 @@
     "@eldoraui": "https://eldoraui.site/r/{name}.json",
     "@ncdai": "https://chanhdai.com/r/{name}.json",
     "@react-bits": "https://reactbits.dev/r/{name}.json",
-    "@bklit": "https://ui.bklit.com/r/{name}.json"
+    "@bklit": "https://ui.bklit.com/r/{name}.json",
+    "@aceternity": {
+      "url": "https://ui.aceternity.com/registry/{name}.json",
+      "headers": {
+        "Authorization": "Bearer aceternity_49dcf4d7596d64939ded6563083c44e27df8bd665b6cefb334e6eabac5eb0488"
+      }
+    }
   }
 }

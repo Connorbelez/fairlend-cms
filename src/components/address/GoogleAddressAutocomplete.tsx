@@ -193,7 +193,7 @@ export function GoogleAddressAutocomplete({
     'aria-expanded': isOpen,
     'aria-label': typeof label === 'string' ? label : 'Project address',
     autoComplete: 'off',
-    className: inputClassName,
+    className: cn('w-full min-w-0', inputClassName),
     'data-testid': testId,
     disabled,
     id: inputId,
@@ -239,13 +239,13 @@ export function GoogleAddressAutocomplete({
   }
 
   return (
-    <div className={cn('grid gap-2', className)}>
+    <div className={cn('grid min-w-0 gap-2', className)}>
       {label ? (
         <label className={labelClassName} htmlFor={inputId}>
           {label}
         </label>
       ) : null}
-      <div className="relative" data-slot="autocomplete-input-group">
+      <div className="relative min-w-0" data-slot="autocomplete-input-group">
         <input {...inputProps} />
 
         {value ? (

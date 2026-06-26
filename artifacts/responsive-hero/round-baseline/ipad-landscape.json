@@ -1,0 +1,97 @@
+{
+  "bodyScrollWidth": 1194,
+  "boxes": {
+    "application": {
+      "x": 242.00942993164062,
+      "y": 534.43701171875,
+      "width": 709.9811706542969,
+      "height": 184.5888671875,
+      "bottom": 719.02587890625,
+      "left": 242.00942993164062,
+      "right": 951.9906005859375,
+      "top": 534.43701171875
+    },
+    "compactPanel": {
+      "x": 217,
+      "y": 185.40625,
+      "width": 760,
+      "height": 616.59375,
+      "bottom": 802,
+      "left": 217,
+      "right": 977,
+      "top": 185.40625
+    },
+    "copy": {
+      "x": 242,
+      "y": 206.4083251953125,
+      "width": 640,
+      "height": 312,
+      "bottom": 518.4083251953125,
+      "left": 242,
+      "right": 882,
+      "top": 206.4083251953125
+    },
+    "hero": {
+      "x": 0,
+      "y": 0,
+      "width": 1194,
+      "height": 2055,
+      "bottom": 2055,
+      "left": 0,
+      "right": 1194,
+      "top": 0
+    },
+    "map": {
+      "x": 16,
+      "y": 96,
+      "width": 1162,
+      "height": 730,
+      "bottom": 826,
+      "left": 16,
+      "right": 1178,
+      "top": 96
+    },
+    "stage": {
+      "x": 16,
+      "y": 96,
+      "width": 1162,
+      "height": 730,
+      "bottom": 826,
+      "left": 16,
+      "right": 1178,
+      "top": 96
+    },
+    "title": {
+      "x": 242,
+      "y": 206.4083251953125,
+      "width": 640,
+      "height": 256,
+      "bottom": 462.4083251953125,
+      "left": 242,
+      "right": 882,
+      "top": 206.4083251953125
+    }
+  },
+  "currentImage": "http://localhost:3000/assets/fairlend-toronto-map-transparent@2x.webp",
+  "failures": [],
+  "overlaps": {
+    "application:compactPanel": 131054.62001553178,
+    "copy:application": 0,
+    "title:application": 0
+  },
+  "scrollWidth": 1194,
+  "visibleRatios": {
+    "application": 1,
+    "compactPanel": 1,
+    "copy": 1,
+    "hero": 0.4058394160583942,
+    "map": 1,
+    "stage": 1,
+    "title": 1
+  },
+  "viewport": {
+    "height": 834,
+    "id": "ipad-landscape",
+    "width": 1194
+  }
+}

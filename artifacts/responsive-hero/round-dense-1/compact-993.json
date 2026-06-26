@@ -1,0 +1,188 @@
+{
+  "bodyScrollWidth": 993,
+  "boxes": {
+    "application": {
+      "x": 121.5,
+      "y": 791.40625,
+      "width": 750,
+      "height": 184.59375,
+      "bottom": 976,
+      "left": 121.5,
+      "right": 871.5,
+      "top": 791.40625
+    },
+    "compactPanel": {
+      "x": 96.5,
+      "y": 442.40625,
+      "width": 800,
+      "height": 616.59375,
+      "bottom": 1059,
+      "left": 96.5,
+      "right": 896.5,
+      "top": 442.40625
+    },
+    "compactStats": {
+      "x": 121.500244140625,
+      "y": 980.000732421875,
+      "width": 749.99951171875,
+      "height": 66,
+      "bottom": 1046.000732421875,
+      "left": 121.500244140625,
+      "right": 871.499755859375,
+      "top": 980.000732421875
+    },
+    "copy": {
+      "x": 121.5,
+      "y": 463.40625,
+      "width": 640,
+      "height": 312,
+      "bottom": 775.40625,
+      "left": 121.5,
+      "right": 761.5,
+      "top": 463.40625
+    },
+    "desktopProcess": null,
+    "desktopStats": null,
+    "header": {
+      "x": 0,
+      "y": 12,
+      "width": 993,
+      "height": 68,
+      "bottom": 80,
+      "left": 0,
+      "right": 993,
+      "top": 12
+    },
+    "hero": {
+      "x": 0,
+      "y": 0,
+      "width": 993,
+      "height": 2112,
+      "bottom": 2112,
+      "left": 0,
+      "right": 993,
+      "top": 0
+    },
+    "map": {
+      "x": 16,
+      "y": 96,
+      "width": 961,
+      "height": 996,
+      "bottom": 1092,
+      "left": 16,
+      "right": 977,
+      "top": 96
+    },
+    "mobileProcess": {
+      "x": 16,
+      "y": 96,
+      "width": 961,
+      "height": 996,
+      "bottom": 1092,
+      "left": 16,
+      "right": 977,
+      "top": 96
+    },
+    "stage": {
+      "x": 16,
+      "y": 96,
+      "width": 961,
+      "height": 996,
+      "bottom": 1092,
+      "left": 16,
+      "right": 977,
+      "top": 96
+    },
+    "subtitle": {
+      "x": 121.5,
+      "y": 719.40625,
+      "width": 520,
+      "height": 56,
+      "bottom": 775.40625,
+      "left": 121.5,
+      "right": 641.5,
+      "top": 719.40625
+    },
+    "title": {
+      "x": 121.5,
+      "y": 463.40625,
+      "width": 640,
+      "height": 256,
+      "bottom": 719.40625,
+      "left": 121.5,
+      "right": 761.5,
+      "top": 463.40625
+    }
+  },
+  "currentImage": "http://localhost:3000/assets/mobileHero.png",
+  "failures": [],
+  "processCards": [
+    {
+      "x": 196.33047485351562,
+      "y": 165.94476318359375,
+      "width": 158.27655029296875,
+      "height": 59.77398681640625,
+      "bottom": 225.71875,
+      "left": 196.33047485351562,
+      "right": 354.6070251464844,
+      "top": 165.94476318359375
+    },
+    {
+      "x": 355.9730224609375,
+      "y": 216.55740356445312,
+      "width": 156.116455078125,
+      "height": 58.958221435546875,
+      "bottom": 275.515625,
+      "left": 355.9730224609375,
+      "right": 512.0894775390625,
+      "top": 216.55740356445312
+    },
+    {
+      "x": 502.70623779296875,
+      "y": 268.3125,
+      "width": 150.93121337890625,
+      "height": 57,
+      "bottom": 325.3125,
+      "left": 502.70623779296875,
+      "right": 653.637451171875,
+      "top": 268.3125
+    },
+    {
+      "x": 637.2531127929688,
+      "y": 318.109375,
+      "width": 150.93121337890625,
+      "height": 57,
+      "bottom": 375.109375,
+      "left": 637.2531127929688,
+      "right": 788.184326171875,
+      "top": 318.109375
+    }
+  ],
+  "processCardSelector": "[data-testid=\"hero-mobile-process-segment\"]",
+  "scrollWidth": 993,
+  "visibility": {
+    "desktopProcess": false,
+    "mobileProcess": true
+  },
+  "visibleRatios": {
+    "application": 1,
+    "compactPanel": 1,
+    "compactStats": 1,
+    "copy": 1,
+    "desktopProcess": null,
+    "desktopStats": null,
+    "header": 1,
+    "hero": 0.5208333333333334,
+    "map": 1,
+    "mobileProcess": 1,
+    "stage": 1,
+    "subtitle": 1,
+    "title": 1
+  },
+  "viewport": {
+    "height": 1100,
+    "id": "compact-993",
+    "mode": "compact",
+    "width": 993
+  }
+}

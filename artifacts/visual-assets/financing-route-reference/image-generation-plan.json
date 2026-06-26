@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "manifest_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/financing-route-reference/asset-manifest.json",
+  "image_asset_count": 1,
+  "assets": [
+    {
+      "id": "financing-route-process-illustration",
+      "label": "Isometric financing process illustration",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/financing-route-reference/crops/financing-route-process-illustration.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/financing-route-reference/generated/raw/financing-route-process-illustration.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/financing-route-reference/generated/webp/financing-route-process-illustration.webp",
+      "transparent": true,
+      "prompt": "Use case: ads-marketing\nAsset type: Primary hero illustration showing permit, acquisition, construction, and completion route\nPrimary request: Reference image only: generate a new standalone transparent PNG asset of a premium editorial isometric construction-financing route illustration. Cream drafting-paper base plane with faint grid, Toronto skyline sketched in light graphite at the back, four-step orange route line connecting a permit application clipboard, a single-family house acquisition vignette, a mid-rise construction site with tower crane, and a completed boutique apartment building with shield/check medallion. Fine ink outlines, muted warm greys, dark green details, small burnt-orange numbered markers, soft shadows, high-end brokerage presentation style, clean cutout edges, no UI frame, no text that needs to remain readable.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "Do not include Fairlend logo, header bars, form inputs, browser chrome, watermarks, blurry text, cropped edges, photorealistic people, or a full webpage screenshot."
+    }
+  ]
+}

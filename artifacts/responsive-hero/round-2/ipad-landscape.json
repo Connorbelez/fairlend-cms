@@ -1,0 +1,97 @@
+{
+  "bodyScrollWidth": 1194,
+  "boxes": {
+    "application": {
+      "bottom": 719.0000610351562,
+      "height": 184.59375,
+      "left": 242.00003051757812,
+      "right": 952.0000305175781,
+      "top": 534.4063110351562,
+      "width": 710,
+      "x": 242.00003051757812,
+      "y": 534.4063110351562
+    },
+    "compactPanel": {
+      "bottom": 802,
+      "height": 616.59375,
+      "left": 217,
+      "right": 977,
+      "top": 185.40625,
+      "width": 760,
+      "x": 217,
+      "y": 185.40625
+    },
+    "copy": {
+      "bottom": 518.40625,
+      "height": 312,
+      "left": 242,
+      "right": 882,
+      "top": 206.40625,
+      "width": 640,
+      "x": 242,
+      "y": 206.40625
+    },
+    "hero": {
+      "bottom": 2055,
+      "height": 2055,
+      "left": 0,
+      "right": 1194,
+      "top": 0,
+      "width": 1194,
+      "x": 0,
+      "y": 0
+    },
+    "map": {
+      "bottom": 826,
+      "height": 730,
+      "left": 16,
+      "right": 1178,
+      "top": 96,
+      "width": 1162,
+      "x": 16,
+      "y": 96
+    },
+    "stage": {
+      "bottom": 826,
+      "height": 730,
+      "left": 16,
+      "right": 1178,
+      "top": 96,
+      "width": 1162,
+      "x": 16,
+      "y": 96
+    },
+    "title": {
+      "bottom": 462.40625,
+      "height": 256,
+      "left": 242,
+      "right": 882,
+      "top": 206.40625,
+      "width": 640,
+      "x": 242,
+      "y": 206.40625
+    }
+  },
+  "currentImage": "http://localhost:3000/assets/fairlend-toronto-map-transparent@2x.webp",
+  "failures": [],
+  "overlaps": {
+    "application:compactPanel": 131061.5625,
+    "copy:application": 0,
+    "title:application": 0
+  },
+  "scrollWidth": 1194,
+  "visibleRatios": {
+    "application": 1,
+    "compactPanel": 1,
+    "copy": 1,
+    "hero": 0.4058394160583942,
+    "map": 1,
+    "stage": 1,
+    "title": 1
+  },
+  "viewport": {
+    "height": 834,
+    "id": "ipad-landscape",
+    "width": 1194
+  }
+}

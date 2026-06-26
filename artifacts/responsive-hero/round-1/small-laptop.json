@@ -1,0 +1,97 @@
+{
+  "bodyScrollWidth": 1280,
+  "boxes": {
+    "application": {
+      "bottom": 626.5626831054688,
+      "height": 210.54684448242188,
+      "left": 789.8438110351562,
+      "right": 1251.84375,
+      "top": 416.0158386230469,
+      "width": 461.99993896484375,
+      "x": 789.8438110351562,
+      "y": 416.0158386230469
+    },
+    "compactPanel": {
+      "bottom": 0,
+      "height": 0,
+      "left": 0,
+      "right": 0,
+      "top": 0,
+      "width": 0,
+      "x": 0,
+      "y": 0
+    },
+    "copy": {
+      "bottom": 563.140625,
+      "height": 426.28125,
+      "left": 41.59375,
+      "right": 489.59375,
+      "top": 136.859375,
+      "width": 448,
+      "x": 41.59375,
+      "y": 136.859375
+    },
+    "hero": {
+      "bottom": 1764,
+      "height": 1764,
+      "left": 0,
+      "right": 1280,
+      "top": 0,
+      "width": 1280,
+      "x": 0,
+      "y": 0
+    },
+    "map": {
+      "bottom": 621.1875,
+      "height": 563.1875,
+      "left": 545.96875,
+      "right": 1296.875,
+      "top": 58,
+      "width": 750.90625,
+      "x": 545.96875,
+      "y": 58
+    },
+    "stage": {
+      "bottom": 720,
+      "height": 720,
+      "left": 0,
+      "right": 1280,
+      "top": 0,
+      "width": 1280,
+      "x": 0,
+      "y": 0
+    },
+    "title": {
+      "bottom": 444.734375,
+      "height": 283.875,
+      "left": 41.59375,
+      "right": 489.59375,
+      "top": 160.859375,
+      "width": 448,
+      "x": 41.59375,
+      "y": 160.859375
+    }
+  },
+  "currentImage": "http://localhost:3000/assets/fairlend-desktop-hero.webp",
+  "failures": [],
+  "overlaps": {
+    "application:compactPanel": 0,
+    "copy:application": 0,
+    "title:application": 0
+  },
+  "scrollWidth": 1280,
+  "visibleRatios": {
+    "application": 1,
+    "compactPanel": null,
+    "copy": 1,
+    "hero": 0.40816326530612246,
+    "map": 0.9775271546880853,
+    "stage": 1,
+    "title": 1
+  },
+  "viewport": {
+    "height": 720,
+    "id": "small-laptop",
+    "width": 1280
+  }
+}

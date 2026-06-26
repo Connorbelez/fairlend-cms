@@ -1,0 +1,89 @@
+{
+  "desktopQa": {
+    "label": "desktop-2061",
+    "width": 2061,
+    "height": 1079,
+    "metrics": {
+      "application": {
+        "bottom": 1030.2604675292969,
+        "height": 210.95486450195312,
+        "left": 1666.007080078125,
+        "right": 2226.007080078125,
+        "top": 819.3056030273438,
+        "width": 560
+      },
+      "compactPanel": {
+        "bottom": 0,
+        "height": 0,
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "width": 0
+      },
+      "copy": {
+        "bottom": 919.435791015625,
+        "height": 659.8784790039062,
+        "left": 74.40972900390625,
+        "right": 811.5625610351562,
+        "top": 259.55731201171875,
+        "width": 737.15283203125
+      },
+      "desktopProcessVisible": true,
+      "image": "http://localhost:3000/assets/fairlend-desktop-hero.webp",
+      "mobileProcessVisible": false,
+      "scrollWidth": 2290,
+      "title": "Fairlend | Multiplex, Single Family, and Land Financing",
+      "url": "http://localhost:3000/fairlend-landing-hero"
+    },
+    "logCount": 0,
+    "logs": [],
+    "snapshotHasHero": true,
+    "screenshotPath": "/Users/connor/Dev/fairlend-cms/artifacts/responsive-hero/browser-qa-house-anchor-1/desktop-2061.png"
+  },
+  "compactQa": {
+    "label": "compact-1236",
+    "width": 1236,
+    "height": 1100,
+    "metrics": {
+      "application": {
+        "bottom": 1069.2013854980469,
+        "height": 210.95108032226562,
+        "left": 870.8027954101562,
+        "right": 1332.791015625,
+        "top": 858.2503051757812,
+        "width": 461.98822021484375
+      },
+      "compactPanel": {
+        "bottom": 0,
+        "height": 0,
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "width": 0
+      },
+      "copy": {
+        "bottom": 847.3968200683594,
+        "height": 491.8055725097656,
+        "left": 44.65277862548828,
+        "right": 550.8159866333008,
+        "top": 355.59124755859375,
+        "width": 506.1632080078125
+      },
+      "desktopProcessVisible": true,
+      "image": "http://localhost:3000/assets/fairlend-desktop-hero.webp",
+      "mobileProcessVisible": false,
+      "scrollWidth": 1373,
+      "title": "Fairlend | Multiplex, Single Family, and Land Financing",
+      "url": "http://localhost:3000/fairlend-landing-hero"
+    },
+    "logCount": 0,
+    "logs": [],
+    "snapshotHasHero": false,
+    "screenshotPath": "/Users/connor/Dev/fairlend-cms/artifacts/responsive-hero/browser-qa-house-anchor-1/compact-1236.png"
+  },
+  "interaction": {
+    "investCount": 1,
+    "investSelected": "true",
+    "screenshotPath": "/Users/connor/Dev/fairlend-cms/artifacts/responsive-hero/browser-qa-house-anchor-1/desktop-2061-invest-selected.png"
+  }
+}

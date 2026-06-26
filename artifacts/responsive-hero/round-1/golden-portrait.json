@@ -1,0 +1,97 @@
+{
+  "bodyScrollWidth": 1080,
+  "boxes": {
+    "application": {
+      "bottom": 889.0006103515625,
+      "height": 184.5936279296875,
+      "left": 185.000244140625,
+      "right": 894.999755859375,
+      "top": 704.406982421875,
+      "width": 709.99951171875,
+      "x": 185.000244140625,
+      "y": 704.406982421875
+    },
+    "compactPanel": {
+      "bottom": 972,
+      "height": 616.59375,
+      "left": 160,
+      "right": 920,
+      "top": 355.40625,
+      "width": 760,
+      "x": 160,
+      "y": 355.40625
+    },
+    "copy": {
+      "bottom": 688.40625,
+      "height": 312,
+      "left": 185,
+      "right": 825,
+      "top": 376.40625,
+      "width": 640,
+      "x": 185,
+      "y": 376.40625
+    },
+    "hero": {
+      "bottom": 4704,
+      "height": 4704,
+      "left": 0,
+      "right": 1080,
+      "top": 0,
+      "width": 1080,
+      "x": 0,
+      "y": 0
+    },
+    "map": {
+      "bottom": 996,
+      "height": 900,
+      "left": 16,
+      "right": 1064,
+      "top": 96,
+      "width": 1048,
+      "x": 16,
+      "y": 96
+    },
+    "stage": {
+      "bottom": 996,
+      "height": 900,
+      "left": 16,
+      "right": 1064,
+      "top": 96,
+      "width": 1048,
+      "x": 16,
+      "y": 96
+    },
+    "title": {
+      "bottom": 632.40625,
+      "height": 256,
+      "left": 185,
+      "right": 825,
+      "top": 376.40625,
+      "width": 640,
+      "x": 185,
+      "y": 376.40625
+    }
+  },
+  "currentImage": "http://localhost:3000/assets/mobileHero.png",
+  "failures": [],
+  "overlaps": {
+    "application:compactPanel": 131061.38569647074,
+    "copy:application": 0,
+    "title:application": 0
+  },
+  "scrollWidth": 1080,
+  "visibleRatios": {
+    "application": 1,
+    "compactPanel": 1,
+    "copy": 1,
+    "hero": 0.40816326530612246,
+    "map": 1,
+    "stage": 1,
+    "title": 1
+  },
+  "viewport": {
+    "height": 1920,
+    "id": "golden-portrait",
+    "width": 1080
+  }
+}

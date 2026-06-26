@@ -20,3 +20,7 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Pi eval recorder generated artifacts
+.pi/eval-runs/
+.pi/eval-cases/
