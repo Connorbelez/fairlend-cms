@@ -1041,17 +1041,17 @@ export function FairlendServicesSection() {
           margin-top: clamp(0.8rem, 1.6vw, 1.35rem);
         }
         .services-model-kicker > span.about-text-textured:first-child {
-          font-size: clamp(6.2rem, min(11vw, 18vh), 13.5rem);
+          font-size: clamp(5.55rem, min(9.8vw, 15.8vh), 11.9rem);
           line-height: 0.78;
         }
         .services-model-kicker .about-kicker-slash {
-          font-size: clamp(6.2rem, min(11vw, 18vh), 13.5rem);
+          font-size: clamp(5.55rem, min(9.8vw, 15.8vh), 11.9rem);
           line-height: 0.78;
           transform: translateY(0);
         }
         .services-model-kicker p {
           padding-bottom: 0.1em;
-          font-size: clamp(2.3rem, min(4.45vw, 8.2vh), 5.35rem);
+          font-size: clamp(2.05rem, min(3.95vw, 6.9vh), 4.65rem);
           line-height: 0.88;
           letter-spacing: 0.03em;
         }
@@ -1459,14 +1459,14 @@ export function FairlendServicesSection() {
             display: grid;
             height: 100dvh;
             min-height: 0;
-            grid-template-rows: minmax(10.5rem, 24dvh) 2px minmax(0, 1fr) auto;
+            grid-template-rows: minmax(11.75rem, 26dvh) 2px minmax(0, 1fr) auto;
             overflow: hidden;
             padding: clamp(0.9rem, 2vh, 1.45rem) clamp(1rem, 2vw, 2rem);
           }
           .services-model-header {
             min-height: 0;
             align-items: start;
-            padding: clamp(0.75rem, 1.5vh, 1.1rem) clamp(0.5rem, 0.9vw, 1rem) clamp(0.9rem, 1.9vh, 1.35rem);
+            padding: clamp(0.75rem, 1.5vh, 1.1rem) clamp(0.5rem, 0.9vw, 1rem) clamp(1.45rem, 2.8vh, 2.25rem);
           }
           .services-model-header-content {
             min-height: 100%;
@@ -1476,13 +1476,13 @@ export function FairlendServicesSection() {
             margin-top: clamp(0.42rem, 0.9vh, 0.8rem);
           }
           .services-model-kicker > span.about-text-textured:first-child {
-            font-size: clamp(4.8rem, min(9.2vw, 17vh), 11.8rem);
+            font-size: clamp(4.3rem, min(8.05vw, 14.2vh), 10.3rem);
           }
           .services-model-kicker .about-kicker-slash {
-            font-size: clamp(4.8rem, min(9.2vw, 17vh), 11.8rem);
+            font-size: clamp(4.3rem, min(8.05vw, 14.2vh), 10.3rem);
           }
           .services-model-kicker p {
-            font-size: clamp(1.95rem, min(3.7vw, 7vh), 4.5rem);
+            font-size: clamp(1.72rem, min(3.25vw, 5.9vh), 3.9rem);
           }
           .services-model-brand {
             font-size: clamp(0.56rem, 0.82vw, 0.66rem);
@@ -1597,7 +1597,7 @@ export function FairlendServicesSection() {
         }
         @media (min-width: 1024px) and (max-height: 760px) {
           .services-model-shell {
-            grid-template-rows: minmax(8.8rem, 21dvh) 2px minmax(0, 1fr) auto;
+            grid-template-rows: minmax(10rem, 23dvh) 2px minmax(0, 1fr) auto;
             padding-block: 0.7rem;
           }
           .services-model-brand {
@@ -1607,13 +1607,13 @@ export function FairlendServicesSection() {
             margin-top: 0;
           }
           .services-model-kicker > span.about-text-textured:first-child {
-            font-size: clamp(4.2rem, min(8vw, 14vh), 8.9rem);
+            font-size: clamp(3.75rem, min(7.15vw, 12vh), 7.8rem);
           }
           .services-model-kicker .about-kicker-slash {
-            font-size: clamp(4.2rem, min(8vw, 14vh), 8.9rem);
+            font-size: clamp(3.75rem, min(7.15vw, 12vh), 7.8rem);
           }
           .services-model-kicker p {
-            font-size: clamp(1.68rem, min(3.1vw, 5.6vh), 3.45rem);
+            font-size: clamp(1.48rem, min(2.75vw, 4.8vh), 3rem);
           }
           .services-model-copy {
             max-width: 34rem;

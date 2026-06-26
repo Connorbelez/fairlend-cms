@@ -2166,7 +2166,12 @@ function BuilderConsultingStyles() {
         background:
           radial-gradient(circle at 18% 19%, rgb(255 255 251 / 58%), transparent 31%),
           radial-gradient(circle at 82% 54%, rgb(255 92 52 / 7%), transparent 35%),
+          linear-gradient(90deg, rgb(255 253 247 / 88%), rgb(250 244 235 / 62%)),
+          url("/assets/heatherpapertexture.png"),
+          url("/assets/diagonal_paperTexture.png"),
           linear-gradient(180deg, var(--about-paper) 0%, var(--about-paper-soft) 100%);
+        background-blend-mode: normal, normal, normal, multiply, multiply, normal;
+        background-size: auto, auto, auto, 420px 420px, 220px 220px, auto;
         color: var(--builder-forest);
         font-family: var(--about-mono);
       }
@@ -2187,12 +2192,6 @@ function BuilderConsultingStyles() {
         margin-inline: auto;
         overflow: hidden;
         padding: 30px 20px 36px;
-        background:
-          linear-gradient(90deg, rgb(255 253 247 / 88%), rgb(250 244 235 / 62%)),
-          url("/assets/heatherpapertexture.png"),
-          url("/assets/diagonal_paperTexture.png");
-        background-blend-mode: normal, multiply, multiply;
-        background-size: auto, 420px 420px, 220px 220px;
       }
 
       .builder-frame-corner {

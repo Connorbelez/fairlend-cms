@@ -1006,24 +1006,25 @@
 
 @media (min-width: 1280px) and (orientation: landscape) {
   .fairlend-hero-application-card {
+    position: fixed;
     top: auto;
-    bottom: calc(clamp(128px, 16svh, 210px) + var(--hero-stats-height, 0px));
+    right: clamp(18px, 1.9vw, 34px);
+    bottom: clamp(18px, 1.8vw, 32px);
+    left: auto;
   }
 
   .fairlend-hero-application-card[data-autocomplete-open='true'] {
-    bottom: calc(
-      clamp(128px, 16svh, 210px) + var(--hero-stats-height, 0px) + clamp(78px, 7vw, 124px)
-    );
+    bottom: calc(clamp(18px, 1.8vw, 32px) + clamp(78px, 7vw, 124px));
   }
 }
 
 @media (min-width: 1280px) and (orientation: landscape) and (max-height: 760px) {
   .fairlend-hero-application-card {
-    bottom: calc(clamp(36px, 6svh, 64px) + var(--hero-stats-height, 0px));
+    bottom: clamp(14px, 1.7vw, 24px);
   }
 
   .fairlend-hero-application-card[data-autocomplete-open='true'] {
-    bottom: calc(clamp(36px, 6svh, 64px) + var(--hero-stats-height, 0px) + clamp(72px, 7vw, 112px));
+    bottom: calc(clamp(14px, 1.7vw, 24px) + clamp(72px, 7vw, 112px));
   }
 }
 
