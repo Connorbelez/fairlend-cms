@@ -190,6 +190,9 @@ export function Header() {
   }, [])
 
   const scheduleClose = useCallback(() => {
+    if (leaveTimerRef.current) {
+      clearTimeout(leaveTimerRef.current)
+    }
     leaveTimerRef.current = setTimeout(() => {
       closeDesktopMenu()
     }, 120)
@@ -471,6 +474,8 @@ export function Header() {
           'mkt-dhh-shell-mobile-open': isMobileMenuOpen,
           'mkt-dhh-shell-clipped': !(isDesktopMenuVisible || isMobileMenuOpen),
         })}
+        onMouseEnter={cancelClose}
+        onMouseLeave={scheduleClose}
         ref={shellRef}
       >
         <div className="mkt-dhh-bar">
@@ -509,10 +514,9 @@ export function Header() {
                       cancelClose()
                       openMenu(link.menu!, linkIndex)
                     } else {
-                      scheduleClose()
+                      closeDesktopMenu()
                     }
                   }}
-                  onMouseLeave={scheduleClose}
                 >
                   {hasMenu ? (
                     <button
@@ -528,7 +532,10 @@ export function Header() {
                         cancelClose()
                         openMenu(link.menu!, linkIndex)
                       }}
-                      onMouseLeave={scheduleClose}
+                      onClick={() => {
+                        cancelClose()
+                        openMenu(link.menu!, linkIndex)
+                      }}
                       onKeyDown={(event) => handleDesktopItemKeyDown(event, link, linkIndex)}
                       ref={(node) => {
                         desktopItemRefs.current[linkIndex] = node
@@ -543,8 +550,7 @@ export function Header() {
                       {...link.link}
                       className={itemClassName}
                       onFocus={closeDesktopMenu}
-                      onMouseEnter={scheduleClose}
-                      onMouseLeave={scheduleClose}
+                      onMouseEnter={closeDesktopMenu}
                       onKeyDown={(event) => handleDesktopItemKeyDown(event, link, linkIndex)}
                       ref={(node) => {
                         desktopItemRefs.current[linkIndex] = node
@@ -556,8 +562,7 @@ export function Header() {
                     <button
                       className={itemClassName}
                       onFocus={closeDesktopMenu}
-                      onMouseEnter={scheduleClose}
-                      onMouseLeave={scheduleClose}
+                      onMouseEnter={closeDesktopMenu}
                       onKeyDown={(event) => handleDesktopItemKeyDown(event, link, linkIndex)}
                       ref={(node) => {
                         desktopItemRefs.current[linkIndex] = node

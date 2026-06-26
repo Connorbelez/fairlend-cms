@@ -208,14 +208,17 @@ export function FairlendBuilderConsultingMotion() {
         animation: timeline,
         anticipatePin: 1,
         end: '+=230%',
+        invalidateOnRefresh: true,
+        markers: true,
         pin: true,
+        refreshPriority: 20,
         scrub: 1.05,
         start: 'top top',
         trigger: section,
       })
 
       requestAnimationFrame(() => {
-        scrollTrigger.refresh()
+        ScrollTrigger.refresh()
         timeline.progress(scrollTrigger.progress)
       })
     })
