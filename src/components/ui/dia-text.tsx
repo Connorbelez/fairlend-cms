@@ -139,6 +139,7 @@ const DiaTextReveal = forwardRef<HTMLSpanElement, DiaTextRevealProps>(
     const textOpacity = useMotionValue(1);
     const textBlur = useMotionValue(0);
     const textShift = useMotionValue(0);
+    const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
     const inView = useInView(spanRef, { once, amount: 0.1 });
     const previousActiveIndexRef = useRef(0);
 
@@ -217,8 +218,24 @@ const DiaTextReveal = forwardRef<HTMLSpanElement, DiaTextRevealProps>(
 
     const playRef = useRef<() => void>(() => undefined);
 
+    useEffect(() => {
+      const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const syncPreference = () => setShouldReduceMotion(mediaQuery.matches);
+
+      syncPreference();
+      mediaQuery.addEventListener("change", syncPreference);
+
+      return () => mediaQuery.removeEventListener("change", syncPreference);
+    }, []);
+
     playRef.current = () => {
       clearCycle();
+
+      if (shouldReduceMotion) {
+        sweepPos.set(SWEEP_END);
+        return;
+      }
+
       sweepPos.set(SWEEP_START);
 
       controlsRef.current = animate(sweepPos, SWEEP_END, {
@@ -258,7 +275,7 @@ const DiaTextReveal = forwardRef<HTMLSpanElement, DiaTextRevealProps>(
         hasPlayedRef.current = true;
         playRef.current();
       }
-    }, [clearCycle, isVisible, sweepPos, textKey]);
+    }, [clearCycle, isVisible, shouldReduceMotion, sweepPos, textKey]);
 
     useEffect(() => {
       const element = spanRef.current;
@@ -287,7 +304,7 @@ const DiaTextReveal = forwardRef<HTMLSpanElement, DiaTextRevealProps>(
       playRef.current();
 
       return clearCycle;
-    }, [clearCycle, isVisible, once]);
+    }, [clearCycle, isVisible, once, shouldReduceMotion]);
 
     useEffect(() => {
       if (!isMulti) {

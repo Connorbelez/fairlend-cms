@@ -364,8 +364,8 @@ function collectHandwrittenAnchorFailures(metrics: Metrics) {
 function collectCompactFailures(metrics: Metrics, viewport: Viewport) {
   const failures: string[] = []
 
-  if (!metrics.currentImage.includes('mobileHero.png')) {
-    failures.push(`expected mobileHero.png below 1280, got ${metrics.currentImage}`)
+  if (!metrics.currentImage.includes('mobileHero.webp')) {
+    failures.push(`expected mobileHero.webp below 1280, got ${metrics.currentImage}`)
   }
 
   if (!metrics.visibility.mobileProcess) {
@@ -430,7 +430,7 @@ function collectCompactFailures(metrics: Metrics, viewport: Viewport) {
 function collectTabletLandscapeFailures(metrics: Metrics, viewport: Viewport) {
   const failures: string[] = []
 
-  if (!metrics.currentImage.includes('fairlend-desktop-hero.webp')) {
+  if (!metrics.currentImage.includes('fairlend-hero-jun-26-2026.webp')) {
     failures.push(`expected desktop image in tablet landscape, got ${metrics.currentImage}`)
   }
 
@@ -514,8 +514,8 @@ function collectTabletLandscapeFailures(metrics: Metrics, viewport: Viewport) {
 function collectDesktopFailures(metrics: Metrics, viewport: Viewport) {
   const failures: string[] = []
 
-  if (!metrics.currentImage.includes('fairlend-desktop-hero.webp')) {
-    failures.push(`expected fairlend-desktop-hero.webp at desktop, got ${metrics.currentImage}`)
+  if (!metrics.currentImage.includes('fairlend-hero-jun-26-2026.webp')) {
+    failures.push(`expected fairlend-hero-jun-26-2026.webp at desktop, got ${metrics.currentImage}`)
   }
 
   if (!metrics.visibility.desktopProcess) {
