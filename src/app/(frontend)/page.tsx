@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 
-import { FairlendJudgmentSection } from '@/components/FairlendJudgmentSection'
+import { FairlendAboutStorySection } from '@/components/FairlendAboutStorySection'
+import { FairlendBuilderConsultingSection } from '@/components/FairlendBuilderConsultingSection'
 import { FairlendLandingHero } from '@/components/FairlendLandingHero'
 import { FairlendLeadershipSection } from '@/components/FairlendLeadershipSection'
-import { FairlendOpportunityCanvas } from '@/components/FairlendOpportunityCanvas'
 import { FairlendScrollChoreography } from '@/components/FairlendScrollChoreography.client'
+import { FairlendServicesSection } from '@/components/FairlendServicesSection'
 
 export const metadata: Metadata = {
   title: 'Fairlend | Multiplex, Single Family, and Land Financing',
@@ -17,8 +18,9 @@ export default function Page() {
     <div className="min-h-svh bg-[rgb(255_253_247)]">
       <FairlendScrollChoreography />
       <FairlendLandingHero />
-      <FairlendOpportunityCanvas />
-      <FairlendJudgmentSection />
+      <FairlendServicesSection />
+      <FairlendAboutStorySection />
+      <FairlendBuilderConsultingSection />
       <FairlendLeadershipSection />
     </div>
   )

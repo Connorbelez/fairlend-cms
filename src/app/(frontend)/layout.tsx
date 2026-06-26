@@ -56,7 +56,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             {children}
           </FrontendChrome>
         </Providers>
-      </body>
+</body>
     </html>
   )
 }

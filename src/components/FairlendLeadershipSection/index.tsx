@@ -1,382 +1,1296 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import type { LucideIcon } from 'lucide-react'
 import {
   ArrowRight,
   BadgeCheck,
-  Banknote,
   Building2,
   ChartNoAxesColumnIncreasing,
-  Flag,
+  FileCheck2,
   Handshake,
   Landmark,
   MapPin,
   ShieldCheck,
-  Trophy,
   UsersRound,
 } from 'lucide-react'
 
+import { FairlendSectionKicker } from '@/components/FairlendSectionKicker'
 import { Button } from '@/components/ui/button'
-import { cn } from '@/utilities/ui'
+import { Card } from '@/components/ui/card'
 
-const leaderProof = [
-  {
-    icon: ShieldCheck,
-    metric: '25+ years',
-    detail: 'Real estate finance experience',
-  },
-  {
-    icon: Landmark,
-    metric: '$2B+',
-    detail: 'Financing closed across market cycles',
-  },
-  {
-    icon: MapPin,
-    metric: 'Toronto based',
-    detail: 'Local insight. Relationship driven.',
-  },
-] as const
+const leadershipAsset = '/assets/fairlend-leadership-finance-vignette.webp'
 
-const timelineProof = [
+const leadershipProof = [
   {
-    icon: Trophy,
+    detail: 'Across mortgage brokerage, private lending, and investment finance.',
+    Icon: ShieldCheck,
+    label: 'Years experience',
     value: '25+',
-    label: 'Years',
-    sublabel: 'of experience',
   },
   {
-    icon: Landmark,
+    detail: 'Residential, commercial, construction, and stabilization capital.',
+    Icon: Landmark,
+    label: 'Total financed',
     value: '$2B+',
-    label: 'Financing',
-    sublabel: 'closed',
   },
   {
-    icon: MapPin,
-    value: 'Toronto',
-    label: 'Based',
-    sublabel: 'local expertise',
+    detail: 'Relationships across borrowers, lenders, brokers, and investors.',
+    Icon: UsersRound,
+    label: 'Lenders & borrowers',
+    value: '160+',
   },
-] as const
+  {
+    detail: 'GTA market knowledge with national capital relationships.',
+    Icon: MapPin,
+    label: 'Toronto-based',
+    value: 'GTA',
+  },
+] satisfies ReadonlyArray<{
+  detail: string
+  Icon: LucideIcon
+  label: string
+  value: string
+}>
 
-const testimonialCards = [
+const capabilities = [
   {
-    quote: 'FairLend stepped in when banks said no. They funded our project fast and kept it moving. True partners.',
-    name: 'Michael L.',
-    role: 'Mid-rise developer, Toronto',
-    icon: Building2,
-    partner: 'Developer partner',
+    copy: 'FSRA-licensed mortgage brokerage insight across complex borrowing and investing needs.',
+    Icon: BadgeCheck,
+    title: 'Brokerage expertise',
   },
   {
-    quote:
-      'Consistent, transparent, and reliable. FairLend is our go-to lender for complex and time-sensitive deals.',
-    name: 'Sarah K.',
-    role: 'Private lender',
-    icon: Landmark,
-    partner: 'Private lender',
+    copy: 'End-to-end financing for land, construction, renovation, and long-term stabilization.',
+    Icon: Building2,
+    title: 'Construction finance',
   },
   {
-    quote:
-      'My clients get answers fast and closings done right. That is why I send business to FairLend.',
-    name: 'Jason P.',
-    role: 'Mortgage broker, GTA',
-    icon: UsersRound,
-    partner: 'Broker partner',
+    copy: 'Strategic access to insured rental-housing programs, leverage, and flexibility.',
+    Icon: FileCheck2,
+    title: 'MLI Select planning',
   },
   {
-    quote:
-      'FairLend delivers strong risk-adjusted returns with disciplined underwriting and clear communication.',
-    name: 'David R.',
-    role: 'Private investor',
-    icon: ChartNoAxesColumnIncreasing,
-    partner: 'Investor',
+    copy: 'Compliant structures that align risk, cash flow, lender appetite, and exit strategy.',
+    Icon: Handshake,
+    title: 'Deal structuring',
   },
-] as const
+] satisfies ReadonlyArray<{
+  copy: string
+  Icon: LucideIcon
+  title: string
+}>
 
-const leadershipTeam = [
+const commitments = [
   {
-    initials: 'HG',
-    name: 'Harman Grewal',
+    Icon: ShieldCheck,
+    label: 'Regulated. Trusted. Accountable.',
   },
   {
-    initials: 'CD',
-    name: 'Capital Desk',
+    Icon: UsersRound,
+    label: 'Client-first approach',
   },
   {
-    initials: 'FL',
-    name: 'FairLend Capital',
+    Icon: BadgeCheck,
+    label: 'Transparent communication',
   },
   {
-    initials: 'DF',
-    name: 'DrawFlow Team',
+    Icon: ChartNoAxesColumnIncreasing,
+    label: 'Results that speak for themselves',
   },
-] as const
-
-function LeadershipAvatar({
-  className,
-  initials,
-  name,
-  priority = false,
-}: {
-  className?: string
-  initials: string
-  name: string
-  priority?: boolean
-}) {
-  return (
-    <div
-      aria-label={name}
-      className={cn(
-        'relative isolate grid overflow-hidden border border-white/22 bg-[#062f35] shadow-[inset_0_1px_0_rgb(255_255_255/18%),0_16px_38px_rgb(0_27_32/28%)]',
-        className,
-      )}
-      role="img"
-    >
-      <Image
-        alt=""
-        aria-hidden="true"
-        className="object-cover opacity-70 mix-blend-luminosity"
-        fill
-        priority={priority}
-        sizes={priority ? '(min-width: 1024px) 31vw, 100vw' : '96px'}
-        src="/assets/fairlend-desktop-hero.webp"
-      />
-      <span
-        aria-hidden="true"
-        className="absolute inset-0 bg-[radial-gradient(circle_at_48%_21%,rgb(255_255_255/20%),transparent_24%),linear-gradient(145deg,rgb(2_53_60/15%),rgb(2_28_32/90%)_74%)]"
-      />
-      <span
-        aria-hidden="true"
-        className="absolute right-[11%] bottom-[10%] h-[46%] w-[28%] rounded-t-full bg-[linear-gradient(180deg,rgb(244_223_196/74%),rgb(128_86_62/28))] blur-[1px]"
-      />
-      <span
-        aria-hidden="true"
-        className="absolute right-[8%] bottom-[-5%] h-[29%] w-[48%] rounded-t-[50%] bg-[linear-gradient(180deg,rgb(7_52_59/92%),rgb(2_29_34/96%))]"
-      />
-      <span className="relative z-[1] self-end p-5 font-serif text-[clamp(3rem,6.2vw,6.9rem)] leading-none font-bold tracking-normal text-white/86">
-        {initials}
-      </span>
-    </div>
-  )
-}
-
-function VerticalProofRail() {
-  return (
-    <aside
-      aria-label="Leadership proof navigation"
-      className="hidden h-full min-h-0 w-[76px] shrink-0 rounded-[20px] border border-[#eadfd0] bg-[#fffaf2]/78 px-5 py-6 shadow-[0_22px_60px_rgb(47_35_23/8%)] xl:flex xl:flex-col xl:items-center"
-    >
-      <Flag aria-hidden="true" className="mt-2 size-6 text-[var(--fairlend-orange)]" fill="currentColor" />
-      <span className="mt-8 [writing-mode:vertical-rl] text-[clamp(1rem,1.18vw,1.22rem)] leading-none font-extrabold tracking-[0.52em] text-[#082d35] uppercase">
-        Proof
-      </span>
-      <div className="mt-auto grid gap-5 text-center text-[11px] font-extrabold text-[#082d35]/72">
-        {['01', '02', '03', '04'].map((item, index) => (
-          <div className="grid justify-items-center gap-3" key={item}>
-            <span className={cn(index === 0 && 'text-[#082d35]')}>{item}</span>
-            <span
-              aria-hidden="true"
-              className={cn(
-                'h-0.5 w-7 bg-[#6f6a61]',
-                index === 0 && 'bg-[var(--fairlend-orange)]',
-              )}
-            />
-          </div>
-        ))}
-        <span className="text-lg leading-none text-[#a7a094]">...</span>
-      </div>
-    </aside>
-  )
-}
+] satisfies ReadonlyArray<{
+  Icon: LucideIcon
+  label: string
+}>
 
 export function FairlendLeadershipSection() {
   return (
     <section
       aria-labelledby="fairlend-leadership-title"
-      className="relative isolate overflow-hidden bg-[rgb(255_253_247)] px-4 py-8 text-[#082d35] sm:px-6 lg:h-[calc(100svh-72px)] lg:min-h-[calc(100svh-72px)] lg:px-6 lg:py-4 xl:px-8"
+      className="leadership-model-section"
+      data-fairlend-motion="leadership"
       data-testid="fairlend-leadership-section"
       id="leadership"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_48rem_32rem_at_22%_22%,rgb(255_255_255/72%),transparent_72%),radial-gradient(ellipse_58rem_34rem_at_78%_74%,rgb(232_242_239/56%),transparent_68%)]"
-      />
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_right,rgb(8_45_53/5%)_1px,transparent_1px),linear-gradient(to_bottom,rgb(8_45_53/4%)_1px,transparent_1px)] opacity-35 [background-size:44px_44px]"
-      />
+      <style>{`
+        .leadership-model-section {
+          --leadership-paper: rgb(255 253 247);
+          --leadership-paper-soft: rgb(250 244 235);
+          --leadership-ink: oklch(0.182 0.045 166);
+          --leadership-muted: rgb(74 91 87);
+          --leadership-line: rgb(8 45 35 / 34%);
+          --leadership-line-soft: rgb(8 45 35 / 20%);
+          --leadership-orange: oklch(0.645 0.221 35);
+          --leadership-blueprint: oklch(0.464 0.091 243.7);
+          --about-ink: var(--leadership-ink);
+          --about-orange: var(--leadership-orange);
+          --about-display: "League Gothic", Impact, "Arial Narrow", sans-serif;
+          --about-mono: "Oxanium", "Arial Narrow", system-ui, sans-serif;
 
-      <div className="relative z-[1] mx-auto flex h-full w-full max-w-[1710px] flex-col gap-4 xl:flex-row xl:items-stretch">
-        <div className="relative isolate min-w-0 flex-1 overflow-hidden border border-[rgb(213_226_223/72%)] bg-[rgb(255_253_247/86%)] shadow-[0_26px_80px_rgb(27_48_49/8%)] lg:h-full lg:rounded-[20px]">
-          <Image
-            alt=""
-            aria-hidden="true"
-            className="pointer-events-none absolute top-0 right-0 z-0 hidden h-full w-[31%] object-cover object-left opacity-100 [mask-image:linear-gradient(to_right,transparent_0%,#000_30%,#000_100%)] lg:block"
-            fill={false}
-            height={1505}
-            priority
-            src="/assets/fairlend-gta-leadership-background-map.webp"
-            width={1045}
-          />
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(90deg,rgb(255_253_247/0)_0%,rgb(255_253_247/0)_62%,rgb(255_253_247/16%)_73%,rgb(255_253_247/0)_100%)]"
-          />
+          position: relative;
+          isolation: isolate;
+          height: 100svh;
+          overflow: hidden;
+          background:
+            radial-gradient(circle at 76% 6%, rgb(255 255 249 / 88%), transparent 30rem),
+            radial-gradient(circle at 18% 12%, rgb(255 255 251 / 64%), transparent 23rem),
+            radial-gradient(circle at 82% 72%, rgb(255 92 52 / 7%), transparent 30rem),
+            linear-gradient(180deg, var(--leadership-paper) 0%, var(--leadership-paper-soft) 100%);
+          color: var(--leadership-ink);
+          font-family: var(--about-mono);
+          scroll-margin-top: 96px;
+        }
 
-          <div className="relative z-[1] flex flex-col gap-6 lg:grid lg:h-full lg:grid-cols-[minmax(312px,0.92fr)_minmax(126px,0.34fr)_minmax(0,1.5fr)] lg:gap-4 xl:grid-cols-[460px_160px_minmax(0,1fr)]">
-            <article className="overflow-hidden bg-[#063d43] text-white shadow-[0_28px_72px_rgb(25_28_20/19%)] lg:h-full lg:rounded-[18px]">
-              <LeadershipAvatar
-                className="h-[260px] border-x-0 border-t-0 border-b-[#ffffff26] sm:h-[330px] lg:h-[200px]"
-                initials="HG"
-                name="Harman Grewal"
-                priority
-              />
-              <div className="bg-[linear-gradient(145deg,rgb(2_58_64),rgb(1_42_47)_64%,rgb(1_36_41))] p-6 sm:p-7 lg:p-5">
-                <p className="text-[11px] leading-none font-extrabold tracking-[0.26em] text-[var(--fairlend-orange)] uppercase">
-                  Leadership
-                </p>
-                <h2
-                  className="mt-2.5 text-[clamp(1.9rem,2.65vw,2.6rem)] leading-[0.92] font-extrabold tracking-normal"
-                  id="fairlend-leadership-title"
-                >
-                  Harman Grewal
-                </h2>
-                <p className="mt-2 text-[clamp(0.68rem,0.72vw,0.76rem)] font-extrabold tracking-[0.24em] text-white/86 uppercase">
-                  Founder &amp; chief executive officer
-                </p>
-                <span aria-hidden="true" className="mt-3 block h-0.5 w-9 bg-[var(--fairlend-orange)]" />
-                <p className="mt-2.5 max-w-[31rem] text-[clamp(0.9rem,0.92vw,0.96rem)] leading-[1.28] font-medium text-white/88">
-                  FairLend brings private mortgage capital, construction-draw discipline, and local
-                  market judgment into one practical financing conversation.
-                </p>
+        .leadership-model-section::before {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          pointer-events: none;
+          background-image:
+            url('/assets/heatherpapertexture.png'),
+            url('/assets/diagonal_paperTexture.png');
+          background-repeat: repeat;
+          background-size: 560px 560px, 360px 360px;
+          mix-blend-mode: multiply;
+          opacity: 0.23;
+          content: "";
+        }
 
-                <div className="mt-3 divide-y divide-white/18 border-y border-white/22">
-                  {leaderProof.map(({ detail, icon: Icon, metric }) => (
-                    <div className="grid grid-cols-[28px_minmax(104px,0.46fr)_1fr] items-center gap-2.5 py-2" key={metric}>
-                      <Icon aria-hidden="true" className="size-5 text-white/88" strokeWidth={1.8} />
-                      <span className="text-[0.82rem] leading-none font-extrabold tracking-[0.08em] text-white uppercase">
-                        {metric}
-                      </span>
-                      <span className="text-[0.76rem] leading-[1.2] font-medium text-white/82">{detail}</span>
-                    </div>
-                  ))}
-                </div>
+        .leadership-model-section::after {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          pointer-events: none;
+          background:
+            linear-gradient(135deg, rgb(8 45 35 / 4%) 0 1px, transparent 1px 19px),
+            radial-gradient(circle at 18% 78%, rgb(70 108 118 / 7%), transparent 26rem);
+          mix-blend-mode: multiply;
+          opacity: 0.42;
+          content: "";
+        }
 
-                <Button
-                  asChild
-                  className="mt-4 h-10 w-full rounded-md bg-[var(--fairlend-orange)] text-[0.84rem] font-extrabold tracking-[0.02em] text-white shadow-[0_16px_34px_rgb(255_58_25/20%)] transition-[background-color,transform,box-shadow] hover:-translate-y-0.5 hover:bg-[var(--fairlend-orange-dark)] hover:shadow-[0_20px_42px_rgb(255_58_25/28%)]"
-                  size="clear"
-                >
-                  <Link href="/contact">
-                    Speak with leadership
-                    <ArrowRight aria-hidden="true" className="size-5" strokeWidth={1.9} />
-                  </Link>
-                </Button>
+        .leadership-shell {
+          position: relative;
+          z-index: 1;
+          display: grid;
+          grid-template-rows: auto minmax(0, 1fr);
+          width: min(100%, 1780px);
+          height: 100svh;
+          margin-inline: auto;
+          padding: 28px;
+        }
 
-                <div className="mt-3 border-t border-white/22 pt-3">
-                  <p className="text-[0.68rem] font-extrabold tracking-[0.18em] text-white/78 uppercase">
-                    Our leadership team
-                  </p>
-                  <div className="mt-2.5 grid grid-cols-4 gap-2">
-                    {leadershipTeam.map((member) => (
-                      <LeadershipAvatar
-                        className="aspect-[1.08] rounded-[10px]"
-                        initials={member.initials}
-                        key={member.name}
-                        name={member.name}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </article>
+        .leadership-shell::before,
+        .leadership-shell::after,
+        .leadership-frame::before,
+        .leadership-frame::after {
+          position: absolute;
+          z-index: 5;
+          width: 32px;
+          height: 32px;
+          pointer-events: none;
+          background:
+            linear-gradient(var(--leadership-line), var(--leadership-line)) left top / 100% 2px no-repeat,
+            linear-gradient(var(--leadership-line), var(--leadership-line)) left top / 2px 100% no-repeat;
+          content: "";
+        }
 
-            <div className="grid grid-cols-3 gap-0 border-y border-[#dfd2c2] py-5 lg:flex lg:flex-col lg:border-y-0 lg:py-5 xl:w-[160px] xl:shrink-0">
-              {timelineProof.map(({ icon: Icon, label, sublabel, value }, index) => (
-                <div
-                  className="relative grid min-h-[118px] place-items-center px-3 text-center lg:min-h-0 lg:flex-1"
-                  key={label}
-                >
-                  <div className="grid justify-items-center">
-                    <Icon aria-hidden="true" className="size-7 text-[#082d35]" strokeWidth={1.45} />
-                    <p className="mt-2.5 text-[clamp(1.16rem,1.35vw,1.42rem)] leading-none font-extrabold tracking-normal">
-                      {value}
-                    </p>
-                    <p className="mt-2 text-[0.72rem] leading-[1.12] font-extrabold tracking-[0.18em] uppercase">
-                      {label}
-                    </p>
-                    <p className="mt-1.5 text-[0.6rem] leading-[1.18] font-extrabold tracking-[0.16em] text-[#486572] uppercase">
-                      {sublabel}
-                    </p>
-                  </div>
-                  <span
-                    aria-hidden="true"
-                    className={cn(
-                      'absolute bg-[#ddcdbb] lg:left-1/2 lg:h-[46px] lg:w-px lg:-translate-x-1/2',
-                      index < timelineProof.length - 1
-                        ? 'right-0 h-16 w-px lg:right-auto lg:bottom-[-23px]'
-                        : 'hidden',
-                    )}
-                  />
-                  <span
-                    aria-hidden="true"
-                    className="absolute top-1/2 right-[-4px] hidden size-2 -translate-y-1/2 rounded-full bg-[var(--fairlend-orange)] lg:block"
-                  />
-                </div>
-              ))}
+        .leadership-shell::before {
+          top: 28px;
+          left: 28px;
+        }
+
+        .leadership-shell::after {
+          right: 28px;
+          bottom: 28px;
+          transform: rotate(180deg);
+        }
+
+        .leadership-frame::before {
+          top: 12px;
+          right: 12px;
+          transform: rotate(90deg);
+        }
+
+        .leadership-frame::after {
+          bottom: 12px;
+          left: 12px;
+          transform: rotate(-90deg);
+        }
+
+        .leadership-header {
+          position: relative;
+          display: grid;
+          grid-template-columns: minmax(0, 0.82fr) minmax(280px, 0.38fr);
+          gap: 40px;
+          align-items: end;
+          padding: 4px 24px 16px;
+        }
+
+        .leadership-kicker {
+          gap: 18px;
+        }
+
+        .leadership-kicker span {
+          font-size: 96px;
+        }
+
+        .leadership-kicker p {
+          font-size: 29px;
+        }
+
+        .leadership-intro {
+          max-width: 760px;
+          margin: 14px 0 0;
+          color: var(--leadership-muted);
+          font-family: var(--font-inter), ui-sans-serif, sans-serif;
+          font-size: 18px;
+          font-weight: 650;
+          line-height: 1.4;
+          text-wrap: balance;
+        }
+
+        .leadership-header-meta {
+          justify-self: end;
+          width: min(100%, 380px);
+          border-top: 2px solid var(--leadership-line-soft);
+          padding-top: 18px;
+          text-align: right;
+        }
+
+        .leadership-header-meta strong {
+          display: block;
+          color: var(--leadership-orange);
+          font-size: 11px;
+          font-weight: 900;
+          letter-spacing: 0.16em;
+          line-height: 1;
+          text-transform: uppercase;
+        }
+
+        .leadership-header-meta span {
+          display: block;
+          margin-top: 8px;
+          color: rgb(45 70 64 / 74%);
+          font-size: 12px;
+          font-weight: 850;
+          letter-spacing: 0.16em;
+          line-height: 1.35;
+          text-transform: uppercase;
+        }
+
+        .leadership-ledger-tabs {
+          display: flex;
+          justify-content: flex-end;
+          gap: 14px;
+          margin-bottom: 18px;
+        }
+
+        .leadership-ledger-tabs span {
+          width: 58px;
+          height: 8px;
+          border: 2px solid rgb(8 45 35 / 28%);
+          background: rgb(200 169 136 / 54%);
+          box-shadow: inset 0 1px 0 rgb(255 255 255 / 48%);
+        }
+
+        .leadership-frame {
+          position: relative;
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(300px, 0.32fr);
+          grid-template-rows: minmax(0, 1fr) auto;
+          gap: 24px;
+          align-self: stretch;
+          min-height: 0;
+          overflow: hidden;
+          border: 2px solid var(--leadership-line);
+          background: rgb(255 253 247 / 62%);
+          box-shadow: inset 0 1px 0 rgb(255 255 255 / 72%);
+          will-change: clip-path, opacity, transform;
+        }
+
+        .leadership-frame-line {
+          position: absolute;
+          z-index: 8;
+          pointer-events: none;
+          background: var(--leadership-line);
+          opacity: 0.95;
+          will-change: opacity, transform;
+        }
+
+        .leadership-frame-line[data-leadership-frame-line="top"],
+        .leadership-frame-line[data-leadership-frame-line="bottom"] {
+          right: 0;
+          left: 0;
+          height: 2px;
+          transform-origin: left center;
+        }
+
+        .leadership-frame-line[data-leadership-frame-line="top"] {
+          top: 0;
+        }
+
+        .leadership-frame-line[data-leadership-frame-line="bottom"] {
+          bottom: 0;
+          transform-origin: right center;
+        }
+
+        .leadership-frame-line[data-leadership-frame-line="right"],
+        .leadership-frame-line[data-leadership-frame-line="left"] {
+          top: 0;
+          bottom: 0;
+          width: 2px;
+          transform-origin: center top;
+        }
+
+        .leadership-frame-line[data-leadership-frame-line="right"] {
+          right: 0;
+        }
+
+        .leadership-frame-line[data-leadership-frame-line="left"] {
+          left: 0;
+          transform-origin: center bottom;
+        }
+
+        .leadership-main-panel {
+          position: relative;
+          display: grid;
+          min-height: 0;
+          grid-template-columns: minmax(330px, 0.46fr) minmax(0, 0.54fr);
+          overflow: hidden;
+          border-right: 2px solid var(--leadership-line-soft);
+          background:
+            radial-gradient(circle at 72% 18%, rgb(255 253 247 / 78%), transparent 26rem),
+            linear-gradient(180deg, rgb(255 253 247 / 90%), rgb(250 244 235 / 76%));
+        }
+
+        .leadership-main-panel::before,
+        .leadership-main-panel::after {
+          position: absolute;
+          inset-inline: 0;
+          z-index: 3;
+          height: 2px;
+          background: var(--leadership-line-soft);
+          content: "";
+        }
+
+        .leadership-main-panel::before {
+          top: 0;
+        }
+
+        .leadership-main-panel::after {
+          bottom: 0;
+        }
+
+        .leadership-copy-panel {
+          position: relative;
+          z-index: 2;
+          display: flex;
+          flex-direction: column;
+          min-width: 0;
+          min-height: 0;
+          padding: 28px 32px 22px;
+        }
+
+        .leadership-panel-index {
+          position: absolute;
+          top: 28px;
+          right: 28px;
+          color: rgb(20 43 36 / 18%);
+          font-size: 28px;
+          font-weight: 900;
+          letter-spacing: 0.04em;
+          line-height: 1;
+        }
+
+        .leadership-eyebrow {
+          display: inline-flex;
+          width: fit-content;
+          align-items: center;
+          gap: 12px;
+          color: var(--leadership-orange);
+          font-size: 11px;
+          font-weight: 900;
+          letter-spacing: 0.18em;
+          line-height: 1;
+          text-transform: uppercase;
+        }
+
+        .leadership-eyebrow::after {
+          display: block;
+          width: 72px;
+          height: 2px;
+          background: var(--leadership-line-soft);
+          content: "";
+        }
+
+        .leadership-title {
+          max-width: 580px;
+          margin: 16px 0 0;
+          color: var(--leadership-ink);
+          font-family: var(--about-display);
+          font-size: 64px;
+          font-weight: 400;
+          letter-spacing: 0;
+          line-height: 0.9;
+          text-transform: uppercase;
+          text-wrap: balance;
+        }
+
+        .leadership-title-line {
+          display: block;
+          overflow: hidden;
+        }
+
+        .leadership-title-line > span {
+          display: block;
+          will-change: opacity, transform;
+        }
+
+        .leadership-summary {
+          max-width: 560px;
+          margin: 16px 0 0;
+          color: var(--leadership-muted);
+          font-family: var(--font-inter), ui-sans-serif, sans-serif;
+          font-size: 15px;
+          font-weight: 600;
+          line-height: 1.45;
+          text-wrap: pretty;
+        }
+
+        .leadership-capabilities {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          margin-top: 18px;
+          border-top: 2px solid var(--leadership-line-soft);
+          border-left: 2px solid var(--leadership-line-soft);
+        }
+
+        .leadership-capability {
+          position: relative;
+          display: grid;
+          min-width: 0;
+          grid-template-columns: 42px minmax(0, 1fr);
+          gap: 12px;
+          overflow: hidden;
+          padding: 14px 14px 14px 0;
+          border-right: 2px solid var(--leadership-line-soft);
+          border-bottom: 2px solid var(--leadership-line-soft);
+        }
+
+        .leadership-capability-flash {
+          position: absolute;
+          inset: 0 auto 0 0;
+          width: 100%;
+          pointer-events: none;
+          background: linear-gradient(90deg, transparent, rgb(255 92 52 / 16%), transparent);
+          transform: translateX(-110%);
+          opacity: 0;
+          content: "";
+        }
+
+        .leadership-capability-icon {
+          display: grid;
+          width: 42px;
+          height: 42px;
+          place-items: center;
+          color: var(--leadership-ink);
+        }
+
+        .leadership-capability:nth-child(even) .leadership-capability-icon {
+          color: var(--leadership-orange);
+        }
+
+        .leadership-capability h3 {
+          margin: 0;
+          color: var(--leadership-ink);
+          font-size: 13px;
+          font-weight: 900;
+          line-height: 1.05;
+          text-transform: uppercase;
+        }
+
+        .leadership-capability p {
+          margin: 7px 0 0;
+          color: var(--leadership-muted);
+          font-family: var(--font-inter), ui-sans-serif, sans-serif;
+          font-size: 12px;
+          font-weight: 600;
+          line-height: 1.35;
+        }
+
+        .leadership-actions {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 14px;
+          align-items: center;
+          margin-top: auto;
+          padding-top: 18px;
+        }
+
+        .leadership-cta {
+          position: relative;
+          min-height: 48px;
+          overflow: hidden;
+          border: 0;
+          border-radius: 999px;
+          background: var(--leadership-orange);
+          padding: 0 10px 0 22px;
+          color: white;
+          font-size: 12px;
+          font-weight: 900;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 34%),
+            0 16px 34px rgb(255 92 52 / 20%);
+        }
+
+        .leadership-cta:hover {
+          background: oklch(0.58 0.2 35);
+        }
+
+        .leadership-cta span {
+          display: grid;
+          width: 34px;
+          height: 34px;
+          place-items: center;
+          border: 2px solid rgb(255 255 255 / 72%);
+          border-radius: 999px;
+        }
+
+        .leadership-cta span svg {
+          transition: transform 220ms ease;
+        }
+
+        .leadership-cta:hover span svg {
+          transform: translateX(2px) rotate(10deg);
+        }
+
+        .leadership-license {
+          margin: 0;
+          color: rgb(45 70 64 / 76%);
+          font-size: 11px;
+          font-weight: 850;
+          letter-spacing: 0.12em;
+          line-height: 1.3;
+          text-transform: uppercase;
+        }
+
+        .leadership-visual-panel {
+          position: relative;
+          z-index: 1;
+          min-width: 0;
+          overflow: hidden;
+          border-left: 2px solid var(--leadership-line-soft);
+          background: rgb(255 253 247 / 36%);
+        }
+
+        .leadership-visual-grid,
+        .leadership-visual-sweep,
+        .leadership-route-overlay {
+          position: absolute;
+          pointer-events: none;
+        }
+
+        .leadership-visual-panel::before {
+          position: absolute;
+          inset: 0;
+          z-index: 2;
+          pointer-events: none;
+          background:
+            linear-gradient(90deg, rgb(255 253 247 / 82%) 0%, transparent 22%),
+            linear-gradient(180deg, rgb(255 253 247 / 74%) 0%, transparent 20%, transparent 78%, rgb(250 244 235 / 70%) 100%);
+          content: "";
+        }
+
+        .leadership-visual-panel img {
+          object-fit: cover;
+          object-position: 56% 52%;
+          mix-blend-mode: multiply;
+          will-change: filter, transform;
+        }
+
+        .leadership-visual-grid {
+          inset: 0;
+          z-index: 3;
+          background-image:
+            linear-gradient(90deg, rgb(55 91 99 / 15%) 1px, transparent 1px),
+            linear-gradient(180deg, rgb(55 91 99 / 15%) 1px, transparent 1px),
+            radial-gradient(circle, rgb(8 45 35 / 18%) 1px, transparent 1.5px);
+          background-position: center;
+          background-size: 74px 74px, 74px 74px, 18px 18px;
+          mix-blend-mode: multiply;
+          opacity: 0;
+          will-change: opacity, transform;
+        }
+
+        .leadership-visual-sweep {
+          top: -18%;
+          bottom: -18%;
+          left: 0;
+          z-index: 4;
+          width: 38%;
+          background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgb(255 253 247 / 72%) 42%,
+            rgb(255 92 52 / 16%) 56%,
+            transparent 100%
+          );
+          mix-blend-mode: screen;
+          transform: translateX(-140%) skewX(-12deg);
+          opacity: 0;
+          will-change: opacity, transform;
+        }
+
+        .leadership-route-overlay {
+          inset: 13% 8% 10% 10%;
+          z-index: 5;
+          width: 82%;
+          height: 77%;
+          overflow: visible;
+          mix-blend-mode: multiply;
+        }
+
+        .leadership-route-overlay path {
+          fill: none;
+          stroke: var(--leadership-orange);
+          stroke-width: 2.8;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+
+        .leadership-route-dot {
+          fill: var(--leadership-orange);
+          filter: drop-shadow(0 3px 5px rgb(255 92 52 / 24%));
+        }
+
+        .leadership-proof-grid {
+          display: grid;
+          min-width: 0;
+          grid-template-columns: minmax(0, 1fr);
+          grid-auto-rows: minmax(0, 1fr);
+          gap: 0;
+        }
+
+        .leadership-proof-card {
+          position: relative;
+          display: grid;
+          min-height: 0;
+          grid-template-columns: 56px minmax(0, 1fr);
+          gap: 16px;
+          align-content: center;
+          border: 0;
+          border-bottom: 2px solid var(--leadership-line-soft);
+          border-radius: 0;
+          background:
+            radial-gradient(circle at 84% 10%, rgb(255 255 251 / 64%), transparent 10rem),
+            rgb(255 253 247 / 68%);
+          padding: 16px 20px;
+          box-shadow: none;
+          transform-style: preserve-3d;
+          will-change: opacity, transform;
+        }
+
+        .leadership-proof-pulse {
+          position: absolute;
+          top: -2px;
+          right: 0;
+          left: 0;
+          height: 2px;
+          pointer-events: none;
+          background: linear-gradient(90deg, transparent, var(--leadership-orange), transparent);
+          transform: scaleX(0);
+          transform-origin: left center;
+          opacity: 0;
+          will-change: opacity, transform;
+        }
+
+        .leadership-proof-card:last-child {
+          border-bottom: 0;
+        }
+
+        .leadership-proof-card::after {
+          position: absolute;
+          top: 16px;
+          right: 18px;
+          color: rgb(20 43 36 / 16%);
+          font-size: 18px;
+          font-weight: 900;
+          line-height: 1;
+          content: attr(data-proof-index);
+        }
+
+        .leadership-proof-icon {
+          display: grid;
+          width: 56px;
+          height: 56px;
+          place-items: center;
+          border: 2px solid rgb(8 45 35 / 17%);
+          border-radius: 8px;
+          color: var(--leadership-ink);
+          background: rgb(255 253 247 / 68%);
+        }
+
+        .leadership-proof-card:nth-child(even) .leadership-proof-icon {
+          color: var(--leadership-blueprint);
+        }
+
+        .leadership-proof-value {
+          display: block;
+          color: var(--leadership-ink);
+          font-family: var(--about-display);
+          font-size: 46px;
+          font-weight: 400;
+          letter-spacing: 0;
+          line-height: 0.9;
+          text-transform: uppercase;
+        }
+
+        .leadership-proof-label {
+          display: block;
+          margin-top: 6px;
+          color: var(--leadership-orange);
+          font-size: 10px;
+          font-weight: 900;
+          letter-spacing: 0.13em;
+          line-height: 1.15;
+          text-transform: uppercase;
+        }
+
+        .leadership-proof-card:nth-child(even) .leadership-proof-label {
+          color: var(--leadership-blueprint);
+        }
+
+        .leadership-proof-detail {
+          grid-column: 2;
+          margin: 7px 0 0;
+          color: var(--leadership-muted);
+          font-family: var(--font-inter), ui-sans-serif, sans-serif;
+          font-size: 12px;
+          font-weight: 600;
+          line-height: 1.35;
+        }
+
+        .leadership-footer {
+          display: grid;
+          grid-column: 1 / -1;
+          grid-template-columns: minmax(0, 1fr) auto;
+          gap: 24px;
+          align-items: center;
+          border-top: 2px solid var(--leadership-line);
+          background: rgb(255 253 247 / 56%);
+          padding: 12px 22px;
+        }
+
+        .leadership-quote {
+          display: grid;
+          grid-template-columns: 44px minmax(0, 1fr);
+          gap: 16px;
+          align-items: center;
+          margin: 0;
+          color: var(--leadership-ink);
+          font-family: var(--font-inter), ui-sans-serif, sans-serif;
+          font-size: 13px;
+          font-weight: 650;
+          line-height: 1.35;
+        }
+
+        .leadership-quote [data-leadership-quote-mark] {
+          color: var(--leadership-orange);
+          font-family: Georgia, serif;
+          font-size: 42px;
+          font-weight: 700;
+          line-height: 1;
+        }
+
+        .leadership-quote-copy {
+          display: block;
+          overflow: hidden;
+        }
+
+        .leadership-quote-copy > span {
+          display: block;
+          will-change: opacity, transform;
+        }
+
+        .leadership-commitments {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-end;
+          gap: 0;
+        }
+
+        .leadership-commitment {
+          display: inline-grid;
+          grid-template-columns: 24px minmax(0, 110px);
+          gap: 10px;
+          align-items: center;
+          min-height: 40px;
+          border-left: 2px solid var(--leadership-line-soft);
+          padding: 0 16px;
+          color: var(--leadership-ink);
+          font-size: 10px;
+          font-weight: 900;
+          line-height: 1.16;
+        }
+
+        @media (max-width: 1400px) {
+          .leadership-shell {
+            padding: 24px;
+          }
+
+          .leadership-header {
+            grid-template-columns: 1fr;
+            gap: 22px;
+          }
+
+          .leadership-header-meta {
+            justify-self: start;
+            text-align: left;
+          }
+
+          .leadership-frame {
+            grid-template-columns: 1fr;
+          }
+
+          .leadership-main-panel {
+            border-right: 0;
+            border-bottom: 2px solid var(--leadership-line-soft);
+          }
+
+          .leadership-proof-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+          }
+
+          .leadership-proof-card {
+            min-height: 0;
+            grid-template-columns: minmax(0, 1fr);
+            border-right: 2px solid var(--leadership-line-soft);
+            border-bottom: 0;
+          }
+
+          .leadership-proof-card:last-child {
+            border-right: 0;
+          }
+
+          .leadership-proof-detail {
+            grid-column: auto;
+          }
+        }
+
+        @media (max-width: 1024px) {
+          .leadership-model-section,
+          .leadership-shell {
+            min-height: 0;
+            height: auto;
+          }
+
+          .leadership-shell {
+            padding: 30px 22px;
+          }
+
+          .leadership-shell::before,
+          .leadership-shell::after,
+          .leadership-frame::before,
+          .leadership-frame::after {
+            display: none;
+          }
+
+          .leadership-header {
+            padding: 0 0 24px;
+          }
+
+          .leadership-kicker span {
+            font-size: 64px;
+          }
+
+          .leadership-kicker p {
+            font-size: 22px;
+          }
+
+          .leadership-intro {
+            max-width: 660px;
+            font-size: 17px;
+          }
+
+          .leadership-frame {
+            border-width: 2px;
+          }
+
+          .leadership-main-panel {
+            grid-template-columns: 1fr;
+          }
+
+          .leadership-copy-panel {
+            padding: 32px 24px 28px;
+          }
+
+          .leadership-title {
+            max-width: 620px;
+            font-size: 58px;
+          }
+
+          .leadership-visual-panel {
+            min-height: 390px;
+            border-top: 2px solid var(--leadership-line-soft);
+            border-left: 0;
+            order: -1;
+          }
+
+          .leadership-visual-panel::before {
+            background:
+              linear-gradient(180deg, rgb(255 253 247 / 40%) 0%, transparent 18%, transparent 76%, rgb(250 244 235 / 76%) 100%),
+              linear-gradient(90deg, rgb(255 253 247 / 64%) 0%, transparent 22%);
+          }
+
+          .leadership-proof-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+
+          .leadership-proof-card:nth-child(2) {
+            border-right: 0;
+          }
+
+          .leadership-proof-card:nth-child(-n + 2) {
+            border-bottom: 2px solid var(--leadership-line-soft);
+          }
+
+          .leadership-footer {
+            grid-template-columns: 1fr;
+          }
+
+          .leadership-commitments {
+            justify-content: flex-start;
+          }
+
+          .leadership-commitment {
+            border-left: 0;
+            border-right: 2px solid var(--leadership-line-soft);
+            padding: 0 16px 0 0;
+          }
+        }
+
+        @media (max-width: 720px) {
+          .leadership-shell {
+            padding: 28px 16px;
+          }
+
+          .leadership-header {
+            gap: 18px;
+          }
+
+          .leadership-ledger-tabs {
+            justify-content: flex-start;
+          }
+
+          .leadership-ledger-tabs span {
+            width: 46px;
+          }
+
+          .leadership-kicker {
+            gap: 12px;
+          }
+
+          .leadership-kicker span {
+            font-size: 46px;
+          }
+
+          .leadership-kicker p {
+            font-size: 18px;
+          }
+
+          .leadership-intro {
+            margin-top: 16px;
+            font-size: 15px;
+            line-height: 1.44;
+          }
+
+          .leadership-copy-panel {
+            padding: 26px 18px 24px;
+          }
+
+          .leadership-title {
+            font-size: 44px;
+          }
+
+          .leadership-summary {
+            font-size: 14px;
+          }
+
+          .leadership-visual-panel {
+            min-height: 280px;
+          }
+
+          .leadership-capabilities,
+          .leadership-proof-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .leadership-capability {
+            grid-template-columns: 36px minmax(0, 1fr);
+            gap: 12px;
+            padding: 15px 12px 15px 0;
+          }
+
+          .leadership-capability-icon {
+            width: 36px;
+            height: 36px;
+          }
+
+          .leadership-actions {
+            align-items: flex-start;
+            flex-direction: column;
+          }
+
+          .leadership-proof-card,
+          .leadership-proof-card:nth-child(2),
+          .leadership-proof-card:nth-child(-n + 2) {
+            min-height: 0;
+            grid-template-columns: 48px minmax(0, 1fr);
+            border-right: 0;
+            border-bottom: 2px solid var(--leadership-line-soft);
+            padding: 20px 18px;
+          }
+
+          .leadership-proof-card:last-child {
+            border-bottom: 0;
+          }
+
+          .leadership-proof-icon {
+            width: 48px;
+            height: 48px;
+          }
+
+          .leadership-proof-value {
+            font-size: 46px;
+          }
+
+          .leadership-proof-detail {
+            grid-column: 2;
+          }
+
+          .leadership-footer {
+            padding: 18px;
+          }
+
+          .leadership-quote {
+            grid-template-columns: 1fr;
+            gap: 6px;
+            font-size: 12px;
+          }
+
+          .leadership-commitments {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+          }
+
+          .leadership-commitment {
+            min-height: 0;
+            grid-template-columns: 24px minmax(0, 1fr);
+            border-right: 0;
+            padding: 0;
+          }
+        }
+      `}</style>
+
+      <div className="leadership-shell">
+        <header className="leadership-header" data-leadership-header>
+          <div>
+            <FairlendSectionKicker
+              className="leadership-kicker"
+              label="Leadership"
+              labelId="fairlend-leadership-title"
+              labelProps={{ 'data-leadership-kicker-label': true }}
+              number="05"
+              numberProps={{ 'data-leadership-kicker-number': true }}
+              slashProps={{ 'data-leadership-kicker-slash': true }}
+            />
+            <p className="leadership-intro" data-leadership-intro data-leadership-reveal>
+              Deal-tested guidance for borrowers, builders, investors, and brokers who need
+              disciplined capital advice before the structure gets expensive.
+            </p>
+          </div>
+
+          <div
+            className="leadership-header-meta"
+            aria-label="Leadership section status"
+            data-leadership-meta
+          >
+            <div className="leadership-ledger-tabs" aria-hidden="true">
+              <span data-leadership-ledger-tab />
+              <span data-leadership-ledger-tab />
+              <span data-leadership-ledger-tab />
             </div>
+            <strong>The FairLend Model</strong>
+            <span>05 of 05 / principal broker / capital relationships</span>
+          </div>
+        </header>
 
-            <div className="relative min-w-0 py-0 pr-4 lg:py-3 lg:pr-[clamp(48px,5vw,84px)] xl:py-0 xl:pr-14">
-              <div className="relative grid gap-4 lg:gap-3">
-                {testimonialCards.map(({ icon: Icon, name, partner, quote, role }) => (
-                  <article
-                    className="grid gap-5 border border-[#e4d8ca] bg-[#fffdf8]/91 p-5 shadow-[0_18px_44px_rgb(51_38_24/11%)] backdrop-blur-sm sm:grid-cols-[minmax(0,1fr)_132px] sm:p-6 lg:min-h-0 lg:gap-3 lg:rounded-[16px] lg:p-4 xl:grid-cols-[minmax(0,1fr)_96px]"
-                    key={name}
-                  >
-                    <div className="grid grid-cols-[56px_minmax(0,1fr)] gap-4 lg:grid-cols-[36px_minmax(0,1fr)] lg:gap-3">
-                      <span className="font-serif text-[5.5rem] leading-[0.68] font-bold text-[#063d43] lg:text-[3.6rem]">“</span>
-                      <div>
-                        <p className="max-w-[36rem] text-[clamp(1.15rem,1.52vw,1.65rem)] leading-[1.16] font-extrabold tracking-normal text-[#082d35] lg:text-[clamp(0.95rem,0.96vw,1.04rem)] lg:leading-[1.18]">
-                          {quote}
-                        </p>
-                        <p className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.7rem] leading-none font-extrabold tracking-[0.18em] text-[#082d35] uppercase lg:mt-3 lg:gap-x-3 lg:text-[0.6rem] lg:tracking-[0.13em]">
-                          <span>{name}</span>
-                          <span aria-hidden="true" className="h-4 w-px bg-[#cdbfac]" />
-                          <span className="text-[#486572]">{role}</span>
-                        </p>
-                      </div>
+        <div className="leadership-frame" data-leadership-frame>
+          <span className="leadership-frame-line" data-leadership-frame-line="top" />
+          <span className="leadership-frame-line" data-leadership-frame-line="right" />
+          <span className="leadership-frame-line" data-leadership-frame-line="bottom" />
+          <span className="leadership-frame-line" data-leadership-frame-line="left" />
+          <article className="leadership-main-panel" data-leadership-main data-leadership-reveal>
+            <div className="leadership-copy-panel">
+              <span className="leadership-panel-index" aria-hidden="true" data-leadership-index>
+                01
+              </span>
+              <span className="leadership-eyebrow" data-leadership-copy-item>
+                Principal broker
+              </span>
+              <h3
+                className="leadership-title about-text-textured"
+                data-leadership-title
+              >
+                <span className="leadership-title-line" data-leadership-title-line>
+                  <span>Trusted guidance built</span>
+                </span>
+                <span className="leadership-title-line" data-leadership-title-line>
+                  <span>on real deal experience.</span>
+                </span>
+              </h3>
+              <p className="leadership-summary" data-leadership-copy-item>
+                FairLend combines mortgage brokerage discipline, builder-side insight, and
+                practical structuring support to move financing conversations from uncertainty to a
+                workable capital plan.
+              </p>
+
+              <div className="leadership-capabilities" aria-label="Leadership capabilities">
+                {capabilities.map(({ copy, Icon, title }) => (
+                  <div className="leadership-capability" data-leadership-capability key={title}>
+                    <span
+                      className="leadership-capability-flash"
+                      aria-hidden="true"
+                      data-leadership-capability-flash
+                    />
+                    <span
+                      className="leadership-capability-icon"
+                      aria-hidden="true"
+                      data-leadership-capability-icon
+                    >
+                      <Icon size={25} strokeWidth={1.8} />
+                    </span>
+                    <div>
+                      <h3 data-leadership-capability-title>{title}</h3>
+                      <p data-leadership-capability-copy>{copy}</p>
                     </div>
-                    <div className="grid border-t border-[#ded2c4] pt-5 text-center sm:border-t-0 sm:border-l sm:pt-0 sm:pl-5 lg:pl-3">
-                      <span className="mx-auto grid size-16 place-items-center rounded-full border border-[#ddd1c2] text-[#082d35] lg:size-12">
-                        <Icon aria-hidden="true" className="size-8 lg:size-6" strokeWidth={1.45} />
-                      </span>
-                      <p className="mt-3 self-end text-[0.72rem] leading-[1.16] font-extrabold tracking-[0.12em] text-[#082d35] uppercase lg:mt-2 lg:text-[0.6rem] lg:tracking-[0.08em]">
-                        {partner}
-                      </p>
-                    </div>
-                  </article>
+                  </div>
                 ))}
               </div>
+
+              <div className="leadership-actions" data-leadership-actions>
+                <Button asChild className="leadership-cta" size="clear">
+                  <Link href="/contact" data-leadership-cta>
+                    Meet our leadership
+                    <span aria-hidden="true" data-leadership-cta-arrow>
+                      <ArrowRight size={21} strokeWidth={1.9} />
+                    </span>
+                  </Link>
+                </Button>
+                <p className="leadership-license">Mortgage brokerage & investment leadership</p>
+              </div>
+            </div>
+
+            <div className="leadership-visual-panel" aria-hidden="true" data-leadership-visual>
+              <Image
+                alt=""
+                decoding="async"
+                fill
+                priority={false}
+                sizes="(max-width: 1024px) 100vw, (max-width: 1400px) 54vw, 42vw"
+                src={leadershipAsset}
+              />
+              <span className="leadership-visual-grid" data-leadership-visual-grid />
+              <span className="leadership-visual-sweep" data-leadership-visual-sweep />
+              <svg
+                className="leadership-route-overlay"
+                aria-hidden="true"
+                data-leadership-route-overlay
+                focusable="false"
+                viewBox="0 0 420 280"
+              >
+                <path
+                  d="M72 218 C116 190 126 166 163 166 C206 166 212 119 250 119 C290 119 302 82 348 66"
+                  data-leadership-route-path
+                />
+                <circle className="leadership-route-dot" cx="72" cy="218" r="4.5" />
+                <circle className="leadership-route-dot" cx="163" cy="166" r="4.5" />
+                <circle className="leadership-route-dot" cx="250" cy="119" r="4.5" />
+                <circle className="leadership-route-dot" cx="348" cy="66" r="5.5" />
+              </svg>
+            </div>
+          </article>
+
+          <aside
+            className="leadership-proof-grid"
+            aria-label="Leadership proof points"
+            data-leadership-proof-grid
+          >
+            {leadershipProof.map(({ detail, Icon, label, value }, index) => (
+              <Card
+                className="leadership-proof-card"
+                data-leadership-proof-card
+                data-proof-index={String(index + 2).padStart(2, '0')}
+                key={label}
+                render={<div />}
+              >
+                <span
+                  className="leadership-proof-pulse"
+                  aria-hidden="true"
+                  data-leadership-proof-pulse
+                />
+                <span
+                  className="leadership-proof-icon"
+                  aria-hidden="true"
+                  data-leadership-proof-icon
+                >
+                  <Icon size={30} strokeWidth={1.65} />
+                </span>
+                <div>
+                  <span
+                    className="leadership-proof-value"
+                    data-leadership-proof-value
+                    data-proof-value-target={value}
+                  >
+                    {value}
+                  </span>
+                  <span className="leadership-proof-label" data-leadership-proof-label>
+                    {label}
+                  </span>
+                </div>
+                <p className="leadership-proof-detail" data-leadership-proof-detail>
+                  {detail}
+                </p>
+              </Card>
+            ))}
+          </aside>
+
+          <div className="leadership-footer" data-leadership-footer data-leadership-reveal>
+            <p className="leadership-quote" data-leadership-quote>
+              <span aria-hidden="true" data-leadership-quote-mark>
+                “
+              </span>
+              <span className="leadership-quote-copy">
+                <span data-leadership-quote-copy>
+                  Our commitment is simple: align with your goals, manage risk intelligently, and
+                  deliver financing that creates long-term value.
+                </span>
+              </span>
+            </p>
+            <div className="leadership-commitments" aria-label="Leadership commitments">
+              {commitments.map(({ Icon, label }) => (
+                <span className="leadership-commitment" data-leadership-commitment key={label}>
+                  <Icon aria-hidden="true" size={23} strokeWidth={1.75} />
+                  {label}
+                </span>
+              ))}
             </div>
           </div>
         </div>
-
-        <VerticalProofRail />
       </div>
 
-      <div className="relative z-[1] mx-auto mt-6 grid w-full max-w-[1710px] gap-3 border-y border-[#dfd2c2] py-4 text-[0.72rem] font-extrabold tracking-[0.18em] text-[#486572] uppercase sm:grid-cols-3 lg:hidden">
-        {['Underwriting discipline', 'Capital relationships', 'Local market judgment'].map((item) => (
-          <span className="flex items-center gap-2" key={item}>
-            <BadgeCheck aria-hidden="true" className="size-4 text-[var(--fairlend-orange)]" />
-            {item}
-          </span>
-        ))}
-      </div>
-
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute right-[6%] bottom-[6%] z-0 hidden h-px w-[36%] bg-[linear-gradient(90deg,transparent,rgb(255_58_25/70%),transparent)] lg:block"
-      />
-      <Handshake aria-hidden="true" className="absolute right-[7.5%] bottom-[8.5%] z-0 hidden size-8 text-[var(--fairlend-orange)] opacity-55 lg:block" />
-      <Banknote aria-hidden="true" className="absolute right-[12%] top-[31%] z-0 hidden size-7 text-[var(--fairlend-orange)] opacity-55 lg:block" />
     </section>
   )
 }

@@ -198,6 +198,20 @@ function BoatImage({
   const x = useMotionValue(staticFrame.x)
   const y = useMotionValue(staticFrame.y)
 
+  useEffect(() => {
+    if (layerSize.height === 0 || layerSize.width === 0) {
+      return
+    }
+
+    const frame = getBoatFrame(image, 0, layerSize, viewBox)
+
+    rotate.set(frame.rotate)
+    scaleX.set(frame.scaleX)
+    width.set(frame.width)
+    x.set(frame.x)
+    y.set(frame.y)
+  }, [image, layerSize.height, layerSize.width, rotate, scaleX, viewBox, width, x, y])
+
   useAnimationFrame((time) => {
     if (reduceMotion || layerSize.height === 0 || layerSize.width === 0) {
       return

@@ -59,7 +59,7 @@ describe('FairlendApplicationForm', () => {
       'bottom-[calc(5.45%+var(--hero-stats-height,0px)+clamp(78px,7vw,124px))]',
     )
     expect(form.className).toContain(
-      'hero-landscape:bottom-[calc(3.2%+var(--hero-stats-height,0px)+clamp(78px,7vw,124px))]',
+      'hero-landscape:bottom-[calc(6.4%+var(--hero-stats-height,0px)+clamp(78px,7vw,124px))]',
     )
     expect(form.firstElementChild?.className).toContain('overflow-visible')
   })
