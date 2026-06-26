@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -11,7 +11,7 @@ function isElement(element: Element | null): element is Element {
 const leadershipProofNumberPattern = /^([^0-9]*)(\d+(?:\.\d+)?)(.*)$/
 
 export function FairlendScrollChoreography() {
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     gsap.registerPlugin(ScrollTrigger)
@@ -417,7 +417,9 @@ export function FairlendScrollChoreography() {
           ? {
               anticipatePin: 1,
               end: '+=105%',
+              invalidateOnRefresh: true,
               pin: true,
+              refreshPriority: 40,
               scrub: 0.9,
               start: 'top top',
               trigger: services,
@@ -785,6 +787,7 @@ export function FairlendScrollChoreography() {
         const indexMark = select('[data-leadership-index]')
         const copyItems = select('[data-leadership-copy-item]')
         const titleLines = select('[data-leadership-title-line] > span')
+        const capabilityGrid = leadership.querySelector<HTMLElement>('.leadership-capabilities')
         const capabilities = select('[data-leadership-capability]')
         const capabilityIcons = select('[data-leadership-capability-icon]')
         const capabilityTitles = select('[data-leadership-capability-title]')
@@ -830,6 +833,9 @@ export function FairlendScrollChoreography() {
         gsap.set(frame, {
           autoAlpha: 1,
           borderColor: 'rgb(8 45 35 / 0%)',
+          scaleX: 0.001,
+          scaleY: 0.001,
+          transformOrigin: '50% 50%',
           y: 18,
         })
         gsap.set(frameLinesX, { scaleX: 0 })
@@ -874,6 +880,12 @@ export function FairlendScrollChoreography() {
           clipPath: 'inset(0% 0% 100% 0%)',
           y: 18,
         })
+        if (capabilityGrid) {
+          gsap.set(capabilityGrid, {
+            '--leadership-capabilities-left-scale': 0,
+            '--leadership-capabilities-top-scale': 0,
+          })
+        }
         gsap.set(capabilityIcons, {
           autoAlpha: 0,
           rotate: -8,
@@ -942,7 +954,10 @@ export function FairlendScrollChoreography() {
             ? {
                 anticipatePin: 1,
                 end: '+=145%',
+                invalidateOnRefresh: true,
+                markers: true,
                 pin: true,
+                refreshPriority: 10,
                 scrub: 0.85,
                 start: 'top top',
                 trigger: leadership,
@@ -962,7 +977,17 @@ export function FairlendScrollChoreography() {
             { duration: 0.48, ease: 'power2.inOut', scaleY: 1, stagger: 0.08 },
             0.08,
           )
-          .to(frame, { borderColor: 'rgb(8 45 35 / 34%)', duration: 0.22, y: 0 }, 0.2)
+          .to(
+            frame,
+            {
+              duration: 0.52,
+              ease: 'power2.inOut',
+              scaleX: 1,
+              scaleY: 1,
+              y: 0,
+            },
+            0,
+          )
           .to(kickerNumber, { autoAlpha: 1, clipPath: 'inset(0% 0% 0% 0%)', y: 0 }, 0)
           .to(
             kickerSlash,
@@ -1033,6 +1058,16 @@ export function FairlendScrollChoreography() {
             },
             0.86,
           )
+          .to(
+            capabilityGrid ? [capabilityGrid] : [],
+            {
+              '--leadership-capabilities-left-scale': 1,
+              '--leadership-capabilities-top-scale': 1,
+              duration: 0.44,
+              ease: 'power2.inOut',
+            },
+            1.22,
+          )
 
         capabilities.forEach((capability, index) => {
           const at = 1.28 + index * 0.075
@@ -1055,8 +1090,8 @@ export function FairlendScrollChoreography() {
             .to(icon, { autoAlpha: 1, duration: 0.24, rotate: 0, scale: 1, x: 0 }, at + 0.04)
             .to(title, { autoAlpha: 1, duration: 0.24, y: 0 }, at + 0.08)
             .to(copy, { autoAlpha: 1, duration: 0.3, y: 0 }, at + 0.12)
-            .to(flash, { autoAlpha: 1, duration: 0.1, scaleX: 1 }, at + 0.1)
-            .to(flash, { autoAlpha: 0, duration: 0.28, xPercent: 92 }, at + 0.2)
+            .to(flash, { autoAlpha: 1, duration: 0.14, scaleX: 1 }, at + 0.1)
+            .to(flash, { autoAlpha: 0, duration: 0.42, xPercent: 96 }, at + 0.22)
         })
 
         leadershipTimeline
@@ -1150,6 +1185,7 @@ export function FairlendScrollChoreography() {
             ease: 'none',
             scrollTrigger: {
               end: 'bottom top',
+              markers: true,
               scrub: 1,
               start: isDesktop ? 'top top' : 'top bottom',
               trigger: leadership,
@@ -1162,6 +1198,7 @@ export function FairlendScrollChoreography() {
           ease: 'none',
           scrollTrigger: {
             end: 'bottom top',
+            markers: true,
             scrub: 1,
             start: isDesktop ? 'top top' : 'top bottom',
             trigger: leadership,
@@ -1177,8 +1214,7 @@ export function FairlendScrollChoreography() {
         const whoSection =
           aboutStory.querySelector<HTMLElement>('[data-about-section="about-who"]') ?? aboutStory
         const financeSection =
-          aboutStory.querySelector<HTMLElement>('[data-about-section="about-finance"]') ??
-          aboutStory
+          aboutStory.querySelector<HTMLElement>('[data-about-section="about-finance"]') ?? aboutStory
         const whoNumber = select('[data-about-kicker-number="who"]')
         const whoSlash = select('[data-about-kicker-slash="who"]')
         const whoLabel = select('[data-about-kicker-label="who"]')
@@ -1194,6 +1230,7 @@ export function FairlendScrollChoreography() {
         )
         const expertiseIcons = select('[data-about-expertise-icon]')
         const financeCards = gsap.utils.toArray<HTMLElement>(select('[data-about-finance-card]'))
+        const skylineOpacity = 0.18
 
         const revealDefaults = {
           duration: 0.72,
@@ -1218,9 +1255,10 @@ export function FairlendScrollChoreography() {
           })
           if (skyline) {
             gsap.set(skyline, {
-              autoAlpha: 0.2,
-              scale: 1.04,
-              yPercent: 10,
+              autoAlpha: 0,
+              scale: 1,
+              xPercent: 0,
+              yPercent: 0,
             })
           }
           gsap.set(whoCopyLines, {
@@ -1352,15 +1390,11 @@ export function FairlendScrollChoreography() {
             .fromTo(
               skyline ? [skyline] : [],
               {
-                autoAlpha: 0.2,
-                scale: 1.04,
-                yPercent: 10,
+                autoAlpha: 0,
               },
               {
-                autoAlpha: 1,
+                autoAlpha: skylineOpacity,
                 duration: 0.72,
-                scale: 1,
-                yPercent: 0,
               },
               offset + 0.36,
             )
@@ -1600,7 +1634,9 @@ export function FairlendScrollChoreography() {
             scrollTrigger: {
               anticipatePin: 1,
               end: '+=105%',
+              invalidateOnRefresh: true,
               pin: true,
+              refreshPriority: 30,
               scrub: 0.85,
               start: 'top top',
               trigger: aboutStory,
@@ -1636,19 +1672,6 @@ export function FairlendScrollChoreography() {
           animateFinance(financeTimeline, 0)
         })
 
-        if (skyline) {
-          gsap.to(skyline, {
-            ease: 'none',
-            scrollTrigger: {
-              end: 'bottom top',
-              scrub: 1,
-              start: 'top bottom',
-              trigger: aboutStory,
-            },
-            xPercent: 2.5,
-            yPercent: -4,
-          })
-        }
       }
     })
 

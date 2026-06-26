@@ -18,7 +18,7 @@ import { FairlendSectionKicker } from '@/components/FairlendSectionKicker'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 
-const leadershipAsset = '/assets/fairlend-leadership-finance-vignette.webp'
+const leadershipAsset = '/assets/elie-headshot.jpg'
 
 const leadershipProof = [
   {
@@ -301,7 +301,7 @@ export function FairlendLeadershipSection() {
           align-self: stretch;
           min-height: 0;
           overflow: hidden;
-          border: 2px solid var(--leadership-line);
+          border: 2px solid transparent;
           background: rgb(255 253 247 / 62%);
           box-shadow: inset 0 1px 0 rgb(255 255 255 / 72%);
           will-change: clip-path, opacity, transform;
@@ -457,11 +457,40 @@ export function FairlendLeadershipSection() {
         }
 
         .leadership-capabilities {
+          position: relative;
           display: grid;
+          --leadership-capabilities-left-scale: 1;
+          --leadership-capabilities-top-scale: 1;
           grid-template-columns: repeat(2, minmax(0, 1fr));
           margin-top: 18px;
-          border-top: 2px solid var(--leadership-line-soft);
-          border-left: 2px solid var(--leadership-line-soft);
+        }
+
+        .leadership-capabilities::before,
+        .leadership-capabilities::after {
+          position: absolute;
+          z-index: 3;
+          pointer-events: none;
+          background: var(--leadership-line-soft);
+          content: "";
+          will-change: transform;
+        }
+
+        .leadership-capabilities::before {
+          top: 0;
+          right: 0;
+          left: 0;
+          height: 2px;
+          transform: scaleX(var(--leadership-capabilities-top-scale));
+          transform-origin: left center;
+        }
+
+        .leadership-capabilities::after {
+          top: 0;
+          bottom: 0;
+          left: 0;
+          width: 2px;
+          transform: scaleY(var(--leadership-capabilities-left-scale));
+          transform-origin: center top;
         }
 
         .leadership-capability {
@@ -479,9 +508,19 @@ export function FairlendLeadershipSection() {
         .leadership-capability-flash {
           position: absolute;
           inset: 0 auto 0 0;
-          width: 100%;
+          z-index: 1;
+          width: 118%;
           pointer-events: none;
-          background: linear-gradient(90deg, transparent, rgb(255 92 52 / 16%), transparent);
+          background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgb(255 92 52 / 10%) 18%,
+            rgb(255 92 52 / 34%) 44%,
+            rgb(255 219 194 / 48%) 52%,
+            rgb(255 92 52 / 24%) 64%,
+            transparent 100%
+          );
+          mix-blend-mode: multiply;
           transform: translateX(-110%);
           opacity: 0;
           content: "";
@@ -489,6 +528,8 @@ export function FairlendLeadershipSection() {
 
         .leadership-capability-icon {
           display: grid;
+          position: relative;
+          z-index: 2;
           width: 42px;
           height: 42px;
           place-items: center;
@@ -500,6 +541,8 @@ export function FairlendLeadershipSection() {
         }
 
         .leadership-capability h3 {
+          position: relative;
+          z-index: 2;
           margin: 0;
           color: var(--leadership-ink);
           font-size: 13px;
@@ -509,6 +552,8 @@ export function FairlendLeadershipSection() {
         }
 
         .leadership-capability p {
+          position: relative;
+          z-index: 2;
           margin: 7px 0 0;
           color: var(--leadership-muted);
           font-family: var(--font-inter), ui-sans-serif, sans-serif;
@@ -585,8 +630,7 @@ export function FairlendLeadershipSection() {
         }
 
         .leadership-visual-grid,
-        .leadership-visual-sweep,
-        .leadership-route-overlay {
+        .leadership-visual-sweep {
           position: absolute;
           pointer-events: none;
         }
@@ -640,28 +684,6 @@ export function FairlendLeadershipSection() {
           transform: translateX(-140%) skewX(-12deg);
           opacity: 0;
           will-change: opacity, transform;
-        }
-
-        .leadership-route-overlay {
-          inset: 13% 8% 10% 10%;
-          z-index: 5;
-          width: 82%;
-          height: 77%;
-          overflow: visible;
-          mix-blend-mode: multiply;
-        }
-
-        .leadership-route-overlay path {
-          fill: none;
-          stroke: var(--leadership-orange);
-          stroke-width: 2.8;
-          stroke-linecap: round;
-          stroke-linejoin: round;
-        }
-
-        .leadership-route-dot {
-          fill: var(--leadership-orange);
-          filter: drop-shadow(0 3px 5px rgb(255 92 52 / 24%));
         }
 
         .leadership-proof-grid {
@@ -1204,22 +1226,6 @@ export function FairlendLeadershipSection() {
               />
               <span className="leadership-visual-grid" data-leadership-visual-grid />
               <span className="leadership-visual-sweep" data-leadership-visual-sweep />
-              <svg
-                className="leadership-route-overlay"
-                aria-hidden="true"
-                data-leadership-route-overlay
-                focusable="false"
-                viewBox="0 0 420 280"
-              >
-                <path
-                  d="M72 218 C116 190 126 166 163 166 C206 166 212 119 250 119 C290 119 302 82 348 66"
-                  data-leadership-route-path
-                />
-                <circle className="leadership-route-dot" cx="72" cy="218" r="4.5" />
-                <circle className="leadership-route-dot" cx="163" cy="166" r="4.5" />
-                <circle className="leadership-route-dot" cx="250" cy="119" r="4.5" />
-                <circle className="leadership-route-dot" cx="348" cy="66" r="5.5" />
-              </svg>
             </div>
           </article>
 
