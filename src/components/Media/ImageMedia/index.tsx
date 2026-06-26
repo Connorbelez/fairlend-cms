@@ -12,6 +12,7 @@ import { cssVariables } from '@/cssVariables'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 
 const { breakpoints } = cssVariables
+const mediaImageQuality = 82
 
 // A base64 encoded image to use as a placeholder while the image is loading
 const placeholderBlur =
@@ -94,7 +95,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         placeholder="blur"
         blurDataURL={placeholderBlur}
         priority={priority}
-        quality={100}
+        quality={mediaImageQuality}
         loading={loading}
         sizes={sizes}
         src={src}
