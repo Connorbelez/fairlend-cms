@@ -16,12 +16,60 @@ function FairlendEditorialBridge() {
       data-fairlend-motion="editorial-bridge"
       data-testid="fairlend-editorial-bridge"
     >
+      <style>{`
+        .fairlend-editorial-bridge-card::after,
+        .fairlend-editorial-bridge-signals::before {
+          position: absolute;
+          right: 0;
+          left: 0;
+          height: 1px;
+          pointer-events: none;
+          background: linear-gradient(90deg, transparent, oklch(0.645 0.221 35), oklch(0.82 0.11 50 / 0.58), transparent);
+          content: "";
+        }
+
+        .fairlend-editorial-bridge-card::after {
+          top: 1.25rem;
+          right: 1.25rem;
+          left: 1.25rem;
+        }
+
+        .fairlend-editorial-bridge-signals {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .fairlend-editorial-bridge-signals::before {
+          top: 0;
+          transform: translateX(-112%);
+          animation: editorial-bridge-tracer 4.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+        }
+
+        @keyframes editorial-bridge-tracer {
+          0%,
+          18% {
+            transform: translateX(-112%);
+          }
+
+          58%,
+          100% {
+            transform: translateX(112%);
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .fairlend-editorial-bridge-signals::before {
+            animation: none;
+            transform: none;
+          }
+        }
+      `}</style>
       <Frame className="mx-auto w-full max-w-[1528px] rounded-2xl bg-muted/72 p-1 shadow-xs">
-        <Card className="relative isolate overflow-hidden rounded-xl border-[oklch(0.92_0.004_286.32)] bg-background shadow-[inset_0_1px_0_oklch(1_0_0/0.72)] before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(to_right,oklch(0.141_0.005_285.823/0.035)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.141_0.005_285.823/0.03)_1px,transparent_1px)] before:bg-[size:36px_36px]">
+        <Card className="fairlend-editorial-bridge-card relative isolate overflow-hidden rounded-xl border-[oklch(0.92_0.004_286.32)] bg-background shadow-[inset_0_1px_0_oklch(1_0_0/0.72)] before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(to_right,oklch(0.141_0.005_285.823/0.035)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.141_0.005_285.823/0.03)_1px,transparent_1px)] before:bg-[size:36px_36px]">
           <CardContent className="relative z-10 grid gap-6 p-5 md:grid-cols-[minmax(0,0.78fr)_minmax(280px,0.52fr)_minmax(0,1fr)] md:items-center sm:p-7">
             <div className="hidden h-px bg-[linear-gradient(90deg,transparent_0%,oklch(0.92_0.004_286.32)_18%,transparent_100%)] md:block" />
             <div className="border-y border-[oklch(0.92_0.004_286.32)] py-5">
-              <span className="mb-4 block h-1 w-10 rounded-full bg-[oklch(0.841_0.238_128.85)]" />
+              <span className="mb-4 block h-1 w-10 rounded-full bg-[oklch(0.645_0.221_35)]" />
               <Badge className="rounded-lg border-[oklch(0.841_0.238_128.85/0.34)] bg-[oklch(0.841_0.238_128.85/0.12)] px-2.5 py-1 text-[11px] font-semibold tracking-[0.24em] text-[oklch(0.405_0.101_131.063)] uppercase">
                 Signal to structure
               </Badge>
@@ -29,7 +77,7 @@ function FairlendEditorialBridge() {
                 Client proof becomes a financing path with fewer unknowns.
               </p>
             </div>
-            <div className="grid grid-cols-3 rounded-xl border border-[oklch(0.92_0.004_286.32)] bg-[oklch(0.967_0.001_286.375/0.62)] text-[10px] leading-none font-semibold tracking-[0.16em] text-muted-foreground uppercase sm:text-[11px]">
+            <div className="fairlend-editorial-bridge-signals grid grid-cols-3 rounded-xl border border-[oklch(0.92_0.004_286.32)] bg-[oklch(0.967_0.001_286.375/0.62)] text-[10px] leading-none font-semibold tracking-[0.16em] text-muted-foreground uppercase sm:text-[11px]">
               {bridgeSignals.map((label, index) => (
                 <span
                   className="relative grid min-h-20 place-items-center gap-2 px-2 text-center"

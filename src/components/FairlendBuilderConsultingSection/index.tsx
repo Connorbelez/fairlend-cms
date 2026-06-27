@@ -3928,9 +3928,145 @@ function BuilderConsultingStyles() {
         }
       }
 
+      .builder-section-rule,
+      .builder-dashboard__panel,
+      .builder-bottom-strip,
+      .builder-action-card,
+      .builder-equation-card,
+      .builder-outcome-card {
+        position: relative;
+      }
+
+      .builder-section-rule,
+      .builder-dashboard__panel,
+      .builder-bottom-strip,
+      .builder-action-card {
+        overflow: hidden;
+      }
+
+      .builder-section-rule::after,
+      .builder-bottom-strip::before,
+      .builder-equation-card::after,
+      .builder-outcome-card::after {
+        position: absolute;
+        right: 0;
+        left: 0;
+        z-index: 5;
+        height: 2px;
+        pointer-events: none;
+        background: linear-gradient(90deg, transparent 0%, var(--builder-coral) 42%, rgb(255 219 194 / 58%) 52%, transparent 100%);
+        content: "";
+        opacity: 0.82;
+        transform: translateX(-112%);
+        animation: builder-tracer-x 5.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+      }
+
+      .builder-section-rule::after {
+        inset-block: 0 auto;
+      }
+
+      .builder-bottom-strip::before,
+      .builder-equation-card::after,
+      .builder-outcome-card::after {
+        top: 0;
+      }
+
+      .builder-bottom-strip::before {
+        animation-delay: 0.74s;
+      }
+
+      .builder-equation-cell:nth-child(2n) .builder-equation-card::after,
+      .builder-equation-cell:nth-child(2n) .builder-outcome-card::after {
+        animation-delay: 0.38s;
+      }
+
+      .builder-equation-cell:nth-child(3n) .builder-equation-card::after {
+        animation-delay: 0.82s;
+      }
+
+      .builder-dashboard__panel::before,
+      .builder-action-card::before {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(
+          105deg,
+          transparent 0%,
+          rgb(193 75 43 / 0%) 30%,
+          rgb(193 75 43 / 9%) 43%,
+          rgb(255 219 194 / 36%) 50%,
+          rgb(193 75 43 / 13%) 58%,
+          transparent 72%
+        );
+        content: "";
+        opacity: 0;
+        transform: translateX(-114%) skewX(-10deg);
+        transition:
+          opacity 280ms cubic-bezier(0.16, 1, 0.3, 1),
+          transform 820ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .builder-dashboard__panel::before {
+        z-index: 0;
+        mix-blend-mode: multiply;
+      }
+
+      .builder-dashboard__panel > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .builder-action-card::before {
+        z-index: 0;
+        mix-blend-mode: multiply;
+      }
+
+      .builder-action-card > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .builder-dashboard__panel:hover::before,
+      .builder-dashboard__panel:focus-within::before,
+      .builder-action-card:hover::before,
+      .builder-action-card:focus-within::before {
+        opacity: 1;
+        transform: translateX(114%) skewX(-10deg);
+      }
+
+      .builder-route-line__glow {
+        filter: drop-shadow(0 0 7px rgb(193 75 43 / 32%));
+      }
+
+      @keyframes builder-tracer-x {
+        0%,
+        18% {
+          transform: translateX(-112%);
+        }
+
+        58%,
+        100% {
+          transform: translateX(112%);
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .builder-cta {
           transition: none;
+        }
+
+        .builder-section-rule::after,
+        .builder-bottom-strip::before,
+        .builder-equation-card::after,
+        .builder-outcome-card::after {
+          animation: none;
+          opacity: 0.64;
+          transform: none;
+        }
+
+        .builder-dashboard__panel::before,
+        .builder-action-card::before {
+          display: none;
         }
       }
     `}</style>

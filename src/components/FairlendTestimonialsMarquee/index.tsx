@@ -45,7 +45,7 @@ function FairlendTestimonialCard({
 }) {
   return (
     <Card
-      className="group relative isolate h-full min-h-[250px] overflow-hidden rounded-xl border border-[oklch(0.92_0.004_286.32)] bg-background shadow-xs transition-[border-color,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(to_right,oklch(0.141_0.005_285.823/0.035)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.141_0.005_285.823/0.03)_1px,transparent_1px)] before:bg-[size:28px_28px] before:opacity-70 after:pointer-events-none after:absolute after:inset-x-5 after:top-4 after:h-px after:bg-[linear-gradient(90deg,oklch(0.841_0.238_128.85)_0_46px,oklch(0.92_0.004_286.32)_46px_100%)] hover:-translate-y-0.5 hover:border-[oklch(0.841_0.238_128.85/0.55)]"
+      className="group relative isolate h-full min-h-[250px] overflow-hidden rounded-xl border border-[oklch(0.92_0.004_286.32)] bg-background shadow-xs transition-[border-color,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(to_right,oklch(0.141_0.005_285.823/0.035)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.141_0.005_285.823/0.03)_1px,transparent_1px)] before:bg-[size:28px_28px] before:opacity-70 after:pointer-events-none after:absolute after:inset-x-5 after:top-4 after:h-px after:bg-[linear-gradient(90deg,oklch(0.645_0.221_35)_0_46px,oklch(0.82_0.11_50/0.56)_46px_64px,oklch(0.92_0.004_286.32)_64px_100%)] hover:-translate-y-0.5 hover:border-[oklch(0.645_0.221_35/0.48)]"
       data-fairlend-signal-card
       render={<figure />}
     >
@@ -54,7 +54,7 @@ function FairlendTestimonialCard({
           <Badge className="rounded-lg border-[oklch(0.92_0.004_286.32)] bg-[oklch(0.967_0.001_286.375/0.76)] px-2.5 py-1 text-[10px] font-semibold tracking-[0.18em] text-muted-foreground uppercase">
             Signal {String(index + 1).padStart(2, '0')}
           </Badge>
-          <Quote aria-hidden="true" className="size-5 text-[oklch(0.841_0.238_128.85)]" />
+          <Quote aria-hidden="true" className="size-5 text-[oklch(0.645_0.221_35)]" />
         </div>
 
         <blockquote className="mt-8 grow text-pretty text-[18px] leading-[1.32] font-semibold tracking-[-0.01em] text-foreground lg:text-[16px] xl:text-[17px]">
