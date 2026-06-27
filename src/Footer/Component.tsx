@@ -1,32 +1,36 @@
 import { getCachedGlobal } from '@/utilities/getGlobals'
-import Link from 'next/link'
 import React from 'react'
 
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
-import { CMSLink } from '@/components/Link'
-import { Logo } from '@/components/Logo/Logo'
+import { fairlendRegistration } from '@/components/FairlendRegistrationDisclosure'
+import { WatermelonFooter } from './WatermelonFooter.client'
+
+const demoFooterLabels = new Set(['admin', 'payload', 'source code'])
+
+const defaultFooterNavItems = [
+  { link: { label: 'Home', type: 'custom' as const, url: '/' } },
+  { link: { label: 'Application', type: 'custom' as const, url: '/intake' } },
+  { link: { label: 'Resources', type: 'custom' as const, url: '/posts' } },
+  { link: { label: 'Search', type: 'custom' as const, url: '/search' } },
+  { link: { label: 'Contact', type: 'custom' as const, url: '/contact' } },
+]
 
 export async function Footer() {
   const footerData = await getCachedGlobal('footer', 1)()
 
-  const navItems = footerData?.navItems || []
+  const cmsNavItems = footerData?.navItems || []
+  const publicNavItems = cmsNavItems.filter(
+    ({ link }) => !demoFooterLabels.has(link.label.toLowerCase()),
+  )
+  const navItems = publicNavItems.length > 0 ? publicNavItems : defaultFooterNavItems
+  const year = new Date().getFullYear()
 
   return (
-    <footer className="mt-auto border-t border-border bg-black dark:bg-card text-white">
-      <div className="container py-8 gap-8 flex flex-col md:flex-row md:justify-between">
-        <Link className="flex items-center" href="/">
-          <Logo />
-        </Link>
-
-        <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">
-          <ThemeSelector />
-          <nav className="flex flex-col md:flex-row gap-4">
-            {navItems.map(({ link }, i) => {
-              return <CMSLink className="text-white" key={i} {...link} />
-            })}
-          </nav>
-        </div>
-      </div>
-    </footer>
+    <WatermelonFooter
+      currentAsOf={fairlendRegistration.currentAsOf}
+      doingBusinessAs={fairlendRegistration.doingBusinessAs}
+      legalName={fairlendRegistration.legalName}
+      navItems={navItems}
+      year={year}
+    />
   )
 }
