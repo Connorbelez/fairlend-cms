@@ -930,6 +930,8 @@ export function FairlendServicesSection() {
           --services-line: rgb(8 45 35 / 34%);
           --services-line-soft: rgb(8 45 35 / 22%);
           --services-orange: oklch(0.645 0.221 35);
+          --services-tracer: rgb(255 92 52 / 88%);
+          --services-tracer-soft: rgb(255 219 194 / 54%);
           --about-ink: var(--services-forest);
           --about-orange: var(--services-orange);
           --about-display: "League Gothic", Impact, "Arial Narrow", sans-serif;
@@ -938,6 +940,7 @@ export function FairlendServicesSection() {
           background:
             radial-gradient(circle at 78% 6%, rgb(255 255 249 / 90%), transparent 30rem),
             radial-gradient(circle at 24% 18%, rgb(255 255 251 / 68%), transparent 24rem),
+            radial-gradient(circle at 88% 52%, rgb(255 92 52 / 5%), transparent 25rem),
             linear-gradient(180deg, var(--services-paper) 0%, var(--services-paper-soft) 100%);
         }
         .services-model-section::before {
@@ -1103,8 +1106,40 @@ export function FairlendServicesSection() {
           background: color-mix(in oklch, oklch(0.66 0.095 58) 42%, var(--services-paper));
         }
         .services-model-main-rule {
+          position: relative;
+          overflow: hidden;
           background: var(--services-line);
           height: 2px;
+        }
+        .services-model-main-rule::after,
+        .services-model-grid-edge::after,
+        .services-model-panel-rule--desktop-x::after,
+        .services-model-panel-rule--mobile::after,
+        .services-model-footer::before {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: linear-gradient(90deg, transparent 0%, var(--services-tracer) 42%, var(--services-tracer-soft) 52%, transparent 100%);
+          content: "";
+          opacity: 0.86;
+          transform: translateX(-115%);
+          animation: services-tracer-x 4.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+        }
+        .services-model-grid-edge--left::after,
+        .services-model-grid-edge--right::after,
+        .services-model-panel-rule--desktop-y::after {
+          background: linear-gradient(180deg, transparent 0%, var(--services-tracer) 42%, var(--services-tracer-soft) 52%, transparent 100%);
+          transform: translateY(-115%);
+          animation-name: services-tracer-y;
+        }
+        .services-model-grid-edge--right::after,
+        .services-model-panel-rule--desktop-y::after {
+          animation-delay: 0.64s;
+        }
+        .services-model-grid-edge--bottom::after,
+        .services-model-panel-rule--mobile::after,
+        .services-model-footer::before {
+          animation-delay: 1.1s;
         }
         .services-model-grid {
           position: relative;
@@ -1117,6 +1152,7 @@ export function FairlendServicesSection() {
         .services-model-grid-edge {
           position: absolute;
           z-index: 4;
+          overflow: hidden;
           pointer-events: none;
           background: var(--services-line);
           opacity: 0.75;
@@ -1195,6 +1231,37 @@ export function FairlendServicesSection() {
             radial-gradient(circle at 14% 18%, rgb(255 253 247 / 54%), transparent 31%);
           content: "";
           opacity: 0.5;
+        }
+        .services-model-panel::after {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          pointer-events: none;
+          background: linear-gradient(
+            100deg,
+            transparent 0%,
+            rgb(255 92 52 / 0%) 30%,
+            rgb(255 92 52 / 9%) 44%,
+            rgb(255 219 194 / 38%) 51%,
+            rgb(255 92 52 / 14%) 58%,
+            transparent 72%
+          );
+          mix-blend-mode: multiply;
+          opacity: 0;
+          transform: translateX(-116%) skewX(-10deg);
+          transition:
+            opacity 320ms cubic-bezier(0.16, 1, 0.3, 1),
+            transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+          content: "";
+        }
+        .services-model-panel:hover::after,
+        .services-model-panel:focus-within::after {
+          opacity: 1;
+          transform: translateX(116%) skewX(-10deg);
+        }
+        .services-model-panel > :not(.services-model-panel-rule--desktop-x):not(.services-model-panel-rule--desktop-y):not(.services-model-panel-rule--mobile) {
+          position: relative;
+          z-index: 1;
         }
         .services-model-panel:hover {
           background-color: rgb(255 253 247 / 64%);
@@ -1418,6 +1485,7 @@ export function FairlendServicesSection() {
           width: 2px;
           height: 100%;
           background: var(--services-line);
+          overflow: hidden;
         }
         .services-model-panel-rule--desktop-x {
           position: absolute;
@@ -1428,15 +1496,18 @@ export function FairlendServicesSection() {
           width: 100%;
           height: 2px;
           background: var(--services-line);
+          overflow: hidden;
         }
         .services-model-panel-rule--mobile {
           display: none;
         }
         .services-model-footer {
+          position: relative;
           display: flex;
           align-items: center;
           justify-content: space-between;
           gap: 1rem;
+          overflow: hidden;
           border-right: 2px solid var(--services-line-soft);
           border-bottom: 2px solid var(--services-line-soft);
           border-left: 2px solid var(--services-line-soft);
@@ -1449,6 +1520,26 @@ export function FairlendServicesSection() {
         }
         .services-model-footer strong {
           color: var(--services-forest);
+        }
+        .services-model-footer::before {
+          inset: 0 0 auto;
+          height: 2px;
+        }
+        @keyframes services-tracer-x {
+          0%, 18% {
+            transform: translateX(-115%);
+          }
+          58%, 100% {
+            transform: translateX(115%);
+          }
+        }
+        @keyframes services-tracer-y {
+          0%, 18% {
+            transform: translateY(-115%);
+          }
+          58%, 100% {
+            transform: translateY(115%);
+          }
         }
         @media (min-width: 1024px) {
           .services-model-section {
@@ -1693,6 +1784,7 @@ export function FairlendServicesSection() {
             width: 100%;
             height: 2px;
             background: var(--services-line);
+            overflow: hidden;
           }
           .services-card-number-plate {
             top: 1rem;
@@ -1701,6 +1793,21 @@ export function FairlendServicesSection() {
           .services-model-footer {
             align-items: flex-start;
             flex-direction: column;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .services-model-main-rule::after,
+          .services-model-grid-edge::after,
+          .services-model-panel-rule--desktop-x::after,
+          .services-model-panel-rule--desktop-y::after,
+          .services-model-panel-rule--mobile::after,
+          .services-model-footer::before {
+            animation: none;
+            opacity: 0.72;
+            transform: none;
+          }
+          .services-model-panel::after {
+            display: none;
           }
         }
       `}</style>
