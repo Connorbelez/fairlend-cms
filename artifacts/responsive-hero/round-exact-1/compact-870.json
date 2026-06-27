@@ -1,0 +1,171 @@
+{
+  "bodyScrollWidth": 870,
+  "boxes": {
+    "application": {
+      "x": 80,
+      "y": 707.53125,
+      "width": 710,
+      "height": 184.59375,
+      "bottom": 892.125,
+      "left": 80,
+      "right": 790,
+      "top": 707.53125
+    },
+    "compactPanel": {
+      "x": 55,
+      "y": 385.71875,
+      "width": 760,
+      "height": 589.40625,
+      "bottom": 975.125,
+      "left": 55,
+      "right": 815,
+      "top": 385.71875
+    },
+    "compactStats": {
+      "x": 80,
+      "y": 896.125,
+      "width": 710,
+      "height": 66,
+      "bottom": 962.125,
+      "left": 80,
+      "right": 790,
+      "top": 896.125
+    },
+    "copy": {
+      "x": 80,
+      "y": 405.84375,
+      "width": 640,
+      "height": 285.6875,
+      "bottom": 691.53125,
+      "left": 80,
+      "right": 720,
+      "top": 405.84375
+    },
+    "desktopProcess": null,
+    "desktopStats": null,
+    "hero": {
+      "x": 0,
+      "y": 0,
+      "width": 870,
+      "height": 2112,
+      "bottom": 2112,
+      "left": 0,
+      "right": 870,
+      "top": 0
+    },
+    "map": {
+      "x": 16,
+      "y": 96,
+      "width": 838,
+      "height": 900,
+      "bottom": 996,
+      "left": 16,
+      "right": 854,
+      "top": 96
+    },
+    "mobileProcess": {
+      "x": 16,
+      "y": 96,
+      "width": 838,
+      "height": 900,
+      "bottom": 996,
+      "left": 16,
+      "right": 854,
+      "top": 96
+    },
+    "stage": {
+      "x": 16,
+      "y": 96,
+      "width": 838,
+      "height": 900,
+      "bottom": 996,
+      "left": 16,
+      "right": 854,
+      "top": 96
+    },
+    "subtitle": null,
+    "title": {
+      "x": 80,
+      "y": 405.84375,
+      "width": 640,
+      "height": 229.6875,
+      "bottom": 635.53125,
+      "left": 80,
+      "right": 720,
+      "top": 405.84375
+    }
+  },
+  "currentImage": "http://localhost:3000/assets/mobileHero.png",
+  "failures": [
+    "subtitle visible ratio 0.000 < 0.98",
+    "subtitle missing"
+  ],
+  "processCards": [
+    {
+      "x": 172.7047119140625,
+      "y": 159.04177856445312,
+      "width": 139.090576171875,
+      "height": 59.958221435546875,
+      "bottom": 219,
+      "left": 172.7047119140625,
+      "right": 311.7952880859375,
+      "top": 159.04177856445312
+    },
+    {
+      "x": 311.1661376953125,
+      "y": 204.21060180664062,
+      "width": 138.698974609375,
+      "height": 59.789398193359375,
+      "bottom": 264,
+      "left": 311.1661376953125,
+      "right": 449.8651123046875,
+      "top": 204.21060180664062
+    },
+    {
+      "x": 437.751220703125,
+      "y": 249.97096252441406,
+      "width": 136.93505859375,
+      "height": 59.02903747558594,
+      "bottom": 309,
+      "left": 437.751220703125,
+      "right": 574.686279296875,
+      "top": 249.97096252441406
+    },
+    {
+      "x": 557.4328002929688,
+      "y": 297,
+      "width": 132.22808837890625,
+      "height": 57,
+      "bottom": 354,
+      "left": 557.4328002929688,
+      "right": 689.660888671875,
+      "top": 297
+    }
+  ],
+  "processCardSelector": "[data-testid=\"hero-mobile-process-segment\"]",
+  "scrollWidth": 870,
+  "visibility": {
+    "desktopProcess": false,
+    "mobileProcess": true
+  },
+  "visibleRatios": {
+    "application": 1,
+    "compactPanel": 1,
+    "compactStats": 1,
+    "copy": 1,
+    "desktopProcess": null,
+    "desktopStats": null,
+    "hero": 0.5208333333333334,
+    "map": 1,
+    "mobileProcess": 1,
+    "stage": 1,
+    "subtitle": null,
+    "title": 1
+  },
+  "viewport": {
+    "height": 1100,
+    "id": "compact-870",
+    "mode": "compact",
+    "width": 870
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "image_asset_count": 1,
+  "assets": [
+    {
+      "id": "financing-route-process-illustration",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/financing-route-reference/crops/financing-route-process-illustration.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/financing-route-reference/generated/raw/financing-route-process-illustration.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/financing-route-reference/generated/webp/financing-route-process-illustration.webp",
+      "public_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/visual-assets/financing-route-process-illustration.webp",
+      "imagegen_prompt": "Reference image only: generate a new standalone transparent-background PNG-style asset of a premium editorial isometric construction-financing route illustration for a brokerage landing page. Cream drafting-paper base plane with faint architectural grid, light graphite Toronto skyline sketched at the back, four-step burnt-orange route line connecting a permit application clipboard, a single-family house acquisition vignette, a mid-rise construction site with tower crane, and a completed boutique apartment building with shield/check medallion. Fine ink outlines, muted warm greys, dark evergreen details, small burnt-orange numbered markers, soft shadows, high-end financial presentation style, clean cutout edges. No webpage frame, no brand logo, no form input UI, no header bars, no watermark, no photorealistic people, no readable UI text.",
+      "transparent": true
+    }
+  ]
+}

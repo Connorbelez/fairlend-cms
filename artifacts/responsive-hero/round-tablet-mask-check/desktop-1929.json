@@ -1,0 +1,179 @@
+{
+  "bodyScrollWidth": 1929,
+  "boxes": {
+    "application": {
+      "x": 1311.2119140625,
+      "y": 707.7047119140625,
+      "width": 559.857421875,
+      "height": 210.4932861328125,
+      "bottom": 918.197998046875,
+      "left": 1311.2119140625,
+      "right": 1871.0693359375,
+      "top": 707.7047119140625
+    },
+    "compactPanel": null,
+    "compactStats": null,
+    "copy": {
+      "x": 62.6875,
+      "y": 216.27999877929688,
+      "width": 688.71875,
+      "height": 626.5625305175781,
+      "bottom": 842.842529296875,
+      "left": 62.6875,
+      "right": 751.40625,
+      "top": 216.27999877929688
+    },
+    "desktopProcess": {
+      "x": 613,
+      "y": 58,
+      "width": 1316,
+      "height": 987,
+      "bottom": 1045,
+      "left": 613,
+      "right": 1929,
+      "top": 58
+    },
+    "desktopStats": {
+      "x": 0.78485107421875,
+      "y": 987.9053955078125,
+      "width": 1927.4302368164062,
+      "height": 91.9251708984375,
+      "bottom": 1079.83056640625,
+      "left": 0.78485107421875,
+      "right": 1928.215087890625,
+      "top": 987.9053955078125
+    },
+    "header": {
+      "x": 0,
+      "y": 0,
+      "width": 1929,
+      "height": 72,
+      "bottom": 72,
+      "left": 0,
+      "right": 1929,
+      "top": 0
+    },
+    "hero": {
+      "x": 0,
+      "y": 0,
+      "width": 1929,
+      "height": 2644,
+      "bottom": 2644,
+      "left": 0,
+      "right": 1929,
+      "top": 0
+    },
+    "map": {
+      "x": 613,
+      "y": 58,
+      "width": 1316,
+      "height": 987,
+      "bottom": 1045,
+      "left": 613,
+      "right": 1929,
+      "top": 58
+    },
+    "mobileProcess": null,
+    "stage": {
+      "x": 0,
+      "y": 0,
+      "width": 1929,
+      "height": 1079,
+      "bottom": 1079,
+      "left": 0,
+      "right": 1929,
+      "top": 0
+    },
+    "subtitle": {
+      "x": 62.6875,
+      "y": 713.842529296875,
+      "width": 511,
+      "height": 68,
+      "bottom": 781.842529296875,
+      "left": 62.6875,
+      "right": 573.6875,
+      "top": 713.842529296875
+    },
+    "title": {
+      "x": 62.6875,
+      "y": 240.27999877929688,
+      "width": 688.71875,
+      "height": 473.5625305175781,
+      "bottom": 713.842529296875,
+      "left": 62.6875,
+      "right": 751.40625,
+      "top": 240.27999877929688
+    }
+  },
+  "currentImage": "http://localhost:3000/assets/fairlend-desktop-hero.webp",
+  "failures": [],
+  "processCards": [
+    {
+      "x": 819.2781372070312,
+      "y": 161.765625,
+      "width": 169.0999755859375,
+      "height": 114,
+      "bottom": 275.765625,
+      "left": 819.2781372070312,
+      "right": 988.3781127929688,
+      "top": 161.765625
+    },
+    {
+      "x": 1080.106201171875,
+      "y": 167.046875,
+      "width": 169.10009765625,
+      "height": 114,
+      "bottom": 281.046875,
+      "left": 1080.106201171875,
+      "right": 1249.206298828125,
+      "top": 167.046875
+    },
+    {
+      "x": 1308.168701171875,
+      "y": 158.390625,
+      "width": 169.10009765625,
+      "height": 114,
+      "bottom": 272.390625,
+      "left": 1308.168701171875,
+      "right": 1477.268798828125,
+      "top": 158.390625
+    },
+    {
+      "x": 1668.090576171875,
+      "y": 200.28125,
+      "width": 169.10009765625,
+      "height": 114,
+      "bottom": 314.28125,
+      "left": 1668.090576171875,
+      "right": 1837.190673828125,
+      "top": 200.28125
+    }
+  ],
+  "processCardSelector": "[data-testid=\"hero-process-segment\"]",
+  "scrollWidth": 1929,
+  "visibility": {
+    "desktopProcess": true,
+    "mobileProcess": false
+  },
+  "visibleRatios": {
+    "application": 1,
+    "compactPanel": null,
+    "compactStats": null,
+    "copy": 1,
+    "desktopProcess": 1,
+    "desktopStats": 0.990964755375134,
+    "header": 1,
+    "hero": 0.40809379727685324,
+    "map": 1,
+    "mobileProcess": null,
+    "stage": 1,
+    "subtitle": 1,
+    "title": 1
+  },
+  "viewport": {
+    "height": 1079,
+    "id": "desktop-1929",
+    "mode": "desktop",
+    "width": 1929
+  }
+}

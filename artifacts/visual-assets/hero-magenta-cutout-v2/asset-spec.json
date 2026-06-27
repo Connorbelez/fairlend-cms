@@ -1,0 +1,25 @@
+{
+  "project": "fairlend-cms",
+  "notes": "V2 extraction-mode visual asset run from the original source image. This pass removes residual magenta edge contamination reported after the first WebP export.",
+  "assets": [
+    {
+      "id": "hero-isometric-map-cutout",
+      "label": "Isometric city and estate hero cutout",
+      "classification": "image",
+      "role": "Transparent hero raster asset",
+      "bbox": {
+        "x": 0,
+        "y": 0,
+        "width": 1672,
+        "height": 941
+      },
+      "rationale": "The isometric miniature city, water, estate, trees, lighting, and shadows are complex raster imagery; the requested deliverable is a transparent WebP cutout from the original source image.",
+      "generation": {
+        "transparent": true,
+        "asset_type": "hero-cutout",
+        "output_basename": "hero-isometric-map-cutout",
+        "prompt": "Extraction mode: preserve the supplied hero image exactly and remove only the magenta chroma-key background, including anti-aliased magenta edge residue, to produce a transparent standalone hero asset."
+      }
+    }
+  ]
+}

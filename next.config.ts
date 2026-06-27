@@ -12,6 +12,7 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   : process.env.__NEXT_PRIVATE_ORIGIN || 'http://localhost:3000'
 
 const nextConfig: NextConfig = {
+  devIndicators: false,
   // Temporarily required on Windows until Next.js fixes Turbopack Sass resolution.
   // See: https://github.com/vercel/next.js/issues/86431
   sassOptions: {
@@ -19,6 +20,9 @@ const nextConfig: NextConfig = {
   },
   images: {
     localPatterns: [
+      {
+        pathname: '/assets/**',
+      },
       {
         pathname: '/api/media/file/**',
       },
@@ -51,4 +55,14 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default withPayload(nextConfig, { devBundleServerPackages: false })
+const payloadConfig = withPayload(nextConfig, { devBundleServerPackages: false })
+
+// Payload disables this in its Next wrapper because it can break Payload Admin HMR.
+// This site opts back in so Turbopack keeps server-side Fast Refresh enabled.
+export default {
+  ...payloadConfig,
+  experimental: {
+    ...payloadConfig.experimental,
+    turbopackServerFastRefresh: true,
+  },
+} satisfies NextConfig

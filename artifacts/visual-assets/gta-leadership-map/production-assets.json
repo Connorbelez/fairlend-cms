@@ -1,0 +1,14 @@
+{
+  "image_asset_count": 1,
+  "assets": [
+    {
+      "id": "gta-leadership-background-map",
+      "source_image_path": "/var/folders/cj/7fm1l9_s0554hg50mym_n8xr0000gn/T/codex-clipboard-f4371434-cb1b-47bd-96cd-470911d5f389.png",
+      "raw_generated_path": "/var/folders/cj/7fm1l9_s0554hg50mym_n8xr0000gn/T/codex-clipboard-f4371434-cb1b-47bd-96cd-470911d5f389.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/gta-leadership-map/generated/webp/gta-leadership-background-map.webp",
+      "production_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-gta-leadership-background-map.webp",
+      "optimization": "Converted the user-supplied 1045x1505 RGB PNG into quality-92 WebP for production.",
+      "transparent": false
+    }
+  ]
+}

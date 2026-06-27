@@ -1,0 +1,88 @@
+{
+  "bodyScrollWidth": 1366,
+  "boxes": {
+    "application": {
+      "x": 873.953125,
+      "y": 457.75,
+      "width": 462,
+      "height": 210.546875,
+      "bottom": 668.296875,
+      "left": 873.953125,
+      "right": 1335.953125,
+      "top": 457.75
+    },
+    "compactPanel": null,
+    "copy": {
+      "x": 44.390625,
+      "y": 161.546875,
+      "width": 478.09375,
+      "height": 424.90625,
+      "bottom": 586.453125,
+      "left": 44.390625,
+      "right": 522.484375,
+      "top": 161.546875
+    },
+    "hero": {
+      "x": 0,
+      "y": 0,
+      "width": 1366,
+      "height": 1882,
+      "bottom": 1882,
+      "left": 0,
+      "right": 1366,
+      "top": 0
+    },
+    "map": {
+      "x": 582.640625,
+      "y": 58,
+      "width": 801.375,
+      "height": 601.03125,
+      "bottom": 659.03125,
+      "left": 582.640625,
+      "right": 1384.015625,
+      "top": 58
+    },
+    "stage": {
+      "x": 0,
+      "y": 0,
+      "width": 1366,
+      "height": 768,
+      "bottom": 768,
+      "left": 0,
+      "right": 1366,
+      "top": 0
+    },
+    "title": {
+      "x": 44.390625,
+      "y": 185.546875,
+      "width": 478.09375,
+      "height": 281.25,
+      "bottom": 466.796875,
+      "left": 44.390625,
+      "right": 522.484375,
+      "top": 185.546875
+    }
+  },
+  "currentImage": "http://localhost:3000/assets/fairlend-desktop-hero.webp",
+  "failures": [],
+  "overlaps": {
+    "application:compactPanel": 0,
+    "copy:application": 0,
+    "title:application": 0
+  },
+  "scrollWidth": 1366,
+  "visibleRatios": {
+    "application": 1,
+    "compactPanel": null,
+    "copy": 1,
+    "hero": 0.40807651434643993,
+    "map": 0.9775191077834972,
+    "stage": 1,
+    "title": 1
+  },
+  "viewport": {
+    "height": 768,
+    "id": "laptop",
+    "width": 1366
+  }
+}

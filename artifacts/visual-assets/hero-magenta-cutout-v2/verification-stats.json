@@ -1,0 +1,15 @@
+{
+  "size": {
+    "width": 1630,
+    "height": 918
+  },
+  "bytes": 329790,
+  "alpha_min": 0,
+  "alpha_max": 255,
+  "transparent_pixels": 260935,
+  "partial_alpha_pixels": 3330,
+  "opaque_pixels": 1232075,
+  "partial_magenta_residue_pixels": 0,
+  "edge_magenta_residue_pixels": 0,
+  "visible_magenta_residue_pixels": 0
+}

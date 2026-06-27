@@ -1,44 +1,62 @@
 import type { Metadata } from 'next'
 
 import { cn } from '@/utilities/ui'
-import { GeistMono } from 'geist/font/mono'
-import { GeistSans } from 'geist/font/sans'
+import { Cormorant_Garamond, Inter } from 'next/font/google'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
-import { InitTheme } from '@/providers/Theme/InitTheme'
+import { defaultTheme, themeCookieName } from '@/providers/Theme/shared'
+import { themeIsValid } from '@/providers/Theme/types'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import { draftMode } from 'next/headers'
+import { cookies, draftMode } from 'next/headers'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
+import { FrontendChrome } from './FrontendChrome.client'
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  weight: ['400', '500', '600', '700', '800'],
+})
+
+const cormorantGaramond = Cormorant_Garamond({
+  subsets: ['latin'],
+  variable: '--font-cormorant',
+  weight: ['400', '500', '600', '700'],
+})
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const { isEnabled } = await draftMode()
+  const [{ isEnabled }, cookieStore] = await Promise.all([draftMode(), cookies()])
+  const themePreference = cookieStore.get(themeCookieName)?.value ?? null
+  const initialTheme = themeIsValid(themePreference) ? themePreference : defaultTheme
 
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
+    <html
+      className={cn(inter.variable, cormorantGaramond.variable)}
+      data-theme={initialTheme}
+      lang="en"
+      suppressHydrationWarning
+    >
       <head>
-        <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
       <body>
-        <Providers>
+        <Providers initialTheme={initialTheme}>
           <AdminBar
             adminBarProps={{
               preview: isEnabled,
             }}
           />
-
-          <Header />
-          {children}
-          <Footer />
+          <FrontendChrome footer={<Footer />} header={<Header />}>
+            {children}
+          </FrontendChrome>
         </Providers>
-      </body>
+</body>
     </html>
   )
 }
