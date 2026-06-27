@@ -47,6 +47,7 @@ export type DiaTextRevealProps = Omit<
   once?: boolean;
   className?: string;
   fixedWidth?: boolean;
+  solidAfterReveal?: boolean;
 };
 
 const sweepEase = (t: number) =>
@@ -117,6 +118,7 @@ const DiaTextReveal = forwardRef<HTMLSpanElement, DiaTextRevealProps>(
       once = true,
       className,
       fixedWidth = false,
+      solidAfterReveal = false,
       ...props
     },
     ref
@@ -124,10 +126,14 @@ const DiaTextReveal = forwardRef<HTMLSpanElement, DiaTextRevealProps>(
     const spanRef = useRef<HTMLSpanElement | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
     const [measuredWidths, setMeasuredWidths] = useState<number[]>([]);
+    const [isRevealSettled, setIsRevealSettled] = useState(false);
 
     const indexRef = useRef(0);
     const hasPlayedRef = useRef(false);
     const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+      undefined
+    );
+    const settleTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(
       undefined
     );
     const controlsRef = useRef<AnimationPlaybackControls | undefined>(
@@ -139,6 +145,7 @@ const DiaTextReveal = forwardRef<HTMLSpanElement, DiaTextRevealProps>(
     const textOpacity = useMotionValue(1);
     const textBlur = useMotionValue(0);
     const textShift = useMotionValue(0);
+    const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
     const inView = useInView(spanRef, { once, amount: 0.1 });
     const previousActiveIndexRef = useRef(0);
 
@@ -191,17 +198,27 @@ const DiaTextReveal = forwardRef<HTMLSpanElement, DiaTextRevealProps>(
     const contentStyle = useMemo(
       (): NonNullable<DiaTextMotionProps["style"]> => ({
         display: "inline-block",
-        color: "transparent",
-        backgroundClip: "text",
-        WebkitBackgroundClip: "text",
+        color: solidAfterReveal && isRevealSettled ? textColor : "transparent",
+        backgroundClip: solidAfterReveal && isRevealSettled ? "border-box" : "text",
+        WebkitBackgroundClip:
+          solidAfterReveal && isRevealSettled ? "border-box" : "text",
         backgroundSize: "100% 100%",
-        backgroundImage,
+        backgroundImage:
+          solidAfterReveal && isRevealSettled ? "none" : backgroundImage,
         opacity: textOpacity,
         filter: contentFilter,
         transform: contentTransform,
         willChange: "filter, opacity, transform",
       }),
-      [backgroundImage, contentFilter, contentTransform, textOpacity]
+      [
+        backgroundImage,
+        contentFilter,
+        contentTransform,
+        isRevealSettled,
+        solidAfterReveal,
+        textColor,
+        textOpacity,
+      ]
     );
 
     const clearCycle = useCallback(() => {
@@ -212,20 +229,59 @@ const DiaTextReveal = forwardRef<HTMLSpanElement, DiaTextRevealProps>(
         clearTimeout(timerRef.current);
       }
 
+      if (settleTimerRef.current) {
+        clearTimeout(settleTimerRef.current);
+      }
+
       timerRef.current = undefined;
+      settleTimerRef.current = undefined;
     }, []);
 
     const playRef = useRef<() => void>(() => undefined);
 
+    const settleReveal = useCallback(() => {
+      sweepPos.set(SWEEP_END);
+      textOpacity.set(1);
+      textBlur.set(0);
+      textShift.set(0);
+      setIsRevealSettled(solidAfterReveal);
+    }, [solidAfterReveal, sweepPos, textBlur, textOpacity, textShift]);
+
+    useEffect(() => {
+      const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const syncPreference = () => setShouldReduceMotion(mediaQuery.matches);
+
+      syncPreference();
+      mediaQuery.addEventListener("change", syncPreference);
+
+      return () => mediaQuery.removeEventListener("change", syncPreference);
+    }, []);
+
     playRef.current = () => {
       clearCycle();
+
+      if (shouldReduceMotion) {
+        settleReveal();
+        return;
+      }
+
+      setIsRevealSettled(false);
       sweepPos.set(SWEEP_START);
+
+      if (solidAfterReveal) {
+        settleTimerRef.current = setTimeout(
+          settleReveal,
+          Math.max(0, (delay + duration) * 1000 + 120)
+        );
+      }
 
       controlsRef.current = animate(sweepPos, SWEEP_END, {
         duration,
         delay,
         ease: sweepEase,
         onComplete() {
+          settleReveal();
+
           if (!repeat || texts.length === 0) {
             return;
           }
@@ -251,6 +307,7 @@ const DiaTextReveal = forwardRef<HTMLSpanElement, DiaTextRevealProps>(
       setActiveIndex(0);
       hasPlayedRef.current = false;
       clearCycle();
+      setIsRevealSettled(false);
 
       sweepPos.set(SWEEP_START);
 
