@@ -1753,7 +1753,7 @@ export function FairlendServicesSection() {
               fill
               loading="lazy"
               sizes="(max-width: 1180px) 90vw, 58vw"
-              src="/assets/about-webp/webp/toronto-skyline-sketch.webp"
+              src="/assets/about-webp/webp/toronto-skyline-sketch-optimized.webp"
             />
           </div>
         </header>

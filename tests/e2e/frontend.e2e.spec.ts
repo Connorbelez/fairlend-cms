@@ -123,7 +123,7 @@ test.describe('Frontend', () => {
           .locator('main > section picture img')
           .evaluate((image) => (image as HTMLImageElement).currentSrc),
       )
-      .toContain('fairlend-desktop-hero.webp')
+      .toContain('fairlend-hero-jun-26-2026.webp')
   })
 
   test('keeps the desktop hero layout bounded from 1280px up', async ({ page }) => {
@@ -150,7 +150,7 @@ test.describe('Frontend', () => {
             .locator('main > section picture img')
             .evaluate((image) => (image as HTMLImageElement).currentSrc),
         )
-        .toContain('fairlend-desktop-hero.webp')
+        .toContain('fairlend-hero-jun-26-2026.webp')
 
       const title = await page.locator('#fairlend-hero-title').boundingBox()
       const subtitle = await page.getByText('We guide you from permit').boundingBox()
@@ -196,7 +196,7 @@ test.describe('Frontend', () => {
             .locator('main > section picture img')
             .evaluate((image) => (image as HTMLImageElement).currentSrc),
         )
-        .toContain('mobileHero.png')
+        .toContain('mobileHero.webp')
 
       const title = await page.locator('#fairlend-hero-title').boundingBox()
       const subtitle = await page.getByText(/Fairlend is more than a lender/i).boundingBox()
@@ -253,7 +253,7 @@ test.describe('Frontend', () => {
             .locator('main > section picture img')
             .evaluate((image) => (image as HTMLImageElement).currentSrc),
         )
-        .toContain('fairlend-desktop-hero.webp')
+        .toContain('fairlend-hero-jun-26-2026.webp')
 
       const title = await page.locator('#fairlend-hero-title').boundingBox()
       const subtitle = await page.getByText(/Fairlend is more than a lender/i).boundingBox()

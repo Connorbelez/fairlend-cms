@@ -58,17 +58,17 @@ import {
 } from '@/components/ui/timeline'
 
 const intakeAssetBase = '/assets/drawflow-intake'
-const buildProgressFinishedImage = `${intakeAssetBase}/Build Progress Finished.webp`
-const buildProgressFoundationImage = `${intakeAssetBase}/Build Progress Foundation.webp`
-const buildProgressLotImage = `${intakeAssetBase}/Build Progress Lot.webp`
-const buildProgressPolishedImage = `${intakeAssetBase}/Build Progress Polished.webp`
-const buildProgressStructureImage = `${intakeAssetBase}/Build Progress Structure.webp`
-const blueprintImage = `${intakeAssetBase}/Landing Page Blueprint.png`
-const backgroundImage = `${intakeAssetBase}/Landing Page Hero Background.png`
-const milestoneBlueprintStackImage = `${intakeAssetBase}/Milestone Blueprint Stack Trimmed.png`
-const multiplexImage = `${intakeAssetBase}/Multiplex Transparent Asset.png`
-const sitePlanBlueprintFieldImage = `${intakeAssetBase}/Property Site Plan Blueprint Field.webp`
-const sitePlanForegroundImage = `${intakeAssetBase}/Property Site Plan Foreground.webp`
+const buildProgressFinishedImage = `${intakeAssetBase}/Build Progress Finished-optimized.webp`
+const buildProgressFoundationImage = `${intakeAssetBase}/Build Progress Foundation-optimized.webp`
+const buildProgressLotImage = `${intakeAssetBase}/Build Progress Lot-optimized.webp`
+const buildProgressPolishedImage = `${intakeAssetBase}/Build Progress Polished-optimized.webp`
+const buildProgressStructureImage = `${intakeAssetBase}/Build Progress Structure-optimized.webp`
+const blueprintImage = `${intakeAssetBase}/Landing Page Blueprint.webp`
+const backgroundImage = `${intakeAssetBase}/Landing Page Hero Background.webp`
+const milestoneBlueprintStackImage = `${intakeAssetBase}/Milestone Blueprint Stack Trimmed.webp`
+const multiplexImage = `${intakeAssetBase}/Multiplex Transparent Asset.webp`
+const sitePlanBlueprintFieldImage = `${intakeAssetBase}/Property Site Plan Blueprint Field-optimized.webp`
+const sitePlanForegroundImage = `${intakeAssetBase}/Property Site Plan Foreground-optimized.webp`
 
 const trustItems = [
   {
