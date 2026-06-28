@@ -1396,6 +1396,7 @@ function getWizardStepContent(
               <TextField
                 icon={User}
                 label="Name"
+                name="name"
                 onChange={(value) => updateAnswer('name', value)}
                 placeholder="Your full name"
                 value={answers.name}
@@ -1403,6 +1404,7 @@ function getWizardStepContent(
               <TextField
                 icon={Mail}
                 label="Email"
+                name="email"
                 onChange={(value) => updateAnswer('email', value)}
                 placeholder="you@example.com"
                 type="email"
@@ -1411,6 +1413,7 @@ function getWizardStepContent(
               <TextField
                 icon={Phone}
                 label="Phone"
+                name="phone"
                 onChange={(value) => updateAnswer('phone', value)}
                 placeholder="Best phone number"
                 type="tel"
@@ -1419,6 +1422,7 @@ function getWizardStepContent(
               <label className="bp-text-field bp-notes-field">
                 <span>Anything else we should know?</span>
                 <textarea
+                  name="notes"
                   onChange={(event) => updateAnswer('notes', event.target.value)}
                   placeholder="Optional notes about timing, lender conversations, or project constraints"
                   value={answers.notes}
@@ -1708,26 +1712,34 @@ function SelectableChip({
 }
 
 function TextField({
+  autoComplete,
   icon: Icon,
   label,
+  name,
   onChange,
   placeholder,
   type = 'text',
   value,
 }: {
+  autoComplete?: string
   icon: LucideIcon
   label: string
+  name?: string
   onChange: (value: string) => void
   placeholder: string
   type?: 'email' | 'tel' | 'text'
   value: string
 }): ReactElement {
+  const resolvedAutoComplete =
+    autoComplete ?? (type === 'email' ? 'email' : type === 'tel' ? 'tel' : 'name')
   return (
     <label className="bp-text-field">
       <span>{label}</span>
       <div className="bp-address-input">
         <Icon aria-hidden="true" strokeWidth={1.8} />
         <input
+          autoComplete={resolvedAutoComplete}
+          name={name}
           onChange={(event) => onChange(event.target.value)}
           placeholder={placeholder}
           type={type}

@@ -47,21 +47,132 @@ export function FairlendBuilderConsultingMotion() {
       const house = section.querySelector('[data-builder-house]')
 
       if (!isDesktop) {
-        gsap.fromTo(
-          select('[data-builder-mobile-card]'),
-          { y: 24 },
-          {
-            duration: 0.72,
-            ease: 'power3.out',
-            stagger: 0.08,
-            scrollTrigger: {
-              once: true,
-              start: 'top 76%',
-              trigger: section,
-            },
-            y: 0,
-          },
+        const mobileCard = section.querySelector<HTMLElement>('[data-builder-mobile-card]')
+        const mobileDashboard = section.querySelector<HTMLElement>('[data-builder-mobile-dashboard]')
+        const mobileProblemCopy = section.querySelector<HTMLElement>(
+          '[data-builder-mobile-copy][data-builder-state="problem"]',
         )
+        const mobileSolutionCopy = section.querySelector<HTMLElement>(
+          '[data-builder-mobile-copy][data-builder-state="solution"]',
+        )
+
+        gsap.set(section, { '--builder-progress': 0 })
+        if (mobileCard) gsap.set(mobileCard, { y: 0 })
+        if (mobileDashboard) gsap.set(mobileDashboard, { scale: 0.992, y: 8 })
+        if (mobileProblemCopy) {
+          gsap.set(mobileProblemCopy, {
+            autoAlpha: 1,
+            clipPath: 'inset(0% 0% 0% 0%)',
+            pointerEvents: 'auto',
+            scale: 1,
+            transformOrigin: 'left top',
+            y: 0,
+            zIndex: 4,
+          })
+        }
+        if (mobileSolutionCopy) {
+          gsap.set(mobileSolutionCopy, {
+            autoAlpha: 0,
+            clipPath: 'inset(0% 0% 100% 0%)',
+            pointerEvents: 'none',
+            scale: 1,
+            transformOrigin: 'left top',
+            y: 18,
+            zIndex: 5,
+          })
+        }
+
+        const mobileTimeline = gsap.timeline({ defaults: { ease: 'none' } })
+
+        mobileTimeline
+          .to(section, { '--builder-progress': 1, duration: 0.74 }, 0.14)
+          .to(mobileDashboard, { duration: 0.24, scale: 0.985, y: -8 }, 0.1)
+          .to(
+            mobileProblemCopy,
+            {
+              clipPath: 'inset(0% 0% 100% 0%)',
+              duration: 0.24,
+              scale: 0.985,
+              y: -22,
+            },
+            0.22,
+          )
+          .set(mobileProblemCopy, { autoAlpha: 0, pointerEvents: 'none' }, 0.48)
+          .set(mobileSolutionCopy, { autoAlpha: 1, pointerEvents: 'auto' }, 0.52)
+          .to(
+            mobileSolutionCopy,
+            {
+              clipPath: 'inset(0% 0% 0% 0%)',
+              duration: 0.28,
+              y: 0,
+            },
+            0.54,
+          )
+          .to(mobileDashboard, { duration: 0.28, scale: 1, y: 0 }, 0.58)
+          .to({}, { duration: 0.28 }, 1)
+
+        Object.entries(counterSpecs).forEach(([key, spec]) => {
+          const targets = gsap.utils.toArray<HTMLElement>(select(`[data-builder-counter="${key}"]`))
+
+          targets.forEach((target) => {
+            const counter = { value: spec.from }
+            target.textContent = spec.format(spec.from)
+
+            mobileTimeline.to(
+              counter,
+              {
+                duration: 0.56,
+                onUpdate: () => {
+                  target.textContent = spec.format(counter.value)
+                },
+                value: spec.to,
+              },
+              0.24,
+            )
+          })
+        })
+
+        gsap.utils.toArray<HTMLElement>(select('[data-builder-compact-score]')).forEach((score) => {
+          const fill = score.querySelector<HTMLElement>('[data-builder-compact-score-fill]')
+          const scoreText = score.querySelector<HTMLElement>('[data-builder-compact-score-text]')
+          const from = Number(score.dataset.problemScore ?? 0)
+          const to = Number(score.dataset.solutionScore ?? from)
+          const scoreCounter = { value: from }
+
+          if (fill) fill.style.setProperty('--builder-card-score', `${from}%`)
+          if (scoreText) scoreText.textContent = `${Math.round(from)}%`
+
+          mobileTimeline.to(
+            scoreCounter,
+            {
+              duration: 0.58,
+              onUpdate: () => {
+                const value = Math.max(0, Math.min(100, scoreCounter.value))
+                if (fill) fill.style.setProperty('--builder-card-score', `${value}%`)
+                if (scoreText) scoreText.textContent = `${Math.round(value)}%`
+              },
+              value: to,
+            },
+            0.26,
+          )
+        })
+
+        const mobileScrollTrigger = ScrollTrigger.create({
+          animation: mobileTimeline,
+          anticipatePin: 1,
+          end: '+=185%',
+          invalidateOnRefresh: true,
+          pin: true,
+          refreshPriority: 20,
+          scrub: 1,
+          start: 'top top',
+          trigger: section,
+        })
+
+        requestAnimationFrame(() => {
+          ScrollTrigger.refresh()
+          mobileTimeline.progress(mobileScrollTrigger.progress)
+        })
         return
       }
 
@@ -209,7 +320,6 @@ export function FairlendBuilderConsultingMotion() {
         anticipatePin: 1,
         end: '+=230%',
         invalidateOnRefresh: true,
-        markers: true,
         pin: true,
         refreshPriority: 20,
         scrub: 1.05,

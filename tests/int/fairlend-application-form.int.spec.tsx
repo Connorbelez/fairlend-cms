@@ -59,8 +59,45 @@ describe('FairlendApplicationForm', () => {
       'bottom-[calc(5.45%+var(--hero-stats-height,0px)+clamp(78px,7vw,124px))]',
     )
     expect(form.className).toContain(
-      'hero-landscape:bottom-[calc(6.4%+var(--hero-stats-height,0px)+clamp(78px,7vw,124px))]',
+      'hero-landscape:bottom-[calc(clamp(18px,1.8vw,32px)+clamp(78px,7vw,124px))]',
     )
     expect(form.firstElementChild?.className).toContain('overflow-visible')
+  })
+
+  it('renders browser autofill-friendly field attributes for each application tab', () => {
+    render(<FairlendApplicationForm />)
+
+    const buildAddress = screen.getByRole('combobox', { name: 'Project address' })
+
+    expect(buildAddress.getAttribute('name')).toBe('buildAddress')
+    expect(buildAddress.getAttribute('autocomplete')).toBe('section-build street-address')
+
+    fireEvent.click(screen.getByRole('tab', { name: 'Invest' }))
+
+    expect(screen.getByLabelText('Name').getAttribute('name')).toBe('name')
+    expect(screen.getByLabelText('Name').getAttribute('autocomplete')).toBe('section-invest name')
+    expect(screen.getByLabelText('Email').getAttribute('name')).toBe('email')
+    expect(screen.getByLabelText('Email').getAttribute('autocomplete')).toBe('section-invest email')
+    expect(screen.getByLabelText('Phone number').getAttribute('name')).toBe('tel')
+    expect(screen.getByLabelText('Phone number').getAttribute('autocomplete')).toBe(
+      'section-invest tel',
+    )
+
+    fireEvent.click(screen.getByRole('tab', { name: 'Get a mortgage' }))
+
+    expect(screen.getByLabelText('Name').getAttribute('name')).toBe('name')
+    expect(screen.getByLabelText('Name').getAttribute('autocomplete')).toBe('section-mortgage name')
+    expect(screen.getByLabelText('Email').getAttribute('name')).toBe('email')
+    expect(screen.getByLabelText('Email').getAttribute('autocomplete')).toBe(
+      'section-mortgage email',
+    )
+    expect(screen.getByLabelText('Phone number').getAttribute('name')).toBe('tel')
+    expect(screen.getByLabelText('Phone number').getAttribute('autocomplete')).toBe(
+      'section-mortgage tel',
+    )
+    expect(screen.getByLabelText('Address').getAttribute('name')).toBe('mortgageAddress')
+    expect(screen.getByLabelText('Address').getAttribute('autocomplete')).toBe(
+      'section-mortgage street-address',
+    )
   })
 })
