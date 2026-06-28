@@ -14,7 +14,7 @@ const aboutAssets = {
   multiplexFinancingIcon: `${aboutAssetBase}/finance-icon-multiplex-financing.webp`,
   purposeBuiltRentalsIcon: `${aboutAssetBase}/finance-icon-purpose-built-rentals.webp`,
   residentialMortgagesIcon: `${aboutAssetBase}/finance-icon-residential-private-mortgages.webp`,
-  torontoSkyline: `${aboutAssetBase}/toronto-skyline-sketch.webp`,
+  torontoSkyline: `${aboutAssetBase}/toronto-skyline-sketch-optimized.webp`,
 } as const
 
 const expertiseItems = [

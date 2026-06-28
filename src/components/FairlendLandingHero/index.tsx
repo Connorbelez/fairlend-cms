@@ -1,9 +1,10 @@
-import type { CSSProperties, ReactNode } from 'react'
+import type { CSSProperties } from 'react'
 import { Handshake, MapPin, ShieldCheck, UsersRound } from 'lucide-react'
 
 import { FairlendRegistrationDisclosure } from '@/components/FairlendRegistrationDisclosure'
 import { FairlendTalkToExpertCta } from '@/components/FairlendTalkToExpertCta'
 import { Card } from '@/components/ui/card'
+import { DiaTextReveal } from '@/components/ui/dia-text'
 import { cn } from '@/utilities/ui'
 
 import { FairlendApplicationForm } from './FairlendApplicationForm.client'
@@ -63,6 +64,22 @@ const heroCopyClassName =
 const heroTitleClassName =
   'm-0 flex h-auto w-full min-w-0 max-w-full flex-col p-0 text-balance font-serif text-[clamp(58px,5.2vw,96px)] leading-[0.98] font-black tracking-normal text-[var(--fairlend-ink)] [text-shadow:0_1px_0_rgb(255_255_255/62%),0_14px_34px_rgb(42_24_11/5%)] hero-max-1279:h-auto hero-max-1279:w-auto hero-max-1279:min-w-0 hero-max-1279:text-[clamp(46px,6.6vw,64px)] hero-tablet:block hero-tablet:h-auto hero-tablet:w-auto hero-tablet:min-w-0 hero-tablet:leading-none hero-tablet-landscape:text-[clamp(62px,6.7vw,82px)] hero-tablet-landscape:leading-[0.97] hero-tablet-landscape-short:text-[clamp(44px,5.2vw,58px)] hero-tablet-landscape-short:leading-[0.96] hero-portrait-wide:block hero-portrait-wide:h-auto hero-portrait-wide:w-auto hero-portrait-wide:min-w-0 hero-portrait-wide:text-[clamp(52px,5vw,76px)] hero-portrait-wide:leading-none hero-mobile:block hero-mobile:h-auto hero-mobile:w-auto hero-mobile:min-w-0 hero-mobile:text-[clamp(42px,12.5vw,58px)] hero-mobile:leading-none hero-mobile-short:text-[clamp(36px,11.5vw,46px)] hero-landscape:min-w-0 hero-landscape:text-[clamp(58px,4.8vw,92px)] hero-landscape:leading-[0.98]'
 
+const heroDiaColors = [
+  'oklch(58% 0.23 31)',
+  'oklch(72% 0.23 38)',
+  'oklch(86% 0.16 70)',
+  'oklch(98% 0.035 88)',
+  'oklch(64% 0.22 24)',
+]
+
+function heroDelayToSeconds(delay: string) {
+  const value = Number.parseFloat(delay)
+
+  if (!Number.isFinite(value)) return 0
+
+  return delay.trim().endsWith('ms') ? value / 1000 : value
+}
+
 function MapLabel({ label, location }: { label: string; location: MapLabelLocation }) {
   return (
     <span
@@ -119,10 +136,12 @@ function HeroTitleLine({
   className,
   delay,
 }: {
-  children: ReactNode
+  children: string
   className?: string
   delay: string
 }) {
+  const diaDelay = heroDelayToSeconds(delay) + 0.08
+
   return (
     <span
       className={cn(
@@ -131,12 +150,21 @@ function HeroTitleLine({
       )}
       style={{ '--hero-title-delay': delay } as CSSProperties}
     >
-      {children}
+      <DiaTextReveal
+        className="block"
+        colors={heroDiaColors}
+        delay={diaDelay}
+        duration={0.96}
+        text={children}
+        textColor="var(--fairlend-ink)"
+      />
     </span>
   )
 }
 
 function HeroFinancingLine({ className, delay }: { className: string; delay: string }) {
+  const diaDelay = heroDelayToSeconds(delay) + 0.08
+
   return (
     <span
       className={cn(
@@ -146,7 +174,14 @@ function HeroFinancingLine({ className, delay }: { className: string; delay: str
       style={{ '--hero-title-delay': delay } as CSSProperties}
     >
       <span className="text-[var(--fairlend-orange)] [text-shadow:0_1px_0_rgb(255_237_226/70%),0_12px_28px_rgb(255_58_25/10%)]">
-        Financing
+        <DiaTextReveal
+          className="inline-block"
+          colors={heroDiaColors}
+          delay={diaDelay}
+          duration={0.96}
+          text="Financing"
+          textColor="var(--fairlend-orange)"
+        />
         <span
           aria-hidden="true"
           className="relative inline-block h-[1em] w-[0.18em] align-baseline"
@@ -155,7 +190,14 @@ function HeroFinancingLine({ className, delay }: { className: string; delay: str
           {' '}
           <HeroHandwrittenInsertion />
         </span>
-        for:
+        <DiaTextReveal
+          className="inline-block"
+          colors={heroDiaColors}
+          delay={diaDelay + 0.12}
+          duration={0.72}
+          text="for:"
+          textColor="var(--fairlend-orange)"
+        />
       </span>
     </span>
   )
@@ -217,7 +259,9 @@ export function FairlendLandingHero() {
                   <source
                     height={1672}
                     media="(max-width: 1023px), (orientation: portrait)"
-                    srcSet="/assets/mobileHero.png"
+                    sizes="100vw"
+                    srcSet="/assets/mobileHero-640.webp 640w, /assets/mobileHero.webp 941w"
+                    type="image/webp"
                     width={941}
                   />
                   <img
@@ -226,7 +270,9 @@ export function FairlendLandingHero() {
                     decoding="async"
                     fetchPriority="high"
                     height={821}
-                    src="/assets/fairlend-hero-jun-26-2026.png"
+                    sizes="100vw"
+                    src="/assets/fairlend-hero-jun-26-2026.webp"
+                    srcSet="/assets/fairlend-hero-jun-26-2026-1200.webp 1200w, /assets/fairlend-hero-jun-26-2026.webp 1916w"
                     width={1916}
                   />
                 </picture>

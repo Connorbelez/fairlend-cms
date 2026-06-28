@@ -388,7 +388,7 @@ function HouseVisual() {
           fill
           loading="eager"
           sizes="(min-width: 1024px) 43vw, 100vw"
-          src="/assets/right-house-estate.png"
+          src="/assets/right-house-estate.webp"
         />
       </div>
       <svg className="builder-route-line" aria-hidden="true" viewBox="0 0 520 260">

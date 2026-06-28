@@ -1,14 +1,20 @@
 import type { HTMLAttributes, ReactElement } from 'react'
 
+type DataAttributes = {
+  [key: `data-${string}`]: string | number | boolean | undefined
+}
+
+type KickerElementAttributes<T extends HTMLElement> = HTMLAttributes<T> & DataAttributes
+
 type FairlendSectionKickerProps = {
   className?: string
   label: string
   labelId?: string
-  labelProps?: HTMLAttributes<HTMLParagraphElement>
+  labelProps?: KickerElementAttributes<HTMLParagraphElement>
   number: string
-  numberProps?: HTMLAttributes<HTMLSpanElement>
-  slashProps?: HTMLAttributes<HTMLSpanElement>
-} & HTMLAttributes<HTMLDivElement>
+  numberProps?: KickerElementAttributes<HTMLSpanElement>
+  slashProps?: KickerElementAttributes<HTMLSpanElement>
+} & KickerElementAttributes<HTMLDivElement>
 
 export function FairlendSectionKicker({
   className,

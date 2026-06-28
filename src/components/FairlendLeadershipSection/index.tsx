@@ -18,7 +18,7 @@ import { FairlendSectionKicker } from '@/components/FairlendSectionKicker'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 
-const leadershipAsset = '/assets/elie-headshot.jpg'
+const leadershipAsset = '/assets/elie-headshot.webp'
 
 const leadershipProof = [
   {
