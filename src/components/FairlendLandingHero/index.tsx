@@ -62,7 +62,7 @@ const heroCopyClassName =
   'absolute top-[calc(var(--hero-header-clearance)+clamp(18px,3.8svh,54px))] left-[clamp(28px,4vw,76px)] z-[5] flex w-[min(43vw,700px)] max-w-[700px] flex-col items-start gap-0 [translate:0] motion-safe:animate-[heroCopyIn_780ms_var(--hero-ease-out)_180ms_both] hero-max-1120:w-fit hero-max-1279:relative hero-max-1279:top-auto hero-max-1279:left-auto hero-max-1279:z-[5] hero-max-1279:mt-0 hero-max-1279:h-auto hero-max-1279:w-[min(100%,590px)] hero-max-1279:[translate:0] hero-tablet:block hero-tablet:h-auto hero-tablet:w-full hero-tablet:max-w-[640px] hero-tablet-landscape:absolute hero-tablet-landscape:top-[clamp(168px,22svh,230px)] hero-tablet-landscape:left-0 hero-tablet-landscape:w-[min(45vw,560px)] hero-tablet-landscape:max-w-none hero-tablet-landscape:[translate:0] hero-tablet-landscape-short:top-[clamp(82px,14svh,110px)] hero-tablet-landscape-short:w-[min(46vw,500px)] hero-portrait-wide:absolute hero-portrait-wide:top-[calc(var(--hero-header-clearance)+clamp(18px,3svh,44px))] hero-portrait-wide:left-[clamp(28px,5vw,68px)] hero-portrait-wide:z-[5] hero-portrait-wide:mt-0 hero-portrait-wide:block hero-portrait-wide:h-auto hero-portrait-wide:w-[min(43vw,680px)] hero-portrait-wide:max-w-[680px] hero-portrait-wide:[translate:0] hero-mobile:block hero-mobile:h-auto hero-mobile:w-full hero-landscape:absolute hero-landscape:top-[calc(var(--hero-header-clearance)+clamp(18px,3.4svh,48px))] hero-landscape:left-[clamp(32px,4.2vw,80px)] hero-landscape:col-auto hero-landscape:row-auto hero-landscape:self-auto hero-landscape:w-[min(43vw,700px)] hero-landscape:max-w-[700px] hero-landscape:[translate:0]'
 
 const heroTitleClassName =
-  'm-0 flex h-auto w-full min-w-0 max-w-full flex-col p-0 text-balance font-serif text-[clamp(58px,5.2vw,96px)] leading-[0.98] font-black tracking-normal text-[var(--fairlend-ink)] [text-shadow:0_1px_0_rgb(255_255_255/62%),0_14px_34px_rgb(42_24_11/5%)] hero-max-1279:h-auto hero-max-1279:w-auto hero-max-1279:min-w-0 hero-max-1279:text-[clamp(46px,6.6vw,64px)] hero-tablet:block hero-tablet:h-auto hero-tablet:w-auto hero-tablet:min-w-0 hero-tablet:leading-none hero-tablet-landscape:text-[clamp(62px,6.7vw,82px)] hero-tablet-landscape:leading-[0.97] hero-tablet-landscape-short:text-[clamp(44px,5.2vw,58px)] hero-tablet-landscape-short:leading-[0.96] hero-portrait-wide:block hero-portrait-wide:h-auto hero-portrait-wide:w-auto hero-portrait-wide:min-w-0 hero-portrait-wide:text-[clamp(52px,5vw,76px)] hero-portrait-wide:leading-none hero-mobile:block hero-mobile:h-auto hero-mobile:w-auto hero-mobile:min-w-0 hero-mobile:text-[clamp(42px,12.5vw,58px)] hero-mobile:leading-none hero-mobile-short:text-[clamp(36px,11.5vw,46px)] hero-landscape:min-w-0 hero-landscape:text-[clamp(58px,4.8vw,92px)] hero-landscape:leading-[0.98]'
+  'm-0 flex h-auto w-full min-w-0 max-w-full flex-col p-0 text-balance font-serif text-[clamp(58px,5.2vw,96px)] leading-[0.98] font-black tracking-normal text-[var(--fairlend-ink)] [-webkit-font-smoothing:auto] [-webkit-text-fill-color:var(--fairlend-ink)] [-webkit-text-stroke:0.45px_rgb(0_31_36/42%)] [text-shadow:0_1px_0_rgb(255_255_255/36%),0_10px_24px_rgb(0_31_36/8%)] hero-max-1279:h-auto hero-max-1279:w-auto hero-max-1279:min-w-0 hero-max-1279:text-[clamp(46px,6.6vw,64px)] hero-tablet:block hero-tablet:h-auto hero-tablet:w-auto hero-tablet:min-w-0 hero-tablet:leading-none hero-tablet-landscape:text-[clamp(62px,6.7vw,82px)] hero-tablet-landscape:leading-[0.97] hero-tablet-landscape-short:text-[clamp(44px,5.2vw,58px)] hero-tablet-landscape-short:leading-[0.96] hero-portrait-wide:block hero-portrait-wide:h-auto hero-portrait-wide:w-auto hero-portrait-wide:min-w-0 hero-portrait-wide:text-[clamp(52px,5vw,76px)] hero-portrait-wide:leading-none hero-mobile:block hero-mobile:h-auto hero-mobile:w-auto hero-mobile:min-w-0 hero-mobile:text-[clamp(42px,12.5vw,58px)] hero-mobile:leading-none hero-mobile-short:text-[clamp(36px,11.5vw,46px)] hero-landscape:min-w-0 hero-landscape:text-[clamp(58px,4.8vw,92px)] hero-landscape:leading-[0.98]'
 
 const heroDiaColors = [
   'oklch(58% 0.23 31)',
@@ -145,7 +145,7 @@ function HeroTitleLine({
   return (
     <span
       className={cn(
-        'block whitespace-nowrap motion-safe:animate-[heroTitleLineIn_680ms_var(--hero-ease-out)_var(--hero-title-delay)_both]',
+        'relative block whitespace-nowrap motion-safe:animate-[heroTitleLineIn_680ms_var(--hero-ease-out)_var(--hero-title-delay)_both]',
         className,
       )}
       style={{ '--hero-title-delay': delay } as CSSProperties}
@@ -153,10 +153,12 @@ function HeroTitleLine({
       <DiaTextReveal
         className="block"
         colors={heroDiaColors}
+        solidAfterReveal
         delay={diaDelay}
-        duration={0.96}
+        duration={1.35}
         text={children}
         textColor="var(--fairlend-ink)"
+        triggerOnView={false}
       />
     </span>
   )
@@ -173,15 +175,19 @@ function HeroFinancingLine({ className, delay }: { className: string; delay: str
       )}
       style={{ '--hero-title-delay': delay } as CSSProperties}
     >
-      <span className="text-[var(--fairlend-orange)] [text-shadow:0_1px_0_rgb(255_237_226/70%),0_12px_28px_rgb(255_58_25/10%)]">
-        <DiaTextReveal
-          className="inline-block"
-          colors={heroDiaColors}
-          delay={diaDelay}
-          duration={0.96}
-          text="Financing"
-          textColor="var(--fairlend-orange)"
-        />
+      <span className="text-[var(--fairlend-orange)] [-webkit-text-fill-color:var(--fairlend-orange)] [-webkit-text-stroke:0.35px_rgb(217_47_11/42%)] [text-shadow:0_1px_0_rgb(255_237_226/42%),0_10px_22px_rgb(217_47_11/12%)]">
+        <span className="inline-block">
+          <DiaTextReveal
+            className="inline-block"
+            colors={heroDiaColors}
+            delay={diaDelay}
+            duration={1.35}
+            solidAfterReveal
+            text="Financing"
+            textColor="var(--fairlend-orange)"
+            triggerOnView={false}
+          />
+        </span>
         <span
           aria-hidden="true"
           className="relative inline-block h-[1em] w-[0.18em] align-baseline"
@@ -190,14 +196,18 @@ function HeroFinancingLine({ className, delay }: { className: string; delay: str
           {' '}
           <HeroHandwrittenInsertion />
         </span>
-        <DiaTextReveal
-          className="inline-block"
-          colors={heroDiaColors}
-          delay={diaDelay + 0.12}
-          duration={0.72}
-          text="for:"
-          textColor="var(--fairlend-orange)"
-        />
+        <span className="inline-block">
+          <DiaTextReveal
+            className="inline-block"
+            colors={heroDiaColors}
+            delay={diaDelay + 0.12}
+            duration={1.05}
+            solidAfterReveal
+            text="for:"
+            textColor="var(--fairlend-orange)"
+            triggerOnView={false}
+          />
+        </span>
       </span>
     </span>
   )

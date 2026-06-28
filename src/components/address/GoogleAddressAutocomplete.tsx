@@ -25,6 +25,7 @@ type AddressDetails = {
 
 interface GoogleAddressAutocompleteProps {
   ariaDescribedBy?: string
+  autoComplete?: React.InputHTMLAttributes<HTMLInputElement>['autoComplete']
   className?: string
   disabled?: boolean
   id?: string
@@ -48,6 +49,7 @@ interface GoogleAddressAutocompleteProps {
 
 export function GoogleAddressAutocomplete({
   ariaDescribedBy,
+  autoComplete = 'off',
   className,
   disabled = false,
   id,
@@ -192,7 +194,7 @@ export function GoogleAddressAutocomplete({
     'aria-describedby': ariaDescribedBy,
     'aria-expanded': isOpen,
     'aria-label': typeof label === 'string' ? label : 'Project address',
-    autoComplete: 'off',
+    autoComplete,
     className: cn('w-full min-w-0', inputClassName),
     'data-testid': testId,
     disabled,

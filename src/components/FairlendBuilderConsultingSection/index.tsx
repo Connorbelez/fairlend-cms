@@ -537,10 +537,12 @@ function formatEquationDelta(delta: number) {
 
 function EquationCard({
   card,
+  dynamic = false,
   mode = 'problem',
   variant = 'full',
 }: {
   card: (typeof equationCards)[number]
+  dynamic?: boolean
   mode?: BuilderMode
   variant?: EquationVariant
 }) {
@@ -550,6 +552,58 @@ function EquationCard({
   const counterKey = card.key === 'home' ? undefined : card.key
 
   if (variant === 'compact') {
+    if (dynamic) {
+      return (
+        <Card className="builder-equation-card builder-equation-card--compact builder-equation-card--scroll">
+          <CardHeader className="builder-equation-card__header">
+            <CardTitle>{card.label}</CardTitle>
+            <span className="builder-equation-card__delta builder-swap-text">
+              <StateLayer mode="problem">{formatEquationDelta(problemCardState.delta)}</StateLayer>
+              <StateLayer mode="solution">{formatEquationDelta(solutionCardState.delta)}</StateLayer>
+            </span>
+          </CardHeader>
+          <CardContent className="builder-equation-card__content">
+            <strong {...(counterKey ? { 'data-builder-counter': counterKey } : {})}>
+              {counterKey ? (
+                card.problemValue
+              ) : (
+                <span className="builder-swap-text">
+                  <StateLayer mode="problem">{problemCardState.value}</StateLayer>
+                  <StateLayer mode="solution">{solutionCardState.value}</StateLayer>
+                </span>
+              )}
+            </strong>
+            <p className="builder-equation-card__static-label builder-swap-text">
+              <StateLayer mode="problem">{problemCardState.sublabel}</StateLayer>
+              <StateLayer mode="solution">{solutionCardState.sublabel}</StateLayer>
+            </p>
+            <div
+              className="builder-compact-score"
+              aria-hidden="true"
+              data-builder-compact-score
+              data-problem-score={problemCardState.score}
+              data-solution-score={solutionCardState.score}
+            >
+              <span className="builder-compact-score__track">
+                <span
+                  className="builder-compact-score__fill"
+                  data-builder-compact-score-fill
+                  style={
+                    { '--builder-card-score': `${problemCardState.score}%` } as CSSProperties
+                  }
+                />
+              </span>
+              <em data-builder-compact-score-text>{problemCardState.score}%</em>
+            </div>
+            <p className="builder-equation-card__hint builder-swap-text">
+              <StateLayer mode="problem">{problemCardState.hint}</StateLayer>
+              <StateLayer mode="solution">{solutionCardState.hint}</StateLayer>
+            </p>
+          </CardContent>
+        </Card>
+      )
+    }
+
     return (
       <Card
         className={cn(
@@ -657,15 +711,46 @@ function MiniChart() {
 }
 
 function OutcomeCard({
+  dynamic = false,
   mode = 'problem',
   variant = 'full',
 }: {
+  dynamic?: boolean
   mode?: BuilderMode
   variant?: EquationVariant
 }) {
   const state = states[mode]
 
   if (variant === 'compact') {
+    if (dynamic) {
+      return (
+        <Card className="builder-outcome-card builder-outcome-card--compact builder-outcome-card--scroll">
+          <div className="builder-outcome-card__header">PROJECT OUTCOME</div>
+          <div className="builder-outcome-card__body">
+            <p className="builder-outcome-card__label builder-swap-text">
+              <StateLayer mode="problem">{states.problem.outcomeLabel}</StateLayer>
+              <StateLayer mode="solution">{states.solution.outcomeLabel}</StateLayer>
+            </p>
+            <strong data-builder-counter="outcome">{states.problem.outcomeValue}</strong>
+            <p>
+              <span data-builder-counter="margin">{states.problem.margin}</span>
+              <span> PROJECT MARGIN</span>
+            </p>
+            <div className="builder-risk-labels">
+              <span className="builder-swap-text">
+                <StateLayer mode="problem">{states.problem.riskLeft}</StateLayer>
+                <StateLayer mode="solution">{states.solution.riskLeft}</StateLayer>
+              </span>
+              <span className="builder-swap-text">
+                <StateLayer mode="problem">{states.problem.riskRight}</StateLayer>
+                <StateLayer mode="solution">{states.solution.riskRight}</StateLayer>
+              </span>
+            </div>
+          </div>
+        </Card>
+      )
+    }
+
     return (
       <Card
         className={cn(
@@ -716,28 +801,32 @@ function OutcomeCard({
   )
 }
 
-function MobileEquationBoard({ mode }: { mode: BuilderMode }) {
-  const state = states[mode]
-
+function MobileScrollEquationBoard() {
   return (
-    <div className={cn('builder-mobile-equation-board', `builder-mobile-equation-board--${mode}`)}>
+    <div className="builder-mobile-equation-board builder-mobile-equation-board--scroll">
       <div className="builder-mobile-equation-board__backdrop" aria-hidden="true">
         <HouseVisual />
       </div>
       <div className="builder-mobile-equation-board__header">
-        <p>{state.label}</p>
-        <span>{state.panelNote}</span>
+        <p className="builder-swap-text">
+          <StateLayer mode="problem">{states.problem.label}</StateLayer>
+          <StateLayer mode="solution">{states.solution.label}</StateLayer>
+        </p>
+        <span className="builder-swap-text">
+          <StateLayer mode="problem">{states.problem.panelNote}</StateLayer>
+          <StateLayer mode="solution">{states.solution.panelNote}</StateLayer>
+        </span>
       </div>
       <div className="builder-mobile-equation-grid">
         {equationCards.map((card, index) => (
           <div className="builder-mobile-equation-cell" key={card.key}>
-            <EquationCard card={card} mode={mode} variant="compact" />
+            <EquationCard card={card} dynamic variant="compact" />
             {index < equationCards.length - 1 ? <Operator value="+" /> : null}
           </div>
         ))}
         <div className="builder-mobile-equation-cell builder-mobile-equation-cell--outcome">
           <Operator value="=" />
-          <OutcomeCard mode={mode} variant="compact" />
+          <OutcomeCard dynamic variant="compact" />
         </div>
       </div>
       <p className="builder-footnote builder-footnote--mobile">
@@ -839,25 +928,43 @@ function BuilderBottomStrip() {
   )
 }
 
-function MobileState({ mode }: { mode: BuilderMode }) {
-  const state = states[mode]
-
+function MobileScrollState() {
   return (
-    <article
-      className={cn('builder-mobile-state', `builder-mobile-state--${mode}`)}
-      data-builder-mobile-card
-    >
-      <BuilderEyebrow mode={mode} />
-      <h2 className="builder-headline">
-        <span>{state.headlineTop}</span>
-        <span>{state.headlineBottom}</span>
-      </h2>
-      <p className="builder-subheadline">{state.subheadline}</p>
-      <div className="builder-mobile-stage">
-        <MobileEquationBoard mode={mode} />
+    <article className="builder-mobile-state builder-mobile-state--scroll" data-builder-mobile-card>
+      <div className="builder-mobile-copy-window">
+        <div
+          className="builder-mobile-copy-panel builder-mobile-copy-panel--problem"
+          data-builder-mobile-copy
+          data-builder-state="problem"
+        >
+          <BuilderEyebrow mode="problem" />
+          <h2 className="builder-headline">
+            <span>{states.problem.headlineTop}</span>
+            <span>{states.problem.headlineBottom}</span>
+          </h2>
+          <p className="builder-subheadline">{states.problem.subheadline}</p>
+        </div>
+        <div
+          className="builder-mobile-copy-panel builder-mobile-copy-panel--solution"
+          data-builder-mobile-copy
+          data-builder-state="solution"
+        >
+          <BuilderEyebrow mode="solution" />
+          <h2 className="builder-headline">
+            <span>{states.solution.headlineTop}</span>
+            <span>{states.solution.headlineBottom}</span>
+          </h2>
+          <p className="builder-subheadline">{states.solution.subheadline}</p>
+        </div>
+      </div>
+      <div className="builder-mobile-stage" data-builder-mobile-dashboard>
+        <MobileScrollEquationBoard />
       </div>
       <Link className="builder-cta builder-cta--mobile" href="#contact">
-        {state.cta}
+        <span className="builder-swap-text">
+          <StateLayer mode="problem">{states.problem.cta}</StateLayer>
+          <StateLayer mode="solution">{states.solution.cta}</StateLayer>
+        </span>
         <span className="builder-cta__icon" aria-hidden="true">
           <ArrowRight className="size-6" strokeWidth={1.55} />
         </span>
@@ -3441,6 +3548,45 @@ function BuilderConsultingStyles() {
           padding: clamp(0.78rem, 2.9vw, 1rem);
         }
 
+        .builder-mobile-state--scroll {
+          min-height: calc(100svh - clamp(8.5rem, 24vw, 12rem));
+          align-content: start;
+          grid-template-rows: auto minmax(0, 1fr) auto;
+          gap: 0.68rem;
+        }
+
+        .builder-mobile-copy-window {
+          position: relative;
+          min-height: clamp(9.2rem, 35vw, 12.4rem);
+          overflow: hidden;
+        }
+
+        .builder-mobile-copy-panel {
+          position: absolute;
+          inset: 0;
+          display: grid;
+          align-content: start;
+          will-change: clip-path, opacity, transform;
+        }
+
+        .builder-mobile-copy-panel--problem {
+          z-index: 4;
+          clip-path: inset(0);
+          opacity: 1;
+        }
+
+        .builder-mobile-copy-panel--solution {
+          z-index: 5;
+          clip-path: inset(0 0 100% 0);
+          opacity: 0;
+          visibility: hidden;
+        }
+
+        .builder-mobile-copy-panel > [data-builder-state] {
+          display: block;
+          width: fit-content;
+        }
+
         .builder-mobile-state > .builder-eyebrow {
           position: relative;
           z-index: 3;
@@ -3464,7 +3610,8 @@ function BuilderConsultingStyles() {
 
         .builder-mobile-stage {
           display: block;
-          margin-top: 0.66rem;
+          margin-top: 0;
+          min-height: 0;
         }
 
         .builder-mobile-equation-board {
@@ -3654,6 +3801,11 @@ function BuilderConsultingStyles() {
           line-height: 0.95;
         }
 
+        .builder-mobile .builder-equation-card--compact strong .builder-swap-text {
+          display: grid;
+          min-width: 0;
+        }
+
         .builder-equation-card__static-label,
         .builder-equation-card__hint {
           margin: 0;
@@ -3675,6 +3827,15 @@ function BuilderConsultingStyles() {
           font-size: 0.52rem;
           font-weight: 750;
           line-height: 1.05;
+        }
+
+        .builder-mobile .builder-equation-card__static-label.builder-swap-text,
+        .builder-mobile .builder-equation-card__hint.builder-swap-text,
+        .builder-mobile .builder-outcome-card__label.builder-swap-text,
+        .builder-mobile .builder-risk-labels .builder-swap-text,
+        .builder-mobile-equation-board__header .builder-swap-text {
+          display: grid;
+          min-width: 0;
         }
 
         .builder-compact-score {
@@ -3784,6 +3945,40 @@ function BuilderConsultingStyles() {
           margin-top: 0.64rem;
           font-size: 0.72rem;
         }
+
+        .builder-mobile-state--scroll .builder-cta--mobile {
+          margin-top: 0;
+        }
+
+        .builder-mobile-state--scroll .builder-equation-card__delta,
+        .builder-mobile-state--scroll .builder-outcome-card--compact strong {
+          color: color-mix(
+            in oklch,
+            var(--builder-coral-deep) calc((1 - var(--builder-progress)) * 100%),
+            var(--builder-green) calc(var(--builder-progress) * 100%)
+          );
+        }
+
+        .builder-mobile-state--scroll .builder-outcome-card__label {
+          color: color-mix(
+            in oklch,
+            var(--builder-coral) calc((1 - var(--builder-progress)) * 88%),
+            var(--builder-green) calc(var(--builder-progress) * 76%)
+          );
+        }
+
+        .builder-mobile-state--scroll .builder-cta {
+          border-color: color-mix(
+            in oklch,
+            var(--builder-coral) calc((1 - var(--builder-progress)) * 82%),
+            var(--builder-green) calc(var(--builder-progress) * 72%)
+          );
+          color: color-mix(
+            in oklch,
+            var(--builder-coral-deep) calc((1 - var(--builder-progress)) * 100%),
+            var(--builder-green) calc(var(--builder-progress) * 92%)
+          );
+        }
       }
 
       @media (max-width: 520px) {
@@ -3833,6 +4028,10 @@ function BuilderConsultingStyles() {
         .builder-mobile-state > .builder-eyebrow {
           padding: 0.24rem 0.44rem;
           font-size: 0.56rem;
+        }
+
+        .builder-mobile-copy-window {
+          min-height: 8.6rem;
         }
 
         .builder-mobile-state .builder-headline {
@@ -3970,8 +4169,7 @@ export function FairlendBuilderConsultingSection() {
         </div>
 
         <div className="builder-mobile">
-          <MobileState mode="problem" />
-          <MobileState mode="solution" />
+          <MobileScrollState />
         </div>
       </div>
     </section>

@@ -160,6 +160,7 @@ export function WatermelonFooter({
                 Email address
               </label>
               <Input
+                autoComplete="email"
                 className="h-12 rounded-none border-[#d8c7b6] bg-white/82 px-4 text-sm font-semibold shadow-none focus-visible:border-[#ff6a3d] focus-visible:ring-[#ff6a3d]/20"
                 id="footer-email"
                 name="email"
