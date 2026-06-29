@@ -20,6 +20,11 @@ import {
 } from 'lucide-react'
 import type { ComponentType, CSSProperties, SVGProps } from 'react'
 
+import {
+  FairlendLedgerTabs,
+  FairlendPaperSection,
+  FairlendPaperShell,
+} from '@/components/FairlendMarketingPrimitives'
 import { FairlendSectionKicker } from '@/components/FairlendSectionKicker'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
@@ -305,11 +310,7 @@ function BuilderSectionHeader() {
           sideways.
         </p>
       </div>
-      <div className="builder-section-ledger" aria-hidden="true">
-        <span />
-        <span />
-        <span />
-      </div>
+      <FairlendLedgerTabs className="builder-section-ledger" />
     </header>
   )
 }
@@ -559,7 +560,9 @@ function EquationCard({
             <CardTitle>{card.label}</CardTitle>
             <span className="builder-equation-card__delta builder-swap-text">
               <StateLayer mode="problem">{formatEquationDelta(problemCardState.delta)}</StateLayer>
-              <StateLayer mode="solution">{formatEquationDelta(solutionCardState.delta)}</StateLayer>
+              <StateLayer mode="solution">
+                {formatEquationDelta(solutionCardState.delta)}
+              </StateLayer>
             </span>
           </CardHeader>
           <CardContent className="builder-equation-card__content">
@@ -588,9 +591,7 @@ function EquationCard({
                 <span
                   className="builder-compact-score__fill"
                   data-builder-compact-score-fill
-                  style={
-                    { '--builder-card-score': `${problemCardState.score}%` } as CSSProperties
-                  }
+                  style={{ '--builder-card-score': `${problemCardState.score}%` } as CSSProperties}
                 />
               </span>
               <em data-builder-compact-score-text>{problemCardState.score}%</em>
@@ -613,7 +614,9 @@ function EquationCard({
       >
         <CardHeader className="builder-equation-card__header">
           <CardTitle>{card.label}</CardTitle>
-          <span className="builder-equation-card__delta">{formatEquationDelta(cardState.delta)}</span>
+          <span className="builder-equation-card__delta">
+            {formatEquationDelta(cardState.delta)}
+          </span>
         </CardHeader>
         <CardContent className="builder-equation-card__content">
           <strong>{cardState.value}</strong>
@@ -3437,7 +3440,20 @@ function BuilderConsultingStyles() {
           overflow: hidden;
         }
 
+        .builder-section-header__copy {
+          min-width: 0;
+          width: 100%;
+        }
+
+        .builder-section-kicker {
+          width: 100%;
+          max-width: 100%;
+          align-items: flex-start;
+          gap: clamp(0.42rem, 2.5vw, 0.62rem);
+        }
+
         .builder-consulting .about-section-kicker span {
+          flex: 0 0 auto;
           font-size: 2.35rem;
         }
 
@@ -3446,7 +3462,12 @@ function BuilderConsultingStyles() {
         }
 
         .builder-consulting .about-section-kicker p {
+          flex: 1 1 auto;
+          min-width: 0;
           font-size: 0.86rem;
+          line-height: 1.08;
+          overflow-wrap: break-word;
+          text-wrap: balance;
         }
 
         .builder-section-header__copy > p {
@@ -3983,7 +4004,7 @@ function BuilderConsultingStyles() {
 
       @media (max-width: 520px) {
         .builder-editorial-shell {
-          padding-inline: 16px;
+          padding-inline: 12px;
         }
 
         .builder-frame-corner {
@@ -4013,6 +4034,18 @@ function BuilderConsultingStyles() {
 
         .builder-headline {
           font-size: 2.65rem;
+        }
+
+        .builder-consulting .about-section-kicker span {
+          font-size: 2.05rem;
+        }
+
+        .builder-consulting .about-section-kicker .about-kicker-slash {
+          font-size: 1.3rem;
+        }
+
+        .builder-consulting .about-section-kicker p {
+          font-size: 0.8rem;
         }
 
         .builder-mobile-state {
@@ -4138,7 +4171,7 @@ function BuilderConsultingStyles() {
 
 export function FairlendBuilderConsultingSection() {
   return (
-    <section
+    <FairlendPaperSection
       aria-labelledby="builder-consulting-title"
       className="builder-consulting relative isolate scroll-mt-[88px]"
       data-builder-consulting
@@ -4147,7 +4180,7 @@ export function FairlendBuilderConsultingSection() {
       <BuilderConsultingStyles />
       <FairlendBuilderConsultingMotion />
 
-      <div className="builder-editorial-shell">
+      <FairlendPaperShell className="builder-editorial-shell">
         <BuilderFrameCorners />
         <BuilderSectionHeader />
         <span className="builder-section-rule" aria-hidden="true" />
@@ -4171,7 +4204,7 @@ export function FairlendBuilderConsultingSection() {
         <div className="builder-mobile">
           <MobileScrollState />
         </div>
-      </div>
-    </section>
+      </FairlendPaperShell>
+    </FairlendPaperSection>
   )
 }

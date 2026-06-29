@@ -120,8 +120,8 @@
   @keyframes heroChromeIn {
     from {
       opacity: 0;
-      filter: blur(8px);
-      transform: translateY(-12px);
+      filter: blur(6px);
+      transform: translateY(-10px);
     }
 
     to {
@@ -134,38 +134,36 @@
   @keyframes heroMapIn {
     from {
       opacity: 0;
-      clip-path: inset(3% 0 0 7% round 28px);
-      filter: blur(7px) saturate(0.88);
-      transform: translate3d(18px, 14px, 0) scale(0.992);
+      filter: blur(15px) saturate(0.94);
+      transform: scale(1.15);
     }
 
     to {
       opacity: 1;
-      clip-path: inset(0 0 0 0 round 0);
       filter: blur(0) saturate(1);
-      transform: translate3d(0, 0, 0) scale(1);
+      transform: scale(1);
     }
   }
 
   @keyframes heroCopyIn {
     from {
       opacity: 0;
-      filter: blur(6px);
-      transform: translate3d(0, 20px, 0) scale(0.992);
+      filter: blur(8px);
+      transform: translate3d(0, 20px, 0);
     }
 
     to {
       opacity: 1;
       filter: blur(0);
-      transform: translate3d(0, 0, 0) scale(1);
+      transform: translate3d(0, 0, 0);
     }
   }
 
   @keyframes heroTitleLineIn {
     from {
       opacity: 0;
-      filter: blur(4px);
-      transform: translate3d(0, 0.28em, 0);
+      filter: blur(8px);
+      transform: translate3d(0, 20px, 0);
     }
 
     to {
@@ -178,14 +176,33 @@
   @keyframes heroPanelIn {
     from {
       opacity: 0;
-      filter: blur(5px);
-      transform: translateY(16px) scale(0.985);
+      filter: blur(8px);
+      transform: translateY(20px);
     }
 
     to {
       opacity: 1;
       filter: blur(0);
-      transform: translateY(0) scale(1);
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes heroFoliageGrowIn {
+    from {
+      opacity: 0;
+      filter: blur(12px) saturate(0.88) contrast(1.08) brightness(0.96);
+      transform: translate3d(
+          var(--hero-foliage-x, 0),
+          var(--hero-foliage-y, 0),
+          0
+        )
+        scale(var(--hero-foliage-scale, 0.84));
+    }
+
+    to {
+      opacity: var(--hero-foliage-opacity, 0.28);
+      filter: blur(0) saturate(1.08) contrast(1.18) brightness(0.9);
+      transform: translate3d(0, 0, 0) scale(1);
     }
   }
 

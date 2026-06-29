@@ -3,7 +3,12 @@ import type { CSSProperties, ElementType, ReactNode } from 'react'
 import { ArrowRight, Check, Building2, Home, Shield, Users } from 'lucide-react'
 import { cva, type VariantProps } from 'class-variance-authority'
 
-import { FairlendSectionKicker } from '@/components/FairlendSectionKicker'
+import {
+  FairlendPaperSection,
+  FairlendPaperShell,
+  FairlendServiceModelCard,
+  FairlendServicesModelHeader,
+} from '@/components/FairlendMarketingPrimitives'
 import { cn } from '@/utilities/ui'
 
 const assetBase = '/assets/service-concepts'
@@ -910,7 +915,7 @@ function getServicesModelBullets(service: Service) {
 
 export function FairlendServicesSection() {
   return (
-    <section
+    <FairlendPaperSection
       id="fairlend-services"
       aria-labelledby="fairlend-services-title"
       className={cn(
@@ -1705,58 +1710,8 @@ export function FairlendServicesSection() {
         }
       `}</style>
 
-      <div className="services-model-shell">
-        <header className="services-model-header">
-          <div className="services-model-header-content">
-            <div
-              className="services-model-brand services-reveal"
-              data-services-brand
-              style={step(0)}
-            >
-              <span data-services-logo>The FairLend Model</span>
-              <span className="services-model-brand__count" data-services-established>
-                01 of 03
-              </span>
-            </div>
-            <FairlendSectionKicker
-              className="services-model-kicker about-kicker-who"
-              label="Our Services"
-              labelId="fairlend-services-title"
-              labelProps={{
-                'data-services-title-label': true,
-                'data-services-title-word': true,
-              }}
-              number="01"
-              numberProps={{
-                'data-services-title-number': true,
-                'data-services-title-word': true,
-              }}
-              slashProps={{ 'data-services-title-slash': true }}
-            />
-            <p className="services-model-copy" data-services-copy-line>
-              Four specialized desks. One integrated model. Flexible capital solutions for every
-              stage of real estate.
-            </p>
-          </div>
-
-          <div className="services-header-ledger__tabs" aria-hidden="true">
-            <span className="services-header-ledger__tab" data-services-tab />
-            <span className="services-header-ledger__tab" data-services-tab />
-            <span className="services-header-ledger__tab" data-services-tab />
-          </div>
-
-          <div className="services-model-skyline" data-services-map aria-hidden="true">
-            <Image
-              alt=""
-              className="h-full w-full object-contain object-right-bottom"
-              decoding="async"
-              fill
-              loading="lazy"
-              sizes="(max-width: 1180px) 90vw, 58vw"
-              src="/assets/about-webp/webp/toronto-skyline-sketch-optimized.webp"
-            />
-          </div>
-        </header>
+      <FairlendPaperShell className="services-model-shell">
+        <FairlendServicesModelHeader stepStyle={step(0)} />
 
         <span
           className="services-line-x services-model-main-rule relative z-10 block h-px w-full"
@@ -1786,123 +1741,21 @@ export function FairlendServicesSection() {
             data-services-grid-edge="left"
           />
           {services.map((service, index) => {
-            const Icon = service.icon
             const colDelay = 420 + index * 100
             const bulletBase = 9 + index * 6
             const bullets = getServicesModelBullets(service)
 
             return (
-              <article
+              <FairlendServiceModelCard
+                bulletBase={bulletBase}
+                bullets={bullets}
+                colDelay={colDelay}
+                index={index}
                 key={service.number}
-                className="services-model-panel services-reveal"
-                data-services-card
-                data-services-card-motion={service.motion}
-                style={step(5 + index)}
-              >
-                {index > 0 && (
-                  <span
-                    className="services-line-x services-model-panel-rule--mobile"
-                    data-services-line-x
-                    style={lineDelay(colDelay)}
-                  />
-                )}
-                {index % 2 === 1 && (
-                  <span
-                    className="services-line-y services-model-panel-rule--desktop-y"
-                    data-services-line-y
-                    style={lineDelay(colDelay)}
-                  />
-                )}
-                {index >= 2 && (
-                  <span
-                    className="services-line-x services-model-panel-rule--desktop-x"
-                    data-services-line-x
-                    style={lineDelay(colDelay)}
-                  />
-                )}
-
-                <span
-                  aria-hidden="true"
-                  className="services-card-corner services-card-corner--tl"
-                  data-services-corner="tl"
-                />
-                <span
-                  aria-hidden="true"
-                  className="services-card-corner services-card-corner--tr"
-                  data-services-corner="tr"
-                />
-                <span
-                  aria-hidden="true"
-                  className="services-card-corner services-card-corner--br"
-                  data-services-corner="br"
-                />
-                <span
-                  aria-hidden="true"
-                  className="services-card-corner services-card-corner--bl"
-                  data-services-corner="bl"
-                />
-
-                <div className="services-model-panel-copy">
-                  <div className="services-card-topline">
-                    <span className="services-card-icon-box" data-services-icon-box>
-                      <Icon
-                        aria-hidden="true"
-                        className="size-[58%]"
-                        data-services-icon
-                        strokeWidth={1.7}
-                      />
-                    </span>
-                    <span>
-                      <span className="services-card-stamp" data-services-kicker>
-                        {service.kicker}
-                      </span>
-                      <span className="services-model-stamp-line" aria-hidden="true" />
-                    </span>
-                  </div>
-
-                  <h3 className="services-card-title" data-services-card-title>
-                    {service.title}
-                  </h3>
-
-                  <ul className="services-card-bullets">
-                    {bullets.map((bullet, bulletIndex) => (
-                      <li
-                        key={bullet}
-                        className="services-card-bullet services-reveal flex"
-                        data-services-bullet
-                        style={step(bulletBase + bulletIndex)}
-                      >
-                        <Check aria-hidden="true" className="shrink-0" strokeWidth={2} />
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="services-card-media-shell" data-services-media-shell>
-                  <Image
-                    alt=""
-                    decoding="async"
-                    fill
-                    loading="lazy"
-                    sizes="(max-width: 860px) 82vw, (max-width: 1180px) 42vw, 22vw"
-                    src={service.image}
-                    data-services-media
-                  />
-                </div>
-
-                <div className="services-card-number-plate" data-services-number-plate>
-                  <span data-services-number>{service.number}</span>
-                  <span className="services-card-code" data-services-code>
-                    {service.code}
-                  </span>
-                </div>
-
-                <span className="sr-only" data-services-cta-label>
-                  {service.footer}
-                </span>
-                <ArrowRight aria-hidden="true" className="sr-only" data-services-arrow />
-              </article>
+                lineDelayStyle={lineDelay}
+                service={service}
+                stepStyle={step(5 + index)}
+              />
             )
           })}
         </div>
@@ -1915,8 +1768,8 @@ export function FairlendServicesSection() {
           <strong>The FairLend Model</strong>
           <span>Capital desk / borrower desk / construction desk / partner desk</span>
         </div>
-      </div>
-    </section>
+      </FairlendPaperShell>
+    </FairlendPaperSection>
   )
 }
 
