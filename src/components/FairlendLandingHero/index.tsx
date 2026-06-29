@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react'
 import { Handshake, MapPin, ShieldCheck, UsersRound } from 'lucide-react'
+import Image from 'next/image'
 
 import { FairlendRegistrationDisclosure } from '@/components/FairlendRegistrationDisclosure'
 import { FairlendTalkToExpertCta } from '@/components/FairlendTalkToExpertCta'
@@ -49,6 +50,55 @@ const mobileStats = [
   { icon: UsersRound, text: 'End-to-end\nlending partner' },
 ]
 
+const heroFoliageFrameClassName =
+  'pointer-events-none absolute z-[2] select-none opacity-[var(--hero-foliage-opacity)] [filter:blur(0)_saturate(1.08)_contrast(1.18)_brightness(0.9)] motion-safe:animate-[heroFoliageGrowIn_1180ms_var(--hero-ease-out)_var(--hero-foliage-delay)_both] hero-mobile:hidden'
+
+const heroFoliageCorners = [
+  {
+    className:
+      'top-[-9%] left-[-9%] h-[min(69vw,760px)] w-auto origin-top-left [--hero-foliage-delay:520ms] [--hero-foliage-opacity:0.48] [--hero-foliage-scale:0.82] [--hero-foliage-x:-34px] [--hero-foliage-y:-24px] hero-max-1279:top-[-5%] hero-max-1279:left-[-19%] hero-max-1279:h-[min(82vw,680px)] hero-tablet-landscape:hidden hero-portrait-wide:h-[min(58vw,690px)]',
+    height: 1346,
+    imageClassName: 'rotate-[2deg]',
+    key: 'top-left',
+    src: '/assets/foliage/transparent/foliage-edge-decor-02.webp',
+    width: 835,
+  },
+  {
+    className:
+      'top-[calc(var(--hero-header-clearance)-92px)] right-[-7%] h-auto w-[min(34vw,500px)] origin-top-right [--hero-foliage-delay:650ms] [--hero-foliage-opacity:0.44] [--hero-foliage-scale:0.78] [--hero-foliage-x:30px] [--hero-foliage-y:-26px] hero-max-1279:top-[18px] hero-max-1279:right-[-14%] hero-max-1279:w-[min(48vw,430px)] hero-tablet-landscape:w-[min(34vw,360px)] hero-portrait-wide:w-[min(42vw,430px)]',
+    height: 798,
+    imageClassName: '-rotate-[4deg]',
+    key: 'top-right',
+    src: '/assets/foliage/transparent/foliage-edge-decor-04.webp',
+    width: 957,
+  },
+  {
+    className:
+      'bottom-[-16%] left-[-10%] h-auto w-[min(54vw,780px)] origin-bottom-left [--hero-foliage-delay:780ms] [--hero-foliage-opacity:0.62] [--hero-foliage-scale:0.84] [--hero-foliage-x:-34px] [--hero-foliage-y:32px] hero-max-1279:hidden',
+    height: 1046,
+    imageClassName: 'rotate-[1deg]',
+    key: 'bottom-left',
+    src: '/assets/foliage/transparent/foliage-edge-decor-05.webp',
+    width: 1416,
+  },
+  {
+    className:
+      'right-[-13%] bottom-[clamp(58px,5.3vw,92px)] h-auto w-[min(42vw,680px)] origin-bottom-right [--hero-foliage-delay:900ms] [--hero-foliage-opacity:0.36] [--hero-foliage-scale:0.8] [--hero-foliage-x:40px] [--hero-foliage-y:34px] hero-max-1279:hidden',
+    height: 1048,
+    imageClassName: 'rotate-[2deg]',
+    key: 'bottom-right',
+    src: '/assets/foliage/transparent/foliage-edge-decor-03.webp',
+    width: 1191,
+  },
+] satisfies Array<{
+  className: string
+  height: number
+  imageClassName?: string
+  key: string
+  src: string
+  width: number
+}>
+
 const heroStageClassName =
   'relative h-[var(--hero-stage-height)] min-h-[var(--hero-stage-height)] overflow-hidden [--hero-header-clearance:72px] [--hero-stage-height:min(100svh,56.35vw)] [--hero-stage-width:min(100%,177.47svh)] hero-tablet:block hero-tablet:h-[calc(100svh-116px)] hero-tablet:min-h-[720px] hero-tablet:max-h-[900px] hero-tablet:overflow-hidden hero-tablet-landscape:h-[calc(100svh-86px)] hero-tablet-landscape:min-h-[760px] hero-tablet-landscape:max-h-none hero-tablet-landscape:[--hero-stats-height:0px] hero-tablet-landscape-short:h-[calc(100svh-68px)] hero-tablet-landscape-short:min-h-0 hero-tablet-landscape-short:max-h-none hero-portrait-wide:h-[calc(100svh-104px)] hero-portrait-wide:min-h-[calc(100svh-104px)] hero-portrait-wide:max-h-none hero-mobile:block hero-mobile:!h-svh hero-mobile:!min-h-svh hero-mobile:overflow-hidden hero-mobile-short:!min-h-svh hero-landscape:box-border hero-landscape:grid hero-landscape:h-svh hero-landscape:min-h-svh hero-landscape:max-h-none hero-landscape:grid-cols-12 hero-landscape:grid-rows-1 hero-landscape:gap-x-0 hero-landscape:[--hero-grid-gap:0px] hero-landscape:[--hero-grid-pad-x:clamp(32px,3.2vw,64px)] hero-landscape:[--hero-stage-height:100svh] hero-landscape-mid:[--hero-grid-gap:0px] hero-landscape-mid:[--hero-grid-pad-x:clamp(24px,2.4vw,42px)] hero-landscape:[--hero-stats-height:clamp(64px,5.5vw,92px)]'
 
@@ -56,10 +106,10 @@ const mapLayerClassName =
   'pointer-events-none absolute top-0 left-1/2 z-[1] h-full w-[var(--hero-stage-width)] origin-bottom-right [transform:scale(0.94)_translate(-19.48%,14.4%)] hero-max-1279:absolute hero-max-1279:inset-0 hero-max-1279:m-0 hero-max-1279:h-full hero-max-1279:w-full hero-max-1279:translate-x-0 hero-max-1279:transform-none hero-max-1279:overflow-hidden hero-tablet-landscape:top-[clamp(12px,2svh,28px)] hero-tablet-landscape:right-[clamp(-36px,-2.2vw,-18px)] hero-tablet-landscape:bottom-auto hero-tablet-landscape:left-auto hero-tablet-landscape:h-[min(58svh,620px)] hero-tablet-landscape:w-[min(62vw,790px)] hero-tablet-landscape:overflow-visible hero-tablet-landscape-short:top-[4px] hero-tablet-landscape-short:h-[clamp(250px,44svh,360px)] hero-tablet-landscape-short:w-[min(58vw,700px)] hero-portrait-wide:absolute hero-portrait-wide:inset-0 hero-portrait-wide:m-0 hero-portrait-wide:h-full hero-portrait-wide:w-full hero-portrait-wide:translate-x-0 hero-portrait-wide:transform-none hero-portrait-wide:overflow-hidden hero-mobile:left-1/2 hero-mobile:w-screen hero-mobile:-translate-x-1/2 hero-landscape:inset-0 hero-landscape:left-0 hero-landscape:h-full hero-landscape:w-full hero-landscape:origin-center hero-landscape:translate-x-0 hero-landscape:transform-none'
 
 const mapFrameClassName =
-  'absolute top-0 left-[98px] z-[1] h-[766px] w-[1577px] max-w-none overflow-visible motion-safe:animate-[heroMapIn_760ms_var(--hero-ease-out)_20ms_both] hero-max-1279:inset-0 hero-max-1279:h-full hero-max-1279:w-full hero-max-1279:max-w-full hero-max-1279:translate-x-0 hero-max-1279:overflow-hidden hero-tablet-landscape:inset-0 hero-tablet-landscape:h-full hero-tablet-landscape:w-full hero-tablet-landscape:max-w-full hero-tablet-landscape:overflow-visible hero-portrait-wide:inset-0 hero-portrait-wide:h-full hero-portrait-wide:w-full hero-portrait-wide:max-w-full hero-portrait-wide:translate-x-0 hero-portrait-wide:overflow-hidden hero-landscape:inset-x-0 hero-landscape:top-[var(--hero-header-clearance)] hero-landscape:bottom-0 hero-landscape:h-auto hero-landscape:w-full hero-landscape:max-w-none hero-landscape:translate-x-0 hero-landscape:overflow-hidden'
+  'absolute top-0 left-[98px] z-[1] h-[766px] w-[1577px] max-w-none overflow-visible motion-safe:animate-[heroMapIn_900ms_var(--hero-ease-out)_0ms_both] hero-max-1279:inset-0 hero-max-1279:h-full hero-max-1279:w-full hero-max-1279:max-w-full hero-max-1279:translate-x-0 hero-max-1279:overflow-hidden hero-tablet-landscape:inset-0 hero-tablet-landscape:h-full hero-tablet-landscape:w-full hero-tablet-landscape:max-w-full hero-tablet-landscape:overflow-visible hero-portrait-wide:inset-0 hero-portrait-wide:h-full hero-portrait-wide:w-full hero-portrait-wide:max-w-full hero-portrait-wide:translate-x-0 hero-portrait-wide:overflow-hidden hero-landscape:inset-x-0 hero-landscape:top-[var(--hero-header-clearance)] hero-landscape:bottom-0 hero-landscape:h-auto hero-landscape:w-full hero-landscape:max-w-none hero-landscape:translate-x-0 hero-landscape:overflow-hidden'
 
 const heroCopyClassName =
-  'absolute top-[calc(var(--hero-header-clearance)+clamp(18px,3.8svh,54px))] left-[clamp(28px,4vw,76px)] z-[5] flex w-[min(43vw,700px)] max-w-[700px] flex-col items-start gap-0 [translate:0] motion-safe:animate-[heroCopyIn_780ms_var(--hero-ease-out)_180ms_both] hero-max-1120:w-fit hero-max-1279:relative hero-max-1279:top-auto hero-max-1279:left-auto hero-max-1279:z-[5] hero-max-1279:mt-0 hero-max-1279:h-auto hero-max-1279:w-[min(100%,590px)] hero-max-1279:[translate:0] hero-tablet:block hero-tablet:h-auto hero-tablet:w-full hero-tablet:max-w-[640px] hero-tablet-landscape:absolute hero-tablet-landscape:top-[clamp(168px,22svh,230px)] hero-tablet-landscape:left-0 hero-tablet-landscape:w-[min(45vw,560px)] hero-tablet-landscape:max-w-none hero-tablet-landscape:[translate:0] hero-tablet-landscape-short:top-[clamp(82px,14svh,110px)] hero-tablet-landscape-short:w-[min(46vw,500px)] hero-portrait-wide:absolute hero-portrait-wide:top-[calc(var(--hero-header-clearance)+clamp(18px,3svh,44px))] hero-portrait-wide:left-[clamp(28px,5vw,68px)] hero-portrait-wide:z-[5] hero-portrait-wide:mt-0 hero-portrait-wide:block hero-portrait-wide:h-auto hero-portrait-wide:w-[min(43vw,680px)] hero-portrait-wide:max-w-[680px] hero-portrait-wide:[translate:0] hero-mobile:block hero-mobile:h-auto hero-mobile:w-full hero-landscape:absolute hero-landscape:top-[calc(var(--hero-header-clearance)+clamp(18px,3.4svh,48px))] hero-landscape:left-[clamp(32px,4.2vw,80px)] hero-landscape:col-auto hero-landscape:row-auto hero-landscape:self-auto hero-landscape:w-[min(43vw,700px)] hero-landscape:max-w-[700px] hero-landscape:[translate:0]'
+  'absolute top-[calc(var(--hero-header-clearance)+clamp(18px,3.8svh,54px))] left-[clamp(28px,4vw,76px)] z-[5] flex w-[min(43vw,700px)] max-w-[700px] flex-col items-start gap-0 [translate:0] hero-max-1120:w-fit hero-max-1279:relative hero-max-1279:top-auto hero-max-1279:left-auto hero-max-1279:z-[5] hero-max-1279:mt-0 hero-max-1279:h-auto hero-max-1279:w-[min(100%,590px)] hero-max-1279:[translate:0] hero-tablet:block hero-tablet:h-auto hero-tablet:w-full hero-tablet:max-w-[640px] hero-tablet-landscape:absolute hero-tablet-landscape:top-[clamp(168px,22svh,230px)] hero-tablet-landscape:left-0 hero-tablet-landscape:w-[min(45vw,560px)] hero-tablet-landscape:max-w-none hero-tablet-landscape:[translate:0] hero-tablet-landscape-short:top-[clamp(82px,14svh,110px)] hero-tablet-landscape-short:w-[min(46vw,500px)] hero-portrait-wide:absolute hero-portrait-wide:top-[calc(var(--hero-header-clearance)+clamp(18px,3svh,44px))] hero-portrait-wide:left-[clamp(28px,5vw,68px)] hero-portrait-wide:z-[5] hero-portrait-wide:mt-0 hero-portrait-wide:block hero-portrait-wide:h-auto hero-portrait-wide:w-[min(43vw,680px)] hero-portrait-wide:max-w-[680px] hero-portrait-wide:[translate:0] hero-mobile:block hero-mobile:h-auto hero-mobile:w-full hero-landscape:absolute hero-landscape:top-[calc(var(--hero-header-clearance)+clamp(18px,3.4svh,48px))] hero-landscape:left-[clamp(32px,4.2vw,80px)] hero-landscape:col-auto hero-landscape:row-auto hero-landscape:self-auto hero-landscape:w-[min(43vw,700px)] hero-landscape:max-w-[700px] hero-landscape:[translate:0]'
 
 const heroTitleClassName =
   'm-0 flex h-auto w-full min-w-0 max-w-full flex-col p-0 text-balance font-serif text-[clamp(58px,5.2vw,96px)] leading-[0.98] font-black tracking-normal text-[var(--fairlend-ink)] [-webkit-font-smoothing:auto] [-webkit-text-fill-color:var(--fairlend-ink)] [-webkit-text-stroke:0.45px_rgb(0_31_36/42%)] [text-shadow:0_1px_0_rgb(255_255_255/36%),0_10px_24px_rgb(0_31_36/8%)] hero-max-1279:h-auto hero-max-1279:w-auto hero-max-1279:min-w-0 hero-max-1279:text-[clamp(46px,6.6vw,64px)] hero-tablet:block hero-tablet:h-auto hero-tablet:w-auto hero-tablet:min-w-0 hero-tablet:leading-none hero-tablet-landscape:text-[clamp(62px,6.7vw,82px)] hero-tablet-landscape:leading-[0.97] hero-tablet-landscape-short:text-[clamp(44px,5.2vw,58px)] hero-tablet-landscape-short:leading-[0.96] hero-portrait-wide:block hero-portrait-wide:h-auto hero-portrait-wide:w-auto hero-portrait-wide:min-w-0 hero-portrait-wide:text-[clamp(52px,5vw,76px)] hero-portrait-wide:leading-none hero-mobile:block hero-mobile:h-auto hero-mobile:w-auto hero-mobile:min-w-0 hero-mobile:text-[clamp(42px,12.5vw,58px)] hero-mobile:leading-none hero-mobile-short:text-[clamp(36px,11.5vw,46px)] hero-landscape:min-w-0 hero-landscape:text-[clamp(58px,4.8vw,92px)] hero-landscape:leading-[0.98]'
@@ -307,6 +357,30 @@ export function FairlendLandingHero() {
             <FairlendHeroProcess mobileOnly steps={processSteps} />
           </div>
 
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-[2] overflow-hidden"
+            data-testid="hero-foliage-layer"
+          >
+            {heroFoliageCorners.map((foliage) => (
+              <span className={cn(heroFoliageFrameClassName, foliage.className)} key={foliage.key}>
+                <Image
+                  alt=""
+                  className={cn(
+                    'block h-full w-full max-w-none object-contain [-webkit-user-drag:none]',
+                    foliage.imageClassName,
+                  )}
+                  decoding="async"
+                  fetchPriority="low"
+                  height={foliage.height}
+                  loading="eager"
+                  src={foliage.src}
+                  width={foliage.width}
+                />
+              </span>
+            ))}
+          </div>
+
           <span aria-hidden="true" className="hidden" />
           <div
             className="contents hero-mobile:absolute hero-mobile:inset-x-0 hero-mobile:bottom-0 hero-mobile:z-10 hero-mobile:mx-3 hero-mobile:flex hero-mobile:!h-[50svh] hero-mobile:max-h-[50svh] hero-mobile:flex-col hero-mobile:overflow-y-auto hero-mobile:rounded-[22px] hero-mobile:border hero-mobile:border-[rgb(255_255_255/92%)] hero-mobile:bg-[radial-gradient(ellipse_110%_170%_at_15%_140%,oklch(99%_0.014_82/0.82)_72%,oklch(98.5%_0.022_80/0.74)_82%,oklch(97.2%_0.031_78/0.38)_90%,oklch(97.2%_0.031_78/0.1)_95%,oklch(97.2%_0.031_78/0.08)_100%),linear-gradient(to_bottom,oklch(98.8%_0.018_82/0.34)_0%,var(--fairlend-hero-warm-cream)_100%)] hero-mobile:px-[clamp(18px,5vw,24px)] hero-mobile:pt-[clamp(12px,3.2vw,18px)] hero-mobile:pb-[clamp(14px,4vw,22px)] hero-mobile:shadow-[0_24px_40px_rgb(62_40_23/14%),0_4px_12px_rgb(62_40_23/10%),inset_0_1px_0_rgb(255_255_255/78%)] hero-tablet:absolute hero-tablet:right-[clamp(18px,3.6vw,34px)] hero-tablet:bottom-[clamp(14px,2.4vw,24px)] hero-tablet:left-[clamp(18px,3.6vw,34px)] hero-tablet:z-10 hero-tablet:mx-auto hero-tablet:flex hero-tablet:max-w-[760px] hero-tablet:flex-col hero-tablet:rounded-[22px] hero-tablet:border hero-tablet:border-[rgb(255_255_255/92%)] hero-tablet:bg-[radial-gradient(ellipse_110%_170%_at_15%_140%,oklch(99%_0.014_82/0.82)_72%,oklch(98.5%_0.022_80/0.74)_82%,oklch(97.2%_0.031_78/0.38)_90%,oklch(97.2%_0.031_78/0.1)_95%,oklch(97.2%_0.031_78/0.08)_100%),linear-gradient(to_bottom,oklch(98.8%_0.018_82/0.34)_0%,var(--fairlend-hero-warm-cream)_100%)] hero-tablet:px-[clamp(16px,2.8vw,24px)] hero-tablet:pt-[clamp(14px,2.2vw,20px)] hero-tablet:pb-[clamp(8px,1.4vw,12px)] hero-tablet:shadow-[0_24px_40px_rgb(62_40_23/14%),0_4px_12px_rgb(62_40_23/10%),inset_0_1px_0_rgb(255_255_255/78%)] hero-tablet-landscape:contents hero-tablet-landscape:border-0 hero-tablet-landscape:bg-transparent hero-tablet-landscape:p-0 hero-tablet-landscape:shadow-none hero-portrait-wide:absolute hero-portrait-wide:right-[clamp(28px,5vw,68px)] hero-portrait-wide:bottom-[clamp(28px,3svh,54px)] hero-portrait-wide:left-[clamp(28px,5vw,68px)] hero-portrait-wide:z-10 hero-portrait-wide:mx-auto hero-portrait-wide:flex hero-portrait-wide:max-w-[800px] hero-portrait-wide:flex-col hero-portrait-wide:rounded-[24px] hero-portrait-wide:border hero-portrait-wide:border-[rgb(255_255_255/92%)] hero-portrait-wide:bg-[radial-gradient(ellipse_110%_170%_at_15%_140%,oklch(99%_0.014_82/0.82)_72%,oklch(98.5%_0.022_80/0.74)_82%,oklch(97.2%_0.031_78/0.38)_90%,oklch(97.2%_0.031_78/0.1)_95%,oklch(97.2%_0.031_78/0.08)_100%),linear-gradient(to_bottom,oklch(98.8%_0.018_82/0.34)_0%,var(--fairlend-hero-warm-cream)_100%)] hero-portrait-wide:px-[clamp(20px,3vw,30px)] hero-portrait-wide:pt-[clamp(18px,2.4vw,26px)] hero-portrait-wide:pb-[clamp(10px,1.6vw,16px)] hero-portrait-wide:shadow-[0_24px_40px_rgb(62_40_23/14%),0_4px_12px_rgb(62_40_23/10%),inset_0_1px_0_rgb(255_255_255/78%)] hero-mobile:absolute hero-mobile:right-0 hero-mobile:bottom-0 hero-mobile:left-0 hero-mobile:z-10 hero-mobile:-mx-2.5 hero-mobile:flex hero-mobile:w-auto hero-mobile:flex-col hero-mobile:rounded-t-[20px] hero-mobile:border hero-mobile:border-white hero-mobile:bg-[radial-gradient(ellipse_110%_170%_at_15%_140%,oklch(99%_0.014_82/0.82)_72%,oklch(98.5%_0.022_80/0.74)_82%,oklch(97.2%_0.031_78/0.38)_90%,oklch(97.2%_0.031_78/0.1)_95%,oklch(97.2%_0.031_78/0.08)_100%),linear-gradient(to_bottom,oklch(98.8%_0.018_82/0.34)_0%,var(--fairlend-hero-warm-cream)_100%)] hero-mobile:px-3 hero-mobile:pt-3 hero-mobile:pb-2.5 hero-mobile:shadow-[0_24px_40px_rgb(62_40_23/16%),0_4px_12px_rgb(62_40_23/12%),inset_0_1px_0_rgb(255_255_255/78%)] hero-mobile-short:pt-2.5"
@@ -315,55 +389,55 @@ export function FairlendLandingHero() {
             <div className={heroCopyClassName} data-fairlend-hero-copy>
               <span
                 aria-hidden="true"
-                className="mt-[22px] block h-0.5 w-[43px] bg-[var(--fairlend-orange)] hero-tablet:hidden hero-tablet-landscape:block hero-tablet-landscape-short:hidden hero-mobile:hidden"
+                className="mt-[22px] block h-0.5 w-[43px] bg-[var(--fairlend-orange)] motion-safe:animate-[heroCopyIn_780ms_var(--hero-ease-out)_200ms_both] hero-tablet:hidden hero-tablet-landscape:block hero-tablet-landscape-short:hidden hero-mobile:hidden"
               />
               <h1 id="fairlend-hero-title" className={heroTitleClassName}>
                 <HeroFinancingLine
                   className="block hero-tablet:hidden hero-portrait-wide:hidden hero-mobile:hidden"
-                  delay="220ms"
+                  delay="200ms"
                 />
                 <HeroTitleLine
                   className="hero-tablet:hidden hero-portrait-wide:hidden hero-mobile:hidden"
-                  delay="320ms"
+                  delay="380ms"
                 >
                   Multiplex
                 </HeroTitleLine>
                 <HeroTitleLine
                   className="hero-tablet:hidden hero-portrait-wide:hidden hero-mobile:hidden"
-                  delay="420ms"
+                  delay="560ms"
                 >
                   Single Family
                 </HeroTitleLine>
                 <HeroTitleLine
                   className="hero-tablet:hidden hero-portrait-wide:hidden hero-mobile:hidden"
-                  delay="520ms"
+                  delay="740ms"
                 >
                   Land Purchase
                 </HeroTitleLine>
                 <HeroFinancingLine
                   className="hidden hero-tablet:block hero-portrait-wide:block hero-mobile:block"
-                  delay="220ms"
+                  delay="200ms"
                 />
                 <HeroTitleLine
                   className="hidden hero-tablet:block hero-portrait-wide:block hero-mobile:block"
-                  delay="320ms"
+                  delay="380ms"
                 >
                   Multiplex
                 </HeroTitleLine>
                 <HeroTitleLine
                   className="hidden hero-tablet:block hero-portrait-wide:block hero-mobile:block"
-                  delay="420ms"
+                  delay="560ms"
                 >
                   Single Family
                 </HeroTitleLine>
                 <HeroTitleLine
                   className="hidden hero-tablet:block hero-portrait-wide:block hero-mobile:block"
-                  delay="520ms"
+                  delay="740ms"
                 >
                   Land Purchase
                 </HeroTitleLine>
               </h1>
-              <p className="block w-[511px] pt-5 pb-0 hero-tablet:hidden hero-portrait-wide:hidden hero-mobile:hidden hero-landscape:w-full hero-landscape:pt-4">
+              <p className="block w-[511px] pt-5 pb-0 motion-safe:animate-[heroCopyIn_780ms_var(--hero-ease-out)_920ms_both] hero-tablet:hidden hero-portrait-wide:hidden hero-mobile:hidden hero-landscape:w-full hero-landscape:pt-4">
                 <span className="block">
                   We guide you from permit or planning through acquisition, construction,
                 </span>
@@ -374,7 +448,7 @@ export function FairlendLandingHero() {
                   </strong>
                 </span>
               </p>
-              <p className="hidden max-w-[520px] pb-2 hero-tablet:block hero-tablet-landscape-short:max-w-[430px] hero-tablet-landscape-short:pb-0 hero-tablet-landscape-short:text-[15px] hero-tablet-landscape-short:leading-[1.3] hero-portrait-wide:block hero-mobile:block">
+              <p className="hidden max-w-[520px] pb-2 motion-safe:animate-[heroCopyIn_780ms_var(--hero-ease-out)_920ms_both] hero-tablet:block hero-tablet-landscape-short:max-w-[430px] hero-tablet-landscape-short:pb-0 hero-tablet-landscape-short:text-[15px] hero-tablet-landscape-short:leading-[1.3] hero-portrait-wide:block hero-mobile:block">
                 <span className="block">Fairlend is more than a lender.</span>
                 <span className="block">
                   We&apos;re with you from planning to completion{' '}
@@ -383,7 +457,7 @@ export function FairlendLandingHero() {
                   </strong>
                 </span>
               </p>
-              <FairlendTalkToExpertCta className="mt-3 hero-tablet:hidden hero-tablet-landscape:flex hero-tablet-landscape-short:hidden hero-mobile:hidden" />
+              <FairlendTalkToExpertCta className="mt-3 motion-safe:animate-[heroCopyIn_780ms_var(--hero-ease-out)_1100ms_both] hero-tablet:hidden hero-tablet-landscape:flex hero-tablet-landscape-short:hidden hero-mobile:hidden" />
             </div>
             <div className="contents" data-fairlend-hero-application>
               <FairlendApplicationForm />

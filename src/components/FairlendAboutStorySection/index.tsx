@@ -1,9 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
-import { ArrowRight, type LucideIcon, ShieldCheck, TrendingUp, Users } from 'lucide-react'
+import { type LucideIcon, ShieldCheck, TrendingUp, Users } from 'lucide-react'
 import type { ReactElement } from 'react'
 
+import {
+  FairlendExpertisePanel,
+  FairlendFinanceCard,
+  FairlendPaperSection,
+  FairlendPaperShell,
+} from '@/components/FairlendMarketingPrimitives'
 import { FairlendSectionKicker } from '@/components/FairlendSectionKicker'
-import { Card } from '@/components/ui/card'
 
 const aboutAssetBase = '/assets/about-webp/webp'
 
@@ -174,8 +179,8 @@ const financeItems = [
 
 export function FairlendAboutStorySection(): ReactElement {
   return (
-    <section className="about-page about-page--embedded" aria-label="About Fairlend">
-      <div className="about-story" data-about-motion="story">
+    <FairlendPaperSection className="about-page about-page--embedded" aria-label="About Fairlend">
+      <FairlendPaperShell className="about-story" data-about-motion="story">
         <section
           aria-labelledby="about-who-title"
           className="about-who-section"
@@ -211,54 +216,7 @@ export function FairlendAboutStorySection(): ReactElement {
               </div>
             </div>
 
-            <Card
-              className="about-expertise-panel"
-              data-about-expertise-panel
-              data-about-reveal
-              render={<aside aria-label="Fairlend operating principles" />}
-            >
-              <span
-                aria-hidden="true"
-                className="about-expertise-corner is-top-left"
-                data-about-expertise-corner
-              />
-              <span
-                aria-hidden="true"
-                className="about-expertise-corner is-top-right"
-                data-about-expertise-corner
-              />
-              <span
-                aria-hidden="true"
-                className="about-expertise-corner is-bottom-left"
-                data-about-expertise-corner
-              />
-              <span
-                aria-hidden="true"
-                className="about-expertise-corner is-bottom-right"
-                data-about-expertise-corner
-              />
-              {expertiseItems.map((item, index) => (
-                <div
-                  className="about-expertise-item"
-                  data-about-expertise-item
-                  data-about-reveal="child"
-                  data-feature-index={String(index + 1).padStart(2, '0')}
-                  key={item.title}
-                >
-                  <span
-                    aria-hidden="true"
-                    className="about-expertise-icon"
-                    data-about-expertise-icon
-                  >
-                    <item.Icon />
-                  </span>
-                  <div>
-                    <h3 className="about-text-textured">{item.title}</h3>
-                    <p>{item.copy}</p>
-                  </div>
-                </div>
-              ))}
-            </Card>
+            <FairlendExpertisePanel items={expertiseItems} />
           </div>
 
           <img
@@ -292,38 +250,20 @@ export function FairlendAboutStorySection(): ReactElement {
 
           <div className="about-finance" data-about-finance-grid>
             {financeItems.map((item, index) => (
-              <Card
-                className="about-finance-card"
-                data-about-finance-card
-                data-about-reveal
-                data-finance-index={String(index + 1).padStart(2, '0')}
+              <FairlendFinanceCard
+                copy={item.copy}
+                href={item.href}
+                icon={item.icon}
+                index={index}
                 key={item.label}
-                render={<a aria-label={`${item.label} - learn more`} href={item.href} />}
-              >
-                <img
-                  alt=""
-                  data-about-finance-icon
-                  decoding="async"
-                  draggable={false}
-                  height={512}
-                  src={item.icon}
-                  width={512}
-                />
-                <div data-about-finance-copy>
-                  <span className="about-finance-tag" data-about-finance-tag>
-                    {item.tag}
-                  </span>
-                  <h3 className="about-text-textured" data-about-finance-title>
-                    {item.title}
-                  </h3>
-                  <p data-about-finance-description>{item.copy}</p>
-                </div>
-                <ArrowRight aria-hidden="true" data-about-finance-arrow />
-              </Card>
+                label={item.label}
+                tag={item.tag}
+                title={item.title}
+              />
             ))}
           </div>
         </section>
-      </div>
-    </section>
+      </FairlendPaperShell>
+    </FairlendPaperSection>
   )
 }

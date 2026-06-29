@@ -696,6 +696,9 @@
     width: 100%;
     max-width: none;
     min-height: 0;
+    justify-self: center;
+    margin-right: auto;
+    margin-left: auto;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-template-rows: none;
     border-width: 2px;

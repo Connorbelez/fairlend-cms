@@ -14,9 +14,15 @@ import {
   UsersRound,
 } from 'lucide-react'
 
-import { FairlendSectionKicker } from '@/components/FairlendSectionKicker'
+import {
+  FairlendLeadershipCapabilityCard,
+  FairlendLeadershipCommitment,
+  FairlendLeadershipHeader,
+  FairlendLeadershipProofCard,
+  FairlendPaperSection,
+  FairlendPaperShell,
+} from '@/components/FairlendMarketingPrimitives'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 
 const leadershipAsset = '/assets/elie-headshot.webp'
 
@@ -103,7 +109,7 @@ const commitments = [
 
 export function FairlendLeadershipSection() {
   return (
-    <section
+    <FairlendPaperSection
       aria-labelledby="fairlend-leadership-title"
       className="leadership-model-section"
       data-fairlend-motion="leadership"
@@ -1116,38 +1122,8 @@ export function FairlendLeadershipSection() {
         }
       `}</style>
 
-      <div className="leadership-shell">
-        <header className="leadership-header" data-leadership-header>
-          <div>
-            <FairlendSectionKicker
-              className="leadership-kicker"
-              label="Leadership"
-              labelId="fairlend-leadership-title"
-              labelProps={{ 'data-leadership-kicker-label': true }}
-              number="05"
-              numberProps={{ 'data-leadership-kicker-number': true }}
-              slashProps={{ 'data-leadership-kicker-slash': true }}
-            />
-            <p className="leadership-intro" data-leadership-intro data-leadership-reveal>
-              Deal-tested guidance for borrowers, builders, investors, and brokers who need
-              disciplined capital advice before the structure gets expensive.
-            </p>
-          </div>
-
-          <div
-            className="leadership-header-meta"
-            aria-label="Leadership section status"
-            data-leadership-meta
-          >
-            <div className="leadership-ledger-tabs" aria-hidden="true">
-              <span data-leadership-ledger-tab />
-              <span data-leadership-ledger-tab />
-              <span data-leadership-ledger-tab />
-            </div>
-            <strong>The FairLend Model</strong>
-            <span>05 of 05 / principal broker / capital relationships</span>
-          </div>
-        </header>
+      <FairlendPaperShell className="leadership-shell">
+        <FairlendLeadershipHeader />
 
         <div className="leadership-frame" data-leadership-frame>
           <span className="leadership-frame-line" data-leadership-frame-line="top" />
@@ -1162,10 +1138,7 @@ export function FairlendLeadershipSection() {
               <span className="leadership-eyebrow" data-leadership-copy-item>
                 Principal broker
               </span>
-              <h3
-                className="leadership-title about-text-textured"
-                data-leadership-title
-              >
+              <h3 className="leadership-title about-text-textured" data-leadership-title>
                 <span className="leadership-title-line" data-leadership-title-line>
                   <span>Trusted guidance built</span>
                 </span>
@@ -1174,31 +1147,19 @@ export function FairlendLeadershipSection() {
                 </span>
               </h3>
               <p className="leadership-summary" data-leadership-copy-item>
-                FairLend combines mortgage brokerage discipline, builder-side insight, and
-                practical structuring support to move financing conversations from uncertainty to a
-                workable capital plan.
+                FairLend combines mortgage brokerage discipline, builder-side insight, and practical
+                structuring support to move financing conversations from uncertainty to a workable
+                capital plan.
               </p>
 
               <div className="leadership-capabilities" aria-label="Leadership capabilities">
                 {capabilities.map(({ copy, Icon, title }) => (
-                  <div className="leadership-capability" data-leadership-capability key={title}>
-                    <span
-                      className="leadership-capability-flash"
-                      aria-hidden="true"
-                      data-leadership-capability-flash
-                    />
-                    <span
-                      className="leadership-capability-icon"
-                      aria-hidden="true"
-                      data-leadership-capability-icon
-                    >
-                      <Icon size={25} strokeWidth={1.8} />
-                    </span>
-                    <div>
-                      <h3 data-leadership-capability-title>{title}</h3>
-                      <p data-leadership-capability-copy>{copy}</p>
-                    </div>
-                  </div>
+                  <FairlendLeadershipCapabilityCard
+                    copy={copy}
+                    Icon={Icon}
+                    key={title}
+                    title={title}
+                  />
                 ))}
               </div>
 
@@ -1235,41 +1196,14 @@ export function FairlendLeadershipSection() {
             data-leadership-proof-grid
           >
             {leadershipProof.map(({ detail, Icon, label, value }, index) => (
-              <Card
-                className="leadership-proof-card"
-                data-leadership-proof-card
-                data-proof-index={String(index + 2).padStart(2, '0')}
+              <FairlendLeadershipProofCard
+                detail={detail}
+                Icon={Icon}
+                index={index}
                 key={label}
-                render={<div />}
-              >
-                <span
-                  className="leadership-proof-pulse"
-                  aria-hidden="true"
-                  data-leadership-proof-pulse
-                />
-                <span
-                  className="leadership-proof-icon"
-                  aria-hidden="true"
-                  data-leadership-proof-icon
-                >
-                  <Icon size={30} strokeWidth={1.65} />
-                </span>
-                <div>
-                  <span
-                    className="leadership-proof-value"
-                    data-leadership-proof-value
-                    data-proof-value-target={value}
-                  >
-                    {value}
-                  </span>
-                  <span className="leadership-proof-label" data-leadership-proof-label>
-                    {label}
-                  </span>
-                </div>
-                <p className="leadership-proof-detail" data-leadership-proof-detail>
-                  {detail}
-                </p>
-              </Card>
+                label={label}
+                value={value}
+              />
             ))}
           </aside>
 
@@ -1287,16 +1221,12 @@ export function FairlendLeadershipSection() {
             </p>
             <div className="leadership-commitments" aria-label="Leadership commitments">
               {commitments.map(({ Icon, label }) => (
-                <span className="leadership-commitment" data-leadership-commitment key={label}>
-                  <Icon aria-hidden="true" size={23} strokeWidth={1.75} />
-                  {label}
-                </span>
+                <FairlendLeadershipCommitment Icon={Icon} key={label} label={label} />
               ))}
             </div>
           </div>
         </div>
-      </div>
-
-    </section>
+      </FairlendPaperShell>
+    </FairlendPaperSection>
   )
 }
