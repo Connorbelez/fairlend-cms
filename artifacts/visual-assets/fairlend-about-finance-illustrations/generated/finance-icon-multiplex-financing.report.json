@@ -1,0 +1,11 @@
+{
+  "input": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/alpha/finance-icon-multiplex-financing.png",
+  "output": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/webp/finance-icon-multiplex-financing.webp",
+  "size": {
+    "width": 512,
+    "height": 512
+  },
+  "transparent_background": "none",
+  "inferred_background": null,
+  "quality": 90
+}

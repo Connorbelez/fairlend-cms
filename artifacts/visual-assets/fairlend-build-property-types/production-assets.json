@@ -1,0 +1,46 @@
+{
+  "image_asset_count": 4,
+  "notes": "All final WebP assets were created from built-in image generation outputs saved under generated/raw, then chroma-keyed to alpha PNGs and optimized. Reference crops are not production inputs.",
+  "assets": [
+    {
+      "id": "multiplex-building-engraving",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/crops/multiplex-building-engraving.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/raw/multiplex-building-engraving.png",
+      "alpha_png_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/alpha/multiplex-building-engraving.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/webp/multiplex-building-engraving.webp",
+      "public_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-build-property-types/multiplex-building-engraving.webp",
+      "transparent": true,
+      "imagegen_prompt": "Generate a brand-new standalone graphite pencil and fine ink illustration of a compact three-storey urban multi-plex apartment building with side stair volume, shrubs, and one mature tree, using the crop only as visual guidance, on a flat #00ff00 chroma-key background. No text, logo, watermark, UI, people, cars, photorealism, color fill, blueprints, or frame."
+    },
+    {
+      "id": "single-family-house-engraving",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/crops/single-family-house-engraving.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/raw/single-family-house-engraving.png",
+      "alpha_png_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/alpha/single-family-house-engraving.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/webp/single-family-house-engraving.webp",
+      "public_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-build-property-types/single-family-house-engraving.webp",
+      "transparent": true,
+      "imagegen_prompt": "Generate a brand-new standalone graphite pencil and fine ink illustration of a traditional two-storey single-family home with pitched roof, porch, centered door, divided windows, shrubs, and trees, using the crop only as visual guidance, on a flat #00ff00 chroma-key background. No text, logo, watermark, UI, people, cars, photorealism, color fill, or frame."
+    },
+    {
+      "id": "land-parcel-plan-engraving",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/crops/land-parcel-plan-engraving.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/raw/land-parcel-plan-engraving.png",
+      "alpha_png_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/alpha/land-parcel-plan-engraving.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/webp/land-parcel-plan-engraving.webp",
+      "public_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-build-property-types/land-parcel-plan-engraving.webp",
+      "transparent": true,
+      "imagegen_prompt": "Generate a brand-new standalone graphite pencil and fine ink perspective land parcel plan with lot lines, contour curves, plotted building pads, and two trees at the back-left edge, using the crop only as visual guidance, on a flat #00ff00 chroma-key background. No text, labels, logo, watermark, UI, people, cars, photorealism, color fill, or frame."
+    },
+    {
+      "id": "corner-foliage-engraving",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/crops/corner-foliage-engraving.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/raw/corner-foliage-engraving.png",
+      "alpha_png_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/alpha/corner-foliage-engraving.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/webp/corner-foliage-engraving.webp",
+      "public_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-build-property-types/corner-foliage-engraving.webp",
+      "transparent": true,
+      "imagegen_prompt": "Generate a brand-new standalone graphite pencil botanical shrub cluster weighted to the lower-right corner, using the crop only as visual guidance, on a flat #00ff00 chroma-key background. No text, logo, watermark, UI, photorealism, color fill, hard border, or frame."
+    }
+  ]
+}

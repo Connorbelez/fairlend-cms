@@ -1,0 +1,15 @@
+{
+  "input": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/raw/route-compass-engraving.png",
+  "output": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/webp/route-compass-engraving.webp",
+  "size": {
+    "width": 549,
+    "height": 520
+  },
+  "transparent_background": "auto",
+  "inferred_background": [
+    30,
+    232,
+    34
+  ],
+  "quality": 88
+}

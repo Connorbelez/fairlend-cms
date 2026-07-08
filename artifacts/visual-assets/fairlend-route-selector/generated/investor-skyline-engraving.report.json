@@ -1,0 +1,15 @@
+{
+  "input": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/raw/investor-skyline-engraving.png",
+  "output": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/webp/investor-skyline-engraving.webp",
+  "size": {
+    "width": 900,
+    "height": 424
+  },
+  "transparent_background": "auto",
+  "inferred_background": [
+    28,
+    242,
+    21
+  ],
+  "quality": 88
+}

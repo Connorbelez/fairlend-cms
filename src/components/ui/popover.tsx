@@ -28,4 +28,27 @@ const PopoverContent = React.forwardRef<
 ))
 PopoverContent.displayName = PopoverPrimitive.Content.displayName
 
-export { Popover, PopoverTrigger, PopoverContent }
+const PopoverHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={cn('space-y-1.5', className)} {...props} />
+)
+PopoverHeader.displayName = 'PopoverHeader'
+
+const PopoverTitle = ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+  <h3 className={cn('font-semibold leading-none tracking-tight', className)} {...props} />
+)
+PopoverTitle.displayName = 'PopoverTitle'
+
+const PopoverDescription = ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
+  <p className={cn('text-sm text-muted-foreground', className)} {...props} />
+)
+PopoverDescription.displayName = 'PopoverDescription'
+
+export {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverDescription,
+}
+

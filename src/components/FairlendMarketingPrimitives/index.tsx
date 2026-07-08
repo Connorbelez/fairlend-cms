@@ -10,7 +10,8 @@ import type {
 import type { LucideIcon } from 'lucide-react'
 import { ArrowRight, Check } from 'lucide-react'
 
-import { FairlendSectionKicker } from '@/components/FairlendSectionKicker'
+import { FairlendSectionKicker, FairlendSectionRule } from '@/components/FairlendSectionKicker'
+import '@/components/FairlendServicesSection/services-section-density.css'
 import { Card } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 
@@ -93,7 +94,7 @@ export function FairlendServicesModelHeader({
           </span>
         </div>
         <FairlendSectionKicker
-          className="services-model-kicker about-kicker-who"
+          className="about-kicker-who"
           label="Our Services"
           labelId="fairlend-services-title"
           labelProps={{
@@ -380,33 +381,36 @@ export function FairlendFinanceCard({
 
 export function FairlendLeadershipHeader(): ReactElement {
   return (
-    <header className="leadership-header" data-leadership-header>
-      <div>
-        <FairlendSectionKicker
-          className="leadership-kicker"
-          label="Leadership"
-          labelId="fairlend-leadership-title"
-          labelProps={{ 'data-leadership-kicker-label': true }}
-          number="05"
-          numberProps={{ 'data-leadership-kicker-number': true }}
-          slashProps={{ 'data-leadership-kicker-slash': true }}
-        />
-        <p className="leadership-intro" data-leadership-intro data-leadership-reveal>
-          Deal-tested guidance for borrowers, builders, investors, and brokers who need disciplined
-          capital advice before the structure gets expensive.
-        </p>
-      </div>
+    <>
+      <header className="leadership-header" data-leadership-header>
+        <div>
+          <FairlendSectionKicker
+            className="leadership-kicker"
+            label="Leadership"
+            labelId="fairlend-leadership-title"
+            labelProps={{ 'data-leadership-kicker-label': true }}
+            number="05"
+            numberProps={{ 'data-leadership-kicker-number': true }}
+            slashProps={{ 'data-leadership-kicker-slash': true }}
+          />
+          <p className="leadership-intro" data-leadership-intro data-leadership-reveal>
+            Principal-broker judgment for borrowers, builders, investors, and brokers who need a
+            disciplined capital plan before the structure gets expensive.
+          </p>
+        </div>
 
-      <FairlendHeaderMeta
-        aria-label="Leadership section status"
-        className="leadership-header-meta"
-        data-leadership-meta
-        detail="05 of 05 / principal broker / capital relationships"
-        label="The FairLend Model"
-        tabsClassName="leadership-ledger-tabs"
-        tabProps={{ 'data-leadership-ledger-tab': true }}
-      />
-    </header>
+        <FairlendHeaderMeta
+          aria-label="Leadership section status"
+          className="leadership-header-meta"
+          data-leadership-meta
+          detail="05 of 05 / principal broker / capital relationships"
+          label="The FairLend Model"
+          tabsClassName="leadership-ledger-tabs"
+          tabProps={{ 'data-leadership-ledger-tab': true }}
+        />
+      </header>
+      <FairlendSectionRule className="leadership-section-rule" />
+    </>
   )
 }
 
@@ -444,13 +448,11 @@ export function FairlendLeadershipCapabilityCard({
 export function FairlendLeadershipProofCard({
   detail,
   Icon,
-  index,
   label,
   value,
 }: {
   detail: string
   Icon: LucideIcon
-  index: number
   label: string
   value: string
 }): ReactElement {
@@ -458,7 +460,6 @@ export function FairlendLeadershipProofCard({
     <Card
       className="leadership-proof-card"
       data-leadership-proof-card
-      data-proof-index={String(index + 2).padStart(2, '0')}
       render={<div />}
     >
       <span className="leadership-proof-pulse" aria-hidden="true" data-leadership-proof-pulse />

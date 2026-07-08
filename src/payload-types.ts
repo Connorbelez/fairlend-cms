@@ -71,6 +71,8 @@ export interface Config {
     posts: Post;
     media: Media;
     categories: Category;
+    'fairlend-leads': FairlendLead;
+    'fairlend-consultation-bookings': FairlendConsultationBooking;
     users: User;
     redirects: Redirect;
     forms: Form;
@@ -93,6 +95,8 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    'fairlend-leads': FairlendLeadsSelect<false> | FairlendLeadsSelect<true>;
+    'fairlend-consultation-bookings': FairlendConsultationBookingsSelect<false> | FairlendConsultationBookingsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
@@ -112,10 +116,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    'fairlend-consultation-settings': FairlendConsultationSetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'fairlend-consultation-settings': FairlendConsultationSettingsSelect<false> | FairlendConsultationSettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -159,7 +165,51 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
+    type:
+      | 'none'
+      | 'highImpact'
+      | 'mediumImpact'
+      | 'lowImpact'
+      | 'watermelonHero1'
+      | 'watermelonHeroSection1'
+      | 'watermelonHeroSection2'
+      | 'watermelonHeroSection3'
+      | 'watermelonHeroSection4'
+      | 'watermelonHeroSection5'
+      | 'watermelonHeroSection6'
+      | 'watermelonHeroSection7'
+      | 'watermelonHeroSection8'
+      | 'watermelonHeroSection9'
+      | 'watermelonHeroSection10'
+      | 'watermelonHeroSection11'
+      | 'watermelonHeroSection12'
+      | 'watermelonHeroSection13'
+      | 'watermelonHeroSection14'
+      | 'watermelonHeroSection15'
+      | 'watermelonHeroSection16'
+      | 'watermelonHeroSection17'
+      | 'watermelonHeroSection18'
+      | 'watermelonHeroSection19'
+      | 'watermelonHeroSection20'
+      | 'watermelonHeroSection21'
+      | 'watermelonHeroSection22'
+      | 'watermelonHeroSection23'
+      | 'watermelonHeroSection24'
+      | 'watermelonHeroSection25'
+      | 'watermelonHeroSection26'
+      | 'watermelonHeroSection27'
+      | 'watermelonHeroSection28'
+      | 'watermelonHeroSection29'
+      | 'watermelonHeroSection30'
+      | 'watermelonHeroSection31'
+      | 'watermelonHeroSection32'
+      | 'watermelonHeroSection33'
+      | 'watermelonHeroSection34'
+      | 'watermelonHeroSection35'
+      | 'watermelonHeroSection36'
+      | 'watermelonHeroSection37'
+      | 'watermelonHeroSection38'
+      | 'watermelonHeroSection39';
     richText?: {
       root: {
         type: string;
@@ -200,8 +250,74 @@ export interface Page {
         }[]
       | null;
     media?: (number | null) | Media;
+    watermelonHero1?: {
+      promptPlaceholder?: string | null;
+      modeLabel?: string | null;
+      depthLabel?: string | null;
+      voiceLabel?: string | null;
+      submitLabel?: string | null;
+    };
+    watermelonHeroSection?: {
+      eyebrow?: string | null;
+      brandLabel?: string | null;
+      headline: string;
+      accentText?: string | null;
+      description?: string | null;
+      primaryActionLabel?: string | null;
+      primaryActionUrl?: string | null;
+      secondaryActionLabel?: string | null;
+      secondaryActionUrl?: string | null;
+      backgroundMedia?: (number | null) | Media;
+      foregroundMedia?: (number | null) | Media;
+      logoMedia?: (number | null) | Media;
+      navItems?:
+        | {
+            label: string;
+            url?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      proofPoints?:
+        | {
+            value: string;
+            label: string;
+            id?: string | null;
+          }[]
+        | null;
+      featureCards?:
+        | {
+            title: string;
+            description?: string | null;
+            media?: (number | null) | Media;
+            id?: string | null;
+          }[]
+        | null;
+    };
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | WatermelonBusinessManagementBlock
+    | WatermelonBusinessOperationsDashboardBlock
+    | WatermelonECommerceDashboardBlock
+    | WatermelonErpDashboardBlock
+    | WatermelonHrmBlock
+    | WatermelonIncidentManagementBlock
+    | WatermelonInvoiceGeneratorDashboardBlock
+    | WatermelonInvoiceManagerDashboardBlock
+    | WatermelonIssueTrackingBlock
+    | WatermelonLeadDashboardBlock
+    | WatermelonMailDashboardBlock
+    | WatermelonMeetingsDashboardBlock
+    | WatermelonPaymentOperationsDashboardBlock
+    | WatermelonProjectManagementDashboardBlock
+    | WatermelonSalesDashboardBlock
+    | WatermelonTaskManagementDashboardBlock
+    | WatermelonWorkflowManagementDashboardBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -783,6 +899,696 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonBusinessManagementBlock".
+ */
+export interface WatermelonBusinessManagementBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonBusinessManagement';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonBusinessOperationsDashboardBlock".
+ */
+export interface WatermelonBusinessOperationsDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonBusinessOperationsDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonECommerceDashboardBlock".
+ */
+export interface WatermelonECommerceDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonECommerceDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonErpDashboardBlock".
+ */
+export interface WatermelonErpDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonErpDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonHrmBlock".
+ */
+export interface WatermelonHrmBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonHrm';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonIncidentManagementBlock".
+ */
+export interface WatermelonIncidentManagementBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonIncidentManagement';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonInvoiceGeneratorDashboardBlock".
+ */
+export interface WatermelonInvoiceGeneratorDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonInvoiceGeneratorDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonInvoiceManagerDashboardBlock".
+ */
+export interface WatermelonInvoiceManagerDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonInvoiceManagerDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonIssueTrackingBlock".
+ */
+export interface WatermelonIssueTrackingBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonIssueTracking';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonLeadDashboardBlock".
+ */
+export interface WatermelonLeadDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonLeadDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonMailDashboardBlock".
+ */
+export interface WatermelonMailDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonMailDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonMeetingsDashboardBlock".
+ */
+export interface WatermelonMeetingsDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonMeetingsDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonPaymentOperationsDashboardBlock".
+ */
+export interface WatermelonPaymentOperationsDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonPaymentOperationsDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonProjectManagementDashboardBlock".
+ */
+export interface WatermelonProjectManagementDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonProjectManagementDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonSalesDashboardBlock".
+ */
+export interface WatermelonSalesDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonSalesDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonTaskManagementDashboardBlock".
+ */
+export interface WatermelonTaskManagementDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonTaskManagementDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonWorkflowManagementDashboardBlock".
+ */
+export interface WatermelonWorkflowManagementDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonWorkflowManagementDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-leads".
+ */
+export interface FairlendLead {
+  id: number;
+  /**
+   * Stable UUID shared by the public homepage form and intake wizard.
+   */
+  leadId: string;
+  status: 'draft' | 'started' | 'submitted';
+  /**
+   * Editable admin pipeline stage for follow-up.
+   */
+  workflowStatus:
+    | 'new'
+    | 'contact_attempted'
+    | 'contacted'
+    | 'qualified'
+    | 'consultation_booked'
+    | 'working_file'
+    | 'closed_won'
+    | 'closed_lost';
+  priority: 'high' | 'normal' | 'low';
+  /**
+   * Optional follow-up date/time for the admin workflow.
+   */
+  nextActionAt?: string | null;
+  intent?: string | null;
+  source: string;
+  name?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  address?: string | null;
+  formattedAddress?: string | null;
+  /**
+   * Google Places ID captured from autocomplete when available.
+   */
+  placeId?: string | null;
+  /**
+   * Full intake wizard payload.
+   */
+  intake?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Full Google address-details payload, when available.
+   */
+  addressDetails?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Internal notes for admin follow-up. Not shown to visitors.
+   */
+  adminNotes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-consultation-bookings".
+ */
+export interface FairlendConsultationBooking {
+  id: number;
+  bookingId: string;
+  status: 'syncing' | 'confirmed' | 'cancelled' | 'sync_failed';
+  scheduledStart: string;
+  scheduledEnd: string;
+  timezone: string;
+  name: string;
+  email: string;
+  phone?: string | null;
+  notes?: string | null;
+  source: string;
+  googleEventId?: string | null;
+  /**
+   * Google Calendar event URL returned after sync.
+   */
+  googleEventLink?: string | null;
+  syncError?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -988,6 +1794,14 @@ export interface PayloadLockedDocument {
         value: number | Category;
       } | null)
     | ({
+        relationTo: 'fairlend-leads';
+        value: number | FairlendLead;
+      } | null)
+    | ({
+        relationTo: 'fairlend-consultation-bookings';
+        value: number | FairlendConsultationBooking;
+      } | null)
+    | ({
         relationTo: 'users';
         value: number | User;
       } | null)
@@ -1080,6 +1894,53 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
             };
         media?: T;
+        watermelonHero1?:
+          | T
+          | {
+              promptPlaceholder?: T;
+              modeLabel?: T;
+              depthLabel?: T;
+              voiceLabel?: T;
+              submitLabel?: T;
+            };
+        watermelonHeroSection?:
+          | T
+          | {
+              eyebrow?: T;
+              brandLabel?: T;
+              headline?: T;
+              accentText?: T;
+              description?: T;
+              primaryActionLabel?: T;
+              primaryActionUrl?: T;
+              secondaryActionLabel?: T;
+              secondaryActionUrl?: T;
+              backgroundMedia?: T;
+              foregroundMedia?: T;
+              logoMedia?: T;
+              navItems?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    id?: T;
+                  };
+              proofPoints?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              featureCards?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    media?: T;
+                    id?: T;
+                  };
+            };
       };
   layout?:
     | T
@@ -1089,6 +1950,23 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        watermelonBusinessManagement?: T | WatermelonBusinessManagementBlockSelect<T>;
+        watermelonBusinessOperationsDashboard?: T | WatermelonBusinessOperationsDashboardBlockSelect<T>;
+        watermelonECommerceDashboard?: T | WatermelonECommerceDashboardBlockSelect<T>;
+        watermelonErpDashboard?: T | WatermelonErpDashboardBlockSelect<T>;
+        watermelonHrm?: T | WatermelonHrmBlockSelect<T>;
+        watermelonIncidentManagement?: T | WatermelonIncidentManagementBlockSelect<T>;
+        watermelonInvoiceGeneratorDashboard?: T | WatermelonInvoiceGeneratorDashboardBlockSelect<T>;
+        watermelonInvoiceManagerDashboard?: T | WatermelonInvoiceManagerDashboardBlockSelect<T>;
+        watermelonIssueTracking?: T | WatermelonIssueTrackingBlockSelect<T>;
+        watermelonLeadDashboard?: T | WatermelonLeadDashboardBlockSelect<T>;
+        watermelonMailDashboard?: T | WatermelonMailDashboardBlockSelect<T>;
+        watermelonMeetingsDashboard?: T | WatermelonMeetingsDashboardBlockSelect<T>;
+        watermelonPaymentOperationsDashboard?: T | WatermelonPaymentOperationsDashboardBlockSelect<T>;
+        watermelonProjectManagementDashboard?: T | WatermelonProjectManagementDashboardBlockSelect<T>;
+        watermelonSalesDashboard?: T | WatermelonSalesDashboardBlockSelect<T>;
+        watermelonTaskManagementDashboard?: T | WatermelonTaskManagementDashboardBlockSelect<T>;
+        watermelonWorkflowManagementDashboard?: T | WatermelonWorkflowManagementDashboardBlockSelect<T>;
       };
   meta?:
     | T
@@ -1185,6 +2063,584 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonBusinessManagementBlock_select".
+ */
+export interface WatermelonBusinessManagementBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonBusinessOperationsDashboardBlock_select".
+ */
+export interface WatermelonBusinessOperationsDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonECommerceDashboardBlock_select".
+ */
+export interface WatermelonECommerceDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonErpDashboardBlock_select".
+ */
+export interface WatermelonErpDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonHrmBlock_select".
+ */
+export interface WatermelonHrmBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonIncidentManagementBlock_select".
+ */
+export interface WatermelonIncidentManagementBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonInvoiceGeneratorDashboardBlock_select".
+ */
+export interface WatermelonInvoiceGeneratorDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonInvoiceManagerDashboardBlock_select".
+ */
+export interface WatermelonInvoiceManagerDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonIssueTrackingBlock_select".
+ */
+export interface WatermelonIssueTrackingBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonLeadDashboardBlock_select".
+ */
+export interface WatermelonLeadDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonMailDashboardBlock_select".
+ */
+export interface WatermelonMailDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonMeetingsDashboardBlock_select".
+ */
+export interface WatermelonMeetingsDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonPaymentOperationsDashboardBlock_select".
+ */
+export interface WatermelonPaymentOperationsDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonProjectManagementDashboardBlock_select".
+ */
+export interface WatermelonProjectManagementDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonSalesDashboardBlock_select".
+ */
+export interface WatermelonSalesDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonTaskManagementDashboardBlock_select".
+ */
+export interface WatermelonTaskManagementDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonWorkflowManagementDashboardBlock_select".
+ */
+export interface WatermelonWorkflowManagementDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1330,6 +2786,51 @@ export interface CategoriesSelect<T extends boolean = true> {
         label?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-leads_select".
+ */
+export interface FairlendLeadsSelect<T extends boolean = true> {
+  leadId?: T;
+  status?: T;
+  workflowStatus?: T;
+  priority?: T;
+  nextActionAt?: T;
+  intent?: T;
+  source?: T;
+  name?: T;
+  email?: T;
+  phone?: T;
+  address?: T;
+  formattedAddress?: T;
+  placeId?: T;
+  intake?: T;
+  addressDetails?: T;
+  adminNotes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-consultation-bookings_select".
+ */
+export interface FairlendConsultationBookingsSelect<T extends boolean = true> {
+  bookingId?: T;
+  status?: T;
+  scheduledStart?: T;
+  scheduledEnd?: T;
+  timezone?: T;
+  name?: T;
+  email?: T;
+  phone?: T;
+  notes?: T;
+  source?: T;
+  googleEventId?: T;
+  googleEventLink?: T;
+  syncError?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1691,6 +3192,71 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-consultation-settings".
+ */
+export interface FairlendConsultationSetting {
+  id: number;
+  /**
+   * IANA timezone used to interpret all schedule rules.
+   */
+  timezone: string;
+  /**
+   * Length of each consultation slot.
+   */
+  slotDurationMinutes: number;
+  /**
+   * Blocked recovery time after each slot.
+   */
+  bufferMinutes: number;
+  /**
+   * How far ahead visitors must book.
+   */
+  minimumNoticeHours: number;
+  /**
+   * Maximum number of days visitors can book into the future.
+   */
+  bookingWindowDays: number;
+  /**
+   * Array of weekday rules: { "weekday": "monday", "enabled": true, "startTime": "09:00", "endTime": "17:00" }.
+   */
+  weeklyAvailability:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Array of blackout rules: { "date": "2026-07-20", "allDay": true } or with startTime/endTime for partial blocks.
+   */
+  blackoutDates:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Array of one-off openings: { "date": "2026-07-25", "enabled": true, "startTime": "10:00", "endTime": "14:00" }.
+   */
+  extraAvailability:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1731,6 +3297,23 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-consultation-settings_select".
+ */
+export interface FairlendConsultationSettingsSelect<T extends boolean = true> {
+  timezone?: T;
+  slotDurationMinutes?: T;
+  bufferMinutes?: T;
+  minimumNoticeHours?: T;
+  bookingWindowDays?: T;
+  weeklyAvailability?: T;
+  blackoutDates?: T;
+  extraAvailability?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

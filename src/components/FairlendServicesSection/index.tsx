@@ -9,6 +9,7 @@ import {
   FairlendServiceModelCard,
   FairlendServicesModelHeader,
 } from '@/components/FairlendMarketingPrimitives'
+import { fairlendRouteSelectorAssets } from '@/components/FairlendRouteSelector/assets'
 import { cn } from '@/utilities/ui'
 
 const assetBase = '/assets/service-concepts'
@@ -36,9 +37,9 @@ const services: Service[] = [
     code: 'INVEST',
     kicker: 'Capital Desk',
     title: 'Private Mortgage Investments',
-    image: `${assetBase}/private-mortgage-investments-icon.webp`,
-    width: 1097,
-    height: 929,
+    image: fairlendRouteSelectorAssets.investorSkyline.src,
+    width: fairlendRouteSelectorAssets.investorSkyline.width,
+    height: fairlendRouteSelectorAssets.investorSkyline.height,
     icon: Shield,
     bullets: [
       'End-to-end digital servicing',
@@ -53,9 +54,9 @@ const services: Service[] = [
     code: 'LEND',
     kicker: 'Borrower Desk',
     title: 'Mortgage Financing',
-    image: `${assetBase}/multi-mortgage-house-shield-icon.webp`,
-    width: 1133,
-    height: 896,
+    image: fairlendRouteSelectorAssets.privateMortgageHouse.src,
+    width: fairlendRouteSelectorAssets.privateMortgageHouse.width,
+    height: fairlendRouteSelectorAssets.privateMortgageHouse.height,
     icon: Home,
     bullets: [
       '1st, 2nd, and 3rd+ mortgages for borrowers',
@@ -72,9 +73,9 @@ const services: Service[] = [
     code: 'BUILD',
     kicker: 'Construction Desk',
     title: 'Construction Financing',
-    image: `${assetBase}/construction-project-crane-icon.webp`,
-    width: 981,
-    height: 889,
+    image: fairlendRouteSelectorAssets.constructionBuilding.src,
+    width: fairlendRouteSelectorAssets.constructionBuilding.width,
+    height: fairlendRouteSelectorAssets.constructionBuilding.height,
     icon: Building2,
     bullets: [
       'Invest in or finance a construction project',
@@ -92,9 +93,9 @@ const services: Service[] = [
     code: 'ALLY',
     kicker: 'Partner Desk',
     title: 'Partners',
-    image: `${assetBase}/partners-handshake-puzzle-icon.webp`,
-    width: 1050,
-    height: 793,
+    image: fairlendRouteSelectorAssets.partnerHandshake.src,
+    width: fairlendRouteSelectorAssets.partnerHandshake.width,
+    height: fairlendRouteSelectorAssets.partnerHandshake.height,
     icon: Users,
     bullets: [
       'For architects, real estate agents, contractors, and other professionals joining our partner program',
@@ -1315,16 +1316,20 @@ export function FairlendServicesSection() {
         }
         .services-card-media-shell [data-services-media] {
           object-fit: contain;
-          filter: drop-shadow(0 18px 26px rgb(8 45 35 / 12%)) saturate(0.9);
+          object-position: center bottom;
+          filter: drop-shadow(0 18px 26px rgb(8 45 35 / 12%));
         }
         [data-services-card-motion="investment"] .services-card-media-shell {
-          transform: translateX(-0.15rem) scale(1.04);
+          transform: translateX(-0.15rem) scale(1.1);
+        }
+        [data-services-card-motion="mortgage"] .services-card-media-shell {
+          transform: translateX(-0.2rem) scale(1.12);
         }
         [data-services-card-motion="construction"] .services-card-media-shell {
-          transform: translateX(-0.35rem) scale(1.08);
+          transform: translateX(-0.35rem) scale(1.12);
         }
         [data-services-card-motion="partners"] .services-card-media-shell {
-          transform: translateX(-0.1rem) scale(1.05);
+          transform: translateX(-0.1rem) scale(1.16);
         }
         .services-card-corner {
           position: absolute;
@@ -1544,8 +1549,8 @@ export function FairlendServicesSection() {
           }
           .services-card-title {
             max-width: 13ch;
-            margin-bottom: clamp(0.72rem, 1.15vh, 1.1rem);
-            font-size: clamp(1.48rem, min(2.45vw, 4.5vh), 3rem);
+            margin-bottom: clamp(0.55rem, 0.9vh, 0.85rem);
+            font-size: clamp(1.62rem, min(2.65vw, 4.8vh), 3.2rem);
             line-height: 0.96;
           }
           .services-card-bullets {
@@ -1561,7 +1566,7 @@ export function FairlendServicesSection() {
             height: 0.88rem;
           }
           .services-card-media-shell {
-            height: clamp(7.2rem, 18.5vh, 14rem);
+            height: clamp(8.5rem, 22vh, 16.5rem);
             min-height: 0;
           }
           .services-card-corner {
@@ -1595,15 +1600,15 @@ export function FairlendServicesSection() {
             font-size: 0.48rem;
           }
           .services-model-footer {
-            min-height: 2rem;
-            padding: clamp(0.45rem, 0.85vh, 0.7rem) clamp(0.8rem, 1.4vw, 1.3rem);
+            min-height: 1.65rem;
+            padding: clamp(0.35rem, 0.65vh, 0.55rem) clamp(0.75rem, 1.2vw, 1.1rem);
             font-size: clamp(0.5rem, 0.62vw, 0.58rem);
           }
         }
         @media (min-width: 1024px) and (max-height: 760px) {
           .services-model-shell {
-            grid-template-rows: minmax(10rem, 23dvh) 2px minmax(0, 1fr) auto;
-            padding-block: 0.7rem;
+            grid-template-rows: auto 2px minmax(0, 1fr) auto;
+            padding-block: 0.45rem;
           }
           .services-model-brand {
             display: none;
@@ -1624,14 +1629,14 @@ export function FairlendServicesSection() {
             max-width: 34rem;
           }
           .services-card-media-shell {
-            height: clamp(6.3rem, 16.4vh, 10.5rem);
+            height: clamp(7.5rem, 19vh, 12.5rem);
           }
         }
         @media (max-width: 1023px) {
           .services-model-header {
             grid-template-columns: 1fr;
             min-height: auto;
-            padding-bottom: clamp(12rem, 22vw, 18rem);
+            padding-bottom: clamp(7rem, 14vw, 11rem);
           }
           .services-model-header-content {
             min-height: 0;
@@ -1661,10 +1666,10 @@ export function FairlendServicesSection() {
         }
         @media (max-width: 860px) {
           .services-model-shell {
-            padding: 1rem;
+            padding: 0.75rem;
           }
           .services-model-header {
-            padding: 1.25rem 0.75rem clamp(10rem, 44vw, 15rem);
+            padding: 0.85rem 0.5rem clamp(7rem, 32vw, 10rem);
           }
           .services-model-kicker {
             display: grid;

@@ -66,6 +66,8 @@ GOOGLE_MAPS_API_KEY - private server-side Google Places API key used by the home
 
 The public Fairlend lead flow also writes to the Vercel-provisioned Neon database. `DATABASE_URL` is used when present, and `POSTGRES_URL` is used as the fallback so the lead table can share Payload's existing Neon connection.
 
+Fairlend leads are visible in Payload admin under **Operations > Fairlend Leads**. The public `/api/leads` route keeps writing to the legacy `fairlend.leads` table and mirrors each lead into the admin collection with its status, intent, contact fields, address, and full intake JSON.
+
 ## Quick Start - local setup
 
 To spin up this template locally, follow these steps:
@@ -234,9 +236,9 @@ Note that often times when making big schema changes you can run the risk of los
 
 #### Local development
 
-Ideally we recommend running a local copy of your database so that schema updates are as fast as possible. By default the Postgres adapter has `push: true` for development environments. This will let you add, modify and remove fields and collections without needing to run any data migrations.
+Ideally we recommend running a local copy of your database so that schema updates are as fast as possible. By default the Postgres adapter can use `push: true` for development environments. This will let you add, modify and remove fields and collections without needing to run any data migrations.
 
-If your database is pointed to production you will want to set `push: false` otherwise you will risk losing data or having your migrations out of sync.
+This project keeps Payload schema push disabled unless `PAYLOAD_DB_PUSH=true` is set. Keep it disabled for remote Neon, Vercel, or production-like databases; otherwise the dev server may spend a long time at `Pulling schema from database...`, and you risk losing data or having migrations out of sync. Only enable `PAYLOAD_DB_PUSH=true` when `POSTGRES_URL` points at a disposable local database.
 
 #### Migrations
 

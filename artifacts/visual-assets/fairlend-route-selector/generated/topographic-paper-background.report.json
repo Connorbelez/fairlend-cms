@@ -1,0 +1,11 @@
+{
+  "input": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/raw/topographic-paper-background.png",
+  "output": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/webp/topographic-paper-background.webp",
+  "size": {
+    "width": 1448,
+    "height": 1086
+  },
+  "transparent_background": "none",
+  "inferred_background": null,
+  "quality": 88
+}

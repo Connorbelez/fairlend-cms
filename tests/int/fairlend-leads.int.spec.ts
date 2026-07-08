@@ -1,6 +1,18 @@
-import { describe, expect, it } from 'vitest'
+import { neon } from '@neondatabase/serverless'
+import { getPayload, type Payload } from 'payload'
+import { afterEach, beforeAll, describe, expect, it } from 'vitest'
 
-import { normalizeLeadPayload } from '@/lib/fairlend-leads'
+import config from '@/payload.config'
+import {
+  mergeFairlendLeadAdminData,
+  normalizeLeadPayload,
+  toFairlendLeadAdminData,
+  upsertFairlendLead,
+} from '@/lib/fairlend-leads'
+
+let payload: Payload | null = null
+const dbBackedDescribe = process.env.POSTGRES_URL ? describe : describe.skip
+const createdLeadIds = new Set<string>()
 
 describe('Fairlend lead normalization', () => {
   it('trims lead fields and keeps valid ids', () => {
@@ -11,8 +23,10 @@ describe('Fairlend lead normalization', () => {
       intent: ' build ',
       name: ' Jane Borrower ',
       phone: ' 416-555-0101 ',
+      priority: 'high',
       source: ' homepage ',
       status: 'submitted',
+      workflowStatus: 'qualified',
     })
 
     expect(lead).toMatchObject({
@@ -22,8 +36,10 @@ describe('Fairlend lead normalization', () => {
       intent: 'build',
       name: 'Jane Borrower',
       phone: '416-555-0101',
+      priority: 'high',
       source: 'homepage',
       status: 'submitted',
+      workflowStatus: 'qualified',
     })
   })
 
@@ -40,7 +56,226 @@ describe('Fairlend lead normalization', () => {
     )
     expect(lead.addressDetails).toEqual({})
     expect(lead.intake).toEqual({})
+    expect(lead.priority).toBe('normal')
     expect(lead.source).toBe('website')
     expect(lead.status).toBe('started')
+    expect(lead.workflowStatus).toBe('new')
   })
+
+  it('maps normalized leads to the Payload admin collection shape', () => {
+    const lead = normalizeLeadPayload({
+      address: '88 Build Lane',
+      addressDetails: { city: 'Toronto' },
+      email: 'owner@example.com',
+      formattedAddress: '88 Build Lane, Toronto, ON, Canada',
+      id: '5ab72f3d-7bb1-4b44-a4f1-c5b4f5453ad4',
+      intake: { projectStage: 'Permits submitted' },
+      intent: 'build',
+      name: 'Sam Owner',
+      phone: '416-555-0199',
+      placeId: 'place-88-build',
+      source: 'drawflow-intake',
+      status: 'submitted',
+    })
+
+    expect(toFairlendLeadAdminData(lead)).toEqual({
+      address: '88 Build Lane',
+      addressDetails: { city: 'Toronto' },
+      adminNotes: null,
+      email: 'owner@example.com',
+      formattedAddress: '88 Build Lane, Toronto, ON, Canada',
+      intake: { projectStage: 'Permits submitted' },
+      intent: 'build',
+      leadId: '5ab72f3d-7bb1-4b44-a4f1-c5b4f5453ad4',
+      name: 'Sam Owner',
+      nextActionAt: null,
+      phone: '416-555-0199',
+      placeId: 'place-88-build',
+      priority: 'normal',
+      source: 'drawflow-intake',
+      status: 'submitted',
+      workflowStatus: 'new',
+    })
+  })
+
+  it('preserves existing admin contact and JSON data when later drafts omit it', () => {
+    const existing = toFairlendLeadAdminData(
+      normalizeLeadPayload({
+        email: 'saved@example.com',
+        id: '5ab72f3d-7bb1-4b44-a4f1-c5b4f5453ad4',
+        intake: { projectStage: 'Permit ready' },
+        name: 'Saved Lead',
+        phone: '416-555-0100',
+        priority: 'high',
+        source: 'homepage-application-form',
+        status: 'started',
+        workflowStatus: 'qualified',
+      }),
+    )
+    existing.adminNotes = 'Call after permit package arrives.'
+    existing.nextActionAt = '2026-07-07T15:00:00.000Z'
+    const incoming = toFairlendLeadAdminData(
+      normalizeLeadPayload({
+        id: '5ab72f3d-7bb1-4b44-a4f1-c5b4f5453ad4',
+        source: 'drawflow-intake',
+        status: 'draft',
+      }),
+    )
+
+    expect(mergeFairlendLeadAdminData(incoming, existing)).toMatchObject({
+      email: 'saved@example.com',
+      intake: { projectStage: 'Permit ready' },
+      adminNotes: 'Call after permit package arrives.',
+      name: 'Saved Lead',
+      nextActionAt: '2026-07-07T15:00:00.000Z',
+      phone: '416-555-0100',
+      priority: 'high',
+      source: 'drawflow-intake',
+      status: 'draft',
+      workflowStatus: 'qualified',
+    })
+  })
+})
+
+dbBackedDescribe('Fairlend lead admin visibility', () => {
+  beforeAll(async () => {
+    const payloadConfig = await config
+    payload = await getPayload({ config: payloadConfig })
+  }, 60_000)
+
+  afterEach(async () => {
+    if (!payload || createdLeadIds.size === 0) {
+      return
+    }
+
+    const sql = neon(process.env.DATABASE_URL || process.env.POSTGRES_URL || '')
+
+    await Promise.all(
+      [...createdLeadIds].map(async (leadId) => {
+        const existing = await payload!.find({
+          collection: 'fairlend-leads',
+          limit: 10,
+          overrideAccess: true,
+          pagination: false,
+          where: {
+            leadId: {
+              equals: leadId,
+            },
+          },
+        })
+
+        await Promise.all(
+          existing.docs.map((doc) =>
+            payload!.delete({
+              id: doc.id,
+              collection: 'fairlend-leads',
+              overrideAccess: true,
+            }),
+          ),
+        )
+
+        await sql`DELETE FROM fairlend.leads WHERE id = ${leadId}`
+      }),
+    )
+
+    createdLeadIds.clear()
+  })
+
+  it('mirrors submitted intake leads into the Payload admin collection', async () => {
+    const leadId = '3dc0811f-139b-49a9-a0d7-6ef364c9a40f'
+    createdLeadIds.add(leadId)
+
+    await upsertFairlendLead({
+      address: '101 Admin View Road',
+      email: 'lead-admin-visibility@example.com',
+      id: leadId,
+      intake: {
+        financingNeeds: ['Construction financing'],
+        projectStage: 'Permit ready',
+      },
+      intent: 'build',
+      name: 'Admin Visible Lead',
+      phone: '416-555-0142',
+      source: 'drawflow-intake',
+      status: 'submitted',
+    })
+
+    const leads = await payload!.find({
+      collection: 'fairlend-leads',
+      limit: 1,
+      overrideAccess: true,
+      pagination: false,
+      where: {
+        leadId: {
+          equals: leadId,
+        },
+      },
+    })
+
+    expect(leads.docs).toHaveLength(1)
+    expect(leads.docs[0]).toMatchObject({
+      address: '101 Admin View Road',
+      email: 'lead-admin-visibility@example.com',
+      intake: {
+        financingNeeds: ['Construction financing'],
+        projectStage: 'Permit ready',
+      },
+      intent: 'build',
+      leadId,
+      name: 'Admin Visible Lead',
+      phone: '416-555-0142',
+      priority: 'normal',
+      source: 'drawflow-intake',
+      status: 'submitted',
+      workflowStatus: 'new',
+    })
+  }, 60_000)
+
+  it('keeps earlier admin contact data when a later autosave omits it', async () => {
+    const leadId = 'deefe7e1-fc9a-44e8-97a8-9f3757ec9842'
+    createdLeadIds.add(leadId)
+
+    await upsertFairlendLead({
+      email: 'preserved-admin-lead@example.com',
+      id: leadId,
+      intake: {
+        projectStage: 'Zoning review',
+      },
+      name: 'Preserved Admin Lead',
+      phone: '416-555-0188',
+      source: 'homepage-application-form',
+      status: 'started',
+    })
+
+    await upsertFairlendLead({
+      id: leadId,
+      source: 'drawflow-intake',
+      status: 'draft',
+    })
+
+    const leads = await payload!.find({
+      collection: 'fairlend-leads',
+      limit: 1,
+      overrideAccess: true,
+      pagination: false,
+      where: {
+        leadId: {
+          equals: leadId,
+        },
+      },
+    })
+
+    expect(leads.docs).toHaveLength(1)
+    expect(leads.docs[0]).toMatchObject({
+      email: 'preserved-admin-lead@example.com',
+      intake: {
+        projectStage: 'Zoning review',
+      },
+      leadId,
+      name: 'Preserved Admin Lead',
+      phone: '416-555-0188',
+      source: 'drawflow-intake',
+      status: 'draft',
+    })
+  }, 60_000)
 })

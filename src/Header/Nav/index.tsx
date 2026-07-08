@@ -5,8 +5,46 @@ import React from 'react'
 import type { Header as HeaderType } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
+import { getFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
+import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 import Link from 'next/link'
 import { SearchIcon } from 'lucide-react'
+
+type HeaderNavItem = NonNullable<HeaderType['navItems']>[number]
+type HeaderNavLink = HeaderNavItem['link']
+
+const headerBookingHref = getFairlendMicrosoftBookingsUrl()
+const headerContactHref = buildFairlendIntakeHref({
+  intent: 'contact',
+  source: 'header-nav-contact',
+})
+
+function normalizeHeaderNavLink(link: HeaderNavLink): HeaderNavLink {
+  const label = link.label?.trim().toLowerCase()
+  const url = link.url?.trim()
+
+  if (label === 'posts' || label === 'resources' || url === '/posts') {
+    return {
+      ...link,
+      label: 'Book consultation',
+      newTab: true,
+      reference: null,
+      type: 'custom',
+      url: headerBookingHref,
+    }
+  }
+
+  if (label === 'contact' || url === '/contact') {
+    return {
+      ...link,
+      reference: null,
+      type: 'custom',
+      url: headerContactHref,
+    }
+  }
+
+  return link
+}
 
 export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   const navItems = data?.navItems || []
@@ -17,10 +55,12 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
       aria-label="Primary navigation"
     >
       {navItems.map(({ link }, i) => {
+        const normalizedLink = normalizeHeaderNavLink(link)
+
         return (
           <CMSLink
             key={i}
-            {...link}
+            {...normalizedLink}
             appearance="link"
             className="min-h-11 rounded-full px-2 text-[12px] font-extrabold uppercase tracking-normal text-[#062c2f] transition-[background-color,color,transform] duration-200 hover:-translate-y-px hover:bg-[#fffaf4] hover:text-[#a92d17] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#a92d17] sm:px-3 sm:text-[13px]"
             preserveLinkHitArea

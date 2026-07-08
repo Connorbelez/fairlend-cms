@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "manifest_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-hero-cityscape-21x9/asset-manifest.json",
+  "image_asset_count": 1,
+  "assets": [
+    {
+      "id": "fairlend-toronto-skyline-hero-21x9",
+      "label": "FairLend Toronto skyline hero background",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-hero-cityscape-21x9/crops/fairlend-toronto-skyline-hero-21x9.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-hero-cityscape-21x9/generated/raw/fairlend-toronto-skyline-hero-21x9.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-hero-cityscape-21x9/generated/webp/fairlend-toronto-skyline-hero-21x9.webp",
+      "transparent": false,
+      "prompt": "Use case: ads-marketing\nAsset type: Wide 21:9 hero background illustration for the FairLend landing page\nPrimary request: Use case: ads-marketing. Asset type: production website hero background, exact 21:9 aspect ratio. Input image role: reference crop only; generate a new standalone asset, do not reproduce the page UI. Primary request: create a clean wide black-and-white engraved pen-and-ink Toronto waterfront skyline illustration for FairLend, centered around the CN Tower, with detailed high-rise buildings, subtle dotted clouds, Lake Ontario water reflections, and two small sailboats. Composition: panoramic 21:9, city skyline spanning the lower half, CN Tower slightly right of center, soft white negative space in the upper half for live page typography, waterfront reflection fading toward the bottom, edges feathering naturally into an off-white background. Style: premium editorial financial-services illustration, monochrome stipple/etching, crisp architectural linework, elegant and restrained, high resolution, no blur. Do not include any logo, navigation, buttons, statistics, people, avatars, UI cards, labels, captions, or readable text.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate as a clean standalone rectangular image asset.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "No embedded typography, no UI elements, no FairLend logo, no green accents, no website screenshot frame, no browser chrome, no colored sky, no photorealism, no poster text, no watermark, no border."
+    }
+  ]
+}

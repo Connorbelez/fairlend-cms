@@ -10,7 +10,7 @@ interface FrontendChromeProps {
   header: ReactNode
 }
 
-const STANDALONE_LANDING_PATHS = ['/', '/fairlend-landing-hero']
+const STANDALONE_LANDING_PATHS = ['/', '/fairlend-landing-hero', '/intake', '/partners']
 
 export function FrontendChrome({ children, footer, header }: FrontendChromeProps) {
   const pathname = usePathname()

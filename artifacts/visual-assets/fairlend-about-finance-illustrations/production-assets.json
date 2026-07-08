@@ -1,0 +1,96 @@
+{
+  "image_asset_count": 7,
+  "assets": [
+    {
+      "id": "toronto-skyline-sketch",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/crops/toronto-skyline-sketch.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/raw/toronto-skyline-sketch.png",
+      "keyed_alpha_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/keyed/toronto-skyline-sketch.png",
+      "normalized_alpha_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/alpha/toronto-skyline-sketch.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/webp/toronto-skyline-sketch.webp",
+      "public_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/about-webp/webp/toronto-skyline-sketch-optimized.webp",
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Large transparent background illustration for the who-we-are section\nPrimary request: Generate a new standalone transparent black-and-gray editorial ink engraving of the Toronto waterfront skyline, centered on the CN Tower and Rogers Centre, with low-rise and high-rise buildings, small sailboats on Lake Ontario, stippled clouds, water reflections, and a refined financial-services print texture. Match the reference crop's wide composition and delicate line weight. Remove all website typography, cards, UI rules, borders, green accent marks, and page texture. Keep the artwork monochrome graphite/charcoal linework on a transparent background.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "No page screenshot, no text, no UI cards, no labels, no browser chrome, no colored accents, no filled white rectangle, no photorealism, no watermark.",
+      "transparent": true,
+      "processing": "Built-in imagegen output copied to generated/raw, chroma-key removed locally, normalized, then optimized to WebP from generated alpha output."
+    },
+    {
+      "id": "finance-icon-residential-private-mortgages",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/crops/finance-icon-residential-private-mortgages.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/raw/finance-icon-residential-private-mortgages.png",
+      "keyed_alpha_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/keyed/finance-icon-residential-private-mortgages.png",
+      "normalized_alpha_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/alpha/finance-icon-residential-private-mortgages.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/webp/finance-icon-residential-private-mortgages.webp",
+      "public_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/about-webp/webp/finance-icon-residential-private-mortgages.webp",
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Transparent card illustration icon\nPrimary request: Generate a new standalone transparent monochrome ink engraving icon of a detached residential house for a private mortgage card. Preserve the reference's three-quarter front angle, pitched roof, chimney, windows, porch detail, light ground line, and crisp architectural pen texture. Keep the subject centered with generous transparent padding and no text.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "No page screenshot, no card border, no number label, no text, no green accents, no filled background, no watermark.",
+      "transparent": true,
+      "processing": "Built-in imagegen output copied to generated/raw, chroma-key removed locally, normalized, then optimized to WebP from generated alpha output."
+    },
+    {
+      "id": "finance-icon-bridge-loans",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/crops/finance-icon-bridge-loans.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/raw/finance-icon-bridge-loans.png",
+      "keyed_alpha_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/keyed/finance-icon-bridge-loans.png",
+      "normalized_alpha_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/alpha/finance-icon-bridge-loans.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/webp/finance-icon-bridge-loans.webp",
+      "public_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/about-webp/webp/finance-icon-bridge-loans.webp",
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Transparent card illustration icon\nPrimary request: Generate a new standalone transparent monochrome ink engraving icon of a suspension bridge for a bridge loans card. Match the reference's straight-on bridge span, twin towers, catenary cables, deck supports, light base shadow, and refined black-gray technical pen style. Keep the icon balanced, centered, and text-free.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "No page screenshot, no card border, no number label, no text, no green accents, no filled background, no watermark.",
+      "transparent": true,
+      "processing": "Built-in imagegen output copied to generated/raw, chroma-key removed locally, normalized, then optimized to WebP from generated alpha output."
+    },
+    {
+      "id": "finance-icon-mortgage-investments",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/crops/finance-icon-mortgage-investments.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/raw/finance-icon-mortgage-investments.png",
+      "keyed_alpha_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/keyed/finance-icon-mortgage-investments.png",
+      "normalized_alpha_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/alpha/finance-icon-mortgage-investments.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/webp/finance-icon-mortgage-investments.webp",
+      "public_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/about-webp/webp/finance-icon-mortgage-investments.webp",
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Transparent card illustration icon for renovation financing\nPrimary request: Generate a new standalone transparent monochrome ink engraving icon showing a renovation financing document with folded corner, horizontal document lines, a coin or dollar medallion, and an upward construction-budget bar chart with arrow. Preserve the reference's simple finance-document composition, black-gray linework, and compact square visual weight. No text.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "No page screenshot, no card border, no number label, no readable letters, no green accents, no filled background, no watermark.",
+      "transparent": true,
+      "processing": "Built-in imagegen output copied to generated/raw, chroma-key removed locally, normalized, then optimized to WebP from generated alpha output."
+    },
+    {
+      "id": "finance-icon-multiplex-financing",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/crops/finance-icon-multiplex-financing.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/raw/finance-icon-multiplex-financing.png",
+      "keyed_alpha_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/keyed/finance-icon-multiplex-financing.png",
+      "normalized_alpha_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/alpha/finance-icon-multiplex-financing.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/webp/finance-icon-multiplex-financing.webp",
+      "public_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/about-webp/webp/finance-icon-multiplex-financing.webp",
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Transparent card illustration icon\nPrimary request: Generate a new standalone transparent monochrome ink engraving icon of a mid-rise multi-plex apartment building for a real-estate finance card. Match the reference's front-facing multi-storey facade, repeated windows, roofline, entrance, small adjacent tree, and clean ground line. Use refined graphite/black technical pen strokes with subtle hatching, centered with no text.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "No page screenshot, no card border, no number label, no text, no green accents, no filled background, no watermark.",
+      "transparent": true,
+      "processing": "Built-in imagegen output copied to generated/raw, chroma-key removed locally, normalized, then optimized to WebP from generated alpha output."
+    },
+    {
+      "id": "finance-icon-garden-suites",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/crops/finance-icon-garden-suites.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/raw/finance-icon-garden-suites.png",
+      "keyed_alpha_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/keyed/finance-icon-garden-suites.png",
+      "normalized_alpha_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/alpha/finance-icon-garden-suites.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/webp/finance-icon-garden-suites.webp",
+      "public_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/about-webp/webp/finance-icon-garden-suites.webp",
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Transparent card illustration icon\nPrimary request: Generate a new standalone transparent monochrome ink engraving icon of a small garden or laneway suite. Preserve the reference's simple pitched-roof backyard home, front door, rectangular windows, light siding lines, short base line, and minimal architectural sketch style. Center the illustration with no typography.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "No page screenshot, no card border, no number label, no text, no green accents, no filled background, no watermark.",
+      "transparent": true,
+      "processing": "Built-in imagegen output copied to generated/raw, chroma-key removed locally, normalized, then optimized to WebP from generated alpha output."
+    },
+    {
+      "id": "finance-icon-purpose-built-rentals",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/crops/finance-icon-purpose-built-rentals.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/raw/finance-icon-purpose-built-rentals.png",
+      "keyed_alpha_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/keyed/finance-icon-purpose-built-rentals.png",
+      "normalized_alpha_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/alpha/finance-icon-purpose-built-rentals.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/webp/finance-icon-purpose-built-rentals.webp",
+      "public_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/about-webp/webp/finance-icon-purpose-built-rentals.webp",
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Transparent card illustration icon\nPrimary request: Generate a new standalone transparent monochrome ink engraving icon of a purpose-built rental housing building for an insured housing finance card. Match the reference's compact four-to-five-storey building, repeated window grid, ground-floor storefront rhythm, small tree and shrub details, and clean architectural pen texture. Keep it centered, square, and text-free.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "No page screenshot, no card border, no number label, no text, no green accents, no filled background, no watermark.",
+      "transparent": true,
+      "processing": "Built-in imagegen output copied to generated/raw, chroma-key removed locally, normalized, then optimized to WebP from generated alpha output."
+    }
+  ]
+}

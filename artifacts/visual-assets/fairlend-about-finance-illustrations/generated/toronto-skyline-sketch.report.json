@@ -1,0 +1,11 @@
+{
+  "input": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/alpha/toronto-skyline-sketch.png",
+  "output": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/generated/webp/toronto-skyline-sketch.webp",
+  "size": {
+    "width": 1681,
+    "height": 847
+  },
+  "transparent_background": "none",
+  "inferred_background": null,
+  "quality": 90
+}

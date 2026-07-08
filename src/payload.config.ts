@@ -5,11 +5,14 @@ import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
 import { Categories } from './collections/Categories'
+import { FairlendConsultationBookings } from './collections/FairlendConsultationBookings'
+import { FairlendLeads } from './collections/FairlendLeads'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
+import { FairlendConsultationSettings } from './globals/FairlendConsultationSettings'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
@@ -18,6 +21,7 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+const shouldPushDevSchema = process.env.PAYLOAD_DB_PUSH === 'true'
 
 export default buildConfig({
   admin: {
@@ -62,17 +66,12 @@ export default buildConfig({
     pool: {
       connectionString: process.env.POSTGRES_URL || '',
     },
+    push: shouldPushDevSchema,
   }),
   folders: {
     slug: 'payload-folders',
   },
-  collections: [
-    Pages,
-    Posts,
-    Media,
-    Categories,
-    Users,
-  ],
+  collections: [Pages, Posts, Media, Categories, FairlendLeads, FairlendConsultationBookings, Users],
   cors: [getServerSideURL()].filter(Boolean),
   plugins: [
     ...plugins,
@@ -83,7 +82,7 @@ export default buildConfig({
       token: process.env.BLOB_READ_WRITE_TOKEN || '',
     }),
   ],
-  globals: [Header, Footer],
+  globals: [Header, Footer, FairlendConsultationSettings],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
   typescript: {

@@ -35,14 +35,11 @@ import {
 import Link from 'next/link'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
-import type { CSSProperties, ReactElement } from 'react'
+import type { ReactElement } from 'react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
 
 import { GoogleAddressAutocomplete } from '@/components/address/GoogleAddressAutocomplete'
-import { Header as DirectionalHoverHeader } from '@/components/directional-hover-header/header'
-import { KokonutBentoCard, KokonutBentoGridShell } from '@/components/kokonutui/bento-grid'
-import { AnimatedBeam } from '@/components/ui/animated-beam'
 import { Card } from '@/components/ui/card'
 import { Frame } from '@/components/ui/frame'
 import {
@@ -56,6 +53,8 @@ import {
   TimelineTime,
   TimelineTitle,
 } from '@/components/ui/timeline'
+import { getFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
+import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 
 const intakeAssetBase = '/assets/drawflow-intake'
 const buildProgressFinishedImage = `${intakeAssetBase}/Build Progress Finished-optimized.webp`
@@ -575,7 +574,7 @@ export function DrawflowIntake(): ReactElement {
   const searchParams = useSearchParams()
   const initialAddress = searchParams.get('address')?.trim() ?? ''
   const initialLeadId = searchParams.get('leadId')?.trim() ?? null
-  const [step, setStep] = useState<WizardStep>(1)
+  const [step, setStep] = useState<WizardStep>(() => (initialAddress ? 2 : 1))
   const [answers, setAnswers] = useState<IntakeAnswers>(() => ({
     ...defaultAnswers,
     address: initialAddress,
@@ -718,100 +717,104 @@ export function DrawflowIntake(): ReactElement {
   }
 
   return (
-    <>
-      <DirectionalHoverHeader />
-      <main className="bp-page bp-page--with-public-header">
-        <Frame className="bp-shell">
-          <section
-            aria-labelledby={isFormStep ? 'bp-form-title' : 'bp-hero-title'}
-            className={
-              isFormStep
-                ? isSuccessStep
-                  ? `bp-canvas bp-canvas-form bp-canvas-success bp-intake-step-${step}`
-                  : `bp-canvas bp-canvas-form bp-intake-step-${step}`
-                : 'bp-canvas'
-            }
-          >
-            <Image
-              alt=""
-              aria-hidden="true"
-              className="bp-background"
-              decoding="async"
-              draggable={false}
-              fetchPriority="high"
-              height={936}
-              loading="eager"
-              src={backgroundImage}
-              width={1681}
-            />
+    <main className="bp-page bp-page--with-public-header">
+      <Frame className="bp-shell">
+        <section
+          aria-labelledby={isFormStep ? 'bp-form-title' : 'bp-hero-title'}
+          className={
+            isFormStep
+              ? isSuccessStep
+                ? `bp-canvas bp-canvas-form bp-canvas-success bp-intake-step-${step}`
+                : `bp-canvas bp-canvas-form bp-intake-step-${step}`
+              : 'bp-canvas'
+          }
+        >
+          <Image
+            alt=""
+            aria-hidden="true"
+            className="bp-background"
+            decoding="async"
+            draggable={false}
+            fetchPriority="high"
+            height={936}
+            loading="eager"
+            src={backgroundImage}
+            width={1681}
+          />
 
-            {isSuccessStep ? (
-              <BuildPathSuccessStep
+          {isSuccessStep ? (
+            <BuildPathSuccessStep
+              answers={answers}
+              onAddAnother={() => {
+                runIntakeStepTransition(() => {
+                  setAnswers(defaultAnswers)
+                  setLeadId(null)
+                  try {
+                    window.localStorage.removeItem(leadIdStorageKey)
+                  } catch {
+                    // Storage can be unavailable in private browsing or locked-down embedded contexts.
+                  }
+                  setStep(1)
+                })
+              }}
+              onBack={() => {
+                runIntakeStepTransition(() => setStep(7))
+              }}
+              leadId={leadId}
+              summaryItems={summaryItems}
+            />
+          ) : isFormStep ? (
+            step === 2 ? (
+              <BuildPathPropertyStep
                 answers={answers}
-                onAddAnother={() => {
-                  runIntakeStepTransition(() => {
-                    setAnswers(defaultAnswers)
-                    setStep(1)
-                  })
+                onBack={goBack}
+                onContinue={() => {
+                  if (answers.buildPermitFileName) {
+                    runIntakeStepTransition(() => setStep(7))
+                    return
+                  }
+                  goForward()
                 }}
-                onBack={() => {
-                  runIntakeStepTransition(() => setStep(7))
-                }}
-                summaryItems={summaryItems}
+                updateAnswer={updateAnswer}
               />
-            ) : isFormStep ? (
-              step === 2 ? (
-                <BuildPathPropertyStep
-                  answers={answers}
-                  onBack={goBack}
-                  onContinue={() => {
-                    if (answers.buildPermitFileName) {
-                      runIntakeStepTransition(() => setStep(7))
-                      return
-                    }
-                    goForward()
-                  }}
-                  updateAnswer={updateAnswer}
-                />
-              ) : (
-                <BuildPathWizardStep
-                  answers={answers}
-                  onBack={goBack}
-                  onContinue={step === 7 ? submitProjectLead : goForward}
-                  isSubmitting={isSubmitting}
-                  submitError={submitError}
-                  step={step}
-                  summaryItems={summaryItems}
-                  updateAnswer={updateAnswer}
-                />
-              )
             ) : (
-              <BuildPathHeroStart
-                onExplore={() => scrollToBuildPathSection('features')}
-                onStart={() => {
-                  runIntakeStepTransition(() => setStep(2))
-                }}
+              <BuildPathWizardStep
+                answers={answers}
+                onBack={goBack}
+                onContinue={step === 7 ? submitProjectLead : goForward}
+                isSubmitting={isSubmitting}
+                submitError={submitError}
+                step={step}
+                summaryItems={summaryItems}
+                updateAnswer={updateAnswer}
               />
-            )}
-          </section>
-          {!isFormStep && (
-            <>
-              <BuildPathTestimonials />
-              <CapitalFeatureSection
-                onStart={() => {
-                  runIntakeStepTransition(() => setStep(2))
-                }}
-              />
-              <BuildPathLandingSections
-                onStart={() => {
-                  runIntakeStepTransition(() => setStep(2))
-                }}
-              />
-            </>
+            )
+          ) : (
+            <BuildPathHeroStart
+              onExplore={() => scrollToBuildPathSection('features')}
+              onStart={() => {
+                runIntakeStepTransition(() => setStep(2))
+              }}
+            />
           )}
-        </Frame>
-      </main>
-    </>
+        </section>
+        {!isFormStep && (
+          <>
+            <BuildPathTestimonials />
+            <CapitalFeatureSection
+              onStart={() => {
+                runIntakeStepTransition(() => setStep(2))
+              }}
+            />
+            <BuildPathLandingSections
+              onStart={() => {
+                runIntakeStepTransition(() => setStep(2))
+              }}
+            />
+          </>
+        )}
+      </Frame>
+    </main>
   )
 }
 
@@ -1525,15 +1528,28 @@ function getVisualTopSummaryItems(step: WizardStep, summaryItems: string[]): str
 
 function BuildPathSuccessStep({
   answers,
+  leadId,
   onAddAnother,
   onBack,
   summaryItems,
 }: {
   answers: IntakeAnswers
+  leadId: string | null
   onAddAnother: () => void
   onBack: () => void
   summaryItems: string[]
 }): ReactElement {
+  const bookReviewHref = getFairlendMicrosoftBookingsUrl()
+  const documentHref = buildFairlendIntakeHref({
+    address: answers.address,
+    email: answers.email,
+    intent: 'document-upload',
+    leadId,
+    name: answers.name,
+    phone: answers.phone,
+    source: 'drawflow-success-documents',
+  })
+
   return (
     <div className="bp-form-stage bp-wizard-stage">
       <BuildPathVisualPanel answers={answers} step={8} summaryItems={summaryItems} />
@@ -1559,13 +1575,13 @@ function BuildPathSuccessStep({
         </div>
 
         <div className="bp-success-actions">
-          <Link className="bp-form-continue" href="/contact">
+          <a className="bp-form-continue" href={bookReviewHref} rel="noreferrer" target="_blank">
             <span>Book review call</span>
             <CalendarDays aria-hidden="true" strokeWidth={1.8} />
-          </Link>
-          <Link className="bp-upload-button" href="/contact">
+          </a>
+          <Link className="bp-upload-button" href={documentHref}>
             <Upload aria-hidden="true" strokeWidth={1.8} />
-            Upload documents
+            Send document status
           </Link>
         </div>
 
@@ -1830,7 +1846,6 @@ function BuildPathLandingSections({ onStart }: { onStart: () => void }): ReactEl
   return (
     <div className="bp-landing" id="features">
       <BuilderSqueezeSection />
-      <PlanBeforeBorrowSection />
       <FairLendOperatingSystemSection />
       <StartWithPropertySection onStart={onStart} />
     </div>
@@ -1895,10 +1910,10 @@ function CapitalFeatureSection({ onStart }: { onStart: () => void }): ReactEleme
             <span>Check financeability</span>
             <ArrowRight aria-hidden="true" strokeWidth={1.8} />
           </button>
-          <a className="bp-secondary-cta" href="#resources">
-            <span>View milestone flow</span>
+          <button className="bp-secondary-cta" onClick={onStart} type="button">
+            <span>Start project review</span>
             <ArrowRight aria-hidden="true" strokeWidth={1.8} />
-          </a>
+          </button>
         </div>
       </div>
 
@@ -2312,393 +2327,6 @@ function BlueprintDraftingGrid(): ReactElement {
   )
 }
 
-function PlanBeforeBorrowSection(): ReactElement {
-  return (
-    <section
-      aria-labelledby="bp-plan-title"
-      className="bp-landing-section bp-plan bp-persona bp-handoff"
-      id="resources"
-    >
-      <BlueprintSectionHeading
-        id="bp-plan-title"
-        subtitle="FairLend pairs multiplex build financing with senior build advisors, CMHC readiness work, contractor access, and field support that stays with the project."
-        title="Financing is stronger when the build plan is stronger"
-      />
-
-      <KokonutBentoGridShell animate={false} className="bp-handoff-bento">
-        <div className="bp-handoff-cell bp-handoff-cell-map">
-          <KokonutBentoCard
-            item={{
-              description:
-                'You get advisors with 30+ years of build and financing experience from planning through closing. The builder, broker, architect, and consultant stop carrying disconnected fragments.',
-              eyebrow: 'Handoff map',
-              id: 'handoff-map',
-              title: 'Senior build advisors align the plan before it hardens.',
-              className: 'bp-handoff-card is-map',
-            }}
-          >
-            <HandoffMapGraphic />
-          </KokonutBentoCard>
-        </div>
-
-        <div className="bp-handoff-cell bp-handoff-cell-checklist">
-          <KokonutBentoCard
-            item={{
-              description:
-                'We run the CMHC requirement list with underwriting context, then help fill the gaps through direct consulting and a vetted professional network.',
-              eyebrow: 'Readiness',
-              id: 'cmhc-readiness',
-              title: 'Checklist gaps get surfaced while they are still fixable.',
-              className: 'bp-handoff-card is-checklist',
-            }}
-          >
-            <CmhcChecklistGraphic />
-          </KokonutBentoCard>
-        </div>
-
-        <div className="bp-handoff-cell bp-handoff-cell-draws">
-          <KokonutBentoCard
-            item={{
-              description:
-                'Completed milestones unlock availability. Draw only what you need, when you need it, with a 3 day SLA on draw requests and no interest on capital still sitting unused.',
-              eyebrow: 'Draw control',
-              id: 'draw-availability',
-              title: 'On-demand draws keep capital available, not expensive.',
-              className: 'bp-handoff-card is-draws',
-            }}
-          >
-            <DrawAvailabilityMockup />
-          </KokonutBentoCard>
-        </div>
-
-        <div className="bp-handoff-cell bp-handoff-cell-network">
-          <KokonutBentoCard
-            item={{
-              description:
-                'Dedicated site visits, progress checks, reliable contractors, supplier access, and investor relationships are available when the build needs to get unstuck.',
-              eyebrow: 'Unstuck support',
-              id: 'field-support',
-              title: 'When the site drifts, a real team helps get it unstuck.',
-              className: 'bp-handoff-card is-field',
-            }}
-          >
-            <FieldSupportGraphic />
-          </KokonutBentoCard>
-        </div>
-
-        <div className="bp-handoff-cell bp-handoff-cell-field">
-          <KokonutBentoCard
-            item={{
-              description:
-                'FairLend gives builders access to build advisors, financing advisors, energy simulation and certification pros, project managers, architects, designers, lawyers, contractors, suppliers, investors, and consultants.',
-              eyebrow: 'Network plan',
-              id: 'professional-network',
-              title: 'Unlock a growing network of professionals who keep multiplex builds moving.',
-              className: 'bp-handoff-card is-network',
-            }}
-          >
-            <ProfessionalNetworkBeamGraphic />
-          </KokonutBentoCard>
-        </div>
-      </KokonutBentoGridShell>
-    </section>
-  )
-}
-
-function HandoffMapGraphic(): ReactElement {
-  return (
-    <div aria-hidden="true" className="bp-handoff-graphic bp-handoff-map">
-      <svg role="img" viewBox="0 0 720 330">
-        <defs>
-          <filter id="bp-handoff-rough">
-            <feTurbulence baseFrequency="0.9" numOctaves="2" seed="8" type="fractalNoise" />
-            <feDisplacementMap in="SourceGraphic" scale="1.4" />
-          </filter>
-        </defs>
-        <path
-          className="bp-handoff-map-grid"
-          d="M40 44 H682 M40 104 H682 M40 164 H682 M40 224 H682 M40 284 H682 M88 26 V300 M208 26 V300 M328 26 V300 M448 26 V300 M568 26 V300"
-        />
-        <path
-          className="bp-handoff-map-stall"
-          d="M104 82 C176 90 174 166 244 158 C320 150 302 238 384 224 C470 210 464 108 548 116"
-        />
-        <path
-          className="bp-handoff-map-flow"
-          d="M112 248 C178 232 224 210 274 190 C326 170 358 150 414 126 C472 98 528 82 614 76"
-        />
-        <g className="bp-handoff-map-nodes">
-          <circle cx="112" cy="248" r="16" />
-          <circle cx="274" cy="190" r="16" />
-          <circle cx="414" cy="126" r="16" />
-          <circle cx="614" cy="76" r="16" />
-        </g>
-        <g className="bp-handoff-map-ticks">
-          <path d="m104 248 9 9 19-24" />
-          <path d="m266 190 9 9 19-24" />
-          <path d="m406 126 9 9 19-24" />
-          <path d="m606 76 9 9 19-24" />
-        </g>
-        <g className="bp-handoff-map-labels">
-          <text x="82" y="292">
-            Builder
-          </text>
-          <text x="238" y="222">
-            Broker
-          </text>
-          <text x="372" y="92">
-            Architect
-          </text>
-          <text x="564" y="118">
-            Consultant
-          </text>
-        </g>
-        <g className="bp-handoff-map-center">
-          <rect height="70" rx="14" width="172" x="344" y="174" />
-          <text x="370" y="207">
-            FairLend
-          </text>
-          <text x="370" y="228">
-            30+ yr build desk
-          </text>
-        </g>
-      </svg>
-      <div className="bp-handoff-map-legend">
-        <span>Build order</span>
-        <span>Budget logic</span>
-        <span>Draw plan</span>
-      </div>
-    </div>
-  )
-}
-
-function CmhcChecklistGraphic(): ReactElement {
-  return (
-    <div aria-hidden="true" className="bp-handoff-graphic bp-cmhc-checklist">
-      {['CMHC evidence', 'Underwriting story', 'Advisor fix', 'Network handoff'].map(
-        (item, index) => (
-          <div className="bp-cmhc-row" key={item} style={{ '--row-index': index } as CSSProperties}>
-            <span>
-              <Check aria-hidden="true" strokeWidth={2.3} />
-            </span>
-            <strong>{item}</strong>
-            <i />
-          </div>
-        ),
-      )}
-    </div>
-  )
-}
-
-function DrawAvailabilityMockup(): ReactElement {
-  return (
-    <div aria-hidden="true" className="bp-handoff-graphic bp-draw-mockup">
-      <div className="bp-draw-phone">
-        <div className="bp-draw-phone-top">
-          <span>Available now</span>
-          <strong>$250k</strong>
-        </div>
-        <div className="bp-draw-progress">
-          <span />
-          <span />
-          <span />
-        </div>
-        <span>3 day SLA</span>
-      </div>
-      <svg className="bp-draw-orbit" viewBox="0 0 320 150">
-        <path d="M22 112 C76 74 116 96 158 58 C198 22 246 42 298 18" />
-        <circle cx="158" cy="58" r="9" />
-        <circle cx="298" cy="18" r="9" />
-      </svg>
-    </div>
-  )
-}
-
-function ProfessionalNetworkBeamGraphic(): ReactElement {
-  const containerRef = useRef<HTMLDivElement | null>(null)
-  const centerRef = useRef<HTMLDivElement | null>(null)
-  const buildersRef = useRef<HTMLDivElement | null>(null)
-  const financingRef = useRef<HTMLDivElement | null>(null)
-  const energyRef = useRef<HTMLDivElement | null>(null)
-  const designRef = useRef<HTMLDivElement | null>(null)
-  const pmRef = useRef<HTMLDivElement | null>(null)
-  const legalRef = useRef<HTMLDivElement | null>(null)
-  const tradesRef = useRef<HTMLDivElement | null>(null)
-  const suppliersRef = useRef<HTMLDivElement | null>(null)
-
-  const nodes = [
-    {
-      className: 'is-builders',
-      Icon: HardHat,
-      label: 'Builders',
-      nodeRef: buildersRef,
-      tag: 'Sponsor',
-    },
-    {
-      className: 'is-financing',
-      Icon: Landmark,
-      label: 'Financing advisors',
-      nodeRef: financingRef,
-      tag: 'Capital',
-    },
-    {
-      className: 'is-energy',
-      Icon: ShieldCheck,
-      label: 'Energy + CMHC',
-      nodeRef: energyRef,
-      tag: 'Proof',
-    },
-    {
-      className: 'is-design',
-      Icon: Building2,
-      label: 'Architects + designers',
-      nodeRef: designRef,
-      tag: 'Plan',
-    },
-    {
-      className: 'is-pm',
-      Icon: CalendarDays,
-      label: 'Project managers',
-      nodeRef: pmRef,
-      tag: 'Schedule',
-    },
-    {
-      className: 'is-legal',
-      Icon: FileText,
-      label: 'Lawyers',
-      nodeRef: legalRef,
-      tag: 'Close',
-    },
-    {
-      className: 'is-trades',
-      Icon: Wrench,
-      label: 'Contractors',
-      nodeRef: tradesRef,
-      tag: 'Work',
-    },
-    {
-      className: 'is-suppliers',
-      Icon: Layers3,
-      label: 'Suppliers',
-      nodeRef: suppliersRef,
-      tag: 'Materials',
-    },
-  ]
-
-  return (
-    <div
-      aria-hidden="true"
-      className="bp-handoff-graphic bp-professional-network"
-      ref={containerRef}
-    >
-      <div className="bp-network-drafting-note">
-        <span>Network plan</span>
-        <strong>60&apos; x 100&apos;</strong>
-      </div>
-      <svg
-        className="bp-network-static-beams is-desktop"
-        preserveAspectRatio="none"
-        viewBox="0 0 596 430"
-      >
-        <path d="M298 190 Q320 112 327 77" />
-        <path d="M298 190 Q232 126 121 129" />
-        <path d="M298 190 Q370 126 475 129" />
-        <path d="M298 190 Q214 184 119 184" />
-        <path d="M298 190 Q380 184 477 184" />
-        <path d="M298 190 Q232 275 149 311" />
-        <path d="M298 190 Q372 275 411 311" />
-        <path d="M298 190 Q302 292 298 344" />
-      </svg>
-      <svg
-        className="bp-network-static-beams is-mobile"
-        preserveAspectRatio="none"
-        viewBox="0 0 320 806"
-      >
-        <path d="M160 350 Q158 220 160 103" />
-        <path d="M160 350 Q124 256 145 179" />
-        <path d="M160 350 Q206 288 175 255" />
-        <path d="M160 350 Q118 392 145 455" />
-        <path d="M160 350 Q212 418 175 529" />
-        <path d="M160 350 Q118 500 145 603" />
-        <path d="M160 350 Q216 554 175 677" />
-        <path d="M160 350 Q160 640 160 751" />
-      </svg>
-      <div className="bp-network-center" ref={centerRef}>
-        <span>FairLend</span>
-        <strong>Build desk</strong>
-        <small>planning to closing</small>
-      </div>
-      {/* eslint-disable-next-line react-hooks/refs */}
-      {nodes.map(({ className, Icon, label, nodeRef, tag }) => (
-        <div className={`bp-network-node ${className}`} key={label} ref={nodeRef}>
-          <span>
-            <Icon aria-hidden="true" strokeWidth={1.65} />
-          </span>
-          <div>
-            <small>{tag}</small>
-            <strong>{label}</strong>
-          </div>
-        </div>
-      ))}
-      {/* eslint-disable-next-line react-hooks/refs */}
-      {nodes.map(({ className, nodeRef }, index) => (
-        <AnimatedBeam
-          basePathClassName="bp-network-beam-base"
-          beamClassName="bp-network-beam-active"
-          className={`bp-network-beam ${className}`}
-          containerRef={containerRef}
-          curvature={index % 2 === 0 ? 38 : -34}
-          delay={index * 0.18}
-          duration={3.2}
-          fromRef={centerRef}
-          gradientStartColor="oklch(0.45 0.2 145)"
-          gradientStopColor="oklch(0.58 0.16 178)"
-          key={className}
-          pathColor="oklch(0.4 0.12 240 / 0.34)"
-          pathDasharray="7 8"
-          pathOpacity={0.62}
-          pathWidth={2}
-          repeatDelay={0.7}
-          toRef={nodeRef}
-          variant="blueprint"
-        />
-      ))}
-      <div className="bp-network-spec-table">
-        <span>Advisors</span>
-        <strong>30+ yr field desk</strong>
-        <span>Trades</span>
-        <strong>priced below market</strong>
-        <span>Draws</span>
-        <strong>3 day SLA</strong>
-      </div>
-    </div>
-  )
-}
-
-function FieldSupportGraphic(): ReactElement {
-  return (
-    <div aria-hidden="true" className="bp-handoff-graphic bp-field-support">
-      <svg viewBox="0 0 360 260">
-        <path className="bp-field-lot" d="M42 198 L182 128 L318 188 L178 236 Z" />
-        <path className="bp-field-house" d="M132 132 L190 96 L258 132 L258 196 L132 196 Z" />
-        <path className="bp-field-roof" d="M118 134 L190 88 L272 134" />
-        <path
-          className="bp-field-route"
-          d="M58 210 C82 178 118 184 144 162 C170 140 188 122 224 118"
-        />
-        <circle className="bp-field-pin" cx="224" cy="118" r="15" />
-        <path className="bp-field-check" d="m217 117 6 7 13-16" />
-      </svg>
-      <div className="bp-field-tags">
-        <span>Site visit</span>
-        <span>Supplier price</span>
-        <span>Trade fix</span>
-        <span>Investor help</span>
-      </div>
-    </div>
-  )
-}
-
 function FairLendOperatingSystemSection(): ReactElement {
   return (
     <section aria-labelledby="bp-system-title" className="bp-landing-section bp-operating-system">
@@ -2801,23 +2429,6 @@ function StartWithPropertySection({ onStart }: { onStart: () => void }): ReactEl
         <strong>Multiplex</strong>
       </div>
     </section>
-  )
-}
-
-function BlueprintSectionHeading({
-  id,
-  subtitle,
-  title,
-}: {
-  id: string
-  subtitle: string
-  title: string
-}): ReactElement {
-  return (
-    <div className="bp-section-heading">
-      <h2 id={id}>{title}</h2>
-      <p>{subtitle}</p>
-    </div>
   )
 }
 

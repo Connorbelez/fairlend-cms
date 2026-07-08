@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "project": "fairlend-about-finance-illustrations",
+  "notes": "Background Toronto skyline sketch and six finance-card pen illustrations from the supplied Fairlend about/finance page screenshot. Crops are references only and must not ship as production assets.",
+  "source_image": "/Users/connor/Library/Application Support/CleanShot/media/media_Rjsi8sWHFJ/CleanShot 2026-07-04 at 17.05.14@2x.png",
+  "source_size": {
+    "width": 2062,
+    "height": 1154
+  },
+  "created_at": "2026-07-04T22:08:07.775745+00:00",
+  "output_dir": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations",
+  "contact_sheet": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/contact-sheet.png",
+  "assets": [
+    {
+      "id": "toronto-skyline-sketch",
+      "label": "Toronto skyline waterfront sketch",
+      "classification": "image",
+      "role": "Large transparent background illustration for the who-we-are section",
+      "bbox": {
+        "x": 0,
+        "y": 104,
+        "width": 1204,
+        "height": 1008
+      },
+      "rationale": "The CN Tower, waterfront skyline, clouds, boats, and water texture are complex hand-engraved illustration details that should remain a raster image asset.",
+      "generation": {
+        "asset_type": "transparent engraving background",
+        "output_basename": "toronto-skyline-sketch",
+        "transparent": true,
+        "prompt": "Generate a new standalone transparent black-and-gray editorial ink engraving of the Toronto waterfront skyline, centered on the CN Tower and Rogers Centre, with low-rise and high-rise buildings, small sailboats on Lake Ontario, stippled clouds, water reflections, and a refined financial-services print texture. Match the reference crop's wide composition and delicate line weight. Remove all website typography, cards, UI rules, borders, green accent marks, and page texture. Keep the artwork monochrome graphite/charcoal linework on a transparent background.",
+        "negative_prompt": "No page screenshot, no text, no UI cards, no labels, no browser chrome, no colored accents, no filled white rectangle, no photorealism, no watermark."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/crops/toronto-skyline-sketch.png",
+      "crop_size": {
+        "width": 1204,
+        "height": 1008
+      }
+    },
+    {
+      "id": "finance-icon-residential-private-mortgages",
+      "label": "Residential private mortgages house sketch",
+      "classification": "image",
+      "role": "Transparent card illustration icon",
+      "bbox": {
+        "x": 1194,
+        "y": 344,
+        "width": 128,
+        "height": 116
+      },
+      "rationale": "The house is a small hand-drawn architectural illustration that is more faithful as a transparent raster asset than rebuilt with UI primitives.",
+      "generation": {
+        "asset_type": "transparent finance-card engraving icon",
+        "output_basename": "finance-icon-residential-private-mortgages",
+        "transparent": true,
+        "prompt": "Generate a new standalone transparent monochrome ink engraving icon of a detached residential house for a private mortgage card. Preserve the reference's three-quarter front angle, pitched roof, chimney, windows, porch detail, light ground line, and crisp architectural pen texture. Keep the subject centered with generous transparent padding and no text.",
+        "negative_prompt": "No page screenshot, no card border, no number label, no text, no green accents, no filled background, no watermark."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/crops/finance-icon-residential-private-mortgages.png",
+      "crop_size": {
+        "width": 128,
+        "height": 116
+      }
+    },
+    {
+      "id": "finance-icon-bridge-loans",
+      "label": "Bridge loans suspension bridge sketch",
+      "classification": "image",
+      "role": "Transparent card illustration icon",
+      "bbox": {
+        "x": 1608,
+        "y": 344,
+        "width": 128,
+        "height": 126
+      },
+      "rationale": "The bridge is complex engraved line art and should ship as a generated transparent raster icon.",
+      "generation": {
+        "asset_type": "transparent finance-card engraving icon",
+        "output_basename": "finance-icon-bridge-loans",
+        "transparent": true,
+        "prompt": "Generate a new standalone transparent monochrome ink engraving icon of a suspension bridge for a bridge loans card. Match the reference's straight-on bridge span, twin towers, catenary cables, deck supports, light base shadow, and refined black-gray technical pen style. Keep the icon balanced, centered, and text-free.",
+        "negative_prompt": "No page screenshot, no card border, no number label, no text, no green accents, no filled background, no watermark."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/crops/finance-icon-bridge-loans.png",
+      "crop_size": {
+        "width": 128,
+        "height": 126
+      }
+    },
+    {
+      "id": "finance-icon-mortgage-investments",
+      "label": "Renovation financing document and chart sketch",
+      "classification": "image",
+      "role": "Transparent card illustration icon for renovation financing",
+      "bbox": {
+        "x": 1202,
+        "y": 546,
+        "width": 104,
+        "height": 126
+      },
+      "rationale": "The document, coin, and growth chart are small raster-heavy line illustration details intended as a transparent card image.",
+      "generation": {
+        "asset_type": "transparent finance-card engraving icon",
+        "output_basename": "finance-icon-mortgage-investments",
+        "transparent": true,
+        "prompt": "Generate a new standalone transparent monochrome ink engraving icon showing a renovation financing document with folded corner, horizontal document lines, a coin or dollar medallion, and an upward construction-budget bar chart with arrow. Preserve the reference's simple finance-document composition, black-gray linework, and compact square visual weight. No text.",
+        "negative_prompt": "No page screenshot, no card border, no number label, no readable letters, no green accents, no filled background, no watermark."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/crops/finance-icon-mortgage-investments.png",
+      "crop_size": {
+        "width": 104,
+        "height": 126
+      }
+    },
+    {
+      "id": "finance-icon-multiplex-financing",
+      "label": "Multi-plex financing apartment building sketch",
+      "classification": "image",
+      "role": "Transparent card illustration icon",
+      "bbox": {
+        "x": 1616,
+        "y": 548,
+        "width": 114,
+        "height": 140
+      },
+      "rationale": "The multi-unit building and tree detail are architectural engraving art best kept as a generated raster asset.",
+      "generation": {
+        "asset_type": "transparent finance-card engraving icon",
+        "output_basename": "finance-icon-multiplex-financing",
+        "transparent": true,
+        "prompt": "Generate a new standalone transparent monochrome ink engraving icon of a mid-rise multi-plex apartment building for a real-estate finance card. Match the reference's front-facing multi-storey facade, repeated windows, roofline, entrance, small adjacent tree, and clean ground line. Use refined graphite/black technical pen strokes with subtle hatching, centered with no text.",
+        "negative_prompt": "No page screenshot, no card border, no number label, no text, no green accents, no filled background, no watermark."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/crops/finance-icon-multiplex-financing.png",
+      "crop_size": {
+        "width": 114,
+        "height": 140
+      }
+    },
+    {
+      "id": "finance-icon-garden-suites",
+      "label": "Garden and laneway suite sketch",
+      "classification": "image",
+      "role": "Transparent card illustration icon",
+      "bbox": {
+        "x": 1192,
+        "y": 776,
+        "width": 126,
+        "height": 108
+      },
+      "rationale": "The laneway house is a compact architectural engraving and should be delivered as a transparent raster illustration.",
+      "generation": {
+        "asset_type": "transparent finance-card engraving icon",
+        "output_basename": "finance-icon-garden-suites",
+        "transparent": true,
+        "prompt": "Generate a new standalone transparent monochrome ink engraving icon of a small garden or laneway suite. Preserve the reference's simple pitched-roof backyard home, front door, rectangular windows, light siding lines, short base line, and minimal architectural sketch style. Center the illustration with no typography.",
+        "negative_prompt": "No page screenshot, no card border, no number label, no text, no green accents, no filled background, no watermark."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/crops/finance-icon-garden-suites.png",
+      "crop_size": {
+        "width": 126,
+        "height": 108
+      }
+    },
+    {
+      "id": "finance-icon-purpose-built-rentals",
+      "label": "MLI-select insured housing building sketch",
+      "classification": "image",
+      "role": "Transparent card illustration icon",
+      "bbox": {
+        "x": 1616,
+        "y": 770,
+        "width": 126,
+        "height": 136
+      },
+      "rationale": "The rental-housing building and landscape linework are detailed architectural illustration suitable for a generated transparent raster icon.",
+      "generation": {
+        "asset_type": "transparent finance-card engraving icon",
+        "output_basename": "finance-icon-purpose-built-rentals",
+        "transparent": true,
+        "prompt": "Generate a new standalone transparent monochrome ink engraving icon of a purpose-built rental housing building for an insured housing finance card. Match the reference's compact four-to-five-storey building, repeated window grid, ground-floor storefront rhythm, small tree and shrub details, and clean architectural pen texture. Keep it centered, square, and text-free.",
+        "negative_prompt": "No page screenshot, no card border, no number label, no text, no green accents, no filled background, no watermark."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-about-finance-illustrations/crops/finance-icon-purpose-built-rentals.png",
+      "crop_size": {
+        "width": 126,
+        "height": 136
+      }
+    }
+  ]
+}

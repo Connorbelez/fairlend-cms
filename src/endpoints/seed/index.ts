@@ -1,5 +1,8 @@
 import type { CollectionSlug, GlobalSlug, Payload, PayloadRequest, File } from 'payload'
 
+import { defaultFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
+import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
+
 import { contactForm as contactFormData } from './contact-form'
 import { contact as contactPageData } from './contact-page'
 import { home } from './home'
@@ -9,6 +12,8 @@ import { imageHero1 } from './image-hero-1'
 import { post1 } from './post-1'
 import { post2 } from './post-2'
 import { post3 } from './post-3'
+
+type NavigationGlobalSlug = Extract<GlobalSlug, 'header' | 'footer'>
 
 const collections: CollectionSlug[] = [
   'categories',
@@ -20,7 +25,7 @@ const collections: CollectionSlug[] = [
   'search',
 ]
 
-const globals: GlobalSlug[] = ['header', 'footer']
+const navigationGlobals: NavigationGlobalSlug[] = ['header', 'footer']
 
 const categories = ['Technology', 'News', 'Finance', 'Design', 'Software', 'Engineering']
 
@@ -45,7 +50,7 @@ export const seed = async ({
 
   // clear the database
   await Promise.all(
-    globals.map((global) =>
+    navigationGlobals.map((global) =>
       payload.updateGlobal({
         slug: global,
         data: {
@@ -202,7 +207,7 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding pages...`)
 
-  const [_, contactPage] = await Promise.all([
+  await Promise.all([
     payload.create({
       collection: 'pages',
       depth: 0,
@@ -225,18 +230,18 @@ export const seed = async ({
           {
             link: {
               type: 'custom',
-              label: 'Posts',
-              url: '/posts',
+              label: 'Book consultation',
+              url: defaultFairlendMicrosoftBookingsUrl,
             },
           },
           {
             link: {
-              type: 'reference',
+              type: 'custom',
               label: 'Contact',
-              reference: {
-                relationTo: 'pages',
-                value: contactPage.id,
-              },
+              url: buildFairlendIntakeHref({
+                intent: 'contact',
+                source: 'seed-header-contact',
+              }),
             },
           },
         ],

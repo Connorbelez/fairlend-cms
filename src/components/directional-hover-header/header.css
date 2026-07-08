@@ -1,16 +1,19 @@
 .mkt-dhh-header {
-  --mkt-blue-line-rgb: 88 137 207;
-  --mkt-ink: oklch(0.224 0.06 160);
-  --mkt-paper-rgb: 252 244 233;
-  --mkt-surface: oklch(0.986 0.014 82);
-  --mkt-surface-rgb: 255 253 247;
+  --mkt-blue-line-rgb: 145 235 0;
+  --mkt-ink: #101213;
+  --mkt-paper-rgb: 248 247 245;
+  --mkt-surface: #fbfaf8;
+  --mkt-surface-rgb: 251 250 248;
+  --mkt-acid: #8dff00;
+  --mkt-acid-soft: #b6f52a;
+  --mkt-line: rgb(26 28 28 / 10%);
 
   position: fixed;
-  top: 22px;
+  top: clamp(16px, 2.9vw, 32px);
   right: 0;
   left: 0;
   z-index: 60;
-  padding-inline: clamp(14px, 2.5vw, 40px);
+  padding-inline: clamp(18px, 4.55vw, 60px);
   pointer-events: none;
   transform: translateY(0);
   transition:
@@ -27,14 +30,16 @@
 
 .mkt-dhh-shell {
   position: relative;
-  width: min(100%, 1180px);
+  width: min(100%, 1280px);
   margin-inline: auto;
-  border: 1px solid rgb(8 45 35 / 16%);
-  background: rgb(var(--mkt-paper-rgb));
+  border: 1px solid var(--mkt-line);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 62%), rgb(var(--mkt-paper-rgb) / 82%)),
+    rgb(var(--mkt-paper-rgb) / 78%);
   box-shadow:
-    0 18px 54px oklch(0.224 0.06 160 / 12%),
-    inset 0 1px 0 rgb(var(--mkt-surface-rgb) / 64%);
-  backdrop-filter: saturate(1.03);
+    0 18px 54px rgb(17 18 18 / 7%),
+    inset 0 1px 0 rgb(255 255 255 / 72%);
+  backdrop-filter: blur(18px) saturate(1.03);
   pointer-events: auto;
   transition:
     border-color 220ms ease,
@@ -43,23 +48,23 @@
 }
 
 .mkt-dhh-shell-closed {
-  height: 68px;
-  border-radius: 14px;
+  height: 62px;
+  border-radius: 18px;
 }
 
 .mkt-dhh-shell-desktop-open {
   overflow: visible;
-  border-radius: 14px 14px 0 0;
-  border-color: rgb(8 45 35 / 22%);
+  border-radius: 18px 18px 0 0;
+  border-color: rgb(17 18 18 / 14%);
   box-shadow:
-    0 28px 86px rgb(8 45 35 / 18%),
-    inset 0 1px 0 rgb(var(--mkt-surface-rgb) / 66%);
+    0 28px 86px rgb(17 18 18 / 12%),
+    inset 0 1px 0 rgb(255 255 255 / 74%);
 }
 
 .mkt-dhh-shell-mobile-open {
   height: calc(100dvh - 44px);
   overflow: hidden;
-  border-radius: 14px;
+  border-radius: 18px;
 }
 
 .mkt-dhh-shell-clipped {
@@ -70,35 +75,48 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 22px;
-  height: 68px;
-  padding: 0 14px 0 18px;
+  gap: 18px;
+  height: 62px;
+  padding: 0 10px 0 14px;
 }
 
 .mkt-dhh-brand-slot {
   display: flex;
-  min-width: 180px;
+  min-width: 190px;
   align-items: center;
 }
 
 .mkt-dhh-brand {
-  display: inline-grid;
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 10px;
   color: var(--mkt-ink);
   text-decoration: none;
 }
 
+.mkt-dhh-brand::before {
+  position: relative;
+  display: block;
+  width: 24px;
+  height: 36px;
+  flex: 0 0 auto;
+  background:
+    linear-gradient(154deg, transparent 0 13%, #8bf000 13% 41%, transparent 41%),
+    linear-gradient(154deg, transparent 0 37%, #65c819 37% 64%, transparent 64%),
+    linear-gradient(154deg, transparent 0 60%, #b7f521 60% 88%, transparent 88%);
+  content: '';
+}
+
 .mkt-dhh-brand span {
-  font-weight: 850;
-  font-size: clamp(1.45rem, 2.3vw, 2.08rem);
-  line-height: 0.82;
-  letter-spacing: 0.12em;
+  font-weight: 560;
+  font-size: clamp(1.72rem, 2vw, 1.98rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
 }
 
 .mkt-dhh-brand small {
-  margin-top: 7px;
-  font-weight: 560;
-  font-size: 0.68rem;
-  letter-spacing: 0.44em;
+  display: none;
 }
 
 .mkt-dhh-brand-divider,
@@ -121,11 +139,11 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  border-radius: 9px;
+  border-radius: 999px;
   padding: 0 13px;
-  color: rgb(8 45 35 / 74%);
-  font-weight: 680;
-  font-size: 0.88rem;
+  color: rgb(16 18 19 / 76%);
+  font-weight: 500;
+  font-size: 0.94rem;
   text-decoration: none;
   transition:
     background-color 160ms ease,
@@ -135,7 +153,7 @@
 
 .mkt-dhh-nav-item:hover,
 .mkt-dhh-nav-item-open {
-  background: rgb(var(--mkt-surface-rgb) / 74%);
+  background: rgb(255 255 255 / 58%);
   color: var(--mkt-ink);
 }
 
@@ -156,10 +174,10 @@
   align-items: center;
   justify-content: center;
   gap: 7px;
-  border-radius: 9px;
+  border-radius: 12px;
   padding: 0 15px;
-  font-weight: 760;
-  font-size: 0.86rem;
+  font-weight: 560;
+  font-size: 0.94rem;
   line-height: 1;
   text-decoration: none;
   transition:
@@ -171,16 +189,16 @@
 }
 
 .mkt-dhh-action-secondary {
-  border: 1px solid rgb(8 45 35 / 22%);
-  background: rgb(var(--mkt-surface-rgb) / 54%);
+  border: 1px solid rgb(17 18 18 / 12%);
+  background: rgb(255 255 255 / 52%);
   color: var(--mkt-ink);
 }
 
 .mkt-dhh-action-primary {
-  border: 1px solid var(--mkt-ink);
+  border: 1px solid rgb(17 18 18 / 92%);
   background: var(--mkt-ink);
-  color: var(--mkt-surface);
-  box-shadow: 0 12px 28px rgb(8 56 40 / 20%);
+  color: var(--mkt-acid);
+  box-shadow: 0 12px 28px rgb(17 18 18 / 13%);
 }
 
 .mkt-dhh-action:hover {
@@ -188,13 +206,13 @@
 }
 
 .mkt-dhh-action-secondary:hover {
-  border-color: rgb(8 45 35 / 34%);
-  background: rgb(var(--mkt-surface-rgb) / 86%);
+  border-color: rgb(17 18 18 / 18%);
+  background: rgb(255 255 255 / 82%);
 }
 
 .mkt-dhh-action-primary:hover {
-  background: oklch(0.29 0.074 158);
-  box-shadow: 0 16px 34px rgb(8 56 40 / 26%);
+  background: #050607;
+  box-shadow: 0 16px 34px rgb(17 18 18 / 18%);
 }
 
 .mkt-dhh-menu {
@@ -204,33 +222,35 @@
   left: -1px;
   z-index: 70;
   overflow: hidden;
-  border: 1px solid rgb(8 45 35 / 18%);
+  border: 1px solid rgb(17 18 18 / 12%);
   border-top: 0;
-  border-radius: 0 0 14px 14px;
-  background: rgb(var(--mkt-paper-rgb) / 98%);
-  box-shadow: 0 34px 90px rgb(8 45 35 / 20%);
-  backdrop-filter: saturate(1.02);
+  border-radius: 0 0 18px 18px;
+  background: rgb(var(--mkt-paper-rgb) / 96%);
+  box-shadow: 0 34px 90px rgb(17 18 18 / 13%);
+  backdrop-filter: blur(18px) saturate(1.02);
 }
 
 .mkt-dhh-menu-column {
   flex: 1;
   min-width: 0;
   padding: 28px 30px 30px;
-  background: rgb(255 253 247 / 34%);
+  background: rgb(255 255 255 / 24%);
 }
 
 .mkt-dhh-menu-column-accent {
-  background: linear-gradient(135deg, rgb(88 137 207 / 10%), transparent 54%), rgb(8 56 40 / 5%);
+  background:
+    radial-gradient(circle at 16% 8%, rgb(141 255 0 / 16%), transparent 34%),
+    rgb(255 255 255 / 34%);
 }
 
 .mkt-dhh-menu-column-divided {
-  border-left: 1px solid rgb(8 45 35 / 13%);
+  border-left: 1px solid rgb(17 18 18 / 9%);
 }
 
 .mkt-dhh-menu-heading {
   margin: 0 0 18px;
-  color: rgb(8 45 35 / 58%);
-  font-weight: 850;
+  color: rgb(16 18 19 / 52%);
+  font-weight: 700;
   font-size: 0.68rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -262,14 +282,14 @@
 }
 
 .mkt-dhh-menu-item:hover {
-  background: rgb(255 253 247 / 72%);
+  background: rgb(255 255 255 / 66%);
   transform: translateX(2px);
 }
 
 .mkt-dhh-menu-item-label {
   display: block;
   color: var(--mkt-ink);
-  font-weight: 780;
+  font-weight: 620;
   font-size: 0.94rem;
   line-height: 1.15;
 }
@@ -277,7 +297,7 @@
 .mkt-dhh-menu-item-description {
   display: block;
   margin-top: 4px;
-  color: rgb(47 71 63 / 78%);
+  color: rgb(16 18 19 / 58%);
   font-size: 0.78rem;
   line-height: 1.35;
 }
@@ -288,9 +308,9 @@
   height: 44px;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgb(8 45 35 / 18%);
+  border: 1px solid rgb(17 18 18 / 12%);
   border-radius: 12px;
-  background: rgb(255 253 247 / 72%);
+  background: rgb(255 255 255 / 62%);
   color: var(--mkt-ink);
 }
 
@@ -308,7 +328,7 @@
 
 .mkt-dhh-mobile-panel {
   position: absolute;
-  inset: 68px 0 0;
+  inset: 62px 0 0;
   display: none;
   background: rgb(var(--mkt-paper-rgb) / 97%);
 }
@@ -332,17 +352,19 @@
 
 .mkt-dhh-mobile-section-divided,
 .mkt-dhh-mobile-root-item {
-  border-top: 1px solid rgb(8 45 35 / 13%);
+  border-top: 1px solid rgb(17 18 18 / 10%);
 }
 
 .mkt-dhh-mobile-section-accent {
-  background: linear-gradient(135deg, rgb(88 137 207 / 10%), transparent 58%), rgb(8 56 40 / 4%);
+  background:
+    radial-gradient(circle at 14% 12%, rgb(141 255 0 / 16%), transparent 36%),
+    rgb(255 255 255 / 32%);
 }
 
 .mkt-dhh-mobile-heading {
   margin: 0 0 22px;
-  color: rgb(8 45 35 / 62%);
-  font-weight: 850;
+  color: rgb(16 18 19 / 54%);
+  font-weight: 720;
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -390,17 +412,17 @@
 .mkt-dhh-mobile-link-description {
   display: block;
   margin-top: 7px;
-  color: rgb(47 71 63 / 76%);
+  color: rgb(16 18 19 / 58%);
   font-size: 0.92rem;
   line-height: 1.32;
 }
 
 .mkt-dhh-mobile-footer {
   flex-shrink: 0;
-  border-top: 1px solid rgb(8 45 35 / 14%);
+  border-top: 1px solid rgb(17 18 18 / 10%);
   background: rgb(var(--mkt-paper-rgb) / 94%);
   padding: 18px 20px 22px;
-  backdrop-filter: saturate(1.02);
+  backdrop-filter: blur(12px) saturate(1.02);
 }
 
 .mkt-dhh-action-mobile {
@@ -422,31 +444,37 @@
   .mkt-dhh-shell {
     width: 100%;
     border-width: 0 0 1px;
-    border-color: rgb(9 43 36 / 28%);
+    border-color: rgb(17 18 18 / 12%);
     border-radius: 0;
-    background: rgb(243 238 229);
-    color: rgb(9 43 36);
-    box-shadow: none;
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 66%), rgb(var(--mkt-paper-rgb) / 88%)),
+      rgb(var(--mkt-paper-rgb) / 84%);
+    color: var(--mkt-ink);
+    box-shadow:
+      0 12px 34px rgb(17 18 18 / 5%),
+      inset 0 1px 0 rgb(255 255 255 / 72%);
     backdrop-filter: blur(18px);
   }
 
   .mkt-dhh-shell-closed {
-    height: 72px;
+    height: 62px;
     border-radius: 0;
   }
 
   .mkt-dhh-shell-desktop-open {
-    border-color: rgb(9 43 36 / 28%);
+    border-color: rgb(17 18 18 / 14%);
     border-radius: 0;
-    box-shadow: 0 28px 86px rgb(8 45 35 / 14%);
+    box-shadow:
+      0 28px 86px rgb(17 18 18 / 12%),
+      inset 0 1px 0 rgb(255 255 255 / 74%);
   }
 
   .mkt-dhh-bar {
     display: grid;
-    grid-template-columns: minmax(332px, 428px) minmax(0, 1fr) auto 1px auto;
-    gap: clamp(12px, 1.35vw, 24px);
-    height: 72px;
-    padding: 0 clamp(22px, 3vw, 44px);
+    grid-template-columns: minmax(188px, 238px) minmax(0, 1fr) auto 1px auto;
+    gap: clamp(12px, 1.45vw, 24px);
+    height: 62px;
+    padding: 0 clamp(22px, 3.2vw, 48px);
   }
 
   .mkt-dhh-brand-slot {
@@ -454,22 +482,21 @@
   }
 
   .mkt-dhh-brand {
-    display: grid;
-    grid-template-columns: minmax(205px, 278px) 1px minmax(82px, 112px);
-    gap: clamp(12px, 1vw, 18px);
+    display: inline-flex;
+    gap: 10px;
     align-items: center;
-    width: min(100%, 428px);
+    width: auto;
     min-width: 0;
     color: inherit;
-    text-transform: uppercase;
+    text-transform: none;
   }
 
   .mkt-dhh-brand .mkt-dhh-brand-word {
-    font-family: 'League Gothic', Impact, sans-serif;
-    font-weight: 400;
-    font-size: clamp(42px, 3vw, 52px);
-    line-height: 0.82;
-    letter-spacing: 0.035em;
+    font-family: var(--font-inter), Arial, sans-serif;
+    font-weight: 560;
+    font-size: clamp(28px, 2.05vw, 32px);
+    line-height: 1;
+    letter-spacing: -0.045em;
     transform: none;
   }
 
@@ -479,14 +506,14 @@
 
   .mkt-dhh-brand-divider,
   .mkt-dhh-action-divider {
-    display: block;
+    display: none;
     width: 1px;
     height: 38px;
-    background: rgb(9 43 36 / 36%);
+    background: rgb(17 18 18 / 14%);
   }
 
   .mkt-dhh-brand em {
-    display: block;
+    display: none;
     max-width: 112px;
     min-width: 0;
     font-size: 12px;
@@ -498,7 +525,7 @@
 
   .mkt-dhh-desktop-nav {
     justify-content: center;
-    gap: clamp(10px, 1.55vw, 32px);
+    gap: clamp(3px, 0.5vw, 8px);
     min-width: 0;
   }
 
@@ -506,13 +533,13 @@
     min-width: 44px;
     min-height: 38px;
     gap: 7px;
-    border-radius: 0;
-    padding: 0;
+    border-radius: 999px;
+    padding: 0 10px;
     color: var(--mkt-ink);
-    font-weight: 800;
-    font-size: 13px;
+    font-weight: 500;
+    font-size: 15px;
     letter-spacing: 0;
-    text-transform: uppercase;
+    text-transform: none;
     white-space: nowrap;
     transition:
       color 160ms ease,
@@ -521,7 +548,7 @@
 
   .mkt-dhh-nav-item:hover,
   .mkt-dhh-nav-item-open {
-    background: transparent;
+    background: rgb(255 255 255 / 58%);
     color: var(--mkt-ink);
   }
 
@@ -532,10 +559,13 @@
   .mkt-dhh-nav-item-active::after {
     position: absolute;
     right: 0;
-    bottom: 0;
-    left: 0;
-    height: 3px;
-    background: var(--mkt-ink);
+    bottom: 2px;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--mkt-acid);
+    transform: translateX(-50%);
     content: '';
   }
 
@@ -551,27 +581,27 @@
   }
 
   .mkt-dhh-action {
-    min-width: clamp(126px, 8vw, 145px);
-    min-height: 38px;
+    min-width: clamp(118px, 8vw, 138px);
+    min-height: 42px;
     gap: 8px;
-    border-radius: 0;
+    border-radius: 12px;
     padding: 0 15px;
-    font-weight: 900;
-    font-size: 13px;
+    font-weight: 560;
+    font-size: 15px;
     letter-spacing: 0;
-    text-transform: uppercase;
+    text-transform: none;
   }
 
   .mkt-dhh-action-primary {
-    border: 0;
-    background: rgb(6 39 31);
-    color: rgb(255 248 236);
-    box-shadow: none;
+    border: 1px solid rgb(17 18 18 / 92%);
+    background: var(--mkt-ink);
+    color: var(--mkt-acid);
+    box-shadow: 0 12px 28px rgb(17 18 18 / 13%);
   }
 
   .mkt-dhh-action-primary:hover {
-    background: rgb(6 39 31);
-    box-shadow: none;
+    background: #050607;
+    box-shadow: 0 16px 34px rgb(17 18 18 / 18%);
   }
 
   .mkt-dhh-language {
@@ -581,38 +611,37 @@
     justify-content: center;
     gap: 7px;
     min-width: 44px;
-    min-height: 38px;
+    min-height: 42px;
     color: inherit;
-    font-size: 13px;
-    font-weight: 800;
+    font-size: 14px;
+    font-weight: 560;
     letter-spacing: 0;
     text-decoration: none;
-    text-transform: uppercase;
+    text-transform: none;
     white-space: nowrap;
   }
 
   .mkt-dhh-menu {
-    border-color: rgb(9 43 36 / 20%);
+    border-color: rgb(17 18 18 / 12%);
     border-radius: 0;
-    background: rgb(243 238 229 / 98%);
-    box-shadow: 0 34px 90px rgb(8 45 35 / 18%);
+    background: rgb(var(--mkt-paper-rgb) / 96%);
+    box-shadow: 0 34px 90px rgb(17 18 18 / 13%);
     backdrop-filter: blur(18px);
   }
 }
 
 @media (min-width: 1280px) and (max-width: 1460px) {
   .mkt-dhh-bar {
-    grid-template-columns: minmax(332px, 362px) minmax(0, 1fr) auto 1px auto;
-    padding-inline: clamp(18px, 2.2vw, 32px);
+    grid-template-columns: minmax(178px, 212px) minmax(0, 1fr) auto 1px auto;
+    padding-inline: clamp(18px, 2.4vw, 34px);
   }
 
   .mkt-dhh-brand {
-    grid-template-columns: minmax(238px, 238px) 1px minmax(76px, 88px);
-    width: 362px;
+    width: auto;
   }
 
   .mkt-dhh-brand .mkt-dhh-brand-word {
-    font-size: clamp(39px, 2.75vw, 44px);
+    font-size: clamp(27px, 2vw, 31px);
   }
 
   .mkt-dhh-brand em {
@@ -623,26 +652,25 @@
   .mkt-dhh-nav-item,
   .mkt-dhh-action,
   .mkt-dhh-language {
-    font-size: 12px;
+    font-size: 13px;
   }
 }
 
 @media (min-width: 1280px) and (max-width: 1360px) {
   .mkt-dhh-bar {
-    grid-template-columns: minmax(278px, 306px) minmax(0, 1fr) auto 1px auto;
-    gap: 12px;
-    padding-inline: 18px;
+    grid-template-columns: minmax(166px, 190px) minmax(0, 1fr) auto 1px auto;
+    gap: 10px;
+    padding-inline: 10px;
   }
 
   .mkt-dhh-brand {
-    grid-template-columns: minmax(194px, 204px) 1px minmax(66px, 76px);
     gap: 10px;
-    width: 306px;
+    width: auto;
   }
 
   .mkt-dhh-brand .mkt-dhh-brand-word {
-    font-size: 38px;
-    letter-spacing: 0.025em;
+    font-size: 28px;
+    letter-spacing: -0.045em;
   }
 
   .mkt-dhh-brand em {
@@ -658,7 +686,7 @@
   .mkt-dhh-nav-item,
   .mkt-dhh-action,
   .mkt-dhh-language {
-    font-size: 11px;
+    font-size: 13px;
   }
 
   .mkt-dhh-action {
@@ -703,18 +731,16 @@
   }
 
   .mkt-dhh-brand .mkt-dhh-brand-word {
-    font-family: inherit;
-    font-weight: 850;
-    font-size: clamp(1.26rem, 7vw, 1.58rem);
-    line-height: 0.82;
-    letter-spacing: 0.12em;
+    font-family: var(--font-inter), Arial, sans-serif;
+    font-weight: 560;
+    font-size: clamp(1.54rem, 7vw, 1.82rem);
+    line-height: 1;
+    letter-spacing: -0.045em;
     transform: none;
   }
 
   .mkt-dhh-brand small {
-    display: block;
-    font-size: clamp(0.56rem, 2.8vw, 0.68rem);
-    letter-spacing: 0.34em;
+    display: none;
   }
 
   .mkt-dhh-brand-divider,

@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Our Build Model — Production Mockup</title>
+    <meta name="description" content="FairLend's build model: financing, planning, draw system, and end-to-end build support." />
+
+    <!-- Fonts (mockup only; production uses next/font) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@400;500;600;700;800;900&family=Oxanium:wght@600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Lucide icons (mockup only; production uses lucide-react) -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+
+    <style>
+      /* ============================================================
+         TOKENS — locked from SECTION-DESIGN.md / DESIGN.md
+         ============================================================ */
+      :root {
+        --paper: #fbfaf7;
+        --paper-warm: #fffaf1;
+        --builder-cream: rgb(255 253 247);
+        --builder-paper: rgb(255 250 241);
+        --ink: oklch(0.235 0.026 164);
+        --ink-deep: #050506;
+        --ink-soft: oklch(0.235 0.026 164 / 0.72);
+        --muted: oklch(0.235 0.026 164 / 0.58);
+        --line: oklch(0.235 0.026 164 / 0.16);
+        --line-strong: oklch(0.235 0.026 164 / 0.34);
+        --lime: #9dff00;
+        --lime-ink: #203500;
+        --lime-soft: rgba(157 255 0 / 0.12);
+        --coral: oklch(0.588 0.151 42.5);
+        --coral-deep: oklch(0.48 0.14 41);
+        --coral-soft: rgba(232 91 47 / 0.06);
+        --blueprint: oklch(0.464 0.091 243.7);
+        --blueprint-soft: oklch(0.464 0.091 243.7 / 0.32);
+
+        --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+        --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+        --mono: "Oxanium", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+        --r-sm: 9px;
+        --r-md: 12px;
+        --r-lg: 16px;
+        --r-pill: 999px;
+
+        --focus: 0 0 0 3px rgba(157 255 0 / 0.45);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      /* shared focus ring */
+      a:focus-visible, summary:focus-visible, button:focus-visible {
+        outline: none;
+        box-shadow: var(--focus);
+        border-radius: var(--r-sm);
+      }
+
+      /* ============================================================
+         SECTION SHELL
+         ============================================================ */
+      .build-model {
+        position: relative;
+        background: var(--paper);
+        padding: clamp(48px, 7vw, 72px) clamp(20px, 4vw, 40px) 0;
+      }
+
+      /* paper texture (NOT a grid) — single subtle radial, low opacity */
+      .build-model::before {
+        content: "";
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(ellipse 70% 50% at 50% 0%, rgba(255 255 255 0.6), transparent 60%);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .build-model > * { position: relative; z-index: 1; }
+
+      .inner { max-width: 1080px; margin: 0 auto; }
+
+      /* ============================================================
+         HERO (scannable)
+         ============================================================ */
+      .hero { text-align: center; }
+
+      .kicker {
+        display: inline-flex; align-items: center; gap: 8px;
+        font-family: var(--mono); font-size: 12px; font-weight: 800;
+        letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-deep);
+      }
+      .kicker .num { color: var(--coral); font-weight: 800; font-size: 15px; }
+      .kicker .slash { color: var(--coral); font-weight: 400; }
+
+      .headline {
+        margin: 18px auto 18px;
+        max-width: 16ch;
+        font-family: var(--serif);
+        font-weight: 500;
+        font-size: clamp(34px, 5vw, 54px);
+        line-height: 1.02;
+        letter-spacing: -0.028em;
+        color: var(--ink-deep);
+      }
+
+      .lead-line {
+        max-width: 52ch; margin: 0 auto 22px;
+        font-family: var(--serif); font-style: italic;
+        font-size: clamp(19px, 2vw, 23px);
+        line-height: 1.34;
+        color: var(--ink);
+      }
+      .lead-line .accent { font-style: normal; color: var(--coral); }
+
+      .var-ribbon {
+        display: flex; flex-wrap: wrap; justify-content: center;
+        gap: 7px; max-width: 660px; margin: 0 auto 32px;
+      }
+      .var-chip {
+        padding: 6px 13px;
+        border: 1px solid var(--coral);
+        border-radius: var(--r-pill);
+        background: var(--coral-soft);
+        font-family: var(--mono);
+        font-size: 11px; font-weight: 700;
+        letter-spacing: 0.06em; text-transform: uppercase;
+        color: var(--coral-deep);
+        white-space: nowrap;
+      }
+
+      .shared-lead {
+        max-width: 48ch; margin: 0 auto 20px;
+        font-size: 15.5px; line-height: 1.5;
+        color: var(--ink-soft);
+      }
+
+      /* audience cards */
+      .audience-cards {
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: 14px; max-width: 780px; margin: 0 auto 18px;
+      }
+      .acard {
+        position: relative;
+        border: 1px solid var(--line);
+        border-radius: var(--r-md);
+        padding: 18px 20px 18px 22px;
+        background: var(--builder-cream);
+        text-align: left;
+        box-shadow: 0 8px 22px oklch(0.235 0.026 164 / 0.04);
+      }
+      .acard::before {
+        content: ""; position: absolute; left: 0; top: 16px; bottom: 16px;
+        width: 3px; border-radius: 0 2px 2px 0; background: var(--coral);
+      }
+      .acard.builders::before { background: var(--blueprint); }
+      .acard-tag {
+        display: inline-flex; align-items: center; gap: 7px;
+        font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+        letter-spacing: 0.14em; text-transform: uppercase;
+        color: var(--coral); margin-bottom: 9px;
+      }
+      .acard.builders .acard-tag { color: var(--blueprint); }
+      .acard-tag svg { width: 13px; height: 13px; }
+      .acard p {
+        margin: 0; font-size: 14.5px; line-height: 1.52; color: var(--ink);
+      }
+      .acard p strong { color: var(--ink-deep); font-weight: 700; }
+
+      /* CTA */
+      .cta-row {
+        display: flex; flex-direction: column; align-items: center;
+        margin: 22px 0 8px;
+      }
+      .cta {
+        display: inline-flex; align-items: center; gap: 12px;
+        padding: 15px 22px;
+        border: 1.5px solid var(--ink-deep);
+        border-radius: var(--r-sm);
+        background: var(--lime);
+        color: var(--lime-ink);
+        font-weight: 800; font-size: 15.5px;
+        text-decoration: none;
+        box-shadow: 0 10px 26px rgba(157 255 0 / 0.22);
+        transition: transform 0.18s cubic-bezier(0.16,1,0.3,1), box-shadow 0.18s ease;
+      }
+      .cta:hover { transform: translateY(-1px); box-shadow: 0 14px 32px rgba(157 255 0 / 0.3); }
+      .cta:active { transform: translateY(0) scale(0.99); }
+      .cta .arrow-box {
+        display: grid; place-items: center;
+        width: 28px; height: 28px;
+        border: 1px solid rgba(32 53 0 / 0.35);
+        border-radius: var(--r-pill);
+      }
+      .cta .arrow-box svg { width: 16px; height: 16px; }
+      .cta-micro {
+        margin: 12px 0 0; text-align: center;
+        font-size: 13px; color: var(--muted); max-width: 44ch;
+      }
+
+      /* ============================================================
+         STATION TRACK (four pillars)
+         ============================================================ */
+      .stations {
+        margin: 56px auto 0; max-width: 1000px; position: relative;
+      }
+      .station-track-line {
+        position: absolute; top: 36px; left: 12.5%; right: 12.5%;
+        height: 2px; pointer-events: none; z-index: 0;
+        background: repeating-linear-gradient(90deg, var(--coral) 0 4px, transparent 4px 9px);
+        opacity: 0.55;
+      }
+      .station-grid {
+        display: grid; grid-template-columns: repeat(4, 1fr);
+        gap: 0; position: relative; z-index: 1;
+      }
+      .station {
+        position: relative;
+      }
+      .station + .station { border-left: 1px solid var(--line); }
+      .station > summary {
+        list-style: none; cursor: pointer;
+        display: flex; flex-direction: column; align-items: center;
+        padding: 0 14px 14px;
+        text-align: center;
+        border-top: 1px solid var(--line);
+        transition: background 0.2s ease;
+      }
+      .station > summary::-webkit-details-marker { display: none; }
+      .station > summary:hover { background: var(--coral-soft); }
+      .station-node {
+        position: relative; width: 26px; height: 26px;
+        margin-top: -13px; margin-bottom: 12px;
+        display: grid; place-items: center;
+      }
+      .station-node svg.node-mark { width: 100%; height: 100%; }
+      .station-icon {
+        width: 48px; height: 48px; margin-bottom: 8px;
+        display: grid; place-items: center;
+      }
+      .station-icon svg.bp { width: 100%; height: 100%; }
+      .station-num {
+        font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+        letter-spacing: 0.12em; color: var(--coral);
+      }
+      .station-name {
+        font-weight: 800; font-size: 15px; color: var(--ink-deep);
+        margin-top: 3px; transition: color 0.2s ease;
+      }
+      .station[open] .station-name { color: var(--coral-deep); }
+      .station-chev {
+        margin-top: 8px; color: var(--muted);
+        transition: transform 0.25s ease;
+      }
+      .station-chev svg { width: 16px; height: 16px; }
+      .station[open] .station-chev { transform: rotate(180deg); color: var(--coral); }
+      .station-detail {
+        grid-column: 1 / -1;
+        border-top: 1px solid var(--line);
+        background: var(--builder-cream);
+        padding: 20px 24px;
+        margin-top: 0;
+        animation: reveal-down 0.3s cubic-bezier(0.16,1,0.3,1);
+      }
+      @keyframes reveal-down {
+        from { opacity: 0; transform: translateY(-6px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .station-detail ul {
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: 8px 28px; margin: 0; padding: 0; list-style: none;
+      }
+      .station-detail li {
+        display: flex; align-items: flex-start; gap: 9px;
+        font-size: 13.5px; line-height: 1.45; color: var(--ink-soft);
+      }
+      .station-detail li svg {
+        flex: 0 0 auto; width: 14px; height: 14px; margin-top: 2px;
+        color: var(--coral);
+      }
+
+      /* ============================================================
+         DRAWFLOW BLOCK
+         ============================================================ */
+      .drawflow {
+        position: relative;
+        margin: 64px auto 0; max-width: 940px;
+        border: 1px solid var(--line-strong);
+        border-radius: var(--r-lg);
+        background:
+          radial-gradient(ellipse 60% 80% at 18% 0%, rgba(70 118 246 / 0.05), transparent 60%),
+          var(--builder-cream);
+        padding: clamp(32px, 4.5vw, 44px) clamp(24px, 4vw, 48px);
+        overflow: hidden;
+      }
+      .drawflow::after {
+        content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+        background: linear-gradient(90deg, var(--blueprint) 0%, var(--coral) 100%);
+        opacity: 0.65;
+      }
+      .df-label {
+        display: inline-flex; align-items: center; gap: 9px;
+        font-family: var(--mono); font-size: 11px; font-weight: 700;
+        letter-spacing: 0.2em; text-transform: uppercase; color: var(--blueprint);
+      }
+      .df-label .pip {
+        width: 8px; height: 8px; border-radius: 50%; background: var(--blueprint);
+        box-shadow: 0 0 0 3px rgba(70 118 246 / 0.18);
+      }
+      .df-headline {
+        margin: 12px 0 6px;
+        font-family: var(--serif); font-weight: 500;
+        font-size: clamp(24px, 3vw, 32px);
+        line-height: 1.06; letter-spacing: -0.02em;
+        color: var(--ink-deep);
+      }
+      .df-headline em { font-style: italic; color: var(--blueprint); }
+      .df-sub {
+        margin: 0; font-size: 14.5px; color: var(--ink-soft); max-width: 50ch;
+      }
+      .df-sub b { color: var(--coral); font-weight: 700; }
+
+      /* milestone node track */
+      .df-track { margin: 30px 0 26px; }
+      .df-track-svg { width: 100%; height: auto; display: block; overflow: visible; }
+      .df-ms-line { stroke: var(--blueprint); stroke-width: 1.6; fill: none; opacity: 0.5; }
+      .df-ms-line-active { stroke: var(--coral); stroke-width: 1.8; fill: none; }
+      .df-ms-line-future { stroke: var(--blueprint); stroke-width: 1.4; fill: none; opacity: 0.3; stroke-dasharray: 2 5; }
+      .df-ms-done { fill: var(--blueprint); }
+      .df-ms-active-ring { fill: none; stroke: var(--coral); stroke-width: 1.5; opacity: 0.45; }
+      .df-ms-active { fill: var(--coral); }
+      .df-ms-future { fill: none; stroke: var(--blueprint); stroke-width: 1.4; opacity: 0.35; }
+      .df-ms-label {
+        font-family: "Oxanium", monospace; font-size: 10px; font-weight: 700;
+        letter-spacing: 0.06em; text-transform: uppercase; fill: var(--ink);
+      }
+      .df-ms-label-future { fill: var(--muted); opacity: 0.6; }
+      .df-ms-label-active { fill: var(--coral); }
+
+      /* comparison */
+      .df-compare {
+        display: grid; grid-template-columns: 1fr 1fr;
+        border: 1px solid var(--line); border-radius: var(--r-md);
+        overflow: hidden; margin-bottom: 18px;
+      }
+      .df-cmp { padding: 18px 20px; }
+      .df-cmp + .df-cmp {
+        border-left: 1px solid var(--line);
+        background: var(--lime-soft);
+      }
+      .df-cmp-tag {
+        font-family: var(--mono); font-size: 10px; font-weight: 700;
+        letter-spacing: 0.14em; text-transform: uppercase;
+        color: var(--muted); margin-bottom: 8px;
+      }
+      .df-cmp.fairlend .df-cmp-tag { color: var(--lime-ink); }
+      .df-cmp-num {
+        font-family: var(--serif); font-size: 32px; font-weight: 500;
+        color: var(--ink-deep); line-height: 1;
+      }
+      .df-cmp-num .unit {
+        font-size: 14px; color: var(--ink-soft);
+        font-family: var(--sans); font-weight: 600; margin-left: 3px;
+      }
+      .df-dots { display: flex; gap: 5px; margin-top: 12px; flex-wrap: wrap; }
+      .df-dot {
+        width: 9px; height: 9px; border-radius: 50%;
+        border: 1.5px solid var(--muted); background: transparent; opacity: 0.5;
+      }
+      .df-dot.f {
+        background: var(--lime); border-color: var(--lime); opacity: 1;
+        box-shadow: 0 0 6px rgba(157 255 0 / 0.4);
+      }
+
+      /* interest saved */
+      .df-saved {
+        display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px;
+        padding: 15px 18px; border-left: 3px solid var(--lime);
+        background: var(--lime-soft); border-radius: 0 var(--r-sm) var(--r-sm) 0;
+        margin-bottom: 18px;
+      }
+      .df-saved .amt {
+        font-family: var(--serif); font-size: 27px; font-weight: 500;
+        color: var(--ink-deep); line-height: 1;
+      }
+      .df-saved .lbl { font-size: 13.5px; color: var(--ink-soft); }
+      .df-saved .lbl b { color: var(--ink-deep); font-weight: 700; }
+      .df-saved .caveat {
+        font-family: var(--mono); font-size: 10px; color: var(--muted);
+        margin-left: auto; letter-spacing: 0.02em;
+      }
+
+      /* more than capital */
+      .df-more {
+        display: flex; align-items: flex-start; gap: 13px;
+        padding: 16px 18px;
+        border: 1px dashed var(--line-strong);
+        border-radius: var(--r-md);
+      }
+      .df-more .check {
+        flex: 0 0 auto; display: grid; place-items: center;
+        width: 30px; height: 30px; border-radius: 50%;
+        background: var(--lime); color: var(--lime-ink);
+      }
+      .df-more .check svg { width: 17px; height: 17px; stroke-width: 3; }
+      .df-more p {
+        margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink);
+      }
+      .df-more p b { color: var(--ink-deep); font-weight: 700; }
+
+      /* flexibility tiles — build your own schedule + modify mid-build */
+      .df-flex {
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: 12px; margin-bottom: 18px;
+      }
+      .df-tile {
+        position: relative;
+        padding: 16px 18px;
+        border: 1px solid var(--line);
+        border-radius: var(--r-md);
+        background: rgba(255 253 247 / 0.6);
+        display: flex; gap: 13px; align-items: flex-start;
+      }
+      .df-tile .tile-icon {
+        flex: 0 0 auto; display: grid; place-items: center;
+        width: 34px; height: 34px; border-radius: var(--r-sm);
+        background: var(--coral-soft); color: var(--coral);
+      }
+      .df-tile .tile-icon svg { width: 19px; height: 19px; }
+      .df-tile .tile-body { min-width: 0; }
+      .df-tile .tile-title {
+        display: block; margin-bottom: 4px;
+        font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+        letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral);
+      }
+      .df-tile p { margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--ink-soft); }
+      .df-tile p b { color: var(--ink-deep); font-weight: 700; }
+
+      /* ============================================================
+         THESIS STRIP (handoff into Builder Consulting)
+         ============================================================ */
+      .thesis {
+        position: relative;
+        margin: 64px calc(50% - 50vw) 0;       /* full-bleed */
+        padding: clamp(48px, 7vw, 76px) clamp(20px, 5vw, 40px);
+        background:
+          radial-gradient(ellipse 85% 75% at 50% -12%, oklch(0.27 0.05 166), oklch(0.155 0.04 166) 80%);
+        color: rgb(255 253 247);
+        text-align: center;
+        overflow: hidden;
+      }
+      .thesis::before {
+        content: ""; position: absolute; left: 14%; right: 14%;
+        bottom: clamp(28px, 4vw, 44px); height: 1px;
+        background: linear-gradient(90deg, transparent, var(--blueprint-soft), transparent);
+        opacity: 0.5;
+      }
+      .ts-label {
+        display: inline-flex; align-items: center; gap: 12px;
+        font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+        letter-spacing: 0.24em; text-transform: uppercase; color: var(--coral);
+      }
+      .ts-label::before, .ts-label::after {
+        content: ""; display: block; width: 30px; height: 1.5px;
+        background: currentColor; opacity: 0.65;
+      }
+      .ts-headline {
+        margin: 22px auto 16px; max-width: 19ch;
+        font-family: var(--serif); font-weight: 500;
+        font-size: clamp(30px, 4.2vw, 46px);
+        line-height: 1.06; letter-spacing: -0.022em;
+        color: rgb(255 253 247);
+      }
+      .ts-headline em {
+        font-style: italic; color: var(--coral);
+        background: linear-gradient(180deg, transparent 60%, rgba(232 91 47 / 0.2) 60%);
+        padding: 0 3px;
+      }
+      .ts-body {
+        max-width: 56ch; margin: 0 auto 34px;
+        font-size: clamp(15px, 1.5vw, 17px); line-height: 1.55;
+        color: rgba(255 253 247 / 0.74);
+      }
+      .ts-eq {
+        display: inline-flex; flex-wrap: wrap; justify-content: center; align-items: baseline;
+        gap: 10px 14px; padding-bottom: 8px;
+        font-family: var(--mono);
+      }
+      .ts-var {
+        font-size: clamp(13px, 1.6vw, 18px); font-weight: 700;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        color: rgba(255 253 247 / 0.92);
+      }
+      .ts-op {
+        font-size: clamp(13px, 1.6vw, 18px); font-weight: 800;
+        color: var(--coral); opacity: 0.85;
+      }
+      .ts-arrow {
+        font-size: clamp(16px, 1.9vw, 22px); font-weight: 800;
+        color: var(--coral); margin: 0 3px;
+      }
+      .ts-outcome {
+        font-size: clamp(16px, 1.9vw, 22px); font-weight: 800;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--coral);
+        text-shadow: 0 0 28px rgba(232 91 47 / 0.45);
+      }
+
+      /* ============================================================
+         MOTION (IntersectionObserver, reduced-motion safe)
+         ============================================================ */
+      .reveal {
+        opacity: 0; transform: translateY(22px);
+        transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+      }
+      .reveal.in { opacity: 1; transform: none; }
+      .reveal-stagger > * {
+        opacity: 0; transform: translateY(18px);
+        transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
+      }
+      .reveal-stagger.in > * { opacity: 1; transform: none; }
+      .reveal-stagger.in > *:nth-child(1) { transition-delay: 0ms; }
+      .reveal-stagger.in > *:nth-child(2) { transition-delay: 70ms; }
+      .reveal-stagger.in > *:nth-child(3) { transition-delay: 140ms; }
+      .reveal-stagger.in > *:nth-child(4) { transition-delay: 210ms; }
+      .reveal-stagger.in > *:nth-child(5) { transition-delay: 280ms; }
+      .reveal-stagger.in > *:nth-child(6) { transition-delay: 350ms; }
+      .reveal-stagger.in > *:nth-child(7) { transition-delay: 420ms; }
+
+      /* milestone track draw-on */
+      .df-ms-line, .df-ms-line-active, .df-ms-line-future {
+        stroke-dasharray: 1000; stroke-dashoffset: 1000;
+        transition: stroke-dashoffset 1.4s cubic-bezier(0.16,1,0.3,1);
+      }
+      .drawflow.in .df-ms-line,
+      .drawflow.in .df-ms-line-active { stroke-dashoffset: 0; }
+      .drawflow.in .df-ms-line-future { stroke-dashoffset: 0; transition-delay: 0.3s; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .reveal, .reveal-stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+        .df-ms-line, .df-ms-line-active, .df-ms-line-future { stroke-dashoffset: 0 !important; transition: none !important; }
+        .station-detail { animation: none !important; }
+        html { scroll-behavior: auto; }
+      }
+
+      /* ============================================================
+         RESPONSIVE
+         ============================================================ */
+      @media (max-width: 900px) {
+        .station-track-line { display: none; }
+        .station-grid { grid-template-columns: 1fr; }
+        .station + .station { border-left: 0; border-top: 1px solid var(--line); }
+        .station > summary { flex-direction: row; text-align: left; padding: 16px 18px; align-items: center; gap: 14px; }
+        .station-node { margin: 0; }
+        .station-icon { width: 40px; height: 40px; margin-bottom: 0; }
+        .station-meta { display: flex; flex-direction: column; align-items: flex-start; flex: 1; }
+        .station-chev { margin-top: 0; }
+        .station-detail ul { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 640px) {
+        .audience-cards { grid-template-columns: 1fr; }
+        .df-compare { grid-template-columns: 1fr; }
+        .df-cmp + .df-cmp { border-left: 0; border-top: 1px solid var(--line); }
+        .df-flex { grid-template-columns: 1fr; }
+        .df-saved .caveat { margin-left: 0; width: 100%; }
+        .thesis { margin-left: -20px; margin-right: -20px; }
+      }
+      @media (max-width: 480px) {
+        .df-ms-label { font-size: 8.5px; }
+        .ts-eq { gap: 8px 11px; }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="build-model" aria-labelledby="fairlend-build-model-title">
+      <div class="inner">
+
+        <!-- ===== HERO ===== -->
+        <div class="hero">
+          <span class="kicker reveal">
+            <span class="num">03</span><span class="slash">/</span> Our Build Model
+          </span>
+          <h2 class="headline reveal" id="fairlend-build-model-title">
+            Bring us the property. We'll help build the equation.
+          </h2>
+          <p class="lead-line reveal">
+            From <span class="accent">early intent</span> to construction financing and takeout strategy, we shape one financeable project, end to end.
+          </p>
+
+          <div class="var-ribbon reveal-stagger" aria-label="The variables FairLend helps shape">
+            <span class="var-chip">Land</span>
+            <span class="var-chip">Scope</span>
+            <span class="var-chip">Capital</span>
+            <span class="var-chip">Draw plan</span>
+            <span class="var-chip">Professional path</span>
+            <span class="var-chip">Permit &amp; MLI readiness</span>
+            <span class="var-chip">Exit</span>
+          </div>
+
+          <p class="shared-lead reveal">
+            You don't need the whole team, a perfect plan, or prior build experience before you talk to us.
+          </p>
+
+          <div class="audience-cards reveal-stagger">
+            <article class="acard builders">
+              <span class="acard-tag" data-lucide="hammer"></span>
+              <span class="acard-tag">If you already build</span>
+              <p><strong>Keep your focus on the site.</strong> We help carry the financing and business equation around it.</p>
+            </article>
+            <article class="acard">
+              <span class="acard-tag" data-lucide="sprout"></span>
+              <span class="acard-tag">First-time builder</span>
+              <p><strong>Bring a property and a down payment.</strong> We craft the design and specs with you, assign an experienced builder or project manager, and handle the rest: permits, draws, takeout, everything.</p>
+            </article>
+          </div>
+
+          <div class="cta-row reveal">
+            <a class="cta" href="#" aria-label="Book a free consultation">
+              Book a free consultation
+              <span class="arrow-box" aria-hidden="true"><i data-lucide="arrow-right"></i></span>
+            </a>
+            <p class="cta-micro">Bring a property, plan, or early idea. Your first conversation is on us.</p>
+          </div>
+        </div>
+
+        <!-- ===== STATION TRACK ===== -->
+        <div class="stations reveal">
+          <div class="station-track-line" aria-hidden="true"></div>
+          <div class="station-grid">
+
+            <details class="station" open>
+              <summary>
+                <span class="station-node" aria-hidden="true">
+                  <svg class="node-mark" viewBox="0 0 26 26"><circle cx="13" cy="13" r="7" fill="oklch(0.588 0.151 42.5)"/><circle cx="13" cy="13" r="11" fill="none" stroke="oklch(0.588 0.151 42.5)" stroke-width="1.4" opacity="0.4"/></svg>
+                </span>
+                <span class="station-icon" aria-hidden="true">
+                  <svg class="bp" viewBox="0 0 48 48" fill="none" stroke="oklch(0.464 0.091 243.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="8" y="18" width="32" height="24"/>
+                    <path d="M8 18 L24 6 L40 18"/>
+                    <path d="M21 30 h6 v12 h-6 z" stroke-opacity="0.4"/>
+                    <path d="M2 42 L46 42" stroke-opacity="0.3"/>
+                  </svg>
+                </span>
+                <span class="station-meta">
+                  <span class="station-num">01</span>
+                  <span class="station-name">Plan</span>
+                </span>
+                <span class="station-chev" aria-hidden="true"><i data-lucide="chevron-down"></i></span>
+              </summary>
+              <div class="station-detail">
+                <ul>
+                  <li><i data-lucide="check"></i><span>Site search &amp; feasibility review</span></li>
+                  <li><i data-lucide="check"></i><span>Land basis &amp; acquisition price the project can support</span></li>
+                  <li><i data-lucide="check"></i><span>Zoning path, housing form, unit mix, buildable area</span></li>
+                  <li><i data-lucide="check"></i><span>Construction budget pressure-testing</span></li>
+                </ul>
+              </div>
+            </details>
+
+            <details class="station">
+              <summary>
+                <span class="station-node" aria-hidden="true">
+                  <svg class="node-mark" viewBox="0 0 26 26"><circle cx="13" cy="13" r="6" fill="none" stroke="oklch(0.464 0.091 243.7)" stroke-width="1.5"/></svg>
+                </span>
+                <span class="station-icon" aria-hidden="true">
+                  <svg class="bp" viewBox="0 0 48 48" fill="none" stroke="oklch(0.464 0.091 243.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="34" width="8" height="8"/>
+                    <rect x="20" y="22" width="8" height="20"/>
+                    <rect x="31" y="10" width="8" height="32"/>
+                    <path d="M6 10 L42 10" stroke-opacity="0.4"/>
+                  </svg>
+                </span>
+                <span class="station-meta">
+                  <span class="station-num">02</span>
+                  <span class="station-name">Finance</span>
+                </span>
+                <span class="station-chev" aria-hidden="true"><i data-lucide="chevron-down"></i></span>
+              </summary>
+              <div class="station-detail">
+                <ul>
+                  <li><i data-lucide="check"></i><span>Construction budget &amp; borrower capital position</span></li>
+                  <li><i data-lucide="check"></i><span>Private financing &amp; capital structure</span></li>
+                  <li><i data-lucide="check"></i><span>Draw schedule (milestone-based, DrawFlow)</span></li>
+                  <li><i data-lucide="check"></i><span>Working-capital planning</span></li>
+                </ul>
+              </div>
+            </details>
+
+            <details class="station">
+              <summary>
+                <span class="station-node" aria-hidden="true">
+                  <svg class="node-mark" viewBox="0 0 26 26"><circle cx="13" cy="13" r="6" fill="none" stroke="oklch(0.464 0.091 243.7)" stroke-width="1.5"/></svg>
+                </span>
+                <span class="station-icon" aria-hidden="true">
+                  <svg class="bp" viewBox="0 0 48 48" fill="none" stroke="oklch(0.464 0.091 243.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M8 40 L8 20 L24 8 L40 20 L40 40"/>
+                    <path d="M24 20 L24 40" stroke-opacity="0.4"/>
+                    <circle cx="24" cy="28" r="3.5"/>
+                  </svg>
+                </span>
+                <span class="station-meta">
+                  <span class="station-num">03</span>
+                  <span class="station-name">Build support</span>
+                </span>
+                <span class="station-chev" aria-hidden="true"><i data-lucide="chevron-down"></i></span>
+              </summary>
+              <div class="station-detail">
+                <ul>
+                  <li><i data-lucide="check"></i><span>Contractor, consultant &amp; professional network, introductions where appropriate</span></li>
+                  <li><i data-lucide="check"></i><span>Permit strategy &amp; documentation gap analysis</span></li>
+                  <li><i data-lucide="check"></i><span>CMHC MLI Select readiness support (where applicable)</span></li>
+                  <li><i data-lucide="check"></i><span>Milestone / draw administration &amp; site monitoring</span></li>
+                </ul>
+              </div>
+            </details>
+
+            <details class="station">
+              <summary>
+                <span class="station-node" aria-hidden="true">
+                  <svg class="node-mark" viewBox="0 0 26 26"><circle cx="13" cy="13" r="6" fill="none" stroke="oklch(0.464 0.091 243.7)" stroke-width="1.5"/></svg>
+                </span>
+                <span class="station-icon" aria-hidden="true">
+                  <svg class="bp" viewBox="0 0 48 48" fill="none" stroke="oklch(0.464 0.091 243.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M8 24 L32 24"/>
+                    <path d="M26 18 L32 24 L26 30" stroke="oklch(0.588 0.151 42.5)"/>
+                    <circle cx="36" cy="24" r="4.5"/>
+                    <path d="M8 24 L8 40 M36 28.5 L36 40" stroke-opacity="0.4"/>
+                  </svg>
+                </span>
+                <span class="station-meta">
+                  <span class="station-num">04</span>
+                  <span class="station-name">Takeout</span>
+                </span>
+                <span class="station-chev" aria-hidden="true"><i data-lucide="chevron-down"></i></span>
+              </summary>
+              <div class="station-detail">
+                <ul>
+                  <li><i data-lucide="check"></i><span>Sale, refinance, or rental stabilization</span></li>
+                  <li><i data-lucide="check"></i><span>Insured (MLI Select) takeout preparation</span></li>
+                  <li><i data-lucide="check"></i><span>Long-term financing direction</span></li>
+                </ul>
+              </div>
+            </details>
+
+          </div>
+        </div>
+
+        <!-- ===== DRAWFLOW ===== -->
+        <div class="drawflow reveal">
+          <span class="df-label"><span class="pip"></span> Powered by DrawFlow</span>
+          <h3 class="df-headline">A milestone <em>line of credit</em> for your build.</h3>
+          <p class="df-sub">More draws. Less interest. <b>Fund the work, not the wait.</b></p>
+
+          <div class="df-track">
+            <svg class="df-track-svg" viewBox="0 0 880 76" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Milestone draw track: foundation, framing, roof, windows, mechanical, plumbing in review, electrical, drywall">
+              <!-- lines -->
+              <path class="df-ms-line" d="M44 40 L730 40"/>
+              <path class="df-ms-line-active" d="M730 40 L773 40"/>
+              <path class="df-ms-line-future" d="M773 40 L836 40"/>
+              <!-- done nodes (6) -->
+              <circle class="df-ms-done" cx="44" cy="40" r="6.5"/>
+              <circle class="df-ms-done" cx="180" cy="40" r="6.5"/>
+              <circle class="df-ms-done" cx="316" cy="40" r="6.5"/>
+              <circle class="df-ms-done" cx="452" cy="40" r="6.5"/>
+              <circle class="df-ms-done" cx="588" cy="40" r="6.5"/>
+              <circle class="df-ms-done" cx="724" cy="40" r="6.5"/>
+              <!-- active node -->
+              <circle class="df-ms-active-ring" cx="766" cy="40" r="12"/>
+              <circle class="df-ms-active" cx="766" cy="40" r="6.5"/>
+              <!-- future nodes (3) -->
+              <circle class="df-ms-future" cx="808" cy="40" r="6.5"/>
+              <circle class="df-ms-future" cx="836" cy="40" r="6.5"/>
+              <!-- labels (below for done/future, above for active) -->
+              <text class="df-ms-label" x="44" y="64" text-anchor="middle">Foundation</text>
+              <text class="df-ms-label" x="180" y="64" text-anchor="middle">Framing</text>
+              <text class="df-ms-label" x="316" y="64" text-anchor="middle">Roof</text>
+              <text class="df-ms-label" x="452" y="64" text-anchor="middle">Windows</text>
+              <text class="df-ms-label" x="588" y="64" text-anchor="middle">Mechanical</text>
+              <text class="df-ms-label" x="724" y="64" text-anchor="middle">Plumbing</text>
+              <text class="df-ms-label-active" x="766" y="22" text-anchor="middle">In review</text>
+              <text class="df-ms-label df-ms-label-future" x="808" y="64" text-anchor="middle">Electrical</text>
+              <text class="df-ms-label df-ms-label-future" x="836" y="64" text-anchor="middle">Drywall</text>
+            </svg>
+          </div>
+
+          <div class="df-compare">
+            <div class="df-cmp">
+              <div class="df-cmp-tag">Traditional</div>
+              <div class="df-cmp-num">3<span class="unit">draws</span></div>
+              <div class="df-dots"><span class="df-dot"></span><span class="df-dot"></span><span class="df-dot"></span></div>
+            </div>
+            <div class="df-cmp fairlend">
+              <div class="df-cmp-tag">FairLend, up to</div>
+              <div class="df-cmp-num">15<span class="unit">draws</span></div>
+              <div class="df-dots">
+                <span class="df-dot f"></span><span class="df-dot f"></span><span class="df-dot f"></span><span class="df-dot f"></span><span class="df-dot f"></span>
+                <span class="df-dot f"></span><span class="df-dot f"></span><span class="df-dot f"></span><span class="df-dot f"></span><span class="df-dot f"></span>
+                <span class="df-dot f"></span><span class="df-dot f"></span><span class="df-dot f"></span><span class="df-dot f"></span><span class="df-dot f"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="df-saved">
+            <span class="amt">≈ $12,000</span>
+            <span class="lbl"><b>Illustrative interest saved</b> over a typical build.</span>
+            <span class="caveat">*Illustrative only. Every project differs.</span>
+          </div>
+
+          <div class="df-flex">
+            <div class="df-tile">
+              <span class="tile-icon" aria-hidden="true"><i data-lucide="sliders-horizontal"></i></span>
+              <div class="tile-body">
+                <span class="tile-title">Your schedule, not ours</span>
+                <p><b>Build your own draw schedule.</b> Tie releases to the milestones that match how your project actually goes up.</p>
+              </div>
+            </div>
+            <div class="df-tile">
+              <span class="tile-icon" aria-hidden="true"><i data-lucide="refresh-cw"></i></span>
+              <div class="tile-body">
+                <span class="tile-title">Modify it mid-build</span>
+                <p>Builds don't always go as planned. <b>Adjust the draw plan as the work shifts</b> so capital is there when you need it, and not costing interest when you don't.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="df-more">
+            <span class="check" aria-hidden="true"><i data-lucide="check"></i></span>
+            <p><b>More than capital.</b> Complimentary access to our GTA build specialists and a deep supplier &amp; trade network. Your project manager comes with the financing.</p>
+          </div>
+        </div>
+
+      </div><!-- /inner -->
+
+      <!-- ===== THESIS STRIP (full-bleed) ===== -->
+      <div class="thesis reveal">
+        <span class="ts-label">Builder Consulting</span>
+        <h3 class="ts-headline">FairLend's thesis: profit lives in the <em>variables</em>.</h3>
+        <p class="ts-body">A profitable build is not only a construction problem. It is a business equation that changes with land, cost, capital, draws, policy, incentives, and takeout.</p>
+        <div class="ts-eq" aria-label="Build equation: land plus cost plus capital plus draws plus policy plus incentives plus takeout yields outcome">
+          <span class="ts-var">Land</span><span class="ts-op">+</span>
+          <span class="ts-var">Cost</span><span class="ts-op">+</span>
+          <span class="ts-var">Capital</span><span class="ts-op">+</span>
+          <span class="ts-var">Draws</span><span class="ts-op">+</span>
+          <span class="ts-var">Policy</span><span class="ts-op">+</span>
+          <span class="ts-var">Incentives</span><span class="ts-op">+</span>
+          <span class="ts-var">Takeout</span>
+          <span class="ts-arrow">→</span>
+          <span class="ts-outcome">Outcome</span>
+        </div>
+      </div>
+
+    </section>
+
+    <script>
+      // Initialize Lucide icons once loaded
+      (function () {
+        function initIcons() {
+          if (window.lucide && typeof window.lucide.createIcons === 'function') {
+            window.lucide.createIcons();
+          } else {
+            setTimeout(initIcons, 50);
+          }
+        }
+        initIcons();
+      })();
+
+      // Scroll reveal via IntersectionObserver (no window.scroll listener)
+      (function () {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var targets = document.querySelectorAll('.reveal, .reveal-stagger');
+
+        if (reduce || !('IntersectionObserver' in window)) {
+          targets.forEach(function (el) { el.classList.add('in'); });
+          return;
+        }
+
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+
+        targets.forEach(function (el) { io.observe(el); });
+      })();
+
+      // Ensure only the open station shows its detail cleanly across the grid
+      // (native <details> handles toggle; this just keeps the first open on load)
+    </script>
+  </body>
+</html>

@@ -7,6 +7,7 @@ import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { WatermelonLayoutBlock } from '@/blocks/WatermelonLayouts/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -14,6 +15,23 @@ const blockComponents = {
   cta: CallToActionBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
+  watermelonBusinessManagement: WatermelonLayoutBlock,
+  watermelonBusinessOperationsDashboard: WatermelonLayoutBlock,
+  watermelonECommerceDashboard: WatermelonLayoutBlock,
+  watermelonErpDashboard: WatermelonLayoutBlock,
+  watermelonHrm: WatermelonLayoutBlock,
+  watermelonIncidentManagement: WatermelonLayoutBlock,
+  watermelonInvoiceGeneratorDashboard: WatermelonLayoutBlock,
+  watermelonInvoiceManagerDashboard: WatermelonLayoutBlock,
+  watermelonIssueTracking: WatermelonLayoutBlock,
+  watermelonLeadDashboard: WatermelonLayoutBlock,
+  watermelonMailDashboard: WatermelonLayoutBlock,
+  watermelonMeetingsDashboard: WatermelonLayoutBlock,
+  watermelonPaymentOperationsDashboard: WatermelonLayoutBlock,
+  watermelonProjectManagementDashboard: WatermelonLayoutBlock,
+  watermelonSalesDashboard: WatermelonLayoutBlock,
+  watermelonTaskManagementDashboard: WatermelonLayoutBlock,
+  watermelonWorkflowManagementDashboard: WatermelonLayoutBlock,
 }
 
 export const RenderBlocks: React.FC<{

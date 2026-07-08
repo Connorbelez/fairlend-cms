@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "project": "fairlend-cms",
+  "notes": "Extract a production-ready 21:9 hero background image from the supplied FairLend landing-page composite. The crop is reference-only; the final asset must be newly generated and not a crop derivative.",
+  "source_image": "/private/tmp/codex-remote-attachments/019f294f-27cb-7b71-8d71-f2b983643135/6005C3C9-9036-49B4-A1C4-54A8278B59AC/1-Photo-1.jpg",
+  "source_size": {
+    "width": 1280,
+    "height": 972
+  },
+  "created_at": "2026-07-03T18:49:32.678425+00:00",
+  "output_dir": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-hero-cityscape-21x9",
+  "contact_sheet": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-hero-cityscape-21x9/contact-sheet.png",
+  "assets": [
+    {
+      "id": "fairlend-toronto-skyline-hero-21x9",
+      "label": "FairLend Toronto skyline hero background",
+      "classification": "image",
+      "role": "Wide 21:9 hero background illustration for the FairLend landing page",
+      "bbox": {
+        "x": 28,
+        "y": 120,
+        "width": 1218,
+        "height": 730
+      },
+      "rationale": "The skyline, waterfront reflection, sailboats, clouds, and engraved ink texture are complex raster illustration elements that should be generated as a standalone image asset rather than rebuilt as React.",
+      "generation": {
+        "asset_type": "website hero background image",
+        "output_basename": "fairlend-toronto-skyline-hero-21x9",
+        "transparent": false,
+        "prompt": "Use case: ads-marketing. Asset type: production website hero background, exact 21:9 aspect ratio. Input image role: reference crop only; generate a new standalone asset, do not reproduce the page UI. Primary request: create a clean wide black-and-white engraved pen-and-ink Toronto waterfront skyline illustration for FairLend, centered around the CN Tower, with detailed high-rise buildings, subtle dotted clouds, Lake Ontario water reflections, and two small sailboats. Composition: panoramic 21:9, city skyline spanning the lower half, CN Tower slightly right of center, soft white negative space in the upper half for live page typography, waterfront reflection fading toward the bottom, edges feathering naturally into an off-white background. Style: premium editorial financial-services illustration, monochrome stipple/etching, crisp architectural linework, elegant and restrained, high resolution, no blur. Do not include any logo, navigation, buttons, statistics, people, avatars, UI cards, labels, captions, or readable text.",
+        "negative_prompt": "No embedded typography, no UI elements, no FairLend logo, no green accents, no website screenshot frame, no browser chrome, no colored sky, no photorealism, no poster text, no watermark, no border."
+      },
+      "notes": "Final should be rectangular 21:9 with retained off-white background, not transparent, suitable for use underneath live React typography and CTAs.",
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-hero-cityscape-21x9/crops/fairlend-toronto-skyline-hero-21x9.png",
+      "crop_size": {
+        "width": 1218,
+        "height": 730
+      }
+    }
+  ]
+}

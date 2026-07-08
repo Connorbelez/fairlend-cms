@@ -1,0 +1,113 @@
+const torontoHeroAssetBase = '/assets/fairlend/toronto-hero-16x10'
+
+export const torontoHeroAssets = {
+  skyline: `${torontoHeroAssetBase}/toronto-skyline-waterfront-16x10.webp`,
+} as const
+
+export const torontoCloudLayers = [
+  {
+    className:
+      'left-[34.1%] top-[22.6%] w-[17.4%] min-w-[142px] max-w-[226px] opacity-[0.86] max-md:left-[37%] max-md:top-[24%] max-md:w-[23%]',
+    delay: '360ms',
+    driftDuration: '8s',
+    driftX: '15px',
+    driftY: '-5px',
+    enterX: '-116px',
+    enterY: '10px',
+    height: 516,
+    key: 'upper-west',
+    src: `${torontoHeroAssetBase}/cloud-upper-west.webp`,
+    width: 1692,
+    zIndex: 2,
+  },
+  {
+    className:
+      'left-[50%] top-[28.2%] w-[27.4%] min-w-[232px] max-w-[352px] opacity-[0.72] max-md:left-[50%] max-md:top-[31%] max-md:w-[34%]',
+    delay: '500ms',
+    driftDuration: '10s',
+    driftX: '-20px',
+    driftY: '7px',
+    enterX: '146px',
+    enterY: '2px',
+    height: 695,
+    key: 'upper-east',
+    src: `${torontoHeroAssetBase}/cloud-upper-east-large.webp`,
+    width: 1721,
+    zIndex: 2,
+  },
+  {
+    className:
+      'left-[25.3%] top-[44.8%] w-[28.7%] min-w-[224px] max-w-[372px] opacity-[0.9] max-md:left-[19%] max-md:top-[45%] max-md:w-[36%]',
+    delay: '620ms',
+    driftDuration: '9s',
+    driftX: '22px',
+    driftY: '4px',
+    enterX: '-178px',
+    enterY: '16px',
+    height: 488,
+    key: 'mid-west',
+    src: `${torontoHeroAssetBase}/cloud-mid-west-large.webp`,
+    width: 1733,
+    zIndex: 4,
+  },
+  {
+    className:
+      'left-[56.4%] top-[47.2%] w-[8.9%] min-w-[88px] max-w-[116px] opacity-[0.78] max-md:left-[61%] max-md:top-[47.5%] max-md:w-[12%]',
+    delay: '760ms',
+    driftDuration: '7s',
+    driftX: '-10px',
+    driftY: '-3px',
+    enterX: '92px',
+    enterY: '8px',
+    height: 287,
+    key: 'mid-east',
+    src: `${torontoHeroAssetBase}/cloud-mid-east-small.webp`,
+    width: 737,
+    zIndex: 2,
+  },
+  {
+    className:
+      'left-[3.1%] top-[58.5%] w-[14.4%] min-w-[132px] max-w-[188px] opacity-[0.86] max-lg:left-[1.5%] max-lg:top-[59%] max-md:hidden',
+    delay: '820ms',
+    driftDuration: '9s',
+    driftX: '18px',
+    driftY: '-4px',
+    enterX: '-132px',
+    enterY: '4px',
+    height: 468,
+    key: 'low-west',
+    src: `${torontoHeroAssetBase}/cloud-low-west.webp`,
+    width: 1630,
+    zIndex: 2,
+  },
+  {
+    className:
+      'left-[71.5%] top-[46.6%] w-[15.6%] min-w-[136px] max-w-[202px] opacity-[0.84] max-md:left-[75%] max-md:top-[48%] max-md:w-[18%]',
+    delay: '920ms',
+    driftDuration: '10s',
+    driftX: '-18px',
+    driftY: '-6px',
+    enterX: '150px',
+    enterY: '9px',
+    height: 427,
+    key: 'low-east',
+    src: `${torontoHeroAssetBase}/cloud-low-east.webp`,
+    width: 1547,
+    zIndex: 2,
+  },
+  {
+    className:
+      'right-0 top-[56.4%] w-[10.8%] min-w-[102px] max-w-[142px] opacity-[0.84] max-md:hidden',
+    delay: '1040ms',
+    driftDuration: '8s',
+    driftX: '-13px',
+    driftY: '5px',
+    enterX: '118px',
+    enterY: '7px',
+    height: 431,
+    key: 'far-east',
+    src: `${torontoHeroAssetBase}/cloud-far-east-low.webp`,
+    width: 806,
+    zIndex: 2,
+  },
+] as const

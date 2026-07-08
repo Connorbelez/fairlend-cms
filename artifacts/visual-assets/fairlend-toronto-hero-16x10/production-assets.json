@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "image_asset_count": 8,
+  "source_manifest": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/asset-manifest.json",
+  "final_public_dir": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend/toronto-hero-16x10",
+  "assets": [
+    {
+      "id": "toronto-skyline-waterfront-16x10",
+      "label": "Toronto skyline waterfront hero illustration",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/crops/toronto-skyline-waterfront-16x10.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/raw/toronto-skyline-waterfront-16x10.png",
+      "keyed_intermediate_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/keyed/toronto-skyline-waterfront-16x10.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/webp/toronto-skyline-waterfront-16x10.webp",
+      "public_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend/toronto-hero-16x10/toronto-skyline-waterfront-16x10.webp",
+      "public_url": "/assets/fairlend/toronto-hero-16x10/toronto-skyline-waterfront-16x10.webp",
+      "dimensions": {
+        "width": 1600,
+        "height": 1000
+      },
+      "transparent": true,
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: 16:10 hero background illustration, skyline and waterfront only\nPrimary request: Generate a production-ready standalone 16:10 transparent WebP source asset of the Toronto skyline from the waterfront, matching the reference's black-and-white engraved stipple/etching illustration style. Include the CN Tower centered, downtown buildings, Rogers Centre dome, tree line, calm Lake Ontario waterfront, reflections, and the two small sailboats as part of the city/water scene. Remove all website UI, brand marks, buttons, typography, metrics, avatars, hearts, navigation, page chrome, and neighboring contamination. Do not include any clouds; clouds will be separate layer assets. Keep generous transparent sky area above the tower and transparent margin around the full waterfront composition. Output should feel like a refined editorial financial-services hero illustration, crisp black ink on transparency, no color except subtle grayscale ink.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "postprocess": "Generated on green chroma-key background, converted to alpha with monochrome green-dominance matte, clouds trimmed, skyline padded to exact 1600x1000 16:10 canvas."
+    },
+    {
+      "id": "cloud-upper-west",
+      "label": "Upper west stipple cloud",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/crops/cloud-upper-west.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/raw/cloud-upper-west.png",
+      "keyed_intermediate_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/keyed/cloud-upper-west.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/webp/cloud-upper-west.webp",
+      "public_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend/toronto-hero-16x10/cloud-upper-west.webp",
+      "public_url": "/assets/fairlend/toronto-hero-16x10/cloud-upper-west.webp",
+      "dimensions": {
+        "width": 1692,
+        "height": 516
+      },
+      "transparent": true,
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Transparent decorative cloud layer\nPrimary request: Generate a standalone transparent decorative cloud asset matching the reference's monochrome engraved stipple texture. The cloud should be horizontally stretched, airy, soft-edged, and made from fine black and gray dot/line engraving on transparency. Remove all tower, skyline, UI, text, page background, and neighboring contamination. Keep only the single cloud form with clean transparent padding.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "postprocess": "Generated on green chroma-key background, converted to alpha with monochrome green-dominance matte, then trimmed to alpha bounds."
+    },
+    {
+      "id": "cloud-upper-east-large",
+      "label": "Upper east large stipple cloud",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/crops/cloud-upper-east-large.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/raw/cloud-upper-east-large.png",
+      "keyed_intermediate_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/keyed/cloud-upper-east-large.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/webp/cloud-upper-east-large.webp",
+      "public_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend/toronto-hero-16x10/cloud-upper-east-large.webp",
+      "public_url": "/assets/fairlend/toronto-hero-16x10/cloud-upper-east-large.webp",
+      "dimensions": {
+        "width": 1721,
+        "height": 695
+      },
+      "transparent": true,
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Transparent decorative cloud layer\nPrimary request: Generate a standalone transparent large cloud cluster matching the reference's black-and-white engraved stipple illustration style. The cloud should be broad, layered, and softly billowing, with denser dot texture toward the lower edge and lighter open texture at the top. Remove all skyline, tower, metrics, text, UI, page background, and neighboring contamination. Keep clean transparent padding.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "postprocess": "Generated on green chroma-key background, converted to alpha with monochrome green-dominance matte, then trimmed to alpha bounds."
+    },
+    {
+      "id": "cloud-mid-west-large",
+      "label": "Mid west large stipple cloud",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/crops/cloud-mid-west-large.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/raw/cloud-mid-west-large.png",
+      "keyed_intermediate_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/keyed/cloud-mid-west-large.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/webp/cloud-mid-west-large.webp",
+      "public_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend/toronto-hero-16x10/cloud-mid-west-large.webp",
+      "public_url": "/assets/fairlend/toronto-hero-16x10/cloud-mid-west-large.webp",
+      "dimensions": {
+        "width": 1733,
+        "height": 488
+      },
+      "transparent": true,
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Transparent decorative cloud layer\nPrimary request: Generate a standalone transparent low cloud cluster matching the reference's monochrome engraved stipple style. The cloud should be wide, dense, and gently rolling with fine dot shading and subtle crosshatch lines. Remove button fragments, typography, skyline, water, UI, page background, and neighboring contamination. Keep only the cloud with transparent padding.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "postprocess": "Generated on green chroma-key background, converted to alpha with monochrome green-dominance matte, then trimmed to alpha bounds."
+    },
+    {
+      "id": "cloud-mid-east-small",
+      "label": "Mid east small stipple cloud",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/crops/cloud-mid-east-small.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/raw/cloud-mid-east-small.png",
+      "keyed_intermediate_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/keyed/cloud-mid-east-small.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/webp/cloud-mid-east-small.webp",
+      "public_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend/toronto-hero-16x10/cloud-mid-east-small.webp",
+      "public_url": "/assets/fairlend/toronto-hero-16x10/cloud-mid-east-small.webp",
+      "dimensions": {
+        "width": 737,
+        "height": 287
+      },
+      "transparent": true,
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Transparent decorative cloud layer\nPrimary request: Generate a standalone transparent small cloud asset matching the reference's black-and-white engraved stipple texture. The cloud should be compact, low, and airy with sparse dot shading. Remove all skyline, water, UI, page background, and neighboring contamination. Keep clean transparent padding.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "postprocess": "Generated on green chroma-key background, converted to alpha with monochrome green-dominance matte, then trimmed to alpha bounds."
+    },
+    {
+      "id": "cloud-low-west",
+      "label": "Low west small stipple cloud",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/crops/cloud-low-west.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/raw/cloud-low-west.png",
+      "keyed_intermediate_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/keyed/cloud-low-west.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/webp/cloud-low-west.webp",
+      "public_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend/toronto-hero-16x10/cloud-low-west.webp",
+      "public_url": "/assets/fairlend/toronto-hero-16x10/cloud-low-west.webp",
+      "dimensions": {
+        "width": 1630,
+        "height": 468
+      },
+      "transparent": true,
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Transparent decorative cloud layer\nPrimary request: Generate a standalone transparent small low cloud matching the reference's monochrome stipple engraving. The form should be short, horizontal, and softly puffed with fine dot texture. Remove all skyline, UI, page background, and neighboring contamination. Keep only the cloud on transparency.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "postprocess": "Generated on green chroma-key background, converted to alpha with monochrome green-dominance matte, then trimmed to alpha bounds."
+    },
+    {
+      "id": "cloud-low-east",
+      "label": "Low east stipple cloud",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/crops/cloud-low-east.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/raw/cloud-low-east.png",
+      "keyed_intermediate_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/keyed/cloud-low-east.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/webp/cloud-low-east.webp",
+      "public_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend/toronto-hero-16x10/cloud-low-east.webp",
+      "public_url": "/assets/fairlend/toronto-hero-16x10/cloud-low-east.webp",
+      "dimensions": {
+        "width": 1547,
+        "height": 427
+      },
+      "transparent": true,
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Transparent decorative cloud layer\nPrimary request: Generate a standalone transparent horizontal cloud asset matching the reference's black-and-white engraved stipple illustration. The cloud should be medium width, low, and wispy with a dotted lower shadow. Remove metrics, text, UI, skyline, water, page background, and neighboring contamination. Keep clean transparent padding.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "postprocess": "Generated on green chroma-key background, converted to alpha with monochrome green-dominance matte, then trimmed to alpha bounds."
+    },
+    {
+      "id": "cloud-far-east-low",
+      "label": "Far east low stipple cloud",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/crops/cloud-far-east-low.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/raw/cloud-far-east-low.png",
+      "keyed_intermediate_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/keyed/cloud-far-east-low.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/generated/webp/cloud-far-east-low.webp",
+      "public_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend/toronto-hero-16x10/cloud-far-east-low.webp",
+      "public_url": "/assets/fairlend/toronto-hero-16x10/cloud-far-east-low.webp",
+      "dimensions": {
+        "width": 806,
+        "height": 431
+      },
+      "transparent": true,
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Transparent decorative cloud layer\nPrimary request: Generate a standalone transparent small cloud edge asset matching the reference's black-and-white stipple engraving. The cloud should feel like a cropped side cloud, softly rounded and sparse, useful as a right-edge decorative layer. Remove all skyline, UI, page background, and neighboring contamination. Keep clean transparent padding.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "postprocess": "Generated on green chroma-key background, converted to alpha with monochrome green-dominance matte, then trimmed to alpha bounds."
+    }
+  ]
+}

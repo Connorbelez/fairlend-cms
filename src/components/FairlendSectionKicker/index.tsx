@@ -1,5 +1,9 @@
 import type { HTMLAttributes, ReactElement } from 'react'
 
+import { cn } from '@/utilities/ui'
+
+import './section-rule.css'
+
 type DataAttributes = {
   [key: `data-${string}`]: string | number | boolean | undefined
 }
@@ -15,6 +19,19 @@ type FairlendSectionKickerProps = {
   numberProps?: KickerElementAttributes<HTMLSpanElement>
   slashProps?: KickerElementAttributes<HTMLSpanElement>
 } & KickerElementAttributes<HTMLDivElement>
+
+export function FairlendSectionRule({
+  className,
+  ...rest
+}: HTMLAttributes<HTMLSpanElement>): ReactElement {
+  return (
+    <span
+      aria-hidden="true"
+      className={cn('fairlend-section-rule', className)}
+      {...rest}
+    />
+  )
+}
 
 export function FairlendSectionKicker({
   className,

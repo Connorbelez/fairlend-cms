@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
 
-import { DrawflowIntake } from '@/components/DrawflowIntake/DrawflowIntake.client'
+import { FairlendIntakeRouter } from '@/components/FairlendLeadIntake/FairlendIntakeRouter.client'
 
 export const metadata: Metadata = {
-  title: 'DrawFlow Intake | Fairlend',
+  title: 'FairLend Intake | Mortgage, Build, Investor, and Partner Requests',
   description:
-    'Start a DrawFlow build financing review with property, stage, capital, team, and contact details.',
+    'Start a FairLend intake for build financing, private mortgage review, investor conversations, partner referrals, consultation requests, and follow-up workflows.',
 }
 
 export default function IntakePage() {
-  return <DrawflowIntake />
+  return <FairlendIntakeRouter />
 }

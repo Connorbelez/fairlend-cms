@@ -1,0 +1,335 @@
+.fairlend-build-property-types {
+  --fbpt-ink: var(--landing-hero-ink, #08090a);
+  --fbpt-muted: var(--landing-hero-muted, rgb(47 48 45 / 86%));
+  --fbpt-lime: #a5f229;
+  --fbpt-paper: #fbfaf6;
+  --fbpt-art-wash: rgb(8 9 10 / 6%);
+  position: relative;
+  isolation: isolate;
+  container-type: inline-size;
+  width: min(100%, 915px);
+  aspect-ratio: 915 / 840;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 56% 44% at 63% 18%, rgb(255 255 255 / 76%), transparent 70%),
+    radial-gradient(ellipse 74% 58% at 42% 58%, rgb(255 255 255 / 62%), transparent 72%),
+    linear-gradient(180deg, #fcfbf8 0%, var(--fbpt-paper) 100%);
+  color: var(--fbpt-ink);
+}
+
+.fairlend-build-property-types__paper {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 20%, rgb(8 9 10 / 5%), transparent 1px),
+    radial-gradient(circle at 72% 56%, rgb(8 9 10 / 4%), transparent 1px);
+  background-size: 4px 4px, 5px 5px;
+  opacity: 0.09;
+  mix-blend-mode: multiply;
+}
+
+.fairlend-build-property-types--hero,
+.fairlend-build-property-types--board {
+  aspect-ratio: 466 / 324;
+  background: transparent;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__paper,
+.fairlend-build-property-types--board .fairlend-build-property-types__paper {
+  display: none;
+}
+
+.fairlend-build-property-types__list {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fairlend-build-property-types__row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 24.4%;
+}
+
+.fairlend-build-property-types__row:nth-child(1) {
+  top: 7.15%;
+}
+
+.fairlend-build-property-types__row:nth-child(2) {
+  top: 38.7%;
+}
+
+.fairlend-build-property-types__row:nth-child(3) {
+  top: 70.45%;
+}
+
+.fairlend-build-property-types__art {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 5.7%;
+  width: 31.3%;
+  height: 100%;
+}
+
+.fairlend-build-property-types__row:nth-child(1) .fairlend-build-property-types__art {
+  left: 6.45%;
+  top: 0;
+  width: 28.2%;
+}
+
+.fairlend-build-property-types__row:nth-child(2) .fairlend-build-property-types__art {
+  left: 6.25%;
+  top: -2%;
+  width: 29.7%;
+}
+
+.fairlend-build-property-types__row:nth-child(3) .fairlend-build-property-types__art {
+  left: 5.65%;
+  top: 9%;
+  width: 31.25%;
+  height: 66%;
+}
+
+.fairlend-build-property-types__image {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  filter: grayscale(1) contrast(0.9) brightness(1.1) drop-shadow(0 8px 7px var(--fbpt-art-wash));
+  opacity: 0.68;
+}
+
+.fairlend-build-property-types__row:nth-child(1) .fairlend-build-property-types__image {
+  width: 84%;
+}
+
+.fairlend-build-property-types__row:nth-child(2) .fairlend-build-property-types__image {
+  width: 91%;
+}
+
+.fairlend-build-property-types__row:nth-child(3) .fairlend-build-property-types__image {
+  width: 100%;
+  transform: translateY(2%);
+}
+
+.fairlend-build-property-types__divider {
+  position: absolute;
+  left: 40.55%;
+  top: 0;
+  width: max(1px, 0.33cqw);
+  height: 89.5%;
+  border-radius: 999px;
+  background: var(--fbpt-lime);
+  box-shadow: 0 0 10px rgb(165 242 41 / 14%);
+  opacity: 0.72;
+}
+
+.fairlend-build-property-types__row:nth-child(2) .fairlend-build-property-types__divider {
+  top: 5.7%;
+  height: 85.8%;
+}
+
+.fairlend-build-property-types__row:nth-child(3) .fairlend-build-property-types__divider {
+  top: 0;
+  height: 86.8%;
+}
+
+.fairlend-build-property-types__copy {
+  position: absolute;
+  left: 47.85%;
+  top: 9.5%;
+  width: 45%;
+  min-width: 0;
+}
+
+.fairlend-build-property-types__row:nth-child(2) .fairlend-build-property-types__copy {
+  top: 21.5%;
+}
+
+.fairlend-build-property-types__row:nth-child(3) .fairlend-build-property-types__copy {
+  top: 13.8%;
+}
+
+.fairlend-build-property-types__title {
+  margin: 0;
+  color: var(--fbpt-ink);
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 7.43cqw;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 0.96;
+  text-wrap: balance;
+}
+
+.fairlend-build-property-types__tagline {
+  margin: 4.04cqw 0 0;
+  color: var(--fbpt-muted);
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 3.06cqw;
+  font-weight: 430;
+  letter-spacing: 0.225em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.fairlend-build-property-types__foliage {
+  position: absolute;
+  right: -1.6%;
+  bottom: 4.2%;
+  z-index: 0;
+  width: 17.4%;
+  height: auto;
+  pointer-events: none;
+  filter: grayscale(1) contrast(0.84) brightness(1.12);
+  opacity: 0.16;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__row,
+.fairlend-build-property-types--board .fairlend-build-property-types__row {
+  height: 29%;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__row:nth-child(1),
+.fairlend-build-property-types--board .fairlend-build-property-types__row:nth-child(1) {
+  top: 0;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__row:nth-child(2),
+.fairlend-build-property-types--board .fairlend-build-property-types__row:nth-child(2) {
+  top: 34.5%;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__row:nth-child(3),
+.fairlend-build-property-types--board .fairlend-build-property-types__row:nth-child(3) {
+  top: 69%;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__art,
+.fairlend-build-property-types--board .fairlend-build-property-types__art {
+  left: 0;
+  width: 35%;
+}
+
+.fairlend-build-property-types--hero
+  .fairlend-build-property-types__row:nth-child(1)
+  .fairlend-build-property-types__art,
+.fairlend-build-property-types--board
+  .fairlend-build-property-types__row:nth-child(1)
+  .fairlend-build-property-types__art {
+  left: 0;
+  width: 33%;
+}
+
+.fairlend-build-property-types--hero
+  .fairlend-build-property-types__row:nth-child(2)
+  .fairlend-build-property-types__art,
+.fairlend-build-property-types--board
+  .fairlend-build-property-types__row:nth-child(2)
+  .fairlend-build-property-types__art {
+  left: 0;
+  top: -4%;
+  width: 34%;
+}
+
+.fairlend-build-property-types--hero
+  .fairlend-build-property-types__row:nth-child(3)
+  .fairlend-build-property-types__art,
+.fairlend-build-property-types--board
+  .fairlend-build-property-types__row:nth-child(3)
+  .fairlend-build-property-types__art {
+  left: 0;
+  top: 6%;
+  width: 34%;
+  height: 74%;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__image,
+.fairlend-build-property-types--board .fairlend-build-property-types__image {
+  filter: grayscale(1) contrast(0.84) brightness(1.14) drop-shadow(0 6px 5px var(--fbpt-art-wash));
+  opacity: 0.58;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__divider,
+.fairlend-build-property-types--board .fairlend-build-property-types__divider {
+  left: 37.2%;
+  width: max(1px, 0.24cqw);
+  height: 82%;
+  opacity: 0.58;
+}
+
+.fairlend-build-property-types--hero
+  .fairlend-build-property-types__row:nth-child(2)
+  .fairlend-build-property-types__divider,
+.fairlend-build-property-types--board
+  .fairlend-build-property-types__row:nth-child(2)
+  .fairlend-build-property-types__divider {
+  top: 4%;
+  height: 80%;
+}
+
+.fairlend-build-property-types--hero
+  .fairlend-build-property-types__row:nth-child(3)
+  .fairlend-build-property-types__divider,
+.fairlend-build-property-types--board
+  .fairlend-build-property-types__row:nth-child(3)
+  .fairlend-build-property-types__divider {
+  height: 78%;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__copy,
+.fairlend-build-property-types--board .fairlend-build-property-types__copy {
+  left: 44%;
+  top: 8%;
+  width: 56%;
+}
+
+.fairlend-build-property-types--hero
+  .fairlend-build-property-types__row:nth-child(2)
+  .fairlend-build-property-types__copy,
+.fairlend-build-property-types--hero
+  .fairlend-build-property-types__row:nth-child(3)
+  .fairlend-build-property-types__copy,
+.fairlend-build-property-types--board
+  .fairlend-build-property-types__row:nth-child(2)
+  .fairlend-build-property-types__copy,
+.fairlend-build-property-types--board
+  .fairlend-build-property-types__row:nth-child(3)
+  .fairlend-build-property-types__copy {
+  top: 13%;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__title,
+.fairlend-build-property-types--board .fairlend-build-property-types__title {
+  font-size: clamp(36px, 10.1cqw, 48px);
+  line-height: 0.92;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__tagline,
+.fairlend-build-property-types--board .fairlend-build-property-types__tagline {
+  margin-top: clamp(9px, 2cqw, 12px);
+  font-size: clamp(10px, 2.78cqw, 13px);
+  font-weight: 560;
+  letter-spacing: 0.29em;
+  line-height: 1.22;
+}
+
+.fairlend-build-property-types--board {
+  opacity: 0.78;
+}
+
+.fairlend-build-property-types--board .fairlend-build-property-types__title {
+  font-size: clamp(28px, 8.2cqw, 40px);
+}
+
+.fairlend-build-property-types--board .fairlend-build-property-types__tagline {
+  font-size: clamp(8px, 2.2cqw, 11px);
+}

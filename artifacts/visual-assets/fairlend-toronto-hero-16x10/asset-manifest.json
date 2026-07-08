@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "project": "fairlend-cms",
+  "notes": "Toronto waterfront hero illustration decomposition from supplied FairLend screenshot. Crops are references only; final assets must be generated standalone and optimized from generated raw files.",
+  "source_image": "/private/tmp/codex-remote-attachments/019f2950-2d2f-7e01-a8b6-bffa0406042c/A0C94F13-D70C-44C0-B167-EA26D0559955/1-Photo-1.jpg",
+  "source_size": {
+    "width": 1280,
+    "height": 972
+  },
+  "created_at": "2026-07-03T18:50:31.772959+00:00",
+  "output_dir": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10",
+  "contact_sheet": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/contact-sheet.png",
+  "assets": [
+    {
+      "id": "toronto-skyline-waterfront-16x10",
+      "label": "Toronto skyline waterfront hero illustration",
+      "classification": "image",
+      "role": "16:10 hero background illustration, skyline and waterfront only",
+      "bbox": {
+        "x": 0,
+        "y": 125,
+        "width": 1280,
+        "height": 800
+      },
+      "rationale": "The skyline, CN Tower, waterfront reflections, trees, boats, and engraved texture are complex raster illustration material and should be generated as a standalone image asset.",
+      "generation": {
+        "transparent": true,
+        "asset_type": "transparent-webp",
+        "output_basename": "toronto-skyline-waterfront-16x10",
+        "prompt": "Generate a production-ready standalone 16:10 transparent WebP source asset of the Toronto skyline from the waterfront, matching the reference's black-and-white engraved stipple/etching illustration style. Include the CN Tower centered, downtown buildings, Rogers Centre dome, tree line, calm Lake Ontario waterfront, reflections, and the two small sailboats as part of the city/water scene. Remove all website UI, brand marks, buttons, typography, metrics, avatars, hearts, navigation, page chrome, and neighboring contamination. Do not include any clouds; clouds will be separate layer assets. Keep generous transparent sky area above the tower and transparent margin around the full waterfront composition. Output should feel like a refined editorial financial-services hero illustration, crisp black ink on transparency, no color except subtle grayscale ink."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/crops/toronto-skyline-waterfront-16x10.png",
+      "crop_size": {
+        "width": 1280,
+        "height": 800
+      }
+    },
+    {
+      "id": "cloud-upper-west",
+      "label": "Upper west stipple cloud",
+      "classification": "image",
+      "role": "Transparent decorative cloud layer",
+      "bbox": {
+        "x": 438,
+        "y": 220,
+        "width": 205,
+        "height": 92
+      },
+      "rationale": "The stippled cloud is irregular raster illustration texture best produced as a transparent image layer.",
+      "generation": {
+        "transparent": true,
+        "asset_type": "transparent-webp",
+        "output_basename": "cloud-upper-west",
+        "prompt": "Generate a standalone transparent decorative cloud asset matching the reference's monochrome engraved stipple texture. The cloud should be horizontally stretched, airy, soft-edged, and made from fine black and gray dot/line engraving on transparency. Remove all tower, skyline, UI, text, page background, and neighboring contamination. Keep only the single cloud form with clean transparent padding."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/crops/cloud-upper-west.png",
+      "crop_size": {
+        "width": 205,
+        "height": 92
+      }
+    },
+    {
+      "id": "cloud-upper-east-large",
+      "label": "Upper east large stipple cloud",
+      "classification": "image",
+      "role": "Transparent decorative cloud layer",
+      "bbox": {
+        "x": 670,
+        "y": 285,
+        "width": 333,
+        "height": 128
+      },
+      "rationale": "The large stippled cloud group is irregular raster illustration texture best produced as a transparent image layer.",
+      "generation": {
+        "transparent": true,
+        "asset_type": "transparent-webp",
+        "output_basename": "cloud-upper-east-large",
+        "prompt": "Generate a standalone transparent large cloud cluster matching the reference's black-and-white engraved stipple illustration style. The cloud should be broad, layered, and softly billowing, with denser dot texture toward the lower edge and lighter open texture at the top. Remove all skyline, tower, metrics, text, UI, page background, and neighboring contamination. Keep clean transparent padding."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/crops/cloud-upper-east-large.png",
+      "crop_size": {
+        "width": 333,
+        "height": 128
+      }
+    },
+    {
+      "id": "cloud-mid-west-large",
+      "label": "Mid west large stipple cloud",
+      "classification": "image",
+      "role": "Transparent decorative cloud layer",
+      "bbox": {
+        "x": 312,
+        "y": 455,
+        "width": 318,
+        "height": 112
+      },
+      "rationale": "The large low stippled cloud group is irregular raster illustration texture best produced as a transparent image layer.",
+      "generation": {
+        "transparent": true,
+        "asset_type": "transparent-webp",
+        "output_basename": "cloud-mid-west-large",
+        "prompt": "Generate a standalone transparent low cloud cluster matching the reference's monochrome engraved stipple style. The cloud should be wide, dense, and gently rolling with fine dot shading and subtle crosshatch lines. Remove button fragments, typography, skyline, water, UI, page background, and neighboring contamination. Keep only the cloud with transparent padding."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/crops/cloud-mid-west-large.png",
+      "crop_size": {
+        "width": 318,
+        "height": 112
+      }
+    },
+    {
+      "id": "cloud-mid-east-small",
+      "label": "Mid east small stipple cloud",
+      "classification": "image",
+      "role": "Transparent decorative cloud layer",
+      "bbox": {
+        "x": 724,
+        "y": 455,
+        "width": 104,
+        "height": 48
+      },
+      "rationale": "The small stippled cloud is irregular raster illustration texture best produced as a transparent image layer.",
+      "generation": {
+        "transparent": true,
+        "asset_type": "transparent-webp",
+        "output_basename": "cloud-mid-east-small",
+        "prompt": "Generate a standalone transparent small cloud asset matching the reference's black-and-white engraved stipple texture. The cloud should be compact, low, and airy with sparse dot shading. Remove all skyline, water, UI, page background, and neighboring contamination. Keep clean transparent padding."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/crops/cloud-mid-east-small.png",
+      "crop_size": {
+        "width": 104,
+        "height": 48
+      }
+    },
+    {
+      "id": "cloud-low-west",
+      "label": "Low west small stipple cloud",
+      "classification": "image",
+      "role": "Transparent decorative cloud layer",
+      "bbox": {
+        "x": 42,
+        "y": 562,
+        "width": 146,
+        "height": 62
+      },
+      "rationale": "The small low cloud is irregular raster illustration texture best produced as a transparent image layer.",
+      "generation": {
+        "transparent": true,
+        "asset_type": "transparent-webp",
+        "output_basename": "cloud-low-west",
+        "prompt": "Generate a standalone transparent small low cloud matching the reference's monochrome stipple engraving. The form should be short, horizontal, and softly puffed with fine dot texture. Remove all skyline, UI, page background, and neighboring contamination. Keep only the cloud on transparency."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/crops/cloud-low-west.png",
+      "crop_size": {
+        "width": 146,
+        "height": 62
+      }
+    },
+    {
+      "id": "cloud-low-east",
+      "label": "Low east stipple cloud",
+      "classification": "image",
+      "role": "Transparent decorative cloud layer",
+      "bbox": {
+        "x": 920,
+        "y": 448,
+        "width": 188,
+        "height": 62
+      },
+      "rationale": "The low east stippled cloud is irregular raster illustration texture best produced as a transparent image layer.",
+      "generation": {
+        "transparent": true,
+        "asset_type": "transparent-webp",
+        "output_basename": "cloud-low-east",
+        "prompt": "Generate a standalone transparent horizontal cloud asset matching the reference's black-and-white engraved stipple illustration. The cloud should be medium width, low, and wispy with a dotted lower shadow. Remove metrics, text, UI, skyline, water, page background, and neighboring contamination. Keep clean transparent padding."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/crops/cloud-low-east.png",
+      "crop_size": {
+        "width": 188,
+        "height": 62
+      }
+    },
+    {
+      "id": "cloud-far-east-low",
+      "label": "Far east low stipple cloud",
+      "classification": "image",
+      "role": "Transparent decorative cloud layer",
+      "bbox": {
+        "x": 1164,
+        "y": 540,
+        "width": 112,
+        "height": 74
+      },
+      "rationale": "The far east cloud edge is irregular raster illustration texture best produced as a transparent image layer.",
+      "generation": {
+        "transparent": true,
+        "asset_type": "transparent-webp",
+        "output_basename": "cloud-far-east-low",
+        "prompt": "Generate a standalone transparent small cloud edge asset matching the reference's black-and-white stipple engraving. The cloud should feel like a cropped side cloud, softly rounded and sparse, useful as a right-edge decorative layer. Remove all skyline, UI, page background, and neighboring contamination. Keep clean transparent padding."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-toronto-hero-16x10/crops/cloud-far-east-low.png",
+      "crop_size": {
+        "width": 112,
+        "height": 74
+      }
+    }
+  ]
+}

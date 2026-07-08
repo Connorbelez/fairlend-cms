@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "manifest_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/asset-manifest.json",
+  "image_asset_count": 4,
+  "assets": [
+    {
+      "id": "multiplex-building-engraving",
+      "label": "Multi-plex building pencil engraving",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/crops/multiplex-building-engraving.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/raw/multiplex-building-engraving.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/webp/multiplex-building-engraving.webp",
+      "transparent": true,
+      "prompt": "Use case: ads-marketing\nAsset type: Illustration for multi-plex row\nPrimary request: Use the reference crop only as visual guidance. Generate a new standalone transparent-background graphite pencil and fine ink architectural illustration of a compact three-storey urban multi-plex apartment building with a small side stair volume, front shrubs, one mature tree, and light ground hatching. Editorial real-estate marketing style, grayscale linework, subtle paper-sketch texture, crisp edges, no text, no logo, no frame, no colored background.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "Do not copy the crop exactly. No words, labels, watermark, people, cars, heavy shadows, photorealism, color fill, blueprints, or background rectangle."
+    },
+    {
+      "id": "single-family-house-engraving",
+      "label": "Single family house pencil engraving",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/crops/single-family-house-engraving.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/raw/single-family-house-engraving.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/webp/single-family-house-engraving.webp",
+      "transparent": true,
+      "prompt": "Use case: ads-marketing\nAsset type: Illustration for single-family row\nPrimary request: Use the reference crop only as visual guidance. Generate a new standalone transparent-background graphite pencil and fine ink illustration of a traditional two-storey single-family home with pitched roof, front porch, centered door, windows, garden shrubs, and small trees. Editorial real-estate marketing style, grayscale architectural linework, subtle hand-rendered texture, crisp edges, no text, no logo, no frame, no colored background.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "Do not copy the crop exactly. No words, labels, watermark, people, cars, heavy shadows, photorealism, color fill, or background rectangle."
+    },
+    {
+      "id": "land-parcel-plan-engraving",
+      "label": "Land parcel plan pencil engraving",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/crops/land-parcel-plan-engraving.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/raw/land-parcel-plan-engraving.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/webp/land-parcel-plan-engraving.webp",
+      "transparent": true,
+      "prompt": "Use case: ads-marketing\nAsset type: Illustration for land row\nPrimary request: Use the reference crop only as visual guidance. Generate a new standalone transparent-background graphite pencil and fine ink illustration of a perspective land parcel plan with lot lines, contour-like curves, small plotted building pads, and two trees at the back-left edge. Editorial real-estate marketing style, grayscale planning sketch, light hatching, crisp edges, no text, no logo, no frame, no colored background.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "Do not copy the crop exactly. No words, labels, watermark, people, cars, heavy shadows, photorealism, color fill, or background rectangle."
+    },
+    {
+      "id": "corner-foliage-engraving",
+      "label": "Lower-right foliage pencil engraving",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/crops/corner-foliage-engraving.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/raw/corner-foliage-engraving.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-build-property-types/generated/webp/corner-foliage-engraving.webp",
+      "transparent": true,
+      "prompt": "Use case: ads-marketing\nAsset type: Subtle decorative foliage for the selector corner\nPrimary request: Use the reference crop only as visual guidance. Generate a new standalone transparent-background graphite pencil botanical illustration of a soft low shrub cluster entering from the lower-right corner, made from rounded leafy masses and light stippled texture. Grayscale editorial real-estate sketch style, subtle and airy, no text, no logo, no frame, no colored background.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "Do not copy the crop exactly. No words, labels, watermark, hard border, photorealism, color fill, or background rectangle."
+    }
+  ]
+}
