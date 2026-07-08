@@ -5,6 +5,7 @@ import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
 import { Categories } from './collections/Categories'
+import { FairlendCampaignScans } from './collections/FairlendCampaignScans'
 import { FairlendConsultationBookings } from './collections/FairlendConsultationBookings'
 import { FairlendLeads } from './collections/FairlendLeads'
 import { Media } from './collections/Media'
@@ -71,7 +72,16 @@ export default buildConfig({
   folders: {
     slug: 'payload-folders',
   },
-  collections: [Pages, Posts, Media, Categories, FairlendLeads, FairlendConsultationBookings, Users],
+  collections: [
+    Pages,
+    Posts,
+    Media,
+    Categories,
+    FairlendLeads,
+    FairlendCampaignScans,
+    FairlendConsultationBookings,
+    Users,
+  ],
   cors: [getServerSideURL()].filter(Boolean),
   plugins: [
     ...plugins,

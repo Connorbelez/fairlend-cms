@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import type { ReactNode } from 'react'
 
-import { FairlendBuildPropertyTypes } from '@/components/FairlendBuildPropertyTypes'
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 
 import { BuildModelMotion } from './BuildModelMotion.client'
@@ -27,6 +26,45 @@ const variables = [
   'Exit',
 ] as const
 
+const dossierTabs = [
+  {
+    id: 'parcel',
+    label: 'Parcel',
+    code: 'PL',
+    title: 'Parcel sketch',
+    summary: 'Lot, form, frontage, and the first buildable-area pass.',
+  },
+  {
+    id: 'budget',
+    label: 'Budget',
+    code: 'BG',
+    title: 'Capital test',
+    summary: 'Land basis, hard costs, contingency, borrower capital, and room to move.',
+  },
+  {
+    id: 'permit',
+    label: 'Permit',
+    code: 'PM',
+    title: 'Approval path',
+    summary: 'Zoning fit, consultants, document gaps, and MLI readiness where it applies.',
+  },
+  {
+    id: 'draw',
+    label: 'Draw',
+    code: 'DR',
+    title: 'Milestone funding',
+    summary: 'A release schedule tied to actual site progress instead of calendar guesswork.',
+  },
+  {
+    id: 'takeout',
+    label: 'Takeout',
+    code: 'TO',
+    title: 'Exit file',
+    summary: 'Sale, refinance, rental stabilization, or insured takeout direction.',
+  },
+] as const
+
+type DossierTabId = (typeof dossierTabs)[number]['id']
 type BuildVariable = (typeof variables)[number]
 
 type BoardState = {
@@ -35,6 +73,7 @@ type BoardState = {
   count: string
   title: string
   variables: readonly BuildVariable[]
+  dossierTab: DossierTabId
   theme: 'ivory' | 'builder-blueprint' | 'forest' | 'ink'
 }
 
@@ -42,6 +81,11 @@ type Station = BoardState & {
   num: string
   name: string
   services: readonly string[]
+  testimonial: {
+    quote: string
+    author: string
+    context: string
+  }
 }
 
 const introState = {
@@ -50,6 +94,7 @@ const introState = {
   count: '03',
   title: 'Property to equation',
   variables: ['Land', 'Scope', 'Capital'],
+  dossierTab: 'parcel',
   theme: 'ivory',
 } as const satisfies BoardState
 
@@ -60,6 +105,7 @@ const stations = [
     count: '01',
     title: 'Land + scope',
     variables: ['Land', 'Scope'],
+    dossierTab: 'parcel',
     theme: 'builder-blueprint',
     num: '01',
     name: 'Plan',
@@ -69,6 +115,12 @@ const stations = [
       'Zoning path, housing form, unit mix, buildable area',
       'Construction budget pressure-testing',
     ],
+    testimonial: {
+      quote:
+        'They showed us what the site could actually support before we tied up more capital in the acquisition.',
+      author: 'Toronto infill buyer',
+      context: 'Land feasibility file',
+    },
   },
   {
     id: 'finance',
@@ -76,6 +128,7 @@ const stations = [
     count: '02',
     title: 'Capital + draw plan',
     variables: ['Capital', 'Draw plan'],
+    dossierTab: 'budget',
     theme: 'forest',
     num: '02',
     name: 'Finance',
@@ -85,6 +138,12 @@ const stations = [
       'Draw schedule (milestone-based, DrawFlow)',
       'Working-capital planning',
     ],
+    testimonial: {
+      quote:
+        'FairLend put the capital stack, draws, and borrower equity into one model we could make decisions from.',
+      author: 'Small-scale builder',
+      context: 'Construction financing borrower',
+    },
   },
   {
     id: 'support',
@@ -92,6 +151,7 @@ const stations = [
     count: '03',
     title: 'Professional path',
     variables: ['Professional path', 'Permit & MLI readiness'],
+    dossierTab: 'permit',
     theme: 'ink',
     num: '03',
     name: 'Build support',
@@ -101,6 +161,12 @@ const stations = [
       'CMHC MLI Select readiness support (where applicable)',
       'Milestone/draw administration & site monitoring',
     ],
+    testimonial: {
+      quote:
+        'The introductions and permit-readiness work saved weeks of back-and-forth before our lender package went out.',
+      author: 'Laneway developer',
+      context: 'Consultant and approval path',
+    },
   },
   {
     id: 'takeout',
@@ -108,6 +174,7 @@ const stations = [
     count: '04',
     title: 'Exit + takeout',
     variables: ['Exit', 'Permit & MLI readiness'],
+    dossierTab: 'takeout',
     theme: 'ivory',
     num: '04',
     name: 'Takeout',
@@ -116,8 +183,21 @@ const stations = [
       'Insured (MLI Select) takeout preparation',
       'Long-term financing direction',
     ],
+    testimonial: {
+      quote:
+        'They kept the refinance path visible while the build was still moving, so the exit did not become an afterthought.',
+      author: 'Rental project owner',
+      context: 'Takeout planning file',
+    },
   },
 ] as const satisfies readonly Station[]
+
+const drawFlowTestimonial = {
+  quote:
+    'The draw schedule matched the way the job actually progressed. We were not paying for idle capital between milestones.',
+  author: 'GTA residential builder',
+  context: 'Milestone draw borrower',
+} as const
 
 const drawFlowState = {
   id: 'drawflow',
@@ -125,6 +205,7 @@ const drawFlowState = {
   count: '15',
   title: 'Fund work, not wait',
   variables: ['Capital', 'Draw plan', 'Professional path'],
+  dossierTab: 'draw',
   theme: 'builder-blueprint',
 } as const satisfies BoardState
 
@@ -134,6 +215,7 @@ const thesisState = {
   count: '→',
   title: 'Outcome',
   variables,
+  dossierTab: 'takeout',
   theme: 'forest',
 } as const satisfies BoardState
 
@@ -158,15 +240,7 @@ const milestoneNodes = [
   'Flooring',
 ] as const
 
-const thesisVariables = [
-  'Land',
-  'Cost',
-  'Capital',
-  'Draws',
-  'Policy',
-  'Incentives',
-  'Takeout',
-] as const
+const thesisCells = ['Single family', 'Land', 'Build cost', 'Exit value', 'Profit'] as const
 
 function stateData(state: BoardState) {
   return {
@@ -175,13 +249,160 @@ function stateData(state: BoardState) {
     'data-bm-count': state.count,
     'data-bm-title': state.title,
     'data-bm-variables': state.variables.join('|'),
+    'data-bm-dossier-tab': state.dossierTab,
     'data-bm-theme': state.theme,
   }
 }
 
-function BuildModelBoard() {
+function DossierParcelSketch() {
   return (
-    <aside className="bm-board-wrap" aria-label="Build model status and consultation shortcut">
+    <div className="bm-parcel-canvas">
+      <div className="bm-parcel-plan" aria-hidden="true">
+        <span className="bm-parcel-line bm-parcel-line--front">33 ft frontage</span>
+        <span className="bm-parcel-line bm-parcel-line--depth">118 ft depth</span>
+        <span className="bm-parcel-building bm-parcel-building--main">4 units</span>
+        <span className="bm-parcel-building bm-parcel-building--rear">suite</span>
+        <span className="bm-parcel-setback bm-parcel-setback--left" />
+        <span className="bm-parcel-setback bm-parcel-setback--right" />
+      </div>
+      <dl className="bm-dossier-mini-stats">
+        <div>
+          <dt>Housing form</dt>
+          <dd>Multiplex + laneway option</dd>
+        </div>
+        <div>
+          <dt>First decision</dt>
+          <dd>Can the site carry the scope?</dd>
+        </div>
+      </dl>
+    </div>
+  )
+}
+
+function DossierBudgetSheet() {
+  const rows = [
+    ['Land ceiling', '$1.18M'],
+    ['Hard-cost range', '$340-390 / sf'],
+    ['Contingency', '8-12%'],
+    ['Capital check', 'LTC fit'],
+  ] as const
+
+  return (
+    <div className="bm-budget-sheet">
+      <div className="bm-budget-total">
+        <span>Supportable basis</span>
+        <strong>$2.74M</strong>
+      </div>
+      <dl className="bm-budget-ledger">
+        {rows.map(([label, value]) => (
+          <div key={label}>
+            <dt>{label}</dt>
+            <dd>{value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  )
+}
+
+function DossierPermitMatrix() {
+  const rows = [
+    ['Zoning path', 'Reviewing'],
+    ['Survey + drawings', 'Gap list'],
+    ['Consultant bench', 'Matched'],
+    ['MLI readiness', 'If applicable'],
+  ] as const
+
+  return (
+    <div className="bm-permit-matrix">
+      {rows.map(([label, status], index) => (
+        <div className="bm-permit-row" key={label}>
+          <span className="bm-permit-index">{String(index + 1).padStart(2, '0')}</span>
+          <span>{label}</span>
+          <strong>{status}</strong>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function DossierDrawSchedule() {
+  const nodes = ['Foundation', 'Frame', 'Roof', 'MEP', 'Drywall', 'Finish'] as const
+
+  return (
+    <div className="bm-dossier-draw">
+      <div className="bm-dossier-draw-head">
+        <span>DrawFlow track</span>
+        <strong>15 draws</strong>
+      </div>
+      <div className="bm-dossier-draw-line" aria-hidden="true">
+        {nodes.map((node, index) => (
+          <span className={index < 4 ? 'is-funded' : index === 4 ? 'is-current' : ''} key={node}>
+            {node}
+          </span>
+        ))}
+      </div>
+      <p>
+        Release capital as the work is verified, then reshape the schedule when the site changes.
+      </p>
+    </div>
+  )
+}
+
+function DossierTakeoutPlan() {
+  const exits = ['Sale', 'Refi', 'Rental', 'MLI'] as const
+
+  return (
+    <div className="bm-takeout-file">
+      <div className="bm-takeout-routes" aria-hidden="true">
+        {exits.map((exit, index) => (
+          <span className={index === 2 ? 'is-preferred' : ''} key={exit}>
+            {exit}
+          </span>
+        ))}
+      </div>
+      <div className="bm-takeout-note">
+        <span>Primary model</span>
+        <strong>Stabilized rental refinance</strong>
+        <p>Keep the takeout visible before drawings, debt, and scope become fixed.</p>
+      </div>
+    </div>
+  )
+}
+
+function DossierTabCard({ tab }: { tab: (typeof dossierTabs)[number] }) {
+  return (
+    <article
+      className={['bm-dossier-tab', tab.id === introState.dossierTab ? 'is-active' : '']
+        .filter(Boolean)
+        .join(' ')}
+      data-bm-dossier-card
+      data-bm-dossier-tab={tab.id}
+      data-bm-dossier-code={tab.code}
+    >
+      <div className="bm-dossier-tab-top">
+        <span className="bm-dossier-tab-code">{tab.code}</span>
+        <span className="bm-dossier-tab-label">{tab.label}</span>
+      </div>
+      <div className="bm-dossier-tab-body">
+        <h3>{tab.title}</h3>
+        <p>{tab.summary}</p>
+        {tab.id === 'parcel' ? <DossierParcelSketch /> : null}
+        {tab.id === 'budget' ? <DossierBudgetSheet /> : null}
+        {tab.id === 'permit' ? <DossierPermitMatrix /> : null}
+        {tab.id === 'draw' ? <DossierDrawSchedule /> : null}
+        {tab.id === 'takeout' ? <DossierTakeoutPlan /> : null}
+      </div>
+    </article>
+  )
+}
+
+function BuildModelBoard({ className }: { className?: string }) {
+  return (
+    <aside
+      className={['bm-board-wrap', className].filter(Boolean).join(' ')}
+      aria-label="Build model status and consultation shortcut"
+    >
       <div className="bm-board">
         <div className="bm-board-inner">
           <div className="bm-board-visual" aria-hidden="true">
@@ -195,13 +416,17 @@ function BuildModelBoard() {
             </div>
 
             <div className="bm-board-title">
-              <span className="bm-board-label">Active variable</span>
+              <span className="bm-board-label">Live deal file</span>
               <span className="bm-board-active" data-bm-board-title>
                 {introState.title}
               </span>
             </div>
 
-            <FairlendBuildPropertyTypes className="bm-board-property-types" variant="board" />
+            <div className="bm-dossier-stack" data-bm-dossier-stack>
+              {dossierTabs.map((tab) => (
+                <DossierTabCard key={tab.id} tab={tab} />
+              ))}
+            </div>
 
             <div className="bm-board-equation">
               <div className="bm-board-chips" aria-label="Build variables">
@@ -255,7 +480,9 @@ function AudienceCards() {
     <div className="bm-audience-grid">
       <article className="bm-audience-card builders">
         <span className="bm-audience-tag">If you already build</span>
-        <p>Keep your focus on the site. We help carry the financing and business equation around it.</p>
+        <p>
+          Keep your focus on the site. We help carry the financing and business equation around it.
+        </p>
       </article>
       <article className="bm-audience-card">
         <span className="bm-audience-tag">First-time builder</span>
@@ -291,7 +518,10 @@ function ScrollStep({
   className?: string
 }) {
   return (
-    <article className={['bm-scroll-step', className].filter(Boolean).join(' ')} {...stateData(state)}>
+    <article
+      className={['bm-scroll-step', className].filter(Boolean).join(' ')}
+      {...stateData(state)}
+    >
       {children}
     </article>
   )
@@ -309,7 +539,32 @@ function StationStep({ station }: { station: Station }) {
           <li key={service}>{service}</li>
         ))}
       </ul>
+      <BuildModelTestimonial testimonial={station.testimonial} />
     </ScrollStep>
+  )
+}
+
+function BuildModelTestimonial({
+  testimonial,
+}: {
+  testimonial: {
+    quote: string
+    author: string
+    context: string
+  }
+}) {
+  return (
+    <figure className="bm-proof">
+      <span className="bm-proof-label">
+        <span aria-hidden="true" />
+        Client signal
+      </span>
+      <blockquote>&ldquo;{testimonial.quote}&rdquo;</blockquote>
+      <figcaption>
+        <strong>{testimonial.author}</strong>
+        <span>{testimonial.context}</span>
+      </figcaption>
+    </figure>
   )
 }
 
@@ -389,6 +644,8 @@ function DrawFlowStep() {
             supplier &amp; trade network — your project manager comes with the financing.
           </p>
         </div>
+
+        <BuildModelTestimonial testimonial={drawFlowTestimonial} />
       </section>
     </ScrollStep>
   )
@@ -398,28 +655,26 @@ function ThesisStrip() {
   return (
     <section className="bm-thesis bm-scroll-step" {...stateData(thesisState)}>
       <div className="bm-thesis-inner">
-        <div className="bm-thesis-copy">
+        <div className="bm-ts-label-row">
           <span className="bm-ts-label">Builder Consulting</span>
-          <h3 className="bm-ts-head">
-            FairLend&apos;s thesis: profit lives in the <em>variables</em>.
-          </h3>
+          <span className="bm-ts-rule" aria-hidden="true" />
+        </div>
+        <div className="bm-thesis-copy">
+          <h3 className="bm-ts-head">2019: single home still penciled.</h3>
           <p className="bm-ts-body">
-            A profitable build is not only a construction problem. It is a business equation that
-            changes with land, cost, capital, draws, policy, incentives, and takeout.
+            FairLend&rsquo;s thesis is simple: a profitable build is not only a construction
+            problem, it is a business equation.
           </p>
         </div>
         <div
-          className="bm-ts-eq"
-          aria-label="Build equation: land plus cost plus capital plus draws plus policy plus incentives plus takeout yields outcome"
+          className="bm-ts-grid"
+          aria-label="2019 build equation inputs: single family, land, build cost, exit value, profit"
         >
-          {thesisVariables.map((variable, index) => (
-            <span className="bm-ts-term" key={`bm-eq-${variable}`}>
-              <span className="bm-ts-var">{variable}</span>
-              {index < thesisVariables.length - 1 ? <span className="bm-ts-op">+</span> : null}
+          {thesisCells.map((cell) => (
+            <span className="bm-ts-cell" key={`bm-thesis-cell-${cell}`}>
+              {cell}
             </span>
           ))}
-          <span className="bm-ts-arrow">→</span>
-          <span className="bm-ts-outcome">Outcome</span>
         </div>
       </div>
     </section>
@@ -434,11 +689,12 @@ export function FairlendBuildModelSection() {
       data-fairlend-motion="build-model"
       data-palette-theme="ivory"
       data-testid="fairlend-build-model-section"
+      id="build-model"
     >
       <BuildModelMotion />
 
       <div className="bm-scroll-grid">
-        <BuildModelBoard />
+        <BuildModelBoard className="bm-board-wrap--desktop" />
 
         <div className="bm-scroll-copy">
           <ScrollStep state={introState} className="bm-scroll-intro">
@@ -450,6 +706,7 @@ export function FairlendBuildModelSection() {
             <h2 className="bm-headline" id="fairlend-build-model-title">
               Bring us the property. We&apos;ll help build the equation.
             </h2>
+            <BuildModelBoard className="bm-board-wrap--mobile" />
             <p className="bm-lead">
               From <span className="accent">early intent</span> to construction financing and
               takeout strategy, we shape one financeable project — end to end.

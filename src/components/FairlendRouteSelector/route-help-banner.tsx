@@ -1,7 +1,7 @@
 import { ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
 
-import { Button } from '@/components/ui/button'
+import { FairlendConsultationBookingDialog } from '@/components/FairlendConsultationBooking/FairlendConsultationBookingDialog.client'
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/utilities/ui'
 
@@ -43,14 +43,17 @@ export function FairlendRouteHelpBanner({
 
       <Separator orientation="vertical" className={fairlendRouteHelpDividerVariants()} />
 
-      <Button asChild className={fairlendRouteHelpButtonVariants()} size="clear">
-        <a href={content.href}>
-          <span>{content.ctaLabel}</span>
-          <span className={fairlendRouteArrowBoxVariants({ size: 'helper' })}>
-            <ArrowUpRight aria-hidden="true" className="size-[18px]" strokeWidth={2.8} />
-          </span>
-        </a>
-      </Button>
+      <FairlendConsultationBookingDialog
+        ariaLabel="Book a free FairLend consultation to choose the right route"
+        className={fairlendRouteHelpButtonVariants()}
+        leadershipCta={false}
+        source="route-selector-helper-book-consultation"
+      >
+        <span>{content.ctaLabel}</span>
+        <span className={fairlendRouteArrowBoxVariants({ size: 'helper' })}>
+          <ArrowUpRight aria-hidden="true" className="size-[18px]" strokeWidth={2.8} />
+        </span>
+      </FairlendConsultationBookingDialog>
     </div>
   )
 }

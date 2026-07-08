@@ -1,12 +1,19 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { AnimatePresence, motion } from 'motion/react'
 import { ArrowRight, ChevronDown, ChevronLeft, Menu, X } from 'lucide-react'
 import type { KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { cn } from '@/utilities/ui'
-import { FairlendTalkToExpertCta } from '@/components/FairlendTalkToExpertCta'
+import { FairlendConsultationBookingDialog } from '@/components/FairlendConsultationBooking/FairlendConsultationBookingDialog.client'
+import { FAIRLEND_LOGO_SRC } from '@/components/Logo/Logo'
+import {
+  FAIRLEND_CONTACT_PHONE_HREF,
+  FAIRLEND_CONTACT_PHONE_LABEL,
+  FairlendTalkToExpertCta,
+} from '@/components/FairlendTalkToExpertCta'
 import { MegaMenu } from './header/mega-menu'
 import { fairlendNavLinks, NAV_LINKS, type NavLink, type NavMenu } from './header/nav-data'
 
@@ -19,6 +26,10 @@ function hasNavigableLink(link?: NavLink['link']): link is NonNullable<NavLink['
   return Boolean(link)
 }
 
+function getHeaderBookingSource(link?: NavLink['link']): string | null {
+  return link && 'bookingSource' in link ? link.bookingSource : null
+}
+
 function Logo() {
   return (
     <Link
@@ -26,10 +37,16 @@ function Logo() {
       aria-label="FairLend Mortgage marketing home"
       className="mkt-dhh-brand"
     >
+      <Image
+        alt=""
+        aria-hidden="true"
+        className="mkt-dhh-brand-logo"
+        height={240}
+        src={FAIRLEND_LOGO_SRC}
+        unoptimized
+        width={244}
+      />
       <span className="mkt-dhh-brand-word">FairLend</span>
-      <span aria-hidden="true" className="mkt-dhh-brand-divider" />
-      <small>Mortgage</small>
-      <em>Brokerage &amp; Investment Company</em>
     </Link>
   )
 }
@@ -94,16 +111,17 @@ function HeaderActions({ mobile = false, onAction }: { mobile?: boolean; onActio
   if (!mobile) {
     return (
       <>
-        <Link
-          {...fairlendNavLinks.contact}
-          className="mkt-dhh-action mkt-dhh-action-primary"
+        <FairlendTalkToExpertCta
+          aria-label={`Call FairLend at ${FAIRLEND_CONTACT_PHONE_LABEL}`}
+          className="mkt-dhh-phone-action"
+          eyebrow="Talk to an expert"
+          href={FAIRLEND_CONTACT_PHONE_HREF}
+          label={FAIRLEND_CONTACT_PHONE_LABEL}
           onClick={onAction}
-        >
-          Get in touch
-        </Link>
+        />
         <span aria-hidden="true" className="mkt-dhh-action-divider" />
         <Link {...fairlendNavLinks.investors} className="mkt-dhh-language" onClick={onAction}>
-          FR
+          Investors
         </Link>
       </>
     )
@@ -116,7 +134,7 @@ function HeaderActions({ mobile = false, onAction }: { mobile?: boolean; onActio
         className={cn('mkt-dhh-action mkt-dhh-action-secondary', mobile && 'mkt-dhh-action-mobile')}
         onClick={onAction}
       >
-        Sign in
+        Platform access
       </Link>
       <Link
         {...fairlendNavLinks.startMultiplex}
@@ -566,6 +584,15 @@ export function Header() {
                       {link.label}
                       <ChevronIcon open={isOpen} />
                     </button>
+                  ) : getHeaderBookingSource(link.link) ? (
+                    <FairlendConsultationBookingDialog
+                      className={itemClassName}
+                      leadershipCta={false}
+                      onTriggerClick={closeDesktopMenu}
+                      source={getHeaderBookingSource(link.link)!}
+                    >
+                      {link.label}
+                    </FairlendConsultationBookingDialog>
                   ) : hasNavigableLink(link.link) ? (
                     <Link
                       {...link.link}
@@ -619,7 +646,7 @@ export function Header() {
           </button>
         </div>
         {!isMobileMenuOpen ? (
-          <FairlendTalkToExpertCta className="hidden hero-mobile:absolute hero-mobile:top-1/2 hero-mobile:right-[72px] hero-mobile:z-[3] hero-mobile:m-0 hero-mobile:flex hero-mobile:origin-right hero-mobile:-translate-y-1/2 hero-mobile:scale-[0.74]" />
+          <FairlendTalkToExpertCta className="mkt-dhh-hero-consult" eyebrow="Talk" label="Book" />
         ) : null}
 
         <MegaMenu
@@ -635,6 +662,7 @@ export function Header() {
           onMouseEnter={cancelClose}
           onMouseLeave={scheduleClose}
           panelRef={megaMenuRef}
+          onBookingTrigger={closeDesktopMenu}
         />
         <AnimatePresence initial={false} mode="wait">
           {isMobileMenuOpen && (
@@ -679,7 +707,25 @@ export function Header() {
                               variants={listVariants}
                             >
                               {column.items.map((item) =>
-                                item.link ? (
+                                getHeaderBookingSource(item.link) ? (
+                                  <motion.div key={item.label} variants={itemVariants}>
+                                    <FairlendConsultationBookingDialog
+                                      className="mkt-dhh-mobile-link"
+                                      leadershipCta={false}
+                                      onTriggerClick={closeMobileMenu}
+                                      source={getHeaderBookingSource(item.link)!}
+                                    >
+                                      <span className="mkt-dhh-mobile-link-label">
+                                        {item.label}
+                                      </span>
+                                      {item.description && (
+                                        <span className="mkt-dhh-mobile-link-description">
+                                          {item.description}
+                                        </span>
+                                      )}
+                                    </FairlendConsultationBookingDialog>
+                                  </motion.div>
+                                ) : item.link ? (
                                   <motion.div key={item.label} variants={itemVariants}>
                                     <Link
                                       {...item.link}
@@ -736,6 +782,15 @@ export function Header() {
                                       <ArrowRight className="size-4.5" strokeWidth={2} />
                                     </span>
                                   </button>
+                                ) : getHeaderBookingSource(link.link) ? (
+                                  <FairlendConsultationBookingDialog
+                                    className="mkt-dhh-mobile-root-link"
+                                    leadershipCta={false}
+                                    onTriggerClick={closeMobileMenu}
+                                    source={getHeaderBookingSource(link.link)!}
+                                  >
+                                    <span>{link.label}</span>
+                                  </FairlendConsultationBookingDialog>
                                 ) : hasNavigableLink(link.link) ? (
                                   <Link
                                     {...link.link}

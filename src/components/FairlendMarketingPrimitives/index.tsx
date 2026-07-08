@@ -288,7 +288,7 @@ export function FairlendExpertisePanel({
       className="about-expertise-panel"
       data-about-expertise-panel
       data-about-reveal
-      render={<aside aria-label="Fairlend operating principles" />}
+      render={<aside aria-label="FairLend operating principles" />}
     >
       <span
         aria-hidden="true"
@@ -447,13 +447,17 @@ export function FairlendLeadershipCapabilityCard({
 
 export function FairlendLeadershipProofCard({
   detail,
+  disclaimer,
   Icon,
   label,
+  qualifier,
   value,
 }: {
   detail: string
+  disclaimer?: string
   Icon: LucideIcon
   label: string
+  qualifier?: string
   value: string
 }): ReactElement {
   return (
@@ -467,12 +471,19 @@ export function FairlendLeadershipProofCard({
         <Icon size={30} strokeWidth={1.65} />
       </span>
       <div>
-        <span
-          className="leadership-proof-value"
-          data-leadership-proof-value
-          data-proof-value-target={value}
-        >
-          {value}
+        <span className="inline-flex items-start">
+          <span
+            className="leadership-proof-value"
+            data-leadership-proof-value
+            data-proof-value-target={value}
+          >
+            {value}
+          </span>
+          {qualifier ? (
+            <sup className="ml-[2px] mt-[2px] text-[10px] leading-none font-bold text-current">
+              {qualifier}
+            </sup>
+          ) : null}
         </span>
         <span className="leadership-proof-label" data-leadership-proof-label>
           {label}
@@ -480,6 +491,11 @@ export function FairlendLeadershipProofCard({
       </div>
       <p className="leadership-proof-detail" data-leadership-proof-detail>
         {detail}
+        {disclaimer ? (
+          <small className="mt-[3px] block text-[8px] leading-[1.05] font-semibold text-current opacity-60">
+            {disclaimer}
+          </small>
+        ) : null}
       </p>
     </Card>
   )

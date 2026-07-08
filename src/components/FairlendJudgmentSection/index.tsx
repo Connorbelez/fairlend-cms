@@ -53,7 +53,7 @@ export function FairlendJudgmentSection() {
             data-fairlend-about-image
           >
             <Image
-              alt="Fairlend underwriting desk with loan files, construction model, and approval review."
+              alt="FairLend underwriting desk with loan files, construction model, and approval review."
               className="object-cover object-center grayscale"
               data-fairlend-about-photo
               fill
@@ -91,7 +91,7 @@ export function FairlendJudgmentSection() {
                   data-fairlend-about-rule
                 />
                 <Badge className="rounded-lg border-[oklch(0.841_0.238_128.85/0.34)] bg-[oklch(0.841_0.238_128.85/0.12)] px-2.5 py-1 text-[11px] font-semibold tracking-[0.22em] text-[oklch(0.405_0.101_131.063)] uppercase">
-                  About Fairlend
+                  About FairLend
                 </Badge>
                 <h2
                   id="fairlend-judgment-title"

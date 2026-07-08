@@ -176,7 +176,7 @@ This includes:
 
 Key differentiators:
 
-* Target 3-day SLA from application to commitment for private mortgages, subject to file completeness and underwriting.
+* Target 24-hour SLA from application to commitment for private mortgages, subject to file completeness and underwriting.
 * Transparent terms.
 * Responsible structuring.
 * Minimal unnecessary fees.
@@ -386,7 +386,7 @@ FairLend’s underwriting posture should be described as:
 
 ### 8.4 3-Day Private Mortgage SLA
 
-FairLend’s target service level for private mortgage files is a 3-day SLA from application to commitment, subject to file completeness, borrower cooperation, property review, appraisal requirements, lender/investor fit, and underwriting.
+FairLend’s target service level for private mortgage files is a 24-hour SLA from application to commitment, subject to file completeness, borrower cooperation, property review, appraisal requirements, lender/investor fit, and underwriting.
 
 This is a significant operational differentiator because private mortgage borrowers often need speed, clarity, and certainty. The point is not to promise universal approval. The point is to provide a faster, more disciplined path to a clear answer.
 

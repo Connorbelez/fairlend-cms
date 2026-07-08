@@ -1,11 +1,24 @@
 'use client'
 
-import { ArrowRight, CheckCircle2, Loader2 } from 'lucide-react'
+import {
+  ArrowRight,
+  BadgeCheck,
+  CheckCircle2,
+  ClipboardCheck,
+  Home,
+  Landmark,
+  Loader2,
+  ShieldCheck,
+  TimerReset,
+  type LucideIcon,
+} from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { type FormEvent, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
+import { GoogleAddressAutocomplete } from '@/components/address/GoogleAddressAutocomplete'
 import {
   Card,
   CardContent,
@@ -16,6 +29,7 @@ import {
 } from '@/components/ui/card'
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import {
   Select,
   SelectContent,
@@ -25,11 +39,13 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
+import { trackFairlendEvent, trackLeadFailed, trackLeadSubmitted } from '@/lib/analytics/events'
+import { getFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
 import {
+  buildFairlendIntakeHref,
   type FairlendGenericLeadIntent,
   normalizeFairlendIntakeIntent,
 } from '@/lib/fairlend-intake'
-import { getFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
 
 type LeadCaptureState = 'idle' | 'submitting' | 'success' | 'error'
 
@@ -56,6 +72,12 @@ type IntakeCopy = {
   title: string
 }
 
+type DossierItem = {
+  icon: LucideIcon
+  label: string
+  text: string
+}
+
 const intakeCopyByIntent: Record<FairlendGenericLeadIntent, IntakeCopy> = {
   contact: {
     description:
@@ -78,33 +100,33 @@ const intakeCopyByIntent: Record<FairlendGenericLeadIntent, IntakeCopy> = {
   },
   'document-upload': {
     description:
-      'List what is ready and what is still missing so FairLend can move the file into document follow-up.',
+      'List what is ready and what is still missing so FairLend can see the document picture.',
     detailLabel: 'Document notes',
     detailPlaceholder:
       'Budget, drawings, permits, appraisal, rent roll, photos, or anything still pending.',
-    kicker: 'Document follow-up',
+    kicker: 'Document status',
     submitLabel: 'Send document status',
     title: 'Send the document picture.',
   },
   invest: {
     description:
-      'Tell us the investment lane, target amount, and timing so the investor team can follow up with the right context.',
-    detailLabel: 'Investment focus',
+      'Share your capital range, timing, and questions so the first conversation starts with useful context.',
+    detailLabel: 'What kind of investing are you considering?',
     detailPlaceholder:
-      'Target yield, preferred term, mortgage position, geography, or available capital.',
-    kicker: 'Investor intake',
-    submitLabel: 'Submit investor intake',
-    title: 'Start the investor conversation.',
+      'Capital range, preferred term, mortgage position, geography, property type, or questions you want answered.',
+    kicker: 'Investor inquiry',
+    submitLabel: 'Send investor inquiry',
+    title: 'Explore private mortgage investing with FairLend.',
   },
   mortgage: {
     description:
-      'Share the property and timing. FairLend will review whether a private mortgage structure may fit.',
-    detailLabel: 'Borrower situation',
+      'Share the basics before the consultation so FairLend can come prepared with private mortgage options that fit the property, timing, and amount.',
+    detailLabel: 'Add context',
     detailPlaceholder:
-      'Renewal, closing deadline, equity access, bridge financing, bank decline, or other context.',
-    kicker: 'Mortgage intake',
-    submitLabel: 'Submit mortgage request',
-    title: 'Start a mortgage review.',
+      'Example: I need to close in two weeks, my bank declined the file, and there is equity in the property.',
+    kicker: 'Private mortgage help',
+    submitLabel: 'Ask FairLend to review my options',
+    title: 'The FairLend Mortgage',
   },
   newsletter: {
     description:
@@ -169,12 +191,92 @@ const roleOptions = [
   'Other',
 ] as const
 
+const mortgageTimelineOptions = [
+  'Need funds in days',
+  'Closing in 2 weeks',
+  'Renewal / payout coming up',
+  'Not urgent yet',
+] as const
+
+const mortgageAmountRangeOptions = [
+  '$50K-$100K',
+  '$100K-$250K',
+  '$250K-$500K',
+  '$500K-$1M',
+  '$1M+',
+  'Not sure yet',
+] as const
+
+const mortgageBenefitPoints = [
+  'Same day commitments available',
+  'Flexible financing options',
+  'Transparent terms',
+  'No hidden fees',
+  'Complimentary exit planning',
+] as const
+
 const documentStatusOptions = [
   'Ready to send',
   'Partially ready',
   'Need help identifying documents',
   'Not started',
 ] as const
+
+const mortgageDossierItems: DossierItem[] = [
+  {
+    icon: TimerReset,
+    label: 'Prepared around your deadline',
+    text: 'Closing, renewal, payout, and bridge timing shape the options FairLend brings to the consultation.',
+  },
+  {
+    icon: Home,
+    label: 'Options, not another form',
+    text: 'The basics help the specialist focus the conversation on practical private mortgage routes.',
+  },
+  {
+    icon: ShieldCheck,
+    label: 'No documents up front',
+    text: 'Start with property, amount, and timing. FairLend can ask for documents after the consultation if needed.',
+  },
+]
+
+const genericDossierItems: DossierItem[] = [
+  {
+    icon: ClipboardCheck,
+    label: 'Initial review',
+    text: 'FairLend reads the request and routes it to the appropriate specialist lane.',
+  },
+  {
+    icon: Landmark,
+    label: 'Specialist review',
+    text: 'The team can respond with mortgage, construction, investor, or partner context.',
+  },
+  {
+    icon: BadgeCheck,
+    label: 'Clear next steps',
+    text: 'You will know what FairLend needs next instead of guessing at documents.',
+  },
+]
+
+const investorDossierItems: DossierItem[] = [
+  {
+    icon: ClipboardCheck,
+    label: 'Show your fit',
+    text: 'Share your investing preferences so the first conversation can focus on the relevant private mortgage lane.',
+  },
+  {
+    icon: Landmark,
+    label: 'Review the criteria',
+    text: 'FairLend can walk through term, position, geography, security, and how each file is reviewed.',
+  },
+  {
+    icon: BadgeCheck,
+    label: 'Clear next step',
+    text: 'You will know what happens next before any documents, funds, or commitments are involved.',
+  },
+]
+
+const reviewRoute = ['Situation', 'Property', 'Timing', 'Next step'] as const
 
 const emptyValues: LeadCaptureValues = {
   address: '',
@@ -193,6 +295,8 @@ export function FairlendLeadIntake() {
   const intent = normalizeFairlendIntakeIntent(
     searchParams.get('intent'),
   ) as FairlendGenericLeadIntent
+  const isMortgageIntent = intent === 'mortgage'
+  const isInvestorIntent = intent === 'invest'
   const copy = intakeCopyByIntent[intent] ?? intakeCopyByIntent.contact
   const source = searchParams.get('source')?.trim() || `intake-${intent}`
   const initialLeadId = searchParams.get('leadId')?.trim() || null
@@ -207,6 +311,15 @@ export function FairlendLeadIntake() {
     phone: searchParams.get('phone')?.trim() ?? '',
   }))
   const bookingsUrl = getFairlendMicrosoftBookingsUrl()
+  const consultationFollowUpHref = buildFairlendIntakeHref({
+    address: values.address,
+    email: values.email,
+    intent: 'consultation',
+    leadId,
+    name: values.name,
+    phone: values.phone,
+    source: `${source}-success-consultation`,
+  })
 
   const showDocumentStatus = intent === 'document-upload'
   const showAmount = intent === 'invest' || intent === 'mortgage' || intent.startsWith('partner')
@@ -218,6 +331,11 @@ export function FairlendLeadIntake() {
     intent === 'consultation' ||
     intent === 'document-upload'
   const requiresName = intent !== 'newsletter'
+  const dossierItems = isMortgageIntent
+    ? mortgageDossierItems
+    : isInvestorIntent
+      ? investorDossierItems
+      : genericDossierItems
 
   function updateField<Key extends keyof LeadCaptureValues>(
     field: Key,
@@ -278,54 +396,112 @@ export function FairlendLeadIntake() {
       }
 
       setLeadId(payload?.id ?? leadId)
+      trackLeadSubmitted({
+        has_existing_lead: Boolean(leadId),
+        intent,
+        source,
+        step: 'intake_submit',
+      })
       setState('success')
     } catch (error) {
-      console.error('Fairlend lead intake failed', error)
+      console.error('FairLend lead intake failed', error)
+      trackLeadFailed({
+        intent,
+        source,
+        step: 'intake_submit',
+      })
       setState('error')
     }
   }
 
   if (state === 'success') {
     return (
-      <main className="min-h-svh bg-[#f8f7f5] px-4 py-16 text-[#08090a] sm:px-6 lg:px-8">
-        <section className="mx-auto grid max-w-5xl gap-8 lg:grid-cols-[0.9fr_1fr] lg:items-center">
-          <div className="flex flex-col gap-5">
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-[#4f6f10]">
-              Intake received
-            </p>
-            <h1 className="max-w-3xl text-4xl font-black leading-none tracking-normal sm:text-6xl">
-              FairLend has the context.
-            </h1>
-            <p className="max-w-xl text-base font-semibold leading-7 text-[#4b5552]">
-              FairLend has the details needed to route the request and follow up with the right next
-              step.
-            </p>
-          </div>
+      <main className="fl-intake-page fl-intake-page--success">
+        <section className="fl-intake-shell fl-intake-shell--success">
+          <BorrowerDossier
+            copy={copy}
+            dossierItems={dossierItems}
+            isMortgageIntent={isMortgageIntent}
+            stateLabel="Request received"
+          />
 
-          <Card className="rounded-lg border-[#d8c7b6] bg-white/86 shadow-[0_22px_60px_rgb(8_9_10/10%)]">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <CheckCircle2 className="text-[#4f6f10]" />
-                <CardTitle className="text-2xl">Next step</CardTitle>
+          <Card className="fl-intake-card fl-intake-card--success">
+            <CardHeader className="fl-intake-card-header">
+              <div className="fl-intake-success-mark" aria-hidden="true">
+                <CheckCircle2 />
               </div>
+              <CardTitle className="fl-intake-card-title">
+                {isInvestorIntent
+                  ? 'FairLend received your investor inquiry.'
+                  : isMortgageIntent
+                    ? 'FairLend has your mortgage context.'
+                    : 'FairLend has the context.'}
+              </CardTitle>
               <CardDescription>
-                FairLend can review the file from here, or you can add a call request to the same
-                lead.
+                {intent === 'consultation'
+                  ? 'Your consultation request is saved. Continue to the scheduler now that the lead record exists.'
+                  : isInvestorIntent
+                    ? 'The team will review your preferences and come back with the practical path for private mortgage investing.'
+                    : isMortgageIntent
+                      ? 'The team can review the basics before the consultation and come prepared with private mortgage options.'
+                      : 'FairLend has enough context to route the request and respond with the right next step.'}
               </CardDescription>
             </CardHeader>
-            <CardFooter className="flex flex-col items-stretch gap-3 sm:flex-row">
-              {intent === 'consultation' ? null : (
-                <Button
-                  asChild
-                  className="h-12 rounded-none bg-[#96ec18] font-black text-[#101010] hover:bg-[#a4fb20]"
-                >
-                  <a href={bookingsUrl} rel="noreferrer" target="_blank">
-                    Book a consultation
+            <CardContent className="fl-intake-success-body">
+              <div className="fl-intake-next-strip">
+                {isMortgageIntent ? (
+                  <>
+                    <span>Review basics</span>
+                    <span>Prepare options</span>
+                    <span>Talk next step</span>
+                  </>
+                ) : isInvestorIntent ? (
+                  <>
+                    <span>Review fit</span>
+                    <span>Discuss criteria</span>
+                    <span>Confirm next step</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Check fit</span>
+                    <span>Clarify docs</span>
+                    <span>Talk next step</span>
+                  </>
+                )}
+              </div>
+              <p>
+                {isInvestorIntent
+                  ? 'FairLend will use these details only to respond to your inquiry. A team member can explain the investor review process and what information is needed next.'
+                  : isMortgageIntent
+                    ? 'FairLend will use these details only to prepare for the consultation and respond to your request.'
+                    : 'FairLend will use these details only to review and respond to the request. The team can ask for any relevant documents later.'}
+              </p>
+            </CardContent>
+            <CardFooter className="fl-intake-card-footer fl-intake-card-footer--success">
+              <Button asChild className="fl-intake-submit">
+                {intent === 'consultation' ? (
+                  <a
+                    href={bookingsUrl}
+                    onClick={() =>
+                      trackFairlendEvent('fairlend_scheduler_opened', {
+                        intent,
+                        source: `${source}-scheduler`,
+                      })
+                    }
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    Continue to scheduler
                     <ArrowRight data-icon="inline-end" />
                   </a>
-                </Button>
-              )}
-              <Button asChild className="h-12 rounded-none" variant="outline">
+                ) : (
+                  <Link href={consultationFollowUpHref}>
+                    Request a consultation
+                    <ArrowRight data-icon="inline-end" />
+                  </Link>
+                )}
+              </Button>
+              <Button asChild className="fl-intake-secondary-action" variant="outline">
                 <Link href="/">Return home</Link>
               </Button>
             </CardFooter>
@@ -336,121 +512,159 @@ export function FairlendLeadIntake() {
   }
 
   return (
-    <main className="min-h-svh bg-[#f8f7f5] px-4 py-12 text-[#08090a] sm:px-6 lg:px-8">
-      <section className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.82fr_1fr] lg:items-start">
-        <div className="flex flex-col gap-6 pt-2 lg:sticky lg:top-8">
-          <p className="text-xs font-black uppercase tracking-[0.22em] text-[#4f6f10]">
-            {copy.kicker}
-          </p>
-          <h1 className="max-w-3xl text-4xl font-black leading-none tracking-normal sm:text-6xl">
-            {copy.title}
-          </h1>
-          <p className="max-w-xl text-base font-semibold leading-7 text-[#4b5552]">
-            {copy.description}
-          </p>
-          <div className="grid max-w-xl grid-cols-1 gap-3 border-y border-[#d8c7b6] py-4 text-sm font-bold text-[#395b5d] sm:grid-cols-3">
-            <span>Initial review</span>
-            <span>Specialist follow-up</span>
-            <span>Clear next steps</span>
-          </div>
-        </div>
+    <main className="fl-intake-page">
+      <section className="fl-intake-shell">
+        <BorrowerDossier
+          copy={copy}
+          dossierItems={dossierItems}
+          isMortgageIntent={isMortgageIntent}
+          stateLabel={copy.kicker}
+        />
 
-        <Card className="rounded-lg border-[#d8c7b6] bg-white/90 shadow-[0_22px_60px_rgb(8_9_10/10%)]">
-          <CardHeader>
-            <CardTitle className="text-2xl">Lead details</CardTitle>
-            <CardDescription>FairLend will use this to route your request.</CardDescription>
+        <Card className="fl-intake-card">
+          <CardHeader className="fl-intake-card-header">
+            <div className="fl-intake-card-topline">
+              <span>
+                {isMortgageIntent
+                    ? 'Private mortgage request'
+                    : isInvestorIntent
+                      ? 'Investor inquiry'
+                      : 'File context'}
+              </span>
+              <span>
+                {isMortgageIntent || isInvestorIntent ? 'Usually 2 minutes' : 'Quick routing'}
+              </span>
+            </div>
+            <CardTitle className="fl-intake-card-title">
+              {isMortgageIntent
+                ? 'Share the basics.'
+                : isInvestorIntent
+                  ? 'Tell us how you want to invest.'
+                  : 'Put the useful facts on the table.'}
+            </CardTitle>
+            <CardDescription className="fl-intake-card-description">
+              {isMortgageIntent
+                ? 'This is not a full application. A few details now help FairLend come prepared with options for your consultation.'
+                : isInvestorIntent
+                  ? 'No commitment and no sensitive documents here. Give the basics so the conversation is useful.'
+                  : 'Give enough context to route the request cleanly. No essays, no full application.'}
+            </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit} noValidate>
-            <CardContent>
-              <FieldGroup className="gap-5">
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <TextField
-                    autoComplete="name"
-                    error={errors.name}
-                    id="lead-name"
-                    label="Name"
-                    onChange={(value) => updateField('name', value)}
-                    required={requiresName}
-                    value={values.name}
-                  />
-                  <TextField
-                    autoComplete="email"
-                    error={errors.email}
-                    id="lead-email"
-                    label="Email"
-                    onChange={(value) => updateField('email', value)}
-                    required
-                    type="email"
-                    value={values.email}
-                  />
-                </div>
+            <CardContent className="fl-intake-card-content">
+              <FieldGroup className="fl-intake-field-group">
+                {!isMortgageIntent ? (
+                  <div className="fl-intake-form-section fl-intake-form-section--priority">
+                    <div className="fl-intake-section-heading">
+                      <span>{copy.detailLabel}</span>
+                      <p>
+                        {isInvestorIntent
+                          ? 'Share enough for a focused first conversation.'
+                          : 'Short context is enough to get the request moving.'}
+                      </p>
+                    </div>
 
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <TextField
-                    autoComplete="tel"
-                    id="lead-phone"
-                    label="Phone"
-                    onChange={(value) => updateField('phone', value)}
-                    type="tel"
-                    value={values.phone}
-                  />
-                  <Field>
-                    <FieldLabel htmlFor="lead-role">Role</FieldLabel>
-                    <Select
-                      value={values.role}
-                      onValueChange={(value) => updateField('role', value)}
-                    >
-                      <SelectTrigger id="lead-role">
-                        <SelectValue placeholder="Choose closest fit" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {roleOptions.map((option) => (
-                            <SelectItem key={option} value={option}>
-                              {option}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </Field>
-                </div>
-
-                {showAddress ? (
-                  <TextField
-                    autoComplete="street-address"
-                    id="lead-address"
-                    label="Property or project address"
-                    onChange={(value) => updateField('address', value)}
-                    value={values.address}
-                  />
+                    <Field className="fl-intake-field" data-invalid={Boolean(errors.message)}>
+                      <FieldLabel className="fl-intake-label" htmlFor="lead-message">
+                        {copy.detailLabel}
+                      </FieldLabel>
+                      <Textarea
+                        aria-invalid={Boolean(errors.message)}
+                        className="fl-intake-input fl-intake-textarea"
+                        id="lead-message"
+                        onChange={(event) => updateField('message', event.target.value)}
+                        placeholder={copy.detailPlaceholder}
+                        value={values.message}
+                      />
+                      <FieldDescription className="fl-intake-description">
+                        {isInvestorIntent
+                          ? 'Avoid account numbers or sensitive documents. FairLend can explain what is needed after first contact.'
+                          : 'Keep private details concise. FairLend can request documents after first review.'}
+                      </FieldDescription>
+                      <FieldError className="fl-intake-error">{errors.message}</FieldError>
+                    </Field>
+                  </div>
                 ) : null}
 
-                <div className="grid gap-5 sm:grid-cols-2">
-                  {showAmount ? (
-                    <TextField
-                      id="lead-amount"
-                      label="Amount or range"
-                      onChange={(value) => updateField('amount', value)}
-                      value={values.amount}
+                <div className="fl-intake-form-section">
+                  <div className="fl-intake-section-heading">
+                    <span>
+                      {isMortgageIntent
+                        ? 'Property, amount, and timing'
+                        : isInvestorIntent
+                          ? 'Capital, timing, and preferences'
+                          : 'Request context'}
+                    </span>
+                    <p>
+                      {isMortgageIntent
+                        ? 'Approximate numbers are fine. Confirm the details with a specialist later.'
+                        : isInvestorIntent
+                          ? 'Approximate ranges are fine. The goal is to understand which investor lane fits.'
+                          : 'Give FairLend the practical details needed to route the request.'}
+                    </p>
+                  </div>
+
+                  {showAddress ? (
+                    <AddressField
+                      autoComplete="street-address"
+                      id="lead-address"
+                      label={isMortgageIntent ? 'Property address' : 'Property or project address'}
+                      onChange={(value) => updateField('address', value)}
+                      value={values.address}
                     />
                   ) : null}
-                  <TextField
-                    id="lead-timeline"
-                    label="Timeline"
-                    onChange={(value) => updateField('timeline', value)}
-                    value={values.timeline}
-                  />
+
+                  <div
+                    className={
+                      isMortgageIntent ? 'fl-intake-grid' : 'fl-intake-grid fl-intake-grid--two'
+                    }
+                  >
+                    {showAmount ? (
+                      isMortgageIntent ? (
+                        <AmountRangeSelector
+                          label="Amount needed or equity available"
+                          onSelect={(value) => updateField('amount', value)}
+                          selectedValue={values.amount}
+                        />
+                      ) : (
+                        <TextField
+                          id="lead-amount"
+                          label={isInvestorIntent ? 'Capital range' : 'Amount or range'}
+                          onChange={(value) => updateField('amount', value)}
+                          value={values.amount}
+                        />
+                      )
+                    ) : null}
+                    {!isMortgageIntent ? (
+                      <TextField
+                        id="lead-timeline"
+                        label={isInvestorIntent ? 'Preferred timing' : 'Timeline'}
+                        onChange={(value) => updateField('timeline', value)}
+                        value={values.timeline}
+                      />
+                    ) : null}
+                  </div>
+
+                  {isMortgageIntent ? (
+                    <QuickPickRow
+                      label="Deadline"
+                      options={mortgageTimelineOptions}
+                      selectedValue={values.timeline}
+                      onSelect={(option) => updateField('timeline', option)}
+                    />
+                  ) : null}
                 </div>
 
                 {showDocumentStatus ? (
-                  <Field>
-                    <FieldLabel htmlFor="lead-document-status">Document status</FieldLabel>
+                  <Field className="fl-intake-field">
+                    <FieldLabel className="fl-intake-label" htmlFor="lead-document-status">
+                      Document status
+                    </FieldLabel>
                     <Select
                       value={values.documentStatus}
                       onValueChange={(value) => updateField('documentStatus', value)}
                     >
-                      <SelectTrigger id="lead-document-status">
+                      <SelectTrigger className="fl-intake-input" id="lead-document-status">
                         <SelectValue placeholder="Choose current status" />
                       </SelectTrigger>
                       <SelectContent>
@@ -466,51 +680,315 @@ export function FairlendLeadIntake() {
                   </Field>
                 ) : null}
 
-                <Field data-invalid={Boolean(errors.message)}>
-                  <FieldLabel htmlFor="lead-message">{copy.detailLabel}</FieldLabel>
-                  <Textarea
-                    aria-invalid={Boolean(errors.message)}
-                    className="min-h-32"
-                    id="lead-message"
-                    onChange={(event) => updateField('message', event.target.value)}
-                    placeholder={copy.detailPlaceholder}
-                    value={values.message}
-                  />
-                  <FieldDescription>
-                    Keep private details concise. FairLend can request documents after first review.
-                  </FieldDescription>
-                  <FieldError>{errors.message}</FieldError>
-                </Field>
+                <div className="fl-intake-form-section">
+                  <div className="fl-intake-section-heading">
+                    <span>Contact</span>
+                    <p>
+                      {isInvestorIntent
+                        ? 'An investor team member responds if there is a fit.'
+                        : isMortgageIntent
+                          ? 'A specialist uses this to prepare for your consultation.'
+                          : 'A specialist responds with the right next step.'}
+                    </p>
+                  </div>
+                  <div className="fl-intake-grid fl-intake-grid--two">
+                    <TextField
+                      autoComplete="name"
+                      error={errors.name}
+                      id="lead-name"
+                      label="Name"
+                      onChange={(value) => updateField('name', value)}
+                      required={requiresName}
+                      value={values.name}
+                    />
+                    <TextField
+                      autoComplete="email"
+                      error={errors.email}
+                      id="lead-email"
+                      label="Email"
+                      onChange={(value) => updateField('email', value)}
+                      required
+                      type="email"
+                      value={values.email}
+                    />
+                    <TextField
+                      autoComplete="tel"
+                      id="lead-phone"
+                      label="Phone"
+                      onChange={(value) => updateField('phone', value)}
+                      type="tel"
+                      value={values.phone}
+                    />
+                    {!isMortgageIntent ? (
+                      <Field className="fl-intake-field">
+                        <FieldLabel className="fl-intake-label" htmlFor="lead-role">
+                          {isInvestorIntent ? 'Investor type' : 'Your role'}
+                        </FieldLabel>
+                        <Select
+                          value={values.role}
+                          onValueChange={(value) => updateField('role', value)}
+                        >
+                          <SelectTrigger className="fl-intake-input" id="lead-role">
+                            <SelectValue placeholder="Choose if different" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              {roleOptions.map((option) => (
+                                <SelectItem key={option} value={option}>
+                                  {option}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </Field>
+                    ) : null}
+                  </div>
+                </div>
 
                 {state === 'error' ? (
-                  <p
-                    className="border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm font-semibold text-destructive"
-                    role="alert"
-                  >
-                    The lead could not be saved. Check the details and try again.
+                  <p className="fl-intake-alert" role="alert">
+                    We could not save the request. Check the details and try again.
                   </p>
                 ) : null}
               </FieldGroup>
             </CardContent>
-            <CardFooter className="flex flex-col items-stretch gap-3 border-t border-[#d8c7b6] sm:flex-row sm:items-center">
-              <Button
-                className="h-12 rounded-none bg-[#96ec18] font-black text-[#101010] hover:bg-[#a4fb20]"
-                disabled={state === 'submitting'}
-                type="submit"
-              >
+            <CardFooter className="fl-intake-card-footer">
+              <Button className="fl-intake-submit" disabled={state === 'submitting'} type="submit">
                 {state === 'submitting' ? (
-                  <Loader2 className="animate-spin" data-icon="inline-start" />
+                  <Loader2
+                    aria-hidden="true"
+                    className="fl-intake-spinner"
+                    data-icon="inline-start"
+                  />
                 ) : null}
-                {copy.submitLabel}
+                {state === 'submitting' ? 'Sending review context' : copy.submitLabel}
               </Button>
-              <p className="text-xs font-semibold leading-5 text-muted-foreground">
-                FairLend will use this context only to review and respond to the request.
+              <p className="fl-intake-privacy-note">
+                {isInvestorIntent
+                  ? 'FairLend uses this information only to respond to your investor inquiry.'
+                  : isMortgageIntent
+                    ? 'FairLend uses this context only to prepare for the consultation and respond to your request.'
+                    : 'FairLend uses this context only to review and respond to the request.'}
               </p>
             </CardFooter>
           </form>
         </Card>
       </section>
     </main>
+  )
+}
+
+function BorrowerDossier({
+  copy,
+  dossierItems,
+  isMortgageIntent,
+  stateLabel,
+}: {
+  copy: IntakeCopy
+  dossierItems: DossierItem[]
+  isMortgageIntent: boolean
+  stateLabel: string
+}) {
+  return (
+    <aside className="fl-intake-dossier" aria-label="FairLend request review context">
+      <div className="fl-intake-kicker">
+        <span aria-hidden="true" />
+        {stateLabel}
+      </div>
+      <h1>{copy.title}</h1>
+      {isMortgageIntent ? (
+        <MortgageReviewDesk description={copy.description} />
+      ) : (
+        <>
+          <p className="fl-intake-lede">{copy.description}</p>
+          <div className="fl-intake-illustration" aria-hidden="true">
+            <Image
+              alt=""
+              className="fl-intake-house"
+              height={520}
+              priority
+              src="/assets/fairlend-route-selector/private-mortgage-house-engraving.webp"
+              width={720}
+            />
+            <div className="fl-intake-file-stamp">
+              <span>FairLend</span>
+              <strong>Start here</strong>
+            </div>
+            <svg className="fl-intake-route-ink" viewBox="0 0 420 160">
+              <path d="M18 118 C84 26 132 138 194 72 S310 36 398 100" />
+              <circle cx="18" cy="118" r="8" />
+              <circle cx="194" cy="72" r="8" />
+              <circle cx="398" cy="100" r="8" />
+            </svg>
+          </div>
+
+          <ol className="fl-intake-review-route" aria-label="Private mortgage review route">
+            {reviewRoute.map((step) => (
+              <li key={step}>
+                <span aria-hidden="true" />
+                {step}
+              </li>
+            ))}
+          </ol>
+        </>
+      )}
+
+      <div className="fl-intake-dossier-list">
+        {dossierItems.map((item) => {
+          const Icon = item.icon
+
+          return (
+            <div className="fl-intake-dossier-item" key={item.label}>
+              <Icon aria-hidden="true" />
+              <div>
+                <h2>{item.label}</h2>
+                <p>{item.text}</p>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </aside>
+  )
+}
+
+function MortgageReviewDesk({ description }: { description: string }) {
+  return (
+    <div className="fl-mortgage-desk">
+      <div className="fl-mortgage-desk__header">
+        <span>Prepared mortgage consultation</span>
+        <strong>Basic details first</strong>
+      </div>
+
+      <div className="fl-mortgage-desk__body">
+        <div className="fl-mortgage-desk__copy">
+          <p>{description}</p>
+          <ul>
+            {mortgageBenefitPoints.map((point) => (
+              <li key={point}>{point}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="fl-mortgage-collateral" aria-hidden="true">
+          <div className="fl-mortgage-collateral__stamp">
+            <span>Private mortgage</span>
+            <strong>Start here</strong>
+          </div>
+          <Image
+            alt=""
+            className="fl-mortgage-collateral__house"
+            height={520}
+            priority
+            src="/assets/fairlend-route-selector/private-mortgage-house-engraving.webp"
+            width={720}
+          />
+        </div>
+      </div>
+
+      <ol className="fl-mortgage-route" aria-label="Private mortgage review route">
+        {reviewRoute.map((step, index) => (
+          <li key={step}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <strong>{step}</strong>
+          </li>
+        ))}
+      </ol>
+    </div>
+  )
+}
+
+function QuickPickRow({
+  label,
+  onSelect,
+  options,
+  selectedValue,
+}: {
+  label: string
+  onSelect: (value: string) => void
+  options: readonly string[]
+  selectedValue: string
+}) {
+  return (
+    <div className="fl-intake-quickpick">
+      <span>{label}</span>
+      <div className="fl-intake-chip-row">
+        {options.map((option) => (
+          <button
+            aria-pressed={selectedValue === option}
+            className="fl-intake-chip"
+            data-selected={selectedValue === option}
+            key={option}
+            onClick={() => onSelect(option)}
+            type="button"
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function AddressField({
+  autoComplete,
+  id,
+  label,
+  onChange,
+  value,
+}: {
+  autoComplete?: string
+  id: string
+  label: string
+  onChange: (value: string) => void
+  value: string
+}) {
+  return (
+    <GoogleAddressAutocomplete
+      autoComplete={autoComplete}
+      className="fl-intake-field fl-intake-address-autocomplete"
+      id={id}
+      inputClassName="fl-intake-input"
+      label={label}
+      labelClassName="fl-intake-label"
+      onChange={(nextValue) => onChange(nextValue)}
+      placeholder="Start typing the property address"
+      value={value}
+    />
+  )
+}
+
+function AmountRangeSelector({
+  label,
+  onSelect,
+  selectedValue,
+}: {
+  label: string
+  onSelect: (value: string) => void
+  selectedValue: string
+}) {
+  return (
+    <fieldset className="fl-intake-field fl-intake-amount-field">
+      <legend className="fl-intake-label">{label}</legend>
+      <RadioGroup className="fl-intake-amount-grid" onValueChange={onSelect} value={selectedValue}>
+        {mortgageAmountRangeOptions.map((option, index) => {
+          const optionId = `lead-amount-${index}`
+
+          return (
+            <label
+              className="fl-intake-amount-chip"
+              data-selected={selectedValue === option}
+              htmlFor={optionId}
+              key={option}
+            >
+              <RadioGroupItem className="fl-intake-amount-radio" id={optionId} value={option} />
+              <span>{option}</span>
+            </label>
+          )
+        })}
+      </RadioGroup>
+    </fieldset>
   )
 }
 
@@ -534,20 +1012,21 @@ function TextField({
   value: string
 }) {
   return (
-    <Field data-invalid={Boolean(error)}>
-      <FieldLabel htmlFor={id}>
+    <Field className="fl-intake-field" data-invalid={Boolean(error)}>
+      <FieldLabel className="fl-intake-label" htmlFor={id}>
         {label}
         {required ? <span aria-hidden="true">*</span> : null}
       </FieldLabel>
       <Input
         aria-invalid={Boolean(error)}
         autoComplete={autoComplete}
+        className="fl-intake-input"
         id={id}
         onChange={(event) => onChange(event.target.value)}
         type={type}
         value={value}
       />
-      <FieldError>{error}</FieldError>
+      <FieldError className="fl-intake-error">{error}</FieldError>
     </Field>
   )
 }
@@ -559,13 +1038,13 @@ function validateLeadCapture(
   const errors: LeadCaptureErrors = {}
 
   if (requiresName && !values.name.trim()) {
-    errors.name = 'Enter a name.'
+    errors.name = 'Please enter your name so FairLend knows who to contact.'
   }
 
   if (!values.email.trim()) {
-    errors.email = 'Enter an email.'
+    errors.email = 'Please enter an email address.'
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
-    errors.email = 'Enter a valid email.'
+    errors.email = 'Email address needs an @ symbol, like name@example.com.'
   }
 
   return errors

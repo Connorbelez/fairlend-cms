@@ -1803,7 +1803,7 @@ export function FairlendServicesSectionLegacy() {
             <FairlendLogoMark />
             <div className="text-[10px] font-semibold leading-tight tracking-[0.18em] uppercase">
               <div>FairLend</div>
-              <div>Capital</div>
+              <div>Mortgage</div>
             </div>
           </div>
           <div
@@ -2231,7 +2231,6 @@ export function FairlendServicesSectionLegacy() {
                   </div>
                 </div>
 
-                {/* TODO: Partners card should eventually use a building + FairLend Partner sign asset */}
                 <div className="services-card-media-shell" data-services-media-shell>
                   <Image
                     alt=""

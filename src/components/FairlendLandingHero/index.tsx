@@ -1,10 +1,14 @@
 import type { CSSProperties } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
-import Link from 'next/link'
 
+import { FairlendConsultationBookingDialog } from '@/components/FairlendConsultationBooking/FairlendConsultationBookingDialog.client'
 import { FairlendBuildPropertyTypes } from '@/components/FairlendBuildPropertyTypes'
-import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
+import {
+  FAIRLEND_CONTACT_PHONE_HREF,
+  FAIRLEND_CONTACT_PHONE_LABEL,
+  FairlendTalkToExpertCta,
+} from '@/components/FairlendTalkToExpertCta'
 import { cn } from '@/utilities/ui'
 
 import { FairlendApplicationArrow } from './FairlendApplicationArrow.client'
@@ -13,9 +17,25 @@ import { FairlendTorontoHeroParallax } from './FairlendTorontoHeroParallax.clien
 import { torontoCloudLayers, torontoHeroAssets } from './toronto-scene-assets'
 
 const proofStats = [
-  { label: 'volume by\nprincipal\nbroker', value: '$2B+' },
-  { label: 'commitment\ntarget', prefix: 'hrs', value: '24' },
-  { label: 'years\nexperience', value: '28+' },
+  {
+    disclaimer: '*Principal-broker lifetime volume; final figure to be verified.',
+    label: 'volume by\nprincipal\nbroker',
+    qualifier: '*',
+    value: '$2B+',
+  },
+  {
+    disclaimer: '*Available for complete files; timing varies by file.',
+    label: 'commitment\ntarget',
+    prefix: 'hrs',
+    qualifier: '*',
+    value: '24',
+  },
+  {
+    disclaimer: '*Principal-broker experience.',
+    label: 'years\nexperience',
+    qualifier: '*',
+    value: '28+',
+  },
 ] as const
 
 const trustedAvatars = [
@@ -55,28 +75,54 @@ type TorontoCloudLayerProps = {
   zIndex: number
 }
 
-const startApplicationHref = buildFairlendIntakeHref({
-  intent: 'route-helper',
-  source: 'homepage-hero-start-application',
-})
-
-function StartApplicationButton({ mobileDocked = false }: { mobileDocked?: boolean }) {
+function BookConsultationButton({ mobileDocked = false }: { mobileDocked?: boolean }) {
   return (
-    <Link
+    <FairlendConsultationBookingDialog
+      ariaLabel="Book a free FairLend consultation"
       className={cn(
         'fairlend-toronto-copy group h-[55px] items-center gap-[12px] rounded-[9px] bg-[#96ec18] py-0 pr-5 pl-[18px] text-[17px] leading-none font-normal text-[#101010] shadow-[0_10px_24px_rgb(118_205_0/12%)] outline-none transition-[background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-[#a4fb20] hover:shadow-[0_14px_32px_rgb(118_205_0/18%)] focus-visible:ring-2 focus-visible:ring-[#111] focus-visible:ring-offset-4 focus-visible:ring-offset-[#f8f7f5] max-md:h-12 max-md:w-[min(100%,455px)] max-md:justify-between max-md:px-4 max-md:text-[15px]',
         mobileDocked
-          ? 'hidden hero-mobile:inline-flex hero-mobile:mt-0 hero-mobile:w-full'
-          : 'mt-[27px] inline-flex max-md:mt-5 hero-mobile:hidden',
+          ? 'hidden hero-mobile:inline-flex hero-mobile:relative hero-mobile:z-10 hero-mobile:mt-0 hero-mobile:w-full'
+          : 'inline-flex hero-mobile:hidden',
       )}
-      href={startApplicationHref}
+      leadershipCta={false}
+      source={
+        mobileDocked ? 'homepage-hero-mobile-book-consultation' : 'homepage-hero-book-consultation'
+      }
       style={{ '--toronto-delay': '720ms' } as CSSProperties}
     >
-      <span>Start your application</span>
+      <span>Book a Free Consultation</span>
       <span className="grid size-[30px] place-items-center rounded-[8px] bg-[#111] text-[#aaff00] transition-transform duration-200 group-hover:rotate-6 max-md:size-8">
         <ArrowUpRight aria-hidden="true" className="size-[20px]" strokeWidth={2.25} />
       </span>
-    </Link>
+    </FairlendConsultationBookingDialog>
+  )
+}
+
+function HeroTalkToExpertButton({ mobileDocked = false }: { mobileDocked?: boolean }) {
+  return (
+    <FairlendTalkToExpertCta
+      aria-label={`Call FairLend at ${FAIRLEND_CONTACT_PHONE_LABEL}`}
+      className={cn(
+        'fairlend-toronto-copy h-[55px] rounded-[9px] bg-[#111] px-[18px] py-0 text-[#f8f7f5] shadow-[0_10px_24px_rgb(17_17_17/12%)] hover:bg-[#050607] hover:shadow-[0_14px_32px_rgb(17_17_17/18%)] focus-visible:outline-[#111] focus-visible:outline-offset-4 [&>span:first-child]:bg-[#96ec18] [&>span:first-child]:text-[#111] [&>span:first-child]:shadow-none [&>span:last-child>span:first-child]:text-[#b8c6cc] [&>span:last-child>span:last-child]:text-[15px]',
+        mobileDocked
+          ? 'hidden hero-mobile:flex hero-mobile:relative hero-mobile:z-10 hero-mobile:w-full hero-mobile:justify-start hero-mobile:px-4'
+          : 'max-md:w-[min(100%,455px)] max-md:justify-start hero-mobile:hidden',
+      )}
+      eyebrow="Talk to an expert"
+      href={FAIRLEND_CONTACT_PHONE_HREF}
+      label={FAIRLEND_CONTACT_PHONE_LABEL}
+      style={{ '--toronto-delay': mobileDocked ? '760ms' : '820ms' } as CSSProperties}
+    />
+  )
+}
+
+function HeroDesktopActions() {
+  return (
+    <div className="mt-[27px] flex flex-wrap items-center gap-3 max-md:mt-5 hero-mobile:hidden">
+      <BookConsultationButton />
+      <HeroTalkToExpertButton />
+    </div>
   )
 }
 
@@ -99,14 +145,20 @@ function ProofStats() {
         >
           <strong className="font-serif text-[72px] leading-[0.82] font-normal tracking-[-0.045em] text-[#050506]">
             {stat.value}
+            <sup className="ml-[1px] align-super text-[14px] leading-none tracking-normal">
+              {stat.qualifier}
+            </sup>
           </strong>
           {'prefix' in stat ? (
             <span className="self-center text-[18px] leading-none font-normal text-[#141414]">
               {stat.prefix}
             </span>
           ) : null}
-          <span className="whitespace-pre-line text-[18px] leading-[1.17] font-normal text-[#141414]">
-            {stat.label}
+          <span className="text-[18px] leading-[1.17] font-normal text-[#141414]">
+            <span className="block whitespace-pre-line">{stat.label}</span>
+            <small className="mt-[3px] block max-w-[112px] text-[7px] leading-[1.05] font-medium text-[#141414]/58">
+              {stat.disclaimer}
+            </small>
           </span>
         </div>
       ))}
@@ -131,7 +183,7 @@ function CloudLayer({
   return (
     <span
       aria-hidden="true"
-      className={cn('fairlend-toronto-cloud absolute block', className)}
+      className={cn('fairlend-toronto-cloud absolute block max-md:hidden', className)}
       data-toronto-cloud={cloudKey}
       style={
         {
@@ -275,23 +327,25 @@ export function FairlendLandingHero() {
             className="relative z-10 mt-[64px] w-[min(43vw,466px)] max-w-[466px] max-lg:mt-[80px] max-lg:w-[min(62vw,560px)] max-md:mt-[54px] max-md:w-full max-md:max-w-[455px]"
             data-toronto-hero-copy
           >
-
             <h1
               className="fairlend-toronto-title m-0 font-serif text-[clamp(62px,6.8vw,87px)] leading-[1.07] font-medium tracking-[-0.047em] text-[#030405] max-lg:text-[clamp(58px,8.6vw,82px)] max-md:text-[58px] max-md:leading-[1.03] max-md:tracking-[-0.052em] max-[390px]:text-[51px]"
               id="fairlend-hero-title"
               style={{ '--toronto-delay': '320ms' } as CSSProperties}
             >
               Financing for
-              <span className="sr-only"> multi-plex, single family, and land</span>
+              <span className="sr-only">
+                {' '}
+                multi-plex, single family, land, and private mortgage
+              </span>
             </h1>
 
             <FairlendBuildPropertyTypes
               className="fairlend-toronto-copy mt-[18px] w-full max-w-[466px] shadow-none max-md:mt-4"
-              sectionLabel="Multi-plex, single family, and land"
+              sectionLabel="Multi-plex, single family, land, and private mortgage"
               variant="hero"
             />
 
-            <StartApplicationButton />
+            <HeroDesktopActions />
           </div>
 
           <ProofStats />
@@ -303,7 +357,8 @@ export function FairlendLandingHero() {
             className="contents hero-mobile:relative hero-mobile:z-10 hero-mobile:mt-auto hero-mobile:flex hero-mobile:w-full hero-mobile:max-w-[455px] hero-mobile:flex-col hero-mobile:gap-[14px]"
             data-toronto-mobile-application
           >
-            <StartApplicationButton mobileDocked />
+            <BookConsultationButton mobileDocked />
+            <HeroTalkToExpertButton mobileDocked />
             <FairlendApplicationForm />
           </div>
         </div>

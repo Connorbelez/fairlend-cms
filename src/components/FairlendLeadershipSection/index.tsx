@@ -27,14 +27,18 @@ const leadershipSceneAsset = '/assets/fairlend-principal-broker-background.webp'
 const leadershipProof = [
   {
     detail: 'Across mortgage brokerage, private lending, and investment finance.',
+    disclaimer: '*Principal-broker experience.',
     Icon: ShieldCheck,
     label: 'Years experience',
+    qualifier: '*',
     value: '28+',
   },
   {
-    detail: 'Residential, commercial, construction, and stabilization capital.',
+    detail: 'Lifetime funded deals by Principal Broker.',
+    disclaimer: '*Principal-broker lifetime volume; final figure to be verified.',
     Icon: Landmark,
-    label: 'Total financed',
+    label: 'Principal Broker volume',
+    qualifier: '*',
     value: '$2B+',
   },
   {
@@ -51,8 +55,10 @@ const leadershipProof = [
   },
 ] satisfies ReadonlyArray<{
   detail: string
+  disclaimer?: string
   Icon: LucideIcon
   label: string
+  qualifier?: string
   value: string
 }>
 
@@ -63,9 +69,9 @@ const capabilities = [
     title: 'Brokerage expertise',
   },
   {
-    copy: 'End-to-end financing for land, construction, renovation, and long-term stabilization.',
+    copy: 'Builder perspective from 20+ homes built, paired with land, construction, renovation, and stabilization financing.',
     Icon: Building2,
-    title: 'Construction finance',
+    title: 'Builder / 20+ homes built',
   },
   {
     copy: 'Strategic access to insured rental-housing programs, leverage, and flexibility.',
@@ -1164,7 +1170,7 @@ export function FairlendLeadershipSection() {
                 01
               </span>
               <span className="leadership-eyebrow" data-leadership-copy-item>
-                Principal broker
+                Founder & Principal Broker
               </span>
               <h3 className="leadership-title" data-leadership-title>
                 <span className="leadership-title-line" data-leadership-title-line>
@@ -1220,7 +1226,7 @@ export function FairlendLeadershipSection() {
                 </div>
                 <div className="leadership-portrait-caption">
                   Elie Soberano
-                  <span>Principal broker</span>
+                  <span>Founder & Principal Broker</span>
                 </div>
               </div>
               <span className="leadership-visual-grid" data-leadership-visual-grid />
@@ -1233,12 +1239,14 @@ export function FairlendLeadershipSection() {
             aria-label="Leadership proof points"
             data-leadership-proof-grid
           >
-            {leadershipProof.map(({ detail, Icon, label, value }) => (
+            {leadershipProof.map(({ detail, disclaimer, Icon, label, qualifier, value }) => (
               <FairlendLeadershipProofCard
                 detail={detail}
+                disclaimer={disclaimer}
                 Icon={Icon}
                 key={label}
                 label={label}
+                qualifier={qualifier}
                 value={value}
               />
             ))}

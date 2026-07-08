@@ -3,9 +3,9 @@ import type { Metadata } from 'next'
 import { FairlendIntakeRouter } from '@/components/FairlendLeadIntake/FairlendIntakeRouter.client'
 
 export const metadata: Metadata = {
-  title: 'FairLend Intake | Mortgage, Build, Investor, and Partner Requests',
+  title: 'FairLend Request Desk | Mortgage, Build, Investor, and Partner Reviews',
   description:
-    'Start a FairLend intake for build financing, private mortgage review, investor conversations, partner referrals, consultation requests, and follow-up workflows.',
+    'Send the context behind a mortgage, build, investor, partner, or consultation request.',
 }
 
 export default function IntakePage() {

@@ -1,7 +1,6 @@
 import type { CollectionSlug, GlobalSlug, Payload, PayloadRequest, File } from 'payload'
 
-import { defaultFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
-import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
+import { buildFairlendConsultationHref, buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 
 import { contactForm as contactFormData } from './contact-form'
 import { contact as contactPageData } from './contact-page'
@@ -231,7 +230,7 @@ export const seed = async ({
             link: {
               type: 'custom',
               label: 'Book consultation',
-              url: defaultFairlendMicrosoftBookingsUrl,
+              url: buildFairlendConsultationHref('seed-header-consultation'),
             },
           },
           {

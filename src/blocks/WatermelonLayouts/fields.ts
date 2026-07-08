@@ -1,6 +1,6 @@
 import type { Field } from 'payload'
 
-import { defaultFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
+import { buildFairlendConsultationHref } from '@/lib/fairlend-intake'
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 
 type FieldWithDbName = Field & { dbName?: string }
@@ -85,7 +85,7 @@ export const createWatermelonLayoutFields = (): Field[] => [
         name: 'secondaryActionUrl',
         dbName: 'sau',
         type: 'text',
-        defaultValue: defaultFairlendMicrosoftBookingsUrl,
+        defaultValue: buildFairlendConsultationHref('watermelon-layout-field-consultation'),
         label: 'Secondary action URL',
       }),
     ],

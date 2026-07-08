@@ -1,16 +1,24 @@
 import { Phone } from 'lucide-react'
 import type { ComponentPropsWithoutRef } from 'react'
 
-import { getFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
+import { buildFairlendConsultationHref } from '@/lib/fairlend-intake'
 import { cn } from '@/utilities/ui'
 
-type FairlendTalkToExpertCtaProps = ComponentPropsWithoutRef<'a'>
+export const FAIRLEND_CONTACT_PHONE_LABEL = '647-831-7605'
+export const FAIRLEND_CONTACT_PHONE_HREF = 'tel:+16478317605'
+
+type FairlendTalkToExpertCtaProps = ComponentPropsWithoutRef<'a'> & {
+  eyebrow?: string
+  label?: string
+}
 
 export function FairlendTalkToExpertCta({
   className,
-  href = getFairlendMicrosoftBookingsUrl(),
-  rel = 'noreferrer',
-  target = '_blank',
+  eyebrow = 'Talk to an Expert',
+  href = buildFairlendConsultationHref('talk-to-expert-cta'),
+  label = 'Book a consultation',
+  rel,
+  target,
   ...props
 }: FairlendTalkToExpertCtaProps) {
   return (
@@ -30,11 +38,9 @@ export function FairlendTalkToExpertCta({
       </span>
       <span className="flex flex-col gap-0.5">
         <span className="text-[clamp(9px,0.62vw,11px)] leading-none font-semibold tracking-wide uppercase text-[#a7b4bb]">
-          Talk to an Expert
+          {eyebrow}
         </span>
-        <span className="text-[clamp(13px,0.92vw,15px)] leading-none font-extrabold">
-          Book a consultation
-        </span>
+        <span className="text-[clamp(13px,0.92vw,15px)] leading-none font-extrabold">{label}</span>
       </span>
     </a>
   )

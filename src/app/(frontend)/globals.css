@@ -3,6 +3,7 @@
 @import 'tw-animate-css';
 @import '../../components/directional-hover-header/header.css';
 @import '../../components/DrawflowIntake/buildpath.css';
+@import '../../components/FairlendLeadIntake/lead-intake.css';
 @import '../../components/FairlendAboutStorySection/styles.css';
 
 @config '../../../tailwind.config.mjs';
@@ -1452,9 +1453,9 @@
 @media (min-width: 1024px) and (max-width: 1279px) and (orientation: landscape) {
   .fairlend-hero-application-card {
     position: absolute;
-    top: clamp(300px, calc(100svh - 250px), 500px);
+    top: auto;
     right: 0;
-    bottom: auto;
+    bottom: clamp(190px, 22svh, 260px);
     left: auto;
     width: min(43vw, 520px);
     min-width: 430px;
@@ -1463,43 +1464,42 @@
   }
 
   .fairlend-hero-application-card[data-autocomplete-open='true'] {
-    top: clamp(240px, calc(100svh - 360px), 420px);
+    bottom: calc(clamp(190px, 22svh, 260px) + clamp(78px, 7vw, 124px));
   }
 }
 
 @media (min-width: 1024px) and (max-width: 1279px) and (orientation: landscape) and (max-height: 780px) {
   .fairlend-hero-application-card {
-    top: clamp(260px, calc(100svh - 220px), 430px);
+    bottom: clamp(130px, 20svh, 170px);
     width: min(42vw, 500px);
     min-width: 410px;
   }
 
   .fairlend-hero-application-card[data-autocomplete-open='true'] {
-    top: clamp(220px, calc(100svh - 330px), 360px);
+    bottom: calc(clamp(130px, 20svh, 170px) + clamp(60px, 9vw, 96px));
   }
 }
 
 @media (min-width: 1280px) and (orientation: landscape) {
   .fairlend-hero-application-card {
-    position: absolute;
-    top: clamp(420px, calc(100svh - 260px), 680px);
-    right: 0;
-    bottom: auto;
-    left: auto;
+    top: auto;
+    bottom: calc(clamp(128px, 16svh, 210px) + var(--hero-stats-height, 0px));
   }
 
   .fairlend-hero-application-card[data-autocomplete-open='true'] {
-    top: clamp(320px, calc(100svh - 360px), 560px);
+    bottom: calc(
+      clamp(128px, 16svh, 210px) + var(--hero-stats-height, 0px) + clamp(78px, 7vw, 124px)
+    );
   }
 }
 
 @media (min-width: 1280px) and (orientation: landscape) and (max-height: 760px) {
   .fairlend-hero-application-card {
-    top: clamp(360px, calc(100svh - 240px), 500px);
+    bottom: calc(clamp(36px, 6svh, 64px) + var(--hero-stats-height, 0px));
   }
 
   .fairlend-hero-application-card[data-autocomplete-open='true'] {
-    top: clamp(300px, calc(100svh - 330px), 430px);
+    bottom: calc(clamp(36px, 6svh, 64px) + var(--hero-stats-height, 0px) + clamp(72px, 7vw, 112px));
   }
 }
 
@@ -1819,6 +1819,32 @@
 
   .fairlend-landing-gutter {
     display: none;
+  }
+
+  [data-fairlend-motion='landing-overview'] {
+    padding-block: 42px !important;
+  }
+
+  [data-fairlend-motion='landing-overview'] > div {
+    gap: 34px !important;
+  }
+
+  [data-fairlend-motion='landing-overview'] [data-overview-who-panel],
+  [data-fairlend-motion='landing-overview'] [data-overview-finance-panel] {
+    min-height: 0 !important;
+  }
+
+  [data-fairlend-motion='landing-overview'] [data-overview-mobile-skyline] {
+    height: 168px !important;
+    margin-top: 28px !important;
+  }
+
+  [data-testid='fairlend-faq-section'] {
+    min-height: 0 !important;
+  }
+
+  [data-testid='fairlend-faq-section'] [data-faq-route-plate] {
+    min-height: 0 !important;
   }
 }
 
@@ -2312,6 +2338,8 @@
     top: 38% !important;
     left: -8% !important;
     width: 54vw !important;
+    --cloud-drift-duration: 92s !important;
+    --cloud-drift-x: 100vw !important;
     z-index: 5 !important;
   }
 
@@ -2319,6 +2347,8 @@
     top: 27% !important;
     left: 62% !important;
     width: 46vw !important;
+    --cloud-drift-duration: 128s !important;
+    --cloud-drift-x: -100vw !important;
     z-index: 2 !important;
   }
 
@@ -2326,13 +2356,17 @@
     top: 43.5% !important;
     left: 12% !important;
     width: 68vw !important;
+    --cloud-drift-duration: 96s !important;
+    --cloud-drift-x: 100vw !important;
     z-index: 5 !important;
   }
 
   [data-fairlend-motion='toronto-hero'] [data-toronto-cloud='low-east'] {
-    top: 36% !important;
-    left: 58% !important;
-    width: 58vw !important;
+    top: clamp(76px, 12svh, 104px) !important;
+    left: 62% !important;
+    width: 52vw !important;
+    --cloud-drift-duration: 132s !important;
+    --cloud-drift-x: -100vw !important;
     z-index: 5 !important;
   }
 
@@ -2353,13 +2387,58 @@
     left: 20px !important;
     width: auto !important;
     max-width: none !important;
+    padding-top: 22px !important;
     transform: none !important;
     z-index: 20 !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-toronto-mobile-application]::before {
+    position: absolute;
+    inset: -14px -20px auto;
+    height: 92px;
+    background: linear-gradient(
+      180deg,
+      rgb(248 247 245 / 0%) 0%,
+      rgb(248 247 245 / 92%) 38%,
+      rgb(248 247 245 / 96%) 100%
+    );
+    content: '';
+    pointer-events: none;
   }
 
   [data-fairlend-motion='toronto-hero'] [data-toronto-mobile-application] .fairlend-toronto-copy {
     animation: none !important;
     opacity: 1 !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-testid='fairlend-application-form'] {
+    max-width: calc(100vw - 40px) !important;
+    overflow: hidden !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-testid='fairlend-application-form'] [role='tablist'] {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-testid='fairlend-application-form'] [data-form-tab] {
+    gap: 4px !important;
+    min-width: 0 !important;
+    padding-inline: 0 !important;
+    overflow: hidden !important;
+    font-size: 11px !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-testid='fairlend-application-form'] [data-form-tab] svg {
+    width: 16px !important;
+    height: 16px !important;
+    flex: 0 0 16px !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-testid='fairlend-application-form'] [data-form-tab] span {
+    min-width: 0 !important;
+    max-width: calc(100% - 22px) !important;
+    overflow: visible !important;
+    white-space: nowrap !important;
   }
 
   [data-fairlend-motion='toronto-hero'] [data-toronto-lower-copy] {

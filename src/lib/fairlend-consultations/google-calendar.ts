@@ -93,7 +93,7 @@ export async function createGoogleCalendarEvent({
         },
       },
       start: { dateTime: start, timeZone: timezone },
-      summary: `Fairlend consultation - ${name}`,
+      summary: `FairLend consultation - ${name}`,
     },
   })
 

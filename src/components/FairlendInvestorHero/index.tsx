@@ -2,7 +2,6 @@ import type { ReactElement } from 'react'
 import { ArrowUpRight, Check } from 'lucide-react'
 
 import { FairlendBorrowerCta } from '@/components/FairlendBorrowerCta'
-import { getFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 
 import './investor-hero.css'
@@ -11,13 +10,12 @@ const investorAccessHref = buildFairlendIntakeHref({
   intent: 'invest',
   source: 'investor-hero-request-access',
 })
-const reviewBookingHref = getFairlendMicrosoftBookingsUrl()
 
 const proofChips = [
   'Curated, pre-vetted deals',
   'Target LTVs under 75%',
   'Double valuation review',
-  'Automated disbursements + portal',
+  'Administered reporting workflow',
   'Power-of-sale recovery path',
   'Dedicated legal recovery team',
 ] as const
@@ -67,9 +65,10 @@ export function FairlendInvestorHero(): ReactElement {
           </h1>
           <p className="investor-hero__subhead">
             FairLend gives investors access to curated, pre-vetted mortgage-backed opportunities,
-            then handles everything end to end: digital closing, PAD collection, automated
-            disbursements, and a transparent investor portal with tax-ready exports. Conservative
-            LTVs, double valuation review, and a dedicated legal recovery team sit behind every deal.
+            then administers the lifecycle: digital closing coordination, PAD collection,
+            disbursement tracking, investor reporting context, and tax-ready export workflow
+            support. Conservative LTVs, double valuation review, and a dedicated legal recovery
+            path sit behind every deal.
           </p>
 
           <div className="investor-hero__cta-row">
@@ -96,8 +95,8 @@ export function FairlendInvestorHero(): ReactElement {
           <div className="investor-portal-mock" data-investor-portal-mock>
             <header className="investor-portal-mock__head">
               <div className="investor-portal-mock__title-cluster">
-                <span className="investor-portal-mock__eyebrow">Investor portal</span>
-                <span className="investor-portal-mock__file">FL-INV-0421 · holdings</span>
+                <span className="investor-portal-mock__eyebrow">Reporting preview</span>
+                <span className="investor-portal-mock__file">Illustrative mortgage file</span>
               </div>
               <div className="investor-portal-mock__stat-line">
                 <span className="investor-portal-mock__stat">
@@ -113,10 +112,10 @@ export function FairlendInvestorHero(): ReactElement {
 
             <div className="investor-portal-mock__deal">
               <div className="investor-portal-mock__deal-top">
-                <span className="investor-portal-mock__deal-stamp">Active · first mortgage</span>
+                <span className="investor-portal-mock__deal-stamp">Preview · first mortgage</span>
                 <span className="investor-portal-mock__deal-chip">
                   <span aria-hidden="true" className="investor-portal-mock__deal-chip-dot" />
-                  Disbursement sent
+                  Disbursement tracked
                 </span>
               </div>
               <dl className="investor-portal-mock__rows">
@@ -143,14 +142,14 @@ export function FairlendInvestorHero(): ReactElement {
             <footer className="investor-portal-mock__foot">
               <span className="investor-portal-mock__foot-item">
                 <Check aria-hidden="true" size={14} strokeWidth={2.4} />
-                Tax-ready export
+                Tax-ready export context
               </span>
               <span className="investor-portal-mock__foot-item">
                 <Check aria-hidden="true" size={14} strokeWidth={2.4} />
-                QuickBooks sync
+                Bookkeeping handoff
               </span>
               <span className="investor-portal-mock__foot-cta">
-                Open file
+                Preview file
                 <ArrowUpRight aria-hidden="true" size={14} strokeWidth={2.25} />
               </span>
             </footer>

@@ -80,3 +80,35 @@ export function buildFairlendIntakeHref({
 
   return `/intake?${params.toString()}`
 }
+
+export function buildFairlendContactHref(source: string): string {
+  return buildFairlendIntakeHref({ intent: 'contact', source })
+}
+
+export function buildFairlendConsultationHref(source: string): string {
+  return buildFairlendIntakeHref({ intent: 'consultation', source })
+}
+
+export function buildFairlendInvestorHref(source: string): string {
+  return buildFairlendIntakeHref({ intent: 'invest', source })
+}
+
+export function buildFairlendMortgageHref(source: string): string {
+  return buildFairlendIntakeHref({ intent: 'mortgage', source })
+}
+
+export function buildFairlendBuildHref(source: string): string {
+  return buildFairlendIntakeHref({ intent: fairlendBuildIntent, source })
+}
+
+export function buildFairlendPartnerHref(source: string): string {
+  return buildFairlendIntakeHref({ intent: 'partner-apply', source })
+}
+
+export function buildFairlendRouteHelperHref(source: string): string {
+  return buildFairlendIntakeHref({ intent: 'route-helper', source })
+}
+
+export function buildFairlendNewsletterHref(source: string): string {
+  return buildFairlendIntakeHref({ intent: 'newsletter', source })
+}

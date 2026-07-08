@@ -77,6 +77,11 @@ export function FairlendBuilderConsultingMotion() {
 
     const context = gsap.context(() => {
       const isDesktop = window.matchMedia('(min-width: 1024px)').matches
+      const isPhone = window.matchMedia('(max-width: 767px)').matches
+      if (isPhone) {
+        section.dataset.builderPhoneStatic = 'true'
+        return
+      }
       const select = gsap.utils.selector(section)
       const leftTrack = section.querySelector<HTMLElement>('[data-builder-left-track]')
       const bottomTrack = section.querySelector<HTMLElement>('[data-builder-bottom-track]')
@@ -249,7 +254,7 @@ export function FairlendBuilderConsultingMotion() {
         .to(connectorLines, { duration: 0.12, scaleX: 1 }, 0)
         .to(section, { '--builder-progress': 0, duration: 0.26 }, 0.18)
         .to(primaryRows, { '--row-tone': 0, duration: 0.26 }, 0.2)
-        .to(section, { '--builder-progress': 0.84, duration: 0.28 }, 0.58)
+        .to(section, { '--builder-progress': 1, duration: 0.28 }, 0.58)
         .to(
           emergingRows,
           {
@@ -324,13 +329,13 @@ export function FairlendBuilderConsultingMotion() {
       const scrollTrigger = ScrollTrigger.create({
         animation: timeline,
         anticipatePin: 1,
-        end: isDesktop ? '+=310%' : '+=245%',
+        end: isDesktop ? '+=310%' : isPhone ? 'bottom top' : '+=245%',
         invalidateOnRefresh: true,
         onUpdate: (self) => syncFromProgress(self.progress),
-        pin: true,
+        pin: !isPhone,
         refreshPriority: 20,
         scrub: isDesktop ? 1.05 : 1,
-        start: 'top top',
+        start: isPhone ? 'top 74%' : 'top top',
         trigger: section,
       })
 

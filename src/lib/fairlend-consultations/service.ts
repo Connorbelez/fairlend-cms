@@ -194,7 +194,7 @@ export async function bookConsultation({
   try {
     const event = await createGoogleCalendarEvent({
       bookingId,
-      description: 'Booked from the Fairlend website leadership CTA.',
+      description: 'Booked from the FairLend website leadership CTA.',
       email: parsed.data.email,
       end: selectedSlot.end,
       name: parsed.data.name,
@@ -292,7 +292,7 @@ async function mirrorConsultationBookingLead({
       workflowStatus: 'consultation_booked',
     })
   } catch (error) {
-    console.error('Failed to mirror consultation booking into Fairlend leads', error)
+    console.error('Failed to mirror consultation booking into FairLend leads', error)
   }
 }
 

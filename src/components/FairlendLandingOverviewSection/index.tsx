@@ -8,6 +8,7 @@ import {
   torontoCloudLayers,
   torontoHeroAssets,
 } from '@/components/FairlendLandingHero/toronto-scene-assets'
+import { Highlighter } from '@/components/ui/highlighter'
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 import { cn } from '@/utilities/ui'
 
@@ -148,7 +149,7 @@ const electricLime = '#9DFF00'
 function SectionLabel({ children, number }: { children: string; number: string }) {
   return (
     <div
-      className="grid grid-cols-[auto_minmax(92px,0.45fr)_minmax(128px,0.55fr)] items-center gap-[22px]"
+      className="grid grid-cols-1 justify-items-center gap-[12px] text-center md:grid-cols-[auto_minmax(92px,0.45fr)_minmax(128px,0.55fr)] md:items-center md:justify-items-stretch md:gap-[22px] md:text-left"
       data-overview-section-label
     >
       <p className="m-0 shrink-0 text-[12.5px] leading-none font-bold tracking-[0.08em] text-[#050506] uppercase">
@@ -166,8 +167,8 @@ function SectionLabel({ children, number }: { children: string; number: string }
         </span>
         {children}
       </p>
-      <span aria-hidden="true" className="h-px bg-[#08090a]/42" />
-      <span aria-hidden="true" className="h-px bg-[#08090a]/42" />
+      <span aria-hidden="true" className="hidden h-px bg-[#08090a]/42 md:block" />
+      <span aria-hidden="true" className="hidden h-px bg-[#08090a]/42 md:block" />
     </div>
   )
 }
@@ -185,7 +186,7 @@ function ExpertiseCard({
 }) {
   return (
     <article
-      className="grid min-h-[148px] grid-rows-[42px_auto_1fr] border-[#08090a]/16 px-[10px] py-[18px] first:pl-0 last:pr-0 md:border-l md:first:border-l-0"
+      className="grid min-h-0 grid-cols-[44px_minmax(0,1fr)] grid-rows-none items-center gap-x-3 border border-[#08090a]/14 px-4 py-4 text-left md:min-h-[148px] md:grid-cols-none md:grid-rows-[42px_auto_1fr] md:items-start md:gap-x-0 md:border-0 md:border-l md:px-[10px] md:py-[18px] md:first:border-l-0"
       data-overview-expertise-card
     >
       <span
@@ -203,12 +204,12 @@ function ExpertiseCard({
         ) : null}
       </span>
       <h3
-        className="m-0 max-w-[126px] text-[15px] leading-[1.03] font-extrabold tracking-[0.01em] uppercase"
+        className="m-0 max-w-none text-[15px] leading-[1.03] font-extrabold tracking-[0.01em] uppercase md:max-w-[126px]"
         style={{ color: electricLime }}
       >
         {title}
       </h3>
-      <p className="m-0 mt-[10px] max-w-[138px] text-[13px] leading-[1.28] font-medium text-[#08090a]">
+      <p className="col-start-2 m-0 mt-[4px] max-w-none text-[13px] leading-[1.28] font-medium text-[#08090a] md:col-start-auto md:mt-[10px] md:max-w-[138px]">
         {copy}
       </p>
     </article>
@@ -367,10 +368,11 @@ function TorontoIllustration() {
 export function FairlendLandingOverviewSection() {
   return (
     <section
-      aria-label="Fairlend company and finance overview"
+      aria-label="FairLend company and finance overview"
       className="relative isolate overflow-hidden bg-[#fbfaf7] px-5 py-10 text-[#08090a] [font-family:var(--font-inter),Arial,sans-serif] sm:px-8 lg:min-h-[100svh] lg:px-[49px] lg:py-[58px]"
       data-fairlend-motion="landing-overview"
       data-testid="fairlend-landing-overview-section"
+      id="overview"
     >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-20 overflow-hidden">
         <span
@@ -382,54 +384,112 @@ export function FairlendLandingOverviewSection() {
           data-overview-scan="y"
         />
       </div>
-      <div className="mx-auto grid w-full max-w-[1672px] gap-12 lg:min-h-[calc(100svh-116px)] lg:grid-cols-[minmax(0,1fr)_660px] lg:gap-0">
-        <div className="relative isolate flex min-h-[760px] flex-col overflow-hidden lg:min-h-[calc(100svh-116px)]">
+      <div className="mx-auto grid w-full max-w-[1672px] gap-12 lg:min-h-[calc(100svh-116px)] lg:grid-cols-2 lg:gap-0 2xl:grid-cols-[minmax(0,1fr)_660px]">
+        <div
+          className="relative isolate flex min-h-[760px] min-w-0 flex-col overflow-hidden lg:min-h-[calc(100svh-116px)]"
+          data-overview-who-panel
+        >
           <TorontoIllustration />
 
-          <div className="relative z-10 max-w-[622px]">
+          <div className="relative z-10 mx-auto max-w-[622px] text-center md:mx-0 md:text-left">
             <SectionLabel number="01">Who We Are</SectionLabel>
             <h2
-              className="mt-[29px] mb-0 max-w-[600px] text-wrap font-serif text-[clamp(58px,5.28vw,82px)] leading-[0.95] font-medium tracking-[-0.055em] text-[#050506]"
+              className="mx-auto mt-[29px] mb-0 max-w-[600px] text-wrap font-serif text-[clamp(58px,5.28vw,82px)] leading-[1.06] font-medium tracking-[-0.055em] text-[#050506] md:mx-0 md:leading-[0.95]"
               data-overview-title
             >
               <span className="block overflow-hidden">
                 <span className="block" data-overview-title-line>
-                  Seasoned. Local.
+                  Licensed. Focused.
                 </span>
               </span>
               <span className="block overflow-hidden">
                 <span className="block" data-overview-title-line>
-                  Aligned with you.
+                  Built for private lending.
                 </span>
               </span>
             </h2>
 
             <div
-              className="mt-[28px] max-w-[388px] space-y-[14px] text-[14px] leading-[1.45] font-normal text-[#08090a]"
+              className="mx-auto mt-[28px] max-w-[388px] space-y-[14px] text-[14px] leading-[1.45] font-normal text-[#08090a] md:mx-0"
               data-overview-copy
             >
               <p className="m-0">
-                We are a team of seasoned professionals with deep expertise in private lending, real
-                estate finance, and capital markets.
+                FairLend is an{' '}
+                <strong className="font-extrabold">
+                  <Highlighter
+                    action="underline"
+                    animationDuration={950}
+                    color="#96ec18"
+                    isView
+                    iterations={3}
+                    padding={3}
+                    strokeWidth={3}
+                  >
+                    FSRA-licensed
+                  </Highlighter>
+                </strong>{' '}
+                mortgage brokerage and administrator specializing in{' '}
+                <strong className="font-extrabold">
+                  <Highlighter
+                    action="highlight"
+                    animationDuration={800}
+                    color="rgba(150, 236, 24, 0.56)"
+                    isView
+                    iterations={2}
+                    padding={4}
+                    strokeWidth={2.4}
+                  >
+                    private lending
+                  </Highlighter>
+                </strong>{' '}
+                and{' '}
+                <strong className="font-extrabold">
+                  <Highlighter
+                    action="highlight"
+                    animationDuration={860}
+                    color="rgba(150, 236, 24, 0.62)"
+                    isView
+                    iterations={2}
+                    padding={4}
+                    strokeWidth={2.6}
+                  >
+                    construction financing
+                  </Highlighter>
+                </strong>
+                {'.'}
               </p>
               <p className="m-0">
-                As a brokerage and investment company, we connect borrowers with flexible capital
-                and investors with attractive, risk-adjusted opportunities.
+                We combine seasoned mortgage judgment with modern technology and clear processes,
+                helping borrowers, builders, and investors move faster without losing the human
+                diligence private lending depends on.
               </p>
               <p className="m-0">
-                Our approach blends disciplined underwriting, innovative structures, and local
-                market knowledge to create lasting value.
+                Private lending should be{' '}
+                <strong className="font-extrabold">
+                  <Highlighter
+                    action="underline"
+                    animationDuration={1000}
+                    color="#96ec18"
+                    isView
+                    iterations={2}
+                    padding={3}
+                    strokeWidth={3.2}
+                  >
+                    practical, transparent, and fair
+                  </Highlighter>
+                </strong>{' '}
+                for everyone involved.
               </p>
             </div>
           </div>
 
-          <div className="relative z-10 mt-[52px] grid max-w-[486px] border-t border-[#08090a]/18 bg-[#fbfaf7] md:grid-cols-3">
+          <div className="relative z-10 mx-auto mt-[36px] grid w-full max-w-[420px] gap-3 border-t border-[#08090a]/18 bg-[#fbfaf7] md:mx-0 md:mt-[52px] md:max-w-[486px] md:grid-cols-3 md:gap-0">
             {expertiseItems.map((item) => (
               <ExpertiseCard key={item.title} {...item} />
             ))}
           </div>
 
-          <div className="relative mt-auto block h-[320px] lg:hidden">
+          <div className="relative mt-auto block h-[320px] lg:hidden" data-overview-mobile-skyline>
             <Image
               alt=""
               className="object-contain object-bottom opacity-[0.82] grayscale [filter:grayscale(1)_contrast(0.86)_brightness(1.15)]"
@@ -440,11 +500,14 @@ export function FairlendLandingOverviewSection() {
           </div>
         </div>
 
-        <div className="relative z-10 flex min-h-[760px] flex-col lg:min-h-[calc(100svh-116px)]">
-          <div className="lg:ml-[35px]">
+        <div
+          className="relative z-10 flex min-h-[760px] min-w-0 flex-col lg:min-h-[calc(100svh-116px)]"
+          data-overview-finance-panel
+        >
+          <div className="mx-auto max-w-[560px] text-center lg:ml-[35px] lg:text-left">
             <SectionLabel number="02">What We Finance</SectionLabel>
             <h2
-              className="mt-[42px] mb-0 max-w-[520px] text-wrap font-serif text-[clamp(48px,4.05vw,63px)] leading-[0.96] font-medium tracking-[-0.052em] text-[#050506]"
+              className="mx-auto mt-[42px] mb-0 max-w-[520px] text-wrap font-serif text-[clamp(48px,4.05vw,63px)] leading-[0.96] font-medium tracking-[-0.052em] text-[#050506] lg:mx-0"
               data-overview-title
             >
               <span className="block overflow-hidden">
@@ -459,11 +522,11 @@ export function FairlendLandingOverviewSection() {
               </span>
             </h2>
             <p
-              className="mt-[14px] mb-0 max-w-[430px] text-[14px] leading-[1.42] font-medium text-[#08090a]"
+              className="mx-auto mt-[14px] mb-0 max-w-[430px] text-[14px] leading-[1.42] font-medium text-[#08090a] lg:mx-0"
               data-overview-summary
             >
               From private mortgages to permit-heavy rental projects, these are the financing paths
-              Fairlend supports across the GTA.
+              FairLend supports across the GTA.
             </p>
           </div>
 

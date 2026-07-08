@@ -1,6 +1,11 @@
 import { neon, type NeonQueryFunction } from '@neondatabase/serverless'
 import { randomUUID } from 'crypto'
 
+import {
+  ensureCampaignScanLockedDocumentRelation,
+  markFairlendCampaignScanConverted,
+} from '@/lib/fairlend-campaign-attribution'
+
 type LeadStatus = 'draft' | 'started' | 'submitted'
 type LeadWorkflowStatus =
   | 'new'
@@ -18,6 +23,9 @@ export interface LeadPayload {
   address?: string
   addressDetails?: unknown
   adminNotes?: string
+  attribution?: unknown
+  campaign?: string
+  campaignScanId?: string
   formattedAddress?: string
   id?: string
   intent?: string
@@ -37,10 +45,23 @@ export interface NormalizedLeadPayload {
   address: string | null
   addressDetails: LeadJsonRecord
   adminNotes: string | null
+  attribution: LeadJsonRecord
+  campaign: string | null
+  campaignScanId: string | null
   email: string | null
   formattedAddress: string | null
   id: string
   intake: LeadJsonRecord
+  intakeAmount: string | null
+  intakeDetail: string | null
+  intakeFinancingNeeds: string | null
+  intakeInvestmentFocus: string | null
+  intakeMortgageBalance: string | null
+  intakeProjectStage: string | null
+  intakePropertyValue: string | null
+  intakeSummary: string | null
+  intakeTimeline: string | null
+  intakeType: string | null
   intent: string | null
   name: string | null
   nextActionAt: string | null
@@ -56,9 +77,22 @@ export type FairlendLeadAdminData = {
   address: string | null
   addressDetails: LeadJsonRecord
   adminNotes: string | null
+  attribution: LeadJsonRecord
+  campaign: string | null
+  campaignScanId: string | null
   email: string | null
   formattedAddress: string | null
   intake: LeadJsonRecord
+  intakeAmount: string | null
+  intakeDetail: string | null
+  intakeFinancingNeeds: string | null
+  intakeInvestmentFocus: string | null
+  intakeMortgageBalance: string | null
+  intakeProjectStage: string | null
+  intakePropertyValue: string | null
+  intakeSummary: string | null
+  intakeTimeline: string | null
+  intakeType: string | null
   intent: string | null
   leadId: string
   name: string | null
@@ -83,21 +117,43 @@ type ExistingFairlendLeadAdminData = Partial<
   intake?: unknown
 }
 
+type DerivedFairlendLeadIntakeDetails = Pick<
+  NormalizedLeadPayload,
+  | 'intakeAmount'
+  | 'intakeDetail'
+  | 'intakeFinancingNeeds'
+  | 'intakeInvestmentFocus'
+  | 'intakeMortgageBalance'
+  | 'intakeProjectStage'
+  | 'intakePropertyValue'
+  | 'intakeSummary'
+  | 'intakeTimeline'
+  | 'intakeType'
+>
+
+type FairlendLeadIntakeSummaryParts = Omit<DerivedFairlendLeadIntakeDetails, 'intakeSummary'>
+
 let leadSql: NeonQueryFunction<false, false> | null = null
 let schemaReady = false
 let adminSchemaReady = false
 
 export function normalizeLeadPayload(payload: LeadPayload): NormalizedLeadPayload {
   const id = normalizeId(payload.id)
+  const intake = isRecord(payload.intake) ? payload.intake : {}
+  const intakeDetails = deriveFairlendLeadIntakeDetails(intake, payload.intent)
 
   return {
     address: normalizeText(payload.address, 2000),
     addressDetails: isRecord(payload.addressDetails) ? payload.addressDetails : {},
     adminNotes: normalizeText(payload.adminNotes, 4000),
+    attribution: isRecord(payload.attribution) ? payload.attribution : {},
+    campaign: normalizeText(payload.campaign, 80),
+    campaignScanId: normalizeText(payload.campaignScanId, 80),
     email: normalizeText(payload.email, 320),
     formattedAddress: normalizeText(payload.formattedAddress, 2000),
     id,
-    intake: isRecord(payload.intake) ? payload.intake : {},
+    intake,
+    ...intakeDetails,
     intent: normalizeText(payload.intent, 80),
     name: normalizeText(payload.name, 240),
     nextActionAt: normalizeDateTime(payload.nextActionAt),
@@ -129,7 +185,10 @@ export async function persistFairlendLead(payload: LeadPayload): Promise<Persist
       intake_payload,
       name,
       email,
-      phone
+      phone,
+      campaign,
+      campaign_scan_id,
+      attribution_payload
     )
     VALUES (
       ${normalized.id},
@@ -143,7 +202,10 @@ export async function persistFairlendLead(payload: LeadPayload): Promise<Persist
       ${JSON.stringify(normalized.intake)},
       ${normalized.name},
       ${normalized.email},
-      ${normalized.phone}
+      ${normalized.phone},
+      ${normalized.campaign},
+      ${normalized.campaignScanId},
+      ${JSON.stringify(normalized.attribution)}::jsonb
     )
     ON CONFLICT (id) DO UPDATE SET
       source = EXCLUDED.source,
@@ -163,6 +225,12 @@ export async function persistFairlendLead(payload: LeadPayload): Promise<Persist
       name = COALESCE(EXCLUDED.name, lead.name),
       email = COALESCE(EXCLUDED.email, lead.email),
       phone = COALESCE(EXCLUDED.phone, lead.phone),
+      campaign = COALESCE(EXCLUDED.campaign, lead.campaign),
+      campaign_scan_id = COALESCE(EXCLUDED.campaign_scan_id, lead.campaign_scan_id),
+      attribution_payload = CASE
+        WHEN EXCLUDED.attribution_payload = '{}'::jsonb THEN lead.attribution_payload
+        ELSE EXCLUDED.attribution_payload
+      END,
       updated_at = now()
   `
 
@@ -174,6 +242,13 @@ export async function upsertFairlendLead(payload: LeadPayload): Promise<{ id: st
 
   await syncFairlendLeadAdminRecord(lead.normalized)
 
+  if (lead.normalized.status === 'submitted') {
+    await markFairlendCampaignScanConverted({
+      campaignScanId: lead.normalized.campaignScanId,
+      leadId: lead.id,
+    })
+  }
+
   return { id: lead.id }
 }
 
@@ -182,9 +257,22 @@ export function toFairlendLeadAdminData(payload: NormalizedLeadPayload): Fairlen
     address: payload.address,
     addressDetails: payload.addressDetails,
     adminNotes: payload.adminNotes,
+    attribution: payload.attribution,
+    campaign: payload.campaign,
+    campaignScanId: payload.campaignScanId,
     email: payload.email,
     formattedAddress: payload.formattedAddress,
     intake: payload.intake,
+    intakeAmount: payload.intakeAmount,
+    intakeDetail: payload.intakeDetail,
+    intakeFinancingNeeds: payload.intakeFinancingNeeds,
+    intakeInvestmentFocus: payload.intakeInvestmentFocus,
+    intakeMortgageBalance: payload.intakeMortgageBalance,
+    intakeProjectStage: payload.intakeProjectStage,
+    intakePropertyValue: payload.intakePropertyValue,
+    intakeSummary: payload.intakeSummary,
+    intakeTimeline: payload.intakeTimeline,
+    intakeType: payload.intakeType,
     intent: payload.intent,
     leadId: payload.id,
     name: payload.name,
@@ -213,18 +301,96 @@ export function mergeFairlendLeadAdminData(
       ? incoming.addressDetails
       : (recordOrNull(existing.addressDetails) ?? incoming.addressDetails),
     adminNotes: existing.adminNotes ?? incoming.adminNotes ?? null,
+    attribution: hasRecordValues(incoming.attribution)
+      ? incoming.attribution
+      : (recordOrNull(existing.attribution) ?? incoming.attribution),
+    campaign: incoming.campaign ?? existing.campaign ?? null,
+    campaignScanId: incoming.campaignScanId ?? existing.campaignScanId ?? null,
     email: incoming.email ?? existing.email ?? null,
     formattedAddress: incoming.formattedAddress ?? existing.formattedAddress ?? null,
     intake: hasRecordValues(incoming.intake)
       ? incoming.intake
       : (recordOrNull(existing.intake) ?? incoming.intake),
+    intakeAmount: incoming.intakeAmount ?? existing.intakeAmount ?? null,
+    intakeDetail: incoming.intakeDetail ?? existing.intakeDetail ?? null,
+    intakeFinancingNeeds: incoming.intakeFinancingNeeds ?? existing.intakeFinancingNeeds ?? null,
+    intakeInvestmentFocus: incoming.intakeInvestmentFocus ?? existing.intakeInvestmentFocus ?? null,
+    intakeMortgageBalance: incoming.intakeMortgageBalance ?? existing.intakeMortgageBalance ?? null,
+    intakeProjectStage: incoming.intakeProjectStage ?? existing.intakeProjectStage ?? null,
+    intakePropertyValue: incoming.intakePropertyValue ?? existing.intakePropertyValue ?? null,
+    intakeSummary: incoming.intakeSummary ?? existing.intakeSummary ?? null,
+    intakeTimeline: incoming.intakeTimeline ?? existing.intakeTimeline ?? null,
+    intakeType: incoming.intakeType ?? existing.intakeType ?? null,
     intent: incoming.intent ?? existing.intent ?? null,
     name: incoming.name ?? existing.name ?? null,
     nextActionAt: existing.nextActionAt ?? incoming.nextActionAt ?? null,
     phone: incoming.phone ?? existing.phone ?? null,
     placeId: incoming.placeId ?? existing.placeId ?? null,
     priority: existing.priority ?? incoming.priority,
+    source: incoming.source,
+    status: incoming.status,
     workflowStatus: existing.workflowStatus ?? incoming.workflowStatus,
+  }
+}
+
+export function deriveFairlendLeadIntakeDetails(
+  intake: LeadJsonRecord,
+  intent?: unknown,
+): DerivedFairlendLeadIntakeDetails {
+  const intakeType = firstText(
+    intake.requestedIntent,
+    intake.situationType,
+    intake.intent,
+    intent,
+    intake.page,
+  )
+  const intakeAmount = firstText(
+    intake.amount,
+    intake.amountNeeded,
+    intake.investmentAmount,
+    intake.approximateEquity,
+  )
+  const intakeTimeline = firstText(
+    intake.timeline,
+    intake.deadline,
+    intake.scheduledStart,
+    intake.preferredWindow,
+  )
+  const intakeDetail = firstText(
+    intake.detail,
+    intake.notes,
+    intake.message,
+    intake.documentStatus,
+    intake.googleEventLink,
+  )
+  const intakeProjectStage = firstText(intake.projectStage, intake.stage, intake.permitStage)
+  const intakeFinancingNeeds = firstText(intake.financingNeeds, intake.financingNeed)
+  const intakePropertyValue = firstText(intake.estimatedValue, intake.propertyValue)
+  const intakeMortgageBalance = firstText(intake.mortgageBalance, intake.currentMortgageBalance)
+  const intakeInvestmentFocus = firstText(intake.investmentFocus, intake.focus)
+  const intakeSummary = buildIntakeSummary({
+    intakeAmount,
+    intakeDetail,
+    intakeFinancingNeeds,
+    intakeInvestmentFocus,
+    intakeMortgageBalance,
+    intakeProjectStage,
+    intakePropertyValue,
+    intakeTimeline,
+    intakeType,
+  })
+
+  return {
+    intakeAmount,
+    intakeDetail,
+    intakeFinancingNeeds,
+    intakeInvestmentFocus,
+    intakeMortgageBalance,
+    intakeProjectStage,
+    intakePropertyValue,
+    intakeSummary,
+    intakeTimeline,
+    intakeType,
   }
 }
 
@@ -250,8 +416,21 @@ export async function syncFairlendLeadAdminRecord(payload: NormalizedLeadPayload
       formatted_address,
       place_id,
       intake,
+      intake_type,
+      intake_summary,
+      intake_amount,
+      intake_timeline,
+      intake_detail,
+      intake_project_stage,
+      intake_financing_needs,
+      intake_property_value,
+      intake_mortgage_balance,
+      intake_investment_focus,
       address_details,
       admin_notes,
+      campaign,
+      campaign_scan_id,
+      attribution,
       created_at,
       updated_at
     )
@@ -270,8 +449,21 @@ export async function syncFairlendLeadAdminRecord(payload: NormalizedLeadPayload
       ${data.formattedAddress},
       ${data.placeId},
       ${JSON.stringify(data.intake)}::jsonb,
+      ${data.intakeType},
+      ${data.intakeSummary},
+      ${data.intakeAmount},
+      ${data.intakeTimeline},
+      ${data.intakeDetail},
+      ${data.intakeProjectStage},
+      ${data.intakeFinancingNeeds},
+      ${data.intakePropertyValue},
+      ${data.intakeMortgageBalance},
+      ${data.intakeInvestmentFocus},
       ${JSON.stringify(data.addressDetails)}::jsonb,
       ${data.adminNotes},
+      ${data.campaign},
+      ${data.campaignScanId},
+      ${JSON.stringify(data.attribution)}::jsonb,
       now(),
       now()
     )
@@ -293,9 +485,25 @@ export async function syncFairlendLeadAdminRecord(payload: NormalizedLeadPayload
         WHEN EXCLUDED.intake = '{}'::jsonb THEN lead.intake
         ELSE EXCLUDED.intake
       END,
+      intake_type = COALESCE(EXCLUDED.intake_type, lead.intake_type),
+      intake_summary = COALESCE(EXCLUDED.intake_summary, lead.intake_summary),
+      intake_amount = COALESCE(EXCLUDED.intake_amount, lead.intake_amount),
+      intake_timeline = COALESCE(EXCLUDED.intake_timeline, lead.intake_timeline),
+      intake_detail = COALESCE(EXCLUDED.intake_detail, lead.intake_detail),
+      intake_project_stage = COALESCE(EXCLUDED.intake_project_stage, lead.intake_project_stage),
+      intake_financing_needs = COALESCE(EXCLUDED.intake_financing_needs, lead.intake_financing_needs),
+      intake_property_value = COALESCE(EXCLUDED.intake_property_value, lead.intake_property_value),
+      intake_mortgage_balance = COALESCE(EXCLUDED.intake_mortgage_balance, lead.intake_mortgage_balance),
+      intake_investment_focus = COALESCE(EXCLUDED.intake_investment_focus, lead.intake_investment_focus),
       address_details = CASE
         WHEN EXCLUDED.address_details = '{}'::jsonb THEN lead.address_details
         ELSE EXCLUDED.address_details
+      END,
+      campaign = COALESCE(EXCLUDED.campaign, lead.campaign),
+      campaign_scan_id = COALESCE(EXCLUDED.campaign_scan_id, lead.campaign_scan_id),
+      attribution = CASE
+        WHEN EXCLUDED.attribution = '{}'::jsonb THEN lead.attribution
+        ELSE EXCLUDED.attribution
       END,
       updated_at = now()
   `
@@ -309,7 +517,7 @@ function getLeadSql(): NeonQueryFunction<false, false> {
   const connectionString = process.env.DATABASE_URL || process.env.POSTGRES_URL
 
   if (!connectionString) {
-    throw new Error('DATABASE_URL or POSTGRES_URL is required to persist Fairlend leads')
+    throw new Error('DATABASE_URL or POSTGRES_URL is required to persist FairLend leads')
   }
 
   leadSql = neon(connectionString)
@@ -336,20 +544,29 @@ async function ensureFairlendLeadSchema(sql: NeonQueryFunction<false, false>): P
       name varchar(240),
       email varchar(320),
       phone varchar(80),
+      campaign varchar(80),
+      campaign_scan_id varchar(80),
+      attribution_payload jsonb NOT NULL DEFAULT '{}'::jsonb,
       created_at timestamptz NOT NULL DEFAULT now(),
       updated_at timestamptz NOT NULL DEFAULT now()
     )
   `
+  await sql`
+    ALTER TABLE fairlend.leads
+      ADD COLUMN IF NOT EXISTS campaign varchar(80),
+      ADD COLUMN IF NOT EXISTS campaign_scan_id varchar(80),
+      ADD COLUMN IF NOT EXISTS attribution_payload jsonb NOT NULL DEFAULT '{}'::jsonb
+  `
   await sql`CREATE INDEX IF NOT EXISTS leads_created_at_idx ON fairlend.leads (created_at)`
   await sql`CREATE INDEX IF NOT EXISTS leads_status_idx ON fairlend.leads (status)`
   await sql`CREATE INDEX IF NOT EXISTS leads_email_idx ON fairlend.leads (email)`
+  await sql`CREATE INDEX IF NOT EXISTS leads_campaign_idx ON fairlend.leads (campaign)`
+  await sql`CREATE INDEX IF NOT EXISTS leads_campaign_scan_id_idx ON fairlend.leads (campaign_scan_id)`
 
   schemaReady = true
 }
 
-async function ensureFairlendLeadAdminSchema(
-  sql: NeonQueryFunction<false, false>,
-): Promise<void> {
+async function ensureFairlendLeadAdminSchema(sql: NeonQueryFunction<false, false>): Promise<void> {
   if (adminSchemaReady) {
     return
   }
@@ -397,7 +614,20 @@ async function ensureFairlendLeadAdminSchema(
       formatted_address varchar,
       place_id varchar,
       intake jsonb,
+      intake_type varchar,
+      intake_summary varchar,
+      intake_amount varchar,
+      intake_timeline varchar,
+      intake_detail varchar,
+      intake_project_stage varchar,
+      intake_financing_needs varchar,
+      intake_property_value varchar,
+      intake_mortgage_balance varchar,
+      intake_investment_focus varchar,
       address_details jsonb,
+      campaign varchar,
+      campaign_scan_id varchar,
+      attribution jsonb,
       updated_at timestamp(3) with time zone NOT NULL DEFAULT now(),
       created_at timestamp(3) with time zone NOT NULL DEFAULT now(),
       CONSTRAINT fairlend_leads_lead_id_unique UNIQUE(lead_id)
@@ -408,7 +638,20 @@ async function ensureFairlendLeadAdminSchema(
       ADD COLUMN IF NOT EXISTS workflow_status enum_fairlend_leads_workflow_status NOT NULL DEFAULT 'new',
       ADD COLUMN IF NOT EXISTS priority enum_fairlend_leads_priority NOT NULL DEFAULT 'normal',
       ADD COLUMN IF NOT EXISTS next_action_at timestamp(3) with time zone,
-      ADD COLUMN IF NOT EXISTS admin_notes varchar
+      ADD COLUMN IF NOT EXISTS admin_notes varchar,
+      ADD COLUMN IF NOT EXISTS intake_type varchar,
+      ADD COLUMN IF NOT EXISTS intake_summary varchar,
+      ADD COLUMN IF NOT EXISTS intake_amount varchar,
+      ADD COLUMN IF NOT EXISTS intake_timeline varchar,
+      ADD COLUMN IF NOT EXISTS intake_detail varchar,
+      ADD COLUMN IF NOT EXISTS intake_project_stage varchar,
+      ADD COLUMN IF NOT EXISTS intake_financing_needs varchar,
+      ADD COLUMN IF NOT EXISTS intake_property_value varchar,
+      ADD COLUMN IF NOT EXISTS intake_mortgage_balance varchar,
+      ADD COLUMN IF NOT EXISTS intake_investment_focus varchar,
+      ADD COLUMN IF NOT EXISTS campaign varchar,
+      ADD COLUMN IF NOT EXISTS campaign_scan_id varchar,
+      ADD COLUMN IF NOT EXISTS attribution jsonb
   `
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_lead_id_idx ON fairlend_leads USING btree (lead_id)`
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_status_idx ON fairlend_leads USING btree (status)`
@@ -420,6 +663,13 @@ async function ensureFairlendLeadAdminSchema(
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_workflow_status_idx ON fairlend_leads USING btree (workflow_status)`
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_priority_idx ON fairlend_leads USING btree (priority)`
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_next_action_at_idx ON fairlend_leads USING btree (next_action_at)`
+  await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_intake_type_idx ON fairlend_leads USING btree (intake_type)`
+  await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_intake_amount_idx ON fairlend_leads USING btree (intake_amount)`
+  await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_intake_timeline_idx ON fairlend_leads USING btree (intake_timeline)`
+  await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_intake_project_stage_idx ON fairlend_leads USING btree (intake_project_stage)`
+  await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_campaign_idx ON fairlend_leads USING btree (campaign)`
+  await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_campaign_scan_id_idx ON fairlend_leads USING btree (campaign_scan_id)`
+  await ensureCampaignScanLockedDocumentRelation(sql)
 
   adminSchemaReady = true
 }
@@ -493,6 +743,55 @@ function normalizeText(value: unknown, maxLength: number): string | null {
   }
 
   return trimmed.slice(0, maxLength)
+}
+
+function firstText(...values: unknown[]): string | null {
+  for (const value of values) {
+    const text = stringifyIntakeValue(value)
+
+    if (text) {
+      return text
+    }
+  }
+
+  return null
+}
+
+function stringifyIntakeValue(value: unknown): string | null {
+  if (Array.isArray(value)) {
+    const list = value.map((item) => stringifyIntakeValue(item)).filter(Boolean)
+    return normalizeText(list.join(', '), 500)
+  }
+
+  if (typeof value === 'number' || typeof value === 'boolean') {
+    return normalizeText(String(value), 500)
+  }
+
+  if (typeof value === 'string') {
+    return normalizeText(value, 500)
+  }
+
+  return null
+}
+
+function buildIntakeSummary(details: FairlendLeadIntakeSummaryParts): string | null {
+  const summaryParts = [
+    labelValue('Type', details.intakeType),
+    labelValue('Amount', details.intakeAmount),
+    labelValue('Timeline', details.intakeTimeline),
+    labelValue('Stage', details.intakeProjectStage),
+    labelValue('Financing', details.intakeFinancingNeeds),
+    labelValue('Value', details.intakePropertyValue),
+    labelValue('Balance', details.intakeMortgageBalance),
+    labelValue('Focus', details.intakeInvestmentFocus),
+    labelValue('Notes', details.intakeDetail),
+  ].filter(Boolean)
+
+  return normalizeText(summaryParts.join(' | '), 1200)
+}
+
+function labelValue(label: string, value: string | null): string | null {
+  return value ? `${label}: ${value}` : null
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {

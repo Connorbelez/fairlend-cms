@@ -43,7 +43,7 @@ FairLend's job is not to force a private mortgage. It is to determine whether th
 ### Differentiators To Lead With
 
 1. **Clear answer quickly**
-   Target 3-day SLA from application to commitment for private mortgages, subject to complete documentation, underwriting, appraisal requirements, borrower cooperation, and lender fit.
+   Target 24-hour SLA from application to commitment for private mortgages, subject to complete documentation, underwriting, appraisal requirements, borrower cooperation, and lender fit.
 
 2. **Whole-picture underwriting**
    FairLend evaluates more than credit score and T4 income. The page should emphasize borrower capacity, collateral strength, property context, documentation quality, and exit path.
@@ -231,7 +231,7 @@ Borrowers need to feel:
 | Borrower objection | Page response | Proof or section |
 | --- | --- | --- |
 | "Private mortgages are predatory." | Private mortgages become predatory when fees are hidden, payout is punished, missed-payment charges spiral, and there is no realistic exit. FairLend's model is built around standardized terms, clear cost disclosure, $0 payout fees where applicable, low missed-payment administration fees, and exit-first structuring. | FSRA-foil problem section, "Built around the exit" section, fee transparency section. |
-| "I need money fast, but I do not want a careless deal." | FairLend targets a 3-day application-to-commitment SLA for complete private mortgage files, subject to underwriting and documentation. | Hero proof bar, process timeline. |
+| "I need money fast, but I do not want a careless deal." | FairLend targets a 24-hour application-to-commitment SLA for complete private mortgage files, subject to underwriting and documentation. | Hero proof bar, process timeline. |
 | "Will I get trapped in fees?" | FairLend emphasizes standardized commitments, transparent fee schedules, $0 payout fees where applicable, simple renewal options, and missed-payment fees designed for administration rather than punishment. | "Know the cost before you sign" section. |
 | "Could the legal documents contain fees I did not see in the commitment?" | The page should state the principle clearly: the commitment should contain the economic terms that matter. Borrowers should not discover material fees or payout restrictions only after reviewing dense closing documents. | "No hidden legal-doc economics" section. |
 | "What if I miss a payment?" | Servicing should focus on fast communication and practical resolution. If approved, use the contrast that FairLend's missed-payment administration fee is $50, not the $450-style charge borrowers often fear in private lending. | Fee philosophy section, FAQ. |
@@ -270,7 +270,7 @@ Secondary CTA:
 - `Speak With a Mortgage Specialist`
 
 Hero proof points:
-- Target 3-day commitment SLA for complete private mortgage files
+- Target 24-hour commitment SLA for complete private mortgage files
 - First, second, bridge, renewal, and equity-based structures
 - $0 payout fees where applicable
 - $50 missed-payment administration fee, subject to compliance approval before publication
@@ -310,7 +310,7 @@ Core copy:
 FairLend reviews the borrower, property, current mortgage position, documentation, timing, available equity, payment capacity, fee exposure, payout terms, renewal path, and exit strategy together. The goal is a financing structure that fits the situation, not a one-size-fits-all private mortgage.
 
 Feature blocks:
-- **Clear answer quickly:** target 3-day SLA from application to commitment for complete files.
+- **Clear answer quickly:** target 24-hour SLA from application to commitment for complete files.
 - **Standardized, transparent structure:** clear discussion of terms, costs, fees, renewal options, missed-payment charges, and payout considerations.
 - **$0 payout fees where applicable:** borrowers should not be penalized for successfully exiting into cheaper or more stable financing.
 - **Low missed-payment administration fees:** position missed-payment fees as administrative recovery, not punishment. Use the $50 vs $450 contrast only after compliance approval.
@@ -495,7 +495,7 @@ FairLend is building private mortgage financing around the practices borrowers w
 ## Claims Checklist Before Publishing
 
 Substantiate or qualify:
-- 3-day SLA: must be "target" and subject to complete file, underwriting, appraisal, borrower cooperation, and lender fit.
+- 24-hour SLA: must be "target" and subject to complete file, underwriting, appraisal, borrower cooperation, and lender fit.
 - No payout fees: use "where applicable" unless every relevant product supports it.
 - $50 missed-payment fee: publish only if the fee schedule is finalized and compliance approves the exact wording.
 - $450 missed-payment comparison: publish only if FairLend has substantiated the market benchmark with competitor documents, borrower files, or compliance-approved evidence. Otherwise, keep the contrast qualitative: "low missed-payment administration fees instead of punitive fee spirals."

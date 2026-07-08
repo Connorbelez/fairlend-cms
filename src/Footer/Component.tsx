@@ -2,16 +2,13 @@ import { getCachedGlobal } from '@/utilities/getGlobals'
 import React from 'react'
 
 import { fairlendRegistration } from '@/components/FairlendRegistrationDisclosure'
-import { defaultFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
-import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
+import { buildFairlendConsultationHref, buildFairlendContactHref } from '@/lib/fairlend-intake'
 import type { Footer as FooterGlobal } from '@/payload-types'
 import { WatermelonFooter } from './WatermelonFooter.client'
 
 const demoFooterLabels = new Set(['admin', 'payload', 'source code'])
-const footerContactHref = buildFairlendIntakeHref({
-  intent: 'contact',
-  source: 'footer-default-contact',
-})
+const footerBookingHref = buildFairlendConsultationHref('footer-default-book-consultation')
+const footerContactHref = buildFairlendContactHref('footer-default-contact')
 type FooterNavItem = NonNullable<FooterGlobal['navItems']>[number]
 
 const defaultFooterNavItems = [
@@ -20,9 +17,9 @@ const defaultFooterNavItems = [
   {
     link: {
       label: 'Book consultation',
-      newTab: true,
+      newTab: false,
       type: 'custom' as const,
-      url: defaultFairlendMicrosoftBookingsUrl,
+      url: footerBookingHref,
     },
   },
   { link: { label: 'Search', type: 'custom' as const, url: '/search' } },
@@ -45,10 +42,10 @@ function normalizeFooterNavItem(item: FooterNavItem): FooterNavItem {
       link: {
         ...item.link,
         label: 'Book consultation',
-        newTab: true,
+        newTab: false,
         reference: null,
         type: 'custom',
-        url: defaultFairlendMicrosoftBookingsUrl,
+        url: footerBookingHref,
       },
     }
   }
@@ -81,7 +78,6 @@ export async function Footer() {
 
   return (
     <WatermelonFooter
-      currentAsOf={fairlendRegistration.currentAsOf}
       doingBusinessAs={fairlendRegistration.doingBusinessAs}
       legalName={fairlendRegistration.legalName}
       navItems={navItems}

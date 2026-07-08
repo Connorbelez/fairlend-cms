@@ -33,7 +33,9 @@ test.describe('Frontend', () => {
     const judgmentSection = page.getByTestId('judgment-section')
     const testimonials = page.getByTestId('testimonials-marquee-section')
 
-    await expect(page.locator('h1').first()).toContainText(/Multiplex\s*Single Family\s*Land Purchase/)
+    await expect(page.locator('h1').first()).toContainText(
+      /multi-plex,?\s*single family,?\s*land/i,
+    )
     await expect(page.getByRole('link', { name: /Get in touch/i })).toBeVisible()
     await expect(page.getByRole('heading', { name: /Start your application/i })).toBeVisible()
     await expect(processBar).toBeVisible()

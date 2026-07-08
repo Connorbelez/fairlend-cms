@@ -1,12 +1,11 @@
 import type { ReactElement } from 'react'
 
 import { FairlendBorrowerCta } from '@/components/FairlendBorrowerCta'
-import { getFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
-import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
+import { buildFairlendConsultationHref, buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 
 import './investor-process.css'
 
-const reviewBookingHref = getFairlendMicrosoftBookingsUrl()
+const reviewBookingHref = buildFairlendConsultationHref('investor-process-review')
 const accessHref = buildFairlendIntakeHref({
   intent: 'invest',
   source: 'investor-process-cta',
@@ -126,8 +125,6 @@ export function FairlendInvestorProcess(): ReactElement {
             as="a"
             href={reviewBookingHref}
             label="Book an Investor Review"
-            rel="noreferrer"
-            target="_blank"
             variant="secondary"
           />
         </div>

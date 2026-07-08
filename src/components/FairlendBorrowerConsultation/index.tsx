@@ -7,10 +7,21 @@ import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 import { ConsultationForm } from './ConsultationForm.client'
 import './borrower-consultation.css'
 
-const reassuranceBullets: readonly string[] = [
-  'No judgment for a complicated file',
-  'Costs and terms discussed before signing',
-  'A real person reviews your situation',
+const reassuranceBullets: readonly { label: string; detail: string }[] = [
+  {
+    label: 'A real mortgage specialist reviews it.',
+    detail: 'Credit, income, equity, deadlines, and exit options are considered together.',
+  },
+  {
+    label: 'Costs before commitment.',
+    detail:
+      'Rate, fees, lender conditions, payout terms, and the repayment path are discussed before signing.',
+  },
+  {
+    label: 'Complex situations are welcome.',
+    detail:
+      'Bank declines, renewals, second mortgages, bridge needs, and equity access are handled plainly.',
+  },
 ]
 const borrowerSpecialistIntakeHref = buildFairlendIntakeHref({
   intent: 'mortgage',
@@ -37,26 +48,28 @@ export function FairlendBorrowerConsultation(): ReactElement {
         <div className="borrower-consultation__copy">
           <p className="borrower-consultation__kicker">Free consultation</p>
           <h2 className="borrower-consultation__title" id="borrower-consultation-title">
-            Start with a free private mortgage review.
+            Get your private mortgage options before the deadline.
           </h2>
           <p className="borrower-consultation__body">
-            Facing a renewal problem, a closing deadline, debt pressure, an equity need, or a bank
-            decline? FairLend will review the full picture and help you understand whether private
-            mortgage financing may fit, what structure could make sense, and what the exit plan
-            should be.
+            Facing a renewal problem, closing deadline, debt pressure, equity need, or bank decline?
+            FairLend reviews your property, balance, timeline, costs, risks, and exit plan before
+            recommending a move.
           </p>
 
           <ul className="borrower-consultation__reassurance">
             {reassuranceBullets.map((bullet) => (
-              <li className="borrower-consultation__reassurance-item" key={bullet}>
+              <li className="borrower-consultation__reassurance-item" key={bullet.label}>
                 <span aria-hidden="true" className="borrower-consultation__reassurance-mark" />
-                <span>{bullet}</span>
+                <span className="borrower-consultation__reassurance-copy">
+                  <strong>{bullet.label}</strong>
+                  <span>{bullet.detail}</span>
+                </span>
               </li>
             ))}
           </ul>
 
           <p className="borrower-consultation__support">
-            Clear answer. Clear terms. Clear next step.
+            You leave with a clearer answer, the terms to watch, and the next step to act on.
           </p>
 
           <div className="borrower-consultation__specialist">
@@ -68,7 +81,7 @@ export function FairlendBorrowerConsultation(): ReactElement {
             />
             <span className="borrower-consultation__phone">
               <Phone aria-hidden="true" size={14} strokeWidth={1.75} />
-              <span>Or call us directly</span>
+              <span>Prefer a call? We will route your request to a specialist.</span>
             </span>
           </div>
         </div>

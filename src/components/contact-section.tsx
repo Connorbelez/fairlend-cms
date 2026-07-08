@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { trackLeadFailed, trackLeadSubmitted } from '@/lib/analytics/events'
 import { cn } from '@/utilities/ui'
 
 const contactMethods = [
@@ -112,9 +113,19 @@ function ContactForm() {
       }
 
       event.currentTarget.reset()
+      trackLeadSubmitted({
+        intent: 'contact',
+        source: 'contact-section',
+        step: 'contact_submit',
+      })
       setState('success')
     } catch (submitError) {
       console.error('Contact lead submission failed', submitError)
+      trackLeadFailed({
+        intent: 'contact',
+        source: 'contact-section',
+        step: 'contact_submit',
+      })
       setError('We could not send the message. Try again or call FairLend directly.')
       setState('error')
     }
@@ -160,7 +171,7 @@ function ContactForm() {
       </FieldGroup>
       {state === 'success' ? (
         <p className="mt-4 text-sm font-medium text-muted-foreground" role="status">
-          Message received. FairLend will follow up.
+          Message received. FairLend has it.
         </p>
       ) : null}
       {state === 'error' ? <FieldError className="mt-4">{error}</FieldError> : null}

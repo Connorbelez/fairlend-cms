@@ -29,7 +29,12 @@ export function BorrowerDossier({
         xmlns="http://www.w3.org/2000/svg"
       >
         {/* Roof */}
-        <path d="M40 92 L160 32 L280 92" stroke="currentColor" strokeLinejoin="round" strokeWidth="1" />
+        <path
+          d="M40 92 L160 32 L280 92"
+          stroke="currentColor"
+          strokeLinejoin="round"
+          strokeWidth="1"
+        />
         {/* Walls */}
         <path d="M64 84 L64 168 L256 168 L256 84" stroke="currentColor" strokeWidth="1" />
         {/* Door */}
@@ -42,9 +47,13 @@ export function BorrowerDossier({
       </svg>
 
       <div className="borrower-dossier__head" data-borrower-dossier-head>
-        <span className="borrower-dossier__stamp">Private mortgage review</span>
-        <span className="borrower-dossier__file">File · opened before signing</span>
+        <span className="borrower-dossier__stamp">Private mortgage options</span>
+        <span className="borrower-dossier__file">Reviewed before you commit</span>
       </div>
+
+      <p className="borrower-dossier__summary">
+        See whether your equity, timeline, and exit support a private mortgage before you sign.
+      </p>
 
       <dl className="borrower-dossier__rows">
         {rows.map((row, index) => (
@@ -59,9 +68,7 @@ export function BorrowerDossier({
             key={row.label}
           >
             <dt className="borrower-dossier__label">
-              {row.emphasis && (
-                <span aria-hidden="true" className="borrower-dossier__marker" />
-              )}
+              {row.emphasis && <span aria-hidden="true" className="borrower-dossier__marker" />}
               {row.label}
             </dt>
             <dd className="borrower-dossier__detail">{row.detail}</dd>

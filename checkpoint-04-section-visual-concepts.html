@@ -306,9 +306,14 @@
       }
 
       .next-start {
-        min-height: 320px;
+        min-height: 190px;
+        padding-block: clamp(28px, 3.2vw, 40px);
         background: var(--deep);
         color: white;
+      }
+
+      .next-start .kicker {
+        margin-bottom: 14px;
       }
 
       .next-start h3,
@@ -318,19 +323,22 @@
       }
 
       .next-start p {
+        max-width: 860px;
+        margin-top: 6px;
         color: rgba(255, 255, 255, 0.72);
+        line-height: 1.34;
       }
 
       .equation-row {
         display: grid;
         grid-template-columns: 1.1fr 0.8fr 0.8fr 0.8fr 0.8fr;
         gap: 8px;
-        margin-top: 18px;
+        margin-top: 14px;
       }
 
       .equation-row span {
-        min-height: 54px;
-        padding: 12px;
+        min-height: 40px;
+        padding: 10px 12px;
         border: 1px solid rgba(255, 255, 255, 0.18);
         color: rgba(255, 255, 255, 0.82);
         font-size: 13px;
@@ -1005,7 +1013,7 @@
           "page_name": "FairLend homepage",
           "page_type": "multi-audience mortgage, construction financing, and investment landing page",
           "primary_audience": "GTA borrowers, builders, property owners, investors, and referral partners",
-          "primary_conversion": "Build-specific FairLend intake for visitors with a property, plan, or early build intent",
+          "primary_conversion": "Build-specific FairLend request review for visitors with a property, plan, or early build intent",
           "existing_section_order": [
             "FairlendLandingHero",
             "FairlendRouteSelector",

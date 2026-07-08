@@ -3,6 +3,8 @@ import type { ReactElement } from 'react'
 import './borrower-problem.css'
 
 type LedgerRow = {
+  /** The underwriting lens for the row. */
+  axis: string
   /** The trap behaviour on a rushed private mortgage. */
   rushed: string
   /** FairLend's structured counterpart. */
@@ -19,36 +21,42 @@ type LedgerRow = {
  * ledger ("A rushed yes" vs "A structured answer") with hairline rows — calm
  * and protective, not alarmist red.
  *
- * Copy locked from the page section breakdown.
+ * Ledger claims preserve the approved page-section wording.
  */
 const ledgerRows: readonly LedgerRow[] = [
   {
-    rushed: 'Fees discovered later, buried in dense legal documents.',
-    structured: 'Costs discussed before signing.',
+    axis: 'Cost visibility',
+    rushed: 'Fees show up late, after you already feel committed.',
+    structured: 'Costs are discussed before signing.',
   },
   {
-    rushed: 'Payout penalties that punish the exit.',
+    axis: 'Exit terms',
+    rushed: 'Payout penalties make refinancing or selling harder.',
     // COMPLIANCE: approved wording. Fallback: "Payout terms discussed before you commit."
     structured: '$0 payout fees where applicable.',
     compliance: true,
   },
   {
-    rushed: 'Missed-payment charges that spiral into a fee trap.',
+    axis: 'Payment issues',
+    rushed: 'A missed payment turns into escalating charges.',
     // COMPLIANCE: approved wording. Fallback: "Low missed-payment administration fees instead of punitive fee spirals."
     structured: 'Administration-focused servicing, not punishment.',
     compliance: true,
   },
   {
-    rushed: 'Renewal pressure that quietly consumes equity.',
-    structured: 'Maturity and renewal path discussed up front.',
+    axis: 'Renewal path',
+    rushed: 'You reach maturity with no clear next move.',
+    structured: 'Maturity and renewal options are discussed up front.',
   },
   {
-    rushed: 'Legal documents that change the economics.',
-    structured: 'Material mortgage economics belong in the commitment.',
+    axis: 'Key terms',
+    rushed: 'The real deal is scattered across dense documents.',
+    structured: 'Material mortgage economics are visible in the commitment.',
   },
   {
-    rushed: 'No practical plan for what happens next.',
-    structured: 'Exit path reviewed before funding.',
+    axis: 'Next step',
+    rushed: 'You get funds, but no plan to leave private money.',
+    structured: 'The exit path is reviewed before funding.',
   },
 ]
 
@@ -62,32 +70,33 @@ export function FairlendBorrowerProblem(): ReactElement {
       <div className="borrower-problem__inner">
         <header className="borrower-problem__header">
           <h2 className="borrower-problem__title" id="borrower-problem-title">
-            Private financing should solve pressure, not create a bigger problem.
+            A fast yes is not enough.
           </h2>
           <p className="borrower-problem__intro">
-            Most borrowers arrive under pressure: a renewal problem, a time-sensitive closing, debt or
-            tax pressure, bruised credit, non-traditional income, or a need to access equity. A fast
-            “yes” can feel like the only thing that matters. But a private mortgage is a higher-cost
-            tool. If the costs, risks, payment plan, payout rules, renewal mechanics, default
-            charges, and exit are not clear, speed can become expensive.
+            Most borrowers look at private financing because something is urgent: a renewal problem,
+            a closing date, tax or debt pressure, bruised credit, non-traditional income, or a need
+            to access equity. Speed matters. But a private mortgage is still a higher-cost tool. If
+            the costs, payment plan, payout rules, renewal path, and exit are unclear, the fast
+            answer can become the expensive answer.
           </p>
         </header>
 
         <div className="borrower-problem__ledger" data-borrower-ledger>
           <div className="borrower-problem__ledger-head" aria-hidden="true">
             <span className="borrower-problem__col-label borrower-problem__col-label--rushed">
-              A rushed yes
+              Rushed private money
             </span>
             <span className="borrower-problem__col-label borrower-problem__col-label--structured">
-              A structured answer
+              Clear private mortgage plan
             </span>
           </div>
 
           <ul className="borrower-problem__rows">
             {ledgerRows.map((row) => (
               <li className="borrower-problem__row" key={row.rushed}>
+                <span className="borrower-problem__row-axis">{row.axis}</span>
                 <div className="borrower-problem__cell borrower-problem__cell--rushed">
-                  <span className="borrower-problem__cell-label">A rushed yes</span>
+                  <span className="borrower-problem__cell-label">Rushed private money</span>
                   <span className="borrower-problem__cell-body">{row.rushed}</span>
                 </div>
                 <div
@@ -96,7 +105,7 @@ export function FairlendBorrowerProblem(): ReactElement {
                 >
                   <span className="borrower-problem__cell-label">
                     <span aria-hidden="true" className="borrower-problem__marker" />
-                    A structured answer
+                    Clear answer
                   </span>
                   <span className="borrower-problem__cell-body">{row.structured}</span>
                 </div>
@@ -106,7 +115,7 @@ export function FairlendBorrowerProblem(): ReactElement {
         </div>
 
         <p className="borrower-problem__support">
-          You should understand the mortgage before you sign it.
+          The deadline may be real. The mortgage still has to make sense before it is signed.
         </p>
       </div>
     </section>

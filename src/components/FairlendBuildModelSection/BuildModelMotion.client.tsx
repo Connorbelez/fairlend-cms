@@ -16,17 +16,21 @@ export function BuildModelMotion() {
     if (!section) return
     section.classList.add('is-motion-ready')
 
-    const status = section.querySelector<HTMLElement>('[data-bm-board-status]')
-    const count = section.querySelector<HTMLElement>('[data-bm-board-count]')
-    const title = section.querySelector<HTMLElement>('[data-bm-board-title]')
-    const boardCta = section.querySelector<HTMLAnchorElement>('[data-bm-board-cta]')
+    const statuses = Array.from(section.querySelectorAll<HTMLElement>('[data-bm-board-status]'))
+    const counts = Array.from(section.querySelectorAll<HTMLElement>('[data-bm-board-count]'))
+    const titles = Array.from(section.querySelectorAll<HTMLElement>('[data-bm-board-title]'))
+    const boardCtas = Array.from(section.querySelectorAll<HTMLAnchorElement>('[data-bm-board-cta]'))
     const primaryCta = section.querySelector<HTMLElement>('[data-bm-primary-cta]')
     const chips = Array.from(section.querySelectorAll<HTMLElement>('[data-bm-variable]'))
     const progress = Array.from(section.querySelectorAll<HTMLElement>('[data-bm-progress]'))
+    const dossierTabs = Array.from(section.querySelectorAll<HTMLElement>('[data-bm-dossier-card]'))
     const steps = Array.from(section.querySelectorAll<HTMLElement>('.bm-scroll-step'))
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const compactLayoutQuery = window.matchMedia('(max-width: 1080px)')
 
-    if (!status || !count || !title || steps.length === 0) return
+    if (statuses.length === 0 || counts.length === 0 || titles.length === 0 || steps.length === 0) {
+      return
+    }
 
     const swapTimers = new WeakMap<HTMLElement, number>()
     const swapTimerIds = new Set<number>()
@@ -61,19 +65,27 @@ export function BuildModelMotion() {
       swapTimerIds.add(timer)
     }
 
-    const setBoardCtaVisible = (visible: boolean) => {
-      if (!boardCta) return
-      boardCta.classList.toggle('is-visible', visible)
-      boardCta.setAttribute('aria-hidden', String(!visible))
-      boardCta.tabIndex = visible ? 0 : -1
+    let activeStepId = 'intro'
+    let activeDossierTabId = ''
+
+    const getBoardCtaVisibility = () => {
+      if (activeStepId && activeStepId !== 'intro') return true
+      if (!primaryCta) return false
+      return primaryCta.getBoundingClientRect().bottom < 0
+    }
+
+    const setBoardCtaVisible = () => {
+      const shouldShow = compactLayoutQuery.matches || getBoardCtaVisibility()
+      boardCtas.forEach((boardCta) => {
+        boardCta.classList.toggle('is-visible', shouldShow)
+        boardCta.setAttribute('aria-hidden', String(!shouldShow))
+        boardCta.tabIndex = shouldShow ? 0 : -1
+      })
     }
 
     const updateBoardCta = () => {
-      if (!primaryCta) return
-      setBoardCtaVisible(primaryCta.getBoundingClientRect().bottom < 0)
+      setBoardCtaVisible()
     }
-
-    let activeStepId = ''
 
     const applyState = (step: HTMLElement) => {
       const activeVariables = (step.dataset.bmVariables ?? '')
@@ -81,14 +93,22 @@ export function BuildModelMotion() {
         .map((variable) => variable.trim())
         .filter(Boolean)
       const stepId = step.dataset.bmStep
+      const dossierTabId = step.dataset.bmDossierTab ?? 'parcel'
       const paletteTheme = step.dataset.bmTheme ?? 'ivory'
 
-      if (stepId === activeStepId && section.dataset.paletteTheme === paletteTheme) return
+      if (
+        stepId === activeStepId &&
+        section.dataset.paletteTheme === paletteTheme &&
+        dossierTabId === activeDossierTabId
+      ) {
+        return
+      }
       activeStepId = stepId ?? ''
+      activeDossierTabId = dossierTabId
 
-      swapText(status, step.dataset.bmStatus ?? 'Model open')
-      swapText(count, step.dataset.bmCount ?? '03')
-      swapText(title, step.dataset.bmTitle ?? 'Property to equation')
+      statuses.forEach((status) => swapText(status, step.dataset.bmStatus ?? 'Model open'))
+      counts.forEach((count) => swapText(count, step.dataset.bmCount ?? '03'))
+      titles.forEach((title) => swapText(title, step.dataset.bmTitle ?? 'Property to equation'))
       section.dataset.paletteTheme = paletteTheme
 
       chips.forEach((chip) => {
@@ -100,6 +120,12 @@ export function BuildModelMotion() {
       progress.forEach((item) => {
         item.classList.toggle('is-active', item.dataset.bmProgress === stepId)
       })
+
+      dossierTabs.forEach((tab) => {
+        tab.classList.toggle('is-active', tab.dataset.bmDossierTab === dossierTabId)
+      })
+
+      updateBoardCta()
     }
 
     const getCurrentStep = () => {
@@ -180,6 +206,7 @@ export function BuildModelMotion() {
     window.addEventListener('scroll', requestStateUpdate, { passive: true })
     window.addEventListener('resize', requestBoardCtaUpdate)
     window.addEventListener('resize', requestStateUpdate)
+    compactLayoutQuery.addEventListener('change', requestBoardCtaUpdate)
 
     return () => {
       swapTimerIds.forEach((timer) => window.clearTimeout(timer))
@@ -189,6 +216,7 @@ export function BuildModelMotion() {
       window.removeEventListener('scroll', requestStateUpdate)
       window.removeEventListener('resize', requestBoardCtaUpdate)
       window.removeEventListener('resize', requestStateUpdate)
+      compactLayoutQuery.removeEventListener('change', requestBoardCtaUpdate)
       revealObserver.disconnect()
       stateObserver.disconnect()
       section.classList.remove('is-motion-ready')

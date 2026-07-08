@@ -18,6 +18,7 @@ export type FairlendRouteChoice = {
   steps: string[]
   ctaLabel: string
   href: string
+  learnMoreHref: string
   icon: FairlendRouteIcon
   illustration: FairlendRouteImage
   badge?: string
@@ -27,7 +28,6 @@ export type FairlendRouteHelpBannerContent = {
   title: string
   body: string
   ctaLabel: string
-  href: string
   image: FairlendRouteImage
 }
 

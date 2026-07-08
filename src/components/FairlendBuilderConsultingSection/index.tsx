@@ -3317,7 +3317,7 @@ function BuilderConsultingStyles() {
         }
 
         .builder-mobile-state .builder-headline {
-          max-width: 11.2ch;
+          max-width: 100%;
           margin-top: 0.52rem;
           font-size: clamp(2.75rem, 11.8vw, 4.15rem);
           line-height: 0.84;
@@ -3419,9 +3419,9 @@ function BuilderConsultingStyles() {
 
         .builder-mobile-equation-board__header span {
           color: var(--builder-blue);
-          font-family: "Bradley Hand", "Comic Sans MS", cursive;
+          font-family: Oxanium, var(--font-inter), ui-sans-serif, sans-serif;
           font-size: 0.72rem;
-          font-weight: 700;
+          font-weight: 900;
           line-height: 1;
         }
 
@@ -3518,6 +3518,7 @@ function BuilderConsultingStyles() {
         }
 
         .builder-mobile .builder-equation-card--compact strong {
+          overflow-wrap: anywhere;
           color: var(--builder-forest);
           font-size: clamp(0.92rem, 4.6vw, 1.18rem);
           line-height: 0.95;
@@ -3732,8 +3733,14 @@ function BuilderConsultingStyles() {
         }
 
         .builder-mobile-state .builder-headline {
-          max-width: 10.8ch;
+          max-width: 100%;
           font-size: clamp(2.28rem, 12vw, 2.75rem);
+        }
+
+        .builder-mobile-state .builder-headline span {
+          transform: none;
+          white-space: normal;
+          text-wrap: balance;
         }
 
         .builder-mobile-state .builder-subheadline {
@@ -3821,6 +3828,29 @@ function BuilderConsultingStyles() {
         .builder-cta--mobile {
           min-height: 2.48rem;
           margin-top: 0.52rem;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .builder-mobile {
+          padding-block: clamp(3.2rem, 13vw, 4.5rem);
+        }
+
+        .builder-mobile-state--scroll {
+          min-height: auto;
+          grid-template-rows: auto auto auto;
+        }
+
+        .builder-mobile-copy-window {
+          min-height: clamp(10.5rem, 45vw, 13.5rem);
+        }
+
+        .builder-mobile-stage {
+          margin-top: 0.72rem;
+        }
+
+        .builder-mobile-state--scroll .builder-cta--mobile {
+          margin-top: 0.72rem;
         }
       }
 
@@ -4167,6 +4197,88 @@ function BuilderConsultingStyles() {
 
         .builder-equation-line .builder-outcome-card--compact strong {
           font-size: clamp(1.34rem, 7vw, 1.82rem);
+        }
+      }
+
+      @media (max-width: 767px) {
+        .builder-consulting[data-builder-phone-static='true'] {
+          --builder-progress: 0;
+        }
+
+        .builder-consulting[data-builder-phone-static='true'] .builder-mobile {
+          padding-block: 3.2rem;
+        }
+
+        .builder-consulting[data-builder-phone-static='true'] .builder-mobile-state--scroll {
+          display: block;
+          min-height: 0;
+          padding: 0.92rem;
+        }
+
+        .builder-consulting[data-builder-phone-static='true'] .builder-mobile-copy-window {
+          display: block;
+          min-height: 0;
+          overflow: visible;
+        }
+
+        .builder-consulting[data-builder-phone-static='true'] .builder-mobile-copy-panel {
+          position: static;
+          display: block;
+          transform: none !important;
+        }
+
+        .builder-consulting[data-builder-phone-static='true'] .builder-mobile-copy-panel--2019 {
+          clip-path: none !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+        }
+
+        .builder-consulting[data-builder-phone-static='true'] .builder-mobile-copy-panel--2023,
+        .builder-consulting[data-builder-phone-static='true'] .builder-mobile-copy-panel--2026 {
+          display: none !important;
+        }
+
+        .builder-consulting[data-builder-phone-static='true'] .builder-mobile-state .builder-headline {
+          max-width: 100%;
+          margin-top: 0.56rem;
+          font-size: clamp(2.18rem, 11vw, 2.65rem);
+          line-height: 0.86;
+        }
+
+        .builder-consulting[data-builder-phone-static='true'] .builder-mobile-state .builder-subheadline {
+          max-width: 24rem;
+          font-size: 0.84rem;
+          line-height: 1.14;
+        }
+
+        .builder-consulting[data-builder-phone-static='true'] .builder-mobile-stage {
+          margin-top: 0.9rem;
+        }
+
+        .builder-consulting[data-builder-phone-static='true'] .builder-mobile-equation-board {
+          padding: 0.5rem;
+        }
+
+        .builder-consulting[data-builder-phone-static='true'] .builder-mobile .builder-equation-card--compact,
+        .builder-consulting[data-builder-phone-static='true'] .builder-mobile .builder-outcome-card--compact {
+          min-height: 0;
+        }
+
+        .builder-consulting[data-builder-phone-static='true'] .builder-mobile .builder-equation-card--compact strong {
+          font-size: clamp(0.88rem, 4vw, 1.04rem);
+        }
+
+        .builder-consulting[data-builder-phone-static='true'] .builder-mobile .builder-outcome-card--compact strong {
+          font-size: clamp(1.48rem, 7.4vw, 2rem);
+        }
+
+        .builder-consulting[data-builder-phone-static='true'] .builder-equation-card__static-label,
+        .builder-consulting[data-builder-phone-static='true'] .builder-equation-card__hint {
+          white-space: normal;
+        }
+
+        .builder-consulting[data-builder-phone-static='true'] .builder-cta--mobile {
+          margin-top: 0.78rem;
         }
       }
 

@@ -1,8 +1,7 @@
 import type { RequiredDataFromCollectionSlug } from 'payload'
 import type { Media } from '@/payload-types'
 
-import { defaultFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
-import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
+import { buildFairlendConsultationHref, buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 
 type HomeArgs = {
   heroImage: Media
@@ -24,7 +23,7 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
             type: 'custom',
             appearance: 'default',
             label: 'Book consultation',
-            url: defaultFairlendMicrosoftBookingsUrl,
+            url: buildFairlendConsultationHref('seed-home-hero-consultation'),
           },
         },
         {

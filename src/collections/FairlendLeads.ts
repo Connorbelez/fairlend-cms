@@ -17,12 +17,17 @@ export const FairlendLeads: CollectionConfig = {
       'status',
       'priority',
       'intent',
+      'intakeSummary',
+      'intakeAmount',
+      'intakeTimeline',
+      'intakeProjectStage',
       'name',
       'email',
       'phone',
       'address',
       'nextActionAt',
       'source',
+      'campaign',
       'updatedAt',
     ],
     group: 'Operations',
@@ -118,6 +123,24 @@ export const FairlendLeads: CollectionConfig = {
       required: true,
     },
     {
+      name: 'campaign',
+      type: 'text',
+      admin: {
+        description: 'QR campaign that first attributed this lead, when available.',
+        readOnly: true,
+      },
+      index: true,
+    },
+    {
+      name: 'campaignScanId',
+      type: 'text',
+      admin: {
+        description: 'QR scan id linked to this lead, when available.',
+        readOnly: true,
+      },
+      index: true,
+    },
+    {
       type: 'row',
       fields: [
         {
@@ -180,11 +203,135 @@ export const FairlendLeads: CollectionConfig = {
       },
     },
     {
+      type: 'collapsible',
+      admin: {
+        description:
+          'Normalized from the intake JSON so the collection table can show useful details across mortgage, build, investor, consultation, contact, and document leads.',
+        initCollapsed: false,
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'intakeType',
+              type: 'text',
+              admin: {
+                readOnly: true,
+                width: '25%',
+              },
+              index: true,
+              label: 'Intake Type',
+            },
+            {
+              name: 'intakeAmount',
+              type: 'text',
+              admin: {
+                readOnly: true,
+                width: '25%',
+              },
+              index: true,
+              label: 'Amount / Equity',
+            },
+            {
+              name: 'intakeTimeline',
+              type: 'text',
+              admin: {
+                readOnly: true,
+                width: '25%',
+              },
+              index: true,
+              label: 'Timeline',
+            },
+            {
+              name: 'intakeProjectStage',
+              type: 'text',
+              admin: {
+                readOnly: true,
+                width: '25%',
+              },
+              index: true,
+              label: 'Project Stage',
+            },
+          ],
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'intakeFinancingNeeds',
+              type: 'text',
+              admin: {
+                readOnly: true,
+                width: '25%',
+              },
+              label: 'Financing Needs',
+            },
+            {
+              name: 'intakePropertyValue',
+              type: 'text',
+              admin: {
+                readOnly: true,
+                width: '25%',
+              },
+              label: 'Property Value',
+            },
+            {
+              name: 'intakeMortgageBalance',
+              type: 'text',
+              admin: {
+                readOnly: true,
+                width: '25%',
+              },
+              label: 'Mortgage Balance',
+            },
+            {
+              name: 'intakeInvestmentFocus',
+              type: 'text',
+              admin: {
+                readOnly: true,
+                width: '25%',
+              },
+              label: 'Investment Focus',
+            },
+          ],
+        },
+        {
+          name: 'intakeSummary',
+          type: 'textarea',
+          admin: {
+            description: 'Compact one-line summary of the submitted intake details.',
+            readOnly: true,
+          },
+          label: 'Intake Summary',
+        },
+        {
+          name: 'intakeDetail',
+          type: 'textarea',
+          admin: {
+            description: 'Submitted notes, context, message, or document status.',
+            readOnly: true,
+          },
+          label: 'Intake Notes',
+        },
+      ],
+      label: 'Intake Detail Columns',
+    },
+    {
       name: 'addressDetails',
       type: 'json',
       admin: {
         description: 'Full Google address-details payload, when available.',
         maxHeight: 320,
+        readOnly: true,
+      },
+    },
+    {
+      name: 'attribution',
+      type: 'json',
+      admin: {
+        description: 'Campaign attribution payload captured from QR redirects.',
+        maxHeight: 240,
         readOnly: true,
       },
     },
@@ -197,8 +344,8 @@ export const FairlendLeads: CollectionConfig = {
     },
   ],
   labels: {
-    plural: 'Fairlend Leads',
-    singular: 'Fairlend Lead',
+    plural: 'FairLend Leads',
+    singular: 'FairLend Lead',
   },
   timestamps: true,
 }
