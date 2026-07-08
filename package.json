@@ -5,9 +5,9 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+    "build": "cross-env NODE_OPTIONS=\"--max-old-space-size=6144 --no-deprecation\" next build",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
-    "ci": "payload migrate && pnpm build",
+    "ci": "pnpm build",
     "dev": "portless",
     "dev:server": "cross-env NODE_OPTIONS=--no-deprecation next dev",
     "dev:prod": "cross-env NODE_OPTIONS=--no-deprecation rm -rf .next && pnpm build && pnpm start",
@@ -17,6 +17,7 @@
     "lint": "cross-env NODE_OPTIONS=--no-deprecation eslint .",
     "lint:fix": "cross-env NODE_OPTIONS=--no-deprecation eslint . --fix",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
+    "payload:migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
     "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "test": "pnpm run test:int && pnpm run test:e2e",
@@ -137,7 +138,7 @@
   },
   "packageManager": "pnpm@10.33.0",
   "engines": {
-    "node": ">=24.15.0"
+    "node": "24.x"
   },
   "portless": {
     "name": "fairlend-cms",

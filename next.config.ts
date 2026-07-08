@@ -39,6 +39,9 @@ const nextConfig: NextConfig = {
       }),
     ],
   },
+  typescript: {
+    tsconfigPath: './tsconfig.next.json',
+  },
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],

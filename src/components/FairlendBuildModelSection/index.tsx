@@ -660,10 +660,9 @@ function ThesisStrip() {
           <span className="bm-ts-rule" aria-hidden="true" />
         </div>
         <div className="bm-thesis-copy">
-          <h3 className="bm-ts-head">2019: single home still penciled.</h3>
+          <h3 className="bm-ts-head">Building shouldnt be the easy part</h3>
           <p className="bm-ts-body">
-            FairLend&rsquo;s thesis is simple: a profitable build is not only a construction
-            problem, it is a business equation.
+            A successful build is not only a construction problem, it is a business equation.
           </p>
         </div>
         <div

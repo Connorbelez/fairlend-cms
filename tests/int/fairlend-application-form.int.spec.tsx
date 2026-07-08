@@ -3,15 +3,20 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { FairlendApplicationForm } from '@/components/FairlendLandingHero/FairlendApplicationForm.client'
 
+const applicationFormMocks = vi.hoisted(() => ({
+  routerPush: vi.fn(),
+}))
+
 vi.mock('next/navigation', () => ({
   useRouter: () => ({
-    push: vi.fn(),
+    push: applicationFormMocks.routerPush,
   }),
 }))
 
 describe('FairlendApplicationForm', () => {
   afterEach(() => {
     cleanup()
+    applicationFormMocks.routerPush.mockReset()
     vi.restoreAllMocks()
   })
 
@@ -99,5 +104,47 @@ describe('FairlendApplicationForm', () => {
     expect(screen.getByLabelText('Address').getAttribute('autocomplete')).toBe(
       'section-mortgage street-address',
     )
+  })
+
+  it('submits mortgage requests as direct leads without redirecting to the intake route', async () => {
+    const fetchMock = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify({ id: 'lead-mortgage-1' }), {
+        headers: { 'content-type': 'application/json' },
+        status: 200,
+      }),
+    )
+
+    render(<FairlendApplicationForm />)
+
+    fireEvent.click(screen.getByRole('tab', { name: /^Get a mortgage/ }))
+    fireEvent.change(screen.getByLabelText('Name'), { target: { value: 'Morgan Borrower' } })
+    fireEvent.change(screen.getByLabelText('Email'), { target: { value: 'morgan@example.com' } })
+    fireEvent.change(screen.getByLabelText('Phone number'), { target: { value: '416-555-0199' } })
+    fireEvent.change(screen.getByLabelText('Address'), { target: { value: '123 Queen St W' } })
+    fireEvent.change(screen.getByLabelText('Approximate equity in home'), {
+      target: { value: '250000' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: /Start mortgage request/i }))
+
+    await waitFor(() => {
+      expect(fetchMock).toHaveBeenCalledWith('/api/leads', expect.any(Object))
+    })
+
+    const [, requestInit] = fetchMock.mock.calls[0] as [string, RequestInit]
+    expect(JSON.parse(String(requestInit.body))).toMatchObject({
+      address: '123 Queen St W',
+      email: 'morgan@example.com',
+      intent: 'mortgage',
+      intake: {
+        approximateEquity: '250000',
+        homepageValue: '123 Queen St W',
+      },
+      name: 'Morgan Borrower',
+      phone: '416-555-0199',
+      source: 'homepage-mortgage-application-form',
+      status: 'submitted',
+    })
+    expect(applicationFormMocks.routerPush).not.toHaveBeenCalled()
+    await expect(screen.findByText('Received. We will follow up shortly.')).resolves.toBeTruthy()
   })
 })

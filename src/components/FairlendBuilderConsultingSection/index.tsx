@@ -78,10 +78,10 @@ const states = {
   '2019': {
     year: '2019',
     eyebrow: 'Builder Consulting',
-    headlineTop: '2019: SINGLE HOME',
-    headlineBottom: 'STILL PENCILED.',
+    headlineTop: 'Building shouldnt be',
+    headlineBottom: 'the easy part',
     subheadline:
-      'A single-family build could still absorb the land, construction cost, program, and resale assumptions.',
+      'A successful build is not only a construction problem, it is a business equation.',
     label: '2019',
     note: '(single home still profitable)',
     panelNote: '(single-family home build)',
