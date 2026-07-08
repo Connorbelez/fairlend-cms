@@ -130,8 +130,10 @@ export function BuildModelMotion() {
 
     const getCurrentStep = () => {
       const viewportAnchor = window.innerHeight * 0.48
+      const visibleSteps = steps.filter((step) => step.getClientRects().length > 0)
+      const candidateSteps = visibleSteps.length > 0 ? visibleSteps : steps
 
-      return steps.reduce(
+      return candidateSteps.reduce(
         (closest, step) => {
           const rect = step.getBoundingClientRect()
           const stepCenter = rect.top + rect.height / 2

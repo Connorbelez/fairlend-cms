@@ -1,5 +1,3 @@
-import type { Metadata } from 'next'
-
 import { FairlendBorrowerConsultation } from '@/components/FairlendBorrowerConsultation'
 import { FairlendBorrowerDifferentiators } from '@/components/FairlendBorrowerDifferentiators'
 import { FairlendBorrowerFaq } from '@/components/FairlendBorrowerFaq'
@@ -10,12 +8,24 @@ import { FairlendBorrowerScenarios } from '@/components/FairlendBorrowerScenario
 import { FairlendBorrowerSolution } from '@/components/FairlendBorrowerSolution'
 import { FairlendBorrowerTrustProof } from '@/components/FairlendBorrowerTrustProof'
 import { FairlendLandingRail } from '@/components/FairlendLandingRail'
+import { FairlendServiceSeo } from '@/components/SEO/FairlendRouteSeo'
+import { buildFairlendMetadata } from '@/utilities/seo'
 
-export const metadata: Metadata = {
-  title: 'Private Mortgage Financing Ontario | Fast, Clear Private Mortgage Options | FairLend',
+const pageDescription =
+  'Need a private mortgage in Ontario? FairLend helps borrowers review first, second, bridge, renewal, and equity-based options with clear costs, timing, and an exit plan.'
+
+export const metadata = buildFairlendMetadata({
+  description: pageDescription,
+  path: '/borrowers/private-mortgage-financing',
+  title: 'Private Mortgage Financing Ontario | FairLend',
+})
+
+const serviceSeo = {
   description:
-    'Need a private mortgage in Ontario? FairLend helps borrowers review first, second, bridge, renewal, and equity-based options with clear costs, timing, and an exit plan.',
-  alternates: { canonical: '/borrowers/private-mortgage-financing' },
+    'Private mortgage financing review for Ontario borrowers considering first, second, bridge, renewal, and equity-based mortgage options.',
+  name: 'Private Mortgage Financing Ontario',
+  path: '/borrowers/private-mortgage-financing',
+  serviceType: 'Private mortgage financing',
 }
 
 /**
@@ -27,6 +37,7 @@ export const metadata: Metadata = {
 export default function BorrowerPrivateMortgageFinancingPage() {
   return (
     <div className="fairlend-landing-page min-h-svh bg-[#f8f7f5]">
+      <FairlendServiceSeo {...serviceSeo} />
       <FairlendLandingRail gutterTexture="fabric-of-squares">
         <FairlendBorrowerHero />
       </FairlendLandingRail>

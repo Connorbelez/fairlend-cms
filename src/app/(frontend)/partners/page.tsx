@@ -1,5 +1,3 @@
-import type { Metadata } from 'next'
-
 import { FairlendLandingRail } from '@/components/FairlendLandingRail'
 import {
   FairlendPartnerBroker,
@@ -17,12 +15,24 @@ import {
   FairlendPartnerRealEstate,
   FairlendPartnerWhoFor,
 } from '@/components/FairlendPartnerProgram'
+import { FairlendServiceSeo } from '@/components/SEO/FairlendRouteSeo'
+import { buildFairlendMetadata } from '@/utilities/seo'
 
-export const metadata: Metadata = {
-  title: 'FairLend Partner Program | Build Financing for the GTA Build Ecosystem',
+const pageDescription =
+  'The FairLend Partner Program helps GTA brokers, agents, architects, planners, engineers, and builders bring financing structure into complex build projects earlier.'
+
+export const metadata = buildFairlendMetadata({
+  description: pageDescription,
+  path: '/partners',
+  title: 'FairLend Partner Program | GTA Build Financing',
+})
+
+const serviceSeo = {
   description:
-    'The FairLend Partner Program gives mortgage brokers, agents, architects, planners, engineers, builders, and the wider GTA build ecosystem an end-to-end construction financing and execution partner. Bring us in before the project hardens.',
-  alternates: { canonical: '/partners' },
+    'Partner program for GTA real estate, mortgage, design, planning, and construction professionals who need financing structure for build projects.',
+  name: 'FairLend Partner Program',
+  path: '/partners',
+  serviceType: 'Build financing partner program',
 }
 
 /**
@@ -40,6 +50,7 @@ export const metadata: Metadata = {
 export default function PartnerProgramPage() {
   return (
     <div className="fairlend-landing-page fairlend-partners-page min-h-svh bg-[#f8f7f5]">
+      <FairlendServiceSeo {...serviceSeo} />
       <FairlendLandingRail
         className="fairlend-partner-rail fairlend-partner-rail--paper"
         gutterTexture="fabric-of-squares"

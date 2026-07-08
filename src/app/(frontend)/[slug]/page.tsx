@@ -8,7 +8,10 @@ import React, { cache } from 'react'
 
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
+import { JsonLd } from '@/components/SEO/JsonLd'
 import { generateMeta } from '@/utilities/generateMeta'
+import { buildBreadcrumbJsonLd } from '@/utilities/structuredData'
+import { getPayloadPagePath } from '@/utilities/seo'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
@@ -66,6 +69,12 @@ export default async function Page({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
+      <JsonLd
+        data={buildBreadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: page.title, path: getPayloadPagePath(page) },
+        ])}
+      />
       <RenderHero {...hero} />
       <RenderBlocks blocks={layout} />
     </article>
@@ -80,7 +89,7 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
     slug: decodedSlug,
   })
 
-  return generateMeta({ doc: page })
+  return generateMeta({ collection: 'pages', doc: page })
 }
 
 const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {

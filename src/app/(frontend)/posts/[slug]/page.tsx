@@ -10,8 +10,11 @@ import RichText from '@/components/RichText'
 
 import type { Post } from '@/payload-types'
 
+import { JsonLd } from '@/components/SEO/JsonLd'
 import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
+import { buildArticleJsonLd, buildBreadcrumbJsonLd } from '@/utilities/structuredData'
+import { getPayloadDescription, getPayloadPostPath, getPayloadTitle } from '@/utilities/seo'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
@@ -60,6 +63,23 @@ export default async function Post({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
+      <JsonLd
+        data={[
+          buildBreadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: 'Resources', path: '/posts' },
+            { name: post.title, path: getPayloadPostPath(post) },
+          ]),
+          buildArticleJsonLd({
+            dateModified: post.updatedAt,
+            datePublished: post.publishedAt || post.createdAt,
+            description: getPayloadDescription(post),
+            image: post.meta?.image || post.heroImage,
+            path: getPayloadPostPath(post),
+            title: getPayloadTitle(post),
+          }),
+        ]}
+      />
       <PostHero post={post} />
 
       <div className="flex flex-col items-center gap-4 pt-8">
@@ -83,7 +103,7 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const decodedSlug = decodeURIComponent(slug)
   const post = await queryPostBySlug({ slug: decodedSlug })
 
-  return generateMeta({ doc: post })
+  return generateMeta({ collection: 'posts', doc: post })
 }
 
 const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {

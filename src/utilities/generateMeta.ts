@@ -1,49 +1,28 @@
 import type { Metadata } from 'next'
 
-import type { Media, Page, Post, Config } from '../payload-types'
+import type { Page, Post } from '../payload-types'
 
-import { mergeOpenGraph } from './mergeOpenGraph'
-import { getServerSideURL } from './getURL'
-
-const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
-  const serverUrl = getServerSideURL()
-
-  let url = serverUrl + '/website-template-OG.webp'
-
-  if (image && typeof image === 'object' && 'url' in image) {
-    const ogUrl = image.sizes?.og?.url
-
-    url = ogUrl ? serverUrl + ogUrl : serverUrl + image.url
-  }
-
-  return url
-}
+import {
+  buildFairlendMetadata,
+  getPayloadDescription,
+  getPayloadPagePath,
+  getPayloadPostPath,
+  getPayloadTitle,
+} from './seo'
 
 export const generateMeta = async (args: {
+  collection?: 'pages' | 'posts'
   doc: Partial<Page> | Partial<Post> | null
 }): Promise<Metadata> => {
-  const { doc } = args
+  const { collection = 'pages', doc } = args
+  const path =
+    collection === 'posts' ? getPayloadPostPath(doc as Partial<Post>) : getPayloadPagePath(doc)
 
-  const ogImage = getImageURL(doc?.meta?.image)
-
-  const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Payload Website Template'
-    : 'Payload Website Template'
-
-  return {
-    description: doc?.meta?.description,
-    openGraph: mergeOpenGraph({
-      description: doc?.meta?.description || '',
-      images: ogImage
-        ? [
-            {
-              url: ogImage,
-            },
-          ]
-        : undefined,
-      title,
-      url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
-    }),
-    title,
-  }
+  return buildFairlendMetadata({
+    description: getPayloadDescription(doc),
+    image: doc?.meta?.image,
+    path,
+    title: getPayloadTitle(doc),
+    type: collection === 'posts' ? 'article' : 'website',
+  })
 }

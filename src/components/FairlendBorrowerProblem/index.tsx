@@ -32,8 +32,7 @@ const ledgerRows: readonly LedgerRow[] = [
   {
     axis: 'Exit terms',
     rushed: 'Payout penalties make refinancing or selling harder.',
-    // COMPLIANCE: approved wording. Fallback: "Payout terms discussed before you commit."
-    structured: '$0 payout fees where applicable.',
+    structured: 'Low payout fees where applicable.',
     compliance: true,
   },
   {

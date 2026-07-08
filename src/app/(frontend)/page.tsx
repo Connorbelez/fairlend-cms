@@ -1,5 +1,3 @@
-import type { Metadata } from 'next'
-
 import { FairlendBuilderConsultingSection } from '@/components/FairlendBuilderConsultingSection'
 import { FairlendBuildModelSection } from '@/components/FairlendBuildModelSection'
 import { FairlendFaqSection } from '@/components/FairlendFaqSection'
@@ -9,12 +7,14 @@ import { FairlendLandingRail } from '@/components/FairlendLandingRail'
 import { FairlendLeadershipSection } from '@/components/FairlendLeadershipSection'
 import { FairlendRouteSelector } from '@/components/FairlendRouteSelector'
 import { FairlendScrollChoreography } from '@/components/FairlendScrollChoreography.client'
+import { buildFairlendMetadata } from '@/utilities/seo'
 
-export const metadata: Metadata = {
-  title: 'FairLend | Multiplex, Single Family, Land, and Private Mortgage Financing',
+export const metadata = buildFairlendMetadata({
   description:
     'FairLend guides Toronto builders, borrowers, and investors through private mortgage, acquisition, construction, and completion financing.',
-}
+  path: '/',
+  title: 'FairLend Mortgage | Private Real Estate Financing Ontario',
+})
 
 export default function Page() {
   return (

@@ -389,6 +389,13 @@
   align-self: center;
 }
 
+.consultation-form__microcopy a {
+  color: var(--borrower-consultation-ink);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* ---- Success state ---- */
 .consultation-form--success {
   display: flex;

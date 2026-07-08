@@ -1,13 +1,13 @@
-import type { Metadata } from 'next'
-
 import { FairlendUnderConstructionEmptyState } from '@/components/FairlendUnderConstructionEmptyState'
+import { buildFairlendMetadata } from '@/utilities/seo'
 
-export const metadata: Metadata = {
-  title: 'CMHC MLI Select Multiplex Financing | FairLend Mortgage',
+export const metadata = buildFairlendMetadata({
   description:
     'FairLend helps package MLI Select-ready multiplex files around affordability, accessibility, energy detail, budget, debt, unit mix, and financing route.',
-  alternates: { canonical: '/cmhc-mli-select-multiplex-financing' },
-}
+  index: false,
+  path: '/cmhc-mli-select-multiplex-financing',
+  title: 'CMHC MLI Select Multiplex Financing | FairLend',
+})
 
 export default function CmhcMliSelectMultiplexFinancingPage() {
   return (

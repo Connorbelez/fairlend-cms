@@ -71,17 +71,21 @@ function setText(targets: HTMLElement[], value: string) {
 export function FairlendBuilderConsultingMotion() {
   useEffect(() => {
     const section = document.querySelector<HTMLElement>('[data-builder-consulting]')
-    if (!section || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (!section) return
+    delete section.dataset.builderPhoneStatic
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (window.matchMedia('(max-width: 767px)').matches) {
+        section.dataset.builderPhoneStatic = 'true'
+      }
+      return
+    }
 
     gsap.registerPlugin(ScrollTrigger)
 
     const context = gsap.context(() => {
       const isDesktop = window.matchMedia('(min-width: 1024px)').matches
       const isPhone = window.matchMedia('(max-width: 767px)').matches
-      if (isPhone) {
-        section.dataset.builderPhoneStatic = 'true'
-        return
-      }
       const select = gsap.utils.selector(section)
       const leftTrack = section.querySelector<HTMLElement>('[data-builder-left-track]')
       const bottomTrack = section.querySelector<HTMLElement>('[data-builder-bottom-track]')
@@ -89,6 +93,11 @@ export function FairlendBuilderConsultingMotion() {
       const house = section.querySelector('[data-builder-house]')
       const mobileCard = section.querySelector<HTMLElement>('[data-builder-mobile-card]')
       const mobileDashboard = section.querySelector<HTMLElement>('[data-builder-mobile-dashboard]')
+      const mobilePrimaryRows = mobileDashboard
+        ? gsap.utils.toArray<HTMLElement>(
+            mobileDashboard.querySelectorAll('[data-builder-equation-line="single-family"]'),
+          )
+        : []
       const connectorLines = select('[data-builder-connector]')
       const primaryRows = gsap.utils.toArray<HTMLElement>(
         select('[data-builder-equation-line="single-family"]'),
@@ -234,8 +243,9 @@ export function FairlendBuilderConsultingMotion() {
       gsap.set(emergingRows, {
         autoAlpha: 0,
         clipPath: 'inset(0% 0% 100% 0%)',
-        height: 'auto',
+        height: isDesktop ? 'auto' : 0,
         marginTop: isDesktop ? 6 : 7,
+        overflow: 'hidden',
         transformOrigin: 'top center',
         y: 10,
       })
@@ -261,6 +271,7 @@ export function FairlendBuilderConsultingMotion() {
             autoAlpha: 1,
             clipPath: 'inset(0% 0% 0% 0%)',
             duration: 0.28,
+            height: 'auto',
             stagger: 0.045,
             y: 0,
           },
@@ -274,6 +285,20 @@ export function FairlendBuilderConsultingMotion() {
       if (mobileDashboard) {
         timeline.to(mobileDashboard, { duration: 0.2, scale: 0.985, y: -6 }, 0.12)
         timeline.to(mobileDashboard, { duration: 0.28, scale: 1, y: 0 }, 0.64)
+      }
+      if (isPhone && mobilePrimaryRows.length > 0) {
+        timeline.to(
+          mobilePrimaryRows,
+          {
+            autoAlpha: 0,
+            clipPath: 'inset(0% 0% 100% 0%)',
+            duration: 0.18,
+            height: 0,
+            marginTop: 0,
+            y: -8,
+          },
+          0.66,
+        )
       }
 
       animateYearSwap(timeline, '2019', '2023', 0.24)
@@ -329,13 +354,13 @@ export function FairlendBuilderConsultingMotion() {
       const scrollTrigger = ScrollTrigger.create({
         animation: timeline,
         anticipatePin: 1,
-        end: isDesktop ? '+=310%' : isPhone ? 'bottom top' : '+=245%',
+        end: isDesktop ? '+=310%' : isPhone ? '+=235%' : '+=245%',
         invalidateOnRefresh: true,
         onUpdate: (self) => syncFromProgress(self.progress),
-        pin: !isPhone,
+        pin: true,
         refreshPriority: 20,
         scrub: isDesktop ? 1.05 : 1,
-        start: isPhone ? 'top 74%' : 'top top',
+        start: 'top top',
         trigger: section,
       })
 

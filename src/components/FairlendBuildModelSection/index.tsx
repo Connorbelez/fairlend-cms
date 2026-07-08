@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import type { ReactNode } from 'react'
 
@@ -257,13 +258,16 @@ function stateData(state: BoardState) {
 function DossierParcelSketch() {
   return (
     <div className="bm-parcel-canvas">
-      <div className="bm-parcel-plan" aria-hidden="true">
-        <span className="bm-parcel-line bm-parcel-line--front">33 ft frontage</span>
-        <span className="bm-parcel-line bm-parcel-line--depth">118 ft depth</span>
-        <span className="bm-parcel-building bm-parcel-building--main">4 units</span>
-        <span className="bm-parcel-building bm-parcel-building--rear">suite</span>
-        <span className="bm-parcel-setback bm-parcel-setback--left" />
-        <span className="bm-parcel-setback bm-parcel-setback--right" />
+      <div className="bm-parcel-art" aria-hidden="true">
+        <Image
+          alt=""
+          className="bm-parcel-art-image"
+          height={1024}
+          priority
+          sizes="(max-width: 768px) 84vw, 360px"
+          src="/assets/visual-assets/build-model-parcel-sketch/build-model-parcel-sketch.webp"
+          width={1536}
+        />
       </div>
       <dl className="bm-dossier-mini-stats">
         <div>

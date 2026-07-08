@@ -1,5 +1,3 @@
-import type { Metadata } from 'next'
-
 import { FairlendInvestorFinalCta } from '@/components/FairlendInvestorFinalCta'
 import { FairlendInvestorFit } from '@/components/FairlendInvestorFit'
 import { FairlendInvestorFaq } from '@/components/FairlendInvestorFaq'
@@ -15,13 +13,24 @@ import { FairlendInvestorProtectionStack } from '@/components/FairlendInvestorPr
 import { FairlendInvestorRateReframe } from '@/components/FairlendInvestorRateReframe'
 import { FairlendInvestorRegulatorBand } from '@/components/FairlendInvestorRegulatorBand'
 import { FairlendLandingRail } from '@/components/FairlendLandingRail'
+import { FairlendServiceSeo } from '@/components/SEO/FairlendRouteSeo'
+import { buildFairlendMetadata } from '@/utilities/seo'
 
-export const metadata: Metadata = {
-  title:
-    'Private Mortgage Investing for Investors | Underwritten & Fully Managed | FairLend',
+const pageDescription =
+  'Access curated private mortgage opportunities through FairLend with conservative underwriting, investor portal visibility, administration, and legal recovery support.'
+
+export const metadata = buildFairlendMetadata({
+  description: pageDescription,
+  path: '/investing/private-mortgage-lending',
+  title: 'Private Mortgage Investing Ontario | FairLend',
+})
+
+const serviceSeo = {
   description:
-    'Access curated, pre-vetted private mortgage opportunities through FairLend. Conservative underwriting, double valuation review, a transparent investor portal, automated disbursements, and a dedicated legal recovery team — on one fully managed platform.',
-  alternates: { canonical: '/investing/private-mortgage-lending' },
+    'Private mortgage investment access and administration for Ontario investors reviewing secured real estate lending opportunities.',
+  name: 'Private Mortgage Investing Ontario',
+  path: '/investing/private-mortgage-lending',
+  serviceType: 'Private mortgage investing',
 }
 
 /**
@@ -41,6 +50,7 @@ export const metadata: Metadata = {
 export default function InvestorPrivateMortgageLendingPage() {
   return (
     <div className="fairlend-landing-page min-h-svh bg-[#f8f7f5]">
+      <FairlendServiceSeo {...serviceSeo} />
       <FairlendLandingRail>
         <FairlendInvestorHero />
       </FairlendLandingRail>

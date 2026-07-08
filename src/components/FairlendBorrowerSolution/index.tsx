@@ -53,12 +53,11 @@ const supportingCells: readonly MosaicCell[] = [
   },
   {
     body: 'Leaving for better financing should not become the expensive option.',
-    // COMPLIANCE: approved wording. Fallback: "Payout terms discussed before you commit."
     compliance: true,
     icon: LogOut,
     id: 'payout-fees',
     label: 'Payout',
-    title: '$0 payout fees where applicable',
+    title: 'Low payout fees where applicable',
   },
   {
     body: 'Servicing should solve payment issues early, not turn stress into a fee spiral.',

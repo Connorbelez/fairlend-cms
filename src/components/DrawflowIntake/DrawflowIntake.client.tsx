@@ -939,7 +939,10 @@ function BuildPathHeroStart({
         </button>
         <p className="bp-secure-note">
           <LockKeyhole aria-hidden="true" strokeWidth={1.9} />
-          <span>Your information is secure and never shared.</span>
+          <span>
+            Your information is protected and used only to review your request, respond, and take
+            permitted next steps under our Privacy Policy.
+          </span>
         </p>
       </div>
     </>

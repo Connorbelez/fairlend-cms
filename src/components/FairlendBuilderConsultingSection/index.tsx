@@ -738,9 +738,6 @@ function EquationRows({ variant = 'full' }: { variant?: EquationVariant }) {
 function MobileScrollEquationBoard() {
   return (
     <div className="builder-mobile-equation-board builder-mobile-equation-board--scroll">
-      <div className="builder-mobile-equation-board__backdrop" aria-hidden="true">
-        <HouseVisual />
-      </div>
       <div className="builder-mobile-equation-board__header">
         <p>
           <TimelineYearSwap field="label" />
@@ -3337,60 +3334,20 @@ function BuilderConsultingStyles() {
         }
 
         .builder-mobile-equation-board {
+          --builder-green: var(--builder-coral) !important;
           position: relative;
           isolation: isolate;
           overflow: hidden;
           border: 1px solid rgb(18 44 37 / 22%);
           background:
-            linear-gradient(145deg, rgb(36 94 136 / 7%), transparent 46%),
-            linear-gradient(180deg, rgb(255 253 247 / 76%), rgb(250 244 235 / 58%));
+            linear-gradient(145deg, rgb(36 94 136 / 6%), transparent 46%),
+            linear-gradient(180deg, rgb(255 253 247), rgb(250 244 235));
           padding: 0.58rem;
           box-shadow: inset 0 1px 0 rgb(255 255 255 / 62%);
         }
 
         .builder-mobile-equation-board::after {
-          position: absolute;
-          inset: 0;
-          z-index: 1;
-          background: linear-gradient(180deg, rgb(255 253 247 / 30%), rgb(255 253 247 / 58%));
-          content: "";
-          pointer-events: none;
-        }
-
-        .builder-mobile-equation-board__backdrop {
-          position: absolute;
-          inset: 0;
-          z-index: 0;
-          opacity: 0.34;
-          pointer-events: none;
-        }
-
-        .builder-mobile-equation-board__backdrop .builder-house-visual {
-          position: absolute;
-          inset: 8% -20% -18% 32%;
-          min-height: auto;
-          transform: scale(1.04);
-        }
-
-        .builder-mobile-equation-board__backdrop .builder-blueprint-field {
-          opacity: 0.18;
-          filter: blur(4px);
-        }
-
-        .builder-mobile-equation-board__backdrop .builder-house-crop {
-          inset: -8% -28% -10% -20%;
-          filter: blur(3px);
-        }
-
-        .builder-mobile-equation-board__backdrop .builder-house-image {
-          object-fit: contain;
-          opacity: 0.84;
-          filter: saturate(0.84) contrast(0.95);
-        }
-
-        .builder-mobile-equation-board__backdrop .builder-route-line {
-          opacity: 0.16;
-          filter: blur(1.2px);
+          content: none;
         }
 
         .builder-mobile-equation-board__header,
@@ -3469,9 +3426,9 @@ function BuilderConsultingStyles() {
         .builder-mobile .builder-outcome-card--compact {
           border: 1px solid rgb(18 44 37 / 18%);
           border-radius: 0;
-          background: rgb(255 253 247 / 78%);
+          background: rgb(255 253 247);
           box-shadow: none;
-          backdrop-filter: blur(7px);
+          backdrop-filter: none;
         }
 
         .builder-mobile .builder-equation-card--compact {
@@ -3757,14 +3714,6 @@ function BuilderConsultingStyles() {
           padding: 0.48rem;
         }
 
-        .builder-mobile-equation-board__backdrop {
-          opacity: 0.28;
-        }
-
-        .builder-mobile-equation-board__backdrop .builder-house-visual {
-          inset: 10% -30% -20% 24%;
-        }
-
         .builder-mobile-equation-board__header {
           margin-bottom: 0.36rem;
         }
@@ -3837,8 +3786,8 @@ function BuilderConsultingStyles() {
         }
 
         .builder-mobile-state--scroll {
-          min-height: auto;
-          grid-template-rows: auto auto auto;
+          min-height: calc(100svh - clamp(6.4rem, 20vw, 8.4rem));
+          grid-template-rows: auto minmax(0, 1fr) auto;
         }
 
         .builder-mobile-copy-window {
@@ -3846,7 +3795,22 @@ function BuilderConsultingStyles() {
         }
 
         .builder-mobile-stage {
+          min-height: 0;
           margin-top: 0.72rem;
+          overflow: hidden;
+        }
+
+        .builder-mobile-state--scroll .builder-equation-line .builder-equation-card--compact,
+        .builder-mobile-state--scroll .builder-equation-line .builder-outcome-card--compact {
+          min-height: 3.45rem;
+        }
+
+        .builder-mobile-state--scroll .builder-equation-line .builder-equation-card--compact strong {
+          font-size: clamp(0.82rem, 3.7vw, 1.02rem);
+        }
+
+        .builder-mobile-state--scroll .builder-equation-line .builder-outcome-card--compact strong {
+          font-size: clamp(1.18rem, 6.1vw, 1.6rem);
         }
 
         .builder-mobile-state--scroll .builder-cta--mobile {
@@ -4156,7 +4120,24 @@ function BuilderConsultingStyles() {
           grid-template-columns: auto minmax(0, 1fr);
           align-items: baseline;
           column-gap: 0.48rem;
+          background:
+            linear-gradient(
+              145deg,
+              color-mix(in oklch, var(--builder-coral) calc((1 - var(--row-tone)) * 11%), var(--builder-green) calc(var(--row-tone) * 10%)),
+              transparent 62%
+            ),
+            rgb(255 253 247);
           padding: 0.46rem 0.52rem;
+        }
+
+        .builder-equation-line--primary .builder-equation-label {
+          background:
+            linear-gradient(
+              145deg,
+              color-mix(in oklch, var(--builder-loss) calc((1 - var(--row-tone)) * 13%), var(--builder-green) calc(var(--row-tone) * 10%)),
+              transparent 62%
+            ),
+            rgb(255 253 247) !important;
         }
 
         .builder-equation-label em {
@@ -4166,6 +4147,17 @@ function BuilderConsultingStyles() {
         .builder-equation-line .builder-equation-card--compact,
         .builder-equation-line .builder-outcome-card--compact {
           min-height: 4.55rem;
+          background:
+            linear-gradient(180deg, rgb(255 253 247), rgb(244 237 224)),
+            radial-gradient(circle at 50% 72%, color-mix(in oklch, var(--builder-coral) calc((1 - var(--row-tone)) * 13%), var(--builder-green) calc(var(--row-tone) * 12%)), transparent 58%) !important;
+          backdrop-filter: none;
+        }
+
+        .builder-equation-line--primary .builder-equation-card--compact,
+        .builder-equation-line--primary .builder-outcome-card--compact {
+          background:
+            linear-gradient(180deg, rgb(255 253 247), rgb(244 237 224)),
+            radial-gradient(circle at 50% 72%, color-mix(in oklch, var(--builder-loss) calc((1 - var(--row-tone)) * 16%), var(--builder-green) calc(var(--row-tone) * 12%)), transparent 58%) !important;
         }
 
         .builder-equation-line .builder-equation-card--compact strong {

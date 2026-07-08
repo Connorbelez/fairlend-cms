@@ -1,6 +1,7 @@
 import type { Metadata } from 'next/types'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
+import { buildFairlendMetadata } from '@/utilities/seo'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
@@ -94,7 +95,11 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
 }
 
 export function generateMetadata(): Metadata {
-  return {
+  return buildFairlendMetadata({
+    description:
+      'Search FairLend resources by property path, lending structure, or investment topic.',
+    index: false,
+    path: '/search',
     title: 'Search FairLend Resources',
-  }
+  })
 }

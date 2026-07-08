@@ -1,6 +1,7 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
+
+import { buildFairlendMetadata } from '@/utilities/seo'
 
 type PolicyBlock = {
   level?: 0 | 1
@@ -10,12 +11,12 @@ type PolicyBlock = {
 
 const policyUrl = '/en/brokerage/privacy-policy'
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy | FairLend Management Inc.',
+export const metadata = buildFairlendMetadata({
   description:
     'Read the FairLend Management Inc. privacy policy for mortgage administration, brokerage activities, website privacy, consent, disclosure, retention, and contact rights.',
-  alternates: { canonical: policyUrl },
-}
+  path: policyUrl,
+  title: 'Privacy Policy | FairLend Management Inc.',
+})
 
 const inlineLinks = [
   { href: 'https://www.fairlend.ca', text: 'www.fairlend.ca' },
@@ -36,11 +37,11 @@ const policyBlocks = [
   },
   {
     type: 'paragraph',
-    text: "FairLend Management Inc. ('FairLend') is a licensed mortgage administrator and has applied for a mortgage brokerage licence. FairLend may, with the customer's consent, refer customers to duly-licensed insurance brokerages for related insurance products.",
+    text: 'FairLend Management Inc., operating as FairLend Mortgage ("FairLend"), is licensed by FSRA as both a mortgage brokerage and mortgage administrator. FairLend helps customers find the most suitable mortgage product for their needs and may, with the customer\'s consent, refer customers to duly-licensed insurance brokerages for related insurance products.',
   },
   {
     type: 'paragraph',
-    text: 'At FairLend, we know that the protection of your privacy is important to you. For this reason, we have taken steps to ensure that any personal information that you provide to FairLend is protected by a range of robust business procedures and rigorous security safeguards to ensure that your information is kept confidential and used only for the purposes detailed in this privacy policy. This privacy policy is intended to establish responsible and transparent practices for the management of personal information and to satisfy the requirements of rules established by the Personal Information Protection and Electronic Documents Act (PIPEDA), and similar provincial laws from Quebec, Alberta and B.C.',
+    text: 'At FairLend, we know that the protection of your privacy is important to you. For this reason, we have taken steps to ensure that any personal information that you provide to FairLend is protected by a range of robust business procedures and rigorous security safeguards to ensure that your information is kept confidential and used only for the purposes detailed in this privacy policy. This privacy policy is intended to establish responsible and transparent practices for the management of personal information and to satisfy the requirements of rules established by the *Personal Information Protection and Electronic Documents Act* (PIPEDA), and similar provincial laws from Quebec, Alberta and B.C.',
   },
   {
     type: 'heading',
@@ -48,15 +49,15 @@ const policyBlocks = [
   },
   {
     type: 'paragraph',
-    text: 'FairLend Management Inc. is licensed by FSRA as a mortgage administrator and has applied to FSRA for a mortgage brokerage licence. Once the brokerage licence is operative, FairLend will conduct mortgage brokerage activities (assisting prospective borrowers in obtaining mortgages from lenders) in addition to its mortgage administration activities (servicing mortgages on behalf of lenders, including processing payments and coordinating with lenders, borrowers, and other parties throughout the life of the mortgage). This privacy policy applies to personal information FairLend collects, uses, or discloses in connection with both of these activities. The persons whose personal information is covered by this policy include mortgage applicants, borrowers, co-borrowers, guarantors, lenders, suppliers and service providers, prospective customers, website visitors, and any other individuals whose personal information FairLend handles in the course of its business.',
+    text: 'FairLend Management Inc. carries on business under the authorized name "FairLend Mortgage" and is licensed by FSRA as both a mortgage brokerage and a mortgage administrator. All references in this privacy policy to "FairLend" include FairLend Management Inc. operating as FairLend Mortgage. As a mortgage brokerage, FairLend assists prospective borrowers in obtaining mortgages from lenders. As a mortgage administrator, FairLend services mortgages on behalf of lenders, including processing payments and coordinating with lenders, borrowers, and other parties throughout the life of the mortgage. This privacy policy applies to personal information FairLend collects, uses, or discloses in connection with both of these licensed activities. The persons whose personal information is covered by this policy include mortgage applicants, borrowers, co-borrowers, guarantors, lenders, suppliers and service providers, prospective customers, website visitors, and any other individuals whose personal information FairLend handles in the course of its business.',
   },
   {
     type: 'paragraph',
-    text: 'This privacy policy generally applies to any personal information (as defined below in the section entitled Definition of Personal Information) collected or generated by FairLend, its brokers or anyone acting as an agent on our behalf (“Authorized Agent”), from or about its customers and other individuals with whom it deals, which may include potential customers as well as any other additional person named on an account, in any form. At any time that you do business with FairLend, participate in a contest or promotion run by FairLend, a FairLend broker or with an Authorized Agent, or interact with us in any manner, you are protected by the rights and safeguards contained in this privacy policy and you explicitly agree to its terms.',
+    text: 'This privacy policy generally applies to any personal information (as defined below in the section entitled Definition of Personal Information) collected or generated by FairLend, its brokers or anyone acting as an agent on our behalf ("Authorized Agent"), from or about its customers and other individuals with whom it deals, which may include potential customers as well as any other additional person named on an account, in any form. At any time that you do business with FairLend, participate in a contest or promotion run by FairLend, a FairLend broker or with an Authorized Agent, or interact with us in any manner, you are protected by the rights and safeguards contained in this privacy policy and you explicitly agree to its terms.',
   },
   {
     type: 'paragraph',
-    text: 'This privacy policy also governs personal information collected about FairLend’s website users and explains how we use and disclose personal information that we collect from users who visit our website and otherwise interact with us through www.fairlend.ca (“website”). It also explains how we use cookies and similar technologies.',
+    text: 'This privacy policy also governs personal information collected about FairLend\'s website users and explains how we use and disclose personal information that we collect from users who visit our website and otherwise interact with us through www.fairlend.ca ("website"). It also explains how we use cookies and similar technologies.',
   },
   {
     type: 'heading',
@@ -64,7 +65,7 @@ const policyBlocks = [
   },
   {
     type: 'paragraph',
-    text: 'When used in this privacy policy, personal information means “any information about an identifiable individual”. This may include, for example, your name, contact information, email address, information relating to your account with us, including your identity and the mortgage you take out, as well as your credit and banking information, billing records and any complaints documented in a file. It may also include other types of more technical information when you interact with us through our website, when this information can identify you as an individual. Personal information that is aggregated and cannot be associated with an identifiable individual is not considered to be personal information.',
+    text: 'When used in this privacy policy, personal information means "any information about an identifiable individual". This may include, for example, your name, contact information, email address, information relating to your account with us, including your identity and the mortgage you take out, as well as your credit and banking information, billing records and any complaints documented in a file. It may also include other types of more technical information when you interact with us through our website, when this information can identify you as an individual. Personal information that is aggregated and cannot be associated with an identifiable individual is not considered to be personal information.',
   },
   {
     type: 'heading',
@@ -76,11 +77,11 @@ const policyBlocks = [
   },
   {
     type: 'paragraph',
-    text: 'We usually collect your name, address, phone number(s), email address, occupation, employer’s name, birth date, annual income, net worth, assets, liabilities, credit history, investment objectives, banking information, as well as other account and payment information, including information pertaining to your use of our products and services when you register to FairLend services. We may also collect other information such as your social insurance number, driver’s license or passport number, when required and/or authorized by law, for instance to fulfill regulatory and other governmental obligations and to distinguish you from other clients with similar names.',
+    text: "We usually collect your name, address, phone number(s), email address, occupation, employer's name, birth date, annual income, net worth, assets, liabilities, credit history, investment objectives, banking information, as well as other account and payment information, including information pertaining to your use of our products and services when you register to FairLend services. We may also collect other information such as your social insurance number, driver's license or passport number, when required and/or authorized by law, for instance to fulfill regulatory and other governmental obligations and to distinguish you from other clients with similar names.",
   },
   {
     type: 'paragraph',
-    text: 'FairLend is a reporting entity under the Proceeds of Crime (Money Laundering) and Terrorist Financing Act and may collect, use, and retain personal information — including identification documents, occupation, source of funds, and beneficial ownership information — as required to comply with that Act.',
+    text: 'FairLend is a reporting entity under the *Proceeds of Crime (Money Laundering) and Terrorist Financing Act* and may collect, use, and retain personal information — including identification documents, occupation, source of funds, and beneficial ownership information — as required to comply with that Act.',
   },
   {
     type: 'paragraph',
@@ -88,16 +89,20 @@ const policyBlocks = [
   },
   {
     type: 'paragraph',
+    text: "We may also collect and use publicly available information from government open data sources, including the City of Toronto's Open Data portal (for example, building permit and development application datasets), for marketing purposes, such as identifying properties and property owners who may benefit from our construction financing and mortgage products, conducting market research, and informing our outreach activities. We collect and use such information in accordance with applicable privacy laws governing the use of publicly available information.",
+  },
+  {
+    type: 'paragraph',
     text: 'FairLend generally collects personal information from or about its customers and other individuals with whom it deals for the following purposes:',
   },
   {
     type: 'list',
-    text: 'to confirm and/or authenticate customers’ identity, to determine customers’ eligibility for FairLend’s products and services and as necessary, to establish or verify the credit of customers that use, or intend to use, one or more of the products or services offered by FairLend;',
+    text: "to confirm and/or authenticate customers' identity, to determine customers' eligibility for FairLend's products and services and as necessary, to establish or verify the credit of customers that use, or intend to use, one or more of the products or services offered by FairLend;",
     level: 0,
   },
   {
     type: 'list',
-    text: 'to process customers’ applications or requests, to provide the products or services that it offers, or receive the products or services that it requests, and ensure that all related transactions are supported and implemented;',
+    text: "to process customers' applications or requests, to provide the products or services that it offers, or receive the products or services that it requests, and ensure that all related transactions are supported and implemented;",
     level: 0,
   },
   {
@@ -107,7 +112,7 @@ const policyBlocks = [
   },
   {
     type: 'list',
-    text: 'to create, establish and administer customers’ mortgage financing or accounts and to respond to customer or supplier inquiries;',
+    text: "to create, establish and administer customers' mortgage financing or accounts and to respond to customer or supplier inquiries;",
     level: 0,
   },
   {
@@ -122,7 +127,7 @@ const policyBlocks = [
   },
   {
     type: 'list',
-    text: 'subject to our customers’ Right to Withdraw Consent, to conduct surveys on the quality of our products, services or customer service or to provide our customers with offers for additional products and services that we feel may be of interest to our customers or that we believe meet our customers’ changing needs;',
+    text: "subject to our customers' Right to Withdraw Consent, to conduct surveys on the quality of our products, services or customer service or to provide our customers with offers for additional products and services that we feel may be of interest to our customers or that we believe meet our customers' changing needs;",
     level: 0,
   },
   {
@@ -132,7 +137,7 @@ const policyBlocks = [
   },
   {
     type: 'list',
-    text: 'to collect, use, and retain personal information from lenders (including contact information, banking information for payment routing, signing authority documentation, and tax identification numbers) for the purposes of administering mortgages, remitting funds, and preparing tax information returns required under the Income Tax Act (Canada), including T5 and NR4 information returns;',
+    text: 'to collect, use, and retain personal information from lenders (including contact information, banking information for payment routing, signing authority documentation, and tax identification numbers) for the purposes of administering mortgages, remitting funds, and preparing tax information returns required under the *Income Tax Act* (Canada), including T5 and NR4 information returns;',
     level: 0,
   },
   {
@@ -158,7 +163,7 @@ const policyBlocks = [
   },
   {
     type: 'paragraph',
-    text: 'FairLend obtains consent from the individuals concerned for the collection, use or disclosure of personal information through various means. The most common method we use to obtain a customer’s consent is by way of the customer’s consent as confirmed by consent forms. Where practicable, we may also obtain a customer’s consent through electronic communications or other written documentation.',
+    text: "FairLend obtains consent from the individuals concerned for the collection, use or disclosure of personal information through various means. The most common method we use to obtain a customer's consent is by way of the customer's consent as confirmed by consent forms. Where practicable, we may also obtain a customer's consent through electronic communications or other written documentation.",
   },
   {
     type: 'paragraph',
@@ -197,12 +202,12 @@ const policyBlocks = [
   },
   {
     type: 'list',
-    text: 'Mail marketing, telephone marketing and quality control communications. You may decide that you prefer FairLend or Authorized Agents not to use your personal information to promote new and/or additional products and/or services which may be of interest to you and refuse that we contact you by mail or telephone for marketing purposes or by email or telephone for quality control purposes. If this is the case, you may advise us by contacting customer service or contacting us using the information detailed in the How to Contact Us section below.',
+    text: '**Mail marketing, telephone marketing and quality control communications.** You may decide that you prefer FairLend or Authorized Agents not to use your personal information to promote new and/or additional products and/or services which may be of interest to you and refuse that we contact you by mail or telephone for marketing purposes or by email or telephone for quality control purposes. If this is the case, you may advise us by contacting customer service or contacting us using the information detailed in the How to Contact Us section below.',
     level: 0,
   },
   {
     type: 'list',
-    text: 'Commercial Electronic Communications. You can always limit the communications that FairLend or Authorized Agents send to you. To opt-out of commercial emails, simply click the link labeled “unsubscribe” or “opt-out” at the bottom of any commercial electronic communication we send you. Please note that even if you opt-out of promotional communications, we may still need to contact you with information about your account.',
+    text: '**Commercial Electronic Communications.** You can always limit the communications that FairLend or Authorized Agents send to you. To opt-out of commercial emails, simply click the link labeled "unsubscribe" or "opt-out" at the bottom of any commercial electronic communication we send you. Please note that even if you opt-out of promotional communications, we may still need to contact you with information about your account.',
     level: 0,
   },
   {
@@ -219,52 +224,52 @@ const policyBlocks = [
   },
   {
     type: 'list',
-    text: 'Financial institutions and credit. We may share your personal information with financial institutions in connection with the administration and management of the products and services that you have requested, as well as convey your credit file to credit reporting and assessment agencies, insurers or other lenders, as applicable.',
+    text: '**Financial institutions and credit.** We may share your personal information with financial institutions in connection with the administration and management of the products and services that you have requested, as well as convey your credit file to credit reporting and assessment agencies, insurers or other lenders, as applicable.',
     level: 0,
   },
   {
     type: 'list',
-    text: 'Lenders. Where FairLend acts as administrator of a mortgage, we will share borrower personal information (including payment status, account balances, default information where applicable, and other servicing information) with the lender or lenders who hold the mortgage, as required to administer the mortgage in accordance with the applicable administration agreement and applicable law.',
+    text: '**Lenders.** Where FairLend acts as administrator of a mortgage, we will share borrower personal information (including payment status, account balances, default information where applicable, and other servicing information) with the lender or lenders who hold the mortgage, as required to administer the mortgage in accordance with the applicable administration agreement and applicable law.',
     level: 0,
   },
   {
     type: 'list',
-    text: 'Tax authorities. We may share personal information, including taxpayer identification numbers, with the Canada Revenue Agency and other applicable tax authorities for the purposes of preparing and filing tax information returns, including T5 and NR4 information returns required in connection with interest paid to lenders.',
+    text: '**Tax authorities.** We may share personal information, including taxpayer identification numbers, with the Canada Revenue Agency and other applicable tax authorities for the purposes of preparing and filing tax information returns, including T5 and NR4 information returns required in connection with interest paid to lenders.',
     level: 0,
   },
   {
     type: 'list',
-    text: 'Payment processors. We may share banking and payment information with regulated payment processors and financial institutions for the purposes of processing mortgage payments, remitting funds to lenders, and managing related transactions.',
+    text: '**Payment processors.** We may share banking and payment information with regulated payment processors and financial institutions for the purposes of processing mortgage payments, remitting funds to lenders, and managing related transactions.',
     level: 0,
   },
   {
     type: 'list',
-    text: 'Counsel and professionals in enforcement scenarios. In the event of a mortgage default, renewal, discharge, or other circumstance requiring professional involvement, we may share personal information with legal counsel, court officers, real estate professionals, property managers, and other professionals to the extent necessary to coordinate the relevant action in accordance with applicable law.',
+    text: '**Counsel and professionals in enforcement scenarios.** In the event of a mortgage default, renewal, discharge, or other circumstance requiring professional involvement, we may share personal information with legal counsel, court officers, real estate professionals, property managers, and other professionals to the extent necessary to coordinate the relevant action in accordance with applicable law.',
     level: 0,
   },
   {
     type: 'list',
-    text: 'Service providers and Authorized Agents. We do not directly provide all of our products and services. For example, in some cases we rely on assessment agencies, real estate appraisers, financial institutions, insurance agents or brokers, public registers, employers, credit reporting and collection agencies, professionals, our subsidiaries and affiliated companies, as well as other third parties to provide you with the products and services. We may therefore disclose information about you to such providers or agents in order for us to provide you with the requested products and services. We provide them with information which is necessary in order for them to provide the services required. They are prohibited from using the information for purposes other than to facilitate and carry out the services they have been engaged to provide. These service providers and agents are not permitted to disclose this information to others.',
+    text: '**Service providers and Authorized Agents.** We do not directly provide all of our products and services. For example, in some cases we rely on assessment agencies, real estate appraisers, financial institutions, insurance agents or brokers, public registers, employers, credit reporting and collection agencies, professionals, our subsidiaries and affiliated companies, as well as other third parties to provide you with the products and services. We may therefore disclose information about you to such providers or agents in order for us to provide you with the requested products and services. We provide them with information which is necessary in order for them to provide the services required. They are prohibited from using the information for purposes other than to facilitate and carry out the services they have been engaged to provide. These service providers and agents are not permitted to disclose this information to others.',
     level: 0,
   },
   {
     type: 'list',
-    text: 'Affiliated entities. We may share your personal information with our affiliated entities for legal and regulatory purposes, to perform analytics, to provide you with a suitable range of products and services, and to better manage your relationship with you.',
+    text: '**Affiliated entities.** We may share your personal information with our affiliated entities for legal and regulatory purposes, to perform analytics, to provide you with a suitable range of products and services, and to better manage your relationship with you.',
     level: 0,
   },
   {
     type: 'list',
-    text: 'As permitted or required by law. FairLend may disclose information when compelled in response to a law, regulation, court order, subpoena, valid demand, search warrant, government investigation or other legally valid request or enquiry. We may also disclose information to our accountants, auditors, agents and lawyers in connection with the enforcement or protection of our legal rights. We also reserve the right to report to law enforcement agencies any activities that we, in good faith, believe to be unlawful or to law enforcement and emergency services providers, in an emergency or where required or permitted by law. We may release certain personal information when we have reasonable grounds to believe that such release is reasonably necessary to protect the rights, property and safety of others and ourselves, in accordance with or as authorized by law.',
+    text: '**As permitted or required by law.** FairLend may disclose information when compelled in response to a law, regulation, court order, subpoena, valid demand, search warrant, government investigation or other legally valid request or enquiry. We may also disclose information to our accountants, auditors, agents and lawyers in connection with the enforcement or protection of our legal rights. We also reserve the right to report to law enforcement agencies any activities that we, in good faith, believe to be unlawful or to law enforcement and emergency services providers, in an emergency or where required or permitted by law. We may release certain personal information when we have reasonable grounds to believe that such release is reasonably necessary to protect the rights, property and safety of others and ourselves, in accordance with or as authorized by law.',
     level: 0,
   },
   {
     type: 'list',
-    text: 'Business transaction. We may disclose personal information to a third party in connection with a sale or transfer of business or assets, an amalgamation, re-organization or financing of parts of our business. However, in the event the transaction is completed, your personal information will remain protected by applicable privacy laws. In the event the transaction is not completed, we will require the other party not to use or disclose your personal information in any manner whatsoever and to completely delete such information.',
+    text: '**Business transaction.** We may disclose personal information to a third party in connection with a sale or transfer of business or assets, an amalgamation, re-organization or financing of parts of our business. However, in the event the transaction is completed, your personal information will remain protected by applicable privacy laws. In the event the transaction is not completed, we will require the other party not to use or disclose your personal information in any manner whatsoever and to completely delete such information.',
     level: 0,
   },
   {
     type: 'list',
-    text: 'Other types of sharing. We may also disclose our customers’ personal information to an individual who, in the reasonable judgement of FairLend, is acting on behalf of the individual in question, such as through a power of attorney.',
+    text: "**Other types of sharing.** We may also disclose our customers' personal information to an individual who, in the reasonable judgement of FairLend, is acting on behalf of the individual in question, such as through a power of attorney.",
     level: 0,
   },
   {
@@ -277,7 +282,7 @@ const policyBlocks = [
   },
   {
     type: 'paragraph',
-    text: 'We may share aggregated customers and/or website users’ information with our partners. This information does not allow identifying individual customers nor users, and is only used to provide our partners a better understanding of the general profile of customers of our products and/or services and users of our website, trends in the industry, or similar type of information. We do not link aggregate user data with personal information.',
+    text: "We may share aggregated customers and/or website users' information with our partners. This information does not allow identifying individual customers nor users, and is only used to provide our partners a better understanding of the general profile of customers of our products and/or services and users of our website, trends in the industry, or similar type of information. We do not link aggregate user data with personal information.",
   },
   {
     type: 'heading',
@@ -289,57 +294,72 @@ const policyBlocks = [
   },
   {
     type: 'list',
-    text: 'Information you provide. In many cases, we collect personal information directly from you when you visit or use our website. For instance, we may collect the following type of information:',
+    text: '**Information you provide.** In many cases, we collect personal information directly from you when you visit or use our website. For instance, we may collect the following type of information:',
     level: 0,
   },
   {
     type: 'list',
-    text: 'Inquiries. We may collect your name, contact information, e-mail address and any information you provide us when you make an inquiry or contact us through our website. We will only use this information to provide you with the information requested or to contact you in order to answer your questions and/or requests.',
+    text: '**Inquiries.** We may collect your name, contact information, e-mail address and any information you provide us when you make an inquiry or contact us through our website. We will only use this information to provide you with the information requested or to contact you in order to answer your questions and/or requests.',
     level: 1,
   },
   {
     type: 'list',
-    text: 'Registration. In order to receive electronic communications, you must first complete a registration form and provide your contact information (such as name and email address). If you wish to subscribe to our electronic communications, we will use your name and email address to send communications to you. We will always provide you a way to unsubscribe. For more information on how to unsubscribe, please refer to the section Right to Withdraw Consent of this privacy policy.',
+    text: '**Registration.** In order to receive electronic communications, you must first complete a registration form and provide your contact information (such as name and email address). If you wish to subscribe to our electronic communications, we will use your name and email address to send communications to you. We will always provide you a way to unsubscribe. For more information on how to unsubscribe, please refer to the section Right to Withdraw Consent of this privacy policy.',
     level: 1,
   },
   {
     type: 'list',
-    text: 'Application forms. We may collect your name, contact information, e-mail address and any other information provided to us when you complete one of our online forms for a mortgage request, request for other product or service or application, online pre-qualification, refinancing and/or renewal application forms available on our website. We will only use this information to process and answer your request or to manage our everyday business needs in connection with such request. If you file an application on our website, we require that you provide certain personal information, including your name, address, phone number, email, and current employment information. This information is necessary to process your application and to contact you. We do not require your social insurance number to accept an online application; however you may choose to provide that information via the online application to expedite the servicing of your application.',
+    text: '**Application forms.** We may collect your name, contact information, e-mail address and any other information provided to us when you complete one of our online forms for a mortgage request, request for other product or service or application, online pre-qualification, refinancing and/or renewal application forms available on our website. We will only use this information to process and answer your request or to manage our everyday business needs in connection with such request. If you file an application on our website, we require that you provide certain personal information, including your name, address, phone number, email, and current employment information. This information is necessary to process your application and to contact you. We do not require your social insurance number to accept an online application; however you may choose to provide that information via the online application to expedite the servicing of your application.',
     level: 1,
   },
   {
     type: 'list',
-    text: 'Satisfaction survey. When you visit our website, you may, from time to time, be invited to participate in a satisfaction survey. In such case and if you decide to participate in our survey, we may collect your postal code, email address and other information deemed important to complete such survey. We use this information to measure our overall service levels and as a resource to gather information regarding concerns our customers may have. You may be contacted if we feel the comments you express warrant further investigation. When we use a third party service provider to conduct these surveys or contests, that service provider is prohibited from using personal information for any secondary reasons. We will not share the personal information you provide through a survey with other third parties unless we give you prior notice and choice.',
+    text: '**Satisfaction survey.** When you visit our website, you may, from time to time, be invited to participate in a satisfaction survey. In such case and if you decide to participate in our survey, we may collect your postal code, email address and other information deemed important to complete such survey. We use this information to measure our overall service levels and as a resource to gather information regarding concerns our customers may have. You may be contacted if we feel the comments you express warrant further investigation. When we use a third party service provider to conduct these surveys or contests, that service provider is prohibited from using personal information for any secondary reasons. We will not share the personal information you provide through a survey with other third parties unless we give you prior notice and choice.',
     level: 1,
   },
   {
     type: 'list',
-    text: 'Technical information. When you visit our website, we may collect technical information, using electronic means such as cookies. This information may include information about your visit to our website, including the IP address of your computer and which browser you used to view our website, your operating system, resolution of screen, location, language settings in browsers, the site you came from, keywords searched (if arriving from a search engine), the number of page views, information you entered, advertisements you have seen, etc. This data is used to determine the user’s approximate geographic location, to measure and improve the effectiveness of our website or enhance the experience for our customers. For instance, it may be used to ensure that the products advertised on our website are available in your area or that we are not showing you the same ads repeatedly. We treat this information as personal information when it is associated with your account or contact information. For instance, we may collect and use the following type of information when you visit and/or interact with us on our websites:',
+    text: "**Technical information.** When you visit our website, we may collect technical information, using electronic means such as cookies. This information may include information about your visit to our website, including the IP address of your computer and which browser you used to view our website, your operating system, resolution of screen, location, language settings in browsers, the site you came from, keywords searched (if arriving from a search engine), the number of page views, information you entered, advertisements you have seen, etc. This data is used to determine the user's approximate geographic location, to measure and improve the effectiveness of our website or enhance the experience for our customers. For instance, it may be used to ensure that the products advertised on our website are available in your area or that we are not showing you the same ads repeatedly. We treat this information as personal information when it is associated with your account or contact information. For instance, we may collect and use the following type of information when you visit and/or interact with us on our websites:",
     level: 0,
   },
   {
     type: 'list',
-    text: 'Google Analytics: We may use Google Analytics, which allows us to see information on user website activities including, but not limited to, page views, source and time spent on our website. Where used, this information is depersonalized and is displayed as numbers, meaning that it cannot be tracked back to individuals. You may opt-out of our use of Google Analytics by visiting the Google Analytics opt-out page.',
+    text: '**Google Analytics:** We may use Google Analytics, which allows us to see information on user website activities including, but not limited to, page views, source and time spent on our website. Where used, this information is depersonalized and is displayed as numbers, meaning that it cannot be tracked back to individuals. You may opt-out of our use of Google Analytics by visiting the Google Analytics opt-out page.',
     level: 1,
   },
   {
     type: 'list',
-    text: 'Google AdWords: We may use Google AdWords Remarketing to advertise FairLend across the internet and to advertise on third party websites (including Google) to previous visitors to our websites. AdWords Remarketing will display ads to you based on what parts of the FairLend website you have viewed by placing a cookie on your web browser. It could mean that we advertise to previous visitors who haven’t completed a task on our site or this could be in the form of an advertisement on the Google search results page, or a site in the Google Display Network. This cookie does not in any way identify you or give access to your computer or mobile device. The cookie is only used to indicate to other websites that you have visited a particular page on our website, so that they may show you ads relating to that page. If you do not wish to participate in our Google AdWords Remarketing, you can opt out by visiting Google’s Ads Preferences Manager.',
+    text: '**PostHog:** We may use PostHog, a product analytics platform, to collect information about how visitors use and interact with our website, including page views, clicks, session information, and feature usage. Where used, PostHog may place cookies or use similar technologies on your browser. We use this information to understand user behaviour, diagnose issues, and improve our website and services. You can limit this collection through your browser cookie settings as described below.',
     level: 1,
   },
   {
     type: 'list',
-    text: 'Third Party Advertising: We may use third-party advertising companies to collect data and/or serve ads when you visit our website. These companies may use information about your visits to our website and other websites in order to provide advertisements about goods and services of interest to you, at all times, in compliance with applicable privacy laws. These companies may also use other types of technologies to recognize your computer or device and/or to collect and record information about your web surfing activity including your activities on or off this website. Please keep in mind that your web browser may not permit you to block the use of these non-cookie technologies, and those browser settings that block cookies may have no effect on such techniques. You can also generally opt-out of receiving personalized ads from third party advertisers and ad networks who are members of the Digital Advertising Alliance of Canada. Please visit the DAAC opt-out page for more information, including if you would like more information about this practice and to know your choices about not having this information used by these companies at : http://youradchoices.ca/.',
+    text: "**Google Ads:** We may use Google Ads, including Google Ads Remarketing, to advertise FairLend across the internet and to advertise on third party websites (including Google) to previous visitors to our websites. Google Ads Remarketing will display ads to you based on what parts of the FairLend website you have viewed by placing a cookie on your web browser. It could mean that we advertise to previous visitors who haven't completed a task on our site or this could be in the form of an advertisement on the Google search results page, or a site in the Google Display Network. This cookie does not in any way identify you or give access to your computer or mobile device. The cookie is only used to indicate to other websites that you have visited a particular page on our website, so that they may show you ads relating to that page. If you do not wish to participate in our Google Ads Remarketing, you can opt out by visiting Google's Ads Preferences Manager.",
     level: 1,
   },
   {
     type: 'list',
-    text: 'Your choice with cookies. You can block the use of cookies by activating the settings in your browser, except for some of the cookies used for third-party advertising, as detailed above under the section Third Party Advertising. The “Help” feature on most browsers will tell you how to prevent your browser from accepting new cookies, how to have the browser notify you when you receive a new cookie, or how to disable cookies altogether. If you choose to withhold consent, or subsequently block cookies, you may not be able to access all or part of the content of our website. Additionally, you can disable or delete similar data used by browser add-ons, by changing the add-on’s settings or visiting the website of its manufacturer.',
+    text: "**LinkedIn Insight Tag and Analytics:** We may use the LinkedIn Insight Tag and LinkedIn analytics tools to measure the performance of our LinkedIn advertising campaigns, understand the professional demographics of our website visitors in aggregate, and serve relevant advertising to website visitors on LinkedIn. The Insight Tag places a cookie on your browser and collects information such as URL, referrer, IP address, device and browser characteristics, and timestamp. You can manage your LinkedIn advertising preferences and opt out through your LinkedIn account settings or LinkedIn's cookie policy page.",
+    level: 1,
+  },
+  {
+    type: 'list',
+    text: '**Meta Pixel and Analytics:** We may use the Meta Pixel and related Meta (Facebook and Instagram) analytics and advertising tools to measure the effectiveness of our advertising on Meta platforms, understand actions visitors take on our website, and deliver relevant advertising to website visitors on Facebook and Instagram. The Meta Pixel places cookies or uses similar technologies to collect information about your interactions with our website. You can manage your Meta advertising preferences through your Facebook or Instagram ad settings, and can opt out of interest-based advertising as described in the Third Party Advertising section below.',
+    level: 1,
+  },
+  {
+    type: 'list',
+    text: '**Third Party Advertising:** We may use third-party advertising companies to collect data and/or serve ads when you visit our website. These companies may use information about your visits to our website and other websites in order to provide advertisements about goods and services of interest to you, at all times, in compliance with applicable privacy laws. These companies may also use other types of technologies to recognize your computer or device and/or to collect and record information about your web surfing activity including your activities on or off this website. Please keep in mind that your web browser may not permit you to block the use of these non-cookie technologies, and those browser settings that block cookies may have no effect on such techniques. You can also generally opt-out of receiving personalized ads from third party advertisers and ad networks who are members of the Digital Advertising Alliance of Canada. Please visit the DAAC opt-out page for more information, including if you would like more information about this practice and to know your choices about not having this information used by these companies at: http://youradchoices.ca/.',
+    level: 1,
+  },
+  {
+    type: 'list',
+    text: '**Your choice with cookies.** You can block the use of cookies by activating the settings in your browser, except for some of the cookies used for third-party advertising, as detailed above under the section Third Party Advertising. The "Help" feature on most browsers will tell you how to prevent your browser from accepting new cookies, how to have the browser notify you when you receive a new cookie, or how to disable cookies altogether. If you choose to withhold consent, or subsequently block cookies, you may not be able to access all or part of the content of our website. Additionally, you can disable or delete similar data used by browser add-ons, by changing the add-on\'s settings or visiting the website of its manufacturer.',
     level: 0,
   },
   {
     type: 'list',
-    text: 'Privacy policies of third parties. This privacy policy only addresses the use and disclosure of information by FairLend. Other websites that may be accessible through FairLend websites have their own privacy policies and data collection, use and disclosure practices. We encourage you to familiarize yourself with the privacy statements provided by all third parties prior to providing them with information or taking advantage of an offer or promotion.',
+    text: '**Privacy policies of third parties.** This privacy policy only addresses the use and disclosure of information by FairLend. Other websites that may be accessible through FairLend websites have their own privacy policies and data collection, use and disclosure practices. We encourage you to familiarize yourself with the privacy statements provided by all third parties prior to providing them with information or taking advantage of an offer or promotion.',
     level: 0,
   },
   {
@@ -356,7 +376,7 @@ const policyBlocks = [
   },
   {
     type: 'paragraph',
-    text: 'FairLend strives to ensure that customers’ personal information is as accurate, complete, and up-to-date as is necessary for the purposes for which it is used. FairLend provides customer access to their personal information. Customers may correct or amend any inaccuracies in their personal information by contacting us using the contact information detailed in the section How to Contact Us of this privacy policy. FairLend has the right to refuse a request for access to personal information if the information is protected by legal privilege, granting access would reveal confidential commercial information, the information was collected for purposes related to the detection and prevention of fraud, the information was generated in the course of a formal dispute resolution process, the information would likely reveal personal information about another individual, the request is vexatious or frivolous or any other reason, as authorized under applicable laws.',
+    text: "FairLend strives to ensure that customers' personal information is as accurate, complete, and up-to-date as is necessary for the purposes for which it is used. FairLend provides customer access to their personal information. Customers may correct or amend any inaccuracies in their personal information by contacting us using the contact information detailed in the section How to Contact Us of this privacy policy. FairLend has the right to refuse a request for access to personal information if the information is protected by legal privilege, granting access would reveal confidential commercial information, the information was collected for purposes related to the detection and prevention of fraud, the information was generated in the course of a formal dispute resolution process, the information would likely reveal personal information about another individual, the request is vexatious or frivolous or any other reason, as authorized under applicable laws.",
   },
   {
     type: 'heading',
@@ -396,7 +416,7 @@ const policyBlocks = [
   },
   {
     type: 'paragraph',
-    text: 'Elie Soberano\nPending Principal Broker – Privacy Officer\n#M08001537\nFairLend Management Inc.\nUnit #2 - 890 Sheppard Avenue\nNorth York, Ontario M3H 6B9\nBy phone: 647-439-1232\nBy e-mail: elie@fairlend.ca',
+    text: '**Elie Soberano**\nPrincipal Broker – Privacy Officer\n#M08001537\nFairLend Management Inc.\nUnit #2 - 890 Sheppard Avenue\nNorth York, Ontario M3H 6B9\nBy phone: 647-439-1232\nBy e-mail: elie@fairlend.ca',
   },
   {
     type: 'paragraph',
@@ -408,26 +428,18 @@ const policyBlocks = [
   },
   {
     type: 'paragraph',
-    text: 'FairLend will review and update its policies and procedures as required to keep current with rules and regulations, new technologies, standards and customer concerns. Our privacy policy may therefore change from time to time. We will post any privacy policy changes on our website and, if the changes are material, we will provide a more prominent notice. This privacy policy was last updated on April 2026.',
+    text: 'FairLend will review and update its policies and procedures as required to keep current with rules and regulations, new technologies, standards and customer concerns. Our privacy policy may therefore change from time to time. We will post any privacy policy changes on our website and, if the changes are material, we will provide a more prominent notice. This privacy policy was last updated on July 8, 2026.',
   },
   {
     type: 'paragraph',
-    text: 'FairLend Management Inc.',
-  },
-  {
-    type: 'paragraph',
-    text: 'FSRA Mortgage Administrator Licence #13828',
-  },
-  {
-    type: 'paragraph',
-    text: 'Mortgage Brokerage Licence Application #13827 (first-stage approval cleared; pending second-stage approval)',
+    text: '**FairLend Management Inc. o/a FairLend Mortgage**\nFSRA Mortgage Brokerage Licence #13827\nFSRA Mortgage Administrator Licence #13828',
   },
 ] satisfies PolicyBlock[]
 
 const titleBlock = policyBlocks.find((block) => block.type === 'title')
 const contentBlocks = policyBlocks.filter((block) => block.type !== 'title')
 
-function renderInlineText(text: string) {
+function renderLinkedText(text: string, keyPrefix: string) {
   const nodes: ReactNode[] = []
   let cursor = 0
 
@@ -450,12 +462,55 @@ function renderInlineText(text: string) {
       <Link
         className="font-semibold text-[#2f4f00] underline decoration-[#96ec18] decoration-2 underline-offset-4 transition-colors hover:text-[#0f1f00]"
         href={nextLink.href}
-        key={`${nextLink.text}-${nextLink.index}`}
+        key={`${keyPrefix}-${nextLink.text}-${nextLink.index}`}
       >
         {nextLink.text}
       </Link>,
     )
     cursor = nextLink.index + nextLink.text.length
+  }
+
+  return nodes
+}
+
+function renderInlineText(text: string) {
+  const nodes: ReactNode[] = []
+  let cursor = 0
+
+  while (cursor < text.length) {
+    const boldStart = text.indexOf('**', cursor)
+    const italicStart = text.indexOf('*', cursor)
+    const isBold = boldStart !== -1 && boldStart === italicStart
+    const markerStart = isBold ? boldStart : italicStart
+
+    if (markerStart === -1) {
+      nodes.push(...renderLinkedText(text.slice(cursor), `${cursor}-plain`))
+      break
+    }
+
+    if (markerStart > cursor) {
+      nodes.push(...renderLinkedText(text.slice(cursor, markerStart), `${cursor}-plain`))
+    }
+
+    const marker = isBold ? '**' : '*'
+    const markerEnd = text.indexOf(marker, markerStart + marker.length)
+
+    if (markerEnd === -1) {
+      nodes.push(...renderLinkedText(text.slice(markerStart), `${markerStart}-plain`))
+      break
+    }
+
+    const content = text.slice(markerStart + marker.length, markerEnd)
+    nodes.push(
+      isBold ? (
+        <strong className="font-bold text-[#191915]" key={`${markerStart}-bold`}>
+          {renderInlineText(content)}
+        </strong>
+      ) : (
+        <em key={`${markerStart}-italic`}>{renderInlineText(content)}</em>
+      ),
+    )
+    cursor = markerEnd + marker.length
   }
 
   return nodes
@@ -546,7 +601,7 @@ export default function FairlendPrivacyPolicyPage() {
               {titleBlock?.text ?? 'Privacy Policy'}
             </h1>
             <p className="mt-7 max-w-3xl text-base leading-8 font-medium text-[#46463f] sm:text-lg">
-              FairLend Management Inc. privacy policy for mortgage administration, pending brokerage
+              FairLend Management Inc. privacy policy for mortgage brokerage and administration
               activities, website use, consent, disclosure, retention, and privacy contact rights.
             </p>
           </div>
@@ -557,14 +612,14 @@ export default function FairlendPrivacyPolicyPage() {
             <dl className="mt-5 space-y-4 text-sm">
               <div>
                 <dt className="font-bold text-[#090909]">Last updated</dt>
-                <dd className="mt-1 text-[#5a5a52]">April 2026</dd>
+                <dd className="mt-1 text-[#5a5a52]">July 8, 2026</dd>
               </div>
               <div>
                 <dt className="font-bold text-[#090909]">Administrator licence</dt>
                 <dd className="mt-1 text-[#5a5a52]">FSRA #13828</dd>
               </div>
               <div>
-                <dt className="font-bold text-[#090909]">Brokerage application</dt>
+                <dt className="font-bold text-[#090909]">Brokerage licence</dt>
                 <dd className="mt-1 text-[#5a5a52]">FSRA #13827</dd>
               </div>
             </dl>

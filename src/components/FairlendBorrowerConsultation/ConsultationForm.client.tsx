@@ -382,7 +382,9 @@ export function ConsultationForm(): ReactElement {
           )}
         </Button>
         <p className="consultation-form__microcopy">
-          Reviewed for fit, likely structure, timeline risk, and exit path. No obligation.
+          FairLend will use this information to review your request, respond, and identify relevant
+          next steps. Submission is not an approval or financing commitment. See our{' '}
+          <a href="/en/brokerage/privacy-policy">Privacy Policy</a>.
         </p>
       </div>
     </form>

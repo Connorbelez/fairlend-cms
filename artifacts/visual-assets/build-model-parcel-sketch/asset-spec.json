@@ -1,0 +1,26 @@
+{
+  "project": "fairlend-cms",
+  "notes": "Generated on-brand parcel feasibility image asset for the Fairlend build model Parcel sketch dossier tab. The crop emitted by the manifest is reference-only; production output is optimized from the raw imagegen PNG.",
+  "assets": [
+    {
+      "id": "build-model-parcel-sketch",
+      "label": "Build model parcel sketch",
+      "classification": "image",
+      "role": "Raster parcel feasibility artwork inside the active Parcel sketch dossier tab",
+      "bbox": {
+        "x": 0,
+        "y": 0,
+        "width": 1536,
+        "height": 1024
+      },
+      "rationale": "The asset is a textured generated parcel feasibility sheet with dense drafting marks, paper grain, and advisory annotations that should remain a standalone optimized raster image rather than editable UI.",
+      "generation": {
+        "asset_type": "website card illustration",
+        "output_basename": "build-model-parcel-sketch",
+        "transparent": false,
+        "prompt": "Use case: productivity-visual. Asset type: website card illustration for a residential construction financing landing page. Primary request: create an on-brand parcel feasibility sketch asset for FairLend's Parcel sketch tab, showing a top-down residential lot, buildable envelope, main multiplex massing, rear laneway-suite option, setback guides, frontage tick marks, and professional feasibility markups. Scene/backdrop: clean planning-desk blueprint sheet, no surrounding page UI or browser chrome. Subject: a single urban infill parcel diagram with lot boundary, soft blueprint grid, dimension ticks, buildable-area overlay, main building rectangle, rear suite pad, driveway/lane hint, and a few small lender/permit review marks. Style/medium: refined editorial technical illustration, premium financial/property-consulting brand, crisp vector-like drafting lines rendered as a raster image. Composition/framing: landscape rectangle, centered diagram, generous padding, readable at small card size, slight paper texture, no perspective distortion. Lighting/mood: calm, analytical, high-end advisory, clear and pragmatic. Color palette: warm ivory paper, pale blueprint blue, deep ink navy, muted teal, restrained FairLend green accents, small electric lime highlights. Materials/textures: subtle paper grain, fine drafting linework, translucent buildable-area washes. Text: none. Constraints: no words, no numbers, no logo, no watermark, no people, no photoreal house photo, no screenshot UI, no browser frame, no cast shadow outside the asset.",
+        "negative_prompt": "words, numbers, logo, watermark, people, photoreal house photo, screenshot UI, browser chrome, generic stock blueprint"
+      }
+    }
+  ]
+}

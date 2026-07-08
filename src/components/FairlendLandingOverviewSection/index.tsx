@@ -73,7 +73,7 @@ const expertiseItems = [
 const financeItems = [
   {
     code: '01',
-    copy: '1st, 2nds, 3rd+, fully automated digital servicing.',
+    copy: '1st, 2nd, and 3rd mortgages with automated digital servicing.',
     href: buildFairlendIntakeHref({
       intent: 'mortgage',
       source: 'landing-overview-residential-private-mortgages',

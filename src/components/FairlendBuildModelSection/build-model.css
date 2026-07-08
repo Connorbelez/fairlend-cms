@@ -478,8 +478,14 @@
 
 .bm-dossier-tab.is-active {
   z-index: 20;
-  border-color: color-mix(in oklch, var(--bm-signal) 48%, var(--bm-line-strong));
-  background: color-mix(in oklch, var(--bm-card-surface) 94%, var(--bm-signal) 6%);
+  border-color: color-mix(in oklch, var(--bm-signal) 42%, var(--bm-line-strong));
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in oklch, var(--bm-card-surface) 98%, var(--bm-signal) 2%) 0%,
+      var(--bm-card-surface) 56%,
+      color-mix(in oklch, var(--bm-card-surface) 96%, var(--bm-blueprint) 4%) 100%
+    );
   opacity: 1;
   transform: translate(0, 0) rotate(0deg) scale(1);
 }
@@ -523,7 +529,7 @@
 .bm-dossier-tab-body {
   display: grid;
   align-content: start;
-  gap: 9px;
+  gap: 10px;
   min-height: 0;
   padding-top: 10px;
   opacity: 0;
@@ -559,87 +565,40 @@
 
 .bm-parcel-canvas {
   display: grid;
-  grid-template-columns: minmax(0, 1.06fr) minmax(118px, 0.94fr);
-  gap: 12px;
+  grid-template-columns: 1fr;
+  gap: 10px;
   align-items: stretch;
   margin-top: 2px;
 }
 
-.bm-parcel-plan {
+.bm-parcel-art {
   position: relative;
-  min-height: 126px;
+  min-height: 134px;
+  aspect-ratio: 2.52 / 1;
   border: 1px solid var(--bm-line-strong);
   border-radius: 8px;
-  background: color-mix(in oklch, var(--bm-blueprint) 18%, transparent);
+  background: color-mix(in oklch, var(--bm-blueprint) 8%, var(--bm-card-surface));
   overflow: hidden;
 }
 
-.bm-parcel-building {
+.bm-parcel-art::after {
+  content: '';
   position: absolute;
-  display: grid;
-  place-items: center;
-  border: 1px solid color-mix(in oklch, var(--bm-signal) 58%, var(--bm-line-strong));
-  border-radius: 6px;
-  background: color-mix(in oklch, var(--bm-signal) 17%, var(--bm-card-surface));
-  color: var(--bm-ink-deep);
-  font-family: 'Oxanium', ui-monospace, monospace;
-  font-size: 8px;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.42),
+    inset 0 -20px 34px color-mix(in oklch, var(--bm-card-surface) 76%, transparent);
 }
 
-.bm-parcel-building--main {
-  top: 24px;
-  right: 28px;
-  bottom: 34px;
-  left: 36px;
-}
-
-.bm-parcel-building--rear {
-  right: 18px;
-  bottom: 12px;
-  width: 50px;
-  height: 24px;
-}
-
-.bm-parcel-setback {
-  position: absolute;
-  top: 14px;
-  bottom: 14px;
-  width: 1px;
-  background: var(--bm-line-strong);
-}
-
-.bm-parcel-setback--left {
-  left: 24px;
-}
-
-.bm-parcel-setback--right {
-  right: 24px;
-}
-
-.bm-parcel-line {
-  position: absolute;
-  color: var(--bm-muted);
-  font-family: 'Oxanium', ui-monospace, monospace;
-  font-size: 7px;
-  font-weight: 850;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.bm-parcel-line--front {
-  right: 18px;
-  bottom: 5px;
-  left: 18px;
-  text-align: center;
-}
-
-.bm-parcel-line--depth {
-  top: 50%;
-  left: -26px;
-  transform: rotate(-90deg);
+.bm-parcel-art-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 52%;
+  filter: saturate(1.08) contrast(1.04);
+  transform: scale(1.015);
 }
 
 .bm-dossier-mini-stats,
@@ -647,6 +606,14 @@
   display: grid;
   gap: 8px;
   margin: 0;
+}
+
+.bm-parcel-canvas .bm-dossier-mini-stats {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.bm-parcel-canvas .bm-dossier-mini-stats div {
+  background: color-mix(in oklch, var(--bm-card-surface) 82%, white);
 }
 
 .bm-dossier-mini-stats div,
@@ -864,6 +831,9 @@
 
 .bm-board-equation {
   align-self: end;
+  position: relative;
+  z-index: 30;
+  padding-top: 4px;
 }
 
 .bm-board-chips {
@@ -1932,12 +1902,11 @@
   }
 
   .bm-parcel-canvas {
-    grid-template-columns: 1fr;
-    gap: 9px;
+    gap: 10px;
   }
 
-  .bm-parcel-plan {
-    min-height: 118px;
+  .bm-parcel-art {
+    min-height: 124px;
   }
 
   .bm-dossier-mini-stats {
@@ -1992,6 +1961,7 @@
   }
 
   .bm-thesis {
+    display: none;
     margin-inline: -18px;
     min-height: auto;
     padding: 30px 18px 36px;
@@ -2049,7 +2019,11 @@
   }
 
   .bm-dossier-stack {
-    min-height: 382px;
+    min-height: 364px;
+  }
+
+  .bm-parcel-art {
+    min-height: 116px;
   }
 
   .bm-dossier-tab-label {

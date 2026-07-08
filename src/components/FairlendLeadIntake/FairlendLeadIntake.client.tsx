@@ -874,11 +874,9 @@ export function FairlendLeadIntake() {
                 {state === 'submitting' ? 'Sending review context' : copy.submitLabel}
               </Button>
               <p className="fl-intake-privacy-note">
-                {isInvestorIntent
-                  ? 'FairLend uses this information only to respond to your investor inquiry.'
-                  : isMortgageIntent
-                    ? 'FairLend uses this context only to prepare for the consultation and respond to your request.'
-                    : 'FairLend uses this context only to review and respond to the request.'}
+                FairLend will use this information to review your request, respond, and identify
+                relevant next steps. Submission is not an approval or financing commitment. See our{' '}
+                <a href="/en/brokerage/privacy-policy">Privacy Policy</a>.
               </p>
             </CardFooter>
           </form>

@@ -1084,6 +1084,13 @@ body:has(.fl-intake-page) {
   line-height: 1.5;
 }
 
+.fl-intake-privacy-note a {
+  color: var(--fl-intake-ink);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* ---- Success ------------------------------------------------------ */
 .fl-intake-success-mark {
   display: grid;
