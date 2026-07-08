@@ -1,5 +1,10 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
+import { NextRequest } from 'next/server'
 
+import {
+  fairlendCampaignAttributionCookieName,
+  serializeFairlendCampaignAttribution,
+} from '@/lib/fairlend-campaign-attribution'
 import type { LeadPayload } from '@/lib/fairlend-leads'
 
 const leadRouteMocks = vi.hoisted(() => ({
@@ -23,7 +28,12 @@ describe('Fairlend leads API', () => {
       address: '123 Build Lane',
       email: 'owner@example.com',
       id: '5ab72f3d-7bb1-4b44-a4f1-c5b4f5453ad4',
-      intake: { projectStage: 'Permits submitted' },
+      intake: {
+        ctaLabel: 'Start application',
+        ctaPath: '/multiplex-financing-gta',
+        projectStage: 'Permits submitted',
+        referrerPath: '/',
+      },
       intent: 'build',
       name: 'Sam Owner',
       phone: '416-555-0199',
@@ -37,6 +47,59 @@ describe('Fairlend leads API', () => {
 
     expect(response.status).toBe(200)
     await expect(response.json()).resolves.toEqual({ id: payload.id })
+    expect(leadRouteMocks.upsertFairlendLead).toHaveBeenCalledWith(payload)
+  })
+
+  it('attaches valid QR campaign attribution from the server cookie', async () => {
+    const payload: LeadPayload = {
+      email: 'owner@example.com',
+      source: 'homepage-build-application-form',
+      status: 'submitted',
+    }
+    const attribution = {
+      campaign: 'v1',
+      capturedAt: '2026-07-08T12:00:00.000Z',
+      destination: '/',
+      scanId: 'd11da39e-21d6-49ef-9d09-9fe6e5e347fb',
+      source: 'qr-v1',
+    }
+
+    leadRouteMocks.upsertFairlendLead.mockResolvedValue({
+      id: '5ab72f3d-7bb1-4b44-a4f1-c5b4f5453ad4',
+    })
+
+    const response = await POST(
+      jsonRequest(payload, {
+        cookie: `${fairlendCampaignAttributionCookieName}=${serializeFairlendCampaignAttribution(attribution)}`,
+      }) as never,
+    )
+
+    expect(response.status).toBe(200)
+    expect(leadRouteMocks.upsertFairlendLead).toHaveBeenCalledWith({
+      ...payload,
+      attribution,
+      campaign: 'v1',
+      campaignScanId: 'd11da39e-21d6-49ef-9d09-9fe6e5e347fb',
+    })
+  })
+
+  it('ignores malformed QR campaign attribution cookies', async () => {
+    const payload: LeadPayload = {
+      email: 'owner@example.com',
+      source: 'homepage-build-application-form',
+    }
+
+    leadRouteMocks.upsertFairlendLead.mockResolvedValue({
+      id: '5ab72f3d-7bb1-4b44-a4f1-c5b4f5453ad4',
+    })
+
+    const response = await POST(
+      jsonRequest(payload, {
+        cookie: `${fairlendCampaignAttributionCookieName}=not-json`,
+      }) as never,
+    )
+
+    expect(response.status).toBe(200)
     expect(leadRouteMocks.upsertFairlendLead).toHaveBeenCalledWith(payload)
   })
 
@@ -59,11 +122,12 @@ describe('Fairlend leads API', () => {
   })
 })
 
-function jsonRequest(body: unknown): Request {
-  return new Request('http://localhost/api/leads', {
+function jsonRequest(body: unknown, headers: Record<string, string> = {}): NextRequest {
+  return new NextRequest('http://localhost/api/leads', {
     body: JSON.stringify(body),
     headers: {
       'content-type': 'application/json',
+      ...headers,
     },
     method: 'POST',
   })

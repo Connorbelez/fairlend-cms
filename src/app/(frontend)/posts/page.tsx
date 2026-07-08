@@ -32,7 +32,7 @@ export default async function Page() {
       <PageClient />
       <div className="container fairlend-reveal mb-12">
         <p className="fairlend-kicker-motion mb-4 text-[12px] font-extrabold tracking-[0.28em] text-[var(--fairlend-orange-text)] uppercase">
-          Fairlend Resources
+          FairLend Resources
         </p>
         <h1 className="m-0 max-w-[760px] font-serif text-[clamp(54px,12vw,104px)] leading-[0.92] font-bold text-[#062c2f]">
           Financing notes for builders and investors.
@@ -65,6 +65,6 @@ export default async function Page() {
 
 export function generateMetadata(): Metadata {
   return {
-    title: 'Fairlend Resources | Construction and Private Mortgage Financing',
+    title: 'FairLend Resources | Construction and Private Mortgage Financing',
   }
 }

@@ -3,7 +3,9 @@ import { getPayload, type Payload } from 'payload'
 import { afterEach, beforeAll, describe, expect, it } from 'vitest'
 
 import config from '@/payload.config'
+import { persistFairlendCampaignScan } from '@/lib/fairlend-campaign-attribution'
 import {
+  deriveFairlendLeadIntakeDetails,
   mergeFairlendLeadAdminData,
   normalizeLeadPayload,
   toFairlendLeadAdminData,
@@ -13,6 +15,7 @@ import {
 let payload: Payload | null = null
 const dbBackedDescribe = process.env.POSTGRES_URL ? describe : describe.skip
 const createdLeadIds = new Set<string>()
+const createdScanIds = new Set<string>()
 
 describe('Fairlend lead normalization', () => {
   it('trims lead fields and keeps valid ids', () => {
@@ -24,6 +27,9 @@ describe('Fairlend lead normalization', () => {
       name: ' Jane Borrower ',
       phone: ' 416-555-0101 ',
       priority: 'high',
+      attribution: { capturedAt: '2026-07-08T12:00:00.000Z' },
+      campaign: ' v1 ',
+      campaignScanId: 'd11da39e-21d6-49ef-9d09-9fe6e5e347fb',
       source: ' homepage ',
       status: 'submitted',
       workflowStatus: 'qualified',
@@ -37,6 +43,9 @@ describe('Fairlend lead normalization', () => {
       name: 'Jane Borrower',
       phone: '416-555-0101',
       priority: 'high',
+      attribution: { capturedAt: '2026-07-08T12:00:00.000Z' },
+      campaign: 'v1',
+      campaignScanId: 'd11da39e-21d6-49ef-9d09-9fe6e5e347fb',
       source: 'homepage',
       status: 'submitted',
       workflowStatus: 'qualified',
@@ -55,11 +64,40 @@ describe('Fairlend lead normalization', () => {
       /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,
     )
     expect(lead.addressDetails).toEqual({})
+    expect(lead.attribution).toEqual({})
+    expect(lead.campaign).toBeNull()
+    expect(lead.campaignScanId).toBeNull()
     expect(lead.intake).toEqual({})
     expect(lead.priority).toBe('normal')
     expect(lead.source).toBe('website')
     expect(lead.status).toBe('started')
     expect(lead.workflowStatus).toBe('new')
+  })
+
+  it('extracts table-ready details from variable intake payloads', () => {
+    const details = deriveFairlendLeadIntakeDetails(
+      {
+        amount: '$250K-$500K',
+        detail: 'Bank declined the file, closing in two weeks.',
+        requestedIntent: 'mortgage',
+        timeline: 'Closing in 2 weeks',
+      },
+      'mortgage',
+    )
+
+    expect(details).toEqual({
+      intakeAmount: '$250K-$500K',
+      intakeDetail: 'Bank declined the file, closing in two weeks.',
+      intakeFinancingNeeds: null,
+      intakeInvestmentFocus: null,
+      intakeMortgageBalance: null,
+      intakeProjectStage: null,
+      intakePropertyValue: null,
+      intakeSummary:
+        'Type: mortgage | Amount: $250K-$500K | Timeline: Closing in 2 weeks | Notes: Bank declined the file, closing in two weeks.',
+      intakeTimeline: 'Closing in 2 weeks',
+      intakeType: 'mortgage',
+    })
   })
 
   it('maps normalized leads to the Payload admin collection shape', () => {
@@ -71,6 +109,9 @@ describe('Fairlend lead normalization', () => {
       id: '5ab72f3d-7bb1-4b44-a4f1-c5b4f5453ad4',
       intake: { projectStage: 'Permits submitted' },
       intent: 'build',
+      attribution: { campaign: 'v1' },
+      campaign: 'v1',
+      campaignScanId: 'abf75b9b-86ca-4912-a0e7-d717fcfa51b9',
       name: 'Sam Owner',
       phone: '416-555-0199',
       placeId: 'place-88-build',
@@ -82,9 +123,22 @@ describe('Fairlend lead normalization', () => {
       address: '88 Build Lane',
       addressDetails: { city: 'Toronto' },
       adminNotes: null,
+      attribution: { campaign: 'v1' },
+      campaign: 'v1',
+      campaignScanId: 'abf75b9b-86ca-4912-a0e7-d717fcfa51b9',
       email: 'owner@example.com',
       formattedAddress: '88 Build Lane, Toronto, ON, Canada',
       intake: { projectStage: 'Permits submitted' },
+      intakeAmount: null,
+      intakeDetail: null,
+      intakeFinancingNeeds: null,
+      intakeInvestmentFocus: null,
+      intakeMortgageBalance: null,
+      intakeProjectStage: 'Permits submitted',
+      intakePropertyValue: null,
+      intakeSummary: 'Type: build | Stage: Permits submitted',
+      intakeTimeline: null,
+      intakeType: 'build',
       intent: 'build',
       leadId: '5ab72f3d-7bb1-4b44-a4f1-c5b4f5453ad4',
       name: 'Sam Owner',
@@ -103,6 +157,9 @@ describe('Fairlend lead normalization', () => {
       normalizeLeadPayload({
         email: 'saved@example.com',
         id: '5ab72f3d-7bb1-4b44-a4f1-c5b4f5453ad4',
+        attribution: { campaign: 'v1', scanId: '5ff32066-e323-4bba-986a-61c86b3bfb50' },
+        campaign: 'v1',
+        campaignScanId: '5ff32066-e323-4bba-986a-61c86b3bfb50',
         intake: { projectStage: 'Permit ready' },
         name: 'Saved Lead',
         phone: '416-555-0100',
@@ -125,7 +182,12 @@ describe('Fairlend lead normalization', () => {
     expect(mergeFairlendLeadAdminData(incoming, existing)).toMatchObject({
       email: 'saved@example.com',
       intake: { projectStage: 'Permit ready' },
+      intakeProjectStage: 'Permit ready',
+      intakeSummary: 'Stage: Permit ready',
       adminNotes: 'Call after permit package arrives.',
+      attribution: { campaign: 'v1', scanId: '5ff32066-e323-4bba-986a-61c86b3bfb50' },
+      campaign: 'v1',
+      campaignScanId: '5ff32066-e323-4bba-986a-61c86b3bfb50',
       name: 'Saved Lead',
       nextActionAt: '2026-07-07T15:00:00.000Z',
       phone: '416-555-0100',
@@ -144,7 +206,7 @@ dbBackedDescribe('Fairlend lead admin visibility', () => {
   }, 60_000)
 
   afterEach(async () => {
-    if (!payload || createdLeadIds.size === 0) {
+    if (!payload || (createdLeadIds.size === 0 && createdScanIds.size === 0)) {
       return
     }
 
@@ -178,7 +240,14 @@ dbBackedDescribe('Fairlend lead admin visibility', () => {
       }),
     )
 
+    await Promise.all(
+      [...createdScanIds].map(async (scanId) => {
+        await sql`DELETE FROM fairlend_campaign_scans WHERE scan_id = ${scanId}`
+      }),
+    )
+
     createdLeadIds.clear()
+    createdScanIds.clear()
   })
 
   it('mirrors submitted intake leads into the Payload admin collection', async () => {
@@ -220,6 +289,10 @@ dbBackedDescribe('Fairlend lead admin visibility', () => {
         financingNeeds: ['Construction financing'],
         projectStage: 'Permit ready',
       },
+      intakeFinancingNeeds: 'Construction financing',
+      intakeProjectStage: 'Permit ready',
+      intakeSummary: 'Type: build | Stage: Permit ready | Financing: Construction financing',
+      intakeType: 'build',
       intent: 'build',
       leadId,
       name: 'Admin Visible Lead',
@@ -271,11 +344,59 @@ dbBackedDescribe('Fairlend lead admin visibility', () => {
       intake: {
         projectStage: 'Zoning review',
       },
+      intakeProjectStage: 'Zoning review',
+      intakeSummary: 'Stage: Zoning review',
       leadId,
       name: 'Preserved Admin Lead',
       phone: '416-555-0188',
       source: 'drawflow-intake',
       status: 'draft',
     })
+  }, 60_000)
+
+  it('marks a QR campaign scan as converted when the attributed lead is submitted', async () => {
+    const leadId = '876706d4-ad36-49f1-8a37-12fdf5c6b30d'
+    const scanId = 'd11da39e-21d6-49ef-9d09-9fe6e5e347fb'
+    createdLeadIds.add(leadId)
+    createdScanIds.add(scanId)
+
+    await persistFairlendCampaignScan({
+      campaign: 'v1',
+      capturedAt: '2026-07-08T12:00:00.000Z',
+      destination: '/',
+      scanId,
+      source: 'qr-v1',
+    })
+
+    await upsertFairlendLead({
+      campaign: 'v1',
+      campaignScanId: scanId,
+      email: 'qr-converted@example.com',
+      id: leadId,
+      intent: 'build',
+      source: 'homepage-build-application-form',
+      status: 'submitted',
+    })
+
+    const scans = await payload!.find({
+      collection: 'fairlend-campaign-scans',
+      limit: 1,
+      overrideAccess: true,
+      pagination: false,
+      where: {
+        scanId: {
+          equals: scanId,
+        },
+      },
+    })
+
+    expect(scans.docs).toHaveLength(1)
+    expect(scans.docs[0]).toMatchObject({
+      campaign: 'v1',
+      convertedLeadId: leadId,
+      scanId,
+      source: 'qr-v1',
+    })
+    expect(scans.docs[0]?.convertedAt).toBeTruthy()
   }, 60_000)
 })

@@ -34,13 +34,13 @@ const borrowerSolutionIntakeHref = buildFairlendIntakeHref({
 })
 
 const anchorCell: MosaicCell = {
-  body: 'Target 3-day application-to-commitment path for complete private mortgage files, subject to underwriting, appraisal, and lender fit.',
+  body: 'Target 24-hour application-to-commitment path for complete private mortgage files, subject to lender review, appraisal, and lender fit.',
   // COMPLIANCE: approved wording. Fallback: "A clear answer quickly once the file is complete."
   compliance: true,
   icon: Gauge,
   id: 'clear-answer',
   label: 'Anchor',
-  title: 'Clear answer, quickly',
+  title: 'Know quickly if private financing can work',
 }
 
 const supportingCells: readonly MosaicCell[] = [
@@ -49,7 +49,7 @@ const supportingCells: readonly MosaicCell[] = [
     icon: FileText,
     id: 'transparent-structure',
     label: 'Terms',
-    title: 'Transparent structure',
+    title: 'See the full cost picture',
   },
   {
     body: 'Leaving for better financing should not become the expensive option.',
@@ -67,42 +67,49 @@ const supportingCells: readonly MosaicCell[] = [
     icon: Receipt,
     id: 'missed-payment',
     label: 'Servicing',
-    title: 'Missed-payment fees built for administration',
+    title: 'Payment support that stays practical',
   },
   {
     body: 'The material mortgage economics should be visible in the commitment, with third-party closing costs disclosed separately where applicable.',
     icon: ShieldCheck,
     id: 'no-hidden-economics',
     label: 'Disclosure',
-    title: 'No hidden legal-doc economics',
+    title: 'Important terms visible before closing',
   },
   {
     body: 'Refinance, sale, renewal, income stabilization, debt cleanup, or another realistic route is discussed before funding.',
     icon: CalendarClock,
     id: 'exit-first',
     label: 'Exit',
-    title: 'Exit-first planning',
+    title: 'A path back out of private money',
   },
   {
     body: 'Appraisal review and valuation discipline help determine what the property can realistically support.',
     icon: Building2,
     id: 'real-value',
     label: 'Value',
-    title: 'Real property value',
+    title: 'Property value checked carefully',
   },
   {
-    body: 'Digital closing, PAD payments, servicing, renewals, payouts, borrower coordination, and administration continue after funding.',
+    body: 'Digital closing, PAD payments, servicing, renewals, payouts, borrower coordination, and administration can continue after funding.',
     icon: Wallet,
     id: 'support-after-closing',
     label: 'Lifecycle',
-    title: 'Support after closing',
+    title: 'Help after the mortgage funds',
   },
 ]
+
+const reviewDocket = [
+  ['Borrower', 'documentation, payment capacity, timing'],
+  ['Property', 'value, appraisal, available equity'],
+  ['Mortgage position', 'current balance, payout terms, renewal path'],
+  ['Exit strategy', 'refinance, sale, renewal, debt cleanup'],
+] as const
 
 /**
  * Section 3 — Solution (whole-file mosaic).
  *
- * Asymmetric grid: one large anchor cell carrying the qualified 3-day target,
+ * Asymmetric grid: one large anchor cell carrying the qualified 24-hour target,
  * surrounded by supporting cells with document-style labels and small lucide
  * line marks. Deliberately NOT eight equal rounded SaaS cards — the anchor
  * cell's size carries the hierarchy.
@@ -145,18 +152,35 @@ export function FairlendBorrowerSolution(): ReactElement {
       <div className="borrower-solution__inner">
         <header className="borrower-solution__header">
           <h2 className="borrower-solution__title" id="borrower-solution-title">
-            A fairer way to structure private mortgage financing.
+            Private mortgage options built around your next move.
           </h2>
-          <p className="borrower-solution__intro">
-            FairLend reviews the borrower, property, current mortgage position, documentation,
-            timing, available equity, payment capacity, fee exposure, payout terms, renewal path,
-            and exit strategy together. The goal is a financing structure that fits the situation,
-            not a one-size-fits-all private mortgage.
-          </p>
+          <div className="borrower-solution__header-copy">
+            <p className="borrower-solution__intro">
+              FairLend reviews your property, current mortgage, deadline, available equity,
+              documentation, payment capacity, fee exposure, payout terms, renewal path, and exit
+              together. The goal is a private mortgage structure that solves the pressure you are
+              facing without leaving you stuck at maturity.
+            </p>
+            <dl className="borrower-solution__review-docket" aria-label="Private mortgage review">
+              {reviewDocket.map(([label, value]) => (
+                <div className="borrower-solution__review-row" key={label}>
+                  <dt>{label}</dt>
+                  <dd>{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </header>
 
         <div className="borrower-solution__mosaic" data-borrower-mosaic>
           <MosaicCellCard cell={anchorCell} anchor />
+          <div className="borrower-solution__standards-band">
+            <span>What the review covers</span>
+            <p>
+              Pricing, payout, servicing, disclosure, exit, valuation, and after-closing support are
+              reviewed before you decide.
+            </p>
+          </div>
           {supportingCells.map((cell) => (
             <MosaicCellCard cell={cell} key={cell.id} />
           ))}
@@ -169,14 +193,18 @@ export function FairlendBorrowerSolution(): ReactElement {
             size={16}
             strokeWidth={1.75}
           />
-          AI can assist analysis and workflow. Experienced mortgage professionals make the judgment
-          calls.
+          Technology helps organize the review. Experienced mortgage professionals still make the
+          judgment calls.
         </p>
 
         <div className="borrower-solution__cta">
+          <p className="borrower-solution__cta-context">
+            Bring the property, deadline, current mortgage, and preferred exit into one review so
+            you can see whether private financing is a fit before you commit.
+          </p>
           <FairlendBorrowerCta
             href={borrowerSolutionIntakeHref}
-            label="See What Your Property Can Support"
+            label="See What My Property Can Support"
             size="md"
             variant="primary"
           />
@@ -208,6 +236,12 @@ function MosaicCellCard({
         <span className="borrower-solution__cell-label">{cell.label}</span>
       </div>
       <h3 className="borrower-solution__cell-title">{cell.title}</h3>
+      {anchor && (
+        <div className="borrower-solution__anchor-proof" aria-label="Qualified commitment target">
+          <span>Complete info</span>
+          <strong>24 hr target</strong>
+        </div>
+      )}
       <p className="borrower-solution__cell-body">{cell.body}</p>
       {anchor && (
         <BadgeCheck

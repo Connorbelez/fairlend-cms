@@ -72,6 +72,7 @@ export interface Config {
     media: Media;
     categories: Category;
     'fairlend-leads': FairlendLead;
+    'fairlend-campaign-scans': FairlendCampaignScan;
     'fairlend-consultation-bookings': FairlendConsultationBooking;
     users: User;
     redirects: Redirect;
@@ -96,6 +97,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     'fairlend-leads': FairlendLeadsSelect<false> | FairlendLeadsSelect<true>;
+    'fairlend-campaign-scans': FairlendCampaignScansSelect<false> | FairlendCampaignScansSelect<true>;
     'fairlend-consultation-bookings': FairlendConsultationBookingsSelect<false> | FairlendConsultationBookingsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
@@ -1522,6 +1524,14 @@ export interface FairlendLead {
   nextActionAt?: string | null;
   intent?: string | null;
   source: string;
+  /**
+   * QR campaign that first attributed this lead, when available.
+   */
+  campaign?: string | null;
+  /**
+   * QR scan id linked to this lead, when available.
+   */
+  campaignScanId?: string | null;
   name?: string | null;
   email?: string | null;
   phone?: string | null;
@@ -1543,6 +1553,22 @@ export interface FairlendLead {
     | number
     | boolean
     | null;
+  intakeType?: string | null;
+  intakeAmount?: string | null;
+  intakeTimeline?: string | null;
+  intakeProjectStage?: string | null;
+  intakeFinancingNeeds?: string | null;
+  intakePropertyValue?: string | null;
+  intakeMortgageBalance?: string | null;
+  intakeInvestmentFocus?: string | null;
+  /**
+   * Compact one-line summary of the submitted intake details.
+   */
+  intakeSummary?: string | null;
+  /**
+   * Submitted notes, context, message, or document status.
+   */
+  intakeDetail?: string | null;
   /**
    * Full Google address-details payload, when available.
    */
@@ -1556,9 +1582,58 @@ export interface FairlendLead {
     | boolean
     | null;
   /**
+   * Campaign attribution payload captured from QR redirects.
+   */
+  attribution?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
    * Internal notes for admin follow-up. Not shown to visitors.
    */
   adminNotes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-campaign-scans".
+ */
+export interface FairlendCampaignScan {
+  id: number;
+  /**
+   * Stable UUID for this QR scan event.
+   */
+  scanId: string;
+  campaign: string;
+  source: string;
+  destination: string;
+  /**
+   * Lead id attached when this scan becomes a submitted lead.
+   */
+  convertedLeadId?: string | null;
+  convertedAt?: string | null;
+  capturedAt: string;
+  referrer?: string | null;
+  userAgent?: string | null;
+  /**
+   * SHA-256 hash of the client IP. Raw IP addresses are not stored.
+   */
+  hashedIp?: string | null;
+  queryParams?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1796,6 +1871,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'fairlend-leads';
         value: number | FairlendLead;
+      } | null)
+    | ({
+        relationTo: 'fairlend-campaign-scans';
+        value: number | FairlendCampaignScan;
       } | null)
     | ({
         relationTo: 'fairlend-consultation-bookings';
@@ -2801,6 +2880,8 @@ export interface FairlendLeadsSelect<T extends boolean = true> {
   nextActionAt?: T;
   intent?: T;
   source?: T;
+  campaign?: T;
+  campaignScanId?: T;
   name?: T;
   email?: T;
   phone?: T;
@@ -2808,8 +2889,38 @@ export interface FairlendLeadsSelect<T extends boolean = true> {
   formattedAddress?: T;
   placeId?: T;
   intake?: T;
+  intakeType?: T;
+  intakeAmount?: T;
+  intakeTimeline?: T;
+  intakeProjectStage?: T;
+  intakeFinancingNeeds?: T;
+  intakePropertyValue?: T;
+  intakeMortgageBalance?: T;
+  intakeInvestmentFocus?: T;
+  intakeSummary?: T;
+  intakeDetail?: T;
   addressDetails?: T;
+  attribution?: T;
   adminNotes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-campaign-scans_select".
+ */
+export interface FairlendCampaignScansSelect<T extends boolean = true> {
+  scanId?: T;
+  campaign?: T;
+  source?: T;
+  destination?: T;
+  convertedLeadId?: T;
+  convertedAt?: T;
+  capturedAt?: T;
+  referrer?: T;
+  userAgent?: T;
+  hashedIp?: T;
+  queryParams?: T;
   updatedAt?: T;
   createdAt?: T;
 }

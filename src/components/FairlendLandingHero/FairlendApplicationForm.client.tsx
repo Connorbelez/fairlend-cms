@@ -16,12 +16,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { trackFairlendEvent, trackLeadFailed, trackLeadStarted } from '@/lib/analytics/events'
 import { cn } from '@/utilities/ui'
 
 const formTabs = [
-  { icon: HousePlus, label: 'Build', value: 'build' },
-  { icon: ChartNoAxesCombined, label: 'Invest', value: 'invest' },
-  { icon: House, label: 'Get a mortgage', value: 'mortgage' },
+  { icon: HousePlus, label: 'Build', mobileLabel: 'Build', value: 'build' },
+  { icon: ChartNoAxesCombined, label: 'Invest', mobileLabel: 'Invest', value: 'invest' },
+  { icon: House, label: 'Get a mortgage', mobileLabel: 'Mortgage', value: 'mortgage' },
 ] as const
 
 type FormTab = (typeof formTabs)[number]['value']
@@ -83,6 +84,7 @@ type ApplicationTabButtonProps = {
   icon: (typeof formTabs)[number]['icon']
   isActive: boolean
   label: string
+  mobileLabel: string
   onSelect: (value: FormTab) => void
   value: FormTab
 }
@@ -91,6 +93,7 @@ const ApplicationTabButton = memo(function ApplicationTabButton({
   icon: Icon,
   isActive,
   label,
+  mobileLabel,
   onSelect,
   value,
 }: ApplicationTabButtonProps) {
@@ -110,7 +113,8 @@ const ApplicationTabButton = memo(function ApplicationTabButton({
         aria-hidden="true"
         className="size-[23px] hero-tablet:size-[18px] hero-mobile:size-[17px] hero-landscape:size-[20px]"
       />
-      <span>{label}</span>
+      <span className="hero-mobile:hidden">{label}</span>
+      <span className="hidden hero-mobile:inline">{mobileLabel}</span>
     </button>
   )
 })
@@ -133,6 +137,10 @@ export function FairlendApplicationForm() {
     setSubmittedTab(null)
     setIsAddressAutocompleteOpen(false)
     setActiveTab(value)
+    trackFairlendEvent('fairlend_application_tab_selected', {
+      intent: value,
+      source: 'homepage-application-form',
+    })
   }, [])
 
   const handleAddressAutocompleteOpenChange = useCallback((open: boolean) => {
@@ -165,6 +173,11 @@ export function FairlendApplicationForm() {
 
     setIsSubmitting(true)
     setSubmitError('')
+    trackLeadStarted({
+      intent: activeTab,
+      source: `homepage-${activeTab}-application-form`,
+      step: 'homepage_submit',
+    })
 
     let leadId: string | undefined
     const body: Record<string, unknown> = {
@@ -222,9 +235,20 @@ export function FairlendApplicationForm() {
         const payload = (await response.json()) as { id?: string }
         leadId = payload.id
       } else {
+        trackLeadFailed({
+          intent: activeTab,
+          source: `homepage-${activeTab}-application-form`,
+          status: response.status,
+          step: 'homepage_lead_save',
+        })
         setSubmitError('We could not save this yet, but you can continue.')
       }
     } catch {
+      trackLeadFailed({
+        intent: activeTab,
+        source: `homepage-${activeTab}-application-form`,
+        step: 'homepage_lead_save',
+      })
       setSubmitError('We could not save this yet, but you can continue.')
     } finally {
       setIsSubmitting(false)
@@ -263,15 +287,16 @@ export function FairlendApplicationForm() {
       >
         <div
           aria-label="Application type"
-          className="relative grid h-[clamp(50px,3.35vw,56px)] w-full grid-cols-[1fr_1.1fr_1.34fr] items-stretch gap-0 rounded-none border-b border-[#dededb] bg-transparent p-0 hero-tablet:h-[clamp(46px,6vw,52px)] hero-tablet:grid-cols-[1fr_1fr_1.22fr] hero-tablet-landscape-short:h-10 hero-mobile:h-11 hero-mobile:grid-cols-[1fr_1fr_1.24fr] hero-landscape:m-0 hero-landscape:h-[58px] hero-landscape:w-full hero-landscape:grid-cols-[0.95fr_0.95fr_1.36fr] hero-landscape:gap-0 hero-landscape:rounded-none hero-landscape:border-0 hero-landscape:border-b hero-landscape:border-[var(--landing-gutter-line)] hero-landscape:bg-transparent hero-landscape:p-0 hero-landscape:shadow-none"
+          className="relative grid h-[clamp(50px,3.35vw,56px)] w-full grid-cols-[1fr_1.1fr_1.34fr] items-stretch gap-0 rounded-none border-b border-[#dededb] bg-transparent p-0 hero-tablet:h-[clamp(46px,6vw,52px)] hero-tablet:grid-cols-[1fr_1fr_1.22fr] hero-tablet-landscape-short:h-10 hero-mobile:h-11 hero-mobile:grid-cols-3 hero-landscape:m-0 hero-landscape:h-[58px] hero-landscape:w-full hero-landscape:grid-cols-[0.95fr_0.95fr_1.36fr] hero-landscape:gap-0 hero-landscape:rounded-none hero-landscape:border-0 hero-landscape:border-b hero-landscape:border-[var(--landing-gutter-line)] hero-landscape:bg-transparent hero-landscape:p-0 hero-landscape:shadow-none"
           role="tablist"
         >
-          {formTabs.map(({ icon: Icon, label, value }) => (
+          {formTabs.map(({ icon: Icon, label, mobileLabel, value }) => (
             <ApplicationTabButton
               icon={Icon}
               isActive={activeTab === value}
               key={value}
               label={label}
+              mobileLabel={mobileLabel}
               onSelect={handleSelectTab}
               value={value}
             />
@@ -444,7 +469,7 @@ export function FairlendApplicationForm() {
                       <SelectContent>
                         <SelectItem value="construction">Construction financing</SelectItem>
                         <SelectItem value="private-mortgages">Private mortgages</SelectItem>
-                        <SelectItem value="mic">MIC</SelectItem>
+                        <SelectItem value="investor-fit-review">Investor-fit review</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>

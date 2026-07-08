@@ -41,6 +41,7 @@ import { flushSync } from 'react-dom'
 
 import { GoogleAddressAutocomplete } from '@/components/address/GoogleAddressAutocomplete'
 import { Card } from '@/components/ui/card'
+import { Checkbox } from '@/components/ui/checkbox'
 import { Frame } from '@/components/ui/frame'
 import {
   Timeline,
@@ -53,7 +54,6 @@ import {
   TimelineTime,
   TimelineTitle,
 } from '@/components/ui/timeline'
-import { getFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 
 const intakeAssetBase = '/assets/drawflow-intake'
@@ -341,6 +341,7 @@ interface IntakeAnswers {
   projectTeam: string[]
   requestedLoan: string
   siteControl: string
+  termsAccepted: boolean
   unitCount: string
 }
 
@@ -397,6 +398,7 @@ const defaultAnswers: IntakeAnswers = {
   projectTeam: ['Builder / general contractor', 'Architect / designer'],
   borrowerExperience: 'Owns/manages rental properties',
   contactRole: 'Developer',
+  termsAccepted: false,
   name: '',
   email: '',
   phone: '',
@@ -675,6 +677,11 @@ export function DrawflowIntake(): ReactElement {
   }
 
   const submitProjectLead = useCallback(async (): Promise<void> => {
+    if (!answers.termsAccepted) {
+      setSubmitError('Confirm the acknowledgement before submitting the project.')
+      return
+    }
+
     setIsSubmitting(true)
     setSubmitError('')
 
@@ -1431,6 +1438,18 @@ function getWizardStepContent(
                   value={answers.notes}
                 />
               </label>
+              <label className="bp-acknowledgement">
+                <Checkbox
+                  checked={answers.termsAccepted}
+                  className="bp-acknowledgement-box"
+                  onCheckedChange={(checked) => updateAnswer('termsAccepted', checked === true)}
+                />
+                <span>
+                  I understand FairLend will timestamp this intake and use the information provided
+                  to review the project, request follow-up documents, and respond with the next
+                  financing step. This is not a funding approval or commitment.
+                </span>
+              </label>
             </div>
 
             <p className="bp-final-note">
@@ -1539,7 +1558,15 @@ function BuildPathSuccessStep({
   onBack: () => void
   summaryItems: string[]
 }): ReactElement {
-  const bookReviewHref = getFairlendMicrosoftBookingsUrl()
+  const bookReviewHref = buildFairlendIntakeHref({
+    address: answers.address,
+    email: answers.email,
+    intent: 'consultation',
+    leadId,
+    name: answers.name,
+    phone: answers.phone,
+    source: 'drawflow-success-book-review',
+  })
   const documentHref = buildFairlendIntakeHref({
     address: answers.address,
     email: answers.email,
@@ -1575,10 +1602,10 @@ function BuildPathSuccessStep({
         </div>
 
         <div className="bp-success-actions">
-          <a className="bp-form-continue" href={bookReviewHref} rel="noreferrer" target="_blank">
+          <Link className="bp-form-continue" href={bookReviewHref}>
             <span>Book review call</span>
             <CalendarDays aria-hidden="true" strokeWidth={1.8} />
-          </a>
+          </Link>
           <Link className="bp-upload-button" href={documentHref}>
             <Upload aria-hidden="true" strokeWidth={1.8} />
             Send document status
@@ -1915,6 +1942,10 @@ function CapitalFeatureSection({ onStart }: { onStart: () => void }): ReactEleme
             <ArrowRight aria-hidden="true" strokeWidth={1.8} />
           </button>
         </div>
+        <p className="bp-capital-feature-note">
+          Illustrative availability shown for planning. Each release still follows milestone
+          evidence, lender review, and admin approval.
+        </p>
       </div>
 
       <Timeline
@@ -1922,29 +1953,39 @@ function CapitalFeatureSection({ onStart }: { onStart: () => void }): ReactEleme
         aria-label="Milestone draw flow"
         className="bp-capital-milestone-timeline"
       >
-        {milestoneUnlocks.map((milestone) => (
-          <TimelineItem className="bp-capital-milestone-item" key={milestone.id}>
-            <TimelineDot className="bp-capital-milestone-dot">
-              {milestone.id === 'foundation' ? null : <Check aria-hidden="true" strokeWidth={2} />}
-            </TimelineDot>
-            <TimelineConnector className="bp-capital-milestone-connector" />
-            <TimelineContent className="bp-capital-milestone-content">
-              <TimelineHeader className="bp-capital-milestone-header">
-                <TimelineTime dateTime={milestone.dateTime}>{milestone.percent}</TimelineTime>
-                <TimelineTitle>{milestone.title}</TimelineTitle>
-              </TimelineHeader>
-              <TimelineDescription asChild>
-                <Card className="bp-capital-milestone-card">
-                  <strong>{milestone.amount}</strong>
-                  <span>Available</span>
-                  <i aria-hidden="true" className="bp-capital-unlock-bar">
-                    <em style={{ width: milestone.bar }} />
-                  </i>
-                </Card>
-              </TimelineDescription>
-            </TimelineContent>
-          </TimelineItem>
-        ))}
+        {milestoneUnlocks.map((milestone) => {
+          const milestoneStatus = milestone.id === 'foundation' ? 'active' : 'complete'
+
+          return (
+            <TimelineItem
+              className="bp-capital-milestone-item"
+              data-status={milestoneStatus}
+              key={milestone.id}
+            >
+              <TimelineDot className="bp-capital-milestone-dot" data-status={milestoneStatus}>
+                {milestoneStatus === 'complete' ? (
+                  <Check aria-hidden="true" strokeWidth={2} />
+                ) : null}
+              </TimelineDot>
+              <TimelineConnector className="bp-capital-milestone-connector" />
+              <TimelineContent className="bp-capital-milestone-content">
+                <TimelineHeader className="bp-capital-milestone-header">
+                  <TimelineTime dateTime={milestone.dateTime}>{milestone.percent}</TimelineTime>
+                  <TimelineTitle>{milestone.title}</TimelineTitle>
+                </TimelineHeader>
+                <TimelineDescription asChild>
+                  <Card className="bp-capital-milestone-card">
+                    <strong>{milestone.amount}</strong>
+                    <span>Available</span>
+                    <i aria-hidden="true" className="bp-capital-unlock-bar">
+                      <em style={{ width: milestone.bar }} />
+                    </i>
+                  </Card>
+                </TimelineDescription>
+              </TimelineContent>
+            </TimelineItem>
+          )
+        })}
       </Timeline>
 
       <div aria-hidden="true" className="bp-capital-feature-art">
@@ -1965,7 +2006,7 @@ function CapitalFeatureSection({ onStart }: { onStart: () => void }): ReactEleme
       <div aria-label="Draw plan benefits" className="bp-capital-feature-stats">
         {[
           ['0', 'forced draw schedule'],
-          ['3-day', 'draw SLA target'],
+          ['24-hour', 'draw SLA target'],
           ['1', 'advisor-built plan'],
         ].map(([value, label]) => (
           <div key={label}>

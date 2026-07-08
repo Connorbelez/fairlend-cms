@@ -91,21 +91,22 @@
   min-width: 0;
   align-items: center;
   gap: 10px;
+  width: auto;
+  height: 42px;
   color: var(--mkt-ink);
   text-decoration: none;
 }
 
 .mkt-dhh-brand::before {
-  position: relative;
+  display: none;
+}
+
+.mkt-dhh-brand-logo {
   display: block;
-  width: 24px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   flex: 0 0 auto;
-  background:
-    linear-gradient(154deg, transparent 0 13%, #8bf000 13% 41%, transparent 41%),
-    linear-gradient(154deg, transparent 0 37%, #65c819 37% 64%, transparent 64%),
-    linear-gradient(154deg, transparent 0 60%, #b7f521 60% 88%, transparent 88%);
-  content: '';
+  object-fit: contain;
 }
 
 .mkt-dhh-brand span {
@@ -215,6 +216,52 @@
   box-shadow: 0 16px 34px rgb(17 18 18 / 18%);
 }
 
+.mkt-dhh-phone-action {
+  min-height: 42px;
+  gap: 9px;
+  border: 1px solid rgb(17 18 18 / 92%);
+  border-radius: 999px;
+  background: var(--mkt-ink);
+  padding: 7px 15px 7px 8px;
+  color: var(--mkt-acid);
+  box-shadow: 0 12px 28px rgb(17 18 18 / 13%);
+}
+
+.mkt-dhh-phone-action:hover {
+  background: #050607;
+  box-shadow: 0 16px 34px rgb(17 18 18 / 18%);
+}
+
+.mkt-dhh-phone-action > span:first-child {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  background: var(--mkt-acid);
+  color: var(--mkt-ink);
+  box-shadow: none;
+}
+
+.mkt-dhh-phone-action > span:first-child svg {
+  width: 16px;
+  height: 16px;
+}
+
+.mkt-dhh-phone-action > span:last-child {
+  gap: 2px;
+}
+
+.mkt-dhh-phone-action > span:last-child > span:first-child {
+  color: rgb(255 255 255 / 62%);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+}
+
+.mkt-dhh-phone-action > span:last-child > span:last-child {
+  color: var(--mkt-acid);
+  font-size: 14px;
+  line-height: 1;
+}
+
 .mkt-dhh-menu {
   position: absolute;
   top: calc(100% - 1px);
@@ -239,8 +286,7 @@
 
 .mkt-dhh-menu-column-accent {
   background:
-    radial-gradient(circle at 16% 8%, rgb(141 255 0 / 16%), transparent 34%),
-    rgb(255 255 255 / 34%);
+    radial-gradient(circle at 16% 8%, rgb(141 255 0 / 16%), transparent 34%), rgb(255 255 255 / 34%);
 }
 
 .mkt-dhh-menu-column-divided {
@@ -435,6 +481,10 @@
   outline-offset: 3px;
 }
 
+.mkt-dhh-hero-consult {
+  display: none;
+}
+
 @media (min-width: 1280px) {
   .mkt-dhh-header {
     top: 0;
@@ -604,6 +654,11 @@
     box-shadow: 0 16px 34px rgb(17 18 18 / 18%);
   }
 
+  .mkt-dhh-phone-action {
+    min-height: 42px;
+    padding: 7px 14px 7px 8px;
+  }
+
   .mkt-dhh-language {
     position: relative;
     display: inline-flex;
@@ -694,6 +749,24 @@
     gap: 6px;
     padding-inline: 12px;
   }
+
+  .mkt-dhh-phone-action {
+    gap: 7px;
+    padding-right: 11px;
+  }
+
+  .mkt-dhh-phone-action > span:first-child {
+    width: 26px;
+    height: 26px;
+  }
+
+  .mkt-dhh-phone-action > span:last-child > span:first-child {
+    font-size: 8px;
+  }
+
+  .mkt-dhh-phone-action > span:last-child > span:last-child {
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 1279px) {
@@ -746,6 +819,38 @@
   .mkt-dhh-brand-divider,
   .mkt-dhh-brand em {
     display: none;
+  }
+
+  .mkt-dhh-hero-consult {
+    position: absolute;
+    top: 50%;
+    right: 58px;
+    z-index: 3;
+    display: flex;
+    width: 38px;
+    height: 38px;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 999px;
+    transform: translateY(-50%);
+  }
+
+  .mkt-dhh-hero-consult > span:first-child {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+  }
+
+  .mkt-dhh-hero-consult > span:last-child {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 }
 

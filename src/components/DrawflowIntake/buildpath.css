@@ -1094,10 +1094,12 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   align-items: center;
   gap: 12px;
   padding: 0 17px;
-  border: 1px solid oklch(0.83 0.01 245);
+  border: 1px solid oklch(0.58 0.018 245);
   border-radius: 11px;
-  background: oklch(0.997 0.003 70 / 0.62);
-  box-shadow: inset 0 1px 0 oklch(1 0.003 70 / 0.82);
+  background: oklch(1 0 0 / 0.94);
+  box-shadow:
+    0 0 0 1px oklch(1 0 0 / 0.72),
+    inset 0 1px 0 oklch(1 0.003 70 / 0.88);
   transition:
     border-color 180ms var(--bp-ease-out),
     box-shadow 180ms var(--bp-ease-out);
@@ -1106,7 +1108,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 .bp-address-input svg {
   width: 22px;
   height: 22px;
-  color: oklch(0.67 0.013 245);
+  color: oklch(0.33 0.04 245);
 }
 
 .bp-address-input input {
@@ -1121,7 +1123,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 .bp-address-input input::placeholder {
-  color: oklch(0.68 0.018 245);
+  color: oklch(0.42 0.02 245);
 }
 
 .bp-address-autocomplete {
@@ -1172,11 +1174,13 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   width: 100%;
   min-width: 0;
   height: 52px;
-  border: 1px solid oklch(0.83 0.01 245);
+  border: 1px solid oklch(0.58 0.018 245);
   border-radius: 11px;
   outline: 0;
-  background: oklch(0.997 0.003 70 / 0.62);
-  box-shadow: inset 0 1px 0 oklch(1 0.003 70 / 0.82);
+  background: oklch(1 0 0 / 0.94);
+  box-shadow:
+    0 0 0 1px oklch(1 0 0 / 0.72),
+    inset 0 1px 0 oklch(1 0.003 70 / 0.88);
   color: var(--bp-ink);
   font: inherit;
   font-size: 16px;
@@ -2443,16 +2447,18 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 .bp-notes-field textarea {
   min-height: 54px;
   resize: vertical;
-  border: 1px solid oklch(0.83 0.01 245);
+  border: 1px solid oklch(0.58 0.018 245);
   border-radius: 11px;
-  background: oklch(0.997 0.003 70 / 0.62);
+  background: oklch(1 0 0 / 0.94);
   color: var(--bp-ink);
   font: inherit;
   font-size: 14px;
   line-height: 1.4;
   padding: 11px 13px;
   outline: 0;
-  box-shadow: inset 0 1px 0 oklch(1 0.003 70 / 0.82);
+  box-shadow:
+    0 0 0 1px oklch(1 0 0 / 0.72),
+    inset 0 1px 0 oklch(1 0.003 70 / 0.88);
 }
 
 .bp-notes-field textarea:focus {
@@ -2463,7 +2469,35 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 .bp-notes-field textarea::placeholder {
-  color: oklch(0.68 0.018 245);
+  color: oklch(0.42 0.02 245);
+}
+
+.bp-acknowledgement {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 11px;
+  align-items: start;
+  padding: 13px;
+  border: 1px solid oklch(0.58 0.018 245);
+  border-radius: 12px;
+  background: oklch(1 0 0 / 0.88);
+  box-shadow:
+    0 0 0 1px oklch(1 0 0 / 0.72),
+    inset 0 1px 0 oklch(1 0.003 70 / 0.88);
+  color: var(--bp-ink);
+  font-size: 13px;
+  line-height: 1.42;
+  font-weight: 700;
+}
+
+.bp-acknowledgement-box {
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border-color: oklch(0.33 0.04 245);
+  border-radius: 5px;
+  background: white;
 }
 
 .bp-final-note {
@@ -9404,12 +9438,13 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   align-items: center;
   overflow: hidden;
   padding: clamp(34px, 4.5vw, 66px) clamp(24px, 4.2vw, 62px) clamp(28px, 3.6vw, 52px);
-  border-bottom: 1px solid oklch(0.81 0.016 245 / 0.62);
+  border-bottom: 1px solid oklch(0.82 0.012 245 / 0.66);
   background:
-    radial-gradient(circle at 78% 8%, oklch(0.92 0.044 146 / 0.2), transparent 20%),
-    radial-gradient(circle at 16% 42%, oklch(0.75 0.095 250 / 0.12), transparent 18%),
-    repeating-linear-gradient(0deg, oklch(0.64 0.08 250 / 0.055) 0 1px, transparent 1px 18px),
-    repeating-linear-gradient(90deg, oklch(0.64 0.08 250 / 0.05) 0 1px, transparent 1px 18px),
+    radial-gradient(circle at 76% 12%, oklch(0.9 0.04 146 / 0.16), transparent 22%),
+    radial-gradient(circle at 18% 44%, oklch(0.68 0.08 250 / 0.08), transparent 20%),
+    linear-gradient(180deg, oklch(1 0.003 70 / 0.5), transparent 28%),
+    repeating-linear-gradient(0deg, oklch(0.58 0.065 250 / 0.048) 0 1px, transparent 1px 18px),
+    repeating-linear-gradient(90deg, oklch(0.58 0.065 250 / 0.044) 0 1px, transparent 1px 18px),
     var(--bp-paper);
   color: oklch(0.18 0.072 253);
 }
@@ -9507,14 +9542,15 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 .bp-capital-feature-copy h2 {
-  max-width: 390px;
+  max-width: 9.6ch;
   margin: 15px 0 0;
   color: oklch(0.16 0.085 253);
-  font-family: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+  font-family: var(--font-cormorant), 'DM Serif Display', Georgia, 'Times New Roman', serif;
   font-weight: 400;
-  font-size: clamp(50px, 5.1vw, 78px);
-  line-height: 0.91;
-  letter-spacing: 0;
+  font-size: clamp(52px, 5vw, 76px);
+  line-height: 0.94;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
 }
 
 .bp-capital-feature-copy h2::after {
@@ -9526,7 +9562,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   content: '';
 }
 
-.bp-capital-feature-copy p {
+.bp-capital-feature-copy > p:not(.bp-capital-feature-note) {
   max-width: 520px;
   margin: clamp(18px, 2.1vw, 28px) 0 0;
   color: oklch(0.29 0.058 253);
@@ -9534,6 +9570,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   font-size: clamp(16px, 1.25vw, 19px);
   line-height: 1.45;
   letter-spacing: 0;
+  text-wrap: pretty;
 }
 
 .bp-capital-feature-actions {
@@ -9550,11 +9587,29 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   font-size: 16px;
 }
 
+.bp-capital-feature-actions .bp-primary-cta {
+  box-shadow:
+    0 9px 8px oklch(0.68 0.19 31 / 0.16),
+    inset 0 1px 0 oklch(1 0.003 70 / 0.2);
+}
+
 .bp-capital-feature-actions .bp-secondary-cta {
   border-color: oklch(0.45 0.13 250 / 0.56);
   background: oklch(0.99 0.005 72 / 0.58);
   color: oklch(0.32 0.105 250);
+  box-shadow: inset 0 1px 0 oklch(1 0.003 70 / 0.86);
   text-decoration: none;
+}
+
+.bp-capital-feature-note {
+  max-width: 39ch;
+  margin: 14px 0 0;
+  color: oklch(0.34 0.05 253 / 0.92);
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 1.36;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .bp-capital-milestone-timeline {
@@ -9588,7 +9643,13 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 
 .bp-capital-milestone-dot[data-status='active'] {
   border-color: oklch(0.45 0.13 250 / 0.86);
+  background:
+    radial-gradient(circle at 50% 50%, oklch(0.45 0.13 250 / 0.32) 0 28%, transparent 29%),
+    oklch(0.99 0.006 74 / 0.9);
   color: transparent;
+  box-shadow:
+    0 0 0 5px oklch(0.45 0.13 250 / 0.08),
+    inset 0 1px 0 oklch(1 0.003 70 / 0.86);
 }
 
 .bp-capital-milestone-connector {
@@ -9597,6 +9658,14 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   width: 2px;
   height: calc(100% - 16px);
   background: oklch(0.47 0.12 250 / 0.55);
+}
+
+.bp-capital-milestone-item[data-status='complete'] .bp-capital-milestone-connector {
+  background: linear-gradient(180deg, oklch(0.47 0.105 146 / 0.68), oklch(0.47 0.12 250 / 0.48));
+}
+
+.bp-capital-milestone-item:last-child .bp-capital-milestone-connector {
+  display: none;
 }
 
 .bp-capital-milestone-content {
@@ -9639,7 +9708,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   border-radius: 7px;
   background: oklch(0.995 0.005 74 / 0.86);
   box-shadow:
-    0 12px 28px oklch(0.24 0.03 255 / 0.06),
+    0 3px 8px oklch(0.24 0.03 255 / 0.055),
     inset 0 1px 0 oklch(1 0.003 70 / 0.92);
 }
 
@@ -9702,12 +9771,12 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 .bp-capital-feature-stack {
   position: relative;
   z-index: 1;
-  width: min(104%, 520px);
+  width: min(112%, 590px);
   max-height: min(78svh, 740px);
   object-fit: contain;
   object-position: right center;
-  filter: saturate(0.94) contrast(1) drop-shadow(0 16px 18px oklch(0.24 0.04 255 / 0.055));
-  transform: translateX(clamp(-28px, -2.4vw, -16px));
+  filter: saturate(0.94) contrast(1.02) drop-shadow(0 7px 8px oklch(0.24 0.04 255 / 0.055));
+  transform: translateX(clamp(-22px, -1.8vw, -10px));
 }
 
 .bp-capital-feature-art::before,
@@ -9773,7 +9842,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   align-self: end;
   width: min(100%, 640px);
   border: 1px solid oklch(0.48 0.08 250 / 0.16);
-  background: oklch(0.48 0.08 250 / 0.12);
+  background: oklch(0.48 0.08 250 / 0.1);
 }
 
 .bp-capital-feature-stats div {
@@ -10023,7 +10092,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
     font-size: clamp(40px, 11.2vw, 52px);
   }
 
-  .bp-capital-feature-copy p {
+  .bp-capital-feature-copy > p:not(.bp-capital-feature-note) {
     max-width: 32ch;
     font-size: clamp(16px, 4.4vw, 18px);
   }
@@ -10418,7 +10487,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
     margin-top: 20px;
   }
 
-  .bp-capital-feature-copy p {
+  .bp-capital-feature-copy > p:not(.bp-capital-feature-note) {
     max-width: 34ch;
     font-size: clamp(16px, 4.35vw, 18px);
     line-height: 1.42;

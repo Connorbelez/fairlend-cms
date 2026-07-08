@@ -198,7 +198,7 @@ const financeItems = [
 
 export function FairlendAboutStorySection(): ReactElement {
   return (
-    <FairlendPaperSection className="about-page about-page--embedded" aria-label="About Fairlend">
+    <FairlendPaperSection className="about-page about-page--embedded" aria-label="About FairLend">
       <FairlendPaperShell className="about-story" data-about-motion="story">
         <section
           aria-labelledby="about-who-title"

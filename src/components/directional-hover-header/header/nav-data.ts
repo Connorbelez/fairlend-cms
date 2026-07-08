@@ -1,5 +1,3 @@
-import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
-
 export type NavItem = {
   label: string
   description?: string
@@ -25,72 +23,34 @@ export type NavLink = {
 
 export const fairlendNavLinks = {
   home: { href: '/' },
-  about: { href: '/about' },
-  affordableHousing: { href: '/affordable-sustainable-rental-housing' },
-  backoffice: { href: '/backoffice' },
-  cmhcMliSelect: { href: '/cmhc-mli-select-multiplex-financing' },
-  constructionDraws: { href: '/construction-draw-financing' },
-  contact: {
-    href: buildFairlendIntakeHref({
-      intent: 'contact',
-      source: 'header-nav-contact',
-    }),
-  },
-  gardenSuite: { href: '/garden-suite-financing-gta' },
-  investors: { href: '/investors' },
-  leadership: { href: '/leadership/elie-soberano' },
-  multiplex: { href: '/multiplex-financing-gta' },
-  press: { href: '/press' },
-  resources: { href: '/resources' },
-  resourceCmhc: { href: '/resources/cmhc-mli-select-guide-for-multiplex-builds' },
-  resourceDraws: { href: '/resources/construction-draws-small-builders' },
-  resourceFinancingGap: { href: '/resources/financing-gap-gta-multiplex-builds' },
-  resourceGardenSuites: { href: '/resources/garden-suites-family-suitable-rental-supply' },
-  resourceHousingCapital: { href: '/resources/private-capital-affordable-housing' },
-  resourceHousingReturns: { href: '/resources/sustainable-rental-housing-investor-returns' },
-  resourceMultiplexCompare: { href: '/resources/multiplex-vs-garden-suite-vs-laneway-suite' },
-  start: {
-    href: buildFairlendIntakeHref({
-      intent: 'route-helper',
-      source: 'header-nav-general-intake',
-    }),
-  },
-  startBroker: {
-    href: buildFairlendIntakeHref({
-      intent: 'partner-apply',
-      source: 'header-nav-broker-intake',
-    }),
-  },
-  startBuilder: {
-    href: buildFairlendIntakeHref({
-      intent: 'build',
-      source: 'header-nav-builder-intake',
-    }),
-  },
-  startGardenSuite: {
-    href: buildFairlendIntakeHref({
-      intent: 'build',
-      source: 'header-nav-garden-suite-intake',
-    }),
-  },
-  startInvestor: {
-    href: buildFairlendIntakeHref({
-      intent: 'invest',
-      source: 'header-nav-investor-intake',
-    }),
-  },
-  startMedia: {
-    href: buildFairlendIntakeHref({
-      intent: 'contact',
-      source: 'header-nav-media-inquiry',
-    }),
-  },
-  startMultiplex: {
-    href: buildFairlendIntakeHref({
-      intent: 'build',
-      source: 'header-nav-multiplex-intake',
-    }),
-  },
+  about: { href: '/#overview' },
+  affordableHousing: { href: '/#services' },
+  backoffice: { href: '/#questions' },
+  cmhcMliSelect: { href: '/#services' },
+  constructionDraws: { href: '/#builder-consulting' },
+  contact: { bookingSource: 'header-nav-contact', href: '#book-consultation' },
+  gardenSuite: { href: '/#services' },
+  investors: { href: '/investing/private-mortgage-lending' },
+  leadership: { href: '/#leadership' },
+  multiplex: { href: '/#services' },
+  partners: { href: '/partners' },
+  press: { href: '/#questions' },
+  privateMortgages: { href: '/borrowers/private-mortgage-financing' },
+  resources: { href: '/#questions' },
+  resourceCmhc: { href: '/#services' },
+  resourceDraws: { href: '/#builder-consulting' },
+  resourceFinancingGap: { href: '/#build-model' },
+  resourceGardenSuites: { href: '/#services' },
+  resourceHousingCapital: { href: '/#services' },
+  resourceHousingReturns: { href: '/investing/private-mortgage-lending' },
+  resourceMultiplexCompare: { href: '/#services' },
+  start: { bookingSource: 'header-nav-general-intake', href: '#book-consultation' },
+  startBroker: { href: '/partners' },
+  startBuilder: { href: '/intake' },
+  startGardenSuite: { href: '/intake' },
+  startInvestor: { href: '/intake' },
+  startMedia: { href: '/#questions' },
+  startMultiplex: { href: '/intake' },
 } as const
 
 export type FairlendNavLinkOption = (typeof fairlendNavLinks)[keyof typeof fairlendNavLinks]
@@ -118,6 +78,11 @@ export const NAV_LINKS: NavLink[] = [
               label: 'Construction draws',
               description: 'Reimbursement-based draw funding',
               link: fairlendNavLinks.constructionDraws,
+            },
+            {
+              label: 'Private mortgages',
+              description: 'Clear options for time-sensitive files',
+              link: fairlendNavLinks.privateMortgages,
             },
           ],
         },

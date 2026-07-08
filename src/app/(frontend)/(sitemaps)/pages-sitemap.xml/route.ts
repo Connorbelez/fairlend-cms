@@ -6,10 +6,7 @@ import { unstable_cache } from 'next/cache'
 const getPagesSitemap = unstable_cache(
   async () => {
     const payload = await getPayload({ config })
-    const SITE_URL =
-      process.env.NEXT_PUBLIC_SERVER_URL ||
-      process.env.VERCEL_PROJECT_PRODUCTION_URL ||
-      'https://example.com'
+    const SITE_URL = getSitemapSiteUrl()
 
     const results = await payload.find({
       collection: 'pages',
@@ -34,6 +31,10 @@ const getPagesSitemap = unstable_cache(
     const defaultSitemap = [
       {
         loc: `${SITE_URL}/search`,
+        lastmod: dateFallback,
+      },
+      {
+        loc: `${SITE_URL}/en/brokerage/privacy-policy`,
         lastmod: dateFallback,
       },
       {
@@ -65,4 +66,16 @@ export async function GET() {
   const sitemap = await getPagesSitemap()
 
   return getServerSideSitemap(sitemap)
+}
+
+function getSitemapSiteUrl(): string {
+  const configuredUrl = process.env.NEXT_PUBLIC_SERVER_URL?.trim()
+  const vercelProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim()
+  const siteUrl = configuredUrl || (vercelProductionUrl ? `https://${vercelProductionUrl}` : '')
+
+  if (!siteUrl) {
+    throw new Error('NEXT_PUBLIC_SERVER_URL or VERCEL_PROJECT_PRODUCTION_URL is required')
+  }
+
+  return siteUrl.replace(/\/+$/, '')
 }

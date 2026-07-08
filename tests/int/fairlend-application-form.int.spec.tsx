@@ -72,7 +72,7 @@ describe('FairlendApplicationForm', () => {
     expect(buildAddress.getAttribute('name')).toBe('buildAddress')
     expect(buildAddress.getAttribute('autocomplete')).toBe('section-build street-address')
 
-    fireEvent.click(screen.getByRole('tab', { name: 'Invest' }))
+    fireEvent.click(screen.getByRole('tab', { name: /^Invest/ }))
 
     expect(screen.getByLabelText('Name').getAttribute('name')).toBe('name')
     expect(screen.getByLabelText('Name').getAttribute('autocomplete')).toBe('section-invest name')
@@ -83,7 +83,7 @@ describe('FairlendApplicationForm', () => {
       'section-invest tel',
     )
 
-    fireEvent.click(screen.getByRole('tab', { name: 'Get a mortgage' }))
+    fireEvent.click(screen.getByRole('tab', { name: /^Get a mortgage/ }))
 
     expect(screen.getByLabelText('Name').getAttribute('name')).toBe('name')
     expect(screen.getByLabelText('Name').getAttribute('autocomplete')).toBe('section-mortgage name')

@@ -7,7 +7,7 @@
 **Register:** Brand marketing surface
 **Visual system:** FairLend Editorial Topographic Grid, warm paper, ink linework, visible rails, electric lime action cues, high-trust serif display type
 
-> Compliance note: Every public claim below marked `[COMPLIANCE]` must be cleared before publishing. The 3-day commitment must remain a target and must be qualified by file completeness, underwriting, property review, appraisal requirements, borrower cooperation, available capital, and lender fit. The $50 missed-payment fee and any $450 market comparison can publish only after the fee schedule and benchmark are substantiated. Founder stats such as 29+ years and $2B+ funded need exact approved wording. Avoid guaranteed approval, guaranteed funding, guaranteed refinance, guaranteed savings, "lowest rate," "risk free," "bad credit approved," "no questions asked," and any claim that FairLend removes all borrower risk.
+> Compliance note: Every public claim below marked `[COMPLIANCE]` must be cleared before publishing. The 24-hour commitment must remain a target and must be qualified by file completeness, underwriting, property review, appraisal requirements, borrower cooperation, available capital, and lender fit. The $50 missed-payment fee and any $450 market comparison can publish only after the fee schedule and benchmark are substantiated. Founder stats such as 29+ years and $2B+ funded need exact approved wording. Avoid guaranteed approval, guaranteed funding, guaranteed refinance, guaranteed savings, "lowest rate," "risk free," "bad credit approved," "no questions asked," and any claim that FairLend removes all borrower risk.
 
 ## Strategic Shape
 
@@ -111,7 +111,7 @@ The page should convert through confidence, not urgency theatre. Each major fold
 
 | Draft claim | Preferred public version if approved | Fallback if not approved |
 | --- | --- | --- |
-| 3-day commitment | `Target 3-day commitment on complete private mortgage files.` | `A clear answer quickly once the file is complete.` |
+| 24-hour commitment | `Target 24-hour commitment on complete private mortgage files.` | `A clear answer quickly once the file is complete.` |
 | $0 payout fees | `$0 payout fees where applicable.` | `Payout terms discussed before you commit.` |
 | $50 missed-payment fee | `FairLend's missed-payment administration fee is $50.` | `Low missed-payment administration fees designed for servicing, not punishment.` |
 | $450 market comparison | `Compared with private-lending charges borrowers often see around $450.` | Remove the comparison entirely. |
@@ -189,7 +189,7 @@ Do not optimize only for raw lead volume. This page should bias toward qualified
 
 **Proof strip copy:**
 
-- Target 3-day commitment on complete private mortgage files `[COMPLIANCE]`
+- Target 24-hour commitment on complete private mortgage files `[COMPLIANCE]`
 - First, second, bridge, renewal, and equity-based structures
 - $0 payout fees where applicable `[COMPLIANCE]`
 - Material mortgage economics discussed before signing
@@ -280,7 +280,7 @@ If any fee schedule language is not approved, replace concrete fee references wi
 
 - Large serif headline and short intro.
 - Asymmetric grid: one large anchor cell plus supporting cells.
-- Anchor cell is "Clear answer, quickly" with a qualified 3-day target.
+- Anchor cell is "Clear answer, quickly" with a qualified 24-hour target.
 - Supporting cells use document-style labels and short explanations.
 - Use subtle topographic contours in the background, away from text.
 - Use line icons or small document marks, not oversized rounded icon cards.
@@ -297,7 +297,7 @@ FairLend reviews the borrower, property, current mortgage position, documentatio
 
 **Clear answer, quickly**
 
-Target 3-day application-to-commitment path for complete private mortgage files. `[COMPLIANCE]`
+Target 24-hour application-to-commitment path for complete private mortgage files. `[COMPLIANCE]`
 
 **Transparent structure**
 
@@ -638,7 +638,7 @@ Sometimes yes, sometimes no. FairLend reviews the borrower, property, current mo
 
 **How quickly can I get a commitment?**
 
-FairLend targets a 3-day application-to-commitment path for complete private mortgage files. Timing depends on file completeness, borrower cooperation, property review, appraisal requirements, underwriting, available capital, and lender fit. `[COMPLIANCE]`
+FairLend targets a 24-hour application-to-commitment path for complete private mortgage files. Timing depends on file completeness, borrower cooperation, property review, appraisal requirements, underwriting, available capital, and lender fit. `[COMPLIANCE]`
 
 **What does the free consultation include?**
 
@@ -867,7 +867,7 @@ Fair private mortgage financing with a clear exit plan.
 
 ## Compliance Checklist Before Publishing
 
-- 3-day commitment language says `target` and is qualified by complete file, borrower cooperation, underwriting, property review, appraisal requirements, available capital, and lender fit.
+- 24-hour commitment language says `target` and is qualified by complete file, borrower cooperation, underwriting, property review, appraisal requirements, available capital, and lender fit.
 - $0 payout fee language says `where applicable`.
 - $50 missed-payment fee is approved against finalized fee schedule.
 - Any $450 comparison is substantiated with approved benchmark evidence or removed.

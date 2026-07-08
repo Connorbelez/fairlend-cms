@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
+import { trackLeadFailed, trackLeadSubmitted } from '@/lib/analytics/events'
 import { cn } from '@/utilities/ui'
 
 type SubmitState = 'idle' | 'submitting' | 'success' | 'error'
@@ -63,9 +64,11 @@ const EMPTY_VALUES: ConsultationFormValues = {
 }
 
 const SUCCESS_COPY =
-  'We received your request. A FairLend mortgage specialist will review the details and follow up with next steps.'
+  'A FairLend mortgage specialist will review your property, balance, timeline, and exit route before responding with the practical path.'
 const ERROR_COPY =
-  'We could not send the request. Please check your connection and try again, or call FairLend directly.'
+  'The request did not send. Check your connection and try again, or call FairLend directly.'
+const REVIEW_PROMISE =
+  'Share what is happening and the core numbers. FairLend will use them only to review your request.'
 
 function validate(values: ConsultationFormValues): FormErrors {
   const errors: FormErrors = {}
@@ -157,18 +160,35 @@ export function ConsultationForm(): ReactElement {
       }
 
       setSubmitState('success')
+      trackLeadSubmitted({
+        intent: values.situationType,
+        source: 'borrowers-page',
+        step: 'borrower_consultation_submit',
+      })
       setValues(EMPTY_VALUES)
     } catch (error) {
       console.error('Borrower consultation form submission failed', error)
+      trackLeadFailed({
+        intent: values.situationType || 'borrower-consultation',
+        source: 'borrowers-page',
+        step: 'borrower_consultation_submit',
+      })
       setSubmitState('error')
     }
   }
 
   if (submitState === 'success') {
     return (
-      <div className="consultation-form consultation-form--success" data-consultation-success role="status">
+      <div
+        className="consultation-form consultation-form--success"
+        data-consultation-success
+        role="status"
+      >
         <CheckCircle2 aria-hidden="true" className="consultation-form__success-icon" />
+        <p className="consultation-form__success-kicker">Review request received</p>
+        <h3 className="consultation-form__success-title">A specialist will review your options.</h3>
         <p className="consultation-form__success-copy">{SUCCESS_COPY}</p>
+        <p className="consultation-form__success-note">No obligation to proceed.</p>
         <Button
           onClick={() => setSubmitState('idle')}
           className="mt-4"
@@ -184,20 +204,33 @@ export function ConsultationForm(): ReactElement {
 
   return (
     <form
-      aria-describedby="consultation-form-status"
+      aria-describedby={
+        submitState === 'error'
+          ? 'consultation-form-review-promise consultation-form-status'
+          : 'consultation-form-review-promise'
+      }
       className="consultation-form"
       data-consultation-form
       onSubmit={handleSubmit}
       noValidate
     >
+      <div className="consultation-form__heading">
+        <p className="consultation-form__eyebrow">Free private mortgage review</p>
+        <h3 className="consultation-form__title">Tell us what you need to solve.</h3>
+        <p className="consultation-form__promise" id="consultation-form-review-promise">
+          {REVIEW_PROMISE}
+        </p>
+      </div>
+
       {submitState === 'error' && (
         <p className="consultation-form__alert" role="alert" id="consultation-form-status">
-          {ERROR_COPY}
+          <strong>Submission failed.</strong>
+          <span>{ERROR_COPY}</span>
         </p>
       )}
 
       <div className="consultation-form__grid">
-        <Field label="Name" htmlFor="borrower-name" error={errors.name} required>
+        <Field label="Full name" htmlFor="borrower-name" error={errors.name} required>
           <Input
             autoComplete="name"
             id="borrower-name"
@@ -208,7 +241,7 @@ export function ConsultationForm(): ReactElement {
           />
         </Field>
 
-        <Field label="Phone" htmlFor="borrower-phone" error={errors.phone} required>
+        <Field label="Phone number" htmlFor="borrower-phone" error={errors.phone} required>
           <Input
             autoComplete="tel"
             id="borrower-phone"
@@ -220,7 +253,7 @@ export function ConsultationForm(): ReactElement {
           />
         </Field>
 
-        <Field label="Email" htmlFor="borrower-email" error={errors.email} required>
+        <Field label="Email address" htmlFor="borrower-email" error={errors.email} required>
           <Input
             autoComplete="email"
             id="borrower-email"
@@ -232,13 +265,18 @@ export function ConsultationForm(): ReactElement {
           />
         </Field>
 
-        <Field label="Property city" htmlFor="borrower-city" error={errors.propertyCity} required>
+        <Field
+          label="Property city or address"
+          htmlFor="borrower-city"
+          error={errors.propertyCity}
+          required
+        >
           <Input
             autoComplete="address-level2"
             id="borrower-city"
             onChange={(e) => updateField('propertyCity', e.target.value)}
             value={values.propertyCity}
-            placeholder="Toronto, Mississauga, Ottawa…"
+            placeholder="Toronto, Mississauga, or property address"
             aria-invalid={Boolean(errors.propertyCity)}
             aria-describedby={errors.propertyCity ? 'borrower-city-error' : undefined}
           />
@@ -250,7 +288,7 @@ export function ConsultationForm(): ReactElement {
             inputMode="numeric"
             onChange={(e) => updateField('estimatedValue', e.target.value)}
             value={values.estimatedValue}
-            placeholder="$"
+            placeholder="$750,000"
           />
         </Field>
 
@@ -260,17 +298,17 @@ export function ConsultationForm(): ReactElement {
             inputMode="numeric"
             onChange={(e) => updateField('mortgageBalance', e.target.value)}
             value={values.mortgageBalance}
-            placeholder="$"
+            placeholder="$420,000"
           />
         </Field>
 
-        <Field label="Financing amount needed" htmlFor="borrower-amount">
+        <Field label="Amount needed" htmlFor="borrower-amount">
           <Input
             id="borrower-amount"
             inputMode="numeric"
             onChange={(e) => updateField('amountNeeded', e.target.value)}
             value={values.amountNeeded}
-            placeholder="$"
+            placeholder="$100,000"
           />
         </Field>
 
@@ -279,12 +317,12 @@ export function ConsultationForm(): ReactElement {
             id="borrower-timeline"
             onChange={(e) => updateField('timeline', e.target.value)}
             value={values.timeline}
-            placeholder="Days, weeks, or a specific date"
+            placeholder="Within 2 weeks, or by a specific date"
           />
         </Field>
 
         <Field
-          label="Situation type"
+          label="Situation"
           htmlFor="borrower-situation"
           error={errors.situationType}
           required
@@ -313,7 +351,7 @@ export function ConsultationForm(): ReactElement {
         </Field>
 
         <Field
-          label="Optional notes"
+          label="Additional context"
           htmlFor="borrower-notes"
           className="consultation-form__field--full"
         >
@@ -321,7 +359,7 @@ export function ConsultationForm(): ReactElement {
             id="borrower-notes"
             onChange={(e) => updateField('notes', e.target.value)}
             value={values.notes}
-            placeholder="Anything else FairLend should know before the review."
+            placeholder="Closing date, lender deadline, credit concern, or preferred exit plan."
             rows={3}
           />
         </Field>
@@ -340,11 +378,11 @@ export function ConsultationForm(): ReactElement {
               <span>Sending…</span>
             </>
           ) : (
-            <span>Request a Free Consultation</span>
+            <span>Request a free consultation</span>
           )}
         </Button>
         <p className="consultation-form__microcopy">
-          We use your details only to review your file and respond to your request. No obligation.
+          Reviewed for fit, likely structure, timeline risk, and exit path. No obligation.
         </p>
       </div>
     </form>

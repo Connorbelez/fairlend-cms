@@ -1,8 +1,7 @@
 import type { ReactElement } from 'react'
 
 import { FairlendBorrowerCta } from '@/components/FairlendBorrowerCta'
-import { getFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
-import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
+import { buildFairlendConsultationHref, buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 
 import './investor-final-cta.css'
 
@@ -10,7 +9,7 @@ const accessHref = buildFairlendIntakeHref({
   intent: 'invest',
   source: 'investor-final-cta',
 })
-const reviewHref = getFairlendMicrosoftBookingsUrl()
+const reviewHref = buildFairlendConsultationHref('investor-final-review')
 
 /**
  * Section 14 — Final CTA (Concept C, reassurance close).
@@ -47,8 +46,6 @@ export function FairlendInvestorFinalCta(): ReactElement {
             as="a"
             href={reviewHref}
             label="Book an Investor Review"
-            rel="noreferrer"
-            target="_blank"
             variant="secondary"
           />
         </div>

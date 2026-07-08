@@ -11,9 +11,9 @@ import { FairlendRouteSelector } from '@/components/FairlendRouteSelector'
 import { FairlendScrollChoreography } from '@/components/FairlendScrollChoreography.client'
 
 export const metadata: Metadata = {
-  title: 'Fairlend | Multiplex, Single Family, and Land Financing',
+  title: 'FairLend | Multiplex, Single Family, Land, and Private Mortgage Financing',
   description:
-    'Fairlend guides Toronto builders and investors through permit, acquisition, construction, and completion financing.',
+    'FairLend guides Toronto builders, borrowers, and investors through private mortgage, acquisition, construction, and completion financing.',
 }
 
 export default function Page() {

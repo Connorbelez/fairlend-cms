@@ -3,8 +3,7 @@ import React from 'react'
 import type { Media as MediaType } from '@/payload-types'
 
 import { Media } from '@/components/Media'
-import { getFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
-import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
+import { buildFairlendConsultationHref, buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 import { cn } from '@/utilities/ui'
 
 type Metric = {
@@ -39,7 +38,9 @@ const fallbackWatermelonLayoutActionHref = buildFairlendIntakeHref({
   intent: 'contact',
   source: 'watermelon-layout-fallback',
 })
-const fallbackWatermelonLayoutBookingHref = getFairlendMicrosoftBookingsUrl()
+const fallbackWatermelonLayoutBookingHref = buildFairlendConsultationHref(
+  'watermelon-layout-fallback-consultation',
+)
 
 const layoutLabels: Record<string, string> = {
   watermelonBusinessManagement: 'Business management',

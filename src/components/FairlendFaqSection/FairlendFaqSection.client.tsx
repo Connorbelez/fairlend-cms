@@ -51,25 +51,25 @@ const routeStopLayout: Record<
   borrowers: {
     contentLeft: '59%',
     markerLeft: '56%',
-    panelLeft: '56%',
+    panelLeft: '59%',
     rowGap: '241px',
   },
   investors: {
     contentLeft: '23%',
     markerLeft: '19%',
-    panelLeft: '18%',
+    panelLeft: '23%',
     rowGap: '206px',
   },
   builders: {
     contentLeft: '27%',
     markerLeft: '22%',
-    panelLeft: '22%',
+    panelLeft: '27%',
     rowGap: '40px',
   },
   partners: {
     contentLeft: '39%',
     markerLeft: '34%',
-    panelLeft: '34%',
+    panelLeft: '39%',
     rowGap: '128px',
   },
 }
@@ -165,7 +165,7 @@ function RoutePathOverlay({ path }: { path: RoutePathState }) {
   return (
     <svg
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 z-[2] h-full w-full overflow-visible"
+      className="pointer-events-none absolute inset-0 z-[2] h-full w-full overflow-visible max-md:hidden"
       fill="none"
     >
       <defs>
@@ -304,13 +304,13 @@ function RouteRow({
           ref={markerRef}
           aria-hidden="true"
           className={cn(
-            'absolute top-[-18px] left-[var(--faq-route-marker-left)] z-20 grid size-[42px] -translate-x-1/2 place-items-center rounded-full border border-[#30332e] bg-[#f7f6f1] text-[13px] leading-none font-black tracking-[-0.04em] text-[#30332e] shadow-[0_0_0_3px_rgb(247_246_241/88%)] transition-colors duration-200 group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-4 group-focus-visible:outline-[#11110f]',
+            'absolute top-[-18px] left-[var(--faq-route-marker-left)] z-20 grid size-[42px] -translate-x-1/2 place-items-center rounded-full border border-[#30332e] bg-[#f7f6f1] text-[13px] leading-none font-black tracking-[-0.04em] text-[#30332e] shadow-[0_0_0_3px_rgb(247_246_241/88%)] transition-colors duration-200 group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-4 group-focus-visible:outline-[#11110f] max-md:static max-md:mb-4 max-md:size-10 max-md:translate-x-0',
             active && 'border-[#30332e] bg-[#b7ff05] text-[#30332e]',
           )}
         >
           {visualRouteNumber}
         </span>
-        <span className="grid w-full grid-cols-[minmax(0,1fr)_116px_48px] items-start gap-4 pl-[var(--faq-route-content-left)] pt-0 max-md:grid-cols-[minmax(0,1fr)_40px] max-md:gap-3 max-md:pl-[68px]">
+        <span className="grid w-full grid-cols-[minmax(0,1fr)_116px_48px] items-start gap-4 pl-[var(--faq-route-content-left)] pt-0 max-md:grid-cols-[minmax(0,1fr)_40px] max-md:gap-3 max-md:pl-0">
           <span className="min-w-0">
             <span className="grid grid-cols-[auto_minmax(44px,1fr)] items-center gap-5">
               <span className="font-serif text-[35px] leading-[0.92] font-medium tracking-[-0.025em] text-[#161713] max-md:text-[30px]">
@@ -336,9 +336,9 @@ function RouteRow({
           </span>
         </span>
       </AccordionTrigger>
-      <AccordionContent className="pb-0 pt-0 pl-[var(--faq-route-panel-left)] max-md:pl-[68px]">
-        <div className="border border-[#d7d7d0]/64 bg-[#fbfaf5]/58 py-[30px] pr-[42px] pl-[64px] shadow-[0_16px_38px_rgb(27_25_18/2%)] max-md:px-5 max-md:py-5">
-          <div className="grid gap-x-12 gap-y-8 md:grid-cols-2">
+      <AccordionContent className="pb-0 pt-0 pl-[var(--faq-route-panel-left)] max-md:pl-0">
+        <div className="relative z-20 border border-[#d7d7d0]/72 bg-[#fbfaf5]/95 py-[30px] pr-[42px] pl-[64px] shadow-[0_16px_38px_rgb(27_25_18/3%)] max-md:px-5 max-md:py-5">
+          <div className="grid gap-x-12 gap-y-8 md:grid-cols-2 max-md:gap-y-6">
             {group.items.map((item, itemIndex) => (
               <article
                 className={cn(

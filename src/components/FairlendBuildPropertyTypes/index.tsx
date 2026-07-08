@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import type { ReactElement } from 'react'
 
 import { Separator } from '@/components/ui/separator'
@@ -19,6 +20,7 @@ export type FairlendBuildPropertyTypeRow = {
   tagline: string
   image: FairlendBuildPropertyTypeAsset
   imageClassName?: string
+  href?: string
 }
 
 export type FairlendBuildPropertyTypesProps = {
@@ -48,6 +50,12 @@ export const fairlendBuildPropertyTypesAssets = {
     width: 1303,
     height: 744,
   },
+  privateMortgage: {
+    src: '/assets/fairlend-route-selector/private-mortgage-house-engraving.webp',
+    alt: '',
+    width: 900,
+    height: 378,
+  },
   cornerFoliage: {
     src: '/assets/fairlend-build-property-types/corner-foliage-engraving.webp',
     alt: '',
@@ -62,12 +70,14 @@ export const fairlendBuildPropertyTypesRows = [
     title: 'Multi-plex',
     tagline: 'Grow your portfolio',
     image: fairlendBuildPropertyTypesAssets.multiplex,
+    href: '/start/builder',
   },
   {
     id: 'single-family',
     title: 'Single family',
     tagline: 'Build for generations',
     image: fairlendBuildPropertyTypesAssets.singleFamily,
+    href: '/start/builder',
   },
   {
     id: 'land',
@@ -75,6 +85,14 @@ export const fairlendBuildPropertyTypesRows = [
     tagline: 'Unlock possibility',
     image: fairlendBuildPropertyTypesAssets.land,
     imageClassName: 'fairlend-build-property-types__image--land',
+    href: '/start/builder',
+  },
+  {
+    id: 'private-mortgage',
+    title: 'Mortgage',
+    tagline: 'The FairLend Mortgage',
+    image: fairlendBuildPropertyTypesAssets.privateMortgage,
+    href: '/borrowers/private-mortgage-financing',
   },
 ] as const satisfies readonly FairlendBuildPropertyTypeRow[]
 
@@ -98,33 +116,62 @@ export function FairlendBuildPropertyTypes({
       data-variant={variant}
     >
       <div className="fairlend-build-property-types__paper" aria-hidden="true" />
+      {variant === 'hero' ? (
+        <Image
+          alt=""
+          aria-hidden="true"
+          className="fairlend-build-property-types__mobile-image"
+          fill
+          priority
+          sizes="(max-width: 576px) 100vw, 1px"
+          src="/assets/fairlend/mobile-hero-property-path.webp"
+        />
+      ) : null}
       <ul className="fairlend-build-property-types__list">
-        {rows.map((row, index) => (
-          <li className="fairlend-build-property-types__row" key={row.id}>
-            <div className="fairlend-build-property-types__art">
-              <Image
-                alt={row.image.alt ?? ''}
-                className={cn('fairlend-build-property-types__image', row.imageClassName)}
-                height={row.image.height}
-                priority={index === 0}
-                sizes="(max-width: 640px) 38vw, (max-width: 1024px) 31vw, 290px"
-                src={row.image.src}
-                width={row.image.width}
+        {rows.map((row, index) => {
+          const content = (
+            <>
+              <div className="fairlend-build-property-types__art">
+                <Image
+                  alt={row.image.alt ?? ''}
+                  className={cn('fairlend-build-property-types__image', row.imageClassName)}
+                  height={row.image.height}
+                  priority={index === 0}
+                  sizes="(max-width: 640px) 38vw, (max-width: 1024px) 31vw, 290px"
+                  src={row.image.src}
+                  width={row.image.width}
+                />
+              </div>
+
+              <Separator
+                className="fairlend-build-property-types__divider"
+                decorative
+                orientation="vertical"
               />
-            </div>
 
-            <Separator
-              className="fairlend-build-property-types__divider"
-              decorative
-              orientation="vertical"
-            />
+              <div className="fairlend-build-property-types__copy">
+                <h2 className="fairlend-build-property-types__title">{row.title}</h2>
+                <p className="fairlend-build-property-types__tagline">{row.tagline}</p>
+              </div>
+            </>
+          )
 
-            <div className="fairlend-build-property-types__copy">
-              <h2 className="fairlend-build-property-types__title">{row.title}</h2>
-              <p className="fairlend-build-property-types__tagline">{row.tagline}</p>
-            </div>
-          </li>
-        ))}
+          return (
+            <li className="fairlend-build-property-types__row" key={row.id}>
+              {row.href ? (
+                <Link
+                  aria-label={`${row.title}: ${row.tagline}`}
+                  className="fairlend-build-property-types__link"
+                  href={row.href}
+                >
+                  {content}
+                </Link>
+              ) : (
+                <div className="fairlend-build-property-types__link">{content}</div>
+              )}
+            </li>
+          )
+        })}
       </ul>
 
       {variant === 'feature' ? (

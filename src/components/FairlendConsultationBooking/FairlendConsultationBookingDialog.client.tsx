@@ -1,6 +1,8 @@
 'use client'
 
-import { ArrowRight, CalendarClock, ExternalLink, MailCheck, ShieldCheck } from 'lucide-react'
+import type { CSSProperties, ReactNode } from 'react'
+
+import { ArrowRight, CalendarClock, MailCheck, ShieldCheck } from 'lucide-react'
 import * as React from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -12,6 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import { trackFairlendEvent } from '@/lib/analytics/events'
 import { getFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
 import { cn } from '@/utilities/ui'
 
@@ -33,18 +36,53 @@ const bookingHighlights = [
   },
 ] as const
 
-export function FairlendConsultationBookingDialog() {
+type FairlendConsultationBookingDialogProps = {
+  ariaLabel?: string
+  children?: ReactNode
+  className?: string
+  leadershipCta?: boolean
+  onTriggerClick?: () => void
+  source?: string
+  style?: CSSProperties
+}
+
+export function FairlendConsultationBookingDialog({
+  ariaLabel = 'Book a free FairLend consultation',
+  children,
+  className,
+  leadershipCta = true,
+  onTriggerClick,
+  source = 'leadership-book-consultation',
+  style,
+}: FairlendConsultationBookingDialogProps) {
   const [isOpen, setIsOpen] = React.useState(false)
   const bookingsUrl = getFairlendMicrosoftBookingsUrl()
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="leadership-cta" data-leadership-cta size="clear">
-          Book a free consultation
-          <span aria-hidden="true" data-leadership-cta-arrow>
-            <ArrowRight size={21} strokeWidth={1.9} />
-          </span>
+        <Button
+          aria-label={ariaLabel}
+          className={cn(className ?? 'leadership-cta')}
+          data-leadership-cta={leadershipCta ? '' : undefined}
+          onClick={() => {
+            onTriggerClick?.()
+            trackFairlendEvent('fairlend_consultation_cta_clicked', {
+              source,
+            })
+          }}
+          size="clear"
+          style={style}
+          type="button"
+        >
+          {children ?? (
+            <>
+              Book a free consultation
+              <span aria-hidden="true" data-leadership-cta-arrow>
+                <ArrowRight size={21} strokeWidth={1.9} />
+              </span>
+            </>
+          )}
         </Button>
       </DialogTrigger>
       <DialogContent
@@ -55,13 +93,13 @@ export function FairlendConsultationBookingDialog() {
         )}
       >
         <div className="grid max-h-[92svh] overflow-y-auto bg-[linear-gradient(135deg,rgb(8_9_10/3%)_0_1px,transparent_1px_22px),radial-gradient(circle_at_82%_10%,rgb(150_236_24/14%),transparent_28rem),linear-gradient(180deg,var(--booking-white),var(--booking-paper))] lg:grid-cols-[minmax(340px,0.82fr)_minmax(520px,1fr)]">
-          <div className="min-w-0 flex flex-col gap-7 border-b border-[var(--booking-line-strong)] p-6 sm:p-8 lg:border-b-0 lg:border-r">
+          <div className="min-w-0 flex flex-col gap-7 border-b border-[var(--booking-line-strong)] p-6 sm:p-8 lg:border-r lg:border-b-0">
             <DialogHeader className="min-w-0 gap-3 text-left">
-              <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--booking-lime-ink)]">
+              <div className="flex items-center gap-2 text-[11px] font-bold tracking-[0.18em] text-[var(--booking-lime-ink)] uppercase">
                 <span className="h-px w-9 bg-[var(--booking-lime)]" />
                 Microsoft Bookings
               </div>
-              <DialogTitle className="max-w-full break-words text-[clamp(2.35rem,10vw,3.4rem)] font-black uppercase leading-[0.9] tracking-normal text-[var(--booking-ink)] sm:text-[clamp(2.8rem,8vw,3.55rem)] lg:text-[clamp(3rem,4vw,3.4rem)]">
+              <DialogTitle className="max-w-full break-words text-[clamp(2.35rem,10vw,3.4rem)] leading-[0.9] font-black tracking-normal text-[var(--booking-ink)] uppercase sm:text-[clamp(2.8rem,8vw,3.55rem)] lg:text-[clamp(3rem,4vw,3.4rem)]">
                 Free consultation
               </DialogTitle>
               <DialogDescription className="max-w-md text-base leading-7 text-[var(--booking-muted)]">
@@ -80,32 +118,24 @@ export function FairlendConsultationBookingDialog() {
                     <Icon aria-hidden="true" size={20} strokeWidth={1.8} />
                   </span>
                   <span className="flex flex-col gap-1">
-                    <span className="text-[11px] font-black uppercase tracking-[0.14em] text-[var(--booking-ink)]">
+                    <span className="text-[11px] font-black tracking-[0.14em] text-[var(--booking-ink)] uppercase">
                       {title}
                     </span>
-                    <span className="text-sm font-medium leading-6 text-[var(--booking-muted)]">
+                    <span className="text-sm leading-6 font-medium text-[var(--booking-muted)]">
                       {copy}
                     </span>
                   </span>
                 </div>
               ))}
             </div>
-
-            <Button
-              asChild
-              className="h-12 rounded-none border border-[rgb(150_236_24/58%)] bg-[var(--booking-lime)] text-sm font-black uppercase tracking-[0.12em] text-[var(--booking-lime-ink)] shadow-[0_14px_32px_rgb(8_9_10/10%)] hover:bg-[var(--booking-lime-bright)]"
-            >
-              <a href={bookingsUrl} rel="noreferrer" target="_blank">
-                Open scheduler
-                <ExternalLink aria-hidden="true" data-icon="inline-end" size={17} />
-              </a>
-            </Button>
           </div>
 
           <div className="min-h-[680px] bg-white">
             <iframe
+              allow="clipboard-write"
               className="h-[78svh] min-h-[680px] w-full border-0 bg-white"
               loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
               src={bookingsUrl}
               title="FairLend Microsoft Bookings consultation scheduler"
             />

@@ -36,7 +36,7 @@ export const fairlendFaqGroups = [
         id: 'borrowers-commitment-speed',
         question: 'How quickly can I get a commitment?',
         answer:
-          'FairLend targets a 3-day application-to-commitment path for complete private mortgage files. Timing depends on file completeness, borrower cooperation, property review, appraisal requirements, underwriting, available capital, and lender fit.',
+          'FairLend targets a 24-hour application-to-commitment path for complete private mortgage files. Timing depends on file completeness, borrower cooperation, property review, appraisal requirements, underwriting, available capital, and lender fit.',
       },
       {
         id: 'borrowers-fees-and-payout',

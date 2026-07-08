@@ -10,7 +10,7 @@ const testimonials = [
     author: 'Toronto Infill Builder',
     initials: 'TB',
     quote:
-      'Fairlend kept the permit, acquisition, and construction financing moving together. The draw process felt built for how we actually build.',
+      'FairLend kept the permit, acquisition, and construction financing moving together. The draw process felt built for how we actually build.',
     tagline: 'Multiplex construction borrower',
   },
   {
@@ -31,7 +31,7 @@ const testimonials = [
     author: 'Broker Partner',
     initials: 'BP',
     quote:
-      'Fairlend gave our client a practical route forward when conventional lenders stalled, and communication stayed tight from term sheet to close.',
+      'FairLend gave our client a practical route forward when conventional lenders stalled, and communication stayed tight from term sheet to close.',
     tagline: 'Co-brokered private lending file',
   },
 ] as const

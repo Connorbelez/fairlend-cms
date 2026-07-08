@@ -6,8 +6,11 @@ import { Logo } from '@/components/Logo/Logo'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
-import { getFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
-import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
+import {
+  buildFairlendConsultationHref,
+  buildFairlendContactHref,
+  buildFairlendRouteHelperHref,
+} from '@/lib/fairlend-intake'
 import type { Footer as FooterGlobal } from '@/payload-types'
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { cn } from '@/utilities/ui'
@@ -16,6 +19,7 @@ import {
   Building2,
   Landmark,
   LucideIcon,
+  Mail,
   MapPin,
   Phone,
   ShieldCheck,
@@ -25,10 +29,9 @@ import Link from 'next/link'
 import { type FormEvent, type ReactNode, useState } from 'react'
 
 type FooterNavItem = NonNullable<FooterGlobal['navItems']>[number]
-const footerBookingHref = getFairlendMicrosoftBookingsUrl()
+const footerBookingHref = buildFairlendConsultationHref('footer-book-consultation')
 
 type WatermelonFooterProps = {
-  currentAsOf: string
   doingBusinessAs: string
   legalName: string
   navItems: FooterNavItem[]
@@ -60,22 +63,25 @@ const footerColumns = [
   {
     title: 'Financing',
     links: [
-      { label: 'Multiplex', href: '/services/multiplex-financing' },
-      { label: 'Land', href: '/services/land-financing' },
-      { label: 'Acquisition', href: '/services/acquisition-financing' },
-      { label: 'Construction', href: '/services/construction-financing' },
-      { label: 'Completion', href: '/services/completion-financing' },
+      { label: 'Multiplex', href: '/multiplex-financing-gta' },
+      { label: 'Garden suites', href: '/garden-suite-financing-gta' },
+      { label: 'Construction draws', href: '/construction-draw-financing' },
+      { label: 'CMHC MLI Select', href: '/cmhc-mli-select-multiplex-financing' },
+      { label: 'Affordable rentals', href: '/affordable-sustainable-rental-housing' },
     ],
   },
   {
     title: 'Borrowers',
     links: [
-      { label: 'Start application', href: '/intake' },
+      {
+        label: 'Start application',
+        href: buildFairlendRouteHelperHref('footer-start-application'),
+      },
       { label: 'Book consultation', href: footerBookingHref },
       { label: 'Search', href: '/search' },
       {
         label: 'Contact',
-        href: buildFairlendIntakeHref({ intent: 'contact', source: 'footer-contact-link' }),
+        href: buildFairlendContactHref('footer-contact-link'),
       },
     ],
   },
@@ -86,8 +92,7 @@ const footerColumns = [
         label: 'Verify FSRA licence',
         href: 'https://mbsweblist.fsco.gov.on.ca/ShowLicence.aspx?13827~',
       },
-      { label: 'Privacy', href: '/privacy' },
-      { label: 'Terms', href: '/terms' },
+      { label: 'Privacy', href: '/en/brokerage/privacy-policy' },
     ],
   },
 ]
@@ -111,7 +116,6 @@ const footerThemeClassName = [
 ].join(' ')
 
 export function WatermelonFooter({
-  currentAsOf,
   doingBusinessAs,
   legalName,
   navItems,
@@ -200,7 +204,7 @@ export function WatermelonFooter({
                   {'// Toronto mortgage capital desk'}
                 </span>
                 <h2 className="max-w-[560px] font-serif text-[clamp(2rem,5vw,4.85rem)] leading-[0.96] font-bold text-[var(--footer-ink)]">
-                  Financing signal without the noise.
+                  Building the future of Fair Lending
                 </h2>
                 <p className="max-w-[520px] text-sm leading-6 font-semibold text-[var(--footer-muted)]">
                   Brokerage and administration support for multiplex, land, acquisition,
@@ -264,7 +268,7 @@ export function WatermelonFooter({
 
             <motion.div variants={techReveal}>
               <FairlendRegistrationDisclosure
-                className="border-[var(--footer-line)] bg-[rgb(255_255_255/72%)] text-[var(--footer-ink)] shadow-none [&_dd]:text-[var(--footer-ink)] [&_dt]:border-[var(--footer-line)] [&_dt]:text-[var(--footer-lime-ink)] [&_p]:text-[var(--footer-ink)] [&_span]:text-[var(--footer-lime-ink)]"
+                className="border-[var(--footer-line)] bg-[rgb(255_255_255/72%)] shadow-none"
                 variant="footer"
               />
             </motion.div>
@@ -287,14 +291,14 @@ export function WatermelonFooter({
                 <span className="relative inline-flex size-2.5 rounded-full bg-[var(--footer-lime)]" />
               </span>
               <span className="text-xs font-extrabold tracking-[0.18em] text-[var(--footer-lime-ink)] uppercase">
-                Engineered for regulated mortgage workflows
+                Fair, Transparent, On your side
               </span>
             </div>
 
             <SignalMeter reduceMotion={Boolean(reduceMotion)} />
 
             <span className="text-xs font-extrabold tracking-[0.18em] text-[var(--footer-lime-ink)] uppercase md:text-right">
-              [ FSRA current {currentAsOf} ]
+              2026 Fairlend Management Inc
             </span>
           </div>
         </motion.div>
@@ -351,7 +355,7 @@ export function WatermelonFooter({
         >
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <p className="max-w-[360px] text-xs leading-5 font-semibold text-[var(--footer-muted-soft)]">
-              &copy; {year} {legalName}. Information current as of {currentAsOf}.
+              &copy; {year} {legalName}.
             </p>
             <Separator
               className="hidden h-8 bg-[var(--footer-line)] sm:block"
@@ -363,6 +367,8 @@ export function WatermelonFooter({
                 icon={ShieldCheck}
                 label="Verify licence"
               />
+              <FooterAction href="tel:+16478317605" icon={Phone} label="647-831-7605" />
+              <FooterAction href="mailto:elie@fairlend.ca" icon={Mail} label="elie@fairlend.ca" />
               <FooterAction href={footerBookingHref} icon={Phone} label="Book consultation" />
             </div>
           </div>

@@ -70,7 +70,7 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
           Find the right financing signal.
         </h1>
         <p className="mx-auto mt-6 max-w-[620px] text-[clamp(18px,2.3vw,22px)] leading-[1.35] font-semibold text-[#33545e]">
-          Search Fairlend resources by property path, lending structure, or investment topic.
+          Search FairLend resources by property path, lending structure, or investment topic.
         </p>
         <div className="fairlend-reveal mx-auto mt-9 max-w-[50rem] [--fairlend-delay:140ms]">
           <Search />
@@ -95,6 +95,6 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
 
 export function generateMetadata(): Metadata {
   return {
-    title: 'Search Fairlend Resources',
+    title: 'Search FairLend Resources',
   }
 }

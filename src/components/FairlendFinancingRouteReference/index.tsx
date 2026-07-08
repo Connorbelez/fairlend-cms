@@ -172,7 +172,7 @@ const defaultStats: CredibilityStat[] = [
       <>
         $2B+ financing
         <br />
-        closed
+        by Principal Broker
       </>
     ),
     icon: Handshake,
@@ -237,9 +237,9 @@ function FairlendApplicationCta({
 function FairlendFinancingRouteHeader({
   className,
   index = '00 /',
-  sectionLabel = 'The Fairlend Model',
+  sectionLabel = 'The FairLend Model',
   stepLabel = '00 of 05 / The Financing Route',
-  brand = 'Fairlend',
+  brand = 'FairLend',
   descriptor = 'Brokerage & Investment Company',
 }: FinancingRouteHeaderProps) {
   return (
@@ -277,7 +277,7 @@ function FairlendFinancingRouteCopyPanel({
   className,
   eyebrow,
   title = 'The Financing Route',
-  subtitle = 'Financing for multiplex, single family, and land purchase',
+  subtitle = 'Financing for multiplex, single family, and land',
   description = 'Permit planning, acquisition, construction, completion, and long-term capital guidance.',
   cta,
 }: FinancingRouteCopyPanelProps) {
