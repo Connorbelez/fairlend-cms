@@ -82,7 +82,7 @@ function BookConsultationButton({ mobileDocked = false }: { mobileDocked?: boole
       className={cn(
         'fairlend-toronto-copy group h-[55px] items-center gap-[12px] rounded-[9px] bg-[#96ec18] py-0 pr-5 pl-[18px] text-[17px] leading-none font-normal text-[#101010] shadow-[0_10px_24px_rgb(118_205_0/12%)] outline-none transition-[background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-[#a4fb20] hover:shadow-[0_14px_32px_rgb(118_205_0/18%)] focus-visible:ring-2 focus-visible:ring-[#111] focus-visible:ring-offset-4 focus-visible:ring-offset-[#f8f7f5] max-md:h-12 max-md:w-[min(100%,455px)] max-md:justify-between max-md:px-4 max-md:text-[15px]',
         mobileDocked
-          ? 'hidden hero-mobile:inline-flex hero-mobile:relative hero-mobile:z-10 hero-mobile:mt-0 hero-mobile:w-full'
+          ? 'hidden hero-mobile:relative hero-mobile:z-10 hero-mobile:mt-0 hero-mobile:inline-flex hero-mobile:h-[58px] hero-mobile:w-full hero-mobile:min-w-0 hero-mobile:gap-2 hero-mobile:px-3 hero-mobile:text-[12px] hero-mobile:leading-[1.05]'
           : 'inline-flex hero-mobile:hidden',
       )}
       leadershipCta={false}
@@ -91,8 +91,8 @@ function BookConsultationButton({ mobileDocked = false }: { mobileDocked?: boole
       }
       style={{ '--toronto-delay': '720ms' } as CSSProperties}
     >
-      <span>Book a Free Consultation</span>
-      <span className="grid size-[30px] place-items-center rounded-[8px] bg-[#111] text-[#aaff00] transition-transform duration-200 group-hover:rotate-6 max-md:size-8">
+      <span className={cn(mobileDocked && 'min-w-0 text-left')}>Book a Free Consultation</span>
+      <span className="grid size-[30px] shrink-0 place-items-center rounded-[8px] bg-[#111] text-[#aaff00] transition-transform duration-200 group-hover:rotate-6 max-md:size-8 hero-mobile:size-[30px]">
         <ArrowUpRight aria-hidden="true" className="size-[20px]" strokeWidth={2.25} />
       </span>
     </FairlendConsultationBookingDialog>
@@ -106,7 +106,7 @@ function HeroTalkToExpertButton({ mobileDocked = false }: { mobileDocked?: boole
       className={cn(
         'fairlend-toronto-copy h-[55px] rounded-[9px] bg-[#111] px-[18px] py-0 text-[#f8f7f5] shadow-[0_10px_24px_rgb(17_17_17/12%)] hover:bg-[#050607] hover:shadow-[0_14px_32px_rgb(17_17_17/18%)] focus-visible:outline-[#111] focus-visible:outline-offset-4 [&>span:first-child]:bg-[#96ec18] [&>span:first-child]:text-[#111] [&>span:first-child]:shadow-none [&>span:last-child>span:first-child]:text-[#b8c6cc] [&>span:last-child>span:last-child]:text-[15px]',
         mobileDocked
-          ? 'hidden hero-mobile:flex hero-mobile:relative hero-mobile:z-10 hero-mobile:w-full hero-mobile:justify-start hero-mobile:px-4'
+          ? 'hidden hero-mobile:relative hero-mobile:z-10 hero-mobile:flex hero-mobile:h-[58px] hero-mobile:w-full hero-mobile:min-w-0 hero-mobile:justify-start hero-mobile:gap-2 hero-mobile:px-3 hero-mobile:[&>span:first-child]:size-[30px] hero-mobile:[&>span:first-child>svg]:size-[17px] hero-mobile:[&>span:last-child]:min-w-0 hero-mobile:[&>span:last-child>span:first-child]:text-[8px] hero-mobile:[&>span:last-child>span:last-child]:text-[12.5px]'
           : 'max-md:w-[min(100%,455px)] max-md:justify-start hero-mobile:hidden',
       )}
       eyebrow="Talk to an expert"
@@ -159,6 +159,45 @@ function ProofStats() {
             <small className="mt-[3px] block max-w-[112px] text-[7px] leading-[1.05] font-medium text-[#141414]/58">
               {stat.disclaimer}
             </small>
+          </span>
+        </div>
+      ))}
+    </aside>
+  )
+}
+
+function MobileAuthorityBar() {
+  const mobileStats = [
+    {
+      label: 'principal broker volume',
+      value: proofStats[0].value,
+    },
+    {
+      label: 'years experience',
+      value: proofStats[2].value,
+    },
+    {
+      label: 'commitment target',
+      value: `${proofStats[1].value} ${proofStats[1].prefix}`,
+    },
+  ] as const
+
+  return (
+    <aside
+      aria-label="FairLend authority points"
+      className="fairlend-toronto-copy hidden rounded-[9px] border border-[#111]/12 bg-[#f8f7f5]/88 px-3 py-2.5 shadow-[0_10px_24px_rgb(17_17_17/10%)] backdrop-blur-[2px] hero-mobile:grid hero-mobile:grid-cols-3 hero-mobile:gap-2"
+      style={{ '--toronto-delay': '780ms' } as CSSProperties}
+    >
+      {mobileStats.map((stat) => (
+        <div
+          className="min-w-0 border-l border-[#111]/10 pl-2 first:border-l-0 first:pl-0"
+          key={stat.label}
+        >
+          <strong className="block whitespace-nowrap font-serif text-[22px] leading-none font-normal tracking-[-0.035em] text-[#050506]">
+            {stat.value}
+          </strong>
+          <span className="mt-1 block text-[9px] leading-[1.05] font-semibold tracking-[0.03em] text-[#141414]/72 uppercase">
+            {stat.label}
           </span>
         </div>
       ))}
@@ -354,11 +393,14 @@ export function FairlendLandingHero() {
           <FairlendApplicationArrow />
 
           <div
-            className="contents hero-mobile:relative hero-mobile:z-10 hero-mobile:mt-auto hero-mobile:flex hero-mobile:w-full hero-mobile:max-w-[455px] hero-mobile:flex-col hero-mobile:gap-[14px]"
+            className="contents hero-mobile:relative hero-mobile:z-10 hero-mobile:mt-auto hero-mobile:grid hero-mobile:w-full hero-mobile:max-w-[455px] hero-mobile:grid-cols-2 hero-mobile:gap-[10px]"
             data-toronto-mobile-application
           >
             <BookConsultationButton mobileDocked />
             <HeroTalkToExpertButton mobileDocked />
+            <div className="hidden hero-mobile:col-span-2 hero-mobile:block">
+              <MobileAuthorityBar />
+            </div>
             <FairlendApplicationForm />
           </div>
         </div>

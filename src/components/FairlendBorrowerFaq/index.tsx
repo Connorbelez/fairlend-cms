@@ -70,7 +70,7 @@ const faqGroups: readonly FaqGroup[] = [
       },
       {
         answer:
-          'Where the structure allows it, FairLend uses $0 payout fees so leaving for better financing is not treated as the expensive option. Either way, payout terms should be understood before you commit.',
+          'Where the structure allows it, FairLend works to keep payout fees low so leaving for better financing is not treated as the expensive option. Either way, payout terms should be understood before you commit.',
         id: 'payout',
         question: 'Are there payout fees?',
       },

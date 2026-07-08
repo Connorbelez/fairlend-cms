@@ -1,16 +1,17 @@
 import type { Metadata } from 'next'
-import { getServerSideURL } from './getURL'
+import { fairlendSeo, getCanonicalUrl } from './seo'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
-  description: 'An open-source website built with Payload and Next.js.',
+  description: fairlendSeo.defaultDescription,
   images: [
     {
-      url: `${getServerSideURL()}/website-template-OG.webp`,
+      url: getCanonicalUrl(fairlendSeo.defaultOgImagePath),
     },
   ],
-  siteName: 'Payload Website Template',
-  title: 'Payload Website Template',
+  locale: fairlendSeo.locale,
+  siteName: fairlendSeo.siteName,
+  title: fairlendSeo.siteName,
 }
 
 export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => {

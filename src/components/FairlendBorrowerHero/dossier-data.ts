@@ -52,8 +52,7 @@ export const borrowerDossierRows: readonly BorrowerDossierRow[] = [
     label: 'Expected cost',
   },
   {
-    detail: '$0 payout fees where applicable, so leaving for better financing is not punished.',
-    // COMPLIANCE: approved wording. Fallback if not approved: "Payout terms discussed before you commit."
+    detail: 'Low payout fees where applicable, so leaving for better financing is not punished.',
     label: 'Payout terms',
   },
   {
@@ -79,8 +78,7 @@ export const borrowerHeroProofPoints: readonly BorrowerHeroProofPoint[] = [
     label: 'Options compared',
   },
   {
-    detail: '$0 payout fees where applicable.',
-    // COMPLIANCE: approved wording. Fallback: "Payout terms discussed before you commit."
+    detail: 'Low payout fees where applicable.',
     label: 'Payout terms',
   },
   {

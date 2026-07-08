@@ -3,6 +3,7 @@ import type { Metadata } from 'next/types'
 import { CollectionArchive } from '@/components/CollectionArchive'
 import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
+import { buildFairlendMetadata } from '@/utilities/seo'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
@@ -64,7 +65,10 @@ export default async function Page() {
 }
 
 export function generateMetadata(): Metadata {
-  return {
-    title: 'FairLend Resources | Construction and Private Mortgage Financing',
-  }
+  return buildFairlendMetadata({
+    description:
+      'Read FairLend resources on private mortgage financing, construction draws, builder capital, multiplex projects, and real estate investment paths.',
+    path: '/posts',
+    title: 'FairLend Resources | Mortgage Financing Guides',
+  })
 }

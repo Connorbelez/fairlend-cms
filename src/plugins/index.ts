@@ -11,16 +11,16 @@ import { searchFields } from '@/search/fieldOverrides'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
 
 import { Page, Post } from '@/payload-types'
-import { getServerSideURL } from '@/utilities/getURL'
+import { fairlendSeo, getCanonicalUrl } from '@/utilities/seo'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
-  return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
+  return doc?.title ? `${doc.title} | ${fairlendSeo.siteName}` : fairlendSeo.siteName
 }
 
 const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
-  const url = getServerSideURL()
+  if (!doc?.slug || doc.slug === 'home') return getCanonicalUrl('/')
 
-  return doc?.slug ? `${url}/${doc.slug}` : url
+  return 'content' in doc ? getCanonicalUrl(`/posts/${doc.slug}`) : getCanonicalUrl(`/${doc.slug}`)
 }
 
 export const plugins: Plugin[] = [

@@ -3,6 +3,20 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
 
+const staticIndexableRoutes = [
+  '/',
+  '/affordable-sustainable-rental-housing',
+  '/borrowers/private-mortgage-financing',
+  '/construction-draw-financing',
+  '/en/brokerage/privacy-policy',
+  '/garden-suite-financing-gta',
+  '/garden-suite',
+  '/investing/private-mortgage-lending',
+  '/multiplex-financing-gta',
+  '/partners',
+  '/posts',
+]
+
 const getPagesSitemap = unstable_cache(
   async () => {
     const payload = await getPayload({ config })
@@ -26,22 +40,9 @@ const getPagesSitemap = unstable_cache(
       },
     })
 
-    const dateFallback = new Date().toISOString()
-
-    const defaultSitemap = [
-      {
-        loc: `${SITE_URL}/search`,
-        lastmod: dateFallback,
-      },
-      {
-        loc: `${SITE_URL}/en/brokerage/privacy-policy`,
-        lastmod: dateFallback,
-      },
-      {
-        loc: `${SITE_URL}/posts`,
-        lastmod: dateFallback,
-      },
-    ]
+    const staticSitemap = staticIndexableRoutes.map((route) => ({
+      loc: route === '/' ? `${SITE_URL}/` : `${SITE_URL}${route}`,
+    }))
 
     const sitemap = results.docs
       ? results.docs
@@ -49,12 +50,19 @@ const getPagesSitemap = unstable_cache(
           .map((page) => {
             return {
               loc: page?.slug === 'home' ? `${SITE_URL}/` : `${SITE_URL}/${page?.slug}`,
-              lastmod: page.updatedAt || dateFallback,
+              lastmod: page.updatedAt,
             }
           })
       : []
 
-    return [...defaultSitemap, ...sitemap]
+    return Array.from(
+      [...staticSitemap, ...sitemap]
+        .reduce((entries, entry) => {
+          entries.set(entry.loc, entry)
+          return entries
+        }, new Map<string, { lastmod?: string; loc: string }>())
+        .values(),
+    )
   },
   ['pages-sitemap'],
   {

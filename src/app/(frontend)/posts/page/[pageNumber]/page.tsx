@@ -3,6 +3,7 @@ import type { Metadata } from 'next/types'
 import { CollectionArchive } from '@/components/CollectionArchive'
 import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
+import { buildFairlendMetadata } from '@/utilities/seo'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
@@ -71,9 +72,13 @@ export default async function Page({ params: paramsPromise }: Args) {
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { pageNumber } = await paramsPromise
-  return {
+  return buildFairlendMetadata({
+    description:
+      'Browse additional FairLend resources on private mortgage financing, construction draws, builder capital, and real estate investment paths.',
+    index: false,
+    path: `/posts/page/${pageNumber || ''}`,
     title: `FairLend Resources | Page ${pageNumber || ''}`,
-  }
+  })
 }
 
 export async function generateStaticParams() {

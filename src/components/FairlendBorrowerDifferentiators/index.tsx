@@ -37,8 +37,8 @@ const standards: readonly Standard[] = [
     title: 'You see the full cost, not just the rate.',
   },
   {
-    body: 'Payout terms should be discussed before you commit. Where the structure allows it, FairLend uses $0 payout fees so leaving for better financing is not punished.',
-    checks: ['payout terms', 'before commitment', 'where structure allows', '$0 payout fees'],
+    body: 'Payout terms should be discussed before you commit. Where the structure allows it, FairLend works to keep payout fees low so leaving for better financing is not punished.',
+    checks: ['payout terms', 'before commitment', 'where structure allows', 'low payout fees'],
     rule: 'Payout',
     status: 'qualified',
     statusLabel: 'Qualified target',

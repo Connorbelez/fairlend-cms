@@ -30,6 +30,9 @@ import { type FormEvent, type ReactNode, useState } from 'react'
 
 type FooterNavItem = NonNullable<FooterGlobal['navItems']>[number]
 const footerBookingHref = buildFairlendConsultationHref('footer-book-consultation')
+const newsletterConsentText =
+  'By submitting, you agree to receive FairLend market updates by email. You can unsubscribe at any time. See our Privacy Policy.'
+const newsletterConsentVersion = 'footer-newsletter-casl-v1'
 
 type WatermelonFooterProps = {
   doingBusinessAs: string
@@ -139,13 +142,17 @@ export function WatermelonFooter({
     setNewsletterState('submitting')
 
     try {
+      const submittedAt = new Date().toISOString()
       const response = await fetch('/api/leads', {
         body: JSON.stringify({
           email,
           intent: 'newsletter',
           intake: {
+            consentSource: 'footer-newsletter',
+            consentText: newsletterConsentText,
+            consentVersion: newsletterConsentVersion,
             list: 'market-updates',
-            submittedAt: new Date().toISOString(),
+            submittedAt,
           },
           source: 'footer-newsletter',
           status: 'submitted',
@@ -256,6 +263,17 @@ export function WatermelonFooter({
                   Enter a valid email and try again.
                 </p>
               ) : null}
+              <p className="text-xs leading-5 font-semibold text-[var(--footer-muted)] sm:basis-full">
+                By submitting, you agree to receive FairLend market updates by email. You can{' '}
+                unsubscribe at any time. See our{' '}
+                <Link
+                  className="font-extrabold text-[var(--footer-lime-ink)] underline underline-offset-4 transition-colors hover:text-[var(--footer-ink)]"
+                  href="/en/brokerage/privacy-policy"
+                >
+                  Privacy Policy
+                </Link>
+                .
+              </p>
             </form>
           </motion.div>
 

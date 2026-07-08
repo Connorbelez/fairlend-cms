@@ -49,9 +49,9 @@ const financeItems = [
   {
     copy: (
       <>
-        1st, 2nds, 3rd+. Fully
+        1st, 2nd, and 3rd mortgages.
         <br />
-        automated digital servicing.
+        Automated digital servicing.
       </>
     ),
     href: buildFairlendIntakeHref({

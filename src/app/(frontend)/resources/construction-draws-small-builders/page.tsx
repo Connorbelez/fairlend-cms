@@ -1,13 +1,13 @@
-import type { Metadata } from 'next'
-
 import { FairlendUnderConstructionEmptyState } from '@/components/FairlendUnderConstructionEmptyState'
+import { buildFairlendMetadata } from '@/utilities/seo'
 
-export const metadata: Metadata = {
-  title: 'Construction Draws for Small Builders | FairLend Mortgage',
+export const metadata = buildFairlendMetadata({
   description:
     'A practical guide for small builders planning reimbursement draws, milestone evidence, working capital, and interest timing.',
-  alternates: { canonical: '/resources/construction-draws-small-builders' },
-}
+  index: false,
+  path: '/resources/construction-draws-small-builders',
+  title: 'Construction Draws for Small Builders | FairLend',
+})
 
 export default function ConstructionDrawsSmallBuildersPage() {
   return (

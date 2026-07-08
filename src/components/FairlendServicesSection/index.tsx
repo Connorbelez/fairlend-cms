@@ -59,9 +59,9 @@ const services: Service[] = [
     height: fairlendRouteSelectorAssets.privateMortgageHouse.height,
     icon: Home,
     bullets: [
-      '1st, 2nd, and 3rd+ mortgages for borrowers',
+      '1st, 2nd, and 3rd mortgages for borrowers',
       'Loan commitment within 72 hours',
-      '$0 payout fee',
+      'Low payout fees where applicable',
       '$50 missed payment fee',
       'Flexible workout plans',
     ],
