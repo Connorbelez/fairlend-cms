@@ -16,7 +16,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { trackFairlendEvent, trackLeadFailed, trackLeadStarted } from '@/lib/analytics/events'
+import {
+  trackFairlendEvent,
+  trackLeadFailed,
+  trackLeadStarted,
+  trackLeadSubmitted,
+} from '@/lib/analytics/events'
 import { cn } from '@/utilities/ui'
 
 const formTabs = [
@@ -180,10 +185,11 @@ export function FairlendApplicationForm() {
     })
 
     let leadId: string | undefined
+    const isDirectLeadIntake = activeTab === 'invest' || activeTab === 'mortgage'
     const body: Record<string, unknown> = {
       intent: activeTab,
       source: `homepage-${activeTab}-application-form`,
-      status: 'started',
+      status: isDirectLeadIntake ? 'submitted' : 'started',
     }
     let routeAddress = ''
     let routeName = ''
@@ -234,6 +240,13 @@ export function FairlendApplicationForm() {
       if (response.ok) {
         const payload = (await response.json()) as { id?: string }
         leadId = payload.id
+        if (isDirectLeadIntake) {
+          trackLeadSubmitted({
+            intent: activeTab,
+            source: `homepage-${activeTab}-application-form`,
+            step: 'homepage_direct_lead_submit',
+          })
+        }
       } else {
         trackLeadFailed({
           intent: activeTab,
@@ -241,7 +254,14 @@ export function FairlendApplicationForm() {
           status: response.status,
           step: 'homepage_lead_save',
         })
-        setSubmitError('We could not save this yet, but you can continue.')
+        setSubmitError(
+          isDirectLeadIntake
+            ? 'We could not submit this. Please try again.'
+            : 'We could not save this yet, but you can continue.',
+        )
+        if (isDirectLeadIntake) {
+          return
+        }
       }
     } catch {
       trackLeadFailed({
@@ -249,12 +269,23 @@ export function FairlendApplicationForm() {
         source: `homepage-${activeTab}-application-form`,
         step: 'homepage_lead_save',
       })
-      setSubmitError('We could not save this yet, but you can continue.')
+      setSubmitError(
+        isDirectLeadIntake
+          ? 'We could not submit this. Please try again.'
+          : 'We could not save this yet, but you can continue.',
+      )
+      if (isDirectLeadIntake) {
+        return
+      }
     } finally {
       setIsSubmitting(false)
     }
 
     setSubmittedTab(activeTab)
+
+    if (isDirectLeadIntake) {
+      return
+    }
 
     const params = new URLSearchParams({
       intent: activeTab,
@@ -612,7 +643,9 @@ export function FairlendApplicationForm() {
                 id={`fairlend-${activeTab}-status`}
               >
                 {submittedTab === activeTab
-                  ? 'Opening your intake.'
+                  ? activeTab === 'invest' || activeTab === 'mortgage'
+                    ? 'Received. We will follow up shortly.'
+                    : 'Opening your intake.'
                   : submitError
                     ? submitError
                     : isSubmitting

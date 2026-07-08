@@ -2,7 +2,9 @@
 
 import {
   ArrowRight,
+  ArrowUpRight,
   BadgeCheck,
+  Check,
   CheckCircle2,
   ClipboardCheck,
   Home,
@@ -12,7 +14,6 @@ import {
   TimerReset,
   type LucideIcon,
 } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { type FormEvent, useState } from 'react'
@@ -222,6 +223,46 @@ const documentStatusOptions = [
   'Not started',
 ] as const
 
+/**
+ * Investor-specific single-select chip rows. These map onto the same lead
+ * fields the API already understands so no schema change is needed:
+ *   - investorType   → values.role
+ *   - capitalRange   → values.amount
+ *   - preferredTerm  → values.timeline
+ */
+const investorTypeOptions = [
+  'Individual investor',
+  'Family office',
+  'Mortgage investment corp.',
+  'Syndicate / JV',
+  'Self-directed (RRSP/TFSA)',
+] as const
+
+const investorCapitalOptions = [
+  '$50K – $250K',
+  '$250K – $1M',
+  '$1M – $5M',
+  '$5M+',
+] as const
+
+const investorTermOptions = ['6–12 months', '12–24 months', 'Open / flexible'] as const
+
+const investorProtectionPoints = [
+  'Target LTVs under 75% with double valuation review',
+  'Registered first-mortgage position',
+  'Dedicated legal recovery path',
+  'Administered reporting & tax-ready export',
+] as const
+
+const investorPreviewRows = [
+  { label: 'Position', detail: 'First mortgage · registered' },
+  { label: 'Loan-to-value', detail: '68% · double valuation' },
+  { label: 'Term', detail: '12 months · interest only' },
+  { label: 'Borrower', detail: 'Equity-based file · GTA' },
+] as const
+
+const investorRoute = ['Review fit', 'Discuss criteria', 'Confirm next step'] as const
+
 const mortgageDossierItems: DossierItem[] = [
   {
     icon: TimerReset,
@@ -416,14 +457,18 @@ export function FairlendLeadIntake() {
 
   if (state === 'success') {
     return (
-      <main className="fl-intake-page fl-intake-page--success">
+      <main className="fl-intake-page fl-intake-page--success" data-intent={intent}>
         <section className="fl-intake-shell fl-intake-shell--success">
-          <BorrowerDossier
-            copy={copy}
-            dossierItems={dossierItems}
-            isMortgageIntent={isMortgageIntent}
-            stateLabel="Request received"
-          />
+          {isInvestorIntent ? (
+            <InvestorBrief copy={copy} compact />
+          ) : (
+            <BorrowerDossier
+              copy={copy}
+              dossierItems={dossierItems}
+              isMortgageIntent={isMortgageIntent}
+              stateLabel="Request received"
+            />
+          )}
 
           <Card className="fl-intake-card fl-intake-card--success">
             <CardHeader className="fl-intake-card-header">
@@ -512,24 +557,28 @@ export function FairlendLeadIntake() {
   }
 
   return (
-    <main className="fl-intake-page">
+    <main className="fl-intake-page" data-intent={intent}>
       <section className="fl-intake-shell">
-        <BorrowerDossier
-          copy={copy}
-          dossierItems={dossierItems}
-          isMortgageIntent={isMortgageIntent}
-          stateLabel={copy.kicker}
-        />
+        {isInvestorIntent ? (
+          <InvestorBrief copy={copy} />
+        ) : (
+          <BorrowerDossier
+            copy={copy}
+            dossierItems={dossierItems}
+            isMortgageIntent={isMortgageIntent}
+            stateLabel={copy.kicker}
+          />
+        )}
 
         <Card className="fl-intake-card">
           <CardHeader className="fl-intake-card-header">
             <div className="fl-intake-card-topline">
               <span>
                 {isMortgageIntent
-                    ? 'Private mortgage request'
-                    : isInvestorIntent
-                      ? 'Investor inquiry'
-                      : 'File context'}
+                  ? 'Private mortgage request'
+                  : isInvestorIntent
+                    ? 'Investor inquiry'
+                    : 'File context'}
               </span>
               <span>
                 {isMortgageIntent || isInvestorIntent ? 'Usually 2 minutes' : 'Quick routing'}
@@ -553,132 +602,192 @@ export function FairlendLeadIntake() {
           <form onSubmit={handleSubmit} noValidate>
             <CardContent className="fl-intake-card-content">
               <FieldGroup className="fl-intake-field-group">
-                {!isMortgageIntent ? (
-                  <div className="fl-intake-form-section fl-intake-form-section--priority">
-                    <div className="fl-intake-section-heading">
-                      <span>{copy.detailLabel}</span>
-                      <p>
-                        {isInvestorIntent
-                          ? 'Share enough for a focused first conversation.'
-                          : 'Short context is enough to get the request moving.'}
-                      </p>
+                {isInvestorIntent ? (
+                  <>
+                    {/* Investor fit — single-select chip rows. */}
+                    <div className="fl-intake-form-section">
+                      <div className="fl-intake-section-heading">
+                        <span>Investor fit</span>
+                        <p>Pick what is closest. Refine the details with a specialist later.</p>
+                      </div>
+                      <ChipSelector
+                        label="Investor type"
+                        onSelect={(value) => updateField('role', value)}
+                        options={investorTypeOptions}
+                        selectedValue={values.role}
+                      />
+                      <ChipSelector
+                        label="Capital range"
+                        onSelect={(value) => updateField('amount', value)}
+                        options={investorCapitalOptions}
+                        selectedValue={values.amount}
+                      />
+                      <ChipSelector
+                        label="Preferred term"
+                        onSelect={(value) => updateField('timeline', value)}
+                        options={investorTermOptions}
+                        selectedValue={values.timeline}
+                      />
                     </div>
 
-                    <Field className="fl-intake-field" data-invalid={Boolean(errors.message)}>
-                      <FieldLabel className="fl-intake-label" htmlFor="lead-message">
-                        {copy.detailLabel}
-                      </FieldLabel>
-                      <Textarea
-                        aria-invalid={Boolean(errors.message)}
-                        className="fl-intake-input fl-intake-textarea"
-                        id="lead-message"
-                        onChange={(event) => updateField('message', event.target.value)}
-                        placeholder={copy.detailPlaceholder}
-                        value={values.message}
-                      />
-                      <FieldDescription className="fl-intake-description">
-                        {isInvestorIntent
-                          ? 'Avoid account numbers or sensitive documents. FairLend can explain what is needed after first contact.'
-                          : 'Keep private details concise. FairLend can request documents after first review.'}
-                      </FieldDescription>
-                      <FieldError className="fl-intake-error">{errors.message}</FieldError>
-                    </Field>
-                  </div>
-                ) : null}
-
-                <div className="fl-intake-form-section">
-                  <div className="fl-intake-section-heading">
-                    <span>
-                      {isMortgageIntent
-                        ? 'Property, amount, and timing'
-                        : isInvestorIntent
-                          ? 'Capital, timing, and preferences'
-                          : 'Request context'}
-                    </span>
-                    <p>
-                      {isMortgageIntent
-                        ? 'Approximate numbers are fine. Confirm the details with a specialist later.'
-                        : isInvestorIntent
-                          ? 'Approximate ranges are fine. The goal is to understand which investor lane fits.'
-                          : 'Give FairLend the practical details needed to route the request.'}
-                    </p>
-                  </div>
-
-                  {showAddress ? (
-                    <AddressField
-                      autoComplete="street-address"
-                      id="lead-address"
-                      label={isMortgageIntent ? 'Property address' : 'Property or project address'}
-                      onChange={(value) => updateField('address', value)}
-                      value={values.address}
-                    />
-                  ) : null}
-
-                  <div
-                    className={
-                      isMortgageIntent ? 'fl-intake-grid' : 'fl-intake-grid fl-intake-grid--two'
-                    }
-                  >
-                    {showAmount ? (
-                      isMortgageIntent ? (
-                        <AmountRangeSelector
-                          label="Amount needed or equity available"
-                          onSelect={(value) => updateField('amount', value)}
-                          selectedValue={values.amount}
+                    {/* Investment focus — freeform detail. */}
+                    <div className="fl-intake-form-section fl-intake-form-section--priority">
+                      <div className="fl-intake-section-heading">
+                        <span>{copy.detailLabel}</span>
+                        <p>Share enough for a focused first conversation.</p>
+                      </div>
+                      <Field className="fl-intake-field" data-invalid={Boolean(errors.message)}>
+                        <FieldLabel className="fl-intake-label" htmlFor="lead-message">
+                          {copy.detailLabel}
+                        </FieldLabel>
+                        <Textarea
+                          aria-invalid={Boolean(errors.message)}
+                          className="fl-intake-input fl-intake-textarea"
+                          id="lead-message"
+                          onChange={(event) => updateField('message', event.target.value)}
+                          placeholder={copy.detailPlaceholder}
+                          value={values.message}
                         />
-                      ) : (
-                        <TextField
-                          id="lead-amount"
-                          label={isInvestorIntent ? 'Capital range' : 'Amount or range'}
-                          onChange={(value) => updateField('amount', value)}
-                          value={values.amount}
-                        />
-                      )
-                    ) : null}
+                        <FieldDescription className="fl-intake-description">
+                          Avoid account numbers or sensitive documents. FairLend can explain what is
+                          needed after first contact.
+                        </FieldDescription>
+                        <FieldError className="fl-intake-error">{errors.message}</FieldError>
+                      </Field>
+                    </div>
+                  </>
+                ) : (
+                  <>
                     {!isMortgageIntent ? (
-                      <TextField
-                        id="lead-timeline"
-                        label={isInvestorIntent ? 'Preferred timing' : 'Timeline'}
-                        onChange={(value) => updateField('timeline', value)}
-                        value={values.timeline}
-                      />
+                      <div className="fl-intake-form-section fl-intake-form-section--priority">
+                        <div className="fl-intake-section-heading">
+                          <span>{copy.detailLabel}</span>
+                          <p>
+                            {isInvestorIntent
+                              ? 'Share enough for a focused first conversation.'
+                              : 'Short context is enough to get the request moving.'}
+                          </p>
+                        </div>
+
+                        <Field className="fl-intake-field" data-invalid={Boolean(errors.message)}>
+                          <FieldLabel className="fl-intake-label" htmlFor="lead-message">
+                            {copy.detailLabel}
+                          </FieldLabel>
+                          <Textarea
+                            aria-invalid={Boolean(errors.message)}
+                            className="fl-intake-input fl-intake-textarea"
+                            id="lead-message"
+                            onChange={(event) => updateField('message', event.target.value)}
+                            placeholder={copy.detailPlaceholder}
+                            value={values.message}
+                          />
+                          <FieldDescription className="fl-intake-description">
+                            {isInvestorIntent
+                              ? 'Avoid account numbers or sensitive documents. FairLend can explain what is needed after first contact.'
+                              : 'Keep private details concise. FairLend can request documents after first review.'}
+                          </FieldDescription>
+                          <FieldError className="fl-intake-error">{errors.message}</FieldError>
+                        </Field>
+                      </div>
                     ) : null}
-                  </div>
 
-                  {isMortgageIntent ? (
-                    <QuickPickRow
-                      label="Deadline"
-                      options={mortgageTimelineOptions}
-                      selectedValue={values.timeline}
-                      onSelect={(option) => updateField('timeline', option)}
-                    />
-                  ) : null}
-                </div>
+                    <div className="fl-intake-form-section">
+                      <div className="fl-intake-section-heading">
+                        <span>
+                          {isMortgageIntent
+                            ? 'Property, amount, and timing'
+                            : isInvestorIntent
+                              ? 'Capital, timing, and preferences'
+                              : 'Request context'}
+                        </span>
+                        <p>
+                          {isMortgageIntent
+                            ? 'Approximate numbers are fine. Confirm the details with a specialist later.'
+                            : isInvestorIntent
+                              ? 'Approximate ranges are fine. The goal is to understand which investor lane fits.'
+                              : 'Give FairLend the practical details needed to route the request.'}
+                        </p>
+                      </div>
 
-                {showDocumentStatus ? (
-                  <Field className="fl-intake-field">
-                    <FieldLabel className="fl-intake-label" htmlFor="lead-document-status">
-                      Document status
-                    </FieldLabel>
-                    <Select
-                      value={values.documentStatus}
-                      onValueChange={(value) => updateField('documentStatus', value)}
-                    >
-                      <SelectTrigger className="fl-intake-input" id="lead-document-status">
-                        <SelectValue placeholder="Choose current status" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {documentStatusOptions.map((option) => (
-                            <SelectItem key={option} value={option}>
-                              {option}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </Field>
-                ) : null}
+                      {showAddress ? (
+                        <AddressField
+                          autoComplete="street-address"
+                          id="lead-address"
+                          label={
+                            isMortgageIntent ? 'Property address' : 'Property or project address'
+                          }
+                          onChange={(value) => updateField('address', value)}
+                          value={values.address}
+                        />
+                      ) : null}
+
+                      <div
+                        className={
+                          isMortgageIntent ? 'fl-intake-grid' : 'fl-intake-grid fl-intake-grid--two'
+                        }
+                      >
+                        {showAmount ? (
+                          isMortgageIntent ? (
+                            <AmountRangeSelector
+                              label="Amount needed or equity available"
+                              onSelect={(value) => updateField('amount', value)}
+                              selectedValue={values.amount}
+                            />
+                          ) : (
+                            <TextField
+                              id="lead-amount"
+                              label={isInvestorIntent ? 'Capital range' : 'Amount or range'}
+                              onChange={(value) => updateField('amount', value)}
+                              value={values.amount}
+                            />
+                          )
+                        ) : null}
+                        {!isMortgageIntent ? (
+                          <TextField
+                            id="lead-timeline"
+                            label={isInvestorIntent ? 'Preferred timing' : 'Timeline'}
+                            onChange={(value) => updateField('timeline', value)}
+                            value={values.timeline}
+                          />
+                        ) : null}
+                      </div>
+
+                      {isMortgageIntent ? (
+                        <QuickPickRow
+                          label="Deadline"
+                          options={mortgageTimelineOptions}
+                          selectedValue={values.timeline}
+                          onSelect={(option) => updateField('timeline', option)}
+                        />
+                      ) : null}
+                    </div>
+
+                    {showDocumentStatus ? (
+                      <Field className="fl-intake-field">
+                        <FieldLabel className="fl-intake-label" htmlFor="lead-document-status">
+                          Document status
+                        </FieldLabel>
+                        <Select
+                          value={values.documentStatus}
+                          onValueChange={(value) => updateField('documentStatus', value)}
+                        >
+                          <SelectTrigger className="fl-intake-input" id="lead-document-status">
+                            <SelectValue placeholder="Choose current status" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              {documentStatusOptions.map((option) => (
+                                <SelectItem key={option} value={option}>
+                                  {option}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </Field>
+                    ) : null}
+                  </>
+                )}
 
                 <div className="fl-intake-form-section">
                   <div className="fl-intake-section-heading">
@@ -719,7 +828,7 @@ export function FairlendLeadIntake() {
                       type="tel"
                       value={values.phone}
                     />
-                    {!isMortgageIntent ? (
+                    {!isMortgageIntent && !isInvestorIntent ? (
                       <Field className="fl-intake-field">
                         <FieldLabel className="fl-intake-label" htmlFor="lead-role">
                           {isInvestorIntent ? 'Investor type' : 'Your role'}
@@ -779,6 +888,111 @@ export function FairlendLeadIntake() {
   )
 }
 
+/**
+ * Investor brief — the left rail of the investor intake. Carries the
+ * editorial copy plus a "reporting preview" dossier card that mirrors the
+ * portal mock on the investor landing page, so the page that sent the user
+ * here reads continuously into this one.
+ */
+function InvestorBrief({ copy, compact = false }: { copy: IntakeCopy; compact?: boolean }) {
+  return (
+    <aside className="fl-intake-investor" aria-label="FairLend investor inquiry context">
+      <div className="fl-intake-kicker">
+        <span aria-hidden="true" />
+        {copy.kicker}
+      </div>
+      <h1>{copy.title}</h1>
+      <p className="fl-intake-lede">{copy.description}</p>
+
+      {!compact ? (
+        <div className="fl-intake-preview" data-investor-portal-mock>
+          <header className="fl-intake-preview__head">
+            <div className="fl-intake-preview__title-cluster">
+              <span className="fl-intake-preview__eyebrow">Reporting preview</span>
+              <span className="fl-intake-preview__file">Illustrative mortgage file</span>
+            </div>
+            <div className="fl-intake-preview__stat-line">
+              <span className="fl-intake-preview__stat">
+                <strong>~$2B</strong>
+                <em>funded</em>
+              </span>
+              <span className="fl-intake-preview__stat">
+                <strong>~30 yrs</strong>
+                <em>GTA</em>
+              </span>
+            </div>
+          </header>
+
+          <div className="fl-intake-preview__deal">
+            <div className="fl-intake-preview__deal-top">
+              <span className="fl-intake-preview__deal-stamp">Preview · first mortgage</span>
+              <span className="fl-intake-preview__deal-chip">
+                <span aria-hidden="true" className="fl-intake-preview__deal-chip-dot" />
+                Disbursement tracked
+              </span>
+            </div>
+            <dl className="fl-intake-preview__rows">
+              {investorPreviewRows.map((row) => (
+                <div className="fl-intake-preview__row" key={row.label}>
+                  <dt>{row.label}</dt>
+                  <dd>{row.detail}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className="fl-intake-preview__payment" aria-label="PAD collection status timeline">
+              <span className="fl-intake-preview__payment-label">PAD collection</span>
+              <div className="fl-intake-preview__payment-track">
+                <span className="fl-intake-preview__payment-segment is-paid" title="Paid" />
+                <span className="fl-intake-preview__payment-segment is-paid" title="Paid" />
+                <span className="fl-intake-preview__payment-segment is-paid" title="Paid" />
+                <span className="fl-intake-preview__payment-segment is-current" title="Current" />
+                <span className="fl-intake-preview__payment-segment" title="Scheduled" />
+                <span className="fl-intake-preview__payment-segment" title="Scheduled" />
+              </div>
+            </div>
+          </div>
+
+          <footer className="fl-intake-preview__foot">
+            <span className="fl-intake-preview__foot-item">
+              <Check aria-hidden="true" size={14} strokeWidth={2.4} />
+              Tax-ready export context
+            </span>
+            <span className="fl-intake-preview__foot-cta">
+              Preview file
+              <ArrowUpRight aria-hidden="true" size={14} strokeWidth={2.25} />
+            </span>
+          </footer>
+        </div>
+      ) : null}
+
+      <ul className="fl-intake-protection" aria-label="What sits behind every FairLend opportunity">
+        {investorProtectionPoints.map((point) => (
+          <li className="fl-intake-protection-item" key={point}>
+            <span aria-hidden="true" className="fl-intake-protection-mark" />
+            {point}
+          </li>
+        ))}
+      </ul>
+
+      {!compact ? (
+        <ol className="fl-intake-investor-route" aria-label="Investor review route">
+          {investorRoute.map((step, index) => (
+            <li key={step}>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <strong>{step}</strong>
+            </li>
+          ))}
+        </ol>
+      ) : null}
+
+      <p className="fl-intake-risk-line">
+        Private mortgage investments involve risk and are not bank deposits or guaranteed-return
+        products. FairLend reviews investor fit before presenting opportunities.
+      </p>
+    </aside>
+  )
+}
+
 function BorrowerDossier({
   copy,
   dossierItems,
@@ -800,55 +1014,31 @@ function BorrowerDossier({
       {isMortgageIntent ? (
         <MortgageReviewDesk description={copy.description} />
       ) : (
-        <>
-          <p className="fl-intake-lede">{copy.description}</p>
-          <div className="fl-intake-illustration" aria-hidden="true">
-            <Image
-              alt=""
-              className="fl-intake-house"
-              height={520}
-              priority
-              src="/assets/fairlend-route-selector/private-mortgage-house-engraving.webp"
-              width={720}
-            />
-            <div className="fl-intake-file-stamp">
-              <span>FairLend</span>
-              <strong>Start here</strong>
-            </div>
-            <svg className="fl-intake-route-ink" viewBox="0 0 420 160">
-              <path d="M18 118 C84 26 132 138 194 72 S310 36 398 100" />
-              <circle cx="18" cy="118" r="8" />
-              <circle cx="194" cy="72" r="8" />
-              <circle cx="398" cy="100" r="8" />
-            </svg>
-          </div>
+        <div className="fl-intake-dossier-list">
+          {dossierItems.map((item) => {
+            const Icon = item.icon
 
-          <ol className="fl-intake-review-route" aria-label="Private mortgage review route">
-            {reviewRoute.map((step) => (
-              <li key={step}>
-                <span aria-hidden="true" />
-                {step}
-              </li>
-            ))}
-          </ol>
-        </>
+            return (
+              <div className="fl-intake-dossier-item" key={item.label}>
+                <Icon aria-hidden="true" />
+                <div>
+                  <h2>{item.label}</h2>
+                  <p>{item.text}</p>
+                </div>
+              </div>
+            )
+          })}
+        </div>
       )}
 
-      <div className="fl-intake-dossier-list">
-        {dossierItems.map((item) => {
-          const Icon = item.icon
-
-          return (
-            <div className="fl-intake-dossier-item" key={item.label}>
-              <Icon aria-hidden="true" />
-              <div>
-                <h2>{item.label}</h2>
-                <p>{item.text}</p>
-              </div>
-            </div>
-          )
-        })}
-      </div>
+      <ol className="fl-intake-review-route" aria-label="Private mortgage review route">
+        {reviewRoute.map((step, index) => (
+          <li key={step}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <strong>{step}</strong>
+          </li>
+        ))}
+      </ol>
     </aside>
   )
 }
@@ -869,21 +1059,6 @@ function MortgageReviewDesk({ description }: { description: string }) {
               <li key={point}>{point}</li>
             ))}
           </ul>
-        </div>
-
-        <div className="fl-mortgage-collateral" aria-hidden="true">
-          <div className="fl-mortgage-collateral__stamp">
-            <span>Private mortgage</span>
-            <strong>Start here</strong>
-          </div>
-          <Image
-            alt=""
-            className="fl-mortgage-collateral__house"
-            height={520}
-            priority
-            src="/assets/fairlend-route-selector/private-mortgage-house-engraving.webp"
-            width={720}
-          />
         </div>
       </div>
 
@@ -914,6 +1089,42 @@ function QuickPickRow({
     <div className="fl-intake-quickpick">
       <span>{label}</span>
       <div className="fl-intake-chip-row">
+        {options.map((option) => (
+          <button
+            aria-pressed={selectedValue === option}
+            className="fl-intake-chip"
+            data-selected={selectedValue === option}
+            key={option}
+            onClick={() => onSelect(option)}
+            type="button"
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/**
+ * Single-select chip selector used for the investor fit questions.
+ * Accessible: each chip is a toggle button with aria-pressed reflecting state.
+ */
+function ChipSelector({
+  label,
+  onSelect,
+  options,
+  selectedValue,
+}: {
+  label: string
+  onSelect: (value: string) => void
+  options: readonly string[]
+  selectedValue: string
+}) {
+  return (
+    <div className="fl-intake-chip-selector">
+      <span className="fl-intake-chip-selector__label">{label}</span>
+      <div className="fl-intake-chip-row fl-intake-chip-row--wrap" role="group" aria-label={label}>
         {options.map((option) => (
           <button
             aria-pressed={selectedValue === option}
