@@ -1,0 +1,273 @@
+/* ------------------------------------------------------------------
+   Investor Opportunities — curated shelf + expanded deal package.
+   ------------------------------------------------------------------ */
+
+.investor-opportunities {
+  position: relative;
+  padding: clamp(64px, 8vw, 120px) clamp(24px, 4vw, 56px);
+  background: var(--landing-hero-paper, #f8f7f5);
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-opportunities__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.investor-opportunities__header {
+  max-width: 760px;
+}
+
+.investor-opportunities__eyebrow {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--landing-hero-muted, rgb(73 73 68));
+  margin: 0 0 18px;
+}
+
+.investor-opportunities__title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(36px, 4.4vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin: 0;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+  max-width: 16ch;
+}
+
+.investor-opportunities__lede {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: clamp(15px, 1.05vw, 17px);
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--landing-hero-muted, rgb(58 58 54));
+  margin: 22px 0 0;
+  max-width: 64ch;
+  text-wrap: pretty;
+}
+
+.investor-opportunities__stage {
+  margin-top: clamp(40px, 5vw, 64px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+}
+
+.investor-opportunities__deal {
+  border: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+  background: #fbfaf5;
+  border-radius: 16px;
+  padding: clamp(28px, 3vw, 40px);
+  box-shadow: 0 18px 42px rgb(8 9 10 / 5%);
+  position: relative;
+  overflow: hidden;
+}
+
+.investor-opportunities__deal::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--landing-hero-ink, #08090a);
+}
+
+.investor-opportunities__deal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+}
+
+.investor-opportunities__deal-tag {
+  display: inline-block;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #101010;
+  background: var(--landing-hero-lime, #96ec18);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.investor-opportunities__deal-title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(22px, 2.4vw, 32px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-opportunities__deal-status {
+  flex-shrink: 0;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--landing-hero-muted, rgb(73 73 68));
+  text-align: right;
+  max-width: 18ch;
+}
+
+.investor-opportunities__deal-stats {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0;
+  margin: 22px 0 0;
+}
+
+.investor-opportunities__deal-stat {
+  padding: 14px 18px 14px 0;
+  border-left: 1px solid var(--landing-hero-line-soft, rgb(8 9 10 / 10%));
+  padding-left: 18px;
+}
+
+.investor-opportunities__deal-stat:first-child {
+  border-left: none;
+  padding-left: 0;
+}
+
+.investor-opportunities__deal-stat dt {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--landing-hero-muted, rgb(73 73 68));
+  margin-bottom: 6px;
+}
+
+.investor-opportunities__deal-stat dd {
+  margin: 0;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-opportunities__deal-section-title {
+  margin: 28px 0 14px;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--landing-hero-muted, rgb(73 73 68));
+}
+
+.investor-opportunities__package {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px 24px;
+}
+
+.investor-opportunities__package-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--landing-hero-ink, #08090a);
+  padding: 8px 0;
+}
+
+.investor-opportunities__package-mark {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  background: var(--landing-hero-ink, #08090a);
+  color: var(--landing-hero-lime, #96ec18);
+}
+
+.investor-opportunities__package-mark svg {
+  width: 11px;
+  height: 11px;
+}
+
+.investor-opportunities__deal-foot {
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.investor-opportunities__deal-foot p {
+  margin: 0;
+  max-width: 48ch;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--landing-hero-muted-soft, rgb(108 108 100));
+}
+
+.investor-opportunities__tail {
+  margin: clamp(32px, 4vw, 48px) 0 0;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.3;
+  color: var(--landing-hero-ink, #08090a);
+  max-width: 56ch;
+  text-wrap: pretty;
+}
+
+@media (max-width: 720px) {
+  .investor-opportunities__deal-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .investor-opportunities__deal-stat {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid var(--landing-hero-line-soft, rgb(8 9 10 / 10%));
+    padding-top: 14px;
+  }
+
+  .investor-opportunities__deal-stat:nth-child(-n + 2) {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .investor-opportunities__deal-head {
+    flex-direction: column;
+  }
+
+  .investor-opportunities__deal-status {
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .investor-opportunities * {
+    transition: none !important;
+  }
+}

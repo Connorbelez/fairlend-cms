@@ -1,0 +1,67 @@
+.fairlend-borrower-cta {
+  text-decoration: none;
+}
+
+.fairlend-borrower-cta__label {
+  display: inline-block;
+}
+
+.fairlend-borrower-cta__arrow-box {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #111;
+  color: #aaff00;
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fairlend-borrower-cta--secondary .fairlend-borrower-cta__arrow-box,
+.fairlend-borrower-cta--text .fairlend-borrower-cta__arrow-box {
+  background: #08090a;
+  color: #96ec18;
+}
+
+.fairlend-borrower-cta__arrow-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.fairlend-borrower-cta--md .fairlend-borrower-cta__arrow-box {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+}
+
+.fairlend-borrower-cta--md .fairlend-borrower-cta__arrow-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.fairlend-borrower-cta:hover .fairlend-borrower-cta__arrow-box {
+  transform: translate(0.5px, -0.5px) rotate(4deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fairlend-borrower-cta,
+  .fairlend-borrower-cta__arrow-box {
+    transition: none;
+  }
+
+  .fairlend-borrower-cta:hover {
+    transform: none;
+  }
+
+  .fairlend-borrower-cta:hover .fairlend-borrower-cta__arrow-box {
+    transform: none;
+  }
+}
+
+/* Text variant: no arrow box padding shifts; render arrow inline only when provided */
+.fairlend-borrower-cta--text {
+  gap: 6px;
+  padding: 0;
+  height: auto;
+  border-radius: 0;
+}

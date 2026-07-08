@@ -2,7 +2,7 @@
 
 FairLend is first and foremost a mortgage brokerage and mortgage administrator, with a related Mortgage Investment Corporation. The company is built as a hybrid of capabilities that are usually separated in the market: traditional mortgage brokering, private mortgage placement, mortgage administration, construction financing strategy, investment structuring, and end-to-end build financing support.
 
-FairLend provides traditional mortgage and private mortgage brokering services while specializing in GTA construction financing, infill development, multiplex projects, garden suites, laneway suites, multifamily renovations, and single-family residential builds. The company’s core role is to help borrowers, builders, and investors structure better mortgage-backed financing solutions — and to work with builders as a financing and advisory partner to design projects that can actually finance, pencil, and move from land acquisition through construction to takeout.
+FairLend provides traditional mortgage and private mortgage brokering services while specializing in GTA construction financing, infill development, multiplex projects, garden suites, laneway suites, multifamily renovations, and single-family residential builds. The company’s core role is to help borrowers, builders, and investors structure better mortgage-backed financing solutions — and to work with builders as a financing and advisory partner to design projects that can finance, execute, and move from land acquisition through construction to takeout.
 
 FairLend is led by Elie Soberano, one of Canada’s top mortgage brokers by volume, with more than $2B funded over 29 years. The broader leadership team includes:
 
@@ -35,7 +35,7 @@ FairLend works with builders, developers, and property owners to structure finan
 
 This is especially important in the GTA, where the economics of residential construction have changed. The older custom-home formula — buy land, build a house, sell at a profit — is no longer reliable in many cases. Land costs, construction costs, soft costs, development charges, tax treatment, appraisal values, and buyer demand can quickly turn a project from profitable to loss-making.
 
-FairLend’s construction financing model is designed to help builders avoid that outcome by designing the project around the financing equation from the beginning. The company helps builders determine what land to pursue, what price can be supported, what unit mix makes sense, what build strategy is financeable, what construction cost target must be maintained, and what exit path should be planned before the project is committed.
+FairLend’s construction financing model is designed to help builders avoid that outcome by designing the project around the financing equation from the beginning. The company helps builders decide what land to pursue, what price the project can support, what unit mix makes sense, what build strategy can attract capital, what construction cost target must be maintained, and what exit path should be planned before the project is committed.
 
 ### 4.3 FairLend Is a Build and Financing Advisory Layer
 
@@ -43,9 +43,9 @@ FairLend provides more than mortgage placement. For many builders and constructi
 
 FairLend acts as a build and financing advisory layer for GTA residential projects, including garden suites, laneway suites, multiplexes, multifamily renovations, single-family homes, infill builds, and other small-to-mid-scale residential construction projects. The company provides complimentary consulting and local market expertise as part of its broader mortgage and construction financing process.
 
-The core advisory mandate is not simply to judge whether a proposed build pencils. It is to help build the equation that makes the project financeable.
+The core advisory mandate is to help create the project equation from the beginning: the right site, acquisition price, unit mix, design scope, construction budget, capital structure, draw plan, execution path, and exit strategy.
 
-FairLend works with builders to shape the land strategy, unit mix, construction budget, financing structure, regulatory path, rental or sale strategy, and takeout plan so the build is designed around real market conditions and real capital requirements from the beginning.
+FairLend works with builders to shape the land strategy, site search, unit mix, construction budget, financing structure, regulatory path, rental or sale strategy, and takeout plan so the build is designed around real market conditions and real capital requirements from the beginning.
 
 That equation includes land price, lot size, zoning, neighbourhood, buildable area, unit count, unit size, construction cost per square foot, soft costs, permit timing, development charges, energy efficiency requirements, rental income, sale value, condominium strategy, appraisal support, financing costs, and the eventual takeout path.
 
@@ -66,9 +66,9 @@ FairLend also supports the regulatory and execution side of the project. This in
 
 The company’s role is not to replace the builder. If the borrower knows how to build, FairLend helps handle the business and financing side around the build. That means helping ensure the right land is secured, the build strategy makes sense, the numbers are realistic, the regulatory path is understood, the financing is structured correctly, and the project is positioned for a viable exit.
 
-FairLend can also connect builders with its broader network of contractors, consultants, professionals, suppliers, financing partners, and mortgage capital sources. This network can support the project from high-level planning and land assessment through permit strategy, construction financing, draw planning, project execution, and CMHC-insured takeout financing where applicable.
+FairLend can also connect builders with its broader network of contractors, consultants, professionals, suppliers, financing partners, and mortgage capital sources. This network can support the project from site search, acquisition strategy, and high-level planning through permit strategy, construction financing, draw planning, project execution, and CMHC-insured takeout financing where applicable.
 
-In practical terms, FairLend helps builders move from confusion to a financeable build strategy:
+In practical terms, FairLend helps builders move from early project intent to a build strategy that can finance, execute, and exit:
 
 1. **Consultation** — Understand the builder’s goals, site, project type, capital position, and current stage.
 2. **Build the equation** — Shape the land, construction cost, unit mix, rental or sale strategy, financing structure, regulatory path, and exit plan into a project that can work.
@@ -227,15 +227,15 @@ Target project types include:
 * CMHC MLI Select-oriented projects.
 * Projects with affordability, accessibility, or energy-efficiency planning considerations.
 
-The construction financing process is designed to assess both credit risk and execution risk.
+The construction financing process is designed to structure the project around both credit risk and execution risk.
 
 Core elements include:
 
 * Project intake.
-* Financeability review.
+* Site, project, and capital strategy.
 * Borrower review.
-* Site review.
-* Budget review.
+* Site search or site review.
+* Budget planning and pressure testing.
 * Appraisal review.
 * Permit status review.
 * Contractor readiness review.
@@ -267,7 +267,7 @@ DrawFlow should be described as a workflow and operating model, not as a guarant
 
 FairLend provides build and financing advisory support before and after funding.
 
-Before funding, FairLend may help review:
+Before funding, FairLend may help shape:
 
 * Construction milestones.
 * Build sequencing.
@@ -280,7 +280,7 @@ Before funding, FairLend may help review:
 * Permit path.
 * Documentation gaps.
 * CMHC MLI Select readiness where applicable.
-* Technical or professional inputs that affect financeability.
+* Technical or professional inputs that affect site strategy, design scope, budget, financing structure, execution, and takeout planning.
 
 After funding, FairLend may support:
 
@@ -538,7 +538,7 @@ These are GTA homeowners, small investors, property owners, and developers explo
 They may need:
 
 * Construction financing.
-* Project financeability review.
+* Site and project strategy.
 * Draw planning.
 * Working-capital planning.
 * Budget pressure testing.
@@ -549,8 +549,8 @@ They may need:
 
 Their core concerns:
 
-* Does this project pencil?
-* Is it financeable?
+* What should I build on this site?
+* What site, budget, unit mix, and financing path can support the project I want?
 * Is the budget realistic?
 * Will the draw structure work?
 * How much working capital do I actually need?
@@ -575,7 +575,7 @@ Their core concerns:
 
 FairLend can act as a specialized construction financing and private lending desk for brokers.
 
-The broker promise is that the client relationship remains with the broker while FairLend helps assess, structure, fund, and support complex files.
+The broker promise is that the client relationship remains with the broker while FairLend helps shape, structure, fund, administer, and support complex files from early project strategy through execution and takeout.
 
 Brokers benefit when they have:
 
@@ -584,13 +584,13 @@ Brokers benefit when they have:
 * A borrower pursuing a multiplex or rental project.
 * A file with unclear CMHC MLI Select readiness.
 * A project with incomplete documentation.
-* A borrower who needs a financeability review before moving forward.
+* A borrower who needs help shaping the site, build strategy, capital structure, draw plan, and exit path before moving forward.
 
 ### 9.5 Professional Partners
 
 Professional partners include architects, planners, sustainability consultants, energy modelers, accessibility consultants, engineers, code consultants, cost consultants, quantity surveyors, project managers, contractors, trades, and suppliers.
 
-They benefit by helping clients assess financeability earlier and avoid expensive wrong turns. FairLend benefits by expanding its network of project expertise and improving the quality of projects entering the financing pipeline.
+They benefit by bringing financing and execution judgment into the project earlier, before site, design, budget, permit, draw, and takeout decisions become expensive to unwind. FairLend benefits by expanding its network of project expertise and improving the quality of projects entering the financing pipeline.
 
 ### 9.6 Investors and Capital Partners
 
@@ -620,7 +620,7 @@ FairLend’s most credible public thought leadership themes include:
 * Why private lending can be fairer and more transparent.
 * How better underwriting can improve borrower and investor outcomes.
 * Why the GTA needs more distributed, human-scale rental housing.
-* How CMHC MLI Select-oriented planning affects project financeability.
+* How CMHC MLI Select-oriented planning affects capital strategy, execution planning, and takeout financing.
 * Why technology helps workflow but does not replace judgment.
 
 ---

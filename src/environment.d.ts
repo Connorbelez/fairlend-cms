@@ -2,6 +2,7 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       PAYLOAD_SECRET: string
+      PAYLOAD_DB_PUSH?: string
       POSTGRES_URL: string
       DATABASE_URL: string
       GOOGLE_MAPS_API_KEY: string

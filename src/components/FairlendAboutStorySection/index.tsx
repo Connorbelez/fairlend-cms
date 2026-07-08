@@ -8,7 +8,8 @@ import {
   FairlendPaperSection,
   FairlendPaperShell,
 } from '@/components/FairlendMarketingPrimitives'
-import { FairlendSectionKicker } from '@/components/FairlendSectionKicker'
+import { FairlendSectionKicker, FairlendSectionRule } from '@/components/FairlendSectionKicker'
+import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 
 const aboutAssetBase = '/assets/about-webp/webp'
 
@@ -53,7 +54,10 @@ const financeItems = [
         automated digital servicing.
       </>
     ),
-    href: '/contact',
+    href: buildFairlendIntakeHref({
+      intent: 'mortgage',
+      source: 'about-story-residential-private-mortgages',
+    }),
     icon: aboutAssets.residentialMortgagesIcon,
     label: 'Residential Private Mortgages',
     tag: 'Private lending',
@@ -75,7 +79,10 @@ const financeItems = [
         72-hour commitment SLA.
       </>
     ),
-    href: '/construction-draw-financing',
+    href: buildFairlendIntakeHref({
+      intent: 'build',
+      source: 'about-story-bridge-loans',
+    }),
     icon: aboutAssets.bridgeLoansIcon,
     label: 'Bridge Loans',
     tag: 'Time-sensitive capital',
@@ -97,7 +104,10 @@ const financeItems = [
         suppliers to finish on budget.
       </>
     ),
-    href: '/construction-draw-financing',
+    href: buildFairlendIntakeHref({
+      intent: 'build',
+      source: 'about-story-renovation-financing',
+    }),
     icon: aboutAssets.mortgageInvestmentsIcon,
     label: 'Renovation Financing',
     tag: 'Construction capital',
@@ -119,7 +129,10 @@ const financeItems = [
         to digital deal-room funding.
       </>
     ),
-    href: '/multiplex-financing-gta',
+    href: buildFairlendIntakeHref({
+      intent: 'build',
+      source: 'about-story-multiplex-financing',
+    }),
     icon: aboutAssets.multiplexFinancingIcon,
     label: 'Multi-plex Financing',
     tag: 'Housing supply',
@@ -141,7 +154,10 @@ const financeItems = [
         permits, budgets and timelines.
       </>
     ),
-    href: '/garden-suite-financing-gta',
+    href: buildFairlendIntakeHref({
+      intent: 'build',
+      source: 'about-story-garden-laneway-suites',
+    }),
     icon: aboutAssets.gardenSuitesIcon,
     label: 'Garden & Laneway Suites',
     tag: 'Infill housing',
@@ -163,7 +179,10 @@ const financeItems = [
         and phone-ready closing.
       </>
     ),
-    href: '/affordable-sustainable-rental-housing',
+    href: buildFairlendIntakeHref({
+      intent: 'invest',
+      source: 'about-story-mli-select-insured-housing',
+    }),
     icon: aboutAssets.purposeBuiltRentalsIcon,
     label: 'MLI-Select Insured Housing',
     tag: 'Insured rental',
@@ -198,7 +217,12 @@ export function FairlendAboutStorySection(): ReactElement {
             slashProps={{ 'data-about-kicker-slash': 'who' }}
           />
 
-          <div className="about-who-layout" data-about-who-layout>
+          <FairlendSectionRule
+            className="mt-[clamp(12px,1.4vw,20px)] mb-[clamp(16px,1.8vw,28px)]"
+            data-about-section-rule="who"
+          />
+
+          <div className="about-who-layout [margin-top:0]" data-about-who-layout>
             <div className="about-who-main" data-about-reveal>
               <div className="about-who-copy">
                 <p data-about-who-copy-line>
@@ -248,7 +272,12 @@ export function FairlendAboutStorySection(): ReactElement {
             slashProps={{ 'data-about-kicker-slash': 'finance' }}
           />
 
-          <div className="about-finance" data-about-finance-grid>
+          <FairlendSectionRule
+            className="mt-[clamp(12px,1.4vw,20px)] mb-[clamp(16px,1.8vw,28px)]"
+            data-about-section-rule="finance"
+          />
+
+          <div className="about-finance [margin-top:0]" data-about-finance-grid>
             {financeItems.map((item, index) => (
               <FairlendFinanceCard
                 copy={item.copy}

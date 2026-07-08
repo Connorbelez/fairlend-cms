@@ -1,8 +1,6 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import type { LucideIcon } from 'lucide-react'
 import {
-  ArrowRight,
   BadgeCheck,
   Building2,
   ChartNoAxesColumnIncreasing,
@@ -14,24 +12,24 @@ import {
   UsersRound,
 } from 'lucide-react'
 
+import { FairlendConsultationBookingDialog } from '@/components/FairlendConsultationBooking/FairlendConsultationBookingDialog.client'
 import {
   FairlendLeadershipCapabilityCard,
   FairlendLeadershipCommitment,
-  FairlendLeadershipHeader,
   FairlendLeadershipProofCard,
   FairlendPaperSection,
   FairlendPaperShell,
 } from '@/components/FairlendMarketingPrimitives'
-import { Button } from '@/components/ui/button'
 
-const leadershipAsset = '/assets/elie-headshot.webp'
+const leadershipPortraitAsset = '/assets/elie-headshot.webp'
+const leadershipSceneAsset = '/assets/fairlend-principal-broker-background.webp'
 
 const leadershipProof = [
   {
     detail: 'Across mortgage brokerage, private lending, and investment finance.',
     Icon: ShieldCheck,
     label: 'Years experience',
-    value: '25+',
+    value: '28+',
   },
   {
     detail: 'Residential, commercial, construction, and stabilization capital.',
@@ -118,14 +116,17 @@ export function FairlendLeadershipSection() {
     >
       <style>{`
         .leadership-model-section {
-          --leadership-paper: rgb(255 253 247);
-          --leadership-paper-soft: rgb(250 244 235);
-          --leadership-ink: oklch(0.182 0.045 166);
-          --leadership-muted: rgb(74 91 87);
-          --leadership-line: rgb(8 45 35 / 34%);
-          --leadership-line-soft: rgb(8 45 35 / 20%);
-          --leadership-orange: oklch(0.645 0.221 35);
-          --leadership-blueprint: oklch(0.464 0.091 243.7);
+          --leadership-paper: #f8f7f5;
+          --leadership-paper-soft: #ffffff;
+          --leadership-panel: #ffffff;
+          --leadership-ink: #08090a;
+          --leadership-muted: rgb(73 73 68);
+          --leadership-line: rgb(8 9 10 / 22%);
+          --leadership-line-soft: rgb(8 9 10 / 14%);
+          --leadership-signal: #96ec18;
+          --leadership-signal-muted: rgb(150 236 24 / 14%);
+          --leadership-orange: var(--leadership-signal);
+          --leadership-blueprint: var(--leadership-ink);
           --about-ink: var(--leadership-ink);
           --about-orange: var(--leadership-orange);
           --about-display: "League Gothic", Impact, "Arial Narrow", sans-serif;
@@ -136,9 +137,9 @@ export function FairlendLeadershipSection() {
           height: 100svh;
           overflow: hidden;
           background:
-            radial-gradient(circle at 76% 6%, rgb(255 255 249 / 88%), transparent 30rem),
-            radial-gradient(circle at 18% 12%, rgb(255 255 251 / 64%), transparent 23rem),
-            radial-gradient(circle at 82% 72%, rgb(255 92 52 / 7%), transparent 30rem),
+            radial-gradient(circle at 78% 18%, rgb(255 255 255 / 58%), transparent 27rem),
+            radial-gradient(circle at 18% 12%, rgb(255 255 255 / 72%), transparent 26rem),
+            linear-gradient(90deg, rgb(255 255 255 / 88%) 0%, rgb(255 255 255 / 26%) 48%, rgb(255 255 255 / 72%) 100%),
             linear-gradient(180deg, var(--leadership-paper) 0%, var(--leadership-paper-soft) 100%);
           color: var(--leadership-ink);
           font-family: var(--about-mono);
@@ -156,7 +157,7 @@ export function FairlendLeadershipSection() {
           background-repeat: repeat;
           background-size: 560px 560px, 360px 360px;
           mix-blend-mode: multiply;
-          opacity: 0.23;
+          opacity: 0.18;
           content: "";
         }
 
@@ -166,10 +167,11 @@ export function FairlendLeadershipSection() {
           z-index: 0;
           pointer-events: none;
           background:
-            linear-gradient(135deg, rgb(8 45 35 / 4%) 0 1px, transparent 1px 19px),
-            radial-gradient(circle at 18% 78%, rgb(70 108 118 / 7%), transparent 26rem);
+            linear-gradient(90deg, rgb(8 9 10 / 6%) 1px, transparent 1px),
+            linear-gradient(180deg, rgb(8 9 10 / 5%) 1px, transparent 1px);
+          background-size: 120px 120px, 120px 120px;
           mix-blend-mode: multiply;
-          opacity: 0.42;
+          opacity: 0.35;
           content: "";
         }
 
@@ -177,49 +179,11 @@ export function FairlendLeadershipSection() {
           position: relative;
           z-index: 1;
           display: grid;
-          grid-template-rows: auto minmax(0, 1fr);
-          width: min(100%, 1780px);
+          grid-template-rows: minmax(0, 1fr);
+          width: min(100%, 1800px);
           height: 100svh;
           margin-inline: auto;
-          padding: 28px;
-        }
-
-        .leadership-shell::before,
-        .leadership-shell::after,
-        .leadership-frame::before,
-        .leadership-frame::after {
-          position: absolute;
-          z-index: 5;
-          width: 32px;
-          height: 32px;
-          pointer-events: none;
-          background:
-            linear-gradient(var(--leadership-line), var(--leadership-line)) left top / 100% 2px no-repeat,
-            linear-gradient(var(--leadership-line), var(--leadership-line)) left top / 2px 100% no-repeat;
-          content: "";
-        }
-
-        .leadership-shell::before {
-          top: 28px;
-          left: 28px;
-        }
-
-        .leadership-shell::after {
-          right: 28px;
-          bottom: 28px;
-          transform: rotate(180deg);
-        }
-
-        .leadership-frame::before {
-          top: 12px;
-          right: 12px;
-          transform: rotate(90deg);
-        }
-
-        .leadership-frame::after {
-          bottom: 12px;
-          left: 12px;
-          transform: rotate(-90deg);
+          padding: 30px;
         }
 
         .leadership-header {
@@ -228,7 +192,7 @@ export function FairlendLeadershipSection() {
           grid-template-columns: minmax(0, 0.82fr) minmax(280px, 0.38fr);
           gap: 40px;
           align-items: end;
-          padding: 4px 24px 16px;
+          padding: 2px 20px 18px;
         }
 
         .leadership-kicker {
@@ -236,19 +200,19 @@ export function FairlendLeadershipSection() {
         }
 
         .leadership-kicker span {
-          font-size: 96px;
+          font-size: 82px;
         }
 
         .leadership-kicker p {
-          font-size: 29px;
+          font-size: 27px;
         }
 
         .leadership-intro {
           max-width: 760px;
-          margin: 14px 0 0;
+          margin: 10px 0 0;
           color: var(--leadership-muted);
           font-family: var(--font-inter), ui-sans-serif, sans-serif;
-          font-size: 18px;
+          font-size: 17px;
           font-weight: 650;
           line-height: 1.4;
           text-wrap: balance;
@@ -257,17 +221,17 @@ export function FairlendLeadershipSection() {
         .leadership-header-meta {
           justify-self: end;
           width: min(100%, 380px);
-          border-top: 2px solid var(--leadership-line-soft);
+          border-top: 1px solid var(--leadership-line);
           padding-top: 18px;
           text-align: right;
         }
 
         .leadership-header-meta strong {
           display: block;
-          color: var(--leadership-orange);
+          color: var(--leadership-ink);
           font-size: 11px;
           font-weight: 900;
-          letter-spacing: 0.16em;
+          letter-spacing: 0.18em;
           line-height: 1;
           text-transform: uppercase;
         }
@@ -275,7 +239,7 @@ export function FairlendLeadershipSection() {
         .leadership-header-meta span {
           display: block;
           margin-top: 8px;
-          color: rgb(45 70 64 / 74%);
+          color: rgb(73 73 68 / 86%);
           font-size: 12px;
           font-weight: 850;
           letter-spacing: 0.16em;
@@ -287,29 +251,31 @@ export function FairlendLeadershipSection() {
           display: flex;
           justify-content: flex-end;
           gap: 14px;
-          margin-bottom: 18px;
+          margin-bottom: 16px;
         }
 
         .leadership-ledger-tabs span {
-          width: 58px;
-          height: 8px;
-          border: 2px solid rgb(8 45 35 / 28%);
-          background: rgb(200 169 136 / 54%);
-          box-shadow: inset 0 1px 0 rgb(255 255 255 / 48%);
+          width: 54px;
+          height: 5px;
+          border: 1px solid rgb(8 9 10 / 22%);
+          background: linear-gradient(90deg, var(--leadership-signal), var(--leadership-panel));
+          box-shadow: inset 0 1px 0 rgb(255 255 255 / 70%);
         }
 
         .leadership-frame {
           position: relative;
           display: grid;
-          grid-template-columns: minmax(0, 1fr) minmax(300px, 0.32fr);
+          grid-template-columns: minmax(0, 1fr) minmax(280px, 0.27fr);
           grid-template-rows: minmax(0, 1fr) auto;
-          gap: 24px;
+          gap: 0;
           align-self: stretch;
           min-height: 0;
           overflow: hidden;
-          border: 2px solid transparent;
-          background: rgb(255 253 247 / 62%);
-          box-shadow: inset 0 1px 0 rgb(255 255 255 / 72%);
+          border: 1px solid rgb(8 9 10 / 16%);
+          background: rgb(255 255 255 / 58%);
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 78%),
+            0 28px 90px rgb(8 9 10 / 8%);
           will-change: clip-path, opacity, transform;
         }
 
@@ -360,12 +326,10 @@ export function FairlendLeadershipSection() {
           position: relative;
           display: grid;
           min-height: 0;
-          grid-template-columns: minmax(330px, 0.46fr) minmax(0, 0.54fr);
+          grid-template-columns: minmax(360px, 0.43fr) minmax(0, 0.57fr);
           overflow: hidden;
-          border-right: 2px solid var(--leadership-line-soft);
-          background:
-            radial-gradient(circle at 72% 18%, rgb(255 253 247 / 78%), transparent 26rem),
-            linear-gradient(180deg, rgb(255 253 247 / 90%), rgb(250 244 235 / 76%));
+          border-right: 1px solid var(--leadership-line-soft);
+          background: linear-gradient(180deg, rgb(255 255 255 / 94%), rgb(248 247 245 / 80%));
         }
 
         .leadership-main-panel::before,
@@ -393,15 +357,15 @@ export function FairlendLeadershipSection() {
           flex-direction: column;
           min-width: 0;
           min-height: 0;
-          padding: 28px 32px 22px;
+          padding: clamp(24px, 2.2vw, 36px) clamp(24px, 2.4vw, 40px) clamp(22px, 2vw, 30px);
         }
 
         .leadership-panel-index {
           position: absolute;
           top: 28px;
           right: 28px;
-          color: rgb(20 43 36 / 18%);
-          font-size: 28px;
+          color: rgb(8 9 10 / 12%);
+          font-size: 26px;
           font-weight: 900;
           letter-spacing: 0.04em;
           line-height: 1;
@@ -412,7 +376,7 @@ export function FairlendLeadershipSection() {
           width: fit-content;
           align-items: center;
           gap: 12px;
-          color: var(--leadership-orange);
+          color: rgb(8 9 10 / 74%);
           font-size: 11px;
           font-weight: 900;
           letter-spacing: 0.18em;
@@ -424,20 +388,20 @@ export function FairlendLeadershipSection() {
           display: block;
           width: 72px;
           height: 2px;
-          background: var(--leadership-line-soft);
+          background: linear-gradient(90deg, var(--leadership-signal), transparent);
           content: "";
         }
 
         .leadership-title {
-          max-width: 580px;
-          margin: 16px 0 0;
+          max-width: 520px;
+          margin: 0;
           color: var(--leadership-ink);
-          font-family: var(--about-display);
-          font-size: 64px;
-          font-weight: 400;
+          font-family: var(--font-serif), Georgia, serif;
+          font-size: clamp(42px, 3.7vw, 70px);
+          font-weight: 700;
           letter-spacing: 0;
-          line-height: 0.9;
-          text-transform: uppercase;
+          line-height: 0.92;
+          text-transform: none;
           text-wrap: balance;
         }
 
@@ -452,13 +416,13 @@ export function FairlendLeadershipSection() {
         }
 
         .leadership-summary {
-          max-width: 560px;
-          margin: 16px 0 0;
+          max-width: 520px;
+          margin: 14px 0 0;
           color: var(--leadership-muted);
           font-family: var(--font-inter), ui-sans-serif, sans-serif;
-          font-size: 15px;
+          font-size: 14.5px;
           font-weight: 600;
-          line-height: 1.45;
+          line-height: 1.42;
           text-wrap: pretty;
         }
 
@@ -468,6 +432,7 @@ export function FairlendLeadershipSection() {
           --leadership-capabilities-left-scale: 1;
           --leadership-capabilities-top-scale: 1;
           grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 8px;
           margin-top: 18px;
         }
 
@@ -476,7 +441,7 @@ export function FairlendLeadershipSection() {
           position: absolute;
           z-index: 3;
           pointer-events: none;
-          background: var(--leadership-line-soft);
+          background: transparent;
           content: "";
           will-change: transform;
         }
@@ -503,12 +468,14 @@ export function FairlendLeadershipSection() {
           position: relative;
           display: grid;
           min-width: 0;
-          grid-template-columns: 42px minmax(0, 1fr);
-          gap: 12px;
+          grid-template-columns: 34px minmax(0, 1fr);
+          gap: 10px;
+          align-content: start;
           overflow: hidden;
-          padding: 14px 14px 14px 0;
-          border-right: 2px solid var(--leadership-line-soft);
-          border-bottom: 2px solid var(--leadership-line-soft);
+          padding: 11px;
+          border: 1px solid rgb(8 9 10 / 10%);
+          background: rgb(255 255 255 / 58%);
+          box-shadow: inset 0 1px 0 rgb(255 255 255 / 76%);
         }
 
         .leadership-capability-flash {
@@ -520,10 +487,10 @@ export function FairlendLeadershipSection() {
           background: linear-gradient(
             90deg,
             transparent 0%,
-            rgb(255 92 52 / 10%) 18%,
-            rgb(255 92 52 / 34%) 44%,
-            rgb(255 219 194 / 48%) 52%,
-            rgb(255 92 52 / 24%) 64%,
+            rgb(150 236 24 / 8%) 18%,
+            rgb(150 236 24 / 32%) 44%,
+            rgb(231 255 188 / 44%) 52%,
+            rgb(150 236 24 / 20%) 64%,
             transparent 100%
           );
           mix-blend-mode: multiply;
@@ -536,14 +503,15 @@ export function FairlendLeadershipSection() {
           display: grid;
           position: relative;
           z-index: 2;
-          width: 42px;
-          height: 42px;
+          width: 34px;
+          height: 34px;
           place-items: center;
           color: var(--leadership-ink);
+          background: rgb(150 236 24 / 13%);
         }
 
         .leadership-capability:nth-child(even) .leadership-capability-icon {
-          color: var(--leadership-orange);
+          color: var(--leadership-ink);
         }
 
         .leadership-capability h3 {
@@ -551,7 +519,7 @@ export function FairlendLeadershipSection() {
           z-index: 2;
           margin: 0;
           color: var(--leadership-ink);
-          font-size: 13px;
+          font-size: 11.5px;
           font-weight: 900;
           line-height: 1.05;
           text-transform: uppercase;
@@ -563,9 +531,9 @@ export function FairlendLeadershipSection() {
           margin: 7px 0 0;
           color: var(--leadership-muted);
           font-family: var(--font-inter), ui-sans-serif, sans-serif;
-          font-size: 12px;
+          font-size: 10.8px;
           font-weight: 600;
-          line-height: 1.35;
+          line-height: 1.3;
         }
 
         .leadership-actions {
@@ -573,8 +541,8 @@ export function FairlendLeadershipSection() {
           flex-wrap: wrap;
           gap: 14px;
           align-items: center;
-          margin-top: auto;
-          padding-top: 18px;
+          margin-top: 18px;
+          padding-top: 0;
         }
 
         .leadership-cta {
@@ -583,20 +551,20 @@ export function FairlendLeadershipSection() {
           overflow: hidden;
           border: 0;
           border-radius: 999px;
-          background: var(--leadership-orange);
-          padding: 0 10px 0 22px;
-          color: white;
+          background: var(--leadership-signal);
+          padding: 0 9px 0 22px;
+          color: var(--leadership-ink);
           font-size: 12px;
           font-weight: 900;
           letter-spacing: 0.05em;
           text-transform: uppercase;
           box-shadow:
             inset 0 1px 0 rgb(255 255 255 / 34%),
-            0 16px 34px rgb(255 92 52 / 20%);
+            0 18px 40px rgb(150 236 24 / 28%);
         }
 
         .leadership-cta:hover {
-          background: oklch(0.58 0.2 35);
+          background: rgb(118 234 0);
         }
 
         .leadership-cta span {
@@ -604,8 +572,9 @@ export function FairlendLeadershipSection() {
           width: 34px;
           height: 34px;
           place-items: center;
-          border: 2px solid rgb(255 255 255 / 72%);
+          border: 1px solid rgb(8 9 10 / 24%);
           border-radius: 999px;
+          background: rgb(8 9 10 / 9%);
         }
 
         .leadership-cta span svg {
@@ -618,7 +587,7 @@ export function FairlendLeadershipSection() {
 
         .leadership-license {
           margin: 0;
-          color: rgb(45 70 64 / 76%);
+          color: rgb(73 73 68 / 78%);
           font-size: 11px;
           font-weight: 850;
           letter-spacing: 0.12em;
@@ -631,8 +600,8 @@ export function FairlendLeadershipSection() {
           z-index: 1;
           min-width: 0;
           overflow: hidden;
-          border-left: 2px solid var(--leadership-line-soft);
-          background: rgb(255 253 247 / 36%);
+          border-left: 1px solid var(--leadership-line-soft);
+          background: rgb(255 255 255 / 48%);
         }
 
         .leadership-visual-grid,
@@ -647,25 +616,84 @@ export function FairlendLeadershipSection() {
           z-index: 2;
           pointer-events: none;
           background:
-            linear-gradient(90deg, rgb(255 253 247 / 82%) 0%, transparent 22%),
-            linear-gradient(180deg, rgb(255 253 247 / 74%) 0%, transparent 20%, transparent 78%, rgb(250 244 235 / 70%) 100%);
+            linear-gradient(90deg, rgb(255 255 255 / 72%) 0%, transparent 30%),
+            linear-gradient(180deg, rgb(255 255 255 / 64%) 0%, transparent 22%);
           content: "";
         }
 
-        .leadership-visual-panel img {
+        .leadership-scene-image {
           object-fit: cover;
-          object-position: 56% 52%;
+          object-position: 58% 100%;
+          opacity: 0.72;
           mix-blend-mode: multiply;
+          filter: saturate(0.84) contrast(0.96) brightness(1.03);
           will-change: filter, transform;
+        }
+
+        .leadership-portrait-card {
+          position: absolute;
+          bottom: clamp(22px, 7%, 58px);
+          left: clamp(22px, 7%, 58px);
+          z-index: 5;
+          width: min(34%, 250px);
+          min-width: 172px;
+          overflow: hidden;
+          border: 1px solid rgb(8 9 10 / 18%);
+          background: rgb(255 255 255 / 80%);
+          box-shadow:
+            0 24px 70px rgb(8 9 10 / 14%),
+            inset 0 1px 0 rgb(255 255 255 / 86%);
+        }
+
+        .leadership-portrait-card::after {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          border: 10px solid rgb(255 255 255 / 46%);
+          content: "";
+        }
+
+        .leadership-portrait-media {
+          position: relative;
+          aspect-ratio: 4 / 4.5;
+          overflow: hidden;
+        }
+
+        .leadership-portrait-media img {
+          object-fit: cover;
+          object-position: 52% 48%;
+          filter: saturate(0.78) contrast(0.98) brightness(1.04);
+        }
+
+        .leadership-portrait-caption {
+          position: relative;
+          z-index: 2;
+          display: grid;
+          gap: 3px;
+          border-top: 1px solid rgb(8 9 10 / 12%);
+          padding: 12px 14px 14px;
+          color: var(--leadership-ink);
+          font-family: var(--font-inter), ui-sans-serif, sans-serif;
+          font-size: 12px;
+          font-weight: 800;
+          line-height: 1.1;
+        }
+
+        .leadership-portrait-caption span {
+          color: var(--leadership-muted);
+          font-size: 10px;
+          font-weight: 800;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
         }
 
         .leadership-visual-grid {
           inset: 0;
           z-index: 3;
           background-image:
-            linear-gradient(90deg, rgb(55 91 99 / 15%) 1px, transparent 1px),
-            linear-gradient(180deg, rgb(55 91 99 / 15%) 1px, transparent 1px),
-            radial-gradient(circle, rgb(8 45 35 / 18%) 1px, transparent 1.5px);
+            linear-gradient(90deg, rgb(8 9 10 / 10%) 1px, transparent 1px),
+            linear-gradient(180deg, rgb(8 9 10 / 10%) 1px, transparent 1px),
+            radial-gradient(circle, rgb(8 9 10 / 14%) 1px, transparent 1.5px);
           background-position: center;
           background-size: 74px 74px, 74px 74px, 18px 18px;
           mix-blend-mode: multiply;
@@ -682,8 +710,8 @@ export function FairlendLeadershipSection() {
           background: linear-gradient(
             90deg,
             transparent 0%,
-            rgb(255 253 247 / 72%) 42%,
-            rgb(255 92 52 / 16%) 56%,
+            rgb(255 255 255 / 72%) 42%,
+            rgb(150 236 24 / 18%) 56%,
             transparent 100%
           );
           mix-blend-mode: screen;
@@ -698,22 +726,21 @@ export function FairlendLeadershipSection() {
           grid-template-columns: minmax(0, 1fr);
           grid-auto-rows: minmax(0, 1fr);
           gap: 0;
+          background: rgb(255 255 255 / 46%);
         }
 
         .leadership-proof-card {
           position: relative;
           display: grid;
           min-height: 0;
-          grid-template-columns: 56px minmax(0, 1fr);
-          gap: 16px;
+          grid-template-columns: 46px minmax(0, 1fr);
+          gap: 14px;
           align-content: center;
           border: 0;
-          border-bottom: 2px solid var(--leadership-line-soft);
+          border-bottom: 1px solid var(--leadership-line-soft);
           border-radius: 0;
-          background:
-            radial-gradient(circle at 84% 10%, rgb(255 255 251 / 64%), transparent 10rem),
-            rgb(255 253 247 / 68%);
-          padding: 16px 20px;
+          background: rgb(255 255 255 / 50%);
+          padding: 18px 18px;
           box-shadow: none;
           transform-style: preserve-3d;
           will-change: opacity, transform;
@@ -726,7 +753,7 @@ export function FairlendLeadershipSection() {
           left: 0;
           height: 2px;
           pointer-events: none;
-          background: linear-gradient(90deg, transparent, var(--leadership-orange), transparent);
+          background: linear-gradient(90deg, transparent, var(--leadership-signal), transparent);
           transform: scaleX(0);
           transform-origin: left center;
           opacity: 0;
@@ -737,26 +764,15 @@ export function FairlendLeadershipSection() {
           border-bottom: 0;
         }
 
-        .leadership-proof-card::after {
-          position: absolute;
-          top: 16px;
-          right: 18px;
-          color: rgb(20 43 36 / 16%);
-          font-size: 18px;
-          font-weight: 900;
-          line-height: 1;
-          content: attr(data-proof-index);
-        }
-
         .leadership-proof-icon {
           display: grid;
-          width: 56px;
-          height: 56px;
+          width: 46px;
+          height: 46px;
           place-items: center;
-          border: 2px solid rgb(8 45 35 / 17%);
-          border-radius: 8px;
+          border: 1px solid rgb(8 9 10 / 14%);
+          border-radius: 999px;
           color: var(--leadership-ink);
-          background: rgb(255 253 247 / 68%);
+          background: rgb(150 236 24 / 12%);
         }
 
         .leadership-proof-card:nth-child(even) .leadership-proof-icon {
@@ -766,21 +782,21 @@ export function FairlendLeadershipSection() {
         .leadership-proof-value {
           display: block;
           color: var(--leadership-ink);
-          font-family: var(--about-display);
-          font-size: 46px;
-          font-weight: 400;
+          font-family: var(--font-serif), Georgia, serif;
+          font-size: clamp(38px, 3vw, 54px);
+          font-weight: 700;
           letter-spacing: 0;
-          line-height: 0.9;
+          line-height: 0.84;
           text-transform: uppercase;
         }
 
         .leadership-proof-label {
           display: block;
           margin-top: 6px;
-          color: var(--leadership-orange);
+          color: rgb(8 9 10 / 76%);
           font-size: 10px;
           font-weight: 900;
-          letter-spacing: 0.13em;
+          letter-spacing: 0.12em;
           line-height: 1.15;
           text-transform: uppercase;
         }
@@ -791,7 +807,7 @@ export function FairlendLeadershipSection() {
 
         .leadership-proof-detail {
           grid-column: 2;
-          margin: 7px 0 0;
+          margin: 8px 0 0;
           color: var(--leadership-muted);
           font-family: var(--font-inter), ui-sans-serif, sans-serif;
           font-size: 12px;
@@ -805,9 +821,11 @@ export function FairlendLeadershipSection() {
           grid-template-columns: minmax(0, 1fr) auto;
           gap: 24px;
           align-items: center;
-          border-top: 2px solid var(--leadership-line);
-          background: rgb(255 253 247 / 56%);
-          padding: 12px 22px;
+          border-top: 1px solid var(--leadership-line);
+          background:
+            linear-gradient(90deg, rgb(255 255 255 / 84%), rgb(255 255 255 / 42%)),
+            rgb(248 247 245 / 72%);
+          padding: 14px 22px;
         }
 
         .leadership-quote {
@@ -818,13 +836,13 @@ export function FairlendLeadershipSection() {
           margin: 0;
           color: var(--leadership-ink);
           font-family: var(--font-inter), ui-sans-serif, sans-serif;
-          font-size: 13px;
+          font-size: 13.5px;
           font-weight: 650;
           line-height: 1.35;
         }
 
         .leadership-quote [data-leadership-quote-mark] {
-          color: var(--leadership-orange);
+          color: var(--leadership-ink);
           font-family: Georgia, serif;
           font-size: 42px;
           font-weight: 700;
@@ -854,7 +872,7 @@ export function FairlendLeadershipSection() {
           gap: 10px;
           align-items: center;
           min-height: 40px;
-          border-left: 2px solid var(--leadership-line-soft);
+          border-left: 1px solid var(--leadership-line-soft);
           padding: 0 16px;
           color: var(--leadership-ink);
           font-size: 10px;
@@ -883,7 +901,7 @@ export function FairlendLeadershipSection() {
 
           .leadership-main-panel {
             border-right: 0;
-            border-bottom: 2px solid var(--leadership-line-soft);
+            border-bottom: 1px solid var(--leadership-line-soft);
           }
 
           .leadership-proof-grid {
@@ -893,7 +911,7 @@ export function FairlendLeadershipSection() {
           .leadership-proof-card {
             min-height: 0;
             grid-template-columns: minmax(0, 1fr);
-            border-right: 2px solid var(--leadership-line-soft);
+            border-right: 1px solid var(--leadership-line-soft);
             border-bottom: 0;
           }
 
@@ -915,13 +933,6 @@ export function FairlendLeadershipSection() {
 
           .leadership-shell {
             padding: 30px 22px;
-          }
-
-          .leadership-shell::before,
-          .leadership-shell::after,
-          .leadership-frame::before,
-          .leadership-frame::after {
-            display: none;
           }
 
           .leadership-header {
@@ -950,25 +961,30 @@ export function FairlendLeadershipSection() {
           }
 
           .leadership-copy-panel {
-            padding: 32px 24px 28px;
+            padding: 26px 22px 24px;
           }
 
           .leadership-title {
             max-width: 620px;
-            font-size: 58px;
+            font-size: clamp(38px, 5.7vw, 52px);
+          }
+
+          .leadership-summary {
+            max-width: 620px;
+            margin-top: 12px;
           }
 
           .leadership-visual-panel {
-            min-height: 390px;
-            border-top: 2px solid var(--leadership-line-soft);
+            min-height: 320px;
+            border-top: 1px solid var(--leadership-line-soft);
             border-left: 0;
             order: -1;
           }
 
           .leadership-visual-panel::before {
             background:
-              linear-gradient(180deg, rgb(255 253 247 / 40%) 0%, transparent 18%, transparent 76%, rgb(250 244 235 / 76%) 100%),
-              linear-gradient(90deg, rgb(255 253 247 / 64%) 0%, transparent 22%);
+              linear-gradient(180deg, rgb(255 255 255 / 40%) 0%, transparent 18%),
+              linear-gradient(90deg, rgb(255 255 255 / 64%) 0%, transparent 22%);
           }
 
           .leadership-proof-grid {
@@ -980,7 +996,7 @@ export function FairlendLeadershipSection() {
           }
 
           .leadership-proof-card:nth-child(-n + 2) {
-            border-bottom: 2px solid var(--leadership-line-soft);
+            border-bottom: 1px solid var(--leadership-line-soft);
           }
 
           .leadership-footer {
@@ -993,7 +1009,7 @@ export function FairlendLeadershipSection() {
 
           .leadership-commitment {
             border-left: 0;
-            border-right: 2px solid var(--leadership-line-soft);
+            border-right: 1px solid var(--leadership-line-soft);
             padding: 0 16px 0 0;
           }
         }
@@ -1034,11 +1050,11 @@ export function FairlendLeadershipSection() {
           }
 
           .leadership-copy-panel {
-            padding: 26px 18px 24px;
+            padding: 22px 16px 22px;
           }
 
           .leadership-title {
-            font-size: 44px;
+            font-size: 38px;
           }
 
           .leadership-summary {
@@ -1049,6 +1065,16 @@ export function FairlendLeadershipSection() {
             min-height: 280px;
           }
 
+          .leadership-portrait-card {
+            width: min(42%, 190px);
+            min-width: 138px;
+          }
+
+          .leadership-portrait-caption {
+            padding: 10px 11px 11px;
+            font-size: 11px;
+          }
+
           .leadership-capabilities,
           .leadership-proof-grid {
             grid-template-columns: 1fr;
@@ -1057,7 +1083,7 @@ export function FairlendLeadershipSection() {
           .leadership-capability {
             grid-template-columns: 36px minmax(0, 1fr);
             gap: 12px;
-            padding: 15px 12px 15px 0;
+            padding: 14px;
           }
 
           .leadership-capability-icon {
@@ -1076,7 +1102,7 @@ export function FairlendLeadershipSection() {
             min-height: 0;
             grid-template-columns: 48px minmax(0, 1fr);
             border-right: 0;
-            border-bottom: 2px solid var(--leadership-line-soft);
+            border-bottom: 1px solid var(--leadership-line-soft);
             padding: 20px 18px;
           }
 
@@ -1123,7 +1149,9 @@ export function FairlendLeadershipSection() {
       `}</style>
 
       <FairlendPaperShell className="leadership-shell">
-        <FairlendLeadershipHeader />
+        <h2 id="fairlend-leadership-title" className="sr-only">
+          Leadership
+        </h2>
 
         <div className="leadership-frame" data-leadership-frame>
           <span className="leadership-frame-line" data-leadership-frame-line="top" />
@@ -1138,18 +1166,18 @@ export function FairlendLeadershipSection() {
               <span className="leadership-eyebrow" data-leadership-copy-item>
                 Principal broker
               </span>
-              <h3 className="leadership-title about-text-textured" data-leadership-title>
+              <h3 className="leadership-title" data-leadership-title>
                 <span className="leadership-title-line" data-leadership-title-line>
-                  <span>Trusted guidance built</span>
+                  <span>The equation is clearer.</span>
                 </span>
                 <span className="leadership-title-line" data-leadership-title-line>
-                  <span>on real deal experience.</span>
+                  <span>It still needs a team.</span>
                 </span>
               </h3>
               <p className="leadership-summary" data-leadership-copy-item>
-                FairLend combines mortgage brokerage discipline, builder-side insight, and practical
-                structuring support to move financing conversations from uncertainty to a workable
-                capital plan.
+                We have mapped the problem and the financing path. Construction capital is still a
+                moving equation of site, budget, draw timing, lender appetite, and exit plan. Meet
+                the people who help turn those variables into a structure that can actually close.
               </p>
 
               <div className="leadership-capabilities" aria-label="Leadership capabilities">
@@ -1164,27 +1192,37 @@ export function FairlendLeadershipSection() {
               </div>
 
               <div className="leadership-actions" data-leadership-actions>
-                <Button asChild className="leadership-cta" size="clear">
-                  <Link href="/contact" data-leadership-cta>
-                    Meet our leadership
-                    <span aria-hidden="true" data-leadership-cta-arrow>
-                      <ArrowRight size={21} strokeWidth={1.9} />
-                    </span>
-                  </Link>
-                </Button>
+                <FairlendConsultationBookingDialog />
                 <p className="leadership-license">Mortgage brokerage & investment leadership</p>
               </div>
             </div>
 
             <div className="leadership-visual-panel" aria-hidden="true" data-leadership-visual>
               <Image
+                className="leadership-scene-image"
                 alt=""
                 decoding="async"
                 fill
                 priority={false}
-                sizes="(max-width: 1024px) 100vw, (max-width: 1400px) 54vw, 42vw"
-                src={leadershipAsset}
+                sizes="(max-width: 1024px) 100vw, (max-width: 1400px) 54vw, 46vw"
+                src={leadershipSceneAsset}
               />
+              <div className="leadership-portrait-card">
+                <div className="leadership-portrait-media">
+                  <Image
+                    alt=""
+                    decoding="async"
+                    fill
+                    priority={false}
+                    sizes="(max-width: 720px) 42vw, 250px"
+                    src={leadershipPortraitAsset}
+                  />
+                </div>
+                <div className="leadership-portrait-caption">
+                  Elie Soberano
+                  <span>Principal broker</span>
+                </div>
+              </div>
               <span className="leadership-visual-grid" data-leadership-visual-grid />
               <span className="leadership-visual-sweep" data-leadership-visual-sweep />
             </div>
@@ -1195,11 +1233,10 @@ export function FairlendLeadershipSection() {
             aria-label="Leadership proof points"
             data-leadership-proof-grid
           >
-            {leadershipProof.map(({ detail, Icon, label, value }, index) => (
+            {leadershipProof.map(({ detail, Icon, label, value }) => (
               <FairlendLeadershipProofCard
                 detail={detail}
                 Icon={Icon}
-                index={index}
                 key={label}
                 label={label}
                 value={value}

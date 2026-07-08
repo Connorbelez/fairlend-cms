@@ -1,0 +1,99 @@
+/* ------------------------------------------------------------------
+   Investor Final CTA — calm reassurance close.
+   ------------------------------------------------------------------ */
+
+.investor-final {
+  position: relative;
+  padding: clamp(80px, 10vw, 144px) clamp(24px, 4vw, 56px);
+  background: var(--landing-hero-paper, #f8f7f5);
+  color: var(--landing-hero-ink, #08090a);
+  overflow: hidden;
+}
+
+.investor-final::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle at 50% 0%,
+    rgb(150 236 24 / 10%),
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+.investor-final__inner {
+  position: relative;
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.investor-final__eyebrow {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--landing-hero-muted, rgb(73 73 68));
+  margin: 0 0 22px;
+}
+
+.investor-final__title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(38px, 5vw, 78px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  margin: 0;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+  max-width: 22ch;
+  margin-inline: auto;
+}
+
+.investor-final__lede {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: clamp(16px, 1.15vw, 19px);
+  line-height: 1.55;
+  font-weight: 400;
+  color: var(--landing-hero-muted, rgb(58 58 54));
+  margin: 26px auto 0;
+  max-width: 56ch;
+  text-wrap: pretty;
+}
+
+.investor-final__cta-row {
+  margin-top: clamp(32px, 4vw, 48px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.investor-final__risk {
+  margin: clamp(32px, 4vw, 48px) auto 0;
+  max-width: 56ch;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--landing-hero-muted-soft, rgb(108 108 100));
+}
+
+@media (max-width: 480px) {
+  .investor-final__cta-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .investor-final__cta-row :is(a, .fairlend-borrower-cta) {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .investor-final * {
+    transition: none !important;
+  }
+}

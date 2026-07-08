@@ -1,5 +1,5 @@
 .bp-page {
-  --fairlend-public-header-height: 94px;
+  --fairlend-public-header-height: 72px;
   --bp-ink: oklch(0.2 0.022 255);
   --bp-ink-soft: oklch(0.47 0.027 255);
   --bp-paper: oklch(0.988 0.004 70);
@@ -32,7 +32,7 @@
 }
 
 .bp-page--with-public-header {
-  padding-top: calc(var(--fairlend-public-header-height) + 14px);
+  padding-top: calc(var(--fairlend-public-header-height) + 12px);
 }
 
 body:has(.bp-page) {
@@ -47,13 +47,23 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 
 @media (max-width: 1023px) {
   .bp-page {
-    --fairlend-public-header-height: 80px;
+    --fairlend-public-header-height: 84px;
+  }
+}
+
+@media (min-width: 1121px) and (max-width: 1279px) {
+  .bp-page {
+    --fairlend-public-header-height: 44px;
+  }
+
+  .bp-page--with-public-header {
+    padding-top: calc(var(--fairlend-public-header-height) + 8px);
   }
 }
 
 @media (max-width: 560px) {
   .bp-page {
-    --fairlend-public-header-height: 76px;
+    --fairlend-public-header-height: 80px;
   }
 }
 

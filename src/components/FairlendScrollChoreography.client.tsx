@@ -246,6 +246,283 @@ export function FairlendScrollChoreography() {
         }
       }
 
+      const overview = document.querySelector<HTMLElement>(
+        '[data-fairlend-motion="landing-overview"]',
+      )
+
+      if (overview) {
+        const select = gsap.utils.selector(overview)
+        const skyline = overview.querySelector<HTMLElement>('[data-overview-skyline]')
+        const clouds = gsap.utils.toArray<HTMLElement>(select('[data-overview-cloud]'))
+        const cloudOpacities = clouds.map((cloud) => Number(gsap.getProperty(cloud, 'opacity')))
+        const labels = select('[data-overview-section-label]')
+        const titleLines = select('[data-overview-title-line]')
+        const copyItems = select('[data-overview-copy] p, [data-overview-summary]')
+        const expertiseCards = select('[data-overview-expertise-card]')
+        const expertiseIcons = select('[data-overview-expertise-icon]')
+        const financeLabels = select('[data-overview-finance-label]')
+        const financeCards = gsap.utils.toArray<HTMLElement>(select('[data-overview-finance-card]'))
+        const financeImages = select('[data-overview-finance-image]')
+        const connectors = select('[data-overview-connector]')
+        const scanX = select('[data-overview-scan="x"]')
+        const scanY = select('[data-overview-scan="y"]')
+
+        if (skyline) {
+          gsap.set(skyline, {
+            autoAlpha: 0,
+            clipPath: 'inset(100% 0% 0% 0%)',
+            filter: 'grayscale(1) contrast(0.9) brightness(1.18) blur(6px)',
+            transformOrigin: '50% 100%',
+            y: 34,
+          })
+        }
+
+        gsap.set(clouds, {
+          autoAlpha: 0,
+          filter: 'blur(9px)',
+          x: 26,
+          y: 10,
+        })
+        gsap.set(labels, {
+          autoAlpha: 0,
+          clipPath: 'inset(0% 100% 0% 0%)',
+          x: -18,
+        })
+        gsap.set(titleLines, {
+          autoAlpha: 0.24,
+          filter: 'blur(5px)',
+          skewY: 1.6,
+          yPercent: 118,
+        })
+        gsap.set(copyItems, {
+          autoAlpha: 0,
+          filter: 'blur(5px)',
+          y: 18,
+        })
+        gsap.set(expertiseCards, {
+          autoAlpha: 0,
+          clipPath: 'inset(0% 0% 100% 0%)',
+          rotateX: -7,
+          scale: 0.94,
+          transformPerspective: 900,
+          transformOrigin: '50% 0%',
+          y: 16,
+        })
+        gsap.set(expertiseIcons, {
+          autoAlpha: 0,
+          rotate: -10,
+          scale: 0.76,
+          transformOrigin: '50% 50%',
+        })
+        gsap.set(financeLabels, {
+          autoAlpha: 0,
+          scaleX: 0.12,
+          transformOrigin: 'left center',
+        })
+        gsap.set(financeCards, {
+          autoAlpha: 0,
+          clipPath: 'inset(0% 0% 100% 0%)',
+          rotate: (index) => (index % 2 === 0 ? -0.7 : 0.7),
+          transformOrigin: '50% 0%',
+          x: (index) => (index % 2 === 0 ? -22 : 22),
+          y: 20,
+        })
+        gsap.set(financeImages, {
+          filter: 'grayscale(1) contrast(0.82) brightness(1.18) blur(8px)',
+          scale: 0.88,
+          y: 18,
+        })
+        gsap.set(connectors, {
+          scaleX: 0,
+          transformOrigin: 'left center',
+        })
+        gsap.set(scanX, {
+          autoAlpha: 0,
+          scaleX: 0,
+          transformOrigin: 'left center',
+          xPercent: -3,
+        })
+        gsap.set(scanY, {
+          autoAlpha: 0,
+          scaleY: 0,
+          transformOrigin: 'center top',
+          yPercent: -2,
+        })
+
+        const timeline = gsap.timeline({
+          defaults: {
+            ease: 'expo.out',
+          },
+          scrollTrigger: {
+            once: true,
+            start: 'top 68%',
+            trigger: overview,
+          },
+        })
+
+        if (skyline) {
+          timeline.to(
+            skyline,
+            {
+              autoAlpha: 0.82,
+              clipPath: 'inset(0% 0% 0% 0%)',
+              duration: 0.72,
+              filter: 'grayscale(1) contrast(1.12) brightness(1.02) blur(0px)',
+              y: 0,
+            },
+            0,
+          )
+        }
+
+        timeline
+          .to(
+            clouds,
+            {
+              autoAlpha: (index) => cloudOpacities[index] || 0.42,
+              duration: 0.58,
+              filter: 'blur(0px)',
+              stagger: 0.035,
+              x: 0,
+              y: 0,
+            },
+            0.06,
+          )
+          .to(
+            scanX,
+            {
+              autoAlpha: 0.86,
+              duration: 0.28,
+              ease: 'power2.inOut',
+              scaleX: 1,
+              xPercent: 0,
+            },
+            0.14,
+          )
+          .to(
+            scanY,
+            {
+              autoAlpha: 0.72,
+              duration: 0.34,
+              ease: 'power2.inOut',
+              scaleY: 1,
+              yPercent: 0,
+            },
+            0.19,
+          )
+          .to(
+            labels,
+            {
+              autoAlpha: 1,
+              clipPath: 'inset(0% 0% 0% 0%)',
+              duration: 0.46,
+              stagger: 0.06,
+              x: 0,
+            },
+            0.26,
+          )
+          .to(
+            titleLines,
+            {
+              autoAlpha: 1,
+              duration: 0.72,
+              filter: 'blur(0px)',
+              skewY: 0,
+              stagger: 0.065,
+              yPercent: 0,
+            },
+            0.34,
+          )
+          .to(
+            copyItems,
+            {
+              autoAlpha: 1,
+              duration: 0.52,
+              filter: 'blur(0px)',
+              stagger: 0.055,
+              y: 0,
+            },
+            0.58,
+          )
+          .to(
+            financeLabels,
+            {
+              autoAlpha: 1,
+              duration: 0.36,
+              scaleX: 1,
+              stagger: 0.08,
+            },
+            0.62,
+          )
+          .to(
+            expertiseCards,
+            {
+              autoAlpha: 1,
+              clipPath: 'inset(0% 0% 0% 0%)',
+              duration: 0.54,
+              rotateX: 0,
+              scale: 1,
+              stagger: 0.075,
+              y: 0,
+            },
+            0.72,
+          )
+          .to(
+            expertiseIcons,
+            {
+              autoAlpha: 1,
+              duration: 0.34,
+              ease: 'back.out(1.7)',
+              rotate: 0,
+              scale: 1,
+              stagger: 0.075,
+            },
+            0.84,
+          )
+          .to(
+            financeCards,
+            {
+              autoAlpha: 1,
+              clipPath: 'inset(0% 0% 0% 0%)',
+              duration: 0.56,
+              rotate: 0,
+              stagger: 0.06,
+              x: 0,
+              y: 0,
+            },
+            0.74,
+          )
+          .to(
+            financeImages,
+            {
+              duration: 0.5,
+              filter: 'grayscale(1) contrast(1.34) brightness(0.86) blur(0px)',
+              scale: 1,
+              stagger: 0.06,
+              y: 0,
+            },
+            0.8,
+          )
+          .to(
+            connectors,
+            {
+              duration: 0.44,
+              ease: 'power2.inOut',
+              scaleX: 1,
+              stagger: 0.08,
+            },
+            1.02,
+          )
+          .to(
+            [...scanX, ...scanY],
+            {
+              autoAlpha: 0,
+              duration: 0.32,
+              ease: 'power2.out',
+            },
+            1.12,
+          )
+      }
+
       const services = document.querySelector<HTMLElement>('[data-fairlend-motion="services"]')
 
       if (services) {
@@ -267,7 +544,7 @@ export function FairlendScrollChoreography() {
           (titleWords[0] instanceof HTMLElement ? titleWords[0] : null)
         const titleSlash =
           services.querySelector<HTMLElement>('[data-services-title-slash]') ??
-          services.querySelector<HTMLElement>('.services-model-kicker .about-kicker-slash')
+          services.querySelector<HTMLElement>('.services-model-header .about-kicker-slash')
         const titleLabel =
           services.querySelector<HTMLElement>('[data-services-title-label]') ??
           (titleWords[1] instanceof HTMLElement ? titleWords[1] : null)
@@ -874,7 +1151,10 @@ export function FairlendScrollChoreography() {
         gsap.set(routeDots, { autoAlpha: 0, scale: 0.42, transformOrigin: '50% 50%' })
         gsap.set(indexMark, { autoAlpha: 0, scale: 1.24, x: 18 })
         gsap.set(copyItems, { autoAlpha: 0.16, filter: 'blur(5px)', y: 24 })
-        gsap.set(titleLines, { autoAlpha: 0.24, yPercent: 112 })
+        gsap.set(titleLines, {
+          autoAlpha: isDesktop ? 0.24 : 0.72,
+          yPercent: isDesktop ? 112 : 18,
+        })
         gsap.set(capabilities, {
           autoAlpha: 0.16,
           clipPath: 'inset(0% 0% 100% 0%)',
@@ -955,7 +1235,6 @@ export function FairlendScrollChoreography() {
                 anticipatePin: 1,
                 end: '+=145%',
                 invalidateOnRefresh: true,
-                markers: true,
                 pin: true,
                 refreshPriority: 10,
                 scrub: 0.85,
@@ -972,11 +1251,7 @@ export function FairlendScrollChoreography() {
 
         leadershipTimeline
           .to(frameLinesX, { duration: 0.46, ease: 'power2.inOut', scaleX: 1, stagger: 0.08 }, 0)
-          .to(
-            frameLinesY,
-            { duration: 0.48, ease: 'power2.inOut', scaleY: 1, stagger: 0.08 },
-            0.08,
-          )
+          .to(frameLinesY, { duration: 0.48, ease: 'power2.inOut', scaleY: 1, stagger: 0.08 }, 0.08)
           .to(
             frame,
             {
@@ -989,11 +1264,7 @@ export function FairlendScrollChoreography() {
             0,
           )
           .to(kickerNumber, { autoAlpha: 1, clipPath: 'inset(0% 0% 0% 0%)', y: 0 }, 0)
-          .to(
-            kickerSlash,
-            { autoAlpha: 1, clipPath: 'inset(0% 0% 0% 0%)', scaleY: 1 },
-            0.12,
-          )
+          .to(kickerSlash, { autoAlpha: 1, clipPath: 'inset(0% 0% 0% 0%)', scaleY: 1 }, 0.12)
           .to(kickerSlash, { duration: 0.08, ease: 'none', x: 4 }, 0.34)
           .to(kickerSlash, { duration: 0.14, ease: 'power2.out', x: 0 }, 0.42)
           .to(kickerLabel, { autoAlpha: 1, clipPath: 'inset(0% 0% 0% 0%)', x: 0 }, 0.2)
@@ -1010,11 +1281,7 @@ export function FairlendScrollChoreography() {
             },
             0.52,
           )
-          .to(
-            visualPanel,
-            { autoAlpha: 1, clipPath: 'inset(0% 0% 0% 0%)', x: 0 },
-            0.66,
-          )
+          .to(visualPanel, { autoAlpha: 1, clipPath: 'inset(0% 0% 0% 0%)', x: 0 }, 0.66)
           .to(
             visualImage ? [visualImage] : [],
             {
@@ -1027,23 +1294,11 @@ export function FairlendScrollChoreography() {
           )
           .to(visualGrid, { autoAlpha: 0.58, duration: 0.42, xPercent: 0 }, 0.72)
           .to(visualSweep, { autoAlpha: 0.82, duration: 0.18 }, 0.8)
-          .to(
-            visualSweep,
-            { duration: 0.74, ease: 'power2.inOut', xPercent: 320 },
-            0.82,
-          )
+          .to(visualSweep, { duration: 0.74, ease: 'power2.inOut', xPercent: 320 }, 0.82)
           .to(visualSweep, { autoAlpha: 0, duration: 0.18 }, 1.42)
           .to(routeOverlay, { autoAlpha: 1, duration: 0.22 }, 0.9)
-          .to(
-            routePaths,
-            { duration: 0.72, ease: 'power2.inOut', strokeDashoffset: 0 },
-            0.92,
-          )
-          .to(
-            routeDots,
-            { autoAlpha: 1, duration: 0.18, scale: 1, stagger: 0.055 },
-            1.18,
-          )
+          .to(routePaths, { duration: 0.72, ease: 'power2.inOut', strokeDashoffset: 0 }, 0.92)
+          .to(routeDots, { autoAlpha: 1, duration: 0.18, scale: 1, stagger: 0.055 }, 1.18)
           .to(visualGrid, { autoAlpha: 0.28, duration: 0.32 }, 1.34)
           .to(indexMark, { autoAlpha: 1, scale: 1, x: 0 }, 0.72)
           .to(copyItems, { autoAlpha: 1, filter: 'blur(0px)', stagger: 0.06, y: 0 }, 0.76)
@@ -1056,7 +1311,7 @@ export function FairlendScrollChoreography() {
               stagger: 0.08,
               yPercent: 0,
             },
-            0.86,
+            isDesktop ? 0.86 : 0.58,
           )
           .to(
             capabilityGrid ? [capabilityGrid] : [],
@@ -1185,7 +1440,6 @@ export function FairlendScrollChoreography() {
             ease: 'none',
             scrollTrigger: {
               end: 'bottom top',
-              markers: true,
               scrub: 1,
               start: isDesktop ? 'top top' : 'top bottom',
               trigger: leadership,
@@ -1198,7 +1452,6 @@ export function FairlendScrollChoreography() {
           ease: 'none',
           scrollTrigger: {
             end: 'bottom top',
-            markers: true,
             scrub: 1,
             start: isDesktop ? 'top top' : 'top bottom',
             trigger: leadership,
@@ -1214,7 +1467,8 @@ export function FairlendScrollChoreography() {
         const whoSection =
           aboutStory.querySelector<HTMLElement>('[data-about-section="about-who"]') ?? aboutStory
         const financeSection =
-          aboutStory.querySelector<HTMLElement>('[data-about-section="about-finance"]') ?? aboutStory
+          aboutStory.querySelector<HTMLElement>('[data-about-section="about-finance"]') ??
+          aboutStory
         const whoNumber = select('[data-about-kicker-number="who"]')
         const whoSlash = select('[data-about-kicker-slash="who"]')
         const whoLabel = select('[data-about-kicker-label="who"]')
@@ -1671,7 +1925,6 @@ export function FairlendScrollChoreography() {
           animateWho(whoTimeline, 0)
           animateFinance(financeTimeline, 0)
         })
-
       }
     })
 

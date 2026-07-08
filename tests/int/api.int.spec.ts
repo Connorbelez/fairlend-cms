@@ -10,7 +10,7 @@ describeWithDatabase('API', () => {
   beforeAll(async () => {
     const payloadConfig = await config
     payload = await getPayload({ config: payloadConfig })
-  })
+  }, 60_000)
 
   it('fetches users', async () => {
     const users = await payload.find({

@@ -420,7 +420,39 @@ export function Header() {
       return
     }
 
+    const isReferenceStyleSectionInView = () => {
+      const faqSection = document.getElementById('questions')
+      if (!faqSection) return false
+
+      const rect = faqSection.getBoundingClientRect()
+
+      return rect.top <= 96 && rect.bottom >= 96
+    }
+
+    const syncHeaderVisibility = () => {
+      const currentScrollY = Math.max(window.scrollY, 0)
+
+      if (isReferenceStyleSectionInView()) {
+        setIsHeaderHidden(true)
+        lastScrollYRef.current = currentScrollY
+        return
+      }
+
+      const delta = currentScrollY - lastScrollYRef.current
+
+      if (currentScrollY < 40) {
+        setIsHeaderHidden(false)
+      } else if (delta > 8 && currentScrollY > 108) {
+        setIsHeaderHidden(true)
+      } else if (delta < -8) {
+        setIsHeaderHidden(false)
+      }
+
+      lastScrollYRef.current = currentScrollY
+    }
+
     lastScrollYRef.current = window.scrollY
+    syncHeaderVisibility()
 
     const handleScroll = () => {
       if (scrollFrameRef.current !== null) {
@@ -428,18 +460,7 @@ export function Header() {
       }
 
       scrollFrameRef.current = requestAnimationFrame(() => {
-        const currentScrollY = Math.max(window.scrollY, 0)
-        const delta = currentScrollY - lastScrollYRef.current
-
-        if (currentScrollY < 40) {
-          setIsHeaderHidden(false)
-        } else if (delta > 8 && currentScrollY > 108) {
-          setIsHeaderHidden(true)
-        } else if (delta < -8) {
-          setIsHeaderHidden(false)
-        }
-
-        lastScrollYRef.current = currentScrollY
+        syncHeaderVisibility()
         scrollFrameRef.current = null
       })
     }

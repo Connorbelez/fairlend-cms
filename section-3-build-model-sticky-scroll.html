@@ -1,0 +1,1062 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FairLend Section 3 Sticky Scroll - Our Build Model</title>
+    <style>
+      :root {
+        --paper: #fbfaf7;
+        --paper-warm: #fffaf1;
+        --cream: rgb(255 253 247);
+        --ink: oklch(0.235 0.026 164);
+        --ink-deep: #050506;
+        --ink-soft: oklch(0.235 0.026 164 / 0.72);
+        --muted: oklch(0.235 0.026 164 / 0.56);
+        --line: oklch(0.235 0.026 164 / 0.16);
+        --line-strong: oklch(0.235 0.026 164 / 0.34);
+        --lime: #9dff00;
+        --lime-ink: #203500;
+        --coral: oklch(0.588 0.151 42.5);
+        --coral-deep: oklch(0.48 0.14 41);
+        --blueprint: oklch(0.464 0.091 243.7);
+        --blueprint-soft: oklch(0.464 0.091 243.7 / 0.28);
+        --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+        --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+        --mono: "Oxanium", ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+        line-height: 1.45;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        background:
+          linear-gradient(90deg, transparent 0 6.6%, var(--line) 6.7%, transparent 6.8% 93.2%, var(--line) 93.3%, transparent 93.4%),
+          url("public/assets/fairlend-route-selector/topographic-paper-background.webp"),
+          var(--paper);
+        background-size: auto, min(1020px, 120vw), auto;
+        background-position: center top;
+      }
+      a { color: inherit; }
+
+      .page {
+        width: min(1500px, 100%);
+        margin: 0 auto;
+        overflow: hidden;
+        border-inline: 1px solid var(--line);
+        background: color-mix(in oklch, var(--paper) 92%, white);
+      }
+
+      .doc-head {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+        gap: clamp(24px, 6vw, 80px);
+        align-items: end;
+        min-height: 48vh;
+        padding: clamp(32px, 6vw, 80px);
+      }
+      .eyebrow,
+      .kicker,
+      .label,
+      .chip,
+      .station-num,
+      .board-status,
+      .board-chip,
+      .draw-label,
+      .small-label,
+      .progress-item {
+        font-family: var(--mono);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+      .eyebrow {
+        color: var(--coral);
+        font-size: 11px;
+        font-weight: 900;
+      }
+      h1, h2, h3, h4 {
+        margin: 0;
+        color: var(--ink-deep);
+        font-family: var(--serif);
+        font-weight: 500;
+        letter-spacing: 0;
+      }
+      h1 {
+        max-width: 11ch;
+        margin-top: 14px;
+        font-size: clamp(48px, 7vw, 104px);
+        line-height: 0.88;
+      }
+      .doc-head p {
+        margin: 0;
+        max-width: 56ch;
+        color: var(--ink-soft);
+        font-size: 16px;
+      }
+      .doc-note {
+        border: 1px solid var(--line-strong);
+        border-radius: 10px;
+        background: var(--cream);
+        padding: 18px;
+        box-shadow: 0 22px 70px oklch(0.235 0.026 164 / 0.08);
+      }
+      .doc-note b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--coral-deep);
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      .context {
+        display: grid;
+        grid-template-columns: minmax(260px, 0.85fr) minmax(0, 1.15fr);
+        gap: 28px;
+        align-items: end;
+        padding: 30px clamp(28px, 5vw, 72px);
+      }
+      .context.overview {
+        min-height: 235px;
+        border-block: 1px solid var(--line);
+        background: var(--cream);
+      }
+      .context.builder {
+        min-height: 260px;
+        border-top: 1px solid var(--line);
+        background: linear-gradient(180deg, var(--paper-warm), #fff7e7);
+      }
+      .context h2 {
+        max-width: 13ch;
+        margin-top: 8px;
+        font-size: clamp(34px, 4.8vw, 70px);
+        line-height: 0.9;
+      }
+      .context-cards {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 9px;
+      }
+      .context-card {
+        min-height: 86px;
+        border: 1px solid var(--line);
+        background: color-mix(in oklch, white 55%, var(--cream));
+        padding: 12px;
+        color: var(--ink-deep);
+        font-size: 13px;
+        font-weight: 800;
+      }
+      .context-card span {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--coral);
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 900;
+      }
+
+      .build-scroll {
+        position: relative;
+        background:
+          radial-gradient(ellipse 70% 44% at 50% 0%, rgb(255 255 255 / 0.72), transparent 62%),
+          var(--paper);
+        padding: clamp(36px, 5vw, 72px) clamp(20px, 4vw, 64px) 0;
+      }
+      .build-scroll::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(90deg, transparent 0 7%, var(--line) 7.08%, transparent 7.18% 92.82%, var(--line) 92.92%, transparent 93%),
+          linear-gradient(180deg, transparent 0, transparent calc(100% - 1px), var(--line) calc(100% - 1px));
+      }
+      .scroll-grid {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: minmax(360px, 0.94fr) minmax(0, 1.06fr);
+        gap: clamp(30px, 5vw, 76px);
+        max-width: 1240px;
+        margin: 0 auto;
+      }
+      .sticky-board-wrap {
+        align-self: start;
+        position: sticky;
+        top: 24px;
+        min-height: calc(100vh - 48px);
+        display: grid;
+        place-items: center;
+        padding-bottom: 24px;
+      }
+      .board {
+        position: relative;
+        width: 100%;
+        min-height: min(760px, calc(100vh - 64px));
+        border: 1px solid var(--line-strong);
+        border-radius: 12px;
+        background:
+          linear-gradient(135deg, color-mix(in oklch, var(--blueprint) 8%, transparent), transparent 36%),
+          linear-gradient(180deg, var(--cream), var(--paper));
+        overflow: hidden;
+        box-shadow: 0 24px 80px oklch(0.235 0.026 164 / 0.11);
+      }
+      .board::before {
+        content: "";
+        position: absolute;
+        inset: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        pointer-events: none;
+      }
+      .board::after {
+        content: "";
+        position: absolute;
+        right: -32px;
+        bottom: -8px;
+        width: min(470px, 82%);
+        height: 240px;
+        background: url("public/assets/builders-squeezed-extracted/left-building-blueprint.webp") right bottom / contain no-repeat;
+        opacity: 0.34;
+        pointer-events: none;
+      }
+      .board-inner {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        min-height: inherit;
+        padding: clamp(22px, 4vw, 40px);
+      }
+      .board-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        align-items: start;
+      }
+      .board-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--blueprint);
+        font-size: 10px;
+        font-weight: 900;
+      }
+      .board-status::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--blueprint);
+        box-shadow: 0 0 0 4px color-mix(in oklch, var(--blueprint) 14%, transparent);
+      }
+      .board-count {
+        color: var(--coral);
+        font-family: var(--serif);
+        font-size: clamp(54px, 7vw, 96px);
+        line-height: 0.78;
+      }
+      .board-title {
+        align-self: center;
+      }
+      .board-title .small-label {
+        display: block;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 900;
+      }
+      .board-title h3 {
+        max-width: 11ch;
+        margin-top: 10px;
+        font-size: clamp(38px, 5vw, 68px);
+        line-height: 0.88;
+      }
+      .board-active {
+        color: var(--coral-deep);
+        font-style: italic;
+      }
+      .board-equation {
+        align-self: end;
+      }
+      .board-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        max-width: 560px;
+        margin-bottom: 18px;
+      }
+      .board-chip {
+        border: 1px solid var(--line-strong);
+        border-radius: 999px;
+        background: rgb(255 255 255 / 0.45);
+        color: var(--muted);
+        padding: 8px 11px;
+        font-size: 10px;
+        font-weight: 900;
+        transition: background 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
+      }
+      .board-chip.is-on {
+        border-color: var(--coral);
+        background: color-mix(in oklch, var(--coral) 9%, white);
+        color: var(--coral-deep);
+        transform: translateY(-1px);
+      }
+      .board-chip.is-lime {
+        border-color: var(--lime);
+        background: color-mix(in oklch, var(--lime) 20%, white);
+        color: var(--lime-ink);
+      }
+      .progress {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 5px;
+      }
+      .progress-item {
+        position: relative;
+        border-top: 2px solid var(--line-strong);
+        padding-top: 9px;
+        color: var(--muted);
+        font-size: 8.5px;
+        font-weight: 900;
+      }
+      .progress-item.is-active {
+        border-color: var(--coral);
+        color: var(--ink-deep);
+      }
+      .progress-item.is-active::before {
+        content: "";
+        position: absolute;
+        top: -5px;
+        left: 0;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--coral);
+      }
+
+      .scroll-copy {
+        padding-bottom: 12vh;
+      }
+      .scroll-card {
+        min-height: 74vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-bottom: 1px solid var(--line);
+        padding-block: clamp(42px, 8vh, 92px);
+      }
+      .scroll-card.hero-card {
+        min-height: 96vh;
+      }
+      .kicker {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        color: var(--ink-deep);
+        font-size: 12px;
+        font-weight: 900;
+      }
+      .kicker span { color: var(--coral); }
+      .scroll-card h2 {
+        max-width: 12ch;
+        margin-top: 18px;
+        font-size: clamp(44px, 6vw, 82px);
+        line-height: 0.88;
+      }
+      .lead {
+        max-width: 54ch;
+        margin: 22px 0 0;
+        color: var(--ink);
+        font-family: var(--serif);
+        font-size: clamp(21px, 2.2vw, 30px);
+        font-style: italic;
+        line-height: 1.17;
+      }
+      .lead em {
+        color: var(--coral-deep);
+        font-style: normal;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 26px 0;
+      }
+      .chip {
+        border: 1px solid var(--coral);
+        border-radius: 999px;
+        background: color-mix(in oklch, var(--coral) 7%, transparent);
+        color: var(--coral-deep);
+        padding: 7px 12px;
+        font-size: 10px;
+        font-weight: 900;
+      }
+      .shared-lead {
+        max-width: 54ch;
+        margin: 0;
+        color: var(--ink-soft);
+        font-size: 15px;
+      }
+      .audiences {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 24px;
+      }
+      .audience-card {
+        border: 1px solid var(--line);
+        border-left: 4px solid var(--coral);
+        border-radius: 9px;
+        background: var(--cream);
+        padding: 18px;
+      }
+      .audience-card.builder { border-left-color: var(--blueprint); }
+      .label {
+        display: block;
+        margin-bottom: 9px;
+        color: var(--coral);
+        font-size: 10px;
+        font-weight: 900;
+      }
+      .builder .label { color: var(--blueprint); }
+      .audience-card p {
+        margin: 0;
+        color: var(--ink-deep);
+        font-size: 14px;
+      }
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+        margin-top: 28px;
+      }
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        border: 1.5px solid var(--ink-deep);
+        border-radius: 9px;
+        background: var(--lime);
+        color: var(--lime-ink);
+        padding: 15px 20px;
+        font-size: 15px;
+        font-weight: 900;
+        text-decoration: none;
+        box-shadow: 0 14px 34px rgb(157 255 0 / 0.22);
+      }
+      .cta i {
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        border: 1px solid rgb(32 53 0 / 0.4);
+        border-radius: 50%;
+        font-style: normal;
+      }
+      .micro {
+        max-width: 38ch;
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .station-head {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 18px;
+        align-items: baseline;
+      }
+      .station-num {
+        color: var(--coral);
+        font-size: 13px;
+        font-weight: 900;
+      }
+      .scroll-card h3 {
+        max-width: 12ch;
+        font-size: clamp(38px, 5vw, 70px);
+        line-height: 0.88;
+      }
+      .service-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 26px;
+      }
+      .service-list li {
+        list-style: none;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: color-mix(in oklch, var(--cream) 78%, white);
+        padding: 14px;
+        color: var(--ink-soft);
+        font-size: 14px;
+      }
+      .service-list li::before {
+        content: "";
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        margin-right: 9px;
+        border-radius: 50%;
+        background: var(--coral);
+      }
+
+      .drawflow-block {
+        border: 1px solid var(--line-strong);
+        border-radius: 12px;
+        background: color-mix(in oklch, var(--cream) 92%, white);
+        padding: clamp(22px, 4vw, 36px);
+      }
+      .draw-label {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        color: var(--blueprint);
+        font-size: 11px;
+        font-weight: 900;
+      }
+      .draw-label::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--blueprint);
+      }
+      .drawflow-block h3 {
+        max-width: 14ch;
+        margin-top: 12px;
+      }
+      .drawflow-block h3 em { color: var(--blueprint); }
+      .draw-sub {
+        max-width: 42ch;
+        color: var(--ink-soft);
+      }
+      .draw-sub strong { color: var(--coral-deep); }
+      .milestones {
+        display: grid;
+        grid-template-columns: repeat(9, minmax(72px, 1fr));
+        gap: 0;
+        overflow-x: auto;
+        margin: 26px 0 18px;
+        padding-bottom: 16px;
+      }
+      .milestone {
+        position: relative;
+        min-height: 58px;
+        padding-top: 31px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 9px;
+        font-weight: 900;
+        text-align: center;
+        text-transform: uppercase;
+      }
+      .milestone::before {
+        content: "";
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        width: 10px;
+        height: 10px;
+        transform: translateX(-50%);
+        border: 1.4px solid var(--blueprint);
+        border-radius: 50%;
+        background: var(--cream);
+      }
+      .milestone::after {
+        content: "";
+        position: absolute;
+        top: 17px;
+        left: calc(50% + 9px);
+        right: calc(-50% + 9px);
+        height: 1.4px;
+        background: var(--blueprint-soft);
+      }
+      .milestone:last-child::after { display: none; }
+      .milestone.done::before { background: var(--blueprint); }
+      .milestone.active {
+        color: var(--coral-deep);
+      }
+      .milestone.active::before {
+        top: 10px;
+        width: 14px;
+        height: 14px;
+        border-color: var(--coral);
+        background: var(--coral);
+        box-shadow: 0 0 0 6px color-mix(in oklch, var(--coral) 14%, transparent);
+      }
+      .compare {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        border: 1px solid var(--line);
+      }
+      .compare > div {
+        padding: 16px;
+      }
+      .compare > div + div {
+        border-left: 1px solid var(--line);
+        background: color-mix(in oklch, var(--lime) 8%, transparent);
+      }
+      .compare b {
+        display: block;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .compare strong {
+        display: block;
+        margin-top: 5px;
+        color: var(--ink-deep);
+        font-family: var(--serif);
+        font-size: 34px;
+        font-weight: 500;
+      }
+      .saved {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: center;
+        margin-top: 14px;
+        border-left: 4px solid var(--lime);
+        background: color-mix(in oklch, var(--lime) 8%, transparent);
+        padding: 14px;
+      }
+      .saved strong {
+        color: var(--ink-deep);
+        font-family: var(--serif);
+        font-size: 28px;
+        font-weight: 500;
+      }
+      .saved span,
+      .saved small {
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .tiles {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .tile,
+      .more {
+        border: 1px dashed var(--line-strong);
+        border-radius: 8px;
+        background: var(--paper);
+        padding: 14px;
+      }
+      .tile b {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--ink-deep);
+      }
+      .tile p,
+      .more p {
+        margin: 0;
+        color: var(--ink-soft);
+        font-size: 13px;
+      }
+      .more {
+        margin-top: 14px;
+        border-style: solid;
+        border-color: color-mix(in oklch, var(--lime) 42%, var(--line));
+      }
+      .more b { color: var(--ink-deep); }
+
+      .thesis {
+        min-height: 72vh;
+        margin-inline: calc(clamp(20px, 4vw, 64px) * -1);
+        padding: clamp(36px, 7vw, 84px) clamp(28px, 7vw, 96px);
+        background: linear-gradient(180deg, oklch(0.255 0.052 166), oklch(0.155 0.04 166));
+        color: #fffaf1;
+      }
+      .thesis .small-label {
+        display: block;
+        color: var(--coral);
+        font-size: 11px;
+        font-weight: 900;
+      }
+      .thesis h3 {
+        max-width: 15ch;
+        margin-top: 14px;
+        color: #fffdf7;
+        font-size: clamp(42px, 6vw, 86px);
+        line-height: 0.88;
+      }
+      .thesis h3 em {
+        color: var(--coral);
+        font-style: italic;
+      }
+      .thesis p {
+        max-width: 68ch;
+        color: rgb(255 250 241 / 0.82);
+        font-size: 16px;
+      }
+      .equation {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 26px;
+        font-family: var(--mono);
+        font-size: clamp(12px, 1.4vw, 16px);
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .equation span {
+        border: 1px solid rgb(255 250 241 / 0.22);
+        border-radius: 999px;
+        padding: 8px 11px;
+      }
+      .equation i {
+        align-self: center;
+        color: var(--coral);
+        font-style: normal;
+      }
+      .equation .outcome {
+        border-color: var(--coral);
+        color: var(--coral);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after {
+          transition-duration: 0.001ms !important;
+          animation-duration: 0.001ms !important;
+        }
+      }
+      @media (max-width: 980px) {
+        .doc-head,
+        .context,
+        .scroll-grid {
+          grid-template-columns: 1fr;
+        }
+        .sticky-board-wrap {
+          position: relative;
+          top: auto;
+          min-height: auto;
+        }
+        .board {
+          min-height: 560px;
+        }
+        .scroll-card,
+        .scroll-card.hero-card {
+          min-height: auto;
+        }
+      }
+      @media (max-width: 720px) {
+        .context-cards,
+        .audiences,
+        .service-list,
+        .compare,
+        .tiles,
+        .saved {
+          grid-template-columns: 1fr;
+        }
+        .compare > div + div {
+          border-left: 0;
+          border-top: 1px solid var(--line);
+        }
+        .doc-head,
+        .context,
+        .build-scroll {
+          padding-inline: 18px;
+        }
+        .progress {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="doc-head">
+        <div>
+          <div class="eyebrow">Sticky scroll direction / Section 3</div>
+          <h1>Make the model assemble itself.</h1>
+        </div>
+        <aside class="doc-note">
+          <b>Concept thesis</b>
+          <p>
+            The section stops acting like a menu. The visitor scrolls through FairLend's operating
+            model while a sticky project board locks each build variable into place.
+          </p>
+        </aside>
+      </header>
+
+      <section class="context overview" aria-label="Previous section context">
+        <div>
+          <div class="eyebrow">02 / What We Finance</div>
+          <h2>Flexible capital for every project.</h2>
+        </div>
+        <div class="context-cards" aria-hidden="true">
+          <div class="context-card"><span>01</span>Residential private mortgages</div>
+          <div class="context-card"><span>02</span>Bridge loans</div>
+          <div class="context-card"><span>03</span>Renovation financing</div>
+          <div class="context-card"><span>04</span>Multi-plex financing</div>
+          <div class="context-card"><span>05</span>Garden & laneway suites</div>
+          <div class="context-card"><span>06</span>MLI-select insured housing</div>
+        </div>
+      </section>
+
+      <section class="build-scroll" aria-labelledby="build-model-title">
+        <div class="scroll-grid">
+          <aside class="sticky-board-wrap" aria-label="Sticky build equation board">
+            <div class="board">
+              <div class="board-inner">
+                <div class="board-top">
+                  <span class="board-status" id="board-status">Model open</span>
+                  <span class="board-count" id="board-count">03</span>
+                </div>
+                <div class="board-title">
+                  <span class="small-label">Active variable</span>
+                  <h3 id="board-title">Property to equation</h3>
+                </div>
+                <div class="board-equation">
+                  <div class="board-chips" id="board-chips" aria-label="Build variables">
+                    <span class="board-chip" data-var="Land">Land</span>
+                    <span class="board-chip" data-var="Scope">Scope</span>
+                    <span class="board-chip" data-var="Capital">Capital</span>
+                    <span class="board-chip" data-var="Draw plan">Draw plan</span>
+                    <span class="board-chip" data-var="Professional path">Professional path</span>
+                    <span class="board-chip" data-var="Permit & MLI readiness">Permit & MLI readiness</span>
+                    <span class="board-chip" data-var="Exit">Exit</span>
+                  </div>
+                  <div class="progress" aria-hidden="true">
+                    <span class="progress-item is-active" data-step="intro">Intent</span>
+                    <span class="progress-item" data-step="plan">Plan</span>
+                    <span class="progress-item" data-step="finance">Finance</span>
+                    <span class="progress-item" data-step="support">Support</span>
+                    <span class="progress-item" data-step="drawflow">DrawFlow</span>
+                    <span class="progress-item" data-step="takeout">Takeout</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <div class="scroll-copy">
+            <article class="scroll-card hero-card" data-step="intro" data-title="Property to equation" data-status="Model open" data-count="03" data-vars="Land,Scope,Capital">
+              <div class="kicker"><span>03</span> / Our Build Model</div>
+              <h2 id="build-model-title">Bring us the property. We'll help build the equation.</h2>
+              <p class="lead">
+                From <em>early intent</em> to construction financing and takeout strategy, we shape
+                one financeable project — end to end.
+              </p>
+              <div class="chips" aria-label="The variables FairLend helps shape">
+                <span class="chip">Land</span>
+                <span class="chip">Scope</span>
+                <span class="chip">Capital</span>
+                <span class="chip">Draw plan</span>
+                <span class="chip">Professional path</span>
+                <span class="chip">Permit & MLI readiness</span>
+                <span class="chip">Exit</span>
+              </div>
+              <p class="shared-lead">
+                You don't need the whole team, a perfect plan, or prior build experience before you
+                talk to us.
+              </p>
+              <div class="audiences">
+                <article class="audience-card builder">
+                  <span class="label">If you already build</span>
+                  <p>Keep your focus on the site. We help carry the financing and business equation around it.</p>
+                </article>
+                <article class="audience-card">
+                  <span class="label">First-time builder</span>
+                  <p>
+                    Bring a property and a down payment. We craft the design and specs with you,
+                    assign an experienced builder or project manager, and handle the rest — permits,
+                    draws, takeout, everything.
+                  </p>
+                </article>
+              </div>
+              <div class="cta-row">
+                <a class="cta" href="/intake?intent=consultation&source=build-model-consultation">
+                  Book a free consultation <i aria-hidden="true">→</i>
+                </a>
+                <p class="micro">Bring a property, plan, or early idea — your first conversation is on us.</p>
+              </div>
+            </article>
+
+            <article class="scroll-card" data-step="plan" data-title="Land + scope" data-status="01 / Plan" data-count="01" data-vars="Land,Scope">
+              <div class="station-head">
+                <span class="station-num">01</span>
+                <h3>Plan</h3>
+              </div>
+              <ul class="service-list">
+                <li>Site search & feasibility review</li>
+                <li>Land basis & acquisition price the project can support</li>
+                <li>Zoning path, housing form, unit mix, buildable area</li>
+                <li>Construction budget pressure-testing</li>
+              </ul>
+            </article>
+
+            <article class="scroll-card" data-step="finance" data-title="Capital + draw plan" data-status="02 / Finance" data-count="02" data-vars="Capital,Draw plan">
+              <div class="station-head">
+                <span class="station-num">02</span>
+                <h3>Finance</h3>
+              </div>
+              <ul class="service-list">
+                <li>Construction budget & borrower capital position</li>
+                <li>Private financing & capital structure</li>
+                <li>Draw schedule (milestone-based, DrawFlow)</li>
+                <li>Working-capital planning</li>
+              </ul>
+            </article>
+
+            <article class="scroll-card" data-step="support" data-title="Professional path" data-status="03 / Build support" data-count="03" data-vars="Professional path,Permit & MLI readiness">
+              <div class="station-head">
+                <span class="station-num">03</span>
+                <h3>Build support</h3>
+              </div>
+              <ul class="service-list">
+                <li>Contractor, consultant & professional network — introductions where appropriate</li>
+                <li>Permit strategy & documentation gap analysis</li>
+                <li>CMHC MLI Select readiness support (where applicable)</li>
+                <li>Milestone/draw administration & site monitoring</li>
+              </ul>
+            </article>
+
+            <article class="scroll-card" data-step="drawflow" data-title="Fund work, not wait" data-status="Powered by DrawFlow" data-count="15" data-vars="Capital,Draw plan,Professional path">
+              <section class="drawflow-block">
+                <span class="draw-label">Powered by DrawFlow</span>
+                <h3>A milestone <em>line of credit</em> for your build.</h3>
+                <p class="draw-sub">More draws. Less interest. <strong>Fund the work, not the wait.</strong></p>
+                <div class="milestones" aria-label="DrawFlow milestone track">
+                  <span class="milestone done">Foundation</span>
+                  <span class="milestone done">Framing</span>
+                  <span class="milestone done">Roof</span>
+                  <span class="milestone done">Windows</span>
+                  <span class="milestone done">Mechanical</span>
+                  <span class="milestone active">Plumbing</span>
+                  <span class="milestone">Electrical</span>
+                  <span class="milestone">Drywall</span>
+                  <span class="milestone">Flooring</span>
+                </div>
+                <div class="compare">
+                  <div><b>Traditional</b><strong>3 draws</strong></div>
+                  <div><b>FairLend</b><strong>up to 15 draws</strong></div>
+                </div>
+                <div class="saved">
+                  <strong>≈ $12,000</strong>
+                  <span>— Illustrative interest saved over a typical build.</span>
+                  <small>*Illustrative only. Every project differs.</small>
+                </div>
+                <div class="tiles">
+                  <article class="tile">
+                    <b>Your schedule, not ours</b>
+                    <p>Build your own draw schedule. Tie releases to the milestones that match how your project actually goes up.</p>
+                  </article>
+                  <article class="tile">
+                    <b>Modify it mid-build</b>
+                    <p>
+                      Builds don't always go as planned. Adjust the draw plan as the work shifts so
+                      capital is there when you need it, and not costing interest when you don't.
+                    </p>
+                  </article>
+                </div>
+                <div class="more">
+                  <p>
+                    <b>More than capital.</b> Complimentary access to our GTA build specialists and a
+                    deep supplier & trade network — your project manager comes with the financing.
+                  </p>
+                </div>
+              </section>
+            </article>
+
+            <article class="scroll-card" data-step="takeout" data-title="Exit + takeout" data-status="04 / Takeout" data-count="04" data-vars="Exit,Permit & MLI readiness">
+              <div class="station-head">
+                <span class="station-num">04</span>
+                <h3>Takeout</h3>
+              </div>
+              <ul class="service-list">
+                <li>Sale, refinance, or rental stabilization</li>
+                <li>Insured (MLI Select) takeout preparation</li>
+                <li>Long-term financing direction</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <section class="thesis" data-step="thesis" data-title="Outcome" data-status="Builder Consulting" data-count="→" data-vars="Land,Scope,Capital,Draw plan,Professional path,Permit & MLI readiness,Exit">
+          <span class="small-label">Builder Consulting</span>
+          <h3>FairLend's thesis: profit lives in the <em>variables</em>.</h3>
+          <p>
+            A profitable build is not only a construction problem. It is a business equation that
+            changes with land, cost, capital, draws, policy, incentives, and takeout.
+          </p>
+          <div class="equation" aria-label="Land plus cost plus capital plus draws plus policy plus incentives plus takeout yields outcome">
+            <span>Land</span><i>+</i><span>Cost</span><i>+</i><span>Capital</span><i>+</i><span>Draws</span><i>+</i><span>Policy</span><i>+</i><span>Incentives</span><i>+</i><span>Takeout</span><i>→</i><span class="outcome">Outcome</span>
+          </div>
+        </section>
+      </section>
+
+      <section class="context builder" aria-label="Next section context">
+        <div>
+          <div class="eyebrow">04 / Builder Consulting</div>
+          <h2>The math only works when the variables are shaped early.</h2>
+        </div>
+        <div class="context-cards" aria-hidden="true">
+          <div class="context-card"><span>Land + Build Cost</span>Model the basis</div>
+          <div class="context-card"><span>Draws + Policy</span>Shape the capital</div>
+          <div class="context-card"><span>Exit + Outcome</span>Protect the takeout</div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const cards = Array.from(document.querySelectorAll("[data-step]"));
+      const statusEl = document.getElementById("board-status");
+      const titleEl = document.getElementById("board-title");
+      const countEl = document.getElementById("board-count");
+      const chips = Array.from(document.querySelectorAll(".board-chip"));
+      const progressItems = Array.from(document.querySelectorAll(".progress-item"));
+
+      function setActive(card) {
+        const activeVars = (card.dataset.vars || "").split(",").map((item) => item.trim()).filter(Boolean);
+        const step = card.dataset.step;
+        statusEl.textContent = card.dataset.status || "Model open";
+        titleEl.textContent = card.dataset.title || "Property to equation";
+        countEl.textContent = card.dataset.count || "03";
+
+        chips.forEach((chip) => {
+          const enabled = activeVars.includes(chip.dataset.var);
+          chip.classList.toggle("is-on", enabled);
+          chip.classList.toggle("is-lime", step === "drawflow" && enabled);
+        });
+        progressItems.forEach((item) => {
+          item.classList.toggle("is-active", item.dataset.step === step);
+        });
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActive(visible.target);
+      }, {
+        root: null,
+        threshold: [0.24, 0.38, 0.52, 0.68],
+        rootMargin: "-18% 0px -28% 0px",
+      });
+
+      cards.forEach((card) => observer.observe(card));
+      setActive(cards[0]);
+    </script>
+  </body>
+</html>

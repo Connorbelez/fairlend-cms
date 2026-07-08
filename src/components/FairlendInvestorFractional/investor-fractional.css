@@ -1,0 +1,177 @@
+/* ------------------------------------------------------------------
+   Investor Fractional — whole vs fractional illustration.
+   ------------------------------------------------------------------ */
+
+.investor-fractional {
+  position: relative;
+  padding: clamp(64px, 8vw, 120px) clamp(24px, 4vw, 56px);
+  background: #fbfaf5;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-fractional__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.investor-fractional__header {
+  max-width: 760px;
+}
+
+.investor-fractional__eyebrow {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--landing-hero-muted, rgb(73 73 68));
+  margin: 0 0 18px;
+}
+
+.investor-fractional__title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(36px, 4.4vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin: 0;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+  max-width: 18ch;
+}
+
+.investor-fractional__lede {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: clamp(15px, 1.05vw, 17px);
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--landing-hero-muted, rgb(58 58 54));
+  margin: 22px 0 0;
+  max-width: 64ch;
+  text-wrap: pretty;
+}
+
+.investor-fractional__visual {
+  margin-top: clamp(40px, 5vw, 64px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(20px, 3vw, 48px);
+}
+
+.investor-fractional__figure {
+  margin: 0;
+}
+
+.investor-fractional__caption {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--landing-hero-muted, rgb(73 73 68));
+  margin-bottom: 12px;
+}
+
+.investor-fractional__bar {
+  display: flex;
+  width: 100%;
+  height: 56px;
+  border: 1px solid var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--landing-hero-white, #fffdf9);
+}
+
+.investor-fractional__bar--whole {
+  align-items: center;
+  padding: 8px;
+}
+
+.investor-fractional__bar-fill {
+  width: 100%;
+  height: 100%;
+  background: var(--landing-hero-ink, #08090a);
+  border-radius: 4px;
+}
+
+.investor-fractional__bar--split {
+  gap: 4px;
+  padding: 8px;
+}
+
+.investor-fractional__slice {
+  flex: 1;
+  height: 100%;
+  background: rgb(8 9 10 / 22%);
+  border-radius: 4px;
+}
+
+.investor-fractional__slice--yours {
+  background: var(--landing-hero-lime, #96ec18);
+}
+
+.investor-fractional__arrow {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--landing-hero-muted, rgb(108 108 100));
+  text-align: center;
+}
+
+.investor-fractional__notes {
+  margin-top: clamp(40px, 5vw, 64px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: clamp(28px, 3vw, 56px);
+  padding-top: 28px;
+  border-top: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+}
+
+.investor-fractional__note {
+  margin: 0;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  font-weight: 400;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: pretty;
+}
+
+.investor-fractional__note strong {
+  font-weight: 700;
+}
+
+.investor-fractional__risk {
+  margin: 0;
+  padding: 18px 20px;
+  border: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+  border-radius: 10px;
+  background: var(--landing-hero-paper, #f8f7f5);
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.55;
+  font-weight: 400;
+  color: var(--landing-hero-muted, rgb(58 58 54));
+}
+
+@media (max-width: 760px) {
+  .investor-fractional__visual {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .investor-fractional__arrow {
+    transform: rotate(90deg);
+  }
+
+  .investor-fractional__notes {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .investor-fractional * {
+    transition: none !important;
+  }
+}

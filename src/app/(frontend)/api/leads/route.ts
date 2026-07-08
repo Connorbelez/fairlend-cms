@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server'
+import type { NextRequest } from 'next/server'
 
 import { upsertFairlendLead, type LeadPayload } from '@/lib/fairlend-leads'
 

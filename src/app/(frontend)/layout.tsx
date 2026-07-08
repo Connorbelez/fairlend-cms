@@ -10,6 +10,7 @@ import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { defaultTheme, themeCookieName } from '@/providers/Theme/shared'
 import { themeIsValid } from '@/providers/Theme/types'
+import { Toaster } from '@/components/ui/sonner'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { cookies, draftMode } from 'next/headers'
 
@@ -55,7 +56,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <FrontendChrome footer={<Footer />} header={<Header />}>
             {children}
           </FrontendChrome>
+          <Toaster richColors />
         </Providers>
+{/* impeccable-live-start */}
+<script src="http://localhost:8400/live.js"></script>
+{/* impeccable-live-end */}
 </body>
     </html>
   )

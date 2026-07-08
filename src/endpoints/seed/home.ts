@@ -1,6 +1,9 @@
 import type { RequiredDataFromCollectionSlug } from 'payload'
 import type { Media } from '@/payload-types'
 
+import { defaultFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
+import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
+
 type HomeArgs = {
   heroImage: Media
   metaImage: Media
@@ -20,8 +23,8 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
           link: {
             type: 'custom',
             appearance: 'default',
-            label: 'All posts',
-            url: '/posts',
+            label: 'Book consultation',
+            url: defaultFairlendMicrosoftBookingsUrl,
           },
         },
         {
@@ -29,7 +32,10 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
             type: 'custom',
             appearance: 'outline',
             label: 'Contact',
-            url: '/contact',
+            url: buildFairlendIntakeHref({
+              intent: 'contact',
+              source: 'seed-home-hero-contact',
+            }),
           },
         },
       ],
@@ -577,8 +583,11 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
             link: {
               type: 'custom',
               appearance: 'default',
-              label: 'All posts',
-              url: '/posts',
+              label: 'Start intake',
+              url: buildFairlendIntakeHref({
+                intent: 'contact',
+                source: 'seed-home-cta',
+              }),
             },
           },
         ],

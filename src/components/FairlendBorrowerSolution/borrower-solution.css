@@ -1,0 +1,245 @@
+/* ------------------------------------------------------------------
+   Borrower Solution — whole-file mosaic.
+   Asymmetric grid: one large anchor cell + supporting cells.
+   Document-style labels, small lucide line marks. NOT eight equal cards.
+   ------------------------------------------------------------------ */
+
+.borrower-solution {
+  position: relative;
+  padding: clamp(64px, 7vw, 112px) clamp(24px, 4vw, 56px);
+  background: var(--landing-hero-paper, #f8f7f5);
+  color: var(--landing-hero-ink, #08090a);
+  overflow: hidden;
+}
+
+.borrower-solution__contours {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--landing-hero-line, rgb(8 9 10 / 14%));
+  opacity: 0.35;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+}
+
+.borrower-solution__inner {
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ---- Header ---- */
+.borrower-solution__header {
+  max-width: 60ch;
+  margin-bottom: clamp(36px, 4vw, 56px);
+}
+
+.borrower-solution__title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(36px, 3.4vw, 56px);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  margin: 0;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+}
+
+.borrower-solution__intro {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--landing-hero-muted, rgb(58 58 54));
+  margin: 24px 0 0;
+  text-wrap: pretty;
+}
+
+/* ---- Mosaic grid ----
+   12-col grid. Anchor spans a 2x2 region; supporting cells fill the rest.
+   On tablet, anchor spans full width then supporting cells flow in pairs.
+   On mobile, single column. */
+.borrower-solution__mosaic {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(180px, auto);
+  gap: 1px;
+  background: var(--landing-hero-line-soft, rgb(8 9 10 / 8%));
+  border: 1px solid var(--landing-hero-line-soft, rgb(8 9 10 / 8%));
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.borrower-solution__cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: clamp(22px, 2.4vw, 32px);
+  background: #fbfaf5;
+  transition: background-color 200ms ease;
+}
+
+.borrower-solution__cell:hover {
+  background: #fffdf9;
+}
+
+.borrower-solution__cell[data-anchor='true'] {
+  grid-column: span 2;
+  grid-row: span 2;
+  background: #08090a;
+  color: #f8f7f5;
+  padding: clamp(32px, 3.4vw, 48px);
+}
+
+.borrower-solution__cell[data-anchor='true']:hover {
+  background: #0c0d0e;
+}
+
+.borrower-solution__cell-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.borrower-solution__cell-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: rgb(8 9 10 / 6%);
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.borrower-solution__cell[data-anchor='true'] .borrower-solution__cell-icon {
+  background: rgb(255 255 255 / 8%);
+  color: var(--landing-hero-lime, #96ec18);
+  width: 44px;
+  height: 44px;
+}
+
+.borrower-solution__cell-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.borrower-solution__cell[data-anchor='true'] .borrower-solution__cell-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.borrower-solution__cell-label {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--landing-hero-muted-soft, rgb(108 108 100));
+}
+
+.borrower-solution__cell[data-anchor='true'] .borrower-solution__cell-label {
+  color: rgb(255 255 255 / 55%);
+}
+
+.borrower-solution__cell-title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(20px, 1.5vw, 24px);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 4px 0 0;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.borrower-solution__cell[data-anchor='true'] .borrower-solution__cell-title {
+  font-size: clamp(30px, 2.6vw, 40px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: #f8f7f5;
+}
+
+.borrower-solution__cell-body {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  font-weight: 400;
+  color: var(--landing-hero-muted, rgb(58 58 54));
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.borrower-solution__cell[data-anchor='true'] .borrower-solution__cell-body {
+  font-size: 16px;
+  color: rgb(255 255 255 / 78%);
+}
+
+.borrower-solution__cell-badge {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  color: var(--landing-hero-lime, #96ec18);
+}
+
+/* Compliance-flagged supporting cells: subtle lime corner mark. */
+.borrower-solution__cell[data-compliance='true']:not([data-anchor='true'])::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  background: var(--landing-hero-lime, #96ec18);
+}
+
+/* ---- AI note ---- */
+.borrower-solution__ai-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: clamp(28px, 3vw, 36px) 0 0;
+  padding: 18px 22px;
+  border: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+  border-radius: 12px;
+  background: #fbfaf5;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  font-style: italic;
+  color: var(--landing-hero-muted, rgb(58 58 54));
+  max-width: 70ch;
+}
+
+.borrower-solution__ai-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+/* ---- CTA ---- */
+.borrower-solution__cta {
+  margin-top: clamp(28px, 3vw, 40px);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 980px) {
+  .borrower-solution__mosaic {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .borrower-solution__cell[data-anchor='true'] {
+    grid-column: span 2;
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .borrower-solution__mosaic {
+    grid-template-columns: 1fr;
+  }
+
+  .borrower-solution__cell[data-anchor='true'] {
+    grid-column: auto;
+  }
+}

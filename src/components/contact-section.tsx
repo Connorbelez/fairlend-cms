@@ -1,8 +1,11 @@
+'use client'
+
 import { Mail, Phone } from 'lucide-react'
+import { useState, type FormEvent } from 'react'
 
 import { DecorIcon } from '@/components/decor-icon'
 import { Button } from '@/components/ui/button'
-import { Field, FieldGroup, FieldLabel } from '@/components/ui/field'
+import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/utilities/ui'
@@ -63,34 +66,106 @@ export function ContactSection() {
 }
 
 function ContactForm() {
+  const [state, setState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const [error, setError] = useState('')
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    const firstName = String(formData.get('firstName') ?? '').trim()
+    const lastName = String(formData.get('lastName') ?? '').trim()
+    const email = String(formData.get('email') ?? '').trim()
+    const phone = String(formData.get('phone') ?? '').trim()
+    const message = String(formData.get('message') ?? '').trim()
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError('Enter a valid email.')
+      setState('error')
+      return
+    }
+
+    setState('submitting')
+    setError('')
+
+    try {
+      const response = await fetch('/api/leads', {
+        body: JSON.stringify({
+          email,
+          intake: {
+            firstName,
+            lastName,
+            message,
+            submittedAt: new Date().toISOString(),
+          },
+          name: [firstName, lastName].filter(Boolean).join(' '),
+          phone,
+          intent: 'contact',
+          source: 'contact-section',
+          status: 'submitted',
+        }),
+        headers: { 'Content-Type': 'application/json' },
+        method: 'POST',
+      })
+
+      if (!response.ok) {
+        throw new Error(`Contact lead POST failed: ${response.status}`)
+      }
+
+      event.currentTarget.reset()
+      setState('success')
+    } catch (submitError) {
+      console.error('Contact lead submission failed', submitError)
+      setError('We could not send the message. Try again or call FairLend directly.')
+      setState('error')
+    }
+  }
+
   return (
-    <form className="w-full">
+    <form className="w-full" onSubmit={handleSubmit} noValidate>
       <FieldGroup>
         <div className="grid grid-cols-2 gap-4">
           <Field>
             <FieldLabel htmlFor="first-name">First name</FieldLabel>
-            <Input autoComplete="off" id="first-name" placeholder="John" />
+            <Input autoComplete="given-name" id="first-name" name="firstName" placeholder="John" />
           </Field>
           <Field>
             <FieldLabel htmlFor="last-name">Last name</FieldLabel>
-            <Input autoComplete="off" id="last-name" placeholder="Doe" />
+            <Input autoComplete="family-name" id="last-name" name="lastName" placeholder="Doe" />
           </Field>
         </div>
         <Field>
           <FieldLabel htmlFor="email">Email</FieldLabel>
-          <Input autoComplete="off" id="email" placeholder="johndoe@example.com" type="email" />
+          <Input
+            autoComplete="email"
+            id="email"
+            name="email"
+            placeholder="johndoe@example.com"
+            type="email"
+          />
         </Field>
         <Field>
           <FieldLabel htmlFor="phone">Phone</FieldLabel>
-          <Input autoComplete="off" id="phone" placeholder="+1 (555) 123-4567" type="tel" />
+          <Input
+            autoComplete="tel"
+            id="phone"
+            name="phone"
+            placeholder="+1 (555) 123-4567"
+            type="tel"
+          />
         </Field>
         <Field>
           <FieldLabel htmlFor="message">Message</FieldLabel>
-          <Textarea autoComplete="off" id="message" placeholder="Your message" />
+          <Textarea autoComplete="off" id="message" name="message" placeholder="Your message" />
         </Field>
       </FieldGroup>
-      <Button className="mt-8 w-full" type="button">
-        Submit
+      {state === 'success' ? (
+        <p className="mt-4 text-sm font-medium text-muted-foreground" role="status">
+          Message received. FairLend will follow up.
+        </p>
+      ) : null}
+      {state === 'error' ? <FieldError className="mt-4">{error}</FieldError> : null}
+      <Button className="mt-8 w-full" disabled={state === 'submitting'} type="submit">
+        {state === 'submitting' ? 'Sending...' : 'Submit'}
       </Button>
     </form>
   )

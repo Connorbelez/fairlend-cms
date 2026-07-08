@@ -18,253 +18,303 @@ import {
   SlidersHorizontal,
   TriangleAlert,
 } from 'lucide-react'
-import type { ComponentType, CSSProperties, SVGProps } from 'react'
-
 import {
-  FairlendLedgerTabs,
-  FairlendPaperSection,
-  FairlendPaperShell,
-} from '@/components/FairlendMarketingPrimitives'
-import { FairlendSectionKicker } from '@/components/FairlendSectionKicker'
+  useCallback,
+  useEffect,
+  useRef,
+  type ComponentType,
+  type CSSProperties,
+  type SVGProps,
+} from 'react'
+
+import { FairlendPaperSection, FairlendPaperShell } from '@/components/FairlendMarketingPrimitives'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  CircleDollarSignIcon,
+  type CircleDollarSignIconHandle,
+} from '@/components/ui/circle-dollar-sign'
+import { HammerIcon, type HammerIconHandle } from '@/components/ui/hammer'
+import { HomeIcon, type HomeIconHandle } from '@/components/ui/home'
+import { MapPinHouseIcon, type MapPinHouseIconHandle } from '@/components/ui/map-pin-house'
+import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 import { cn } from '@/utilities/ui'
 
 import { FairlendBuilderConsultingMotion } from './Motion.client'
 
 type IconComponent = ComponentType<SVGProps<SVGSVGElement>>
-type BuilderMode = 'problem' | 'solution'
+type BuilderYear = '2019' | '2023' | '2026'
 type EquationVariant = 'full' | 'compact'
+type EquationVariableKey = 'land' | 'build' | 'home' | 'sale'
+type EquationRowKey = 'single-family' | 'multiplex' | 'garden-suite'
+type ProfitTone = 'profit' | 'loss'
+
+type EquationVariable = {
+  key: EquationVariableKey
+  label: string
+  sublabel: string
+  hint: string
+}
+
+type EquationRow = {
+  key: EquationRowKey
+  label: string
+  note: string
+  year: BuilderYear
+  tone: ProfitTone
+  values: Record<EquationVariableKey, string>
+  profit: string
+  margin: string
+  riskLeft: string
+  riskRight: string
+}
+
+const timelineYears = ['2019', '2023', '2026'] as const satisfies readonly BuilderYear[]
+const builderConsultingIntakeHref = buildFairlendIntakeHref({
+  intent: 'build',
+  source: 'builder-consulting-cta',
+})
 
 const states = {
-  problem: {
-    mode: 'problem',
+  '2019': {
+    year: '2019',
     eyebrow: 'Builder Consulting',
-    headlineTop: 'THE OLD LUXURY HOME',
-    headlineBottom: 'MATH STOPPED WORKING.',
-    subheadline: 'For many single-family luxury builds, the inputs no longer support the outcome.',
-    label: 'THE PROBLEM',
-    note: '(the numbers are upside down)',
-    panelNote: '(single-family luxury home)',
-    cta: 'SEE THE SOLUTION',
-    ctaNote: 'Scroll to rebuild the equation',
+    headlineTop: '2019: SINGLE HOME',
+    headlineBottom: 'STILL PENCILED.',
+    subheadline:
+      'A single-family build could still absorb the land, construction cost, program, and resale assumptions.',
+    label: '2019',
+    note: '(single home still profitable)',
+    panelNote: '(single-family home build)',
+    cta: 'SEE THE TIMELINE',
+    ctaNote: 'Scroll through the build math',
     cards: [
-      { icon: CircleHelp, text: 'What lot should I buy?' },
-      { icon: CircleHelp, text: 'How much can I pay?' },
-      { icon: CircleHelp, text: 'How large should I build?' },
-      { icon: CircleHelp, text: 'What should I spend per sq. ft.?' },
-      { icon: CircleHelp, text: 'Will the resale support it?' },
+      { icon: CircleHelp, text: 'Land basis still worked' },
+      { icon: CircleHelp, text: 'Build cost left room' },
+      { icon: CircleHelp, text: 'One home carried margin' },
+      { icon: CircleHelp, text: 'Resale supported profit' },
     ],
     stripItems: [
-      { icon: Scale, text: 'Luxury home economics have changed' },
-      { icon: NotebookPen, text: 'Inputs must be re-underwritten' },
-      { icon: TriangleAlert, text: 'Old assumptions create risk' },
+      { icon: Scale, text: 'Single-home math stayed balanced' },
+      { icon: NotebookPen, text: 'Costs left room for margin' },
+      { icon: Home, text: 'One house could still pencil' },
+    ],
+    stripTitle: 'Land. Build. Sell. Profit.',
+    stripCopy: 'In 2019, the single-family equation still finished in the green.',
+    stripHighlight: 'in the green',
+  },
+  '2023': {
+    year: '2023',
+    eyebrow: 'Builder Consulting',
+    headlineTop: '2023: SINGLE HOME',
+    headlineBottom: 'ROLLS RED.',
+    subheadline:
+      'Land and build costs moved faster than the resale value. The same single-family equation stopped working.',
+    label: '2023',
+    note: '(single home no longer profitable)',
+    panelNote: '(same build. negative profit.)',
+    cta: 'RUN MY NUMBERS',
+    ctaNote: 'Find the break-even point',
+    cards: [
+      { icon: TriangleAlert, text: 'Land basis jumped' },
+      { icon: Calculator, text: 'Build cost compressed margin' },
+      { icon: Home, text: 'One exit was not enough' },
+      { icon: Goal, text: 'Sale value lagged the inputs' },
+    ],
+    stripItems: [
+      { icon: TriangleAlert, text: 'Single-home profit turned negative' },
+      { icon: SlidersHorizontal, text: 'Inputs needed to be reworked' },
+      { icon: Crosshair, text: 'Old assumptions created real risk' },
     ],
     stripTitle: 'Land. Build. Sell. Lose?',
-    stripCopy: 'When the inputs are wrong, the project goes into the red.',
+    stripCopy: 'By 2023, the same single-family equation had moved into the red.',
     stripHighlight: 'into the red',
-    outcomeLabel: 'EST. LOSS*',
-    outcomeValue: '-$412K',
-    margin: '-10.8%',
-    riskLeft: 'HIGHER RISK',
-    riskRight: 'NEGATIVE RETURN',
   },
-  solution: {
-    mode: 'solution',
+  '2026': {
+    year: '2026',
     eyebrow: 'Builder Consulting',
-    headlineTop: 'THE RIGHT INPUTS',
-    headlineBottom: 'CHANGE THE OUTCOME.',
+    headlineTop: '2026: DENSITY',
+    headlineBottom: 'CHANGES THE OUTCOME.',
     subheadline:
-      'We help builders rework the land, scope, and financing equation so a luxury home can pencil again.',
-    label: 'THE SOLUTION',
-    note: '(rebuild the equation)',
-    panelNote: '(aligned inputs. better outcomes.)',
+      'Single-family remains upside down, while Multiplex and GardenSuite rows can create enough output to pencil again.',
+    label: '2026',
+    note: '(single home stays red. density turns green.)',
+    panelNote: '(multiplex + GardenSuite rows added)',
     cta: 'RUN MY NUMBERS',
     ctaNote: "Let's run your version",
     cards: [
-      { icon: MapPinned, text: 'Buy the right lot' },
-      { icon: Home, text: 'Right-size the program' },
-      { icon: Calculator, text: 'Underwrite build cost' },
-      { icon: Goal, text: 'Validate resale value' },
-      { icon: Landmark, text: 'Structure the financing' },
+      { icon: MapPinned, text: 'Re-underwrite the lot' },
+      { icon: Landmark, text: 'Add the right housing form' },
+      { icon: ClipboardPenLine, text: 'Model each exit separately' },
+      { icon: Crosshair, text: 'Finance the row that pencils' },
     ],
     stripItems: [
-      { icon: ClipboardPenLine, text: 'Re-underwritten land strategy' },
-      { icon: SlidersHorizontal, text: 'Better cost discipline' },
-      { icon: Crosshair, text: 'Smarter exit planning' },
+      { icon: ClipboardPenLine, text: 'Single-family stays negative' },
+      { icon: Home, text: 'Multiplex creates new output' },
+      { icon: SlidersHorizontal, text: 'GardenSuite adds a second path' },
     ],
-    stripTitle: 'Land. Build. Sell. Profit.',
-    stripCopy: 'When the inputs align, the project moves back into the black.',
-    stripHighlight: 'into the black',
-    outcomeLabel: 'EST. PROFIT*',
-    outcomeValue: '$645K',
-    margin: '14.6%',
-    riskLeft: 'LOWER RISK',
-    riskRight: 'POSITIVE RETURN',
+    stripTitle: 'Land. Build. Add Density. Profit.',
+    stripCopy: 'In 2026, the profitable rows are Multiplex and GardenSuite.',
+    stripHighlight: 'Multiplex and GardenSuite',
   },
-} as const
+} as const satisfies Record<
+  BuilderYear,
+  {
+    year: BuilderYear
+    eyebrow: string
+    headlineTop: string
+    headlineBottom: string
+    subheadline: string
+    label: string
+    note: string
+    panelNote: string
+    cta: string
+    ctaNote: string
+    cards: readonly { icon: IconComponent; text: string }[]
+    stripItems: readonly { icon: IconComponent; text: string }[]
+    stripTitle: string
+    stripCopy: string
+    stripHighlight: string
+  }
+>
 
-const equationCards = [
+const equationVariables = [
   {
     key: 'land',
-    label: 'LAND PRICE',
-    problemValue: '$2.45M',
-    solutionValue: '$1.85M',
-    sublabel: 'PER LOT',
-    problemDelta: 32,
-    solutionDelta: -24,
-    problemHint: 'over feasible lot basis',
-    solutionHint: 're-underwritten basis',
-    problemScore: 86,
-    solutionScore: 62,
-    trend: [
-      { period: 'A', problem: 72, solution: 54 },
-      { period: 'B', problem: 78, solution: 56 },
-      { period: 'C', problem: 84, solution: 58 },
-      { period: 'D', problem: 91, solution: 55 },
-      { period: 'E', problem: 96, solution: 52 },
-    ],
+    label: 'LAND',
+    sublabel: 'LOT BASIS',
+    hint: 'acquisition input',
   },
   {
     key: 'build',
     label: 'BUILD COST',
-    problemValue: '$425',
-    solutionValue: '$315',
-    sublabel: 'PSF',
-    problemDelta: 35,
-    solutionDelta: -26,
-    problemHint: 'cost drift vs target',
-    solutionHint: 'disciplined psf target',
-    problemScore: 88,
-    solutionScore: 58,
-    trend: [
-      { period: 'A', problem: 61, solution: 52 },
-      { period: 'B', problem: 68, solution: 49 },
-      { period: 'C', problem: 74, solution: 46 },
-      { period: 'D', problem: 82, solution: 44 },
-      { period: 'E', problem: 90, solution: 41 },
-    ],
+    sublabel: 'PER FT²',
+    hint: 'construction input',
   },
   {
     key: 'home',
     label: 'HOME PROGRAM',
-    problemValue: '1 HOME',
-    solutionValue: '1 HOME',
-    problemSublabel: 'LUXURY SINGLE-FAMILY',
-    solutionSublabel: 'RIGHT-SIZED LUXURY',
-    problemDelta: -18,
-    solutionDelta: 14,
-    problemHint: 'scope load on margin',
-    solutionHint: 'scope supports exit',
-    problemScore: 54,
-    solutionScore: 78,
-    trend: [
-      { period: 'A', problem: 65, solution: 50 },
-      { period: 'B', problem: 63, solution: 56 },
-      { period: 'C', problem: 59, solution: 61 },
-      { period: 'D', problem: 55, solution: 67 },
-      { period: 'E', problem: 48, solution: 74 },
-    ],
+    sublabel: 'OUTPUT',
+    hint: 'housing form',
   },
   {
     key: 'sale',
     label: 'EXPECTED SALE',
-    problemValue: '$3.65M',
-    solutionValue: '$4.65M',
-    sublabel: 'AVG. SELL PRICE',
-    problemDelta: -11,
-    solutionDelta: 27,
-    problemHint: 'exit value gap',
-    solutionHint: 'validated resale value',
-    problemScore: 46,
-    solutionScore: 82,
-    trend: [
-      { period: 'A', problem: 66, solution: 64 },
-      { period: 'B', problem: 62, solution: 69 },
-      { period: 'C', problem: 59, solution: 74 },
-      { period: 'D', problem: 55, solution: 82 },
-      { period: 'E', problem: 51, solution: 91 },
-    ],
+    sublabel: 'EXIT VALUE',
+    hint: 'resale input',
+  },
+] as const satisfies readonly EquationVariable[]
+
+const singleFamilyTimelineRows = [
+  {
+    key: 'single-family',
+    label: 'Single family',
+    note: 'Single home still profitable',
+    year: '2019',
+    tone: 'profit',
+    values: {
+      land: '$1.45M',
+      build: '$285/ft²',
+      home: '1 HOME',
+      sale: '$3.65M',
+    },
+    profit: '+$380K',
+    margin: '9.8%',
+    riskLeft: 'LOWER RISK',
+    riskRight: 'PROFITABLE',
   },
   {
-    key: 'soft',
-    label: 'SOFT COSTS',
-    problemValue: '$310K',
-    solutionValue: '$225K',
-    sublabel: 'CONSULTANTS + PERMITS',
-    problemDelta: 21,
-    solutionDelta: -27,
-    problemHint: 'uncontrolled allowance',
-    solutionHint: 'cleaner allowance',
-    problemScore: 76,
-    solutionScore: 55,
-    trend: [
-      { period: 'A', problem: 55, solution: 48 },
-      { period: 'B', problem: 61, solution: 44 },
-      { period: 'C', problem: 69, solution: 42 },
-      { period: 'D', problem: 73, solution: 39 },
-      { period: 'E', problem: 79, solution: 36 },
-    ],
+    key: 'single-family',
+    label: 'Single family',
+    note: 'Single home no longer profitable',
+    year: '2023',
+    tone: 'loss',
+    values: {
+      land: '$2.45M',
+      build: '$425/ft²',
+      home: '1 HOME',
+      sale: '$3.65M',
+    },
+    profit: '-$412K',
+    margin: '-10.8%',
+    riskLeft: 'HIGHER RISK',
+    riskRight: 'NEGATIVE RETURN',
   },
   {
-    key: 'carry',
-    label: 'CARRY COSTS',
-    problemValue: '$185K',
-    solutionValue: '$105K',
-    sublabel: 'INTEREST + HOLDING',
-    problemDelta: 42,
-    solutionDelta: -43,
-    problemHint: 'time cost pressure',
-    solutionHint: 'tighter hold plan',
-    problemScore: 84,
-    solutionScore: 48,
-    trend: [
-      { period: 'A', problem: 52, solution: 42 },
-      { period: 'B', problem: 61, solution: 39 },
-      { period: 'C', problem: 69, solution: 35 },
-      { period: 'D', problem: 76, solution: 33 },
-      { period: 'E', problem: 88, solution: 30 },
-    ],
+    key: 'single-family',
+    label: 'Single family',
+    note: 'Single family still not profitable',
+    year: '2026',
+    tone: 'loss',
+    values: {
+      land: '$2.55M',
+      build: '$440/ft²',
+      home: '1 HOME',
+      sale: '$3.70M',
+    },
+    profit: '-$520K',
+    margin: '-13.1%',
+    riskLeft: 'HIGHER RISK',
+    riskRight: 'STILL NEGATIVE',
+  },
+] as const satisfies readonly EquationRow[]
+
+const finalOpportunityRows = [
+  {
+    key: 'multiplex',
+    label: 'Multiplex',
+    note: '2026 density row',
+    year: '2026',
+    tone: 'profit',
+    values: {
+      land: '$2.55M',
+      build: '$345/ft²',
+      home: '4 UNITS',
+      sale: '$5.95M',
+    },
+    profit: '+$710K',
+    margin: '11.9%',
+    riskLeft: 'DENSITY ADDED',
+    riskRight: 'PROFITABLE',
   },
   {
-    key: 'finance',
-    label: 'FINANCE STRUCTURE',
-    problemValue: '65%',
-    solutionValue: '70%',
-    sublabel: 'LTV RANGE',
-    problemDelta: -8,
-    solutionDelta: 8,
-    problemHint: 'misaligned leverage',
-    solutionHint: 'capital stack aligned',
-    problemScore: 57,
-    solutionScore: 72,
-    trend: [
-      { period: 'A', problem: 62, solution: 56 },
-      { period: 'B', problem: 58, solution: 60 },
-      { period: 'C', problem: 55, solution: 64 },
-      { period: 'D', problem: 51, solution: 68 },
-      { period: 'E', problem: 49, solution: 72 },
-    ],
+    key: 'garden-suite',
+    label: 'GardenSuite',
+    note: '2026 backyard row',
+    year: '2026',
+    tone: 'profit',
+    values: {
+      land: 'EXISTING LOT',
+      build: '$315/ft²',
+      home: '1 SUITE',
+      sale: '$1.18M',
+    },
+    profit: '+$185K',
+    margin: '15.7%',
+    riskLeft: 'LAND REUSED',
+    riskRight: 'PROFITABLE',
   },
-] as const
+] as const satisfies readonly EquationRow[]
+
+const initialSingleFamilyRow = singleFamilyTimelineRows[0]
 
 function StateLayer({
   children,
   className,
-  mode,
+  year,
 }: {
   children: React.ReactNode
   className?: string
-  mode: BuilderMode
+  year: BuilderYear
 }) {
   return (
-    <span className={className} data-builder-state={mode}>
+    <span className={className} data-builder-year={year}>
       {children}
     </span>
   )
 }
 
-function BuilderEyebrow({ mode }: { mode?: BuilderMode }) {
-  const label = mode ? states[mode].label.replace('THE ', '') : 'Builder Consulting'
+function BuilderEyebrow({ year }: { year?: BuilderYear }) {
+  const label = year ? states[year].label : 'Builder Consulting'
 
   const content = (
     <span className="builder-eyebrow">
@@ -275,56 +325,20 @@ function BuilderEyebrow({ mode }: { mode?: BuilderMode }) {
     </span>
   )
 
-  if (!mode) return content
-  return <StateLayer mode={mode}>{content}</StateLayer>
+  if (!year) return content
+  return <StateLayer year={year}>{content}</StateLayer>
 }
 
-function BuilderFrameCorners() {
-  return (
-    <>
-      <span aria-hidden="true" className="builder-frame-corner builder-frame-corner--tl" />
-      <span aria-hidden="true" className="builder-frame-corner builder-frame-corner--tr" />
-      <span aria-hidden="true" className="builder-frame-corner builder-frame-corner--br" />
-      <span aria-hidden="true" className="builder-frame-corner builder-frame-corner--bl" />
-    </>
-  )
-}
-
-function BuilderSectionHeader() {
-  return (
-    <header className="builder-section-header">
-      <div className="builder-section-header__copy">
-        <div className="builder-model-label" aria-hidden="true">
-          <span />
-          <strong>The Fairlend Model</strong>
-          <em>04 of 04</em>
-        </div>
-        <FairlendSectionKicker
-          className="builder-section-kicker about-kicker-who"
-          label="Builder Consulting"
-          labelId="builder-consulting-title"
-          number="04"
-        />
-        <p>
-          Luxury build inputs, re-underwritten before land, scope, financing, and exit value go
-          sideways.
-        </p>
-      </div>
-      <FairlendLedgerTabs className="builder-section-ledger" />
-    </header>
-  )
-}
-
-function BuilderCopy({ mode }: { mode: BuilderMode }) {
-  const state = states[mode]
+function BuilderCopy({ year }: { year: BuilderYear }) {
+  const state = states[year]
 
   return (
     <div
-      className={cn('builder-copy', `builder-copy--${mode}`)}
+      className={cn('builder-copy', `builder-copy--${year}`)}
       data-builder-copy-panel
-      data-builder-state={mode}
+      data-builder-copy-year={year}
     >
-      <BuilderEyebrow mode={mode} />
+      <BuilderEyebrow year={year} />
       <h2 className="builder-headline">
         <span>{state.headlineTop}</span>
         <span>{state.headlineBottom}</span>
@@ -337,7 +351,7 @@ function BuilderCopy({ mode }: { mode: BuilderMode }) {
         </p>
         <div className="builder-question-list">
           {state.cards.map(({ icon: Icon, text }, index) => (
-            <ActionCard icon={Icon} index={index} key={text} mode={mode} text={text} />
+            <ActionCard icon={Icon} index={index} key={text} year={year} text={text} />
           ))}
         </div>
       </div>
@@ -348,16 +362,16 @@ function BuilderCopy({ mode }: { mode: BuilderMode }) {
 function ActionCard({
   icon: Icon,
   index,
-  mode,
+  year,
   text,
 }: {
   icon: IconComponent
   index: number
-  mode: BuilderMode
+  year: BuilderYear
   text: string
 }) {
   return (
-    <div className="builder-action-card-wrap" data-builder-action-card={mode}>
+    <div className="builder-action-card-wrap" data-builder-action-card={year}>
       <Card className="builder-action-card">
         <span className="builder-action-icon">
           <Icon aria-hidden="true" className="size-4" strokeWidth={2} />
@@ -368,7 +382,7 @@ function ActionCard({
         aria-hidden="true"
         className={cn(
           'builder-action-connector',
-          mode === 'solution' && 'builder-action-connector--solution',
+          year === '2026' && 'builder-action-connector--solution',
         )}
         data-builder-connector
         style={{ '--connector-offset': `${index * 13}px` } as CSSProperties}
@@ -408,236 +422,139 @@ function HouseVisual() {
   )
 }
 
-function MetricSemiGauge({ card }: { card: (typeof equationCards)[number] }) {
-  const arcLength = 100
-  const problemScore = Math.max(0, Math.min(card.problemScore, 100))
+type AnimatedEquationIconHandle =
+  | CircleDollarSignIconHandle
+  | HammerIconHandle
+  | HomeIconHandle
+  | MapPinHouseIconHandle
 
-  return (
-    <div
-      className="builder-semi-gauge"
-      data-builder-gauge
-      data-problem-score={card.problemScore}
-      data-solution-score={card.solutionScore}
-    >
-      <svg aria-hidden="true" viewBox="0 0 148 86">
-        <path className="builder-semi-gauge__rail" d="M18 70 A56 56 0 0 1 130 70" />
-        <path
-          className="builder-semi-gauge__value"
-          data-builder-gauge-value
-          d="M18 70 A56 56 0 0 1 130 70"
-          pathLength={arcLength}
-          strokeDasharray={`${problemScore} ${arcLength - problemScore}`}
-        />
-        <path
-          className="builder-semi-gauge__inner"
-          data-builder-gauge-inner
-          d="M36 70 A38 38 0 0 1 112 70"
-          pathLength={arcLength}
-          strokeDasharray={`${Math.max(18, problemScore - 14)} ${arcLength}`}
-        />
-      </svg>
-      <span data-builder-gauge-score>{problemScore}%</span>
-      <em>fit score</em>
-    </div>
-  )
-}
+function EquationVariableIcon({ variableKey }: { variableKey: EquationVariableKey }) {
+  const iconRef = useRef<AnimatedEquationIconHandle>(null)
+  const wrapperRef = useRef<HTMLSpanElement>(null)
+  const intervalRef = useRef<number | null>(null)
+  const replayTimeoutRef = useRef<number | null>(null)
 
-function buildMetricLinePath(
-  trend: (typeof equationCards)[number]['trend'],
-  dataKey: 'problem' | 'solution',
-) {
-  const width = 180
-  const height = 64
-  const xPad = 5
-  const yPad = 10
-  const min = 30
-  const max = 100
-  const points = trend.map((point, index) => {
-    const x = xPad + (index / Math.max(1, trend.length - 1)) * (width - xPad * 2)
-    const normalized = (point[dataKey] - min) / (max - min)
-    const y = height - yPad - Math.max(0, Math.min(1, normalized)) * (height - yPad * 2)
-    return [Number(x.toFixed(2)), Number(y.toFixed(2))]
-  })
+  const replayAnimation = useCallback(() => {
+    iconRef.current?.stopAnimation()
+    if (replayTimeoutRef.current) window.clearTimeout(replayTimeoutRef.current)
+    replayTimeoutRef.current = window.setTimeout(() => {
+      iconRef.current?.startAnimation()
+    }, 60)
+  }, [])
 
-  return points.map(([x, y], index) => `${index === 0 ? 'M' : 'L'} ${x} ${y}`).join(' ')
-}
+  useEffect(() => {
+    const target = wrapperRef.current
+    if (!target || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-function buildMetricAreaPath(linePath: string) {
-  return `${linePath} L 175 58 L 5 58 Z`
-}
+    const stopLoop = () => {
+      if (intervalRef.current) window.clearInterval(intervalRef.current)
+      intervalRef.current = null
+    }
 
-function MetricLineChart({ card }: { card: (typeof equationCards)[number] }) {
-  const problemPath = buildMetricLinePath(card.trend, 'problem')
-  const solutionPath = buildMetricLinePath(card.trend, 'solution')
-  const problemArea = buildMetricAreaPath(problemPath)
-  const solutionArea = buildMetricAreaPath(solutionPath)
+    const startLoop = () => {
+      replayAnimation()
+      stopLoop()
+      intervalRef.current = window.setInterval(replayAnimation, 3200)
+    }
 
-  return (
-    <div className="builder-metric-line-window">
-      <svg
-        aria-hidden="true"
-        className="builder-metric-line-chart"
-        preserveAspectRatio="none"
-        viewBox="0 0 180 64"
-      >
-        <defs>
-          <filter id={`builder-line-glow-${card.key}`} x="-20%" y="-80%" width="140%" height="260%">
-            <feGaussianBlur stdDeviation="2.4" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-          <linearGradient id={`builder-line-fill-${card.key}`} x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0" stopColor="currentColor" stopOpacity="0.18" />
-            <stop offset="1" stopColor="currentColor" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        {[18, 32, 46, 60].map((y) => (
-          <path className="builder-metric-line-chart__grid" d={`M 5 ${y} L 175 ${y}`} key={y} />
-        ))}
-        <path
-          className="builder-metric-line-chart__area"
-          d={problemArea}
-          data-builder-line-area
-          data-problem-path={problemArea}
-          data-solution-path={solutionArea}
-          fill={`url(#builder-line-fill-${card.key})`}
-        />
-        <path
-          className="builder-metric-line-chart__path"
-          d={problemPath}
-          data-builder-line
-          data-problem-path={problemPath}
-          data-solution-path={solutionPath}
-          filter={`url(#builder-line-glow-${card.key})`}
-        />
-      </svg>
-      <span className="builder-metric-line-caption">variance trend</span>
-    </div>
-  )
-}
+    const handleScrollReplay = () => {
+      replayAnimation()
+    }
 
-function getEquationCardState(card: (typeof equationCards)[number], mode: BuilderMode) {
-  const sublabel = 'sublabel' in card ? card.sublabel : undefined
-  const problemSublabel = 'problemSublabel' in card ? card.problemSublabel : sublabel
-  const solutionSublabel = 'solutionSublabel' in card ? card.solutionSublabel : sublabel
+    window.addEventListener('fairlend-builder-equation-icons-replay', handleScrollReplay)
 
-  return {
-    delta: mode === 'problem' ? card.problemDelta : card.solutionDelta,
-    hint: mode === 'problem' ? card.problemHint : card.solutionHint,
-    score: Math.max(0, Math.min(mode === 'problem' ? card.problemScore : card.solutionScore, 100)),
-    sublabel: mode === 'problem' ? problemSublabel : solutionSublabel,
-    value: mode === 'problem' ? card.problemValue : card.solutionValue,
+    if (!('IntersectionObserver' in window)) {
+      startLoop()
+      return () => {
+        window.removeEventListener('fairlend-builder-equation-icons-replay', handleScrollReplay)
+        stopLoop()
+        if (replayTimeoutRef.current) window.clearTimeout(replayTimeoutRef.current)
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          startLoop()
+        } else {
+          stopLoop()
+          iconRef.current?.stopAnimation()
+        }
+      },
+      { threshold: 0.42 },
+    )
+
+    observer.observe(target)
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('fairlend-builder-equation-icons-replay', handleScrollReplay)
+      stopLoop()
+      if (replayTimeoutRef.current) window.clearTimeout(replayTimeoutRef.current)
+    }
+  }, [replayAnimation])
+
+  const iconProps = {
+    className: 'builder-equation-card__animated-icon-inner',
+    onMouseEnter: replayAnimation,
+    size: 18,
   }
-}
 
-function formatEquationDelta(delta: number) {
-  return `${delta > 0 ? '+' : ''}${delta}%`
+  return (
+    <span className="builder-equation-card__animated-icon" aria-hidden="true" ref={wrapperRef}>
+      {variableKey === 'land' ? (
+        <MapPinHouseIcon {...iconProps} ref={iconRef} />
+      ) : variableKey === 'build' ? (
+        <HammerIcon {...iconProps} ref={iconRef} />
+      ) : variableKey === 'home' ? (
+        <HomeIcon {...iconProps} ref={iconRef} />
+      ) : (
+        <CircleDollarSignIcon {...iconProps} ref={iconRef} />
+      )}
+    </span>
+  )
 }
 
 function EquationCard({
-  card,
+  row,
+  variable,
   dynamic = false,
-  mode = 'problem',
   variant = 'full',
 }: {
-  card: (typeof equationCards)[number]
+  row: EquationRow
+  variable: EquationVariable
   dynamic?: boolean
-  mode?: BuilderMode
   variant?: EquationVariant
 }) {
-  const cardState = getEquationCardState(card, mode)
-  const problemCardState = getEquationCardState(card, 'problem')
-  const solutionCardState = getEquationCardState(card, 'solution')
-  const counterKey = card.key === 'home' ? undefined : card.key
+  const counterKey =
+    dynamic && row.key === 'single-family' && variable.key !== 'home'
+      ? `single-${variable.key}`
+      : undefined
+  const cardClassName = cn(
+    'builder-equation-card builder-equation-card--timeline',
+    variant === 'compact' && 'builder-equation-card--compact',
+    dynamic && 'builder-equation-card--scroll',
+  )
 
   if (variant === 'compact') {
-    if (dynamic) {
-      return (
-        <Card className="builder-equation-card builder-equation-card--compact builder-equation-card--scroll">
-          <CardHeader className="builder-equation-card__header">
-            <CardTitle>{card.label}</CardTitle>
-            <span className="builder-equation-card__delta builder-swap-text">
-              <StateLayer mode="problem">{formatEquationDelta(problemCardState.delta)}</StateLayer>
-              <StateLayer mode="solution">
-                {formatEquationDelta(solutionCardState.delta)}
-              </StateLayer>
-            </span>
-          </CardHeader>
-          <CardContent className="builder-equation-card__content">
-            <strong {...(counterKey ? { 'data-builder-counter': counterKey } : {})}>
-              {counterKey ? (
-                card.problemValue
-              ) : (
-                <span className="builder-swap-text">
-                  <StateLayer mode="problem">{problemCardState.value}</StateLayer>
-                  <StateLayer mode="solution">{solutionCardState.value}</StateLayer>
-                </span>
-              )}
-            </strong>
-            <p className="builder-equation-card__static-label builder-swap-text">
-              <StateLayer mode="problem">{problemCardState.sublabel}</StateLayer>
-              <StateLayer mode="solution">{solutionCardState.sublabel}</StateLayer>
-            </p>
-            <div
-              className="builder-compact-score"
-              aria-hidden="true"
-              data-builder-compact-score
-              data-problem-score={problemCardState.score}
-              data-solution-score={solutionCardState.score}
-            >
-              <span className="builder-compact-score__track">
-                <span
-                  className="builder-compact-score__fill"
-                  data-builder-compact-score-fill
-                  style={{ '--builder-card-score': `${problemCardState.score}%` } as CSSProperties}
-                />
-              </span>
-              <em data-builder-compact-score-text>{problemCardState.score}%</em>
-            </div>
-            <p className="builder-equation-card__hint builder-swap-text">
-              <StateLayer mode="problem">{problemCardState.hint}</StateLayer>
-              <StateLayer mode="solution">{solutionCardState.hint}</StateLayer>
-            </p>
-          </CardContent>
-        </Card>
-      )
-    }
-
     return (
-      <Card
-        className={cn(
-          'builder-equation-card builder-equation-card--compact',
-          `builder-equation-card--${mode}`,
-        )}
-      >
+      <Card className={cardClassName}>
         <CardHeader className="builder-equation-card__header">
-          <CardTitle>{card.label}</CardTitle>
-          <span className="builder-equation-card__delta">
-            {formatEquationDelta(cardState.delta)}
-          </span>
+          <CardTitle>{variable.label}</CardTitle>
         </CardHeader>
         <CardContent className="builder-equation-card__content">
-          <strong>{cardState.value}</strong>
-          <p className="builder-equation-card__static-label">{cardState.sublabel}</p>
-          <div className="builder-compact-score" aria-hidden="true">
-            <span className="builder-compact-score__track">
-              <span
-                className="builder-compact-score__fill"
-                style={{ '--builder-card-score': `${cardState.score}%` } as CSSProperties}
-              />
-            </span>
-            <em>{cardState.score}%</em>
-          </div>
-          <p className="builder-equation-card__hint">{cardState.hint}</p>
+          <strong {...(counterKey ? { 'data-builder-counter': counterKey } : {})}>
+            {row.values[variable.key]}
+          </strong>
+          <p className="builder-equation-card__static-label">{variable.sublabel}</p>
+          <p className="builder-equation-card__hint">{variable.hint}</p>
         </CardContent>
       </Card>
     )
   }
 
   return (
-    <Card className="builder-equation-card" data-builder-equation-card>
+    <Card className={cardClassName} data-builder-equation-card>
       <span
         aria-hidden="true"
         className="builder-equation-card__corner builder-equation-card__corner--tl"
@@ -655,20 +572,15 @@ function EquationCard({
         className="builder-equation-card__corner builder-equation-card__corner--bl"
       />
       <CardHeader className="builder-equation-card__header">
-        <CardTitle>{card.label}</CardTitle>
+        <CardTitle>{variable.label}</CardTitle>
+        <EquationVariableIcon variableKey={variable.key} />
       </CardHeader>
       <CardContent className="builder-equation-card__content">
         <strong {...(counterKey ? { 'data-builder-counter': counterKey } : {})}>
-          {card.problemValue}
+          {row.values[variable.key]}
         </strong>
-        <p className="builder-swap-text">
-          <StateLayer mode="problem">{problemCardState.sublabel}</StateLayer>
-          <StateLayer mode="solution">{solutionCardState.sublabel}</StateLayer>
-        </p>
-        <div className="builder-metric-visual">
-          <MetricSemiGauge card={card} />
-        </div>
-        <MetricLineChart card={card} />
+        <p>{variable.sublabel}</p>
+        <p className="builder-equation-card__hint">{variable.hint}</p>
       </CardContent>
     </Card>
   )
@@ -682,93 +594,41 @@ function Operator({ value }: { value: '+' | '=' }) {
   )
 }
 
-function MiniChart() {
-  return (
-    <svg className="builder-mini-chart" aria-hidden="true" viewBox="0 0 220 86">
-      <defs>
-        <linearGradient id="builder-loss-fill" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0" stopColor="currentColor" stopOpacity="0.28" />
-          <stop offset="1" stopColor="currentColor" stopOpacity="0.02" />
-        </linearGradient>
-        <linearGradient id="builder-profit-fill" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0" stopColor="currentColor" stopOpacity="0.26" />
-          <stop offset="1" stopColor="currentColor" stopOpacity="0.02" />
-        </linearGradient>
-      </defs>
-      <g className="builder-mini-chart__loss">
-        <path
-          d="M8 30 L28 40 L49 39 L70 50 L93 48 L114 59 L137 56 L158 68 L181 65 L208 78 L208 86 L8 86 Z"
-          fill="url(#builder-loss-fill)"
-        />
-        <path d="M8 30 L28 40 L49 39 L70 50 L93 48 L114 59 L137 56 L158 68 L181 65 L208 78" />
-      </g>
-      <g className="builder-mini-chart__profit">
-        <path
-          d="M8 72 L31 65 L53 61 L75 52 L98 54 L120 43 L142 46 L164 36 L186 29 L208 20 L208 86 L8 86 Z"
-          fill="url(#builder-profit-fill)"
-        />
-        <path d="M8 72 L31 65 L53 61 L75 52 L98 54 L120 43 L142 46 L164 36 L186 29 L208 20" />
-      </g>
-    </svg>
-  )
-}
-
 function OutcomeCard({
+  row,
   dynamic = false,
-  mode = 'problem',
   variant = 'full',
 }: {
+  row: EquationRow
   dynamic?: boolean
-  mode?: BuilderMode
   variant?: EquationVariant
 }) {
-  const state = states[mode]
+  const profitCounterKey = dynamic && row.key === 'single-family' ? 'single-profit' : undefined
+  const marginCounterKey = dynamic && row.key === 'single-family' ? 'single-margin' : undefined
+  const cardClassName = cn(
+    'builder-outcome-card',
+    variant === 'compact' && 'builder-outcome-card--compact',
+    dynamic && 'builder-outcome-card--scroll',
+  )
 
   if (variant === 'compact') {
-    if (dynamic) {
-      return (
-        <Card className="builder-outcome-card builder-outcome-card--compact builder-outcome-card--scroll">
-          <div className="builder-outcome-card__header">PROJECT OUTCOME</div>
-          <div className="builder-outcome-card__body">
-            <p className="builder-outcome-card__label builder-swap-text">
-              <StateLayer mode="problem">{states.problem.outcomeLabel}</StateLayer>
-              <StateLayer mode="solution">{states.solution.outcomeLabel}</StateLayer>
-            </p>
-            <strong data-builder-counter="outcome">{states.problem.outcomeValue}</strong>
-            <p>
-              <span data-builder-counter="margin">{states.problem.margin}</span>
-              <span> PROJECT MARGIN</span>
-            </p>
-            <div className="builder-risk-labels">
-              <span className="builder-swap-text">
-                <StateLayer mode="problem">{states.problem.riskLeft}</StateLayer>
-                <StateLayer mode="solution">{states.solution.riskLeft}</StateLayer>
-              </span>
-              <span className="builder-swap-text">
-                <StateLayer mode="problem">{states.problem.riskRight}</StateLayer>
-                <StateLayer mode="solution">{states.solution.riskRight}</StateLayer>
-              </span>
-            </div>
-          </div>
-        </Card>
-      )
-    }
-
     return (
-      <Card
-        className={cn(
-          'builder-outcome-card builder-outcome-card--compact',
-          `builder-outcome-card--${mode}`,
-        )}
-      >
-        <div className="builder-outcome-card__header">PROJECT OUTCOME</div>
+      <Card className={cardClassName}>
+        <div className="builder-outcome-card__header">PROFIT</div>
         <div className="builder-outcome-card__body">
-          <p className="builder-outcome-card__label">{state.outcomeLabel}</p>
-          <strong>{state.outcomeValue}</strong>
-          <p>{state.margin} PROJECT MARGIN</p>
+          <p className="builder-outcome-card__label">EST. PROFIT*</p>
+          <strong {...(profitCounterKey ? { 'data-builder-counter': profitCounterKey } : {})}>
+            {row.profit}
+          </strong>
+          <p>
+            <span {...(marginCounterKey ? { 'data-builder-counter': marginCounterKey } : {})}>
+              {row.margin}
+            </span>
+            <span> PROJECT MARGIN</span>
+          </p>
           <div className="builder-risk-labels">
-            <span>{state.riskLeft}</span>
-            <span>{state.riskRight}</span>
+            <span data-builder-primary-risk="left">{row.riskLeft}</span>
+            <span data-builder-primary-risk="right">{row.riskRight}</span>
           </div>
         </div>
       </Card>
@@ -776,31 +636,102 @@ function OutcomeCard({
   }
 
   return (
-    <Card className="builder-outcome-card">
-      <div className="builder-outcome-card__header">PROJECT OUTCOME</div>
+    <Card className={cardClassName}>
+      <div className="builder-outcome-card__header">PROFIT</div>
       <div className="builder-outcome-card__body">
-        <p className="builder-swap-text builder-outcome-card__label">
-          <StateLayer mode="problem">{states.problem.outcomeLabel}</StateLayer>
-          <StateLayer mode="solution">{states.solution.outcomeLabel}</StateLayer>
-        </p>
-        <strong data-builder-counter="outcome">{states.problem.outcomeValue}</strong>
+        <p className="builder-outcome-card__label">EST. PROFIT*</p>
+        <strong {...(profitCounterKey ? { 'data-builder-counter': profitCounterKey } : {})}>
+          {row.profit}
+        </strong>
         <p>
-          <span data-builder-counter="margin">{states.problem.margin}</span>
+          <span {...(marginCounterKey ? { 'data-builder-counter': marginCounterKey } : {})}>
+            {row.margin}
+          </span>
           <span> PROJECT MARGIN</span>
         </p>
-        <MiniChart />
         <div className="builder-risk-labels">
-          <span className="builder-swap-text">
-            <StateLayer mode="problem">{states.problem.riskLeft}</StateLayer>
-            <StateLayer mode="solution">{states.solution.riskLeft}</StateLayer>
-          </span>
-          <span className="builder-swap-text">
-            <StateLayer mode="problem">{states.problem.riskRight}</StateLayer>
-            <StateLayer mode="solution">{states.solution.riskRight}</StateLayer>
-          </span>
+          <span data-builder-primary-risk="left">{row.riskLeft}</span>
+          <span data-builder-primary-risk="right">{row.riskRight}</span>
         </div>
       </div>
     </Card>
+  )
+}
+
+function TimelineYearSwap({
+  className,
+  field,
+}: {
+  className?: string
+  field: 'label' | 'panelNote' | 'cta' | 'ctaNote'
+}) {
+  return (
+    <span className={cn('builder-swap-text', className)}>
+      {timelineYears.map((year) => (
+        <StateLayer key={year} year={year}>
+          {states[year][field]}
+        </StateLayer>
+      ))}
+    </span>
+  )
+}
+
+function BuilderEquationLine({
+  dynamic = false,
+  emerging = false,
+  row,
+  variant = 'full',
+}: {
+  dynamic?: boolean
+  emerging?: boolean
+  row: EquationRow
+  variant?: EquationVariant
+}) {
+  const isCompact = variant === 'compact'
+
+  return (
+    <div
+      className={cn(
+        'builder-equation-line',
+        `builder-equation-line--${row.tone}`,
+        dynamic && 'builder-equation-line--primary',
+        emerging && 'builder-equation-line--emerging',
+      )}
+      data-builder-emerging-row={emerging ? row.key : undefined}
+      data-builder-equation-line={row.key}
+      style={{ '--row-tone': row.tone === 'profit' ? 1 : 0 } as CSSProperties}
+    >
+      <div className="builder-equation-label">
+        <span data-builder-primary-year={dynamic ? '' : undefined}>{row.year}</span>
+        <strong>{row.label}</strong>
+        <em data-builder-primary-note={dynamic ? '' : undefined}>{row.note}</em>
+      </div>
+      {equationVariables.map((variable, index) => (
+        <div className="builder-equation-cell" key={variable.key}>
+          <EquationCard dynamic={dynamic} row={row} variable={variable} variant={variant} />
+          <Operator value={index < equationVariables.length - 1 ? '+' : '='} />
+        </div>
+      ))}
+      <div className="builder-equation-cell builder-equation-cell--profit">
+        <OutcomeCard dynamic={dynamic} row={row} variant={variant} />
+      </div>
+      {isCompact ? null : <span className="builder-equation-line__rail" aria-hidden="true" />}
+    </div>
+  )
+}
+
+function EquationRows({ variant = 'full' }: { variant?: EquationVariant }) {
+  const finalSingleFamilyRow = singleFamilyTimelineRows[2]
+
+  return (
+    <div className="builder-equation-lines">
+      <BuilderEquationLine dynamic row={initialSingleFamilyRow} variant={variant} />
+      <BuilderEquationLine emerging row={finalOpportunityRows[0]} variant={variant} />
+      <BuilderEquationLine emerging row={finalOpportunityRows[1]} variant={variant} />
+      <div className="sr-only" aria-live="polite">
+        Final 2026 single-family comparison: {finalSingleFamilyRow.profit} profit.
+      </div>
+    </div>
   )
 }
 
@@ -811,27 +742,12 @@ function MobileScrollEquationBoard() {
         <HouseVisual />
       </div>
       <div className="builder-mobile-equation-board__header">
-        <p className="builder-swap-text">
-          <StateLayer mode="problem">{states.problem.label}</StateLayer>
-          <StateLayer mode="solution">{states.solution.label}</StateLayer>
+        <p>
+          <TimelineYearSwap field="label" />
         </p>
-        <span className="builder-swap-text">
-          <StateLayer mode="problem">{states.problem.panelNote}</StateLayer>
-          <StateLayer mode="solution">{states.solution.panelNote}</StateLayer>
-        </span>
+        <TimelineYearSwap field="panelNote" />
       </div>
-      <div className="builder-mobile-equation-grid">
-        {equationCards.map((card, index) => (
-          <div className="builder-mobile-equation-cell" key={card.key}>
-            <EquationCard card={card} dynamic variant="compact" />
-            {index < equationCards.length - 1 ? <Operator value="+" /> : null}
-          </div>
-        ))}
-        <div className="builder-mobile-equation-cell builder-mobile-equation-cell--outcome">
-          <Operator value="=" />
-          <OutcomeCard dynamic variant="compact" />
-        </div>
-      </div>
+      <EquationRows variant="compact" />
       <p className="builder-footnote builder-footnote--mobile">
         *Example only. Results vary based on market conditions and project specifics.
       </p>
@@ -843,36 +759,15 @@ function EquationDashboard() {
   return (
     <div className="builder-dashboard" data-builder-dashboard>
       <div className="builder-dashboard__title">
-        <p className="builder-swap-text">
-          <StateLayer mode="problem">{states.problem.label}</StateLayer>
-          <StateLayer mode="solution">{states.solution.label}</StateLayer>
+        <p>
+          <TimelineYearSwap field="label" />
         </p>
-        <p className="builder-swap-text builder-note">
-          <StateLayer mode="problem">{states.problem.panelNote}</StateLayer>
-          <StateLayer mode="solution">{states.solution.panelNote}</StateLayer>
+        <p className="builder-note">
+          <TimelineYearSwap field="panelNote" />
         </p>
       </div>
       <div className="builder-dashboard__panel">
-        <div className="builder-equation-row">
-          {equationCards.slice(0, 4).map((card, index) => (
-            <div className="builder-equation-cell" key={card.key}>
-              <EquationCard card={card} />
-              {index < 3 ? <Operator value="+" /> : null}
-            </div>
-          ))}
-        </div>
-        <div className="builder-equation-row builder-equation-row--bottom">
-          {equationCards.slice(4).map((card) => (
-            <div className="builder-equation-cell" key={card.key}>
-              <EquationCard card={card} />
-              <Operator value="+" />
-            </div>
-          ))}
-          <div className="builder-equation-cell">
-            <Operator value="=" />
-            <OutcomeCard />
-          </div>
-        </div>
+        <EquationRows />
       </div>
       <p className="builder-footnote">
         *Example only. Results vary based on market conditions and project specifics.
@@ -881,12 +776,12 @@ function EquationDashboard() {
   )
 }
 
-function BottomStripLayer({ mode }: { mode: BuilderMode }) {
-  const state = states[mode]
+function BottomStripLayer({ year }: { year: BuilderYear }) {
+  const state = states[year]
   const [beforeHighlight, afterHighlight = ''] = state.stripCopy.split(state.stripHighlight)
 
   return (
-    <div className="builder-bottom-strip__layer" data-builder-state={mode}>
+    <div className="builder-bottom-strip__layer" data-builder-strip-year={year}>
       <div className="builder-strip-proof">
         {state.stripItems.map(({ icon: Icon, text }) => (
           <div className="builder-strip-proof__item" key={text}>
@@ -911,21 +806,20 @@ function BuilderBottomStrip() {
   return (
     <div className="builder-bottom-strip">
       <div className="builder-bottom-strip__track" data-builder-bottom-track>
-        <BottomStripLayer mode="problem" />
-        <BottomStripLayer mode="solution" />
+        {timelineYears.map((year) => (
+          <BottomStripLayer key={year} year={year} />
+        ))}
       </div>
-      <Link className="builder-cta" href="#contact">
-        <span className="builder-swap-text">
-          <StateLayer mode="problem">{states.problem.cta}</StateLayer>
-          <StateLayer mode="solution">{states.solution.cta}</StateLayer>
+      <Link className="builder-cta" href={builderConsultingIntakeHref}>
+        <span className="builder-cta__label" data-builder-cta-label>
+          {states['2019'].cta}
         </span>
         <span className="builder-cta__icon" aria-hidden="true">
           <ArrowRight className="size-7" strokeWidth={1.55} />
         </span>
       </Link>
-      <p className="builder-cta-note builder-note builder-swap-text">
-        <StateLayer mode="problem">{states.problem.ctaNote}</StateLayer>
-        <StateLayer mode="solution">{states.solution.ctaNote}</StateLayer>
+      <p className="builder-cta-note builder-note">
+        <span data-builder-cta-note>{states['2019'].ctaNote}</span>
       </p>
     </div>
   )
@@ -935,38 +829,28 @@ function MobileScrollState() {
   return (
     <article className="builder-mobile-state builder-mobile-state--scroll" data-builder-mobile-card>
       <div className="builder-mobile-copy-window">
-        <div
-          className="builder-mobile-copy-panel builder-mobile-copy-panel--problem"
-          data-builder-mobile-copy
-          data-builder-state="problem"
-        >
-          <BuilderEyebrow mode="problem" />
-          <h2 className="builder-headline">
-            <span>{states.problem.headlineTop}</span>
-            <span>{states.problem.headlineBottom}</span>
-          </h2>
-          <p className="builder-subheadline">{states.problem.subheadline}</p>
-        </div>
-        <div
-          className="builder-mobile-copy-panel builder-mobile-copy-panel--solution"
-          data-builder-mobile-copy
-          data-builder-state="solution"
-        >
-          <BuilderEyebrow mode="solution" />
-          <h2 className="builder-headline">
-            <span>{states.solution.headlineTop}</span>
-            <span>{states.solution.headlineBottom}</span>
-          </h2>
-          <p className="builder-subheadline">{states.solution.subheadline}</p>
-        </div>
+        {timelineYears.map((year) => (
+          <div
+            className={cn('builder-mobile-copy-panel', `builder-mobile-copy-panel--${year}`)}
+            data-builder-mobile-copy
+            data-builder-mobile-copy-year={year}
+            key={year}
+          >
+            <BuilderEyebrow year={year} />
+            <h2 className="builder-headline">
+              <span>{states[year].headlineTop}</span>
+              <span>{states[year].headlineBottom}</span>
+            </h2>
+            <p className="builder-subheadline">{states[year].subheadline}</p>
+          </div>
+        ))}
       </div>
       <div className="builder-mobile-stage" data-builder-mobile-dashboard>
         <MobileScrollEquationBoard />
       </div>
-      <Link className="builder-cta builder-cta--mobile" href="#contact">
-        <span className="builder-swap-text">
-          <StateLayer mode="problem">{states.problem.cta}</StateLayer>
-          <StateLayer mode="solution">{states.solution.cta}</StateLayer>
+      <Link className="builder-cta builder-cta--mobile" href={builderConsultingIntakeHref}>
+        <span className="builder-cta__label" data-builder-cta-label>
+          {states['2019'].cta}
         </span>
         <span className="builder-cta__icon" aria-hidden="true">
           <ArrowRight className="size-6" strokeWidth={1.55} />
@@ -988,6 +872,8 @@ function BuilderConsultingStyles() {
         --builder-coral-deep: oklch(0.53 0.205 34);
         --builder-green: oklch(0.43 0.12 153);
         --builder-blue: oklch(0.52 0.145 255);
+        --builder-loss: oklch(0.61 0.22 31);
+        --builder-loss-deep: oklch(0.45 0.18 29);
         --builder-line: rgb(8 45 35 / 12%);
         --builder-progress: 0;
         background:
@@ -1146,6 +1032,7 @@ function BuilderConsultingStyles() {
       }
 
       .builder-action-connector {
+        display: none;
         position: absolute;
         top: 50%;
         left: calc(100% + 0.2rem);
@@ -1526,6 +1413,8 @@ function BuilderConsultingStyles() {
 
       .builder-metric-line-chart__area {
         color: currentColor;
+        fill: currentColor;
+        opacity: 0.14;
       }
 
       .builder-metric-line-chart__path {
@@ -1730,32 +1619,6 @@ function BuilderConsultingStyles() {
         font-size: 1.34em;
       }
 
-      .builder-mini-chart {
-        width: 100%;
-        max-width: 12.6rem;
-        height: 4.9rem;
-        margin-top: 0.6rem;
-        overflow: hidden;
-      }
-
-      .builder-mini-chart path {
-        fill: none;
-        stroke: currentColor;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-width: 4;
-      }
-
-      .builder-mini-chart__loss {
-        color: var(--builder-coral);
-        transform: translateY(calc(var(--builder-progress) * -110%));
-      }
-
-      .builder-mini-chart__profit {
-        color: var(--builder-green);
-        transform: translateY(calc((1 - var(--builder-progress)) * 110%));
-      }
-
       .builder-risk-labels {
         display: flex;
         justify-content: space-between;
@@ -1793,10 +1656,10 @@ function BuilderConsultingStyles() {
         position: relative;
         display: grid;
         height: 50%;
-        grid-template-columns: minmax(0, 1.35fr) minmax(21rem, 0.75fr) minmax(16rem, 0.54fr);
+        grid-template-columns: minmax(0, 1.28fr) minmax(24rem, 0.86fr) minmax(16rem, 0.48fr);
         align-items: center;
         gap: clamp(1rem, 2vw, 2.4rem);
-        padding: 1rem clamp(1rem, 2.1vw, 2.4rem);
+        padding: 0.82rem clamp(1rem, 2.1vw, 2.4rem);
       }
 
       .builder-strip-proof {
@@ -1828,18 +1691,18 @@ function BuilderConsultingStyles() {
       .builder-strip-statement h3 {
         margin: 0;
         font-family: var(--font-cormorant), Georgia, serif;
-        font-size: clamp(1.55rem, 2.2vw, 2.45rem);
+        font-size: clamp(1.42rem, 1.75vw, 1.98rem);
         font-weight: 700;
-        line-height: 0.9;
+        line-height: 0.94;
       }
 
       .builder-strip-statement p {
         margin: 0.35rem 0 0;
         max-width: 30rem;
         font-family: var(--font-cormorant), Georgia, serif;
-        font-size: clamp(1.05rem, 1.35vw, 1.42rem);
+        font-size: clamp(0.92rem, 1.05vw, 1.12rem);
         font-weight: 600;
-        line-height: 1.02;
+        line-height: 1.08;
       }
 
       .builder-strip-statement strong {
@@ -1853,7 +1716,9 @@ function BuilderConsultingStyles() {
         right: clamp(1rem, 2.6vw, 3.2rem);
         z-index: 4;
         display: inline-flex;
-        min-width: clamp(15rem, 18vw, 20rem);
+        width: max-content;
+        min-width: clamp(16.25rem, 19vw, 21rem);
+        max-width: min(22rem, calc(100% - 2rem));
         min-height: clamp(3.8rem, 4.4vw, 4.9rem);
         align-items: center;
         justify-content: space-between;
@@ -1888,12 +1753,22 @@ function BuilderConsultingStyles() {
       }
 
       .builder-cta__icon {
+        flex: 0 0 auto;
         display: grid;
         width: clamp(2.35rem, 2.7vw, 3rem);
         height: clamp(2.35rem, 2.7vw, 3rem);
         place-items: center;
         border: 1.5px solid rgb(255 255 255 / 78%);
         border-radius: 999px;
+      }
+
+      .builder-cta__label {
+        display: block;
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .builder-cta-note {
@@ -2124,11 +1999,6 @@ function BuilderConsultingStyles() {
           font-size: clamp(1.72rem, 2.55vw, 2.72rem);
         }
 
-        .builder-mini-chart {
-          height: 3.62rem;
-          margin-top: 0.35rem;
-        }
-
         .builder-bottom-strip {
           min-height: 5.15rem;
         }
@@ -2268,6 +2138,8 @@ function BuilderConsultingStyles() {
         --builder-coral-deep: oklch(0.48 0.14 41);
         --builder-green: oklch(0.39 0.09 153);
         --builder-blue: var(--about-blueprint);
+        --builder-loss: oklch(0.61 0.22 31);
+        --builder-loss-deep: oklch(0.45 0.18 29);
         --builder-line: rgb(18 44 37 / 28%);
         --builder-line-soft: rgb(18 44 37 / 16%);
         --builder-progress: 0;
@@ -2297,145 +2169,12 @@ function BuilderConsultingStyles() {
         position: relative;
         z-index: 1;
         display: grid;
-        width: min(100%, 1780px);
+        width: 100%;
+        max-width: none;
         min-height: 100svh;
-        margin-inline: auto;
+        margin-inline: 0;
         overflow: hidden;
         padding: 30px 20px 36px;
-      }
-
-      .builder-frame-corner {
-        position: absolute;
-        z-index: 6;
-        width: 2rem;
-        height: 2rem;
-        pointer-events: none;
-      }
-
-      .builder-frame-corner::before,
-      .builder-frame-corner::after {
-        position: absolute;
-        background: rgb(18 44 37 / 42%);
-        content: "";
-      }
-
-      .builder-frame-corner::before {
-        width: 100%;
-        height: 1px;
-      }
-
-      .builder-frame-corner::after {
-        width: 1px;
-        height: 100%;
-      }
-
-      .builder-frame-corner--tl {
-        top: 18px;
-        left: 18px;
-      }
-
-      .builder-frame-corner--tr {
-        top: 18px;
-        right: 18px;
-      }
-
-      .builder-frame-corner--br {
-        right: 18px;
-        bottom: 18px;
-      }
-
-      .builder-frame-corner--bl {
-        bottom: 18px;
-        left: 18px;
-      }
-
-      .builder-frame-corner--tr::before,
-      .builder-frame-corner--tr::after,
-      .builder-frame-corner--br::before,
-      .builder-frame-corner--br::after {
-        right: 0;
-      }
-
-      .builder-frame-corner--br::before,
-      .builder-frame-corner--br::after,
-      .builder-frame-corner--bl::before,
-      .builder-frame-corner--bl::after {
-        bottom: 0;
-      }
-
-      .builder-section-header {
-        position: relative;
-        z-index: 2;
-        display: grid;
-        gap: 1.25rem;
-        align-items: end;
-        padding: 0 0 1.25rem;
-      }
-
-      .builder-model-label {
-        display: flex;
-        align-items: center;
-        gap: 0.7rem;
-        margin-bottom: 0.7rem;
-        color: rgb(18 44 37 / 70%);
-        font-size: 0.72rem;
-        font-weight: 850;
-        line-height: 1;
-        text-transform: uppercase;
-      }
-
-      .builder-model-label span {
-        width: 2.75rem;
-        height: 1px;
-        background: var(--builder-coral);
-      }
-
-      .builder-model-label strong,
-      .builder-model-label em {
-        font: inherit;
-      }
-
-      .builder-model-label em {
-        color: var(--builder-coral);
-        font-style: normal;
-      }
-
-      .builder-section-kicker {
-        --about-text-color: var(--about-ink);
-      }
-
-      .builder-consulting .about-section-kicker span {
-        font-size: 3.5rem;
-      }
-
-      .builder-consulting .about-section-kicker .about-kicker-slash {
-        font-size: 2.2rem;
-      }
-
-      .builder-consulting .about-section-kicker p {
-        font-size: 1.1rem;
-      }
-
-      .builder-section-header__copy > p {
-        max-width: 43rem;
-        margin: 0.9rem 0 0;
-        color: rgb(18 44 37 / 82%);
-        font-size: 1.08rem;
-        font-weight: 800;
-        line-height: 1.25;
-        text-wrap: pretty;
-      }
-
-      .builder-section-ledger {
-        display: none;
-      }
-
-      .builder-section-ledger span {
-        display: block;
-        width: 4.2rem;
-        height: 0.42rem;
-        border: 1px solid rgb(18 44 37 / 32%);
-        background: rgb(173 143 111 / 28%);
       }
 
       .builder-section-rule {
@@ -2676,8 +2415,12 @@ function BuilderConsultingStyles() {
 
       .builder-dashboard {
         position: relative;
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr);
         z-index: 8;
         min-width: 0;
+        width: 100%;
+        height: 100%;
       }
 
       .builder-dashboard__title {
@@ -2700,6 +2443,7 @@ function BuilderConsultingStyles() {
       .builder-dashboard__panel {
         position: relative;
         z-index: 8;
+        min-height: 0;
         border: 2px solid rgb(18 44 37 / 18%);
         border-radius: 0;
         background:
@@ -2776,10 +2520,19 @@ function BuilderConsultingStyles() {
         padding: 0.76rem 0.78rem 0;
       }
 
+      .builder-equation-card__animated-icon {
+        display: grid;
+        place-items: center;
+        width: 1.45rem;
+        height: 1.45rem;
+        color: color-mix(in oklch, var(--builder-coral) calc((1 - var(--builder-progress)) * 70%), var(--builder-green) calc(var(--builder-progress) * 64%));
+        opacity: 0.88;
+      }
+
       .builder-equation-card [data-slot="card-title"] {
         margin: 0;
         color: rgb(18 44 37 / 68%);
-        font-size: 0.68rem;
+        font-size: 0.78rem;
         font-weight: 900;
         line-height: 1.02;
         text-transform: uppercase;
@@ -2807,7 +2560,7 @@ function BuilderConsultingStyles() {
         min-height: 1.2em;
         margin: 0;
         color: var(--builder-forest);
-        font-size: 0.58rem;
+        font-size: 0.64rem;
         font-weight: 900;
         line-height: 1.12;
         text-align: left;
@@ -2859,7 +2612,13 @@ function BuilderConsultingStyles() {
         color: color-mix(in oklch, var(--builder-coral) calc((1 - var(--builder-progress)) * 86%), var(--builder-green) calc(var(--builder-progress) * 74%));
       }
 
+      .builder-metric-line-chart__area {
+        fill: currentColor;
+        opacity: 0.14;
+      }
+
       .builder-metric-line-chart__path {
+        fill: none;
         stroke-width: 2.5;
         filter: none;
       }
@@ -2880,14 +2639,15 @@ function BuilderConsultingStyles() {
 
       .builder-operator {
         top: 42%;
-        right: -0.72rem;
+        right: calc(var(--builder-equation-gap, 1.44rem) / -2);
         color: rgb(18 44 37 / 86%);
         font-size: 1.55rem;
         font-weight: 950;
+        transform: translateX(50%);
       }
 
       .builder-operator--equals {
-        left: -0.72rem;
+        left: auto;
         font-size: 1.85rem;
       }
 
@@ -2939,17 +2699,6 @@ function BuilderConsultingStyles() {
         font-size: 1.25em;
       }
 
-      .builder-mini-chart {
-        width: 100%;
-        max-width: 11.5rem;
-        height: 3.85rem;
-        margin-top: 0.45rem;
-      }
-
-      .builder-mini-chart path {
-        stroke-width: 2.7;
-      }
-
       .builder-risk-labels {
         color: rgb(18 44 37 / 58%);
         font-size: 0.52rem;
@@ -2965,7 +2714,8 @@ function BuilderConsultingStyles() {
 
       .builder-bottom-strip {
         position: relative;
-        min-height: 6.35rem;
+        min-height: 6.85rem;
+        margin-bottom: 8px;
         overflow: hidden;
         border: 2px solid rgb(18 44 37 / 16%);
         border-radius: 0;
@@ -2978,10 +2728,10 @@ function BuilderConsultingStyles() {
       .builder-bottom-strip__layer {
         display: grid;
         height: 50%;
-        grid-template-columns: minmax(0, 1.24fr) minmax(19rem, 0.58fr) minmax(13rem, 0.32fr);
+        grid-template-columns: minmax(0, 1.18fr) minmax(22rem, 0.7fr) minmax(14rem, 0.36fr);
         align-items: center;
         gap: 1.25rem;
-        padding: 0.85rem 1.05rem;
+        padding: 0.68rem 1.05rem;
       }
 
       .builder-strip-proof {
@@ -3019,9 +2769,9 @@ function BuilderConsultingStyles() {
         margin: 0;
         color: var(--builder-forest);
         font-family: "DM Serif Display", Georgia, serif;
-        font-size: 1.75rem;
+        font-size: 1.48rem;
         font-weight: 700;
-        line-height: 0.95;
+        line-height: 0.96;
       }
 
       .builder-strip-statement p {
@@ -3029,9 +2779,9 @@ function BuilderConsultingStyles() {
         margin: 0.3rem 0 0;
         color: var(--builder-forest);
         font-family: "DM Serif Display", Georgia, serif;
-        font-size: 1.02rem;
+        font-size: 0.9rem;
         font-weight: 600;
-        line-height: 1.05;
+        line-height: 1.08;
       }
 
       .builder-strip-statement strong {
@@ -3044,7 +2794,9 @@ function BuilderConsultingStyles() {
         right: 1.05rem;
         z-index: 4;
         display: inline-flex;
-        min-width: 12.5rem;
+        width: max-content;
+        min-width: 13.75rem;
+        max-width: min(18rem, calc(100% - 2rem));
         min-height: 3.18rem;
         align-items: center;
         justify-content: space-between;
@@ -3083,12 +2835,21 @@ function BuilderConsultingStyles() {
       }
 
       .builder-cta__icon {
+        flex: 0 0 auto;
         display: grid;
         width: 2.1rem;
         height: 2.1rem;
         place-items: center;
         border: 1px solid currentColor;
         border-radius: 50%;
+      }
+
+      .builder-cta__label {
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .builder-cta-note {
@@ -3102,22 +2863,8 @@ function BuilderConsultingStyles() {
         .builder-editorial-shell {
           height: 100dvh;
           min-height: 0;
-          grid-template-rows: auto 2px minmax(0, 1fr);
-          padding: 1rem clamp(1.1rem, 2vw, 2rem) 1.1rem;
-        }
-
-        .builder-section-header {
-          grid-template-columns: minmax(0, 0.7fr) minmax(18rem, 0.3fr);
-          min-height: 8.8rem;
-          padding: 0.65rem 1rem 1.25rem;
-        }
-
-        .builder-section-ledger {
-          display: flex;
-          justify-content: flex-end;
-          align-self: start;
-          gap: 0.68rem;
-          padding-top: 0.72rem;
+          grid-template-rows: 2px minmax(0, 1fr);
+          padding: 1rem clamp(0.55rem, 0.8vw, 0.95rem) 1.1rem clamp(1.1rem, 2vw, 2rem);
         }
 
         .builder-desktop {
@@ -3135,9 +2882,14 @@ function BuilderConsultingStyles() {
         .builder-main-grid {
           display: grid;
           min-height: 0;
-          grid-template-columns: minmax(25rem, 0.42fr) minmax(47rem, 0.58fr);
-          align-items: center;
-          gap: 1.05rem;
+          grid-template-columns: minmax(20rem, 0.29fr) minmax(0, 0.71fr);
+          align-items: stretch;
+          gap: 0.85rem;
+          overflow: hidden;
+        }
+
+        .builder-dashboard {
+          margin-right: 0;
         }
 
         .builder-left-stage {
@@ -3198,30 +2950,9 @@ function BuilderConsultingStyles() {
       }
 
       @media (max-width: 1370px) and (min-width: 1024px) {
-        .builder-consulting .about-section-kicker span {
-          font-size: 3.1rem;
-        }
-
-        .builder-consulting .about-section-kicker .about-kicker-slash {
-          font-size: 1.95rem;
-        }
-
-        .builder-consulting .about-section-kicker p {
-          font-size: 0.96rem;
-        }
-
-        .builder-section-header {
-          min-height: 7.7rem;
-          padding-bottom: 0.9rem;
-        }
-
-        .builder-section-header__copy > p {
-          font-size: 0.94rem;
-        }
-
         .builder-main-grid {
-          grid-template-columns: minmax(23rem, 0.4fr) minmax(41rem, 0.6fr);
-          gap: 0.8rem;
+          grid-template-columns: minmax(17.5rem, 0.28fr) minmax(0, 0.72fr);
+          gap: 0.7rem;
         }
 
         .builder-left-stage {
@@ -3284,9 +3015,6 @@ function BuilderConsultingStyles() {
           font-size: 2.06rem;
         }
 
-        .builder-mini-chart {
-          height: 3.2rem;
-        }
       }
 
       @media (min-width: 1024px) and (max-height: 760px) {
@@ -3295,37 +3023,13 @@ function BuilderConsultingStyles() {
           padding-bottom: 0.78rem;
         }
 
-        .builder-section-header {
-          min-height: 6.5rem;
-          padding-top: 0.28rem;
-          padding-bottom: 0.7rem;
-        }
-
-        .builder-model-label {
-          margin-bottom: 0.44rem;
-          font-size: 0.62rem;
-        }
-
-        .builder-consulting .about-section-kicker span {
-          font-size: 2.6rem;
-        }
-
-        .builder-consulting .about-section-kicker .about-kicker-slash {
-          font-size: 1.65rem;
-        }
-
-        .builder-consulting .about-section-kicker p {
-          font-size: 0.86rem;
-        }
-
-        .builder-section-header__copy > p {
-          margin-top: 0.5rem;
-          font-size: 0.82rem;
-        }
-
         .builder-desktop {
           gap: 0.5rem;
           padding-top: 0.55rem;
+        }
+
+        .builder-main-grid {
+          align-items: start;
         }
 
         .builder-left-stage {
@@ -3359,11 +3063,15 @@ function BuilderConsultingStyles() {
         }
 
         .builder-dashboard__title {
-          margin-bottom: 0.42rem;
+          margin-bottom: 0.34rem;
         }
 
         .builder-dashboard__panel {
-          padding: 0.64rem;
+          padding: 0.48rem;
+        }
+
+        .builder-equation-line + .builder-equation-line {
+          margin-top: 0.38rem;
         }
 
         .builder-equation-row {
@@ -3376,11 +3084,16 @@ function BuilderConsultingStyles() {
 
         .builder-equation-card,
         .builder-outcome-card {
-          min-height: 9.2rem;
+          min-height: 6.35rem;
+        }
+
+        .builder-equation-line .builder-equation-card,
+        .builder-equation-line .builder-outcome-card {
+          min-height: 6.35rem;
         }
 
         .builder-equation-card strong {
-          font-size: 1.08rem;
+          font-size: 0.98rem;
         }
 
         .builder-equation-card p {
@@ -3392,11 +3105,33 @@ function BuilderConsultingStyles() {
         }
 
         .builder-metric-line-window {
-          height: 2.04rem;
+          height: 1.55rem;
+          margin-top: 0.16rem;
         }
 
         .builder-outcome-card strong {
-          font-size: 1.72rem;
+          font-size: 1.34rem;
+        }
+
+        .builder-outcome-card__header {
+          padding-block: 0.34rem;
+        }
+
+        .builder-outcome-card__body {
+          padding: 0.42rem 0.42rem 0.36rem;
+        }
+
+        .builder-outcome-card__label {
+          font-size: 0.54rem;
+        }
+
+        .builder-outcome-card__body > p:not(.builder-outcome-card__label) {
+          margin-top: 0.22rem;
+          font-size: 0.5rem;
+        }
+
+        .builder-risk-labels {
+          font-size: 0.4rem;
         }
 
         .builder-bottom-strip {
@@ -3438,40 +3173,6 @@ function BuilderConsultingStyles() {
 
         .builder-editorial-shell {
           overflow: hidden;
-        }
-
-        .builder-section-header__copy {
-          min-width: 0;
-          width: 100%;
-        }
-
-        .builder-section-kicker {
-          width: 100%;
-          max-width: 100%;
-          align-items: flex-start;
-          gap: clamp(0.42rem, 2.5vw, 0.62rem);
-        }
-
-        .builder-consulting .about-section-kicker span {
-          flex: 0 0 auto;
-          font-size: 2.35rem;
-        }
-
-        .builder-consulting .about-section-kicker .about-kicker-slash {
-          font-size: 1.55rem;
-        }
-
-        .builder-consulting .about-section-kicker p {
-          flex: 1 1 auto;
-          min-width: 0;
-          font-size: 0.86rem;
-          line-height: 1.08;
-          overflow-wrap: break-word;
-          text-wrap: balance;
-        }
-
-        .builder-section-header__copy > p {
-          font-size: 0.92rem;
         }
 
         .builder-headline {
@@ -4007,45 +3708,8 @@ function BuilderConsultingStyles() {
           padding-inline: 12px;
         }
 
-        .builder-frame-corner {
-          width: 1.35rem;
-          height: 1.35rem;
-        }
-
-        .builder-frame-corner--tl {
-          top: 12px;
-          left: 12px;
-        }
-
-        .builder-frame-corner--tr {
-          top: 12px;
-          right: 12px;
-        }
-
-        .builder-frame-corner--br {
-          right: 12px;
-          bottom: 12px;
-        }
-
-        .builder-frame-corner--bl {
-          bottom: 12px;
-          left: 12px;
-        }
-
         .builder-headline {
           font-size: 2.65rem;
-        }
-
-        .builder-consulting .about-section-kicker span {
-          font-size: 2.05rem;
-        }
-
-        .builder-consulting .about-section-kicker .about-kicker-slash {
-          font-size: 1.3rem;
-        }
-
-        .builder-consulting .about-section-kicker p {
-          font-size: 0.8rem;
         }
 
         .builder-mobile-state {
@@ -4160,6 +3824,352 @@ function BuilderConsultingStyles() {
         }
       }
 
+      .builder-consulting {
+        --builder-progress: 1;
+      }
+
+      .builder-swap-text [data-builder-year] {
+        grid-area: 1 / 1;
+        opacity: 0;
+        transform: translateY(115%);
+        will-change: opacity, transform;
+      }
+
+      .builder-swap-text [data-builder-year="2019"] {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .builder-copy--2019,
+      .builder-mobile-copy-panel--2019 {
+        z-index: 4;
+        clip-path: inset(0);
+        opacity: 1;
+        pointer-events: auto;
+        visibility: visible;
+      }
+
+      .builder-copy--2023,
+      .builder-copy--2026,
+      .builder-mobile-copy-panel--2023,
+      .builder-mobile-copy-panel--2026 {
+        z-index: 5;
+        clip-path: inset(0 0 100% 0);
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+      }
+
+      .builder-copy--2026,
+      .builder-mobile-copy-panel--2026 {
+        z-index: 6;
+      }
+
+      .builder-equation-lines {
+        display: block;
+      }
+
+      .builder-bottom-strip__track {
+        height: 300%;
+      }
+
+      .builder-bottom-strip__layer {
+        height: 33.333333%;
+      }
+
+      .builder-equation-line {
+        --builder-equation-gap: clamp(1.85rem, 1.55vw, 2.25rem);
+        --row-tone: 1;
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(7.6rem, 0.64fr) repeat(5, minmax(0, 1fr));
+        align-items: stretch;
+        gap: var(--builder-equation-gap);
+        min-width: 0;
+      }
+
+      .builder-equation-line + .builder-equation-line {
+        margin-top: clamp(0.36rem, 0.52vw, 0.58rem);
+      }
+
+      .builder-equation-line--emerging {
+        height: 0;
+        margin-top: 0;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(1.15rem);
+        will-change: clip-path, opacity, transform;
+      }
+
+      .builder-equation-label {
+        position: relative;
+        display: grid;
+        min-width: 0;
+        align-content: center;
+        gap: 0.26rem;
+        overflow: hidden;
+        border: 1px solid color-mix(in oklch, var(--builder-coral) calc((1 - var(--row-tone)) * 26%), var(--builder-green) calc(var(--row-tone) * 24%));
+        border-radius: 8px;
+        background:
+          linear-gradient(
+            145deg,
+            color-mix(in oklch, var(--builder-coral) calc((1 - var(--row-tone)) * 11%), var(--builder-green) calc(var(--row-tone) * 10%)),
+            transparent 62%
+          ),
+          rgb(255 253 247 / 78%);
+        padding: clamp(0.42rem, 0.58vw, 0.62rem);
+        text-transform: uppercase;
+      }
+
+      .builder-equation-line--primary .builder-equation-label {
+        border-color: color-mix(in oklch, var(--builder-loss) calc((1 - var(--row-tone)) * 42%), var(--builder-green) calc(var(--row-tone) * 26%)) !important;
+        background:
+          linear-gradient(
+            145deg,
+            color-mix(in oklch, var(--builder-loss) calc((1 - var(--row-tone)) * 13%), var(--builder-green) calc(var(--row-tone) * 10%)),
+            transparent 62%
+          ),
+          rgb(255 253 247 / 78%) !important;
+      }
+
+      .builder-equation-label span {
+        width: fit-content;
+        border: 1px solid color-mix(in oklch, var(--builder-coral) calc((1 - var(--row-tone)) * 42%), var(--builder-green) calc(var(--row-tone) * 42%));
+        border-radius: 999px;
+        padding: 0.18rem 0.48rem;
+        color: color-mix(in oklch, var(--builder-coral-deep) calc((1 - var(--row-tone)) * 100%), var(--builder-green) calc(var(--row-tone) * 100%));
+        font-size: clamp(0.55rem, 0.62vw, 0.68rem);
+        font-weight: 950;
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .builder-equation-line--primary .builder-equation-label span {
+        border-color: color-mix(in oklch, var(--builder-loss) calc((1 - var(--row-tone)) * 52%), var(--builder-green) calc(var(--row-tone) * 42%)) !important;
+        color: color-mix(in oklch, var(--builder-loss-deep) calc((1 - var(--row-tone)) * 100%), var(--builder-green) calc(var(--row-tone) * 100%)) !important;
+      }
+
+      .builder-equation-label strong {
+        color: var(--builder-forest);
+        font-size: clamp(0.82rem, 0.9vw, 1rem);
+        font-weight: 950;
+        line-height: 1;
+      }
+
+      .builder-equation-label em {
+        overflow: hidden;
+        color: rgb(8 45 35 / 62%);
+        font-size: clamp(0.54rem, 0.62vw, 0.68rem);
+        font-style: normal;
+        font-weight: 800;
+        line-height: 1.12;
+        text-overflow: ellipsis;
+      }
+
+      .builder-equation-line .builder-equation-card__header {
+        padding: clamp(0.48rem, 0.56vw, 0.64rem) clamp(0.62rem, 0.78vw, 0.84rem) 0;
+      }
+
+      .builder-equation-line .builder-equation-card [data-slot="card-title"] {
+        color: rgb(18 44 37 / 74%);
+        font-size: clamp(0.78rem, 0.86vw, 0.98rem);
+        letter-spacing: 0.1em;
+      }
+
+      .builder-equation-line .builder-equation-card__animated-icon {
+        width: clamp(1.18rem, 1.34vw, 1.5rem);
+        height: clamp(1.18rem, 1.34vw, 1.5rem);
+      }
+
+      .builder-equation-line .builder-equation-card,
+      .builder-equation-line .builder-outcome-card {
+        min-height: clamp(5rem, 5.6vw, 6.2rem);
+        border-color: color-mix(in oklch, var(--builder-coral) calc((1 - var(--row-tone)) * 30%), var(--builder-green) calc(var(--row-tone) * 28%));
+        background:
+          linear-gradient(180deg, rgb(255 253 247 / 82%), rgb(244 237 224 / 62%)),
+          radial-gradient(circle at 50% 72%, color-mix(in oklch, var(--builder-coral) calc((1 - var(--row-tone)) * 13%), var(--builder-green) calc(var(--row-tone) * 12%)), transparent 58%);
+      }
+
+      .builder-equation-line--primary .builder-equation-card,
+      .builder-equation-line--primary .builder-outcome-card {
+        border-color: color-mix(in oklch, var(--builder-loss) calc((1 - var(--row-tone)) * 46%), var(--builder-green) calc(var(--row-tone) * 28%)) !important;
+        background:
+          linear-gradient(180deg, rgb(255 253 247 / 86%), rgb(244 237 224 / 66%)),
+          radial-gradient(circle at 50% 72%, color-mix(in oklch, var(--builder-loss) calc((1 - var(--row-tone)) * 16%), var(--builder-green) calc(var(--row-tone) * 12%)), transparent 58%) !important;
+      }
+
+      .builder-equation-line--primary .builder-equation-card__corner::before,
+      .builder-equation-line--primary .builder-equation-card__corner::after {
+        background: color-mix(in oklch, var(--builder-loss) calc((1 - var(--row-tone)) * 92%), var(--builder-green) calc(var(--row-tone) * 84%)) !important;
+        box-shadow:
+          0 0 0 1px rgb(255 253 247 / 82%),
+          0 0 12px color-mix(in oklch, var(--builder-loss) calc((1 - var(--row-tone)) * 30%), var(--builder-green) calc(var(--row-tone) * 28%)) !important;
+      }
+
+      .builder-equation-card--timeline .builder-equation-card__content {
+        gap: 0.16rem;
+        padding-top: 0.34rem;
+        padding-bottom: 0.42rem;
+      }
+
+      .builder-equation-card--timeline strong {
+        min-width: 0;
+        overflow-wrap: anywhere;
+        color: var(--builder-forest);
+        font-size: clamp(1.16rem, 1.52vw, 1.82rem);
+        letter-spacing: 0;
+      }
+
+      .builder-equation-card--timeline p {
+        font-size: clamp(0.62rem, 0.7vw, 0.8rem);
+      }
+
+      .builder-equation-card__hint {
+        color: rgb(8 45 35 / 62%);
+        font-size: clamp(0.6rem, 0.68vw, 0.78rem);
+        font-weight: 750;
+        line-height: 1.08;
+        text-transform: uppercase;
+      }
+
+      .builder-equation-line .builder-outcome-card__header {
+        color: color-mix(in oklch, var(--builder-coral-deep) calc((1 - var(--row-tone)) * 100%), var(--builder-green) calc(var(--row-tone) * 100%));
+      }
+
+      .builder-equation-line--primary .builder-outcome-card__header {
+        color: color-mix(in oklch, var(--builder-loss-deep) calc((1 - var(--row-tone)) * 100%), var(--builder-green) calc(var(--row-tone) * 100%)) !important;
+      }
+
+      .builder-equation-line .builder-outcome-card__label {
+        color: color-mix(in oklch, var(--builder-coral-deep) calc((1 - var(--row-tone)) * 100%), var(--builder-green) calc(var(--row-tone) * 100%));
+        font-size: clamp(0.62rem, 0.72vw, 0.82rem);
+      }
+
+      .builder-equation-line--primary .builder-outcome-card__label {
+        color: color-mix(in oklch, var(--builder-loss-deep) calc((1 - var(--row-tone)) * 100%), var(--builder-green) calc(var(--row-tone) * 100%)) !important;
+      }
+
+      .builder-equation-line .builder-outcome-card strong {
+        color: color-mix(in oklch, var(--builder-coral-deep) calc((1 - var(--row-tone)) * 100%), var(--builder-green) calc(var(--row-tone) * 100%));
+        font-size: clamp(1.56rem, 2.16vw, 2.52rem);
+      }
+
+      .builder-equation-line--primary .builder-outcome-card strong {
+        color: color-mix(in oklch, var(--builder-loss-deep) calc((1 - var(--row-tone)) * 100%), var(--builder-green) calc(var(--row-tone) * 100%)) !important;
+      }
+
+      .builder-equation-line .builder-outcome-card__body > p:not(.builder-outcome-card__label) span:first-child {
+        color: color-mix(in oklch, var(--builder-coral-deep) calc((1 - var(--row-tone)) * 100%), var(--builder-green) calc(var(--row-tone) * 100%));
+      }
+
+      .builder-equation-line--primary .builder-outcome-card__body > p:not(.builder-outcome-card__label) span:first-child {
+        color: color-mix(in oklch, var(--builder-loss-deep) calc((1 - var(--row-tone)) * 100%), var(--builder-green) calc(var(--row-tone) * 100%)) !important;
+      }
+
+      .builder-equation-line .builder-operator--equals {
+        right: calc(var(--builder-equation-gap) / -2);
+        left: auto;
+        transform: translateX(50%);
+      }
+
+      @media (min-width: 1024px) and (max-height: 760px) {
+        .builder-equation-line .builder-equation-card,
+        .builder-equation-line .builder-outcome-card {
+          min-height: 4.85rem;
+        }
+
+        .builder-equation-card--timeline .builder-equation-card__content {
+          gap: 0.1rem;
+          padding-top: 0.26rem;
+          padding-bottom: 0.3rem;
+        }
+
+        .builder-equation-line .builder-equation-card [data-slot="card-title"] {
+          font-size: 0.72rem;
+        }
+
+        .builder-equation-card--timeline strong {
+          font-size: 1.12rem;
+        }
+
+        .builder-equation-card--timeline p,
+        .builder-equation-card__hint {
+          font-size: 0.52rem;
+        }
+
+        .builder-equation-line .builder-outcome-card strong {
+          font-size: 1.42rem;
+        }
+      }
+
+      @media (max-width: 1023px) {
+        .builder-equation-lines {
+          display: block;
+        }
+
+        .builder-equation-line {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 0.34rem;
+        }
+
+        .builder-equation-line + .builder-equation-line {
+          margin-top: 0.44rem;
+        }
+
+        .builder-equation-label,
+        .builder-equation-cell--profit {
+          grid-column: 1 / -1;
+        }
+
+        .builder-equation-label {
+          min-height: 0;
+          grid-template-columns: auto minmax(0, 1fr);
+          align-items: baseline;
+          column-gap: 0.48rem;
+          padding: 0.46rem 0.52rem;
+        }
+
+        .builder-equation-label em {
+          grid-column: 1 / -1;
+        }
+
+        .builder-equation-line .builder-equation-card--compact,
+        .builder-equation-line .builder-outcome-card--compact {
+          min-height: 4.55rem;
+        }
+
+        .builder-equation-line .builder-equation-card--compact strong {
+          font-size: clamp(0.9rem, 4.1vw, 1.16rem);
+        }
+
+        .builder-equation-line .builder-operator {
+          top: auto;
+          right: 0.28rem;
+          bottom: 0.28rem;
+          left: auto;
+        }
+
+        .builder-equation-line .builder-operator--equals {
+          right: 0.28rem;
+          left: auto;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .builder-equation-label {
+          padding: 0.4rem 0.46rem;
+        }
+
+        .builder-equation-line .builder-equation-card--compact,
+        .builder-equation-line .builder-outcome-card--compact {
+          min-height: 4.12rem;
+        }
+
+        .builder-equation-line .builder-outcome-card--compact strong {
+          font-size: clamp(1.34rem, 7vw, 1.82rem);
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .builder-cta {
           transition: none;
@@ -4172,7 +4182,7 @@ function BuilderConsultingStyles() {
 export function FairlendBuilderConsultingSection() {
   return (
     <FairlendPaperSection
-      aria-labelledby="builder-consulting-title"
+      aria-label="Builder Consulting"
       className="builder-consulting relative isolate scroll-mt-[88px]"
       data-builder-consulting
       id="builder-consulting"
@@ -4181,8 +4191,6 @@ export function FairlendBuilderConsultingSection() {
       <FairlendBuilderConsultingMotion />
 
       <FairlendPaperShell className="builder-editorial-shell">
-        <BuilderFrameCorners />
-        <BuilderSectionHeader />
         <span className="builder-section-rule" aria-hidden="true" />
 
         <div className="builder-desktop">
@@ -4190,11 +4198,11 @@ export function FairlendBuilderConsultingSection() {
             <div className="builder-left-stage">
               <div className="builder-left-scroll-window">
                 <div className="builder-left-track" data-builder-left-track>
-                  <BuilderCopy mode="problem" />
-                  <BuilderCopy mode="solution" />
+                  {timelineYears.map((year) => (
+                    <BuilderCopy key={year} year={year} />
+                  ))}
                 </div>
               </div>
-              <HouseVisual />
             </div>
             <EquationDashboard />
           </div>
