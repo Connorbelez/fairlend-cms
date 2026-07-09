@@ -29,7 +29,7 @@ function hasNavigableLink(
 }
 
 function getHeaderBookingSource(link?: NavColumn['items'][number]['link']): string | null {
-  return link && 'bookingSource' in link ? link.bookingSource : null
+  return link?.bookingSource ?? null
 }
 
 const contentVariants = {

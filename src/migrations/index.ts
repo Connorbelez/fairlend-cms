@@ -5,6 +5,7 @@ import * as migration_20260705_000000_fairlend_consultation_booking from './2026
 import * as migration_20260705_010000_fairlend_lead_workflow from './20260705_010000_fairlend_lead_workflow'
 import * as migration_20260708_000000_qr_campaign_attribution from './20260708_000000_qr_campaign_attribution'
 import * as migration_20260708_010000_fairlend_lead_intake_detail_columns from './20260708_010000_fairlend_lead_intake_detail_columns'
+import * as migration_20260709_000000_fairlend_lead_additional_liens from './20260709_000000_fairlend_lead_additional_liens'
 
 export const migrations = [
   {
@@ -41,5 +42,10 @@ export const migrations = [
     up: migration_20260708_010000_fairlend_lead_intake_detail_columns.up,
     down: migration_20260708_010000_fairlend_lead_intake_detail_columns.down,
     name: '20260708_010000_fairlend_lead_intake_detail_columns',
+  },
+  {
+    up: migration_20260709_000000_fairlend_lead_additional_liens.up,
+    down: migration_20260709_000000_fairlend_lead_additional_liens.down,
+    name: '20260709_000000_fairlend_lead_additional_liens',
   },
 ]

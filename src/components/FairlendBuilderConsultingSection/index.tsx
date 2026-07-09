@@ -46,7 +46,7 @@ type BuilderYear = '2019' | '2023' | '2026'
 type EquationVariant = 'full' | 'compact'
 type EquationVariableKey = 'land' | 'build' | 'home' | 'sale'
 type EquationRowKey = 'single-family' | 'multiplex' | 'garden-suite'
-type ProfitTone = 'profit' | 'loss'
+type ProfitTone = 'profit' | 'loss' | 'neutral'
 
 type EquationVariable = {
   key: EquationVariableKey
@@ -66,6 +66,12 @@ type EquationRow = {
   margin: string
   riskLeft: string
   riskRight: string
+  sublabels?: Partial<Record<EquationVariableKey, string>>
+  labels?: Partial<Record<EquationVariableKey, string>>
+  hints?: Partial<Record<EquationVariableKey, string>>
+  outcomeHeading?: string
+  outcomeLabel?: string
+  marginLabel?: string
 }
 
 const timelineYears = ['2019', '2023', '2026'] as const satisfies readonly BuilderYear[]
@@ -83,78 +89,79 @@ const states = {
     subheadline:
       'A successful build is not only a construction problem, it is a business equation.',
     label: '2019',
-    note: '(single home still profitable)',
-    panelNote: '(single-family home build)',
+    note: '(lower market inputs. estimated return)',
+    panelNote: '(GTA market benchmarks)',
     cta: 'SEE THE TIMELINE',
     ctaNote: 'Scroll through the build math',
     cards: [
-      { icon: CircleHelp, text: 'Land basis still worked' },
-      { icon: CircleHelp, text: 'Build cost left room' },
-      { icon: CircleHelp, text: 'One home carried margin' },
-      { icon: CircleHelp, text: 'Resale supported profit' },
+      { icon: CircleHelp, text: 'Detached proxy averaged $1.02M' },
+      { icon: CircleHelp, text: 'Hard costs ranged $115-$215/ft²' },
+      { icon: CircleHelp, text: 'New-home benchmark was $1.09M' },
+      { icon: CircleHelp, text: 'Return estimated at midpoint cost' },
     ],
     stripItems: [
-      { icon: Scale, text: 'Single-home math stayed balanced' },
-      { icon: NotebookPen, text: 'Costs left room for margin' },
-      { icon: Home, text: 'One house could still pencil' },
+      { icon: Scale, text: 'Lower acquisition benchmark' },
+      { icon: NotebookPen, text: 'Lower published hard-cost range' },
+      { icon: Home, text: 'Consistent 3,800 ft² model' },
     ],
-    stripTitle: 'Land. Build. Sell. Profit.',
-    stripCopy: 'In 2019, the single-family equation still finished in the green.',
-    stripHighlight: 'in the green',
+    stripTitle: 'Benchmark. Model. Decide.',
+    stripCopy: 'In 2019, lower market inputs improved feasibility but did not guarantee profit.',
+    stripHighlight: 'did not guarantee profit',
   },
   '2023': {
     year: '2023',
     eyebrow: 'Builder Consulting',
-    headlineTop: '2023: SINGLE HOME',
-    headlineBottom: 'ROLLS RED.',
+    headlineTop: '2023: COSTS',
+    headlineBottom: 'REPRICE THE DEAL.',
     subheadline:
-      'Land and build costs moved faster than the resale value. The same single-family equation stopped working.',
+      'GTA acquisition, construction, and financing benchmarks moved sharply. The estimated return shows how quickly the equation changed.',
     label: '2023',
-    note: '(single home no longer profitable)',
-    panelNote: '(same build. negative profit.)',
+    note: '(higher inputs. estimated return)',
+    panelNote: '(GTA market benchmarks)',
     cta: 'RUN MY NUMBERS',
     ctaNote: 'Find the break-even point',
     cards: [
-      { icon: TriangleAlert, text: 'Land basis jumped' },
-      { icon: Calculator, text: 'Build cost compressed margin' },
-      { icon: Home, text: 'One exit was not enough' },
-      { icon: Goal, text: 'Sale value lagged the inputs' },
+      { icon: TriangleAlert, text: 'Detached proxy averaged $1.46M' },
+      { icon: Calculator, text: 'Hard costs ranged $205-$280/ft²' },
+      { icon: Home, text: 'New-home benchmark was $1.60M' },
+      { icon: Goal, text: 'Policy rate reached 5.00%' },
     ],
     stripItems: [
-      { icon: TriangleAlert, text: 'Single-home profit turned negative' },
-      { icon: SlidersHorizontal, text: 'Inputs needed to be reworked' },
-      { icon: Crosshair, text: 'Old assumptions created real risk' },
+      { icon: TriangleAlert, text: 'Acquisition benchmark increased' },
+      { icon: SlidersHorizontal, text: 'Published hard costs increased' },
+      { icon: Crosshair, text: 'Financing changed materially' },
     ],
-    stripTitle: 'Land. Build. Sell. Lose?',
-    stripCopy: 'By 2023, the same single-family equation had moved into the red.',
-    stripHighlight: 'into the red',
+    stripTitle: 'Land. Cost. Capital. Reprice.',
+    stripCopy:
+      'By 2023, higher acquisition, construction, and capital costs compressed the return.',
+    stripHighlight: 'compressed the return',
   },
   '2026': {
     year: '2026',
     eyebrow: 'Builder Consulting',
     headlineTop: '2026: DENSITY',
-    headlineBottom: 'CHANGES THE OUTCOME.',
+    headlineBottom: 'CHANGES THE MODEL.',
     subheadline:
-      'Single-family remains upside down, while Multiplex and GardenSuite rows can create enough output to pencil again.',
+      'Toronto permits more low-rise housing options. The same assumptions show how four units can change the estimated return.',
     label: '2026',
-    note: '(single home stays red. density turns green.)',
-    panelNote: '(multiplex + GardenSuite rows added)',
+    note: '(more housing options. estimated returns)',
+    panelNote: '(multiplex + garden-suite benchmarks)',
     cta: 'RUN MY NUMBERS',
     ctaNote: "Let's run your version",
     cards: [
-      { icon: MapPinned, text: 'Re-underwrite the lot' },
-      { icon: Landmark, text: 'Add the right housing form' },
-      { icon: ClipboardPenLine, text: 'Model each exit separately' },
-      { icon: Crosshair, text: 'Finance the row that pencils' },
+      { icon: MapPinned, text: 'Detached proxy averaged $1.36M' },
+      { icon: Landmark, text: 'Single-home hard costs: $150-$275/ft²' },
+      { icon: ClipboardPenLine, text: 'Up to four units permitted in Toronto' },
+      { icon: Crosshair, text: 'Garden suites often cost $300K-$400K+' },
     ],
     stripItems: [
-      { icon: ClipboardPenLine, text: 'Single-family stays negative' },
-      { icon: Home, text: 'Multiplex creates new output' },
-      { icon: SlidersHorizontal, text: 'GardenSuite adds a second path' },
+      { icon: ClipboardPenLine, text: 'Single-family estimate remains negative' },
+      { icon: Home, text: 'Multiplex can create four units' },
+      { icon: SlidersHorizontal, text: 'Garden suite adds rental capacity' },
     ],
-    stripTitle: 'Land. Build. Add Density. Profit.',
-    stripCopy: 'In 2026, the profitable rows are Multiplex and GardenSuite.',
-    stripHighlight: 'Multiplex and GardenSuite',
+    stripTitle: 'Land. Build. Add Density. Model.',
+    stripCopy: 'In 2026, multiplex and garden-suite options expand output, not guaranteed profit.',
+    stripHighlight: 'not guaranteed profit',
   },
 } as const satisfies Record<
   BuilderYear,
@@ -208,53 +215,77 @@ const singleFamilyTimelineRows = [
   {
     key: 'single-family',
     label: 'Single family',
-    note: 'Single home still profitable',
+    note: 'Published GTA market benchmarks',
     year: '2019',
-    tone: 'profit',
+    tone: 'neutral',
     values: {
-      land: '$1.45M',
-      build: '$285/ft²',
+      land: '$1.02M',
+      build: '$115–215/ft²',
       home: '1 HOME',
-      sale: '$3.65M',
+      sale: '$1.09M',
     },
-    profit: '+$380K',
-    margin: '9.8%',
-    riskLeft: 'LOWER RISK',
-    riskRight: 'PROFITABLE',
+    profit: '-$555K*',
+    margin: '-51.0%*',
+    riskLeft: 'EST. LOSS',
+    riskRight: 'MIDPOINT COST',
+    hints: {
+      land: 'detached resale proxy',
+      build: 'standard hard-cost range',
+      sale: 'new-home benchmark',
+    },
+    outcomeHeading: 'RETURN',
+    outcomeLabel: 'EST. RETURN*',
+    marginLabel: 'EST. MARGIN',
   },
   {
     key: 'single-family',
     label: 'Single family',
-    note: 'Single home no longer profitable',
+    note: 'Published GTA market benchmarks',
     year: '2023',
-    tone: 'loss',
+    tone: 'neutral',
     values: {
-      land: '$2.45M',
-      build: '$425/ft²',
+      land: '$1.46M',
+      build: '$205–280/ft²',
       home: '1 HOME',
-      sale: '$3.65M',
+      sale: '$1.60M',
     },
-    profit: '-$412K',
-    margin: '-10.8%',
-    riskLeft: 'HIGHER RISK',
-    riskRight: 'NEGATIVE RETURN',
+    profit: '-$780K*',
+    margin: '-48.6%*',
+    riskLeft: 'EST. LOSS',
+    riskRight: 'MIDPOINT COST',
+    hints: {
+      land: 'detached resale proxy',
+      build: 'standard hard-cost range',
+      sale: 'new-home benchmark',
+    },
+    outcomeHeading: 'RETURN',
+    outcomeLabel: 'EST. RETURN*',
+    marginLabel: 'EST. MARGIN',
   },
   {
     key: 'single-family',
     label: 'Single family',
-    note: 'Single family still not profitable',
+    note: 'Published GTA market benchmarks',
     year: '2026',
-    tone: 'loss',
+    tone: 'neutral',
     values: {
-      land: '$2.55M',
-      build: '$440/ft²',
+      land: '$1.36M',
+      build: '$150–275/ft²',
       home: '1 HOME',
-      sale: '$3.70M',
+      sale: '$1.43M',
     },
-    profit: '-$520K',
-    margin: '-13.1%',
-    riskLeft: 'HIGHER RISK',
-    riskRight: 'STILL NEGATIVE',
+    profit: '-$744K*',
+    margin: '-52.1%*',
+    riskLeft: 'EST. LOSS',
+    riskRight: 'MIDPOINT COST',
+    hints: {
+      land: 'detached resale proxy',
+      build: 'standard hard-cost range',
+      sale: 'new-home benchmark',
+    },
+    outcomeHeading: 'RETURN',
+    outcomeLabel: 'EST. RETURN*',
+    marginLabel: 'EST. MARGIN',
   },
 ] as const satisfies readonly EquationRow[]
 
@@ -262,36 +293,59 @@ const finalOpportunityRows = [
   {
     key: 'multiplex',
     label: 'Multiplex',
-    note: '2026 density row',
+    note: 'Toronto four-unit option',
     year: '2026',
     tone: 'profit',
     values: {
-      land: '$2.55M',
-      build: '$345/ft²',
+      land: '$1.36M',
+      build: '$210–330/ft²',
       home: '4 UNITS',
-      sale: '$5.95M',
+      sale: '$4.12M*',
     },
-    profit: '+$710K',
-    margin: '11.9%',
+    profit: '+$648K*',
+    margin: '15.7%*',
     riskLeft: 'DENSITY ADDED',
-    riskRight: 'PROFITABLE',
+    riskRight: 'EST. POSITIVE',
+    hints: {
+      land: 'detached resale proxy',
+      build: 'closest low-rise benchmark',
+      sale: '4-unit benchmark exit',
+    },
+    outcomeHeading: 'RETURN',
+    outcomeLabel: 'EST. RETURN*',
+    marginLabel: 'EST. MARGIN',
   },
   {
     key: 'garden-suite',
     label: 'GardenSuite',
-    note: '2026 backyard row',
+    note: 'Toronto accessory suite',
     year: '2026',
     tone: 'profit',
     values: {
       land: 'EXISTING LOT',
-      build: '$315/ft²',
+      build: '$300–400K+',
       home: '1 SUITE',
-      sale: '$1.18M',
+      sale: '$2.25K/MO',
     },
-    profit: '+$185K',
-    margin: '15.7%',
-    riskLeft: 'LAND REUSED',
-    riskRight: 'PROFITABLE',
+    profit: '+$27K/YR*',
+    margin: '7.7%*',
+    riskLeft: 'GROSS RENT',
+    riskRight: 'EST. YIELD',
+    labels: {
+      sale: 'EST. RENT',
+    },
+    sublabels: {
+      build: 'TOTAL BUILD COST',
+      sale: 'MONTHLY RENT',
+    },
+    hints: {
+      land: 'incremental analysis',
+      build: 'industry-reported actuals',
+      sale: '1-bedroom GTA average',
+    },
+    outcomeHeading: 'RETURN',
+    outcomeLabel: 'EST. RETURN*',
+    marginLabel: 'GROSS YIELD',
   },
 ] as const satisfies readonly EquationRow[]
 
@@ -526,6 +580,7 @@ function EquationCard({
   dynamic?: boolean
   variant?: EquationVariant
 }) {
+  const value = row.values[variable.key]
   const counterKey =
     dynamic && row.key === 'single-family' && variable.key !== 'home'
       ? `single-${variable.key}`
@@ -534,20 +589,22 @@ function EquationCard({
     'builder-equation-card builder-equation-card--timeline',
     variant === 'compact' && 'builder-equation-card--compact',
     dynamic && 'builder-equation-card--scroll',
+    value.length > 10 && 'builder-equation-card--dense-value',
   )
+  const label = row.labels?.[variable.key] ?? variable.label
+  const sublabel = row.sublabels?.[variable.key] ?? variable.sublabel
+  const hint = row.hints?.[variable.key] ?? variable.hint
 
   if (variant === 'compact') {
     return (
       <Card className={cardClassName}>
         <CardHeader className="builder-equation-card__header">
-          <CardTitle>{variable.label}</CardTitle>
+          <CardTitle>{label}</CardTitle>
         </CardHeader>
         <CardContent className="builder-equation-card__content">
-          <strong {...(counterKey ? { 'data-builder-counter': counterKey } : {})}>
-            {row.values[variable.key]}
-          </strong>
-          <p className="builder-equation-card__static-label">{variable.sublabel}</p>
-          <p className="builder-equation-card__hint">{variable.hint}</p>
+          <strong {...(counterKey ? { 'data-builder-counter': counterKey } : {})}>{value}</strong>
+          <p className="builder-equation-card__static-label">{sublabel}</p>
+          <p className="builder-equation-card__hint">{hint}</p>
         </CardContent>
       </Card>
     )
@@ -572,15 +629,13 @@ function EquationCard({
         className="builder-equation-card__corner builder-equation-card__corner--bl"
       />
       <CardHeader className="builder-equation-card__header">
-        <CardTitle>{variable.label}</CardTitle>
+        <CardTitle>{label}</CardTitle>
         <EquationVariableIcon variableKey={variable.key} />
       </CardHeader>
       <CardContent className="builder-equation-card__content">
-        <strong {...(counterKey ? { 'data-builder-counter': counterKey } : {})}>
-          {row.values[variable.key]}
-        </strong>
-        <p>{variable.sublabel}</p>
-        <p className="builder-equation-card__hint">{variable.hint}</p>
+        <strong {...(counterKey ? { 'data-builder-counter': counterKey } : {})}>{value}</strong>
+        <p>{sublabel}</p>
+        <p className="builder-equation-card__hint">{hint}</p>
       </CardContent>
     </Card>
   )
@@ -609,14 +664,18 @@ function OutcomeCard({
     'builder-outcome-card',
     variant === 'compact' && 'builder-outcome-card--compact',
     dynamic && 'builder-outcome-card--scroll',
+    !row.profit.includes('$') && 'builder-outcome-card--textual',
   )
+  const outcomeHeading = row.outcomeHeading ?? 'PROFIT'
+  const outcomeLabel = row.outcomeLabel ?? 'EST. PROFIT*'
+  const marginLabel = row.marginLabel ?? 'PROJECT MARGIN'
 
   if (variant === 'compact') {
     return (
       <Card className={cardClassName}>
-        <div className="builder-outcome-card__header">PROFIT</div>
+        <div className="builder-outcome-card__header">{outcomeHeading}</div>
         <div className="builder-outcome-card__body">
-          <p className="builder-outcome-card__label">EST. PROFIT*</p>
+          <p className="builder-outcome-card__label">{outcomeLabel}</p>
           <strong {...(profitCounterKey ? { 'data-builder-counter': profitCounterKey } : {})}>
             {row.profit}
           </strong>
@@ -624,7 +683,7 @@ function OutcomeCard({
             <span {...(marginCounterKey ? { 'data-builder-counter': marginCounterKey } : {})}>
               {row.margin}
             </span>
-            <span> PROJECT MARGIN</span>
+            <span> {marginLabel}</span>
           </p>
           <div className="builder-risk-labels">
             <span data-builder-primary-risk="left">{row.riskLeft}</span>
@@ -637,9 +696,9 @@ function OutcomeCard({
 
   return (
     <Card className={cardClassName}>
-      <div className="builder-outcome-card__header">PROFIT</div>
+      <div className="builder-outcome-card__header">{outcomeHeading}</div>
       <div className="builder-outcome-card__body">
-        <p className="builder-outcome-card__label">EST. PROFIT*</p>
+        <p className="builder-outcome-card__label">{outcomeLabel}</p>
         <strong {...(profitCounterKey ? { 'data-builder-counter': profitCounterKey } : {})}>
           {row.profit}
         </strong>
@@ -647,7 +706,7 @@ function OutcomeCard({
           <span {...(marginCounterKey ? { 'data-builder-counter': marginCounterKey } : {})}>
             {row.margin}
           </span>
-          <span> PROJECT MARGIN</span>
+          <span> {marginLabel}</span>
         </p>
         <div className="builder-risk-labels">
           <span data-builder-primary-risk="left">{row.riskLeft}</span>
@@ -699,7 +758,11 @@ function BuilderEquationLine({
       )}
       data-builder-emerging-row={emerging ? row.key : undefined}
       data-builder-equation-line={row.key}
-      style={{ '--row-tone': row.tone === 'profit' ? 1 : 0 } as CSSProperties}
+      style={
+        {
+          '--row-tone': row.tone === 'profit' ? 1 : row.tone === 'loss' ? 0 : 0.5,
+        } as CSSProperties
+      }
     >
       <div className="builder-equation-label">
         <span data-builder-primary-year={dynamic ? '' : undefined}>{row.year}</span>
@@ -729,7 +792,7 @@ function EquationRows({ variant = 'full' }: { variant?: EquationVariant }) {
       <BuilderEquationLine emerging row={finalOpportunityRows[0]} variant={variant} />
       <BuilderEquationLine emerging row={finalOpportunityRows[1]} variant={variant} />
       <div className="sr-only" aria-live="polite">
-        Final 2026 single-family comparison: {finalSingleFamilyRow.profit} profit.
+        Final 2026 single-family comparison: {finalSingleFamilyRow.profit} estimated return.
       </div>
     </div>
   )
@@ -746,7 +809,8 @@ function MobileScrollEquationBoard() {
       </div>
       <EquationRows variant="compact" />
       <p className="builder-footnote builder-footnote--mobile">
-        *Example only. Results vary based on market conditions and project specifics.
+        *Estimates use midpoint hard costs and 3,800 ft² / 7,800 ft² build areas. Multiplex exit
+        uses four GTA condo benchmarks; garden yield uses $350K cost and Q1 2026 one-bedroom rent.
       </p>
     </div>
   )
@@ -767,7 +831,8 @@ function EquationDashboard() {
         <EquationRows />
       </div>
       <p className="builder-footnote">
-        *Example only. Results vary based on market conditions and project specifics.
+        *Estimates use midpoint hard costs and 3,800 ft² / 7,800 ft² build areas. Multiplex exit
+        uses four GTA condo benchmarks; garden yield uses $350K cost and Q1 2026 one-bedroom rent.
       </p>
     </div>
   )
@@ -4014,6 +4079,11 @@ function BuilderConsultingStyles() {
         letter-spacing: 0;
       }
 
+      .builder-equation-line .builder-equation-card--dense-value strong {
+        font-size: clamp(0.86rem, 1.08vw, 1.28rem);
+        line-height: 1;
+      }
+
       .builder-equation-card--timeline p {
         font-size: clamp(0.62rem, 0.7vw, 0.8rem);
       }
@@ -4046,6 +4116,15 @@ function BuilderConsultingStyles() {
       .builder-equation-line .builder-outcome-card strong {
         color: color-mix(in oklch, var(--builder-coral-deep) calc((1 - var(--row-tone)) * 100%), var(--builder-green) calc(var(--row-tone) * 100%));
         font-size: clamp(1.56rem, 2.16vw, 2.52rem);
+      }
+
+      .builder-equation-line .builder-outcome-card--textual strong {
+        max-width: 100%;
+        font-size: clamp(0.82rem, 1.06vw, 1.2rem);
+        line-height: 1;
+        letter-spacing: 0.01em;
+        overflow-wrap: anywhere;
+        text-align: center;
       }
 
       .builder-equation-line--primary .builder-outcome-card strong {
@@ -4164,6 +4243,10 @@ function BuilderConsultingStyles() {
           font-size: clamp(0.9rem, 4.1vw, 1.16rem);
         }
 
+        .builder-equation-line .builder-equation-card--compact.builder-equation-card--dense-value strong {
+          font-size: clamp(0.72rem, 3.15vw, 0.92rem);
+        }
+
         .builder-equation-line .builder-operator {
           top: auto;
           right: 0.28rem;
@@ -4189,6 +4272,10 @@ function BuilderConsultingStyles() {
 
         .builder-equation-line .builder-outcome-card--compact strong {
           font-size: clamp(1.34rem, 7vw, 1.82rem);
+        }
+
+        .builder-equation-line .builder-outcome-card--compact.builder-outcome-card--textual strong {
+          font-size: clamp(0.88rem, 4.6vw, 1.12rem);
         }
       }
 
@@ -4298,6 +4385,23 @@ function BuilderConsultingStyles() {
         white-space: normal;
         font-size: clamp(1.5rem, 20cqw, 3.85rem);
         letter-spacing: -0.065em;
+      }
+
+      .builder-outcome-card--textual:not(.builder-outcome-card--compact) strong {
+        font-size: clamp(0.82rem, 8.5cqw, 1.2rem);
+        line-height: 1;
+        letter-spacing: 0.01em;
+      }
+
+      .builder-outcome-card--compact.builder-outcome-card--textual strong {
+        font-size: clamp(0.88rem, 4.6vw, 1.12rem);
+        line-height: 1;
+        letter-spacing: 0.01em;
+      }
+
+      .builder-equation-card--compact.builder-equation-card--dense-value strong {
+        font-size: clamp(0.72rem, 3.15vw, 0.92rem);
+        line-height: 1;
       }
 
       .builder-outcome-card__body > p:not(.builder-outcome-card__label) {

@@ -71,16 +71,18 @@ describe('FairLend production readiness guards', () => {
     expect(files.join('\n')).toContain('Sitemap generation requires a production canonical origin')
   })
 
-  it('routes public header action targets to intake or source-backed pages', () => {
-    expect(fairlendNavLinks.contact.href).toBe('/intake?intent=contact&source=header-nav-contact')
-    expect(fairlendNavLinks.backoffice.href).toBe(
-      '/intake?intent=contact&source=header-nav-platform-access',
-    )
-    expect(fairlendNavLinks.investors.href).toBe('/investing/private-mortgage-lending')
-    expect(fairlendNavLinks.resources.href).toBe('/posts')
-    expect(fairlendNavLinks.startMultiplex.href).toBe(
-      '/intake?intent=build&source=header-nav-multiplex-intake',
-    )
+  it('keeps public header destinations aligned with the polished sitemap', () => {
+    expect(fairlendNavLinks).toEqual({
+      about: { href: '/#overview' },
+      backoffice: { href: '/#questions' },
+      home: { href: '/' },
+      intake: { href: '/intake' },
+      investing: { href: '/investing/private-mortgage-lending' },
+      leadership: { href: '/#leadership' },
+      partners: { href: '/partners' },
+      privateMortgages: { href: '/borrowers/private-mortgage-financing' },
+      startFile: { href: '/intake' },
+    })
   })
 
   it('normalizes CMS footer action CTAs to intake while keeping informational links direct', async () => {

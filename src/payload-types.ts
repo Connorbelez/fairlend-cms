@@ -1560,6 +1560,7 @@ export interface FairlendLead {
   intakeFinancingNeeds?: string | null;
   intakePropertyValue?: string | null;
   intakeMortgageBalance?: string | null;
+  intakeAdditionalLiens?: string | null;
   intakeInvestmentFocus?: string | null;
   /**
    * Compact one-line summary of the submitted intake details.
@@ -2896,6 +2897,7 @@ export interface FairlendLeadsSelect<T extends boolean = true> {
   intakeFinancingNeeds?: T;
   intakePropertyValue?: T;
   intakeMortgageBalance?: T;
+  intakeAdditionalLiens?: T;
   intakeInvestmentFocus?: T;
   intakeSummary?: T;
   intakeDetail?: T;

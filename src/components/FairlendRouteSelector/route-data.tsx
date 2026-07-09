@@ -31,9 +31,9 @@ export const fairlendRouteChoices = [
     title: 'Get construction financing',
     description: 'Plan draws, capital, and takeout around how your project actually gets built.',
     bullets: [
-      'Land, builds, and takeout planning',
-      'Draw schedules built around milestones',
-      'Access capital as work progresses',
+      'Land, builds, and CMHC takeout planning',
+      'Build your own draw schedule.',
+      'Save up to 50% interest',
       'Construction guidance from planning to completion',
     ],
     steps: ['Plan', 'Build', 'Draw', 'Complete'],

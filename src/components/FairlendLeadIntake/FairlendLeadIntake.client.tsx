@@ -62,6 +62,7 @@ type FairlendLeadIntakeProps = {
 
 type LeadCaptureValues = {
   address: string
+  additionalLiens: string
   amount: string
   currentMortgage: string
   documentStatus: string
@@ -348,6 +349,13 @@ const mortgageCurrentBalanceOptions = [
   '$750K+ / not sure',
 ] as const
 
+const mortgageAdditionalLiensOptions = [
+  'No additional liens',
+  'Under $250K',
+  '$250K-$750K',
+  '$750K+ / not sure',
+] as const
+
 const mortgageExitPlanOptions = [
   'Refinance with a bank',
   'Sell the property',
@@ -360,6 +368,7 @@ const mortgageTotalSteps = 5
 
 const emptyValues: LeadCaptureValues = {
   address: '',
+  additionalLiens: '',
   amount: '',
   currentMortgage: '',
   documentStatus: '',
@@ -530,6 +539,7 @@ export function FairlendLeadIntake({
           id: leadId ?? undefined,
           intent,
           intake: {
+            additionalLiens: values.additionalLiens,
             amount: values.amount,
             currentMortgage: values.currentMortgage,
             detail: values.message,
@@ -1313,6 +1323,13 @@ function MortgageIntakeWizard({
                       options={mortgageCurrentBalanceOptions}
                       selectedValue={values.currentMortgage}
                     />
+                    <MortgageChoiceGroup
+                      compact
+                      label="Additional liens"
+                      onSelect={(value) => choose('additionalLiens', value)}
+                      options={mortgageAdditionalLiensOptions}
+                      selectedValue={values.additionalLiens}
+                    />
                   </>
                 ) : null}
 
@@ -1491,7 +1508,7 @@ function MortgageFileVisual({ step, values }: { step: number; values: LeadCaptur
       value: [values.propertyUse, values.propertyValue].filter(Boolean).join(' · '),
     },
     {
-      complete: Boolean(values.amount && values.currentMortgage),
+      complete: Boolean(values.amount && values.currentMortgage && values.additionalLiens),
       label: 'Amount',
       value: values.amount,
     },
@@ -1514,6 +1531,7 @@ function MortgageFileVisual({ step, values }: { step: number; values: LeadCaptur
     { label: 'Estimated value', value: values.propertyValue },
     { label: 'Amount requested', value: values.amount },
     { label: 'Current mortgage', value: values.currentMortgage },
+    { label: 'Additional liens', value: values.additionalLiens },
     { label: 'Timing', value: values.timeline },
     { label: 'Expected exit', value: values.exitPlan },
     { label: 'Applicant', value: values.name },
@@ -1687,8 +1705,8 @@ function validateMortgageStep(step: number, values: LeadCaptureValues): string {
     return 'Choose the property use and approximate value. The address can be added later.'
   }
 
-  if (step === 3 && (!values.amount || !values.currentMortgage)) {
-    return 'Choose an amount range and the closest current mortgage balance.'
+  if (step === 3 && (!values.amount || !values.currentMortgage || !values.additionalLiens)) {
+    return 'Choose an amount range, current mortgage balance, and any additional liens.'
   }
 
   if (step === 4 && (!values.timeline || !values.exitPlan)) {
