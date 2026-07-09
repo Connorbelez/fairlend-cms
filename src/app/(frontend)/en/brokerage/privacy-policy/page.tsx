@@ -11,6 +11,8 @@ type PolicyBlock = {
 
 const policyUrl = '/en/brokerage/privacy-policy'
 
+export const dynamic = 'force-static'
+
 export const metadata = buildFairlendMetadata({
   description:
     'Read the FairLend Management Inc. privacy policy for mortgage administration, brokerage activities, website privacy, consent, disclosure, retention, and contact rights.',

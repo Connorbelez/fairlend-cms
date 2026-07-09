@@ -13,7 +13,7 @@ import type { BorrowerDossierRow } from './dossier-data'
  */
 export function BorrowerDossier({
   rows,
-  rowsToShowOnMobile = 4,
+  rowsToShowOnMobile = 5,
 }: {
   rows: readonly BorrowerDossierRow[]
   rowsToShowOnMobile?: number
@@ -62,9 +62,13 @@ export function BorrowerDossier({
             data-borrower-dossier-row
             data-borrower-dossier-row-emphasis={row.emphasis ? 'true' : undefined}
             data-borrower-dossier-row-index={index}
-            // Hide the less-critical middle rows on small screens to keep the
-            // dossier readable; the exit path is always visible.
-            hidden={row.hiddenOnMobile ? index >= rowsToShowOnMobile : undefined}
+            // Hide lower-priority rows only at the phone breakpoint; the exit
+            // path remains visible because it carries the section thesis.
+            data-borrower-dossier-mobile-hidden={
+              !row.emphasis && (row.hiddenOnMobile ?? index >= rowsToShowOnMobile)
+                ? 'true'
+                : undefined
+            }
             key={row.label}
           >
             <dt className="borrower-dossier__label">

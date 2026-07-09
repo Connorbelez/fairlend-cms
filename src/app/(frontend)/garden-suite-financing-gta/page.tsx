@@ -4,6 +4,8 @@ import { FairlendServiceSeo } from '@/components/SEO/FairlendRouteSeo'
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 import { buildFairlendMetadata } from '@/utilities/seo'
 
+export const dynamic = 'force-static'
+
 const pageDescription =
   'FairLend reviews GTA garden suite projects around property, mortgage position, permit stage, budget, draw timing, rental assumptions, and borrower liquidity.'
 

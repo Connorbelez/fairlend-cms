@@ -11,6 +11,8 @@ import { FairlendLandingRail } from '@/components/FairlendLandingRail'
 import { FairlendServiceSeo } from '@/components/SEO/FairlendRouteSeo'
 import { buildFairlendMetadata } from '@/utilities/seo'
 
+export const dynamic = 'force-static'
+
 const pageDescription =
   'Need a private mortgage in Ontario? FairLend helps borrowers review first, second, bridge, renewal, and equity-based options with clear costs, timing, and an exit plan.'
 

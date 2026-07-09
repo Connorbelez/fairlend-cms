@@ -4,17 +4,61 @@ import { useLayoutEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
+const INTRO_READY_FALLBACK_MS = 2200
+
+function armHeroIntroReady(hero: HTMLElement) {
+  if (hero.dataset.heroIntroReady === 'true') return
+  hero.dataset.heroIntroReady = 'true'
+}
+
+function waitForHeroIntroAssets(hero: HTMLElement): Promise<void> {
+  const skylineImg =
+    hero.querySelector<HTMLImageElement>('[data-toronto-skyline-scroll] img') ??
+    hero.querySelector<HTMLImageElement>('.fairlend-toronto-skyline img')
+
+  const imageReady =
+    skylineImg && !skylineImg.complete
+      ? skylineImg.decode?.().catch(() => undefined) ??
+        new Promise<void>((resolve) => {
+          skylineImg.addEventListener('load', () => resolve(), { once: true })
+          skylineImg.addEventListener('error', () => resolve(), { once: true })
+        })
+      : Promise.resolve()
+
+  return Promise.all([document.fonts?.ready ?? Promise.resolve(), imageReady]).then(() => undefined)
+}
+
 export function FairlendTorontoHeroParallax() {
   useLayoutEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const hero = document.querySelector<HTMLElement>('[data-fairlend-motion="toronto-hero"]')
+    if (!hero) return
+
+    let cancelled = false
+    let fallbackId = 0
+    let frameA = 0
+    let frameB = 0
+
+    const markReadyAfterPaint = () => {
+      if (cancelled) return
+      frameA = requestAnimationFrame(() => {
+        frameB = requestAnimationFrame(() => {
+          if (!cancelled) armHeroIntroReady(hero)
+        })
+      })
+    }
+
+    if (window.matchMedia(REDUCED_MOTION_QUERY).matches) {
+      armHeroIntroReady(hero)
+      return
+    }
+
+    waitForHeroIntroAssets(hero).then(markReadyAfterPaint)
+    fallbackId = window.setTimeout(markReadyAfterPaint, INTRO_READY_FALLBACK_MS)
 
     gsap.registerPlugin(ScrollTrigger)
 
     const context = gsap.context(() => {
-      const hero = document.querySelector<HTMLElement>('[data-fairlend-motion="toronto-hero"]')
-
-      if (!hero) return
-
       const skyline = hero.querySelector<HTMLElement>('[data-toronto-skyline-scroll]')
       const copy = hero.querySelector<HTMLElement>('[data-toronto-hero-copy]')
       const lowerCopy = hero.querySelector<HTMLElement>('[data-toronto-lower-copy]')
@@ -73,9 +117,15 @@ export function FairlendTorontoHeroParallax() {
           0,
         )
       })
-    })
+    }, hero)
 
-    return () => context.revert()
+    return () => {
+      cancelled = true
+      window.clearTimeout(fallbackId)
+      cancelAnimationFrame(frameA)
+      cancelAnimationFrame(frameB)
+      context.revert()
+    }
   }, [])
 
   return null

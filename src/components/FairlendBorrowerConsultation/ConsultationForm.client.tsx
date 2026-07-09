@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent, type ReactElement } from 'react'
 import { CheckCircle2, Loader2 } from 'lucide-react'
+import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -68,7 +69,7 @@ const SUCCESS_COPY =
 const ERROR_COPY =
   'The request did not send. Check your connection and try again, or call FairLend directly.'
 const REVIEW_PROMISE =
-  'Share what is happening and the core numbers. FairLend will use them only to review your request.'
+  'Share what is happening and the core numbers. FairLend uses them only to review your request.'
 
 function validate(values: ConsultationFormValues): FormErrors {
   const errors: FormErrors = {}
@@ -276,7 +277,7 @@ export function ConsultationForm(): ReactElement {
             id="borrower-city"
             onChange={(e) => updateField('propertyCity', e.target.value)}
             value={values.propertyCity}
-            placeholder="Toronto, Mississauga, or property address"
+            placeholder="Toronto or property address"
             aria-invalid={Boolean(errors.propertyCity)}
             aria-describedby={errors.propertyCity ? 'borrower-city-error' : undefined}
           />
@@ -317,7 +318,7 @@ export function ConsultationForm(): ReactElement {
             id="borrower-timeline"
             onChange={(e) => updateField('timeline', e.target.value)}
             value={values.timeline}
-            placeholder="Within 2 weeks, or by a specific date"
+            placeholder="Within 2 weeks or by date"
           />
         </Field>
 
@@ -359,7 +360,7 @@ export function ConsultationForm(): ReactElement {
             id="borrower-notes"
             onChange={(e) => updateField('notes', e.target.value)}
             value={values.notes}
-            placeholder="Closing date, lender deadline, credit concern, or preferred exit plan."
+            placeholder="Deadline, lender issue, credit concern, or exit plan."
             rows={3}
           />
         </Field>
@@ -382,9 +383,9 @@ export function ConsultationForm(): ReactElement {
           )}
         </Button>
         <p className="consultation-form__microcopy">
-          FairLend will use this information to review your request, respond, and identify relevant
-          next steps. Submission is not an approval or financing commitment. See our{' '}
-          <a href="/en/brokerage/privacy-policy">Privacy Policy</a>.
+          FairLend uses this information to review your request, respond, and identify relevant next
+          steps. Submission is not an approval or commitment to finance. See our{' '}
+          <Link href="/en/brokerage/privacy-policy">Privacy Policy</Link>.
         </p>
       </div>
     </form>

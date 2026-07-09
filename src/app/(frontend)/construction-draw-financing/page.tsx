@@ -4,6 +4,8 @@ import { FairlendServiceSeo } from '@/components/SEO/FairlendRouteSeo'
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 import { buildFairlendMetadata } from '@/utilities/seo'
 
+export const dynamic = 'force-static'
+
 const pageDescription =
   'FairLend uses DrawFlow to organize roadmaps, draw requests, milestone proof, lender review, admin approval, and release records.'
 

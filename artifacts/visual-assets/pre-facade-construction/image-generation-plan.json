@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "manifest_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/pre-facade-construction/asset-manifest.json",
+  "image_asset_count": 1,
+  "assets": [
+    {
+      "id": "pre-facade-residential-construction",
+      "label": "Pre-facade residential construction illustration",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/pre-facade-construction/crops/pre-facade-residential-construction.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/pre-facade-construction/generated/raw/pre-facade-residential-construction.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/pre-facade-construction/generated/webp/pre-facade-residential-construction.webp",
+      "transparent": false,
+      "prompt": "Use case: ads-marketing\nAsset type: Construction draw financing marketing illustration showing a compact residential build before exterior facade installation.\nPrimary request: Generate a standalone monochrome architectural construction illustration for a construction draw financing website. Use the reference crop only for composition and subject: a compact narrow residential infill build, roughly three storeys plus lower level, at rough framing and sheathing stage before exterior facade installation. Preserve the warm off-white paper field, refined black ink linework, graphite wash, open framed window bays, temporary stairs, raw sheathing, temporary guardrails, modest lumber stacks, and small residential scale. No final facade materials: no brick, no stone, no siding, no finished windows, no finished entry door, no polished landscaping. Avoid tower cranes, high-rise construction, heavy equipment, workers, cars, UI text, labels, logos, progress timeline elements, watermarks, and collage layouts.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate as a clean standalone rectangular image asset.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "finished facade, brick cladding, stone cladding, siding, final glazing, finished front door, high-rise, crane, excavator, workers, cars, text, watermark, collage"
+    }
+  ]
+}

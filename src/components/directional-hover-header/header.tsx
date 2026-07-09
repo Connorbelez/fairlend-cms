@@ -1,42 +1,27 @@
 'use client'
 
-import Link from 'next/link'
 import Image from 'next/image'
-import { AnimatePresence, motion } from 'motion/react'
-import { ArrowRight, ChevronDown, ChevronLeft, Menu, X } from 'lucide-react'
-import type { KeyboardEvent as ReactKeyboardEvent } from 'react'
+import Link from 'next/link'
+import { ArrowRight, ChevronDown, Menu, X } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { cn } from '@/utilities/ui'
-import { FairlendConsultationBookingDialog } from '@/components/FairlendConsultationBooking/FairlendConsultationBookingDialog.client'
+
 import { FAIRLEND_LOGO_SRC } from '@/components/Logo/Logo'
 import {
   FAIRLEND_CONTACT_PHONE_HREF,
   FAIRLEND_CONTACT_PHONE_LABEL,
   FairlendTalkToExpertCta,
 } from '@/components/FairlendTalkToExpertCta'
+import { cn } from '@/utilities/ui'
+
 import { MegaMenu } from './header/mega-menu'
 import { fairlendNavLinks, NAV_LINKS, type NavLink, type NavMenu } from './header/nav-data'
 
 type Direction = 'ltr' | 'rtl'
-const SHELL_EASE = [0.16, 1, 0.3, 1] as [number, number, number, number]
-const EXIT_EASE = [0.7, 0, 0.84, 0] as [number, number, number, number]
 const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-
-function hasNavigableLink(link?: NavLink['link']): link is NonNullable<NavLink['link']> {
-  return Boolean(link)
-}
-
-function getHeaderBookingSource(link?: NavLink['link']): string | null {
-  return link && 'bookingSource' in link ? link.bookingSource : null
-}
 
 function Logo() {
   return (
-    <Link
-      {...fairlendNavLinks.home}
-      aria-label="FairLend Mortgage marketing home"
-      className="mkt-dhh-brand"
-    >
+    <Link {...fairlendNavLinks.home} aria-label="FairLend Mortgage home" className="mkt-dhh-brand">
       <Image
         alt=""
         aria-hidden="true"
@@ -51,60 +36,8 @@ function Logo() {
   )
 }
 
-const ChevronIcon = ({ open }: { open: boolean }) => (
-  <motion.span
-    animate={{ rotate: open ? 180 : 0 }}
-    aria-hidden
-    className="inline-flex text-current"
-    transition={{
-      duration: 0.2,
-      ease: SHELL_EASE,
-    }}
-  >
-    <ChevronDown className="size-3.5" strokeWidth={1.6} />
-  </motion.span>
-)
-
-const listVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.07,
-      delayChildren: 0.08,
-    },
-  },
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 18 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.34,
-      ease: SHELL_EASE,
-    },
-  },
-}
-
-const panelVariants = {
-  enter: { opacity: 0, x: 26 },
-  center: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.34,
-      ease: SHELL_EASE,
-    },
-  },
-  exit: {
-    opacity: 0,
-    x: -18,
-    transition: {
-      duration: 0.24,
-      ease: EXIT_EASE,
-    },
-  },
+function hasNavigableLink(link?: NavLink['link']): link is NonNullable<NavLink['link']> {
+  return Boolean(link)
 }
 
 function HeaderActions({ mobile = false, onAction }: { mobile?: boolean; onAction?: () => void }) {
@@ -119,26 +52,22 @@ function HeaderActions({ mobile = false, onAction }: { mobile?: boolean; onActio
           label={FAIRLEND_CONTACT_PHONE_LABEL}
           onClick={onAction}
         />
-        <span aria-hidden="true" className="mkt-dhh-action-divider" />
-        <Link {...fairlendNavLinks.investors} className="mkt-dhh-language" onClick={onAction}>
-          Investors
-        </Link>
       </>
     )
   }
 
   return (
-    <div className={cn('flex items-center gap-3', mobile && 'grid w-full grid-cols-2 gap-4')}>
+    <div className="grid w-full grid-cols-2 gap-4">
       <Link
         {...fairlendNavLinks.backoffice}
-        className={cn('mkt-dhh-action mkt-dhh-action-secondary', mobile && 'mkt-dhh-action-mobile')}
+        className="mkt-dhh-action mkt-dhh-action-secondary mkt-dhh-action-mobile"
         onClick={onAction}
       >
         Platform access
       </Link>
       <Link
-        {...fairlendNavLinks.startMultiplex}
-        className={cn('mkt-dhh-action mkt-dhh-action-primary', mobile && 'mkt-dhh-action-mobile')}
+        {...fairlendNavLinks.startFile}
+        className="mkt-dhh-action mkt-dhh-action-primary mkt-dhh-action-mobile"
         onClick={onAction}
       >
         Start a file
@@ -148,73 +77,38 @@ function HeaderActions({ mobile = false, onAction }: { mobile?: boolean; onActio
   )
 }
 
-const DESKTOP_NAV_LINKS: NavLink[] = [
-  {
-    label: 'Financing Solutions',
-    menu: NAV_LINKS[0]?.menu,
-  },
-  {
-    label: 'Investor Opportunities',
-    menu: NAV_LINKS[1]?.menu,
-  },
-  {
-    label: 'Who We Are',
-    menu: NAV_LINKS[3]?.menu,
-  },
-  {
-    label: 'Resources',
-    menu: NAV_LINKS[2]?.menu,
-  },
-  {
-    label: 'Contact',
-    link: fairlendNavLinks.contact,
-  },
-]
-
 export function Header() {
   const [activeMenu, setActiveMenu] = useState<NavMenu | null>(null)
   const [direction, setDirection] = useState<Direction>('ltr')
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [mobileMenu, setMobileMenu] = useState<NavMenu | null>(null)
   const [isHeaderHidden, setIsHeaderHidden] = useState(false)
   const shellRef = useRef<HTMLDivElement>(null)
-  const desktopItemRefs = useRef<Array<HTMLElement | null>>([])
-  const megaMenuRef = useRef<HTMLDivElement>(null)
   const mobileToggleRef = useRef<HTMLButtonElement>(null)
-  const mobileBackButtonRef = useRef<HTMLButtonElement>(null)
+  const megaMenuRef = useRef<HTMLDivElement>(null)
   const previousFocusedElementRef = useRef<HTMLElement | null>(null)
-  const activeIndexRef = useRef<number>(-1)
+  const activeIndexRef = useRef(-1)
   const leaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const lastScrollYRef = useRef(0)
   const scrollFrameRef = useRef<number | null>(null)
-
-  const openMenu = useCallback((menu: NavMenu, index: number) => {
-    if (leaveTimerRef.current) {
-      clearTimeout(leaveTimerRef.current)
-    }
-    if (activeIndexRef.current !== -1 && index !== activeIndexRef.current) {
-      setDirection(index > activeIndexRef.current ? 'rtl' : 'ltr')
-    }
-    activeIndexRef.current = index
-    setActiveMenu(menu)
-  }, [])
 
   const closeDesktopMenu = useCallback(() => {
     if (leaveTimerRef.current) {
       clearTimeout(leaveTimerRef.current)
     }
-    setActiveMenu(null)
     activeIndexRef.current = -1
+    setActiveMenu(null)
   }, [])
 
-  const scheduleClose = useCallback(() => {
+  const openMenu = useCallback((menu: NavMenu, index: number) => {
     if (leaveTimerRef.current) {
       clearTimeout(leaveTimerRef.current)
     }
-    leaveTimerRef.current = setTimeout(() => {
-      closeDesktopMenu()
-    }, 120)
-  }, [closeDesktopMenu])
+    if (activeIndexRef.current !== -1 && activeIndexRef.current !== index) {
+      setDirection(index > activeIndexRef.current ? 'rtl' : 'ltr')
+    }
+    activeIndexRef.current = index
+    setActiveMenu(menu)
+  }, [])
 
   const cancelClose = useCallback(() => {
     if (leaveTimerRef.current) {
@@ -222,99 +116,14 @@ export function Header() {
     }
   }, [])
 
+  const scheduleClose = useCallback(() => {
+    cancelClose()
+    leaveTimerRef.current = setTimeout(closeDesktopMenu, 120)
+  }, [cancelClose, closeDesktopMenu])
+
   const closeMobileMenu = useCallback(() => {
     setIsMobileMenuOpen(false)
-    setMobileMenu(null)
   }, [])
-
-  const focusFirstDesktopMenuItem = useCallback(() => {
-    const firstItem = megaMenuRef.current?.querySelector<HTMLElement>(
-      '[data-mega-menu-item="true"]',
-    )
-    firstItem?.focus()
-  }, [])
-
-  const focusDesktopItem = useCallback((index: number) => {
-    desktopItemRefs.current[index]?.focus()
-  }, [])
-
-  const moveDesktopFocus = useCallback(
-    (currentIndex: number, step: 1 | -1) => {
-      const total = DESKTOP_NAV_LINKS.length
-      let nextIndex = currentIndex
-
-      for (let count = 0; count < total; count++) {
-        nextIndex = (nextIndex + step + total) % total
-        const nextItem = desktopItemRefs.current[nextIndex]
-        if (!nextItem) {
-          continue
-        }
-
-        nextItem.focus()
-
-        const nextLink = DESKTOP_NAV_LINKS[nextIndex]
-        if (nextLink.menu) {
-          cancelClose()
-          openMenu(nextLink.menu, nextIndex)
-        } else {
-          closeDesktopMenu()
-        }
-        break
-      }
-    },
-    [cancelClose, closeDesktopMenu, openMenu],
-  )
-
-  const handleDesktopItemKeyDown = useCallback(
-    (event: ReactKeyboardEvent<HTMLElement>, link: NavLink, index: number) => {
-      if (event.key === 'ArrowRight') {
-        event.preventDefault()
-        moveDesktopFocus(index, 1)
-        return
-      }
-
-      if (event.key === 'ArrowLeft') {
-        event.preventDefault()
-        moveDesktopFocus(index, -1)
-        return
-      }
-
-      if (event.key === 'Escape') {
-        event.preventDefault()
-        closeDesktopMenu()
-        focusDesktopItem(index)
-        return
-      }
-
-      if (!link.menu) {
-        return
-      }
-
-      if (event.key === 'ArrowDown' || event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault()
-        cancelClose()
-        openMenu(link.menu, index)
-        requestAnimationFrame(() => {
-          focusFirstDesktopMenuItem()
-        })
-        return
-      }
-
-      if (event.key === 'Tab' && !event.shiftKey && activeMenu?.id === link.menu.id) {
-        event.preventDefault()
-        focusFirstDesktopMenuItem()
-      }
-    },
-    [
-      activeMenu,
-      cancelClose,
-      closeDesktopMenu,
-      focusDesktopItem,
-      focusFirstDesktopMenuItem,
-      moveDesktopFocus,
-      openMenu,
-    ],
-  )
 
   useEffect(() => {
     if (!isMobileMenuOpen) {
@@ -323,78 +132,38 @@ export function Header() {
 
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
+    previousFocusedElementRef.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null
 
-    return () => {
-      document.body.style.overflow = previousOverflow
-    }
-  }, [isMobileMenuOpen])
-
-  useEffect(
-    () => () => {
-      if (leaveTimerRef.current) {
-        clearTimeout(leaveTimerRef.current)
-      }
-      if (scrollFrameRef.current !== null) {
-        cancelAnimationFrame(scrollFrameRef.current)
-      }
-    },
-    [],
-  )
-
-  useEffect(() => {
-    if (!isMobileMenuOpen) {
-      return
-    }
-
-    const handleKeyDown = (event: globalThis.KeyboardEvent) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         closeMobileMenu()
         return
       }
-
       if (event.key !== 'Tab') {
         return
       }
 
-      const container = shellRef.current
-      if (!container) {
-        return
-      }
-
       const focusableElements = Array.from(
-        container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
-      ).filter((element) => {
-        if (element.getAttribute('aria-hidden') === 'true') {
-          return false
-        }
-        if ('disabled' in element && element.disabled) {
-          return false
-        }
-        return element.offsetParent !== null
-      })
-
-      if (focusableElements.length === 0) {
-        return
-      }
-
+        shellRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR) ?? [],
+      ).filter((element) => element.offsetParent !== null)
       const firstElement = focusableElements[0]
       const lastElement = focusableElements[focusableElements.length - 1]
 
       if (event.shiftKey && document.activeElement === firstElement) {
         event.preventDefault()
-        lastElement.focus()
+        lastElement?.focus()
       } else if (!event.shiftKey && document.activeElement === lastElement) {
         event.preventDefault()
-        firstElement.focus()
+        firstElement?.focus()
       }
     }
 
-    previousFocusedElementRef.current =
-      document.activeElement instanceof HTMLElement ? document.activeElement : null
-
     window.addEventListener('keydown', handleKeyDown)
+    mobileToggleRef.current?.focus()
 
     return () => {
+      document.body.style.overflow = previousOverflow
       window.removeEventListener('keydown', handleKeyDown)
       previousFocusedElementRef.current?.focus()
       previousFocusedElementRef.current = null
@@ -402,60 +171,19 @@ export function Header() {
   }, [closeMobileMenu, isMobileMenuOpen])
 
   useEffect(() => {
-    if (!isMobileMenuOpen) {
-      return
-    }
-
-    const frame = requestAnimationFrame(() => {
-      const focusTarget = mobileMenu ? mobileBackButtonRef.current : mobileToggleRef.current
-      focusTarget?.focus()
-    })
-
-    return () => {
-      cancelAnimationFrame(frame)
-    }
-  }, [isMobileMenuOpen, mobileMenu])
-
-  useEffect(() => {
     const mediaQuery = window.matchMedia('(min-width: 1280px)')
-
     const handleChange = (event: MediaQueryListEvent) => {
       if (event.matches) {
-        setMobileMenu(null)
-        setIsMobileMenuOpen(false)
+        closeMobileMenu()
       }
     }
-
     mediaQuery.addEventListener('change', handleChange)
-
-    return () => {
-      mediaQuery.removeEventListener('change', handleChange)
-    }
-  }, [])
+    return () => mediaQuery.removeEventListener('change', handleChange)
+  }, [closeMobileMenu])
 
   useEffect(() => {
-    if (isMobileMenuOpen || activeMenu) {
-      return
-    }
-
-    const isReferenceStyleSectionInView = () => {
-      const faqSection = document.getElementById('questions')
-      if (!faqSection) return false
-
-      const rect = faqSection.getBoundingClientRect()
-
-      return rect.top <= 96 && rect.bottom >= 96
-    }
-
     const syncHeaderVisibility = () => {
       const currentScrollY = Math.max(window.scrollY, 0)
-
-      if (isReferenceStyleSectionInView()) {
-        setIsHeaderHidden(true)
-        lastScrollYRef.current = currentScrollY
-        return
-      }
-
       const delta = currentScrollY - lastScrollYRef.current
 
       if (currentScrollY < 40) {
@@ -465,53 +193,45 @@ export function Header() {
       } else if (delta < -8) {
         setIsHeaderHidden(false)
       }
-
       lastScrollYRef.current = currentScrollY
     }
-
-    lastScrollYRef.current = window.scrollY
-    syncHeaderVisibility()
 
     const handleScroll = () => {
       if (scrollFrameRef.current !== null) {
         return
       }
-
       scrollFrameRef.current = requestAnimationFrame(() => {
         syncHeaderVisibility()
         scrollFrameRef.current = null
       })
     }
 
+    lastScrollYRef.current = window.scrollY
+    syncHeaderVisibility()
     window.addEventListener('scroll', handleScroll, { passive: true })
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
       if (scrollFrameRef.current !== null) {
         cancelAnimationFrame(scrollFrameRef.current)
-        scrollFrameRef.current = null
       }
     }
-  }, [activeMenu, isMobileMenuOpen])
-
-  const openMobileMenu = useCallback(() => {
-    cancelClose()
-    closeDesktopMenu()
-    setMobileMenu(null)
-    setIsMobileMenuOpen(true)
-  }, [cancelClose, closeDesktopMenu])
+  }, [])
 
   const isDesktopMenuVisible = !!activeMenu && !isMobileMenuOpen
-  const shouldHideHeader = isHeaderHidden && !isDesktopMenuVisible && !isMobileMenuOpen
 
   return (
-    <header className={cn('mkt-dhh-header', shouldHideHeader && 'mkt-dhh-header-hidden')}>
+    <header
+      className={cn(
+        'mkt-dhh-header',
+        isHeaderHidden && !isDesktopMenuVisible && !isMobileMenuOpen && 'mkt-dhh-header-hidden',
+      )}
+    >
       <div
         className={cn('mkt-dhh-shell', {
-          'mkt-dhh-shell-closed': !(isDesktopMenuVisible || isMobileMenuOpen),
+          'mkt-dhh-shell-closed mkt-dhh-shell-clipped': !isDesktopMenuVisible && !isMobileMenuOpen,
           'mkt-dhh-shell-desktop-open': isDesktopMenuVisible,
           'mkt-dhh-shell-mobile-open': isMobileMenuOpen,
-          'mkt-dhh-shell-clipped': !(isDesktopMenuVisible || isMobileMenuOpen),
         })}
         onMouseEnter={cancelClose}
         onMouseLeave={scheduleClose}
@@ -519,122 +239,69 @@ export function Header() {
       >
         <div className="mkt-dhh-bar">
           <div className="mkt-dhh-brand-slot">
-            {isMobileMenuOpen && mobileMenu ? (
-              <button
-                className="mkt-dhh-back"
-                onClick={() => setMobileMenu(null)}
-                ref={mobileBackButtonRef}
-                type="button"
-              >
-                <ChevronLeft className="size-4.5" strokeWidth={2} />
-                Back
-              </button>
-            ) : (
-              <Logo />
-            )}
+            <Logo />
           </div>
 
-          <nav aria-label="FairLend marketing navigation" className="mkt-dhh-desktop-nav">
-            {DESKTOP_NAV_LINKS.map((link, linkIndex) => {
-              const hasMenu = !!link.menu
-              const isOpen = hasMenu && activeMenu?.id === link.menu!.id
-              const itemClassName = cn(
-                'mkt-dhh-nav-item',
-                link.label === 'Investor Opportunities' && 'mkt-dhh-nav-item-active',
-                isOpen && 'mkt-dhh-nav-item-open',
-              )
+          <nav aria-label="FairLend primary navigation" className="mkt-dhh-desktop-nav">
+            {NAV_LINKS.map((link, index) => {
+              const isOpen = link.menu?.id === activeMenu?.id
 
-              return (
-                <div
-                  className="relative"
+              return link.menu ? (
+                <button
+                  aria-controls="desktop-mega-menu"
+                  aria-expanded={isOpen}
+                  aria-haspopup="menu"
+                  className={cn('mkt-dhh-nav-item', isOpen && 'mkt-dhh-nav-item-open')}
                   key={link.label}
-                  onMouseEnter={() => {
-                    if (hasMenu) {
-                      cancelClose()
-                      openMenu(link.menu!, linkIndex)
-                    } else {
+                  onClick={() => openMenu(link.menu!, index)}
+                  onFocus={() => openMenu(link.menu!, index)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Escape') {
                       closeDesktopMenu()
+                      event.currentTarget.focus()
                     }
                   }}
+                  onMouseEnter={() => openMenu(link.menu!, index)}
+                  type="button"
                 >
-                  {hasMenu ? (
-                    <button
-                      aria-controls="desktop-mega-menu"
-                      aria-expanded={isOpen}
-                      aria-haspopup="menu"
-                      className={itemClassName}
-                      onFocus={() => {
-                        cancelClose()
-                        openMenu(link.menu!, linkIndex)
-                      }}
-                      onMouseEnter={() => {
-                        cancelClose()
-                        openMenu(link.menu!, linkIndex)
-                      }}
-                      onClick={() => {
-                        cancelClose()
-                        openMenu(link.menu!, linkIndex)
-                      }}
-                      onKeyDown={(event) => handleDesktopItemKeyDown(event, link, linkIndex)}
-                      ref={(node) => {
-                        desktopItemRefs.current[linkIndex] = node
-                      }}
-                      type="button"
-                    >
-                      {link.label}
-                      <ChevronIcon open={isOpen} />
-                    </button>
-                  ) : getHeaderBookingSource(link.link) ? (
-                    <FairlendConsultationBookingDialog
-                      className={itemClassName}
-                      leadershipCta={false}
-                      onTriggerClick={closeDesktopMenu}
-                      source={getHeaderBookingSource(link.link)!}
-                    >
-                      {link.label}
-                    </FairlendConsultationBookingDialog>
-                  ) : hasNavigableLink(link.link) ? (
-                    <Link
-                      {...link.link}
-                      className={itemClassName}
-                      onFocus={closeDesktopMenu}
-                      onMouseEnter={closeDesktopMenu}
-                      onKeyDown={(event) => handleDesktopItemKeyDown(event, link, linkIndex)}
-                      ref={(node) => {
-                        desktopItemRefs.current[linkIndex] = node
-                      }}
-                    >
-                      {link.label}
-                    </Link>
-                  ) : (
-                    <button
-                      className={itemClassName}
-                      onFocus={closeDesktopMenu}
-                      onMouseEnter={closeDesktopMenu}
-                      onKeyDown={(event) => handleDesktopItemKeyDown(event, link, linkIndex)}
-                      ref={(node) => {
-                        desktopItemRefs.current[linkIndex] = node
-                      }}
-                      type="button"
-                    >
-                      {link.label}
-                    </button>
-                  )}
-                </div>
-              )
+                  {link.label}
+                  <ChevronDown
+                    aria-hidden="true"
+                    className={cn(
+                      'size-3.5 transition-transform duration-200',
+                      isOpen && 'rotate-180',
+                    )}
+                    strokeWidth={1.8}
+                  />
+                </button>
+              ) : hasNavigableLink(link.link) ? (
+                <Link
+                  {...link.link}
+                  className="mkt-dhh-nav-item"
+                  key={link.label}
+                  onClick={closeDesktopMenu}
+                  onFocus={closeDesktopMenu}
+                  onMouseEnter={closeDesktopMenu}
+                >
+                  {link.label}
+                </Link>
+              ) : null
             })}
           </nav>
 
           <div className="mkt-dhh-actions">
-            <HeaderActions />
+            <HeaderActions onAction={closeDesktopMenu} />
           </div>
 
           <button
             aria-controls="mobile-navigation"
             aria-expanded={isMobileMenuOpen}
-            aria-label={isMobileMenuOpen ? 'Close mobile menu' : 'Open mobile menu'}
+            aria-label={isMobileMenuOpen ? 'Close navigation' : 'Open navigation'}
             className="mkt-dhh-mobile-toggle"
-            onClick={isMobileMenuOpen ? closeMobileMenu : openMobileMenu}
+            onClick={() => {
+              closeDesktopMenu()
+              setIsMobileMenuOpen((open) => !open)
+            }}
             ref={mobileToggleRef}
             type="button"
           >
@@ -645,183 +312,64 @@ export function Header() {
             )}
           </button>
         </div>
+
+        <MegaMenu
+          direction={direction}
+          menu={isDesktopMenuVisible ? activeMenu : null}
+          onEscape={closeDesktopMenu}
+          onMouseEnter={cancelClose}
+          onMouseLeave={scheduleClose}
+          panelRef={megaMenuRef}
+        />
+
         {!isMobileMenuOpen ? (
           <FairlendTalkToExpertCta className="mkt-dhh-hero-consult" eyebrow="Talk" label="Book" />
         ) : null}
 
-        <MegaMenu
-          direction={direction}
-          menu={isMobileMenuOpen ? null : activeMenu}
-          onEscape={() => {
-            const activeIndex = activeIndexRef.current
-            closeDesktopMenu()
-            if (activeIndex >= 0) {
-              focusDesktopItem(activeIndex)
-            }
-          }}
-          onMouseEnter={cancelClose}
-          onMouseLeave={scheduleClose}
-          panelRef={megaMenuRef}
-          onBookingTrigger={closeDesktopMenu}
-        />
-        <AnimatePresence initial={false} mode="wait">
-          {isMobileMenuOpen && (
-            <motion.div
-              animate={{ opacity: 1, y: 0 }}
-              className="mkt-dhh-mobile-panel"
-              exit={{ opacity: 0, y: 12 }}
-              id="mobile-navigation"
-              initial={{ opacity: 0, y: 12 }}
-              key="mobile-navigation"
-              transition={{ duration: 0.24, ease: SHELL_EASE }}
-            >
-              <div className="mkt-dhh-mobile-layout">
-                <div className="mkt-dhh-mobile-scroll">
-                  <AnimatePresence initial={false} mode="wait">
-                    {mobileMenu ? (
-                      <motion.div
-                        animate="center"
-                        className="space-y-0"
-                        exit="exit"
-                        initial="enter"
-                        key={mobileMenu.id}
-                        variants={panelVariants}
-                      >
-                        {mobileMenu.columns.map((column, index) => (
-                          <motion.section
-                            animate="visible"
-                            className={cn(
-                              'mkt-dhh-mobile-section',
-                              index !== 0 && 'mkt-dhh-mobile-section-divided',
-                              column.accent && 'mkt-dhh-mobile-section-accent',
-                            )}
-                            initial="hidden"
-                            key={column.heading}
-                            variants={itemVariants}
+        {isMobileMenuOpen ? (
+          <nav
+            aria-label="FairLend primary navigation"
+            className="mkt-dhh-mobile-panel"
+            id="mobile-navigation"
+          >
+            <div className="mkt-dhh-mobile-scroll">
+              {NAV_LINKS.map((link) =>
+                link.menu ? (
+                  <section className="mkt-dhh-mobile-section" key={link.label}>
+                    <p className="mkt-dhh-mobile-heading">{link.label}</p>
+                    <div className="mkt-dhh-mobile-link-list">
+                      {link.menu.columns.flatMap((column) =>
+                        column.items.map((item) => (
+                          <Link
+                            {...item.link}
+                            className="mkt-dhh-mobile-link"
+                            key={item.label}
+                            onClick={closeMobileMenu}
                           >
-                            <p className="mkt-dhh-mobile-heading">{column.heading}</p>
-                            <motion.div
-                              animate="visible"
-                              className="mkt-dhh-mobile-link-list"
-                              initial="hidden"
-                              variants={listVariants}
-                            >
-                              {column.items.map((item) =>
-                                getHeaderBookingSource(item.link) ? (
-                                  <motion.div key={item.label} variants={itemVariants}>
-                                    <FairlendConsultationBookingDialog
-                                      className="mkt-dhh-mobile-link"
-                                      leadershipCta={false}
-                                      onTriggerClick={closeMobileMenu}
-                                      source={getHeaderBookingSource(item.link)!}
-                                    >
-                                      <span className="mkt-dhh-mobile-link-label">
-                                        {item.label}
-                                      </span>
-                                      {item.description && (
-                                        <span className="mkt-dhh-mobile-link-description">
-                                          {item.description}
-                                        </span>
-                                      )}
-                                    </FairlendConsultationBookingDialog>
-                                  </motion.div>
-                                ) : item.link ? (
-                                  <motion.div key={item.label} variants={itemVariants}>
-                                    <Link
-                                      {...item.link}
-                                      className="mkt-dhh-mobile-link"
-                                      onClick={closeMobileMenu}
-                                    >
-                                      <span className="mkt-dhh-mobile-link-label">
-                                        {item.label}
-                                      </span>
-                                      {item.description && (
-                                        <span className="mkt-dhh-mobile-link-description">
-                                          {item.description}
-                                        </span>
-                                      )}
-                                    </Link>
-                                  </motion.div>
-                                ) : null,
-                              )}
-                            </motion.div>
-                          </motion.section>
-                        ))}
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        animate="center"
-                        exit="exit"
-                        initial="enter"
-                        key="root-mobile-menu"
-                        variants={panelVariants}
-                      >
-                        <motion.div
-                          animate="visible"
-                          className="space-y-0"
-                          initial="hidden"
-                          variants={listVariants}
-                        >
-                          {NAV_LINKS.map((link) => {
-                            const hasMenu = !!link.menu
-
-                            return (
-                              <motion.div
-                                className="mkt-dhh-mobile-root-item"
-                                key={link.label}
-                                variants={itemVariants}
-                              >
-                                {hasMenu ? (
-                                  <button
-                                    className="mkt-dhh-mobile-root-button"
-                                    onClick={() => setMobileMenu(link.menu!)}
-                                    type="button"
-                                  >
-                                    <span>{link.label}</span>
-                                    <span>
-                                      <ArrowRight className="size-4.5" strokeWidth={2} />
-                                    </span>
-                                  </button>
-                                ) : getHeaderBookingSource(link.link) ? (
-                                  <FairlendConsultationBookingDialog
-                                    className="mkt-dhh-mobile-root-link"
-                                    leadershipCta={false}
-                                    onTriggerClick={closeMobileMenu}
-                                    source={getHeaderBookingSource(link.link)!}
-                                  >
-                                    <span>{link.label}</span>
-                                  </FairlendConsultationBookingDialog>
-                                ) : hasNavigableLink(link.link) ? (
-                                  <Link
-                                    {...link.link}
-                                    className="mkt-dhh-mobile-root-link"
-                                    onClick={closeMobileMenu}
-                                  >
-                                    <span>{link.label}</span>
-                                  </Link>
-                                ) : (
-                                  <button className="mkt-dhh-mobile-root-button" type="button">
-                                    <span>{link.label}</span>
-                                  </button>
-                                )}
-                              </motion.div>
-                            )
-                          })}
-                        </motion.div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-
-                <div className="mkt-dhh-mobile-footer">
-                  <div>
-                    <HeaderActions mobile onAction={closeMobileMenu} />
+                            <span className="mkt-dhh-mobile-link-label">{item.label}</span>
+                          </Link>
+                        )),
+                      )}
+                    </div>
+                  </section>
+                ) : hasNavigableLink(link.link) ? (
+                  <div className="mkt-dhh-mobile-root-item" key={link.label}>
+                    <Link
+                      {...link.link}
+                      className="mkt-dhh-mobile-root-link"
+                      onClick={closeMobileMenu}
+                    >
+                      {link.label}
+                    </Link>
                   </div>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                ) : null,
+              )}
+            </div>
+            <div className="mkt-dhh-mobile-footer">
+              <HeaderActions mobile onAction={closeMobileMenu} />
+            </div>
+          </nav>
+        ) : null}
       </div>
     </header>
   )

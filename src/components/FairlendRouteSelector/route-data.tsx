@@ -1,7 +1,5 @@
 import { Handshake, HardHat, House, UsersRound } from 'lucide-react'
 
-import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
-
 import { fairlendRouteSelectorAssets } from './assets'
 import type {
   FairlendRouteChoice,
@@ -39,12 +37,8 @@ export const fairlendRouteChoices = [
       'Construction guidance from planning to completion',
     ],
     steps: ['Plan', 'Build', 'Draw', 'Complete'],
-    ctaLabel: 'Finance my build',
-    href: buildFairlendIntakeHref({
-      intent: 'build',
-      source: 'route-selector-construction-financing',
-    }),
-    learnMoreHref: '/construction-draw-financing',
+    ctaLabel: 'Get Approved',
+    href: '/intake',
     icon: HardHat,
     illustration: fairlendRouteSelectorAssets.constructionBuilding,
     badge: 'Priority',
@@ -61,12 +55,8 @@ export const fairlendRouteChoices = [
       'Local expertise, direct access',
     ],
     steps: ['Apply', 'Review', 'Approve', 'Fund'],
-    ctaLabel: 'Start my mortgage',
-    href: buildFairlendIntakeHref({
-      intent: 'mortgage',
-      source: 'route-selector-private-mortgage',
-    }),
-    learnMoreHref: '/borrowers/private-mortgage-financing',
+    ctaLabel: 'Get Approved',
+    href: '/borrowers/private-mortgage-financing',
     icon: House,
     illustration: fairlendRouteSelectorAssets.privateMortgageHouse,
     badge: 'Popular',
@@ -82,9 +72,8 @@ export const fairlendRouteChoices = [
       'Investor-fit review before opportunities are shared',
     ],
     steps: ['Learn', 'Review', 'Qualify', 'Monitor'],
-    ctaLabel: 'Learn how it works',
-    href: buildFairlendIntakeHref({ intent: 'invest', source: 'route-selector-invest' }),
-    learnMoreHref: '/investing/private-mortgage-lending',
+    ctaLabel: 'Invest With Us',
+    href: '/investing/private-mortgage-lending',
     icon: UsersRound,
     illustration: fairlendRouteSelectorAssets.investorSkyline,
   },
@@ -100,12 +89,8 @@ export const fairlendRouteChoices = [
       'Built for brokers and advisors',
     ],
     steps: ['Connect', 'Refer', 'Fund', 'Grow'],
-    ctaLabel: 'Become a partner',
-    href: buildFairlendIntakeHref({
-      intent: 'partner-apply',
-      source: 'route-selector-partner-program',
-    }),
-    learnMoreHref: '/partners',
+    ctaLabel: 'Partner With Us',
+    href: '/partners',
     icon: Handshake,
     illustration: fairlendRouteSelectorAssets.partnerHandshake,
   },

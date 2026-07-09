@@ -709,7 +709,6 @@ export function FairlendBuildModelSection() {
             <h2 className="bm-headline" id="fairlend-build-model-title">
               Bring us the property. We&apos;ll help build the equation.
             </h2>
-            <BuildModelBoard className="bm-board-wrap--mobile" />
             <p className="bm-lead">
               From <span className="accent">early intent</span> to construction financing and
               takeout strategy, we shape one financeable project — end to end.

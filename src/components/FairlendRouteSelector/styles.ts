@@ -244,7 +244,7 @@ export const fairlendRouteBenefitIconVariants = cva(
 )
 
 export const fairlendRouteCardFooterVariants = cva(
-  'mt-4 grid grid-cols-2 gap-2 border-t border-[color:var(--fl-route-card-divider)] pt-3 max-[420px]:grid-cols-1 max-md:mt-2.5 max-md:pt-3',
+  'mt-4 grid grid-cols-1 border-t border-[color:var(--fl-route-card-divider)] pt-3 max-md:mt-2.5 max-md:pt-3',
 )
 
 export const fairlendRouteArrowBoxVariants = cva(

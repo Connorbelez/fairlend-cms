@@ -4,6 +4,8 @@ import { FairlendServiceSeo } from '@/components/SEO/FairlendRouteSeo'
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 import { buildFairlendMetadata } from '@/utilities/seo'
 
+export const dynamic = 'force-static'
+
 const pageDescription =
   'Check whether the ground, property, permit path, budget, working capital, and rental assumptions can support a garden suite financing review.'
 

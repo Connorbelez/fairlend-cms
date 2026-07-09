@@ -5,13 +5,12 @@ import { Cormorant_Garamond, Inter } from 'next/font/google'
 import React from 'react'
 
 import { AnalyticsProvider } from '@/components/Analytics'
+import { FAIRLEND_LOGO_SRC } from '@/components/Logo/Logo'
 import { JsonLd } from '@/components/SEO/JsonLd'
 import { Footer } from '@/Footer/Component'
 import { Providers } from '@/providers'
-import { defaultTheme, themeCookieName } from '@/providers/Theme/shared'
-import { themeIsValid } from '@/providers/Theme/types'
+import { defaultTheme } from '@/providers/Theme/shared'
 import { Toaster } from '@/components/ui/sonner'
-import { cookies } from 'next/headers'
 
 import './globals.css'
 import { FrontendChrome } from './FrontendChrome.client'
@@ -30,25 +29,20 @@ const cormorantGaramond = Cormorant_Garamond({
   weight: ['400', '500', '600', '700'],
 })
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const cookieStore = await cookies()
-  const themePreference = cookieStore.get(themeCookieName)?.value ?? null
-  const initialTheme = themeIsValid(themePreference) ? themePreference : defaultTheme
-
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       className={cn(inter.variable, cormorantGaramond.variable)}
-      data-theme={initialTheme}
+      data-theme={defaultTheme}
       lang="en"
       suppressHydrationWarning
     >
       <head>
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        <link href={FAIRLEND_LOGO_SRC} rel="icon" type="image/svg+xml" />
       </head>
       <body>
         <JsonLd data={[fairlendOrganizationJsonLd(), fairlendWebsiteJsonLd()]} />
-        <Providers initialTheme={initialTheme}>
+        <Providers initialTheme={defaultTheme}>
           <FrontendChrome footer={<Footer />}>{children}</FrontendChrome>
           <AnalyticsProvider />
           <Toaster richColors />

@@ -152,7 +152,7 @@ export function FairlendBorrowerScenarios(): ReactElement {
                     {String(index + 1).padStart(2, '0')}
                   </span>
                   <span className="borrower-scenarios__signal">
-                    <span className="borrower-scenarios__micro-label">If this sounds like you</span>
+                    <span className="borrower-scenarios__micro-label">Borrower signal</span>
                     <span className="borrower-scenarios__signal-text">{scenario.signal}</span>
                   </span>
                   <span aria-hidden="true" className="borrower-scenarios__icon">
@@ -163,7 +163,7 @@ export function FairlendBorrowerScenarios(): ReactElement {
                     <span className="borrower-scenarios__item-body">{scenario.body}</span>
                   </span>
                   <span className="borrower-scenarios__review-focus">
-                    <span className="borrower-scenarios__micro-label">FairLend checks</span>
+                    <span className="borrower-scenarios__micro-label">Review focus</span>
                     <span className="borrower-scenarios__review-focus-text">{scenario.review}</span>
                   </span>
                   <ArrowUpRight
@@ -190,7 +190,7 @@ export function FairlendBorrowerScenarios(): ReactElement {
               {reviewInputs.map((input) => (
                 <li key={input.label}>
                   <span>{input.code}</span>
-                  {input.label}
+                  <strong>{input.label}</strong>
                 </li>
               ))}
             </ul>

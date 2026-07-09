@@ -18,6 +18,8 @@ import {
 import { FairlendServiceSeo } from '@/components/SEO/FairlendRouteSeo'
 import { buildFairlendMetadata } from '@/utilities/seo'
 
+export const dynamic = 'force-static'
+
 const pageDescription =
   'The FairLend Partner Program helps GTA brokers, agents, architects, planners, engineers, and builders bring financing structure into complex build projects earlier.'
 

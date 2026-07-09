@@ -4,6 +4,8 @@ import { FairlendServiceSeo } from '@/components/SEO/FairlendRouteSeo'
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 import { buildFairlendMetadata } from '@/utilities/seo'
 
+export const dynamic = 'force-static'
+
 const pageDescription =
   'FairLend reviews rental housing projects where affordability, operating resilience, and construction feasibility need to work in the same plan.'
 

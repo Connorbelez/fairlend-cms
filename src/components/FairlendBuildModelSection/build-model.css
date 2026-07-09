@@ -302,6 +302,7 @@
 
 .bm-board-visual {
   display: grid;
+  align-content: start;
   min-height: 0;
   gap: 16px;
   padding-bottom: 82px;
@@ -425,7 +426,9 @@
 .bm-dossier-stack {
   position: relative;
   align-self: stretch;
+  /* Keep the intentional card fan visible, then clear its staggered tail. */
   min-height: clamp(284px, 35vh, 328px);
+  margin-bottom: clamp(16px, 2vw, 24px);
   isolation: isolate;
 }
 

@@ -1,0 +1,27 @@
+{
+  "project": "fairlend-cms",
+  "source_image": "artifacts/visual-assets/pre-facade-construction/source.png",
+  "notes": "Pipeline run for the selected pre-facade residential construction illustration. The source is a generated rough-frame asset used as the reference for a production standalone website asset.",
+  "assets": [
+    {
+      "id": "pre-facade-residential-construction",
+      "label": "Pre-facade residential construction illustration",
+      "classification": "image",
+      "role": "Construction draw financing marketing illustration showing a compact residential build before exterior facade installation.",
+      "bbox": {
+        "x": 0,
+        "y": 0,
+        "width": 1547,
+        "height": 1016
+      },
+      "rationale": "The asset is a complex generated architectural ink-and-graphite construction illustration with irregular linework, shading, framing detail, and site texture. It should remain a raster image rather than a React component.",
+      "generation": {
+        "asset_type": "construction financing website illustration",
+        "output_basename": "pre-facade-residential-construction",
+        "transparent": false,
+        "prompt": "Generate a standalone monochrome architectural construction illustration for a construction draw financing website. Use the reference crop only for composition and subject: a compact narrow residential infill build, roughly three storeys plus lower level, at rough framing and sheathing stage before exterior facade installation. Preserve the warm off-white paper field, refined black ink linework, graphite wash, open framed window bays, temporary stairs, raw sheathing, temporary guardrails, modest lumber stacks, and small residential scale. No final facade materials: no brick, no stone, no siding, no finished windows, no finished entry door, no polished landscaping. Avoid tower cranes, high-rise construction, heavy equipment, workers, cars, UI text, labels, logos, progress timeline elements, watermarks, and collage layouts.",
+        "negative_prompt": "finished facade, brick cladding, stone cladding, siding, final glazing, finished front door, high-rise, crane, excavator, workers, cars, text, watermark, collage"
+      }
+    }
+  ]
+}
