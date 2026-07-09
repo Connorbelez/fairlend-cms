@@ -76,7 +76,7 @@ const financeItems = [
         <br />
         gaps and close fast with our
         <br />
-        72-hour commitment SLA.
+        24-hour target for commitment.
       </>
     ),
     href: buildFairlendIntakeHref({

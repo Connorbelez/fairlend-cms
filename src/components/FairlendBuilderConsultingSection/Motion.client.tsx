@@ -10,57 +10,36 @@ const primaryRowStates = [
   {
     cta: 'SEE THE TIMELINE',
     ctaNote: 'Scroll through the build math',
-    margin: '9.8%',
-    note: 'Single home still profitable',
-    riskLeft: 'LOWER RISK',
-    riskRight: 'PROFITABLE',
+    note: 'Published GTA market benchmarks',
+    riskLeft: 'EST. LOSS',
+    riskRight: 'MIDPOINT COST',
     year: '2019',
   },
   {
     cta: 'RUN MY NUMBERS',
     ctaNote: 'Find the break-even point',
-    margin: '-10.8%',
-    note: 'Single home no longer profitable',
-    riskLeft: 'HIGHER RISK',
-    riskRight: 'NEGATIVE RETURN',
+    note: 'Published GTA market benchmarks',
+    riskLeft: 'EST. LOSS',
+    riskRight: 'MIDPOINT COST',
     year: '2023',
   },
   {
     cta: 'RUN MY NUMBERS',
     ctaNote: "Let's run your version",
-    margin: '-13.1%',
-    note: 'Single family still not profitable',
-    riskLeft: 'HIGHER RISK',
-    riskRight: 'STILL NEGATIVE',
+    note: 'Published GTA market benchmarks',
+    riskLeft: 'EST. LOSS',
+    riskRight: 'MIDPOINT COST',
     year: '2026',
   },
 ] as const
 
-const counterSpecs = {
-  'single-build': {
-    format: (value: number) => `$${Math.round(value)}/ft²`,
-    values: [285, 425, 440],
-  },
-  'single-land': {
-    format: (value: number) => `$${value.toFixed(2)}M`,
-    values: [1.45, 2.45, 2.55],
-  },
-  'single-margin': {
-    format: (value: number) => `${value.toFixed(1)}%`,
-    values: [9.8, -10.8, -13.1],
-  },
-  'single-profit': {
-    format: (value: number) => {
-      const rounded = Math.round(value)
-      return rounded < 0 ? `-$${Math.abs(rounded)}K` : `+$${rounded}K`
-    },
-    values: [380, -412, -520],
-  },
-  'single-sale': {
-    format: (value: number) => `$${value.toFixed(2)}M`,
-    values: [3.65, 3.65, 3.7],
-  },
-} satisfies Record<string, { values: readonly [number, number, number]; format: (value: number) => string }>
+const counterStates = {
+  'single-build': ['$115–215/ft²', '$205–280/ft²', '$150–275/ft²'],
+  'single-land': ['$1.02M', '$1.46M', '$1.36M'],
+  'single-margin': ['-51.0%*', '-48.6%*', '-52.1%*'],
+  'single-profit': ['-$555K*', '-$780K*', '-$744K*'],
+  'single-sale': ['$1.09M', '$1.60M', '$1.43M'],
+} as const satisfies Record<string, readonly [string, string, string]>
 
 function setText(targets: HTMLElement[], value: string) {
   targets.forEach((target) => {
@@ -103,7 +82,9 @@ export function FairlendBuilderConsultingMotion() {
         select('[data-builder-equation-line="single-family"]'),
       )
       const emergingRows = gsap.utils.toArray<HTMLElement>(select('[data-builder-emerging-row]'))
-      const primaryYearLabels = gsap.utils.toArray<HTMLElement>(select('[data-builder-primary-year]'))
+      const primaryYearLabels = gsap.utils.toArray<HTMLElement>(
+        select('[data-builder-primary-year]'),
+      )
       const primaryNotes = gsap.utils.toArray<HTMLElement>(select('[data-builder-primary-note]'))
       const primaryRiskLeft = gsap.utils.toArray<HTMLElement>(
         select('[data-builder-equation-line="single-family"] [data-builder-primary-risk="left"]'),
@@ -197,18 +178,16 @@ export function FairlendBuilderConsultingMotion() {
             .set(fromPanel, { autoAlpha: 0, pointerEvents: 'none' }, at + 0.18)
         }
         if (toPanel) {
-          timeline
-            .set(toPanel, { autoAlpha: 1, pointerEvents: 'auto' }, at + 0.14)
-            .to(
-              toPanel,
-              {
-                clipPath: 'inset(0% 0% 0% 0%)',
-                duration: 0.22,
-                scale: 1,
-                y: 0,
-              },
-              at + 0.16,
-            )
+          timeline.set(toPanel, { autoAlpha: 1, pointerEvents: 'auto' }, at + 0.14).to(
+            toPanel,
+            {
+              clipPath: 'inset(0% 0% 0% 0%)',
+              duration: 0.22,
+              scale: 1,
+              y: 0,
+            },
+            at + 0.16,
+          )
         }
       }
 
@@ -313,14 +292,12 @@ export function FairlendBuilderConsultingMotion() {
         timeline.to(bottomTrack, { duration: 0.24, yPercent: -66.666667 }, 0.64)
       }
 
-      Object.entries(counterSpecs).forEach(([key, spec]) => {
+      Object.entries(counterStates).forEach(([key, values]) => {
         const targets = gsap.utils.toArray<HTMLElement>(select(`[data-builder-counter="${key}"]`))
         if (!targets.length) return
 
-        const counter = { value: spec.values[0] }
-        targets.forEach((target) => {
-          target.textContent = spec.format(spec.values[0])
-        })
+        const counter = { index: 0 }
+        setText(targets, values[0])
 
         timeline
           .to(
@@ -328,11 +305,9 @@ export function FairlendBuilderConsultingMotion() {
             {
               duration: 0.28,
               onUpdate: () => {
-                targets.forEach((target) => {
-                  target.textContent = spec.format(counter.value)
-                })
+                setText(targets, values[Math.round(counter.index)] ?? values[0])
               },
-              value: spec.values[1],
+              index: 1,
             },
             0.22,
           )
@@ -341,11 +316,9 @@ export function FairlendBuilderConsultingMotion() {
             {
               duration: 0.3,
               onUpdate: () => {
-                targets.forEach((target) => {
-                  target.textContent = spec.format(counter.value)
-                })
+                setText(targets, values[Math.round(counter.index)] ?? values[2])
               },
-              value: spec.values[2],
+              index: 2,
             },
             0.58,
           )

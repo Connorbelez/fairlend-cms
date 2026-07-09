@@ -19,6 +19,7 @@ export const FairlendLeads: CollectionConfig = {
       'intent',
       'intakeSummary',
       'intakeAmount',
+      'intakeAdditionalLiens',
       'intakeTimeline',
       'intakeProjectStage',
       'name',
@@ -285,6 +286,20 @@ export const FairlendLeads: CollectionConfig = {
               },
               label: 'Mortgage Balance',
             },
+            {
+              name: 'intakeAdditionalLiens',
+              type: 'text',
+              admin: {
+                readOnly: true,
+                width: '25%',
+              },
+              label: 'Additional Liens',
+            },
+          ],
+        },
+        {
+          type: 'row',
+          fields: [
             {
               name: 'intakeInvestmentFocus',
               type: 'text',

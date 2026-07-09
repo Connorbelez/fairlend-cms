@@ -12,6 +12,8 @@ import { Highlighter } from '@/components/ui/highlighter'
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 import { cn } from '@/utilities/ui'
 
+import { DrawFlowInterestBadge } from './DrawFlowInterestBadge'
+
 const assetBase = '/assets/about-webp/webp'
 
 const overviewAssets = {
@@ -83,7 +85,7 @@ const financeItems = [
   },
   {
     code: '02',
-    copy: 'Short-term capital to bridge gaps and close fast with our 72-hour commitment SLA.',
+    copy: 'Short-term capital to bridge gaps and close fast with our 24-hour target for commitment.',
     href: buildFairlendIntakeHref({
       intent: 'build',
       source: 'landing-overview-bridge-loans',
@@ -93,7 +95,7 @@ const financeItems = [
   },
   {
     code: '03',
-    copy: 'Permit-smart capital backed by GTA contractors and suppliers to finish on budget.',
+    copy: 'Financing and hands-on guidance for renovations, with local contractor and supplier connections to keep the project on track.',
     href: buildFairlendIntakeHref({
       intent: 'build',
       source: 'landing-overview-renovation-financing',
@@ -103,7 +105,7 @@ const financeItems = [
   },
   {
     code: '04',
-    copy: 'Local GTA expertise for 3-20 unit properties, from permits to digital deal-room funding.',
+    copy: 'Financing & Guidance with Local Expertise for 5 unit to multi-tower complexes. From permits to completion to CMHC takeout we handle it all.',
     href: buildFairlendIntakeHref({
       intent: 'build',
       source: 'landing-overview-multiplex-financing',
@@ -123,13 +125,33 @@ const financeItems = [
   },
   {
     code: '06',
-    copy: 'Insured rental-housing capital with streamlined underwriting and phone-ready closing.',
+    copy: 'One-stop financing, planning, and MLI Select guidance—plus access to the partner consultants and professionals needed to prepare for qualification.',
     href: buildFairlendIntakeHref({
       intent: 'invest',
       source: 'landing-overview-mli-select-insured-housing',
     }),
     image: overviewAssets.purposeBuiltRentalsIcon,
     title: 'MLI-Select Insured Housing',
+  },
+  {
+    code: '07',
+    copy: 'Flexible acquisition financing for stabilized rental properties, underwritten around income, asset quality, and closing timelines.',
+    href: buildFairlendIntakeHref({
+      intent: 'mortgage',
+      source: 'landing-overview-acquisition-existing-rental-properties',
+    }),
+    image: overviewAssets.purposeBuiltRentalsIcon,
+    title: 'Acquisition of Existing Rental Properties',
+  },
+  {
+    code: '08',
+    copy: 'Refinance existing rental properties to renew debt, unlock equity, or improve the capital stack without disrupting operations.',
+    href: buildFairlendIntakeHref({
+      intent: 'mortgage',
+      source: 'landing-overview-refinancing-existing-rental-properties',
+    }),
+    image: overviewAssets.residentialMortgagesIcon,
+    title: 'Refinancing of Existing Rental Properties',
   },
 ] as const
 
@@ -141,6 +163,7 @@ const financeGroups = [
   {
     items: financeItems.slice(2),
     label: 'Project and rental programs',
+    withDrawFlowInterestBadge: true,
   },
 ] as const
 
@@ -186,7 +209,7 @@ function ExpertiseCard({
 }) {
   return (
     <article
-      className="grid min-h-0 grid-cols-[44px_minmax(0,1fr)] grid-rows-none items-center gap-x-3 border border-[#08090a]/14 px-4 py-4 text-left md:min-h-[148px] md:grid-cols-none md:grid-rows-[42px_auto_1fr] md:items-start md:gap-x-0 md:border-0 md:border-l md:px-[10px] md:py-[18px] md:first:border-l-0"
+      className="grid min-h-0 grid-cols-[44px_minmax(0,1fr)] grid-rows-none items-center gap-x-3 border border-[#08090a] bg-[#9DFF00] px-4 py-4 text-left shadow-[3px_3px_0_#08090a] transition-transform duration-200 hover:-translate-y-0.5 md:min-h-[148px] md:grid-cols-none md:grid-rows-[42px_auto_1fr] md:items-start md:gap-x-0 md:px-[10px] md:py-[18px]"
       data-overview-expertise-card
     >
       <span
@@ -197,15 +220,13 @@ function ExpertiseCard({
         {withHeart ? (
           <Heart
             aria-hidden="true"
-            className="absolute -top-0.5 -right-2 size-[14px]"
+            className="absolute -top-0.5 -right-2 size-[14px] fill-[#08090a] text-[#08090a]"
             strokeWidth={2.2}
-            style={{ color: electricLime, fill: electricLime }}
           />
         ) : null}
       </span>
       <h3
-        className="m-0 max-w-none text-[15px] leading-[1.03] font-extrabold tracking-[0.01em] uppercase md:max-w-[126px]"
-        style={{ color: electricLime }}
+        className="m-0 max-w-none text-[15px] leading-[1.03] font-extrabold tracking-[0.01em] text-[#08090a] uppercase md:max-w-[126px]"
       >
         {title}
       </h3>
@@ -233,7 +254,7 @@ function FinanceCard({
     <article className="h-full" data-overview-finance-card>
       <Link
         aria-label={`${title} financing details`}
-        className="group relative isolate grid h-full min-h-[172px] grid-cols-[96px_minmax(0,1fr)] gap-[15px] overflow-hidden border border-[#08090a]/16 bg-[#fbfaf7]/72 px-[14px] py-[14px] text-inherit no-underline transition-[border-color,background-color,transform] duration-200 ease-out hover:-translate-y-px hover:border-[#08090a]/34 hover:bg-[#fbfaf7] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#08090a] sm:grid-cols-[106px_minmax(0,1fr)]"
+        className="group relative isolate grid h-full min-h-[204px] grid-cols-[96px_minmax(0,1fr)] gap-[15px] overflow-hidden border border-[#08090a]/16 bg-[#fbfaf7]/72 px-[14px] py-[18px] text-inherit no-underline transition-[border-color,background-color,transform] duration-200 ease-out hover:-translate-y-px hover:border-[#08090a]/34 hover:bg-[#fbfaf7] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#08090a] sm:grid-cols-[106px_minmax(0,1fr)] lg:min-h-[238px] lg:px-[18px] lg:py-[20px]"
         href={href}
       >
         <div aria-hidden="true" className="relative self-center">
@@ -369,7 +390,7 @@ export function FairlendLandingOverviewSection() {
   return (
     <section
       aria-label="FairLend company and finance overview"
-      className="relative isolate overflow-hidden bg-[#fbfaf7] px-5 py-10 text-[#08090a] [font-family:var(--font-inter),Arial,sans-serif] sm:px-8 lg:min-h-[100svh] lg:px-[49px] lg:py-[58px]"
+      className="relative isolate overflow-x-clip bg-[#fbfaf7] px-5 py-10 text-[#08090a] [font-family:var(--font-inter),Arial,sans-serif] sm:px-8 lg:min-h-[100svh] lg:px-[49px] lg:py-[58px]"
       data-fairlend-motion="landing-overview"
       data-testid="fairlend-landing-overview-section"
       id="overview"
@@ -386,7 +407,7 @@ export function FairlendLandingOverviewSection() {
       </div>
       <div className="mx-auto grid w-full max-w-[1672px] gap-12 lg:min-h-[calc(100svh-116px)] lg:grid-cols-2 lg:gap-0 2xl:grid-cols-[minmax(0,1fr)_660px]">
         <div
-          className="relative isolate flex min-h-[760px] min-w-0 flex-col overflow-hidden lg:min-h-[calc(100svh-116px)]"
+          className="relative isolate flex min-h-[760px] min-w-0 flex-col overflow-hidden lg:sticky lg:top-[58px] lg:h-[calc(100svh-116px)] lg:min-h-[calc(100svh-116px)] lg:self-start"
           data-overview-who-panel
         >
           <TorontoIllustration />
@@ -483,7 +504,7 @@ export function FairlendLandingOverviewSection() {
             </div>
           </div>
 
-          <div className="relative z-10 mx-auto mt-[36px] grid w-full max-w-[420px] gap-3 border-t border-[#08090a]/18 bg-[#fbfaf7] md:mx-0 md:mt-[52px] md:max-w-[486px] md:grid-cols-3 md:gap-0">
+          <div className="relative z-10 mx-auto mt-[36px] grid w-full max-w-[420px] gap-3 md:mx-0 md:mt-[52px] md:max-w-[486px] md:grid-cols-3 md:gap-[6px]">
             {expertiseItems.map((item) => (
               <ExpertiseCard key={item.title} {...item} />
             ))}
@@ -533,13 +554,16 @@ export function FairlendLandingOverviewSection() {
           <div className="mt-[22px] grid gap-[15px]">
             {financeGroups.map((group) => (
               <div className="grid gap-[8px]" key={group.label}>
-                <p
-                  className="m-0 grid grid-cols-[auto_1fr] items-center gap-[12px] text-[11px] leading-none font-extrabold tracking-[0.14em] text-[#08090a]/68 uppercase"
-                  data-overview-finance-label
-                >
-                  <span>{group.label}</span>
-                  <span aria-hidden="true" className="h-px bg-[#08090a]/18" />
-                </p>
+                <div className="flex min-w-0 items-center gap-3">
+                  <p
+                    className="m-0 grid min-w-0 flex-1 grid-cols-[auto_minmax(0,1fr)] items-center gap-[12px] text-[11px] leading-none font-extrabold tracking-[0.14em] text-[#08090a]/68 uppercase"
+                    data-overview-finance-label
+                  >
+                    <span>{group.label}</span>
+                    <span aria-hidden="true" className="h-px bg-[#08090a]/18" />
+                  </p>
+                  {group.withDrawFlowInterestBadge ? <DrawFlowInterestBadge /> : null}
+                </div>
                 <div className="grid gap-[14px] sm:grid-cols-2">
                   {group.items.map((item) => (
                     <FinanceCard key={item.code} {...item} />

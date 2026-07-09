@@ -52,6 +52,7 @@ export interface NormalizedLeadPayload {
   formattedAddress: string | null
   id: string
   intake: LeadJsonRecord
+  intakeAdditionalLiens: string | null
   intakeAmount: string | null
   intakeDetail: string | null
   intakeFinancingNeeds: string | null
@@ -83,6 +84,7 @@ export type FairlendLeadAdminData = {
   email: string | null
   formattedAddress: string | null
   intake: LeadJsonRecord
+  intakeAdditionalLiens: string | null
   intakeAmount: string | null
   intakeDetail: string | null
   intakeFinancingNeeds: string | null
@@ -119,6 +121,7 @@ type ExistingFairlendLeadAdminData = Partial<
 
 type DerivedFairlendLeadIntakeDetails = Pick<
   NormalizedLeadPayload,
+  | 'intakeAdditionalLiens'
   | 'intakeAmount'
   | 'intakeDetail'
   | 'intakeFinancingNeeds'
@@ -263,6 +266,7 @@ export function toFairlendLeadAdminData(payload: NormalizedLeadPayload): Fairlen
     email: payload.email,
     formattedAddress: payload.formattedAddress,
     intake: payload.intake,
+    intakeAdditionalLiens: payload.intakeAdditionalLiens,
     intakeAmount: payload.intakeAmount,
     intakeDetail: payload.intakeDetail,
     intakeFinancingNeeds: payload.intakeFinancingNeeds,
@@ -311,6 +315,7 @@ export function mergeFairlendLeadAdminData(
     intake: hasRecordValues(incoming.intake)
       ? incoming.intake
       : (recordOrNull(existing.intake) ?? incoming.intake),
+    intakeAdditionalLiens: incoming.intakeAdditionalLiens ?? existing.intakeAdditionalLiens ?? null,
     intakeAmount: incoming.intakeAmount ?? existing.intakeAmount ?? null,
     intakeDetail: incoming.intakeDetail ?? existing.intakeDetail ?? null,
     intakeFinancingNeeds: incoming.intakeFinancingNeeds ?? existing.intakeFinancingNeeds ?? null,
@@ -367,8 +372,10 @@ export function deriveFairlendLeadIntakeDetails(
   const intakeFinancingNeeds = firstText(intake.financingNeeds, intake.financingNeed)
   const intakePropertyValue = firstText(intake.estimatedValue, intake.propertyValue)
   const intakeMortgageBalance = firstText(intake.mortgageBalance, intake.currentMortgageBalance)
+  const intakeAdditionalLiens = firstText(intake.additionalLiens, intake.additionalLienBalance)
   const intakeInvestmentFocus = firstText(intake.investmentFocus, intake.focus)
   const intakeSummary = buildIntakeSummary({
+    intakeAdditionalLiens,
     intakeAmount,
     intakeDetail,
     intakeFinancingNeeds,
@@ -381,6 +388,7 @@ export function deriveFairlendLeadIntakeDetails(
   })
 
   return {
+    intakeAdditionalLiens,
     intakeAmount,
     intakeDetail,
     intakeFinancingNeeds,
@@ -418,6 +426,7 @@ export async function syncFairlendLeadAdminRecord(payload: NormalizedLeadPayload
       intake,
       intake_type,
       intake_summary,
+      intake_additional_liens,
       intake_amount,
       intake_timeline,
       intake_detail,
@@ -451,6 +460,7 @@ export async function syncFairlendLeadAdminRecord(payload: NormalizedLeadPayload
       ${JSON.stringify(data.intake)}::jsonb,
       ${data.intakeType},
       ${data.intakeSummary},
+      ${data.intakeAdditionalLiens},
       ${data.intakeAmount},
       ${data.intakeTimeline},
       ${data.intakeDetail},
@@ -487,6 +497,7 @@ export async function syncFairlendLeadAdminRecord(payload: NormalizedLeadPayload
       END,
       intake_type = COALESCE(EXCLUDED.intake_type, lead.intake_type),
       intake_summary = COALESCE(EXCLUDED.intake_summary, lead.intake_summary),
+      intake_additional_liens = COALESCE(EXCLUDED.intake_additional_liens, lead.intake_additional_liens),
       intake_amount = COALESCE(EXCLUDED.intake_amount, lead.intake_amount),
       intake_timeline = COALESCE(EXCLUDED.intake_timeline, lead.intake_timeline),
       intake_detail = COALESCE(EXCLUDED.intake_detail, lead.intake_detail),
@@ -616,6 +627,7 @@ async function ensureFairlendLeadAdminSchema(sql: NeonQueryFunction<false, false
       intake jsonb,
       intake_type varchar,
       intake_summary varchar,
+      intake_additional_liens varchar,
       intake_amount varchar,
       intake_timeline varchar,
       intake_detail varchar,
@@ -641,6 +653,7 @@ async function ensureFairlendLeadAdminSchema(sql: NeonQueryFunction<false, false
       ADD COLUMN IF NOT EXISTS admin_notes varchar,
       ADD COLUMN IF NOT EXISTS intake_type varchar,
       ADD COLUMN IF NOT EXISTS intake_summary varchar,
+      ADD COLUMN IF NOT EXISTS intake_additional_liens varchar,
       ADD COLUMN IF NOT EXISTS intake_amount varchar,
       ADD COLUMN IF NOT EXISTS intake_timeline varchar,
       ADD COLUMN IF NOT EXISTS intake_detail varchar,
@@ -783,6 +796,7 @@ function buildIntakeSummary(details: FairlendLeadIntakeSummaryParts): string | n
     labelValue('Financing', details.intakeFinancingNeeds),
     labelValue('Value', details.intakePropertyValue),
     labelValue('Balance', details.intakeMortgageBalance),
+    labelValue('Additional liens', details.intakeAdditionalLiens),
     labelValue('Focus', details.intakeInvestmentFocus),
     labelValue('Notes', details.intakeDetail),
   ].filter(Boolean)

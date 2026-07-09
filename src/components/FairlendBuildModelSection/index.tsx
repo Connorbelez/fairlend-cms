@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import type { ReactNode } from 'react'
 
+import { DrawFlowInterestBadge } from '@/components/FairlendLandingOverviewSection/DrawFlowInterestBadge'
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 
 import { BuildModelMotion } from './BuildModelMotion.client'
@@ -222,10 +223,10 @@ const thesisState = {
 
 const progressItems = [
   { id: introState.id, label: 'Intent' },
+  { id: 'drawflow', label: 'DrawFlow' },
   { id: 'plan', label: 'Plan' },
   { id: 'finance', label: 'Finance' },
   { id: 'support', label: 'Support' },
-  { id: 'drawflow', label: 'DrawFlow' },
   { id: 'takeout', label: 'Takeout' },
 ] as const
 
@@ -409,16 +410,16 @@ function BuildModelBoard({ className }: { className?: string }) {
     >
       <div className="bm-board">
         <div className="bm-board-inner">
+          <div className="bm-board-header">
+            <span aria-hidden="true" className="bm-board-status" data-bm-board-status>
+              {introState.status}
+            </span>
+            <DrawFlowInterestBadge className="bm-board-drawflow-badge" compact />
+            <span aria-hidden="true" className="bm-board-count" data-bm-board-count>
+              {introState.count}
+            </span>
+          </div>
           <div className="bm-board-visual" aria-hidden="true">
-            <div className="bm-board-top">
-              <span className="bm-board-status" data-bm-board-status>
-                {introState.status}
-              </span>
-              <span className="bm-board-count" data-bm-board-count>
-                {introState.count}
-              </span>
-            </div>
-
             <div className="bm-board-title">
               <span className="bm-board-label">Live deal file</span>
               <span className="bm-board-active" data-bm-board-title>
@@ -736,13 +737,11 @@ export function FairlendBuildModelSection() {
             </div>
           </ScrollStep>
 
-          {stations.slice(0, 3).map((station) => (
-            <StationStep key={`bm-step-${station.id}`} station={station} />
-          ))}
-
           <DrawFlowStep />
 
-          <StationStep station={stations[3]} />
+          {stations.map((station) => (
+            <StationStep key={`bm-step-${station.id}`} station={station} />
+          ))}
         </div>
       </div>
 

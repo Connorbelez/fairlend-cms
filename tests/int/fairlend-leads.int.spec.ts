@@ -3,6 +3,7 @@ import { getPayload, type Payload } from 'payload'
 import { afterEach, beforeAll, describe, expect, it } from 'vitest'
 
 import config from '@/payload.config'
+import { FairlendLeads } from '@/collections/FairlendLeads'
 import { persistFairlendCampaignScan } from '@/lib/fairlend-campaign-attribution'
 import {
   deriveFairlendLeadIntakeDetails,
@@ -77,6 +78,7 @@ describe('Fairlend lead normalization', () => {
   it('extracts table-ready details from variable intake payloads', () => {
     const details = deriveFairlendLeadIntakeDetails(
       {
+        additionalLiens: 'No additional liens',
         amount: '$250K-$500K',
         detail: 'Bank declined the file, closing in two weeks.',
         requestedIntent: 'mortgage',
@@ -86,6 +88,7 @@ describe('Fairlend lead normalization', () => {
     )
 
     expect(details).toEqual({
+      intakeAdditionalLiens: 'No additional liens',
       intakeAmount: '$250K-$500K',
       intakeDetail: 'Bank declined the file, closing in two weeks.',
       intakeFinancingNeeds: null,
@@ -94,7 +97,7 @@ describe('Fairlend lead normalization', () => {
       intakeProjectStage: null,
       intakePropertyValue: null,
       intakeSummary:
-        'Type: mortgage | Amount: $250K-$500K | Timeline: Closing in 2 weeks | Notes: Bank declined the file, closing in two weeks.',
+        'Type: mortgage | Amount: $250K-$500K | Timeline: Closing in 2 weeks | Additional liens: No additional liens | Notes: Bank declined the file, closing in two weeks.',
       intakeTimeline: 'Closing in 2 weeks',
       intakeType: 'mortgage',
     })
@@ -129,6 +132,7 @@ describe('Fairlend lead normalization', () => {
       email: 'owner@example.com',
       formattedAddress: '88 Build Lane, Toronto, ON, Canada',
       intake: { projectStage: 'Permits submitted' },
+      intakeAdditionalLiens: null,
       intakeAmount: null,
       intakeDetail: null,
       intakeFinancingNeeds: null,
@@ -150,6 +154,10 @@ describe('Fairlend lead normalization', () => {
       status: 'submitted',
       workflowStatus: 'new',
     })
+  })
+
+  it('exposes additional liens in the Payload admin table columns', () => {
+    expect(FairlendLeads.admin?.defaultColumns).toContain('intakeAdditionalLiens')
   })
 
   it('preserves existing admin contact and JSON data when later drafts omit it', () => {
@@ -259,6 +267,7 @@ dbBackedDescribe('Fairlend lead admin visibility', () => {
       email: 'lead-admin-visibility@example.com',
       id: leadId,
       intake: {
+        additionalLiens: 'No additional liens',
         financingNeeds: ['Construction financing'],
         projectStage: 'Permit ready',
       },
@@ -286,12 +295,15 @@ dbBackedDescribe('Fairlend lead admin visibility', () => {
       address: '101 Admin View Road',
       email: 'lead-admin-visibility@example.com',
       intake: {
+        additionalLiens: 'No additional liens',
         financingNeeds: ['Construction financing'],
         projectStage: 'Permit ready',
       },
+      intakeAdditionalLiens: 'No additional liens',
       intakeFinancingNeeds: 'Construction financing',
       intakeProjectStage: 'Permit ready',
-      intakeSummary: 'Type: build | Stage: Permit ready | Financing: Construction financing',
+      intakeSummary:
+        'Type: build | Stage: Permit ready | Financing: Construction financing | Additional liens: No additional liens',
       intakeType: 'build',
       intent: 'build',
       leadId,
