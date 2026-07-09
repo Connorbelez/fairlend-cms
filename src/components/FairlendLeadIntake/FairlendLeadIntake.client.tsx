@@ -1,6 +1,7 @@
 'use client'
 
 import {
+  ArrowLeft,
   ArrowRight,
   ArrowUpRight,
   BadgeCheck,
@@ -14,9 +15,10 @@ import {
   TimerReset,
   type LucideIcon,
 } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { type FormEvent, useState } from 'react'
+import { type FormEvent, useEffect, useRef, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { GoogleAddressAutocomplete } from '@/components/address/GoogleAddressAutocomplete'
@@ -29,6 +31,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field'
+import { Frame } from '@/components/ui/frame'
 import { Input } from '@/components/ui/input'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import {
@@ -49,16 +52,28 @@ import {
 } from '@/lib/fairlend-intake'
 
 type LeadCaptureState = 'idle' | 'submitting' | 'success' | 'error'
+type MortgageIntakeVariant = 'hero' | 'page'
+
+type FairlendLeadIntakeProps = {
+  intentOverride?: FairlendGenericLeadIntent
+  mortgageVariant?: MortgageIntakeVariant
+  sourceOverride?: string
+}
 
 type LeadCaptureValues = {
   address: string
   amount: string
+  currentMortgage: string
   documentStatus: string
   email: string
+  exitPlan: string
   message: string
   name: string
   phone: string
+  propertyUse: string
+  propertyValue: string
   role: string
+  situation: string
   timeline: string
 }
 
@@ -238,12 +253,7 @@ const investorTypeOptions = [
   'Self-directed (RRSP/TFSA)',
 ] as const
 
-const investorCapitalOptions = [
-  '$50K – $250K',
-  '$250K – $1M',
-  '$1M – $5M',
-  '$5M+',
-] as const
+const investorCapitalOptions = ['$50K – $250K', '$250K – $1M', '$1M – $5M', '$5M+'] as const
 
 const investorTermOptions = ['6–12 months', '12–24 months', 'Open / flexible'] as const
 
@@ -319,31 +329,71 @@ const investorDossierItems: DossierItem[] = [
 
 const reviewRoute = ['Situation', 'Property', 'Timing', 'Next step'] as const
 
+const mortgageSituationOptions = [
+  'Close a property quickly',
+  'A bank or lender said no',
+  'Use equity in my property',
+  'Pay out an existing mortgage',
+  'Something else',
+] as const
+
+const mortgagePropertyUseOptions = ['Primary residence', 'Rental property', 'Other'] as const
+
+const mortgagePropertyValueOptions = ['Under $750K', '$750K-$1.5M', '$1.5M+ / not sure'] as const
+
+const mortgageCurrentBalanceOptions = [
+  'No current mortgage',
+  'Under $250K',
+  '$250K-$750K',
+  '$750K+ / not sure',
+] as const
+
+const mortgageExitPlanOptions = [
+  'Refinance with a bank',
+  'Sell the property',
+  'Repay from other funds',
+  'Not sure yet',
+] as const
+
+const mortgageDraftStorageKey = 'fairlend-private-mortgage-intake-v1'
+const mortgageTotalSteps = 5
+
 const emptyValues: LeadCaptureValues = {
   address: '',
   amount: '',
+  currentMortgage: '',
   documentStatus: '',
   email: '',
+  exitPlan: '',
   message: '',
   name: '',
   phone: '',
+  propertyUse: '',
+  propertyValue: '',
   role: '',
+  situation: '',
   timeline: '',
 }
 
-export function FairlendLeadIntake() {
+export function FairlendLeadIntake({
+  intentOverride,
+  mortgageVariant = 'page',
+  sourceOverride,
+}: FairlendLeadIntakeProps = {}) {
   const searchParams = useSearchParams()
-  const intent = normalizeFairlendIntakeIntent(
-    searchParams.get('intent'),
-  ) as FairlendGenericLeadIntent
+  const intent =
+    intentOverride ??
+    (normalizeFairlendIntakeIntent(searchParams.get('intent')) as FairlendGenericLeadIntent)
   const isMortgageIntent = intent === 'mortgage'
   const isInvestorIntent = intent === 'invest'
   const copy = intakeCopyByIntent[intent] ?? intakeCopyByIntent.contact
-  const source = searchParams.get('source')?.trim() || `intake-${intent}`
+  const source = sourceOverride?.trim() || searchParams.get('source')?.trim() || `intake-${intent}`
   const initialLeadId = searchParams.get('leadId')?.trim() || null
   const [leadId, setLeadId] = useState<string | null>(initialLeadId)
   const [state, setState] = useState<LeadCaptureState>('idle')
   const [errors, setErrors] = useState<LeadCaptureErrors>({})
+  const [mortgageStep, setMortgageStep] = useState(1)
+  const [mortgageDraftHydrated, setMortgageDraftHydrated] = useState(false)
   const [values, setValues] = useState<LeadCaptureValues>(() => ({
     ...emptyValues,
     address: searchParams.get('address')?.trim() ?? '',
@@ -351,6 +401,56 @@ export function FairlendLeadIntake() {
     name: searchParams.get('name')?.trim() ?? '',
     phone: searchParams.get('phone')?.trim() ?? '',
   }))
+
+  useEffect(() => {
+    if (!isMortgageIntent) return
+
+    const hydrateFrame = window.requestAnimationFrame(() => {
+      try {
+        const savedDraft = window.localStorage.getItem(mortgageDraftStorageKey)
+        if (savedDraft) {
+          const parsedDraft = JSON.parse(savedDraft) as {
+            step?: number
+            values?: Partial<LeadCaptureValues>
+          }
+
+          if (parsedDraft.values) {
+            setValues((current) => ({
+              ...current,
+              ...parsedDraft.values,
+              address: current.address || parsedDraft.values?.address || '',
+              email: current.email || parsedDraft.values?.email || '',
+              name: current.name || parsedDraft.values?.name || '',
+              phone: current.phone || parsedDraft.values?.phone || '',
+            }))
+          }
+
+          if (typeof parsedDraft.step === 'number') {
+            setMortgageStep(Math.min(Math.max(parsedDraft.step, 1), mortgageTotalSteps))
+          }
+        }
+      } catch {
+        // Draft storage can be unavailable or contain stale data. The form still works without it.
+      } finally {
+        setMortgageDraftHydrated(true)
+      }
+    })
+
+    return () => window.cancelAnimationFrame(hydrateFrame)
+  }, [isMortgageIntent])
+
+  useEffect(() => {
+    if (!isMortgageIntent || !mortgageDraftHydrated || state === 'success') return
+
+    try {
+      window.localStorage.setItem(
+        mortgageDraftStorageKey,
+        JSON.stringify({ step: mortgageStep, values }),
+      )
+    } catch {
+      // Autosave is progressive enhancement; submission does not depend on it.
+    }
+  }, [isMortgageIntent, mortgageDraftHydrated, mortgageStep, state, values])
   const bookingsUrl = getFairlendMicrosoftBookingsUrl()
   const consultationFollowUpHref = buildFairlendIntakeHref({
     address: values.address,
@@ -391,6 +491,25 @@ export function FairlendLeadIntake() {
     }
   }
 
+  function resetMortgageDraft(): void {
+    setValues({
+      ...emptyValues,
+      address: searchParams.get('address')?.trim() ?? '',
+      email: searchParams.get('email')?.trim() ?? '',
+      name: searchParams.get('name')?.trim() ?? '',
+      phone: searchParams.get('phone')?.trim() ?? '',
+    })
+    setMortgageStep(1)
+    setErrors({})
+    setState('idle')
+
+    try {
+      window.localStorage.removeItem(mortgageDraftStorageKey)
+    } catch {
+      // The form is still reset in memory if storage is unavailable.
+    }
+  }
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault()
 
@@ -412,11 +531,16 @@ export function FairlendLeadIntake() {
           intent,
           intake: {
             amount: values.amount,
+            currentMortgage: values.currentMortgage,
             detail: values.message,
             documentStatus: values.documentStatus,
+            exitPlan: values.exitPlan,
             page: '/intake',
+            propertyUse: values.propertyUse,
+            propertyValue: values.propertyValue,
             requestedIntent: intent,
             role: values.role,
+            situation: values.situation,
             source,
             submittedAt: new Date().toISOString(),
             timeline: values.timeline,
@@ -444,6 +568,13 @@ export function FairlendLeadIntake() {
         step: 'intake_submit',
       })
       setState('success')
+      if (isMortgageIntent) {
+        try {
+          window.localStorage.removeItem(mortgageDraftStorageKey)
+        } catch {
+          // The request is already saved; clearing the local draft is best effort.
+        }
+      }
     } catch (error) {
       console.error('FairLend lead intake failed', error)
       trackLeadFailed({
@@ -453,6 +584,16 @@ export function FairlendLeadIntake() {
       })
       setState('error')
     }
+  }
+
+  if (state === 'success' && isMortgageIntent) {
+    return (
+      <MortgageIntakeSuccess
+        consultationFollowUpHref={consultationFollowUpHref}
+        values={values}
+        variant={mortgageVariant}
+      />
+    )
   }
 
   if (state === 'success') {
@@ -553,6 +694,22 @@ export function FairlendLeadIntake() {
           </Card>
         </section>
       </main>
+    )
+  }
+
+  if (isMortgageIntent) {
+    return (
+      <MortgageIntakeWizard
+        errors={errors}
+        onReset={resetMortgageDraft}
+        onSubmit={handleSubmit}
+        setStep={setMortgageStep}
+        state={state}
+        step={mortgageStep}
+        updateField={updateField}
+        values={values}
+        variant={mortgageVariant}
+      />
     )
   }
 
@@ -876,7 +1033,7 @@ export function FairlendLeadIntake() {
               <p className="fl-intake-privacy-note">
                 FairLend will use this information to review your request, respond, and identify
                 relevant next steps. Submission is not an approval or financing commitment. See our{' '}
-                <a href="/en/brokerage/privacy-policy">Privacy Policy</a>.
+                <Link href="/en/brokerage/privacy-policy">Privacy Policy</Link>.
               </p>
             </CardFooter>
           </form>
@@ -884,6 +1041,661 @@ export function FairlendLeadIntake() {
       </section>
     </main>
   )
+}
+
+function MortgageIntakeSuccess({
+  consultationFollowUpHref,
+  values,
+  variant,
+}: {
+  consultationFollowUpHref: string
+  values: LeadCaptureValues
+  variant: MortgageIntakeVariant
+}) {
+  const successPanel = (
+    <Card
+      className="fl-mortgage-wizard-panel fl-mortgage-success-panel"
+      data-mortgage-variant={variant}
+    >
+      <div className="fl-mortgage-success-content">
+        <div className="fl-mortgage-success-mark" aria-hidden="true">
+          <Check />
+        </div>
+        <p className="fl-mortgage-step-label">Request received</p>
+        <h1 id="fl-mortgage-success-title">Your mortgage file is with FairLend.</h1>
+        <p className="fl-mortgage-success-lede">
+          A specialist can now review the property, amount, timing, and repayment path before the
+          next conversation.
+        </p>
+
+        <ol className="fl-mortgage-success-route" aria-label="What happens next">
+          <li>
+            <span>01</span>
+            <strong>Review the file</strong>
+            <p>FairLend checks the context and identifies the practical financing lane.</p>
+          </li>
+          <li>
+            <span>02</span>
+            <strong>Prepare the options</strong>
+            <p>A specialist organizes the questions and next documents, if any are needed.</p>
+          </li>
+          <li>
+            <span>03</span>
+            <strong>Talk through the next step</strong>
+            <p>You get a clear response without having to repeat the file from the beginning.</p>
+          </li>
+        </ol>
+
+        <div className="fl-mortgage-success-actions">
+          <Button asChild className="fl-mortgage-continue">
+            <Link href={consultationFollowUpHref}>
+              Request a consultation
+              <ArrowRight aria-hidden="true" />
+            </Link>
+          </Button>
+          <Button asChild className="fl-mortgage-back" variant="ghost">
+            <Link href="/">Return home</Link>
+          </Button>
+        </div>
+
+        <p className="fl-mortgage-consent">
+          FairLend will use these details only to review and respond to your request.
+        </p>
+      </div>
+    </Card>
+  )
+
+  if (variant === 'hero') {
+    return (
+      <div className="fl-mortgage-hero-embed fl-mortgage-hero-embed--success">{successPanel}</div>
+    )
+  }
+
+  return (
+    <main className="fl-mortgage-wizard-page fl-mortgage-wizard-page--success">
+      <Frame className="fl-mortgage-wizard-frame">
+        <section aria-labelledby="fl-mortgage-success-title" className="fl-mortgage-wizard-stage">
+          <MortgageFileVisual step={mortgageTotalSteps} values={values} />
+          {successPanel}
+        </section>
+      </Frame>
+    </main>
+  )
+}
+
+function MortgageIntakeWizard({
+  errors,
+  onReset,
+  onSubmit,
+  setStep,
+  state,
+  step,
+  updateField,
+  values,
+  variant,
+}: {
+  errors: LeadCaptureErrors
+  onReset: () => void
+  onSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>
+  setStep: (step: number) => void
+  state: LeadCaptureState
+  step: number
+  updateField: <Key extends keyof LeadCaptureValues>(
+    field: Key,
+    value: LeadCaptureValues[Key],
+  ) => void
+  values: LeadCaptureValues
+  variant: MortgageIntakeVariant
+}) {
+  const [stepError, setStepError] = useState('')
+  const previousStep = useRef(step)
+
+  const stepContent = getMortgageStepContent(step)
+
+  useEffect(() => {
+    if (previousStep.current === step) return
+    previousStep.current = step
+
+    const focusFrame = window.requestAnimationFrame(() => {
+      const wizardPage = document.querySelector(
+        variant === 'hero' ? '.fl-mortgage-hero-embed' : '.fl-mortgage-wizard-page',
+      )
+      const stepTitle = document.getElementById('fl-mortgage-step-title')
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+      wizardPage?.scrollIntoView({
+        behavior: reducedMotion ? 'auto' : 'smooth',
+        block: 'start',
+      })
+      stepTitle?.focus({ preventScroll: true })
+    })
+
+    return () => window.cancelAnimationFrame(focusFrame)
+  }, [step, variant])
+
+  function choose<Key extends keyof LeadCaptureValues>(
+    field: Key,
+    value: LeadCaptureValues[Key],
+  ): void {
+    updateField(field, value)
+    setStepError('')
+  }
+
+  function moveForward(): void {
+    const nextError = validateMortgageStep(step, values)
+    if (nextError) {
+      setStepError(nextError)
+      return
+    }
+
+    setStep(Math.min(step + 1, mortgageTotalSteps))
+    setStepError('')
+  }
+
+  function handleWizardSubmit(event: FormEvent<HTMLFormElement>): void {
+    if (step < mortgageTotalSteps) {
+      event.preventDefault()
+      moveForward()
+      return
+    }
+
+    void onSubmit(event)
+  }
+
+  const RootElement = variant === 'hero' ? 'div' : 'main'
+
+  return (
+    <RootElement
+      className={variant === 'hero' ? 'fl-mortgage-hero-embed' : 'fl-mortgage-wizard-page'}
+      data-step={step}
+    >
+      <Frame className="fl-mortgage-wizard-frame">
+        <section aria-labelledby="fl-mortgage-step-title" className="fl-mortgage-wizard-stage">
+          {variant === 'page' ? (
+            <MortgageFileVisual step={step} values={values} />
+          ) : (
+            <div className="fl-mortgage-hero-filebar" aria-live="polite">
+              <span>Your mortgage file</span>
+              <strong>
+                {step === 1
+                  ? 'Start with the situation'
+                  : `${step - 1} ${step === 2 ? 'section' : 'sections'} complete`}
+              </strong>
+            </div>
+          )}
+
+          <Card className="fl-mortgage-wizard-panel" data-mortgage-variant={variant}>
+            <form className="fl-mortgage-wizard-form" noValidate onSubmit={handleWizardSubmit}>
+              <div className="fl-mortgage-progress" aria-label={`Step ${step} of 5`}>
+                <span>
+                  Step {step} of {mortgageTotalSteps}
+                </span>
+                <span className="fl-mortgage-progress__track" aria-hidden="true">
+                  <i style={{ transform: `scaleX(${step / mortgageTotalSteps})` }} />
+                </span>
+              </div>
+
+              <div className="fl-mortgage-step-copy" key={step}>
+                <p className="fl-mortgage-step-label">{stepContent.label}</p>
+                <h1 id="fl-mortgage-step-title" tabIndex={-1}>
+                  {stepContent.title}
+                </h1>
+                <p>{stepContent.description}</p>
+              </div>
+
+              <div className="fl-mortgage-fields" key={`fields-${step}`}>
+                {step === 1 ? (
+                  <>
+                    <MortgageChoiceGroup
+                      label="What would you like this mortgage to solve?"
+                      onSelect={(value) => choose('situation', value)}
+                      options={mortgageSituationOptions}
+                      selectedValue={values.situation}
+                    />
+                    <Field className="fl-mortgage-field fl-mortgage-situation-context">
+                      <FieldLabel htmlFor="mortgage-situation-context">
+                        Anything useful to add? <span>Optional</span>
+                      </FieldLabel>
+                      <Textarea
+                        className="fl-mortgage-textarea"
+                        id="mortgage-situation-context"
+                        onChange={(event) => choose('message', event.target.value)}
+                        placeholder="A short note about the deadline, decline, payout, or property."
+                        value={values.message}
+                      />
+                    </Field>
+                  </>
+                ) : null}
+
+                {step === 2 ? (
+                  <>
+                    <GoogleAddressAutocomplete
+                      autoComplete="street-address"
+                      className="fl-mortgage-field fl-mortgage-address"
+                      id="mortgage-property-address"
+                      inputClassName="fl-mortgage-input"
+                      label="Property address"
+                      labelClassName="fl-mortgage-field-label"
+                      onChange={(value) => choose('address', value)}
+                      placeholder="Start typing the property address"
+                      value={values.address}
+                    />
+                    <MortgageChoiceGroup
+                      compact
+                      label="How is the property used?"
+                      onSelect={(value) => choose('propertyUse', value)}
+                      options={mortgagePropertyUseOptions}
+                      selectedValue={values.propertyUse}
+                    />
+                    <MortgageChoiceGroup
+                      compact
+                      label="Estimated property value"
+                      onSelect={(value) => choose('propertyValue', value)}
+                      options={mortgagePropertyValueOptions}
+                      selectedValue={values.propertyValue}
+                    />
+                  </>
+                ) : null}
+
+                {step === 3 ? (
+                  <>
+                    <MortgageChoiceGroup
+                      compact
+                      label="How much financing do you need?"
+                      onSelect={(value) => choose('amount', value)}
+                      options={mortgageAmountRangeOptions}
+                      selectedValue={values.amount}
+                    />
+                    <MortgageChoiceGroup
+                      compact
+                      label="Current mortgage balance"
+                      onSelect={(value) => choose('currentMortgage', value)}
+                      options={mortgageCurrentBalanceOptions}
+                      selectedValue={values.currentMortgage}
+                    />
+                  </>
+                ) : null}
+
+                {step === 4 ? (
+                  <>
+                    <MortgageChoiceGroup
+                      compact
+                      label="When do you need an answer?"
+                      onSelect={(value) => choose('timeline', value)}
+                      options={mortgageTimelineOptions}
+                      selectedValue={values.timeline}
+                    />
+                    <MortgageChoiceGroup
+                      compact
+                      label="How do you expect to repay the mortgage?"
+                      onSelect={(value) => choose('exitPlan', value)}
+                      options={mortgageExitPlanOptions}
+                      selectedValue={values.exitPlan}
+                    />
+                  </>
+                ) : null}
+
+                {step === 5 ? (
+                  <>
+                    <div className="fl-mortgage-contact-grid">
+                      <TextField
+                        autoComplete="name"
+                        error={errors.name}
+                        id="mortgage-name"
+                        label="Name"
+                        onChange={(value) => choose('name', value)}
+                        required
+                        value={values.name}
+                      />
+                      <TextField
+                        autoComplete="email"
+                        error={errors.email}
+                        id="mortgage-email"
+                        label="Email"
+                        onChange={(value) => choose('email', value)}
+                        required
+                        type="email"
+                        value={values.email}
+                      />
+                      <TextField
+                        autoComplete="tel"
+                        id="mortgage-phone"
+                        label="Phone"
+                        onChange={(value) => choose('phone', value)}
+                        type="tel"
+                        value={values.phone}
+                      />
+                    </div>
+                    <p className="fl-mortgage-consent">
+                      FairLend will use these details to review your request and respond with
+                      relevant next steps. Submission is not an approval or financing commitment.
+                      See our <Link href="/en/brokerage/privacy-policy">Privacy Policy</Link>.
+                    </p>
+                  </>
+                ) : null}
+              </div>
+
+              {stepError ? (
+                <p className="fl-mortgage-step-error" role="alert">
+                  {stepError}
+                </p>
+              ) : null}
+
+              {state === 'error' ? (
+                <p className="fl-mortgage-step-error" role="alert">
+                  We could not save the request. Check your connection and try again.
+                </p>
+              ) : null}
+
+              <div className="fl-mortgage-wizard-actions">
+                {step > 1 ? (
+                  <Button
+                    className="fl-mortgage-back"
+                    onClick={() => {
+                      setStep(Math.max(step - 1, 1))
+                      setStepError('')
+                    }}
+                    type="button"
+                    variant="ghost"
+                  >
+                    <ArrowLeft aria-hidden="true" />
+                    Back
+                  </Button>
+                ) : (
+                  <span aria-hidden="true" />
+                )}
+
+                <Button
+                  className="fl-mortgage-continue"
+                  disabled={state === 'submitting'}
+                  type={step === mortgageTotalSteps ? 'submit' : 'button'}
+                  onClick={step === mortgageTotalSteps ? undefined : moveForward}
+                >
+                  {state === 'submitting' ? (
+                    <Loader2 aria-hidden="true" className="fl-intake-spinner" />
+                  ) : null}
+                  {state === 'submitting' ? 'Sending your mortgage file' : stepContent.action}
+                  {state !== 'submitting' ? <ArrowRight aria-hidden="true" /> : null}
+                </Button>
+              </div>
+
+              <div className="fl-mortgage-draft-controls">
+                <p className="fl-mortgage-autosave">
+                  <CheckCircle2 aria-hidden="true" />
+                  Saved automatically on this device
+                </p>
+                {step > 1 ? (
+                  <button className="fl-mortgage-start-over" onClick={onReset} type="button">
+                    Start over
+                  </button>
+                ) : null}
+              </div>
+            </form>
+          </Card>
+        </section>
+      </Frame>
+    </RootElement>
+  )
+}
+
+function MortgageChoiceGroup({
+  compact = false,
+  label,
+  onSelect,
+  options,
+  selectedValue,
+}: {
+  compact?: boolean
+  label: string
+  onSelect: (value: string) => void
+  options: readonly string[]
+  selectedValue: string
+}) {
+  return (
+    <fieldset className="fl-mortgage-choice-group">
+      <legend>{label}</legend>
+      <div className={compact ? 'fl-mortgage-options is-compact' : 'fl-mortgage-options'}>
+        {options.map((option) => {
+          const isSelected = selectedValue === option
+
+          return (
+            <button
+              aria-pressed={isSelected}
+              className="fl-mortgage-option"
+              data-selected={isSelected}
+              key={option}
+              onClick={() => onSelect(option)}
+              type="button"
+            >
+              <span className="fl-mortgage-option__radio" aria-hidden="true">
+                {isSelected ? <i /> : null}
+              </span>
+              <span>{option}</span>
+              {isSelected ? (
+                <Check aria-hidden="true" className="fl-mortgage-option__check" />
+              ) : null}
+            </button>
+          )
+        })}
+      </div>
+    </fieldset>
+  )
+}
+
+function MortgageFileVisual({ step, values }: { step: number; values: LeadCaptureValues }) {
+  const stages = [
+    { complete: Boolean(values.situation), label: 'Situation', value: values.situation },
+    {
+      complete: Boolean(values.propertyUse && values.propertyValue),
+      label: 'Property',
+      value: [values.propertyUse, values.propertyValue].filter(Boolean).join(' · '),
+    },
+    {
+      complete: Boolean(values.amount && values.currentMortgage),
+      label: 'Amount',
+      value: values.amount,
+    },
+    {
+      complete: Boolean(values.timeline && values.exitPlan),
+      label: 'Timing',
+      value: values.timeline,
+    },
+    {
+      complete: Boolean(values.name && values.email),
+      label: 'Contact',
+      value: values.name,
+    },
+  ]
+
+  const capturedRows = [
+    { label: 'Situation', value: values.situation },
+    { label: 'Property address', value: values.address },
+    { label: 'Property use', value: values.propertyUse },
+    { label: 'Estimated value', value: values.propertyValue },
+    { label: 'Amount requested', value: values.amount },
+    { label: 'Current mortgage', value: values.currentMortgage },
+    { label: 'Timing', value: values.timeline },
+    { label: 'Expected exit', value: values.exitPlan },
+    { label: 'Applicant', value: values.name },
+  ].filter((row) => row.value)
+  const latestCapturedRow = capturedRows[capturedRows.length - 1]
+
+  return (
+    <aside className="fl-mortgage-file-visual" aria-label="Your mortgage file progress">
+      <header className="fl-mortgage-file-heading">
+        <h2>Your mortgage file</h2>
+        <p>File builds as you answer</p>
+      </header>
+
+      <ol className="fl-mortgage-file-stages">
+        {stages.map((stage, index) => {
+          const stageNumber = index + 1
+          const isActive = stageNumber === step
+
+          return (
+            <li
+              aria-current={isActive ? 'step' : undefined}
+              className={isActive ? 'is-active' : stage.complete ? 'is-complete' : undefined}
+              key={stage.label}
+            >
+              <span className="fl-mortgage-file-stage-mark" aria-hidden="true">
+                {stage.complete ? <Check /> : stageNumber}
+              </span>
+              <span>
+                <strong>{stage.label}</strong>
+                {stage.value ? <small>{stage.value}</small> : null}
+              </span>
+            </li>
+          )
+        })}
+      </ol>
+
+      <div className="fl-mortgage-file-mobile-summary" aria-live="polite">
+        <span>{capturedRows.length} details captured</span>
+        <strong>
+          {latestCapturedRow
+            ? `${latestCapturedRow.label}: ${latestCapturedRow.value}`
+            : 'Your answers will collect here as you continue.'}
+        </strong>
+      </div>
+
+      <div className="fl-mortgage-file-stack" data-step={step}>
+        <span
+          className="fl-mortgage-file-sheet fl-mortgage-file-sheet--back-3"
+          aria-hidden="true"
+        />
+        <span
+          className="fl-mortgage-file-sheet fl-mortgage-file-sheet--back-2"
+          aria-hidden="true"
+        />
+        <span
+          className="fl-mortgage-file-sheet fl-mortgage-file-sheet--back-1"
+          aria-hidden="true"
+        />
+
+        <article
+          className="fl-mortgage-file-sheet fl-mortgage-file-sheet--front"
+          aria-live="polite"
+        >
+          <div className="fl-mortgage-file-sheet__head">
+            <span>Private mortgage review</span>
+            <strong>{String(capturedRows.length).padStart(2, '0')} details captured</strong>
+          </div>
+
+          {capturedRows.length > 0 ? (
+            <dl className="fl-mortgage-file-rows">
+              {capturedRows.map((row) => (
+                <div key={row.label}>
+                  <dt>{row.label}</dt>
+                  <dd>{row.value}</dd>
+                  <Check aria-hidden="true" />
+                </div>
+              ))}
+            </dl>
+          ) : (
+            <p className="fl-mortgage-file-empty">
+              Each answer becomes part of the file a specialist reviews.
+            </p>
+          )}
+
+          <div className="fl-mortgage-file-property-art" data-active={step >= 2}>
+            <Image
+              alt=""
+              aria-hidden="true"
+              fill
+              sizes="(max-width: 820px) 45vw, 30vw"
+              src="/assets/fairlend-build-property-types/single-family-house-engraving.webp"
+            />
+          </div>
+
+          <footer>
+            <span>FairLend</span>
+            <span>Updated automatically</span>
+          </footer>
+        </article>
+
+        <div className="fl-mortgage-file-tabs" aria-hidden="true">
+          {stages.map((stage, index) => (
+            <span
+              className={
+                index + 1 === step ? 'is-active' : stage.complete ? 'is-complete' : undefined
+              }
+              key={stage.label}
+            >
+              {stage.label}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <p className="fl-mortgage-file-note">
+        <ShieldCheck aria-hidden="true" />
+        No documents needed right now.
+      </p>
+    </aside>
+  )
+}
+
+function getMortgageStepContent(step: number): {
+  action: string
+  description: string
+  label: string
+  title: string
+} {
+  const content = [
+    {
+      action: 'Continue to property',
+      description: 'Choose the closest answer. You can add context without writing an essay.',
+      label: 'Situation',
+      title: 'What would you like this mortgage to solve?',
+    },
+    {
+      action: 'Continue to mortgage amount',
+      description: 'Approximate answers are fine. A specialist can confirm the details later.',
+      label: 'Property details',
+      title: 'Tell us about the property.',
+    },
+    {
+      action: 'Continue to timing',
+      description: 'Ranges are enough for this review. Exact statements can come later.',
+      label: 'Mortgage amount',
+      title: 'What does the financing need to cover?',
+    },
+    {
+      action: 'Continue to contact',
+      description: 'Timing and the repayment path help FairLend structure practical options.',
+      label: 'Timing and exit',
+      title: 'When do you need an answer?',
+    },
+    {
+      action: 'Review my mortgage options',
+      description: 'A mortgage specialist will use the file you built to prepare the next step.',
+      label: 'Contact',
+      title: 'Where should FairLend reach you?',
+    },
+  ] as const
+
+  return content[Math.min(Math.max(step, 1), mortgageTotalSteps) - 1]
+}
+
+function validateMortgageStep(step: number, values: LeadCaptureValues): string {
+  if (step === 1 && !values.situation) {
+    return 'Choose the closest reason for the mortgage so we can build the right file.'
+  }
+
+  if (step === 2 && (!values.propertyUse || !values.propertyValue)) {
+    return 'Choose the property use and approximate value. The address can be added later.'
+  }
+
+  if (step === 3 && (!values.amount || !values.currentMortgage)) {
+    return 'Choose an amount range and the closest current mortgage balance.'
+  }
+
+  if (step === 4 && (!values.timeline || !values.exitPlan)) {
+    return 'Choose the timing and the most likely repayment path.'
+  }
+
+  return ''
 }
 
 /**

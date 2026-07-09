@@ -4,7 +4,7 @@
 
 .borrower-faq {
   position: relative;
-  padding: clamp(72px, 8vw, 124px) clamp(24px, 4vw, 56px);
+  padding: clamp(68px, 7.6vw, 116px) clamp(22px, 4vw, 56px);
   background: #fffdf9;
   color: var(--landing-hero-ink, #08090a);
   font-kerning: normal;
@@ -18,74 +18,82 @@
 
 .borrower-faq__header {
   display: grid;
-  grid-template-columns: minmax(210px, 0.36fr) minmax(0, 0.64fr);
-  column-gap: clamp(24px, 5vw, 72px);
-  row-gap: clamp(18px, 2vw, 28px);
+  grid-template-columns: minmax(200px, 0.31fr) minmax(0, 0.69fr);
+  column-gap: clamp(26px, 5vw, 74px);
+  row-gap: clamp(20px, 2.3vw, 32px);
   align-items: start;
-  padding-bottom: clamp(32px, 4vw, 58px);
+  padding-bottom: clamp(34px, 4.4vw, 62px);
   border-bottom: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
 }
 
 .borrower-faq__kicker {
   align-self: start;
-  max-width: 18ch;
-  margin: 10px 0 0;
-  font-family: "Oxanium", var(--font-inter), Arial, sans-serif;
-  font-size: 0.75rem;
+  max-width: 16ch;
+  margin: 12px 0 0;
+  padding-top: 13px;
+  border-top: 1px solid var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
+  font-family: 'Oxanium', var(--font-inter), Arial, sans-serif;
+  font-size: 0.8125rem;
   font-weight: 800;
-  line-height: 1.18;
-  letter-spacing: 0.12em;
+  line-height: 1.08;
+  letter-spacing: 0.075em;
   text-transform: uppercase;
-  color: var(--landing-hero-muted, rgb(60 60 55));
-  text-wrap: balance;
-}
-
-.borrower-faq__title {
-  max-width: 13.8ch;
-  margin: 0;
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(2.75rem, 4.8vw, 4.875rem);
-  font-weight: 500;
-  line-height: 0.96;
-  letter-spacing: -0.028em;
   color: var(--landing-hero-ink, #08090a);
   text-wrap: balance;
 }
 
+.borrower-faq__title {
+  min-width: 0;
+  max-width: 15.5ch;
+  margin: 0;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(2.625rem, 4.35vw, 4.5rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.024em;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
 .borrower-faq__intro {
   grid-column: 2;
-  max-width: 58ch;
+  min-width: 0;
+  max-width: 56ch;
   margin: 0;
   font-family: var(--font-inter), Arial, sans-serif;
-  font-size: 1.0625rem;
-  font-weight: 450;
-  line-height: 1.62;
-  color: var(--landing-hero-muted, rgb(45 45 40));
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  font-weight: 500;
+  line-height: 1.58;
+  color: rgb(32 32 28);
   text-wrap: pretty;
 }
 
 .borrower-faq__content {
   display: grid;
-  grid-template-columns: minmax(230px, 0.32fr) minmax(0, 0.68fr);
-  gap: clamp(30px, 5vw, 78px);
+  grid-template-columns: minmax(236px, 0.3fr) minmax(0, 0.7fr);
+  gap: clamp(30px, 5vw, 80px);
   align-items: start;
-  margin-top: clamp(34px, 5vw, 64px);
+  margin-top: clamp(36px, 4.8vw, 62px);
 }
 
 .borrower-faq__side-note {
   position: sticky;
   top: 112px;
   display: flex;
-  gap: 12px;
+  gap: 14px;
   align-items: flex-start;
-  max-width: 30ch;
-  padding: 18px 0 0;
-  border-top: 1px solid var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
+  max-width: 32ch;
+  min-width: 0;
+  padding: 18px 18px 17px;
+  border: 1px solid var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
+  border-radius: 12px;
+  background: rgb(251 250 245 / 72%);
   font-family: var(--font-inter), Arial, sans-serif;
-  font-size: 0.9375rem;
-  font-weight: 500;
-  line-height: 1.66;
-  color: var(--landing-hero-muted, rgb(42 42 37));
+  font-size: 0.96875rem;
+  font-weight: 600;
+  line-height: 1.56;
+  color: rgb(30 30 26);
   text-wrap: pretty;
 }
 
@@ -100,19 +108,22 @@
 
 .borrower-faq__groups {
   display: grid;
-  gap: clamp(38px, 4.5vw, 60px);
+  min-width: 0;
+  gap: clamp(34px, 4vw, 54px);
 }
 
 .borrower-faq__group-title {
   display: flex;
-  gap: 10px;
-  align-items: baseline;
-  margin: 0 0 14px;
-  font-family: "Oxanium", var(--font-inter), Arial, sans-serif;
-  font-size: 0.8125rem;
+  gap: 9px;
+  align-items: center;
+  margin: 0 0 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+  font-family: 'Oxanium', var(--font-inter), Arial, sans-serif;
+  font-size: 0.765625rem;
   font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: 0.08em;
+  line-height: 1;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--landing-hero-ink, #08090a);
 }
@@ -130,20 +141,23 @@
 }
 
 .borrower-faq__trigger {
-  min-height: 74px;
-  padding: 20px 0;
-  gap: 24px;
+  min-height: 70px;
+  width: 100%;
+  min-width: 0;
+  padding: 19px 0;
+  gap: clamp(16px, 2.2vw, 26px);
   align-items: flex-start;
+  justify-content: space-between;
   text-align: left;
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(1.5rem, 1.75vw, 2rem);
+  font-size: clamp(1.375rem, 1.1rem + 1vw, 1.8125rem);
   font-weight: 500;
-  line-height: 1.08;
-  letter-spacing: -0.014em;
+  line-height: 1.14;
+  letter-spacing: -0.01em;
   color: var(--landing-hero-ink, #08090a);
   text-decoration: none;
-  text-wrap: balance;
-  overflow-wrap: break-word;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
 }
 
 .borrower-faq__trigger:hover {
@@ -151,21 +165,23 @@
 }
 
 .borrower-faq__trigger svg {
-  width: 1.125rem;
-  height: 1.125rem;
-  margin-top: 0.4em;
+  flex: 0 0 auto;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.42em;
   color: var(--landing-hero-lime-ink, #203500);
 }
 
 .borrower-faq__answer {
-  max-width: 66ch;
-  padding: 0 48px 28px 0;
+  max-width: 62ch;
+  padding: 0 clamp(24px, 5vw, 56px) 27px 0;
   font-family: var(--font-inter), Arial, sans-serif;
   font-size: 1rem;
-  font-weight: 430;
-  line-height: 1.72;
-  color: var(--landing-hero-muted, rgb(36 36 32));
+  font-weight: 400;
+  line-height: 1.68;
+  color: rgb(28 28 24);
   text-wrap: pretty;
+  overflow-wrap: break-word;
 }
 
 @media (max-width: 900px) {
@@ -176,51 +192,90 @@
 
   .borrower-faq__intro {
     grid-column: auto;
-    max-width: 64ch;
+    max-width: 62ch;
   }
 
   .borrower-faq__side-note {
     position: relative;
     top: auto;
-    max-width: 62ch;
+    max-width: 58ch;
   }
 }
 
 @media (max-width: 560px) {
+  .borrower-faq {
+    padding: 58px clamp(18px, 5vw, 22px);
+  }
+
   .borrower-faq__header {
-    row-gap: 16px;
+    row-gap: 18px;
+    padding-bottom: 30px;
   }
 
   .borrower-faq__kicker {
     max-width: none;
     margin-top: 0;
+    padding-top: 11px;
+    font-size: 0.75rem;
+    letter-spacing: 0.065em;
   }
 
   .borrower-faq__title {
-    max-width: 12ch;
-    font-size: clamp(2.625rem, 11.5vw, 3.5rem);
-    line-height: 0.98;
-    letter-spacing: -0.024em;
+    max-width: 13.5ch;
+    font-size: clamp(2.375rem, 10.4vw, 3.0625rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
   }
 
-  .borrower-faq__intro,
-  .borrower-faq__answer {
+  .borrower-faq__intro {
     font-size: 1rem;
+    line-height: 1.56;
+  }
+
+  .borrower-faq__content {
+    gap: 28px;
+    margin-top: 30px;
+  }
+
+  .borrower-faq__side-note {
+    max-width: none;
+    padding: 16px;
+    font-size: 0.9375rem;
+    line-height: 1.52;
+  }
+
+  .borrower-faq__groups {
+    gap: 32px;
+  }
+
+  .borrower-faq__group-title {
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 0.734375rem;
+    letter-spacing: 0.055em;
   }
 
   .borrower-faq__trigger {
-    min-height: 64px;
-    gap: 16px;
-    padding: 17px 0;
-    font-size: clamp(1.375rem, 6vw, 1.6875rem);
-    line-height: 1.12;
+    min-height: 62px;
+    gap: 14px;
+    padding: 16px 0;
+    font-size: clamp(1.25rem, 5.25vw, 1.5rem);
+    line-height: 1.16;
     text-wrap: pretty;
+  }
+
+  .borrower-faq__trigger svg {
+    width: 0.9375rem;
+    height: 0.9375rem;
+    margin-top: 0.38em;
   }
 
   .borrower-faq__answer {
     max-width: 100%;
     padding-right: 0;
-    padding-bottom: 24px;
+    padding-bottom: 23px;
+    font-size: 1rem;
+    line-height: 1.64;
   }
 }
 

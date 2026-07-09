@@ -18,21 +18,21 @@
 /* ---- Header ---- */
 .borrower-problem__header {
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1fr);
-  gap: clamp(28px, 5vw, 92px);
+  grid-template-columns: minmax(0, 0.88fr) minmax(340px, 1fr);
+  gap: clamp(30px, 5.4vw, 98px);
   align-items: end;
   max-width: none;
-  margin-bottom: clamp(44px, 5vw, 76px);
+  margin-bottom: clamp(46px, 5.4vw, 82px);
 }
 
 .borrower-problem__title {
   font-family: var(--font-cormorant), Georgia, serif;
   font-weight: 500;
-  font-size: clamp(3rem, 5.15vw, 5.625rem);
-  line-height: 0.94;
-  letter-spacing: -0.035em;
+  font-size: clamp(3rem, 4.72vw, 5.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.028em;
   margin: 0;
-  max-width: 12.5ch;
+  max-width: 13.4ch;
   color: var(--landing-hero-ink, #08090a);
   text-wrap: balance;
 }
@@ -40,11 +40,11 @@
 .borrower-problem__intro {
   font-family: var(--font-inter), Arial, sans-serif;
   font-size: clamp(1rem, 0.95rem + 0.18vw, 1.125rem);
-  line-height: 1.66;
+  line-height: 1.72;
   font-weight: 400;
-  color: rgb(42 42 38);
+  color: rgb(35 35 31);
   margin: 0;
-  max-width: 62ch;
+  max-width: 60ch;
   text-wrap: pretty;
 }
 
@@ -58,22 +58,22 @@
   display: grid;
   grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
   gap: clamp(24px, 4vw, 64px);
-  padding: 18px 0 17px;
+  padding: 19px 0 18px;
   border-bottom: 1px solid rgb(8 9 10 / 20%);
 }
 
 .borrower-problem__col-label {
   font-family: 'Oxanium', var(--font-inter), Arial, sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.765625rem;
   line-height: 1.2;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.105em;
   text-transform: uppercase;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 .borrower-problem__col-label--rushed {
-  color: rgb(93 93 84);
+  color: rgb(70 70 63);
 }
 
 .borrower-problem__col-label--structured {
@@ -104,8 +104,8 @@
   display: grid;
   grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
   column-gap: clamp(24px, 4vw, 64px);
-  row-gap: clamp(10px, 1.2vw, 14px);
-  padding: clamp(24px, 2.55vw, 34px) 0;
+  row-gap: clamp(12px, 1.3vw, 16px);
+  padding: clamp(25px, 2.7vw, 36px) 0;
   border-bottom: 1px solid var(--landing-hero-line-soft, rgb(8 9 10 / 8%));
   align-items: start;
 }
@@ -117,13 +117,13 @@
 .borrower-problem__row-axis {
   grid-column: 1 / -1;
   font-family: 'Oxanium', var(--font-inter), Arial, sans-serif;
-  font-size: 0.6875rem;
-  line-height: 1.2;
+  font-size: 0.75rem;
+  line-height: 1.25;
   font-weight: 700;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.105em;
   text-transform: uppercase;
-  color: rgb(60 60 54);
-  overflow-wrap: anywhere;
+  color: rgb(39 39 35);
+  overflow-wrap: break-word;
 }
 
 .borrower-problem__cell {
@@ -135,10 +135,10 @@
 
 .borrower-problem__cell--structured {
   margin-top: -5px;
-  padding: clamp(14px, 1.45vw, 18px) clamp(15px, 1.7vw, 22px);
-  border: 1px solid rgb(8 9 10 / 16%);
+  padding: clamp(15px, 1.5vw, 19px) clamp(16px, 1.75vw, 23px);
+  border: 1px solid rgb(8 9 10 / 13%);
   border-radius: 12px;
-  background: rgb(255 253 247 / 52%);
+  background: rgb(255 253 247 / 64%);
 }
 
 .borrower-problem__cell-label {
@@ -146,13 +146,13 @@
   align-items: center;
   gap: 10px;
   font-family: 'Oxanium', var(--font-inter), Arial, sans-serif;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   line-height: 1.25;
   font-weight: 700;
-  letter-spacing: 0.11em;
+  letter-spacing: 0.095em;
   text-transform: uppercase;
-  color: rgb(84 84 76);
-  overflow-wrap: anywhere;
+  color: rgb(63 63 56);
+  overflow-wrap: break-word;
 }
 
 .borrower-problem__cell--structured .borrower-problem__cell-label {
@@ -171,31 +171,31 @@
 
 .borrower-problem__cell-body {
   font-family: var(--font-inter), Arial, sans-serif;
-  font-size: clamp(1rem, 0.97rem + 0.12vw, 1.0625rem);
-  line-height: 1.58;
+  font-size: clamp(1rem, 0.985rem + 0.08vw, 1.046875rem);
+  line-height: 1.55;
   font-weight: 500;
-  max-width: 44ch;
+  max-width: 46ch;
   text-wrap: pretty;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 .borrower-problem__cell--rushed .borrower-problem__cell-body {
-  color: rgb(86 86 78);
+  color: rgb(74 74 67);
   font-weight: 450;
 }
 
 .borrower-problem__cell--structured .borrower-problem__cell-body {
   color: var(--landing-hero-ink, #08090a);
-  font-weight: 700;
+  font-weight: 650;
 }
 
 /* ---- Support line ---- */
 .borrower-problem__support {
   font-family: var(--font-cormorant), Georgia, serif;
   font-style: normal;
-  font-size: clamp(1.65rem, 2.6vw, 2.875rem);
-  line-height: 1.08;
-  letter-spacing: -0.025em;
+  font-size: clamp(1.6rem, 2.35vw, 2.625rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
   font-weight: 500;
   color: var(--landing-hero-ink, #08090a);
   margin: clamp(38px, 4vw, 58px) 0 0;
@@ -220,7 +220,7 @@
 
   .borrower-problem__intro {
     margin-top: 0;
-    max-width: 66ch;
+    max-width: 64ch;
   }
 }
 
@@ -242,8 +242,8 @@
 
   .borrower-problem__row {
     grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 26px 0;
+    gap: 15px;
+    padding: 27px 0;
   }
 
   .borrower-problem__cell-label {
@@ -256,7 +256,7 @@
   }
 
   .borrower-problem__cell-body {
-    max-width: 64ch;
+    max-width: 58ch;
   }
 }
 
@@ -266,12 +266,13 @@
   }
 
   .borrower-problem__title {
-    font-size: clamp(2.65rem, 12.2vw, 3.5rem);
-    line-height: 0.98;
-    max-width: 13ch;
+    font-size: clamp(2.45rem, 10.8vw, 3.125rem);
+    line-height: 1.03;
+    max-width: 14ch;
+    letter-spacing: -0.024em;
   }
 
   .borrower-problem__intro {
-    line-height: 1.62;
+    line-height: 1.66;
   }
 }

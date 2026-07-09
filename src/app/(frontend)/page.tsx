@@ -9,6 +9,8 @@ import { FairlendRouteSelector } from '@/components/FairlendRouteSelector'
 import { FairlendScrollChoreography } from '@/components/FairlendScrollChoreography.client'
 import { buildFairlendMetadata } from '@/utilities/seo'
 
+export const dynamic = 'force-static'
+
 export const metadata = buildFairlendMetadata({
   description:
     'FairLend guides Toronto builders, borrowers, and investors through private mortgage, acquisition, construction, and completion financing.',

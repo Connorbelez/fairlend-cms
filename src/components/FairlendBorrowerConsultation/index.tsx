@@ -9,11 +9,11 @@ import './borrower-consultation.css'
 
 const reassuranceBullets: readonly { label: string; detail: string }[] = [
   {
-    label: 'A real mortgage specialist reviews it.',
+    label: 'Reviewed by a real mortgage specialist.',
     detail: 'Credit, income, equity, deadlines, and exit options are considered together.',
   },
   {
-    label: 'Costs before commitment.',
+    label: 'Costs are clear before commitment.',
     detail:
       'Rate, fees, lender conditions, payout terms, and the repayment path are discussed before signing.',
   },
@@ -81,7 +81,7 @@ export function FairlendBorrowerConsultation(): ReactElement {
             />
             <span className="borrower-consultation__phone">
               <Phone aria-hidden="true" size={14} strokeWidth={1.75} />
-              <span>Prefer a call? We will route your request to a specialist.</span>
+              <span>Prefer a call? Your request routes to a mortgage specialist.</span>
             </span>
           </div>
         </div>

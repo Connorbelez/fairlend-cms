@@ -1,7 +1,12 @@
+export type FairlendNavLinkOption = {
+  href: string
+  bookingSource?: string
+}
+
 export type NavItem = {
   label: string
   description?: string
-  link?: FairlendNavLinkOption
+  link: FairlendNavLinkOption
 }
 
 export type NavColumn = {
@@ -23,299 +28,56 @@ export type NavLink = {
 
 export const fairlendNavLinks = {
   home: { href: '/' },
-  about: { href: '/#overview' },
-  affordableHousing: { href: '/#services' },
   backoffice: { href: '/#questions' },
-  cmhcMliSelect: { href: '/#services' },
-  constructionDraws: { href: '/#builder-consulting' },
-  contact: { bookingSource: 'header-nav-contact', href: '#book-consultation' },
-  gardenSuite: { href: '/#services' },
-  investors: { href: '/investing/private-mortgage-lending' },
-  leadership: { href: '/#leadership' },
-  multiplex: { href: '/#services' },
-  partners: { href: '/partners' },
-  press: { href: '/#questions' },
+  intake: { href: '/intake' },
   privateMortgages: { href: '/borrowers/private-mortgage-financing' },
-  resources: { href: '/#questions' },
-  resourceCmhc: { href: '/#services' },
-  resourceDraws: { href: '/#builder-consulting' },
-  resourceFinancingGap: { href: '/#build-model' },
-  resourceGardenSuites: { href: '/#services' },
-  resourceHousingCapital: { href: '/#services' },
-  resourceHousingReturns: { href: '/investing/private-mortgage-lending' },
-  resourceMultiplexCompare: { href: '/#services' },
-  start: { bookingSource: 'header-nav-general-intake', href: '#book-consultation' },
-  startBroker: { href: '/partners' },
-  startBuilder: { href: '/intake' },
-  startGardenSuite: { href: '/intake' },
-  startInvestor: { href: '/intake' },
-  startMedia: { href: '/#questions' },
-  startMultiplex: { href: '/intake' },
+  investing: { href: '/investing/private-mortgage-lending' },
+  partners: { href: '/partners' },
+  startFile: { href: '/intake' },
+  about: { href: '/#overview' },
+  leadership: { href: '/#leadership' },
 } as const
 
-export type FairlendNavLinkOption = (typeof fairlendNavLinks)[keyof typeof fairlendNavLinks]
-
+/** Keep the existing dropdown interaction, with the polished sitemap only. */
 export const NAV_LINKS: NavLink[] = [
   {
-    label: 'Borrowers',
+    label: 'Financing',
     menu: {
-      id: 'borrowers',
+      id: 'financing',
       columns: [
         {
-          heading: 'Financing',
+          heading: 'Financing options',
           items: [
-            {
-              label: 'Multiplex financing',
-              description: 'Capital for 2-6 unit Ontario projects',
-              link: fairlendNavLinks.multiplex,
-            },
-            {
-              label: 'Garden suite financing',
-              description: 'Backyard housing and laneway builds',
-              link: fairlendNavLinks.gardenSuite,
-            },
-            {
-              label: 'Construction draws',
-              description: 'Reimbursement-based draw funding',
-              link: fairlendNavLinks.constructionDraws,
-            },
-            {
-              label: 'Private mortgages',
-              description: 'Clear options for time-sensitive files',
-              link: fairlendNavLinks.privateMortgages,
-            },
-          ],
-        },
-        {
-          heading: 'Programs',
-          items: [
-            {
-              label: 'CMHC MLI Select',
-              description: 'Financing for efficient rental housing',
-              link: fairlendNavLinks.cmhcMliSelect,
-            },
-            {
-              label: 'Affordable rentals',
-              description: 'Sustainable housing capital',
-              link: fairlendNavLinks.affordableHousing,
-            },
-            {
-              label: 'Start a borrower request',
-              description: 'Tell us about the project',
-              link: fairlendNavLinks.startMultiplex,
-            },
-            {
-              label: 'Garden suite intake',
-              description: 'Scope a secondary-suite file',
-              link: fairlendNavLinks.startGardenSuite,
-            },
-          ],
-        },
-        {
-          heading: 'Planning',
-          accent: true,
-          items: [
-            {
-              label: 'Draw planning guide',
-              description: 'How builders protect working capital',
-              link: fairlendNavLinks.resourceDraws,
-            },
-            {
-              label: 'Talk to FairLend',
-              description: 'Get lender-ready before you commit',
-              link: fairlendNavLinks.contact,
-            },
+            { label: 'Construction financing', link: fairlendNavLinks.intake },
+            { label: 'Private mortgages', link: fairlendNavLinks.privateMortgages },
           ],
         },
       ],
     },
   },
   {
-    label: 'Investors',
+    label: 'Investing',
     menu: {
-      id: 'investors',
+      id: 'investing',
       columns: [
         {
-          heading: 'Access',
-          items: [
-            {
-              label: 'Investor overview',
-              description: 'Private mortgage exposure with discipline',
-              link: fairlendNavLinks.investors,
-            },
-            {
-              label: 'Start investor intake',
-              description: 'Share mandate, account type, and timing',
-              link: fairlendNavLinks.startInvestor,
-            },
-            {
-              label: 'Broker introductions',
-              description: 'Bring suitable clients into the FairLend flow',
-              link: fairlendNavLinks.startBroker,
-            },
-          ],
-        },
-        {
-          heading: 'Standards',
-          items: [
-            {
-              label: 'Underwriting discipline',
-              description: 'Asset-backed files, transparent reporting',
-              link: fairlendNavLinks.about,
-            },
-            {
-              label: 'Leadership',
-              description: 'Meet the operating team',
-              link: fairlendNavLinks.leadership,
-            },
-          ],
-        },
-        {
-          heading: 'Signals',
-          items: [
-            {
-              label: 'Press',
-              description: 'Company updates and media contact',
-              link: fairlendNavLinks.press,
-            },
-            {
-              label: 'Resources',
-              description: 'Guides for borrowers and capital partners',
-              link: fairlendNavLinks.resources,
-            },
-          ],
+          heading: 'Private mortgage lending',
+          items: [{ label: 'Invest with FairLend', link: fairlendNavLinks.investing }],
         },
       ],
     },
   },
-  {
-    label: 'Resources',
-    menu: {
-      id: 'resources',
-      columns: [
-        {
-          heading: 'Builder guides',
-          items: [
-            {
-              label: 'Construction draws for small builders',
-              description: 'Plan reimbursement draws without starving cash',
-              link: fairlendNavLinks.resourceDraws,
-            },
-            {
-              label: 'GTA multiplex financing gap',
-              description: 'Where capital stacks get tight',
-              link: fairlendNavLinks.resourceFinancingGap,
-            },
-            {
-              label: 'Multiplex vs garden suite vs laneway',
-              description: 'Compare project paths and financing needs',
-              link: fairlendNavLinks.resourceMultiplexCompare,
-            },
-          ],
-        },
-        {
-          heading: 'Housing programs',
-          items: [
-            {
-              label: 'CMHC MLI Select guide',
-              description: 'Use affordability and efficiency to improve terms',
-              link: fairlendNavLinks.resourceCmhc,
-            },
-            {
-              label: 'Garden suites and family-suitable rentals',
-              description: 'How small sites add useful supply',
-              link: fairlendNavLinks.resourceGardenSuites,
-            },
-            {
-              label: 'Private capital for affordable housing',
-              description: 'Why disciplined capital matters',
-              link: fairlendNavLinks.resourceHousingCapital,
-            },
-          ],
-        },
-        {
-          heading: 'Capital notes',
-          accent: true,
-          items: [
-            {
-              label: 'Sustainable rental housing returns',
-              description: 'Investor return logic for efficient housing',
-              link: fairlendNavLinks.resourceHousingReturns,
-            },
-            {
-              label: 'Resource library',
-              description: 'All FairLend guides',
-              link: fairlendNavLinks.resources,
-            },
-          ],
-        },
-      ],
-    },
-  },
+  { label: 'Partners', link: fairlendNavLinks.partners },
   {
     label: 'Company',
     menu: {
       id: 'company',
       columns: [
         {
-          heading: 'About',
+          heading: 'FairLend',
           items: [
-            {
-              label: 'Marketing home',
-              description: 'FairLend Mortgage landing page',
-              link: fairlendNavLinks.home,
-            },
-            {
-              label: 'About FairLend',
-              description: 'A fairer construction lending model',
-              link: fairlendNavLinks.about,
-            },
-            {
-              label: 'Leadership',
-              description: 'Operators behind the platform',
-              link: fairlendNavLinks.leadership,
-            },
-          ],
-        },
-        {
-          heading: 'Connect',
-          items: [
-            {
-              label: 'Contact',
-              description: 'Reach the capital team',
-              link: fairlendNavLinks.contact,
-            },
-            {
-              label: 'Press',
-              description: 'Media notes and announcements',
-              link: fairlendNavLinks.press,
-            },
-            {
-              label: 'Media inquiry',
-              description: 'Share interview or coverage details',
-              link: fairlendNavLinks.startMedia,
-            },
-          ],
-        },
-        {
-          heading: 'Start',
-          accent: true,
-          items: [
-            {
-              label: 'General intake',
-              description: 'Route your request to the right team',
-              link: fairlendNavLinks.start,
-            },
-            {
-              label: 'Builder intake',
-              description: 'Submit a project for review',
-              link: fairlendNavLinks.startBuilder,
-            },
-            {
-              label: 'Platform sign in',
-              description: 'Open the DrawFlow workspace',
-              link: fairlendNavLinks.backoffice,
-            },
+            { label: 'About', link: fairlendNavLinks.about },
+            { label: 'Leadership', link: fairlendNavLinks.leadership },
           ],
         },
       ],

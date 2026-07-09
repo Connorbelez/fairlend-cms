@@ -1,32 +1,20 @@
 import type { ReactElement } from 'react'
 
-import { ArrowUpRight } from 'lucide-react'
+import { FairlendLeadIntake } from '@/components/FairlendLeadIntake/FairlendLeadIntake.client'
 
-import { FairlendBorrowerCta } from '@/components/FairlendBorrowerCta'
-import { FairlendConsultationBookingDialog } from '@/components/FairlendConsultationBooking/FairlendConsultationBookingDialog.client'
-import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
-
-import { BorrowerDossier } from './BorrowerDossier'
 import {
   borrowerHeroDecisionPoints,
-  borrowerDossierRows,
   borrowerHeroComplianceQualifier,
   borrowerHeroProofPoints,
 } from './dossier-data'
 import './borrower-hero.css'
 
-const borrowerMortgageIntakeHref = buildFairlendIntakeHref({
-  intent: 'mortgage',
-  source: 'borrower-hero-specialist',
-})
-
 /**
  * Section 1 — Hero.
  *
- * Editorial dossier hero: serif H1 thesis on the left, borrower mortgage file
- * on the right, and a rail-to-rail proof strip with a visible compliance
- * qualifier at the bottom. The dossier makes "exit-first underwriting" the
- * page's first visual object instead of a stock-photo promise.
+ * Conversion hero: serif H1 thesis on the left and the live private-mortgage
+ * review on the right. The same intake component powers `/intake`, so answers,
+ * autosave, validation, submission, and success behavior stay identical.
  *
  * Copy locked from the page section breakdown.
  */
@@ -82,27 +70,18 @@ export function FairlendBorrowerHero(): ReactElement {
             ))}
           </ul>
 
-          <div className="borrower-hero__cta-row">
-            <FairlendConsultationBookingDialog
-              className="fairlend-borrower-cta fairlend-borrower-cta--primary fairlend-borrower-cta--lg group inline-flex h-[55px] items-center justify-center gap-[12px] rounded-[9px] bg-[#96ec18] pl-[18px] pr-5 text-[17px] leading-none font-normal text-[#101010] shadow-[0_10px_24px_rgb(118_205_0/12%)] outline-none transition-[background-color,color,transform,box-shadow,border-color] duration-200 hover:-translate-y-0.5 hover:bg-[#a4fb20] hover:shadow-[0_14px_32px_rgb(118_205_0/18%)] focus-visible:ring-2 focus-visible:ring-[#111] focus-visible:ring-offset-4 focus-visible:ring-offset-[#f8f7f5]"
-              leadershipCta={false}
-              source="borrower-hero-consultation"
-            >
-              <span className="fairlend-borrower-cta__label">Book My Free Mortgage Review</span>
-              <span aria-hidden="true" className="fairlend-borrower-cta__arrow-box">
-                <ArrowUpRight className="fairlend-borrower-cta__arrow-icon" strokeWidth={2.25} />
-              </span>
-            </FairlendConsultationBookingDialog>
-            <FairlendBorrowerCta
-              href={borrowerMortgageIntakeHref}
-              label="Start My Review Online"
-              variant="secondary"
-            />
-          </div>
+          <p className="borrower-hero__form-cue">
+            Start with the situation. Approximate answers are enough, and no documents are needed
+            right now.
+          </p>
         </div>
 
-        <div className="borrower-hero__dossier-slot">
-          <BorrowerDossier rows={borrowerDossierRows} />
+        <div className="borrower-hero__form-slot">
+          <FairlendLeadIntake
+            intentOverride="mortgage"
+            mortgageVariant="hero"
+            sourceOverride="borrower-hero-inline-review"
+          />
         </div>
       </div>
 

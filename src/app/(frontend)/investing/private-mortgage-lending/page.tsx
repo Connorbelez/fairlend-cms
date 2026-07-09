@@ -16,6 +16,8 @@ import { FairlendLandingRail } from '@/components/FairlendLandingRail'
 import { FairlendServiceSeo } from '@/components/SEO/FairlendRouteSeo'
 import { buildFairlendMetadata } from '@/utilities/seo'
 
+export const dynamic = 'force-static'
+
 const pageDescription =
   'Access curated private mortgage opportunities through FairLend with conservative underwriting, investor portal visibility, administration, and legal recovery support.'
 

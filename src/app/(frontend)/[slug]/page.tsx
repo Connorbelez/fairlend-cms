@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
-import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 
 import { RenderBlocks } from '@/blocks/RenderBlocks'
@@ -13,7 +12,9 @@ import { generateMeta } from '@/utilities/generateMeta'
 import { buildBreadcrumbJsonLd } from '@/utilities/structuredData'
 import { getPayloadPagePath } from '@/utilities/seo'
 import PageClient from './page.client'
-import { LivePreviewListener } from '@/components/LivePreviewListener'
+
+export const dynamic = 'force-static'
+export const revalidate = 600
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -46,7 +47,6 @@ type Args = {
 }
 
 export default async function Page({ params: paramsPromise }: Args) {
-  const { isEnabled: draft } = await draftMode()
   const { slug = 'home' } = await paramsPromise
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
@@ -66,8 +66,6 @@ export default async function Page({ params: paramsPromise }: Args) {
       <PageClient />
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
-
-      {draft && <LivePreviewListener />}
 
       <JsonLd
         data={buildBreadcrumbJsonLd([
@@ -93,16 +91,14 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 }
 
 const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
-  const { isEnabled: draft } = await draftMode()
-
   const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({
     collection: 'pages',
-    draft,
+    draft: false,
     limit: 1,
     pagination: false,
-    overrideAccess: draft,
+    overrideAccess: false,
     where: {
       slug: {
         equals: slug,

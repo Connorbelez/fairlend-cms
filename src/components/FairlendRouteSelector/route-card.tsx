@@ -86,20 +86,7 @@ export function FairlendRouteCard({
             variant="default"
           >
             <a href={route.href}>
-              <span>Apply now</span>
-              <span className={fairlendRouteArrowBoxVariants({ size: 'card' })}>
-                <ArrowUpRight aria-hidden="true" className="size-[19px]" strokeWidth={2.8} />
-              </span>
-            </a>
-          </Button>
-          <Button
-            asChild
-            className={fairlendRouteCardButtonVariants({ selected: false })}
-            size="clear"
-            variant="outline"
-          >
-            <a href={route.learnMoreHref}>
-              <span>Learn more</span>
+              <span>{route.ctaLabel}</span>
               <span className={fairlendRouteArrowBoxVariants({ size: 'card' })}>
                 <ArrowUpRight aria-hidden="true" className="size-[19px]" strokeWidth={2.8} />
               </span>

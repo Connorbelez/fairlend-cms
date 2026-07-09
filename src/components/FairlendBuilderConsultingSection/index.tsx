@@ -877,7 +877,7 @@ function BuilderConsultingStyles() {
           radial-gradient(circle at 35% 24%, rgb(255 92 52 / 6%), transparent 24rem),
           linear-gradient(180deg, rgb(255 253 247) 0%, rgb(249 243 234) 100%);
         color: var(--builder-forest);
-        font-family: Oxanium, var(--font-inter), ui-sans-serif, sans-serif;
+        font-family: var(--font-inter), ui-sans-serif, sans-serif;
       }
 
       .builder-desktop {
@@ -932,7 +932,7 @@ function BuilderConsultingStyles() {
       .builder-headline {
         margin: clamp(1rem, 1.8vw, 1.45rem) 0 0;
         max-width: 12ch;
-        font-family: "League Gothic", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+        font-family: var(--font-cormorant), Georgia, serif;
         font-size: clamp(4.6rem, 7.55vw, 8.9rem);
         font-weight: 400;
         letter-spacing: 0.01em;
@@ -983,7 +983,7 @@ function BuilderConsultingStyles() {
       .builder-note,
       .builder-state-label span {
         color: var(--builder-blue);
-        font-family: "Bradley Hand", "Comic Sans MS", cursive;
+        font-family: var(--font-inter), ui-sans-serif, sans-serif;
         font-size: clamp(0.88rem, 1vw, 1.08rem);
         font-weight: 700;
         letter-spacing: 0;
@@ -2125,8 +2125,8 @@ function BuilderConsultingStyles() {
         --about-ink: oklch(0.235 0.026 164);
         --about-orange: oklch(0.588 0.151 42.5);
         --about-blueprint: oklch(0.464 0.091 243.7);
-        --about-display: "League Gothic", Impact, "Arial Narrow", sans-serif;
-        --about-mono: "Oxanium", "Arial Narrow", system-ui, sans-serif;
+        --about-display: var(--font-cormorant), Georgia, serif;
+        --about-mono: var(--font-inter), ui-sans-serif, sans-serif;
         --builder-cream: var(--about-paper);
         --builder-paper: var(--about-paper-warm);
         --builder-forest: oklch(0.182 0.045 166);
@@ -2765,7 +2765,7 @@ function BuilderConsultingStyles() {
       .builder-strip-statement h3 {
         margin: 0;
         color: var(--builder-forest);
-        font-family: "DM Serif Display", Georgia, serif;
+        font-family: var(--font-cormorant), Georgia, serif;
         font-size: 1.48rem;
         font-weight: 700;
         line-height: 0.96;
@@ -2775,7 +2775,7 @@ function BuilderConsultingStyles() {
         max-width: 29rem;
         margin: 0.3rem 0 0;
         color: var(--builder-forest);
-        font-family: "DM Serif Display", Georgia, serif;
+        font-family: var(--font-cormorant), Georgia, serif;
         font-size: 0.9rem;
         font-weight: 600;
         line-height: 1.08;
@@ -3376,7 +3376,7 @@ function BuilderConsultingStyles() {
 
         .builder-mobile-equation-board__header span {
           color: var(--builder-blue);
-          font-family: Oxanium, var(--font-inter), ui-sans-serif, sans-serif;
+          font-family: var(--font-inter), ui-sans-serif, sans-serif;
           font-size: 0.72rem;
           font-weight: 900;
           line-height: 1;
@@ -4272,6 +4272,58 @@ function BuilderConsultingStyles() {
         .builder-consulting[data-builder-phone-static='true'] .builder-cta--mobile {
           margin-top: 0.78rem;
         }
+      }
+
+      /* Keep outcome copy inside the card when the equation grid narrows. */
+      .builder-outcome-card {
+        min-width: 0;
+        container-type: inline-size;
+      }
+
+      .builder-outcome-card__body,
+      .builder-outcome-card strong,
+      .builder-outcome-card__body > p:not(.builder-outcome-card__label) {
+        min-width: 0;
+        max-width: 100%;
+      }
+
+      .builder-outcome-card__header,
+      .builder-outcome-card__body {
+        overflow: hidden;
+      }
+
+      .builder-outcome-card:not(.builder-outcome-card--compact) strong {
+        width: 100%;
+        overflow-wrap: anywhere;
+        white-space: normal;
+        font-size: clamp(1.5rem, 20cqw, 3.85rem);
+        letter-spacing: -0.065em;
+      }
+
+      .builder-outcome-card__body > p:not(.builder-outcome-card__label) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        column-gap: 0.25em;
+        line-height: 1.1;
+        text-align: center;
+      }
+
+      .builder-risk-labels {
+        min-width: 0;
+        gap: 0.5rem;
+      }
+
+      .builder-risk-labels > span {
+        min-width: 0;
+        flex: 1 1 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .builder-risk-labels > span:last-child {
+        text-align: right;
       }
 
       @media (prefers-reduced-motion: reduce) {

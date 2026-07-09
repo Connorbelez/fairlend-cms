@@ -6,9 +6,14 @@
   --bp-panel: oklch(0.996 0.003 70 / 0.86);
   --bp-page-bg: oklch(0.929 0.007 235);
   --bp-border: oklch(0.9 0.007 235 / 0.82);
-  --bp-coral: oklch(0.68 0.19 31);
-  --bp-coral-strong: oklch(0.66 0.205 31);
-  --bp-coral-soft: oklch(0.96 0.026 31);
+  /* Project-review green sampled from the approved CTA reference. */
+  --bp-lime: #587b1a;
+  --bp-lime-ink: #374f13;
+  --bp-lime-soft: rgb(88 123 26 / 14%);
+  --bp-lime-cta: linear-gradient(180deg, #77a421 0%, #587b1a 52%, #374f13 100%);
+  --bp-lime-cta-hover: linear-gradient(180deg, #86b72d 0%, #638d1f 52%, #2f4710 100%);
+  --bp-lime-cta-shadow: rgb(55 79 19 / 30%);
+  --bp-danger: oklch(0.52 0.2 31);
   --bp-blueprint-blue: oklch(0.58 0.125 250);
   --bp-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --bp-ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -157,7 +162,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 .bp-mark {
   width: 36px;
   height: 36px;
-  color: var(--bp-coral);
+  color: var(--bp-lime);
   transition:
     transform 220ms var(--bp-ease-out),
     color 220ms var(--bp-ease-out);
@@ -199,7 +204,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   bottom: -7px;
   left: 0;
   height: 1px;
-  background: var(--bp-coral);
+  background: var(--bp-lime);
   content: '';
   opacity: 0;
   transform: scaleX(0.55);
@@ -245,7 +250,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 .bp-upload-button:focus-visible,
 .bp-add-another:focus-visible,
 .bp-address-input:focus-within {
-  outline: 2px solid oklch(0.68 0.19 31 / 0.7);
+  outline: 2px solid oklch(0.68 0.19 128.85 / 0.7);
   outline-offset: 4px;
 }
 
@@ -369,8 +374,8 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 .bp-step-dots .is-active {
   width: 11px;
   height: 11px;
-  background: var(--bp-coral);
-  box-shadow: 0 0 0 4px oklch(0.68 0.19 31 / 0.1);
+  background: var(--bp-lime);
+  box-shadow: 0 0 0 4px oklch(0.68 0.19 128.85 / 0.1);
   animation: bp-dot-pulse 2400ms var(--bp-ease-out) 1200ms infinite;
 }
 
@@ -393,7 +398,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 .bp-copy h1 span + span {
-  color: var(--bp-coral-strong);
+  color: var(--bp-lime-ink);
   animation-delay: 330ms;
 }
 
@@ -464,7 +469,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   place-items: center;
   border: 1px solid oklch(0.91 0.028 35);
   border-radius: 999px;
-  background: var(--bp-coral-soft);
+  background: var(--bp-lime-soft);
   color: oklch(0.48 0.037 35);
 }
 
@@ -505,18 +510,18 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   width: 84px;
   height: 84px;
   place-items: center;
-  border: 1px solid oklch(0.82 0.103 31 / 0.72);
+  border: 1px solid oklch(0.82 0.103 128.85 / 0.72);
   border-radius: 999px;
   background: radial-gradient(
     circle at 50% 48%,
     oklch(0.997 0.003 70) 0 48%,
-    oklch(0.975 0.018 31 / 0.92) 49% 100%
+    oklch(0.975 0.018 128.85 / 0.92) 49% 100%
   );
-  color: var(--bp-coral);
+  color: var(--bp-lime);
   transform: translateX(-50%);
   box-shadow:
-    0 0 0 10px oklch(0.68 0.19 31 / 0.08),
-    0 15px 28px oklch(0.68 0.19 31 / 0.17),
+    0 0 0 10px oklch(0.68 0.19 128.85 / 0.08),
+    0 15px 28px oklch(0.68 0.19 128.85 / 0.17),
     inset 0 1px 0 oklch(1 0.003 70 / 0.95);
   animation:
     bp-orb-enter 720ms var(--bp-ease-expo) 800ms both,
@@ -529,11 +534,11 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 .bp-orb:hover {
-  color: var(--bp-coral-strong);
+  color: var(--bp-lime-ink);
   transform: translateX(-50%) translateY(-2px) scale(1.025);
   box-shadow:
-    0 0 0 13px oklch(0.68 0.19 31 / 0.09),
-    0 18px 34px oklch(0.68 0.19 31 / 0.2),
+    0 0 0 13px oklch(0.68 0.19 128.85 / 0.09),
+    0 18px 34px oklch(0.68 0.19 128.85 / 0.2),
     inset 0 1px 0 oklch(1 0.003 70 / 0.95);
 }
 
@@ -583,10 +588,10 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   position: relative;
   gap: 86px;
   overflow: hidden;
-  background: linear-gradient(180deg, oklch(0.71 0.18 31) 0%, var(--bp-coral-strong) 100%);
+  background: var(--bp-lime-cta);
   color: oklch(0.995 0.004 70);
   box-shadow:
-    0 18px 26px oklch(0.68 0.19 31 / 0.2),
+    0 18px 26px var(--bp-lime-cta-shadow),
     inset 0 1px 0 oklch(1 0.003 70 / 0.24);
   isolation: isolate;
 }
@@ -611,9 +616,9 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 .bp-primary-cta:hover {
-  background: linear-gradient(180deg, oklch(0.73 0.18 31) 0%, oklch(0.67 0.21 31) 100%);
+  background: var(--bp-lime-cta-hover);
   box-shadow:
-    0 22px 34px oklch(0.68 0.19 31 / 0.26),
+    0 22px 34px var(--bp-lime-cta-shadow),
     inset 0 1px 0 oklch(1 0.003 70 / 0.27);
   transform: translateY(-2px);
 }
@@ -633,6 +638,38 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   width: 25px;
   height: 25px;
   transition: transform 180ms var(--bp-ease-out);
+}
+
+.bp-metal-cta-shell {
+  width: 100%;
+  min-width: 0;
+  background: #08090a !important;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 8%),
+    0 14px 28px rgb(8 9 10 / 18%);
+}
+
+.bp-metal-cta-shell:hover {
+  background: #10130d !important;
+}
+
+.bp-primary-cta.bp-metal-cta::after {
+  content: none;
+}
+
+.bp-metal-cta,
+.bp-metal-cta:hover,
+.bp-metal-cta:active {
+  color: #adfa1b !important;
+  transform: none;
+}
+
+.bp-metal-cta svg {
+  color: currentColor;
+}
+
+.bp-metal-cta:focus-visible {
+  outline-color: #adfa1b;
 }
 
 .bp-secondary-cta {
@@ -1040,7 +1077,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 .bp-form-kicker {
   position: relative;
   margin: 28px 0 8px;
-  color: var(--bp-coral);
+  color: var(--bp-lime);
   font-weight: 700;
   font-size: 13px;
   letter-spacing: 0.11em;
@@ -1195,10 +1232,10 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 .bp-address-autocomplete:focus-within input {
-  border-color: oklch(0.69 0.17 31 / 0.72);
+  border-color: oklch(0.69 0.17 128.85 / 0.72);
   box-shadow:
     inset 0 1px 0 oklch(1 0.003 70 / 0.9),
-    0 0 0 3px oklch(0.68 0.19 31 / 0.1);
+    0 0 0 3px oklch(0.68 0.19 128.85 / 0.1);
 }
 
 .bp-address-autocomplete [data-slot='autocomplete-clear'] {
@@ -1275,7 +1312,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 .bp-status-option:hover {
-  border-color: oklch(0.72 0.045 31 / 0.72);
+  border-color: oklch(0.72 0.045 128.85 / 0.72);
   box-shadow:
     0 12px 22px oklch(0.24 0.03 255 / 0.08),
     inset 0 1px 0 oklch(1 0.003 70 / 0.9);
@@ -1283,10 +1320,14 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 .bp-status-option.is-selected {
-  border-color: oklch(0.69 0.17 31 / 0.88);
-  background: linear-gradient(135deg, oklch(0.997 0.003 70 / 0.96), oklch(0.965 0.028 31 / 0.82));
+  border-color: oklch(0.69 0.17 128.85 / 0.88);
+  background: linear-gradient(
+    135deg,
+    oklch(0.997 0.003 70 / 0.96),
+    oklch(0.965 0.028 128.85 / 0.82)
+  );
   box-shadow:
-    0 14px 26px oklch(0.68 0.19 31 / 0.12),
+    0 14px 26px oklch(0.68 0.19 128.85 / 0.12),
     inset 0 1px 0 oklch(1 0.003 70 / 0.9);
   animation: bp-option-confirm 260ms var(--bp-ease-out) both;
 }
@@ -1326,7 +1367,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   height: 22px;
   padding: 5px;
   border-radius: 999px;
-  background: var(--bp-coral);
+  background: var(--bp-lime);
   color: oklch(1 0.003 70);
   animation: bp-check-pop 260ms var(--bp-ease-out) both;
 }
@@ -1343,18 +1384,18 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   align-items: center;
   gap: 12px;
   padding: 12px 14px;
-  border: 1px solid oklch(0.72 0.095 31 / 0.62);
+  border: 1px solid oklch(0.72 0.095 128.85 / 0.62);
   border-radius: 15px;
   background:
-    linear-gradient(135deg, oklch(0.997 0.003 70 / 0.96), oklch(0.963 0.032 31 / 0.84)),
-    repeating-linear-gradient(90deg, transparent 0 17px, oklch(0.68 0.19 31 / 0.045) 17px 18px);
+    linear-gradient(135deg, oklch(0.997 0.003 70 / 0.96), oklch(0.963 0.032 128.85 / 0.84)),
+    repeating-linear-gradient(90deg, transparent 0 17px, oklch(0.68 0.19 128.85 / 0.045) 17px 18px);
   color: var(--bp-ink);
   font: inherit;
   text-align: left;
   letter-spacing: -0.02em;
   list-style: none;
   box-shadow:
-    0 12px 24px oklch(0.68 0.19 31 / 0.1),
+    0 12px 24px oklch(0.68 0.19 128.85 / 0.1),
     inset 0 1px 0 oklch(1 0.003 70 / 0.88);
   cursor: pointer;
   transition:
@@ -1368,9 +1409,9 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 .bp-permit-trigger:hover {
-  border-color: oklch(0.69 0.17 31 / 0.82);
+  border-color: oklch(0.69 0.17 128.85 / 0.82);
   box-shadow:
-    0 16px 28px oklch(0.68 0.19 31 / 0.15),
+    0 16px 28px oklch(0.68 0.19 128.85 / 0.15),
     inset 0 1px 0 oklch(1 0.003 70 / 0.92);
   transform: translateY(-1px);
 }
@@ -1381,10 +1422,10 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   height: 38px;
   align-items: center;
   justify-content: center;
-  border: 1px solid oklch(0.69 0.17 31 / 0.2);
+  border: 1px solid oklch(0.69 0.17 128.85 / 0.2);
   border-radius: 11px;
   background: oklch(1 0.003 70 / 0.64);
-  color: var(--bp-coral);
+  color: var(--bp-lime);
 }
 
 .bp-permit-trigger-icon svg {
@@ -1417,10 +1458,10 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   align-items: center;
   justify-content: center;
   padding: 0 9px;
-  border: 1px solid oklch(0.69 0.17 31 / 0.18);
+  border: 1px solid oklch(0.69 0.17 128.85 / 0.18);
   border-radius: 999px;
   background: oklch(1 0.003 70 / 0.58);
-  color: oklch(0.48 0.14 31);
+  color: oklch(0.48 0.14 128.85);
   font-style: normal;
   font-weight: 800;
   font-size: 10px;
@@ -1489,7 +1530,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   width: 27px;
   height: 27px;
   grid-row: 1 / span 2;
-  color: var(--bp-coral);
+  color: var(--bp-lime);
 }
 
 .bp-permit-upload span,
@@ -1557,13 +1598,13 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   margin-top: 14px;
   border: 0;
   border-radius: 12px;
-  background: linear-gradient(180deg, oklch(0.71 0.18 31) 0%, var(--bp-coral-strong) 100%);
+  background: var(--bp-lime-cta);
   color: oklch(0.995 0.004 70);
   font-weight: 700;
   font-size: 16px;
   letter-spacing: -0.025em;
   box-shadow:
-    0 18px 26px oklch(0.68 0.19 31 / 0.2),
+    0 18px 26px var(--bp-lime-cta-shadow),
     inset 0 1px 0 oklch(1 0.003 70 / 0.24);
   transition:
     box-shadow 180ms var(--bp-ease-out),
@@ -1572,7 +1613,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 
 .bp-form-continue:hover {
   box-shadow:
-    0 22px 34px oklch(0.68 0.19 31 / 0.26),
+    0 22px 34px var(--bp-lime-cta-shadow),
     inset 0 1px 0 oklch(1 0.003 70 / 0.27);
   transform: translateY(-2px);
 }
@@ -1885,11 +1926,11 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   height: 14px;
   border-radius: 999px;
   background:
-    radial-gradient(circle at 35% 28%, oklch(0.93 0.085 31) 0 18%, transparent 20%),
-    linear-gradient(180deg, oklch(0.74 0.19 31), var(--bp-coral-strong));
+    radial-gradient(circle at 35% 28%, rgb(188 216 111 / 88%) 0 18%, transparent 20%),
+    var(--bp-lime-cta);
   box-shadow:
-    0 3px 0 oklch(0.48 0.14 31),
-    0 9px 12px oklch(0.68 0.19 31 / 0.28);
+    0 3px 0 #2f4710,
+    0 9px 12px var(--bp-lime-cta-shadow);
   transform: translateX(-50%);
 }
 
@@ -1961,7 +2002,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   align-items: center;
   gap: 10px;
   margin-top: 10px;
-  color: var(--bp-coral);
+  color: var(--bp-lime);
   font-family: 'Architects Daughter', 'Bradley Hand', cursive;
   font-size: 15px;
   letter-spacing: 0.12em;
@@ -1973,12 +2014,12 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   width: 32px;
   height: 32px;
   padding: 5px;
-  border: 1px solid var(--bp-coral);
+  border: 1px solid var(--bp-lime);
   border-radius: 999px;
 }
 
 .bp-approved-stamp span {
-  border-bottom: 1px solid var(--bp-coral);
+  border-bottom: 1px solid var(--bp-lime);
 }
 
 .bp-marquee-control {
@@ -1992,7 +2033,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   border: 1px solid var(--bp-border);
   border-radius: 999px;
   background: oklch(0.997 0.003 70 / 0.88);
-  color: var(--bp-coral);
+  color: var(--bp-lime);
   box-shadow:
     0 12px 22px oklch(0.2 0.022 255 / 0.13),
     inset 0 1px 0 oklch(1 0.003 70 / 0.9);
@@ -2377,7 +2418,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 
 .bp-submit-error {
   margin: 12px 0 0;
-  color: oklch(0.52 0.2 31);
+  color: var(--bp-danger);
   font-weight: 800;
   font-size: 13px;
   line-height: 1.35;
@@ -2412,7 +2453,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 .bp-chip-option:hover {
-  border-color: oklch(0.72 0.045 31 / 0.72);
+  border-color: oklch(0.72 0.045 128.85 / 0.72);
   box-shadow:
     0 10px 18px oklch(0.24 0.03 255 / 0.075),
     inset 0 1px 0 oklch(1 0.003 70 / 0.9);
@@ -2420,11 +2461,11 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 .bp-chip-option.is-selected {
-  border-color: oklch(0.69 0.17 31 / 0.88);
-  background: oklch(0.955 0.033 31 / 0.9);
-  color: oklch(0.42 0.105 31);
+  border-color: oklch(0.69 0.17 128.85 / 0.88);
+  background: oklch(0.955 0.033 128.85 / 0.9);
+  color: oklch(0.42 0.105 128.85);
   box-shadow:
-    0 10px 20px oklch(0.68 0.19 31 / 0.1),
+    0 10px 20px oklch(0.68 0.19 128.85 / 0.1),
     inset 0 1px 0 oklch(1 0.003 70 / 0.9);
   animation: bp-option-confirm 240ms var(--bp-ease-out) both;
 }
@@ -2462,9 +2503,9 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 .bp-notes-field textarea:focus {
-  border-color: oklch(0.68 0.19 31 / 0.7);
+  border-color: oklch(0.68 0.19 128.85 / 0.7);
   box-shadow:
-    0 0 0 3px oklch(0.68 0.19 31 / 0.09),
+    0 0 0 3px oklch(0.68 0.19 128.85 / 0.09),
     inset 0 1px 0 oklch(1 0.003 70 / 0.82);
 }
 
@@ -2526,10 +2567,10 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   gap: 9px;
   margin-bottom: 18px;
   padding: 9px 13px;
-  border: 1px solid oklch(0.68 0.19 31 / 0.28);
+  border: 1px solid oklch(0.68 0.19 128.85 / 0.28);
   border-radius: 999px;
-  background: oklch(0.955 0.033 31 / 0.78);
-  color: oklch(0.42 0.105 31);
+  background: oklch(0.955 0.033 128.85 / 0.78);
+  color: oklch(0.42 0.105 128.85);
   font-weight: 800;
   font-size: 13px;
   letter-spacing: -0.015em;
@@ -2594,7 +2635,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 
 .bp-upload-button:hover,
 .bp-add-another:hover {
-  border-color: oklch(0.72 0.045 31 / 0.62);
+  border-color: oklch(0.72 0.045 128.85 / 0.62);
   box-shadow:
     0 13px 24px oklch(0.24 0.03 255 / 0.1),
     inset 0 1px 0 oklch(1 0.003 70 / 0.96);
@@ -2767,7 +2808,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 .bp-draw-room-frame::before {
   inset: -22px -18px;
   background:
-    radial-gradient(circle at 12% 22%, oklch(0.83 0.08 31 / 0.055), transparent 18%),
+    radial-gradient(circle at 12% 22%, oklch(0.83 0.08 128.85 / 0.055), transparent 18%),
     radial-gradient(circle at 76% 46%, oklch(0.72 0.09 146 / 0.055), transparent 17%);
   mix-blend-mode: multiply;
 }
@@ -2913,7 +2954,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   width: 82px;
   height: 2px;
   margin-top: 24px;
-  background: var(--bp-coral);
+  background: var(--bp-lime);
   content: '';
 }
 
@@ -3742,7 +3783,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   --squeeze-blue-soft: oklch(0.58 0.075 250 / 0.32);
   --squeeze-navy: oklch(0.18 0.092 253);
   --squeeze-ink: oklch(0.25 0.065 253);
-  --squeeze-red: oklch(0.68 0.19 31);
+  --squeeze-lime: var(--bp-lime);
   --squeeze-green: oklch(0.42 0.105 146);
   position: relative;
   width: min(100%, 1538px);
@@ -3893,8 +3934,8 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   display: inline-block;
   margin: 0 0 20px;
   padding-bottom: 7px;
-  border-bottom: 1px solid var(--squeeze-red);
-  color: var(--squeeze-red);
+  border-bottom: 1px solid var(--squeeze-lime);
+  color: var(--squeeze-lime);
   font-weight: 900;
   font-size: clamp(8px, 1vw, 17px);
   line-height: 1;
@@ -3984,7 +4025,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   width: clamp(8px, 2.35vw, 37px);
   height: clamp(2px, 0.65vw, 10px);
   margin-top: clamp(1px, 0.32vw, 5px);
-  border-top: 2px dashed var(--squeeze-red);
+  border-top: 2px dashed var(--squeeze-lime);
 }
 
 .bp-aligned-legend span {
@@ -4275,7 +4316,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 .bp-squeeze-panel-risk {
-  border-color: oklch(0.68 0.19 31 / 0.3);
+  border-color: oklch(0.68 0.19 128.85 / 0.3);
 }
 
 .bp-squeeze-panel-approved {
@@ -4304,7 +4345,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 
 .bp-squeeze-panel-title h3 {
   margin: 0;
-  color: var(--squeeze-red);
+  color: var(--squeeze-lime);
   font-weight: 900;
   font-size: clamp(8px, 1.02vw, 16px);
   line-height: 1;
@@ -5063,7 +5104,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 
 .bp-persona-card dt {
   margin: 0 0 4px;
-  color: var(--bp-coral-strong);
+  color: var(--bp-lime-ink);
   font-weight: 900;
   font-size: 10px;
   letter-spacing: 0.1em;
@@ -5104,7 +5145,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 .bp-start-copy > span,
 .bp-referral-panel-heading p {
   margin: 0;
-  color: var(--bp-coral-strong);
+  color: var(--bp-lime-ink);
   font-weight: 900;
   font-size: 11px;
   letter-spacing: 0.12em;
@@ -5328,12 +5369,12 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 
 .bp-handoff .bp-handoff-card.is-field {
   background:
-    linear-gradient(145deg, oklch(0.95 0.032 31 / 0.42), transparent 42%),
+    linear-gradient(145deg, oklch(0.95 0.032 128.85 / 0.42), transparent 42%),
     linear-gradient(180deg, oklch(1 0.003 72 / 0.92), oklch(0.97 0.011 82 / 0.84)), var(--bp-paper);
 }
 
 .bp-handoff .bp-handoff-card [class*='uppercase'] {
-  color: var(--bp-coral-strong);
+  color: var(--bp-lime-ink);
   font-weight: 900;
   letter-spacing: 0.16em;
 }
@@ -5390,7 +5431,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 .bp-handoff-map-stall {
   fill: none;
   filter: url('#bp-handoff-rough');
-  stroke: var(--bp-coral-strong);
+  stroke: var(--bp-lime-ink);
   stroke-dasharray: 7 9;
   stroke-linecap: round;
   stroke-width: 2.5;
@@ -6459,7 +6500,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   width: 18px;
   height: 18px;
   margin-top: 1px;
-  color: var(--bp-coral-strong);
+  color: var(--bp-lime-ink);
 }
 
 .bp-referral-note {
@@ -6543,8 +6584,8 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 
 .bp-start-form input:focus,
 .bp-start-form select:focus {
-  border-color: oklch(0.68 0.19 31 / 0.7);
-  box-shadow: 0 0 0 3px oklch(0.68 0.19 31 / 0.09);
+  border-color: oklch(0.68 0.19 128.85 / 0.7);
+  box-shadow: 0 0 0 3px oklch(0.68 0.19 128.85 / 0.09);
 }
 
 .bp-start-form input::placeholder {
@@ -6565,6 +6606,11 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   flex: 0 0 auto;
   border-radius: 9px;
   font-size: 14px;
+}
+
+.bp-start-actions > .bp-metal-cta-shell {
+  width: 210px;
+  flex: 0 0 auto;
 }
 
 .bp-start-actions .bp-primary-cta svg {
@@ -6596,9 +6642,9 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   width: 126px;
   height: 126px;
   place-items: center;
-  border: 2px solid oklch(0.68 0.19 31 / 0.72);
+  border: 2px solid oklch(0.68 0.19 128.85 / 0.72);
   border-radius: 999px;
-  color: var(--bp-coral);
+  color: var(--bp-lime);
   font-family: 'Architects Daughter', 'Bradley Hand', cursive;
   text-align: center;
   text-transform: uppercase;
@@ -6616,7 +6662,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 .bp-real-projects-stamp strong {
-  color: var(--bp-coral-strong);
+  color: var(--bp-lime-ink);
   font-size: 15px;
 }
 
@@ -6696,6 +6742,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
     gap: 10px;
   }
 
+  .bp-referral .bp-start-actions .bp-metal-cta-shell,
   .bp-referral .bp-start-actions .bp-primary-cta,
   .bp-referral .bp-start-call {
     width: 100%;
@@ -6814,14 +6861,14 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   0%,
   100% {
     box-shadow:
-      0 0 0 10px oklch(0.68 0.19 31 / 0.08),
-      0 15px 28px oklch(0.68 0.19 31 / 0.17),
+      0 0 0 10px oklch(0.68 0.19 128.85 / 0.08),
+      0 15px 28px oklch(0.68 0.19 128.85 / 0.17),
       inset 0 1px 0 oklch(1 0.003 70 / 0.95);
   }
   50% {
     box-shadow:
-      0 0 0 17px oklch(0.68 0.19 31 / 0.045),
-      0 18px 32px oklch(0.68 0.19 31 / 0.2),
+      0 0 0 17px oklch(0.68 0.19 128.85 / 0.045),
+      0 18px 32px oklch(0.68 0.19 128.85 / 0.2),
       inset 0 1px 0 oklch(1 0.003 70 / 0.95);
   }
 }
@@ -6862,10 +6909,10 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 @keyframes bp-dot-pulse {
   0%,
   100% {
-    box-shadow: 0 0 0 4px oklch(0.68 0.19 31 / 0.1);
+    box-shadow: 0 0 0 4px oklch(0.68 0.19 128.85 / 0.1);
   }
   50% {
-    box-shadow: 0 0 0 7px oklch(0.68 0.19 31 / 0.05);
+    box-shadow: 0 0 0 7px oklch(0.68 0.19 128.85 / 0.05);
   }
 }
 
@@ -7135,11 +7182,11 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 @keyframes bp-cash-curve-breathe {
   0%,
   100% {
-    filter: drop-shadow(0 0 0 oklch(0.68 0.19 31 / 0));
+    filter: drop-shadow(0 0 0 oklch(0.68 0.19 128.85 / 0));
     transform: translate3d(0, 0, 0);
   }
   45% {
-    filter: drop-shadow(0 4px 7px oklch(0.68 0.19 31 / 0.12));
+    filter: drop-shadow(0 4px 7px oklch(0.68 0.19 128.85 / 0.12));
     transform: translate3d(0, 2px, 0);
   }
 }
@@ -8282,6 +8329,10 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   }
 
   .bp-start-actions .bp-primary-cta {
+    width: 100%;
+  }
+
+  .bp-start-actions > .bp-metal-cta-shell {
     width: 100%;
   }
 
@@ -9542,13 +9593,13 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 .bp-capital-feature-copy h2 {
-  max-width: 9.6ch;
+  max-width: 10.8ch;
   margin: 15px 0 0;
   color: oklch(0.16 0.085 253);
   font-family: var(--font-cormorant), 'DM Serif Display', Georgia, 'Times New Roman', serif;
-  font-weight: 400;
-  font-size: clamp(52px, 5vw, 76px);
-  line-height: 0.94;
+  font-weight: 600;
+  font-size: clamp(50px, 4.65vw, 70px);
+  line-height: 0.96;
   letter-spacing: -0.022em;
   text-wrap: balance;
 }
@@ -9558,7 +9609,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   width: 86px;
   height: 2px;
   margin-top: clamp(22px, 2.4vw, 34px);
-  background: var(--bp-coral);
+  background: var(--bp-lime);
   content: '';
 }
 
@@ -9575,53 +9626,109 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 
 .bp-capital-feature-actions {
   display: grid;
-  width: min(100%, 360px);
-  gap: 12px;
+  width: min(100%, 390px);
+  gap: 10px;
   margin-top: clamp(22px, 2.4vw, 34px);
 }
 
-.bp-capital-feature-actions .bp-primary-cta,
-.bp-capital-feature-actions .bp-secondary-cta {
-  height: 52px;
+.bp-capital-feature-actions .bp-primary-cta {
+  height: 54px;
   border-radius: 6px;
-  font-size: 16px;
+  font-size: 15px;
+  letter-spacing: -0.02em;
 }
 
 .bp-capital-feature-actions .bp-primary-cta {
   box-shadow:
-    0 9px 8px oklch(0.68 0.19 31 / 0.16),
+    0 9px 8px oklch(0.68 0.19 128.85 / 0.16),
     inset 0 1px 0 oklch(1 0.003 70 / 0.2);
 }
 
-.bp-capital-feature-actions .bp-secondary-cta {
-  border-color: oklch(0.45 0.13 250 / 0.56);
-  background: oklch(0.99 0.005 72 / 0.58);
-  color: oklch(0.32 0.105 250);
-  box-shadow: inset 0 1px 0 oklch(1 0.003 70 / 0.86);
+.bp-capital-action-note {
+  max-width: 42ch;
+  margin: 1px 0 0;
+  color: oklch(0.34 0.05 253);
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+.bp-capital-advisor-link {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  color: oklch(0.28 0.085 253);
+  font-weight: 750;
+  font-size: 14px;
   text-decoration: none;
+  text-underline-offset: 4px;
+  transition:
+    color 180ms var(--bp-ease-out),
+    gap 220ms var(--bp-ease-out);
+}
+
+.bp-capital-advisor-link:hover {
+  gap: 11px;
+  color: var(--bp-lime-ink);
+  text-decoration: underline;
+}
+
+.bp-capital-advisor-link:focus-visible {
+  border-radius: 4px;
+  outline: 3px solid var(--bp-lime);
+  outline-offset: 3px;
+}
+
+.bp-capital-advisor-link svg {
+  width: 18px;
+  height: 18px;
 }
 
 .bp-capital-feature-note {
-  max-width: 39ch;
-  margin: 14px 0 0;
-  color: oklch(0.34 0.05 253 / 0.92);
-  font-weight: 700;
+  max-width: 48ch;
+  margin: 12px 0 0;
+  color: oklch(0.3 0.05 253 / 0.94);
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-wrap: pretty;
+}
+
+.bp-capital-scale {
+  display: grid;
+  min-width: 0;
+  align-content: center;
+}
+
+.bp-capital-scale-label {
+  margin: 0 0 -14px 46px;
+  color: oklch(0.3 0.075 253);
+  font-weight: 800;
   font-size: 11px;
-  line-height: 1.36;
-  letter-spacing: 0.02em;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .bp-capital-milestone-timeline {
-  display: grid;
+  display: flex;
   min-height: min(78svh, 740px);
-  align-content: center;
+  flex-direction: column-reverse;
+  justify-content: center;
   gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
   --timeline-dot-size: 1.875rem;
   --timeline-connector-thickness: 0.125rem;
 }
 
 .bp-capital-milestone-item {
+  position: relative;
   display: grid;
   grid-template-columns: 34px minmax(0, 1fr);
   align-items: center;
@@ -9631,40 +9738,48 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 .bp-capital-milestone-dot {
+  position: relative;
+  display: grid;
   width: 30px;
   height: 30px;
-  border-color: oklch(0.49 0.095 146 / 0.88);
+  place-items: center;
+  border: 1px solid oklch(0.45 0.13 250 / 0.54);
+  border-radius: 999px;
   background: oklch(0.99 0.006 74 / 0.92);
-  color: oklch(0.42 0.11 146);
   box-shadow:
     0 0 0 5px oklch(0.99 0.006 74 / 0.72),
     inset 0 1px 0 oklch(1 0.003 70 / 0.86);
 }
 
-.bp-capital-milestone-dot[data-status='active'] {
-  border-color: oklch(0.45 0.13 250 / 0.86);
-  background:
-    radial-gradient(circle at 50% 50%, oklch(0.45 0.13 250 / 0.32) 0 28%, transparent 29%),
-    oklch(0.99 0.006 74 / 0.9);
-  color: transparent;
+.bp-capital-milestone-dot span {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: oklch(0.45 0.13 250 / 0.58);
+}
+
+.bp-capital-milestone-item[data-status='starting'] .bp-capital-milestone-dot {
+  border-color: var(--bp-lime);
+  background: var(--bp-lime);
   box-shadow:
-    0 0 0 5px oklch(0.45 0.13 250 / 0.08),
+    0 0 0 5px var(--bp-lime-soft),
     inset 0 1px 0 oklch(1 0.003 70 / 0.86);
 }
 
+.bp-capital-milestone-item[data-status='starting'] .bp-capital-milestone-dot span {
+  background: oklch(0.995 0.004 70);
+}
+
 .bp-capital-milestone-connector {
+  position: absolute;
   top: calc(50% + 17px);
   left: 14px;
   width: 2px;
   height: calc(100% - 16px);
-  background: oklch(0.47 0.12 250 / 0.55);
+  background: oklch(0.47 0.12 250 / 0.38);
 }
 
-.bp-capital-milestone-item[data-status='complete'] .bp-capital-milestone-connector {
-  background: linear-gradient(180deg, oklch(0.47 0.105 146 / 0.68), oklch(0.47 0.12 250 / 0.48));
-}
-
-.bp-capital-milestone-item:last-child .bp-capital-milestone-connector {
+.bp-capital-milestone-item:first-child .bp-capital-milestone-connector {
   display: none;
 }
 
@@ -9676,12 +9791,13 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 .bp-capital-milestone-header {
-  gap: 3px;
+  display: grid;
+  gap: 4px;
   color: oklch(0.24 0.09 253);
   text-transform: uppercase;
 }
 
-.bp-capital-milestone-header time {
+.bp-capital-milestone-header data {
   order: 2;
   color: oklch(0.28 0.075 253);
   font-weight: 800;
@@ -9696,6 +9812,19 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   font-size: 13px;
   line-height: 1;
   letter-spacing: 0.025em;
+}
+
+.bp-capital-milestone-status {
+  order: 3;
+  color: oklch(0.4 0.05 253);
+  font-weight: 700;
+  font-size: 9px;
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+}
+
+.bp-capital-milestone-item[data-status='starting'] .bp-capital-milestone-status {
+  color: var(--bp-lime-ink);
 }
 
 .bp-capital-milestone-card {
@@ -9841,38 +9970,50 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   gap: 1px;
   align-self: end;
   width: min(100%, 640px);
+  margin: 0;
+  padding: 0;
   border: 1px solid oklch(0.48 0.08 250 / 0.16);
   background: oklch(0.48 0.08 250 / 0.1);
+  list-style: none;
 }
 
-.bp-capital-feature-stats div {
+.bp-capital-feature-stats li {
   display: grid;
-  gap: 4px;
-  min-height: 76px;
-  align-content: center;
+  min-height: 94px;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
   padding: 14px 18px;
   background: oklch(0.99 0.005 72 / 0.66);
 }
 
+.bp-capital-feature-stats li > svg {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  color: var(--bp-lime-ink);
+}
+
+.bp-capital-feature-stats li > span,
 .bp-capital-feature-stats strong,
-.bp-capital-feature-stats span {
+.bp-capital-feature-stats small {
   display: block;
 }
 
 .bp-capital-feature-stats strong {
   color: oklch(0.18 0.075 253);
-  font-weight: 900;
-  font-size: 23px;
-  line-height: 1;
+  font-weight: 800;
+  font-size: 13px;
+  line-height: 1.2;
 }
 
-.bp-capital-feature-stats span {
+.bp-capital-feature-stats small {
+  margin-top: 5px;
   color: oklch(0.34 0.06 253);
-  font-weight: 700;
-  font-size: 11px;
-  line-height: 1.15;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.35;
   letter-spacing: 0;
-  text-transform: uppercase;
 }
 
 @media (max-width: 1120px) {
@@ -9881,8 +10022,11 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
     grid-template-rows: auto auto auto;
   }
 
-  .bp-capital-milestone-timeline {
+  .bp-capital-scale {
     grid-column: 1;
+  }
+
+  .bp-capital-milestone-timeline {
     min-height: 620px;
   }
 
@@ -9907,7 +10051,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
     font-size: clamp(42px, 12vw, 64px);
   }
 
-  .bp-capital-milestone-timeline,
+  .bp-capital-scale,
   .bp-capital-feature-art,
   .bp-capital-feature-stats {
     grid-column: 1;
@@ -10130,7 +10274,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
     padding: 12px;
   }
 
-  .bp-capital-feature-stats div {
+  .bp-capital-feature-stats li {
     min-height: 64px;
     padding: 12px 14px;
   }
@@ -10459,11 +10603,27 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   }
 
   .bp-capital-feature-copy,
-  .bp-capital-milestone-timeline,
+  .bp-capital-scale,
   .bp-capital-feature-art,
   .bp-capital-feature-stats {
     grid-column: 1;
     grid-row: auto;
+  }
+
+  .bp-capital-feature-copy {
+    grid-row: 1;
+  }
+
+  .bp-capital-feature-art {
+    grid-row: 2;
+  }
+
+  .bp-capital-scale {
+    grid-row: 3;
+  }
+
+  .bp-capital-feature-stats {
+    grid-row: 4;
   }
 
   .bp-capital-feature-copy {
@@ -10498,20 +10658,46 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
     gap: 12px;
   }
 
-  .bp-capital-feature-actions .bp-primary-cta,
-  .bp-capital-feature-actions .bp-secondary-cta {
+  .bp-capital-feature-actions .bp-primary-cta {
     height: 58px;
     border-radius: 8px;
     font-size: 16px;
   }
 
-  .bp-capital-feature-art,
+  .bp-capital-action-note,
+  .bp-capital-feature-note {
+    font-size: 14px;
+  }
+
+  .bp-capital-feature-art {
+    display: grid;
+    min-height: clamp(260px, 66vw, 380px);
+    justify-items: center;
+    margin: -8px 0 -2px;
+    overflow: hidden;
+  }
+
+  .bp-capital-feature-stack {
+    width: min(92%, 380px);
+    max-height: 390px;
+    object-position: center;
+    transform: none;
+  }
+
+  .bp-capital-feature-art::before,
+  .bp-capital-feature-art::after,
   .bp-capital-dimension {
     display: none;
   }
 
+  .bp-capital-scale-label {
+    margin: 0 0 12px 0;
+    font-size: 10px;
+  }
+
   .bp-capital-milestone-timeline {
     min-height: 0;
+    flex-direction: column;
     gap: 10px;
     padding-left: 0;
   }
@@ -10535,30 +10721,44 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
     height: calc(100% + 10px);
   }
 
+  .bp-capital-milestone-item:first-child .bp-capital-milestone-connector {
+    display: block;
+  }
+
+  .bp-capital-milestone-item:last-child .bp-capital-milestone-connector {
+    display: none;
+  }
+
   .bp-capital-milestone-content {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 8px;
+    grid-template-columns: minmax(104px, 0.38fr) minmax(0, 1fr);
+    gap: 10px;
   }
 
   .bp-capital-milestone-header {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
+    display: grid;
+    align-content: center;
+    gap: 4px;
   }
 
   .bp-capital-milestone-header [data-slot='timeline-title'] {
     font-size: 12px;
   }
 
-  .bp-capital-milestone-header time {
+  .bp-capital-milestone-header data {
     font-size: 12px;
+  }
+
+  .bp-capital-milestone-status {
+    font-size: 9px;
   }
 
   .bp-capital-milestone-card {
     min-height: 0;
-    gap: 7px;
-    padding: 16px;
-    border-radius: 11px;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 5px 8px;
+    align-items: baseline;
+    padding: 11px 12px;
+    border-radius: 8px;
   }
 
   .bp-capital-milestone-card::after {
@@ -10566,32 +10766,33 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   }
 
   .bp-capital-milestone-card strong {
-    font-size: clamp(26px, 7.6vw, 34px);
+    font-size: clamp(20px, 5.6vw, 28px);
   }
 
   .bp-capital-milestone-card span {
-    font-size: 11px;
+    font-size: 9px;
   }
 
   .bp-capital-unlock-bar {
-    height: 10px;
+    grid-column: 1 / -1;
+    height: 7px;
   }
 
   .bp-capital-feature-stats {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   }
 
-  .bp-capital-feature-stats div {
-    min-height: 68px;
-    padding: 12px 10px;
+  .bp-capital-feature-stats li {
+    min-height: 0;
+    padding: 14px;
   }
 
   .bp-capital-feature-stats strong {
-    font-size: 20px;
+    font-size: 14px;
   }
 
-  .bp-capital-feature-stats span {
-    font-size: 10px;
+  .bp-capital-feature-stats small {
+    font-size: 14px;
   }
 
   .bp-landing-section.bp-squeeze,
@@ -10684,7 +10885,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   }
 
   .bp-rigid-plan {
-    border-color: oklch(0.68 0.19 31 / 0.28);
+    border-color: oklch(0.68 0.19 128.85 / 0.28);
   }
 
   .bp-milestone-plan {
@@ -10776,7 +10977,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
     grid-template-columns: 24px minmax(0, 1fr);
     gap: 9px;
     padding: 10px 12px;
-    border: 1px solid oklch(0.68 0.19 31 / 0.18);
+    border: 1px solid oklch(0.68 0.19 128.85 / 0.18);
     border-radius: 10px;
     background: oklch(0.997 0.003 72 / 0.7);
     font-size: 13px;
@@ -10949,5 +11150,11 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   .bp-cash-stress-curve {
     left: -13%;
     width: 126%;
+  }
+}
+
+@media (max-width: 640px) {
+  .bp-capital-feature-stats {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

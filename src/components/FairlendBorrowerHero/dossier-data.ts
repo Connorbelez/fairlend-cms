@@ -6,9 +6,9 @@ export type BorrowerDossierRow = {
   /** Marks the rows that pin the page's exit-first thesis; rendered with a lime marker. */
   emphasis?: boolean
   /**
-   * When true (default), non-emphasis rows beyond `rowsToShowOnMobile` are
-   * hidden on small screens to keep the dossier scannable. Emphasis rows
-   * (e.g. Exit path) are always shown.
+   * When true, this row is hidden on small screens to keep the dossier
+   * scannable. Rows beyond `rowsToShowOnMobile` are also hidden by default.
+   * Emphasis rows (e.g. Exit path) are always shown.
    */
   hiddenOnMobile?: boolean
 }
@@ -45,6 +45,7 @@ export const borrowerDossierRows: readonly BorrowerDossierRow[] = [
   {
     detail:
       'First, second, bridge, renewal, or equity-based options are matched to the reason you need funds.',
+    hiddenOnMobile: true,
     label: 'Best-fit option',
   },
   {
@@ -58,6 +59,7 @@ export const borrowerDossierRows: readonly BorrowerDossierRow[] = [
   {
     detail:
       'Term length, payment structure, and renewal considerations are set out before closing.',
+    hiddenOnMobile: true,
     label: 'Term plan',
   },
   {

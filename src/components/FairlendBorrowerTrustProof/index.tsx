@@ -12,37 +12,37 @@ type Capability = {
 
 const capabilities: readonly Capability[] = [
   {
-    body: 'Your need, property condition, current mortgage, documents, lender fit, and exit are reviewed together.',
+    body: 'Need, property condition, current mortgage, documents, lender fit, and exit are reviewed as one file.',
     icon: ClipboardCheck,
-    role: 'Your situation',
-    title: 'A whole-picture review',
+    role: 'Borrower file',
+    title: 'Whole-file review',
   },
   {
-    body: 'Property value, mortgage position, and equity are checked carefully so the proposed amount is grounded in what the property can support.',
+    body: 'Value, mortgage position, and equity are checked carefully so the amount stays grounded in what the property can support.',
     icon: Building2,
-    role: 'Property value',
-    title: 'Careful valuation review',
+    role: 'Property support',
+    title: 'Valuation and equity check',
   },
   {
     body: 'Support can continue after funding through payment questions, renewals, payouts, coordination, and administration.',
     icon: Headset,
-    role: 'After closing',
-    title: 'Practical ongoing support',
+    role: 'After funding',
+    title: 'Closing and renewal support',
   },
 ]
 
 const proofMarkers = [
   {
     body: 'Property, mortgage position, documentation, lender fit, and exit are reviewed together before a structure is recommended.',
-    label: 'One connected review',
+    label: 'Connected file review',
   },
   {
-    body: 'You see the practical tradeoffs: cost, timing, maturity path, and what needs to be ready before funding.',
-    label: 'Plain-language tradeoffs',
+    body: 'Cost, timing, maturity path, and funding conditions are explained before the file moves forward.',
+    label: 'Tradeoffs made visible',
   },
   {
     body: 'Technology helps organize the work, but experienced mortgage professionals make the judgment calls.',
-    label: 'Human judgment',
+    label: 'Professional judgment',
   },
 ] as const
 

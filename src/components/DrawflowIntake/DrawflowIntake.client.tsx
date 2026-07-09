@@ -43,6 +43,7 @@ import { GoogleAddressAutocomplete } from '@/components/address/GoogleAddressAut
 import { Card } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Frame } from '@/components/ui/frame'
+import { MetalButton } from '@/components/ui/metal-button'
 import {
   Timeline,
   TimelineConnector,
@@ -51,10 +52,9 @@ import {
   TimelineDot,
   TimelineHeader,
   TimelineItem,
-  TimelineTime,
   TimelineTitle,
 } from '@/components/ui/timeline'
-import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
+import { buildFairlendConsultationHref, buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 
 const intakeAssetBase = '/assets/drawflow-intake'
 const buildProgressFinishedImage = `${intakeAssetBase}/Build Progress Finished-optimized.webp`
@@ -930,10 +930,17 @@ function BuildPathHeroStart({
       </button>
 
       <div className="bp-cta-stack">
-        <button className="bp-primary-cta" onClick={onStart} type="button">
+        <MetalButton
+          className="bp-primary-cta bp-metal-cta"
+          metalFxClassName="bp-metal-cta-shell"
+          onClick={onStart}
+          preset="silver"
+          strength={0.5}
+          type="button"
+        >
           <span>Start project review</span>
           <ArrowRight aria-hidden="true" strokeWidth={1.8} />
-        </button>
+        </MetalButton>
         <button className="bp-secondary-cta" onClick={onExplore} type="button">
           I&apos;m just exploring
         </button>
@@ -1108,10 +1115,17 @@ function BuildPathPropertyStep({
             onFileSelected={(fileName) => updateAnswer('buildPermitFileName', fileName)}
           />
 
-          <button className="bp-form-continue" onClick={onContinue} type="button">
+          <MetalButton
+            className="bp-form-continue bp-metal-cta"
+            metalFxClassName="bp-metal-cta-shell"
+            onClick={onContinue}
+            preset="silver"
+            strength={0.5}
+            type="button"
+          >
             <span>Continue</span>
             <ArrowRight aria-hidden="true" strokeWidth={1.8} />
-          </button>
+          </MetalButton>
 
           <button className="bp-form-back" onClick={onBack} type="button">
             <ArrowLeft aria-hidden="true" strokeWidth={1.8} />
@@ -1158,17 +1172,20 @@ function BuildPathWizardStep({
           <div className="bp-wizard-fields">{content.fields}</div>
 
           <div className="bp-wizard-actions">
-            <button
-              className="bp-form-continue"
+            <MetalButton
+              className="bp-form-continue bp-metal-cta"
               disabled={isSubmitting}
+              metalFxClassName="bp-metal-cta-shell"
               onClick={onContinue}
+              preset="silver"
+              strength={0.5}
               type="button"
             >
               <span>
                 {step === 7 ? (isSubmitting ? 'Submitting...' : 'Submit project') : 'Continue'}
               </span>
               <ArrowRight aria-hidden="true" strokeWidth={1.8} />
-            </button>
+            </MetalButton>
 
             <button className="bp-form-back" onClick={onBack} type="button">
               <ArrowLeft aria-hidden="true" strokeWidth={1.8} />
@@ -1885,46 +1902,43 @@ function BuildPathLandingSections({ onStart }: { onStart: () => void }): ReactEl
 function CapitalFeatureSection({ onStart }: { onStart: () => void }): ReactElement {
   const milestoneUnlocks = [
     {
-      amount: '$2,150,000',
-      bar: '100%',
-      dateTime: '2026-08-20',
-      id: 'completion',
-      percent: '100%',
-      title: 'Completion',
-    },
-    {
-      amount: '$1,620,000',
-      bar: '75%',
-      dateTime: '2026-07-18',
-      id: 'interior',
-      percent: '75%',
-      title: 'Interior',
-    },
-    {
-      amount: '$1,050,000',
-      bar: '50%',
-      dateTime: '2026-06-12',
-      id: 'roof',
-      percent: '50%',
-      title: 'Roof',
+      amount: '$0',
+      id: 'foundation',
+      percent: 0,
+      status: 'Starting point',
+      title: 'Foundation',
     },
     {
       amount: '$520,000',
-      bar: '25%',
-      dateTime: '2026-05-10',
       id: 'framing',
-      percent: '25%',
+      percent: 25,
+      status: 'After approval',
       title: 'Framing',
     },
     {
-      amount: '$0',
-      bar: '0%',
-      dateTime: '2026-04-15',
-      id: 'foundation',
-      percent: '0%',
-      title: 'Foundation',
+      amount: '$1,050,000',
+      id: 'roof',
+      percent: 50,
+      status: 'After approval',
+      title: 'Roof',
+    },
+    {
+      amount: '$1,620,000',
+      id: 'interior',
+      percent: 75,
+      status: 'After approval',
+      title: 'Interior',
+    },
+    {
+      amount: '$2,150,000',
+      id: 'completion',
+      percent: 100,
+      status: 'After approval',
+      title: 'Completion',
     },
   ] as const
+
+  const advisorHref = buildFairlendConsultationHref('builder-capital-feature-advisor')
 
   return (
     <section aria-labelledby="bp-workflow-title" className="bp-capital-feature">
@@ -1937,59 +1951,65 @@ function CapitalFeatureSection({ onStart }: { onStart: () => void }): ReactEleme
         </p>
         <div className="bp-capital-feature-actions">
           <button className="bp-primary-cta" onClick={onStart} type="button">
-            <span>Check financeability</span>
+            <span>Check my project&apos;s financeability</span>
             <ArrowRight aria-hidden="true" strokeWidth={1.8} />
           </button>
-          <button className="bp-secondary-cta" onClick={onStart} type="button">
-            <span>Start project review</span>
+          <p className="bp-capital-action-note">
+            Answer a few project questions and receive a clear review path.
+          </p>
+          <Link className="bp-capital-advisor-link" href={advisorHref}>
+            Talk to a DrawFlow advisor
             <ArrowRight aria-hidden="true" strokeWidth={1.8} />
-          </button>
+          </Link>
         </div>
         <p className="bp-capital-feature-note">
-          Illustrative availability shown for planning. Each release still follows milestone
-          evidence, lender review, and admin approval.
+          These amounts illustrate how availability can expand as work is completed and approved.
+          Every release still requires milestone evidence, lender review, and administrator
+          approval.
         </p>
       </div>
 
-      <Timeline
-        activeIndex={4}
-        aria-label="Milestone draw flow"
-        className="bp-capital-milestone-timeline"
-      >
-        {milestoneUnlocks.map((milestone) => {
-          const milestoneStatus = milestone.id === 'foundation' ? 'active' : 'complete'
-
-          return (
-            <TimelineItem
-              className="bp-capital-milestone-item"
-              data-status={milestoneStatus}
-              key={milestone.id}
-            >
-              <TimelineDot className="bp-capital-milestone-dot" data-status={milestoneStatus}>
-                {milestoneStatus === 'complete' ? (
-                  <Check aria-hidden="true" strokeWidth={2} />
-                ) : null}
-              </TimelineDot>
-              <TimelineConnector className="bp-capital-milestone-connector" />
-              <TimelineContent className="bp-capital-milestone-content">
-                <TimelineHeader className="bp-capital-milestone-header">
-                  <TimelineTime dateTime={milestone.dateTime}>{milestone.percent}</TimelineTime>
-                  <TimelineTitle>{milestone.title}</TimelineTitle>
-                </TimelineHeader>
-                <TimelineDescription asChild>
-                  <Card className="bp-capital-milestone-card">
-                    <strong>{milestone.amount}</strong>
-                    <span>Available</span>
-                    <i aria-hidden="true" className="bp-capital-unlock-bar">
-                      <em style={{ width: milestone.bar }} />
-                    </i>
-                  </Card>
-                </TimelineDescription>
-              </TimelineContent>
-            </TimelineItem>
-          )
-        })}
-      </Timeline>
+      <div className="bp-capital-scale">
+        <p className="bp-capital-scale-label">Capital unlocks as approved work rises ↑</p>
+        <Timeline asChild className="bp-capital-milestone-timeline">
+          <ol aria-label="Illustrative capital unlocks from foundation through completion">
+            {milestoneUnlocks.map((milestone) => (
+              <TimelineItem
+                asChild
+                className="bp-capital-milestone-item"
+                data-status={milestone.id === 'foundation' ? 'starting' : 'projected'}
+                key={milestone.id}
+              >
+                <li>
+                  <TimelineDot aria-hidden="true" className="bp-capital-milestone-dot">
+                    <span />
+                  </TimelineDot>
+                  <TimelineConnector
+                    aria-hidden="true"
+                    className="bp-capital-milestone-connector"
+                  />
+                  <TimelineContent className="bp-capital-milestone-content">
+                    <TimelineHeader className="bp-capital-milestone-header">
+                      <TimelineTitle>{milestone.title}</TimelineTitle>
+                      <data value={milestone.percent / 100}>{milestone.percent}%</data>
+                      <span className="bp-capital-milestone-status">{milestone.status}</span>
+                    </TimelineHeader>
+                    <TimelineDescription asChild>
+                      <Card className="bp-capital-milestone-card">
+                        <strong>{milestone.amount}</strong>
+                        <span>Illustrative availability</span>
+                        <i aria-hidden="true" className="bp-capital-unlock-bar">
+                          <em style={{ width: `${milestone.percent}%` }} />
+                        </i>
+                      </Card>
+                    </TimelineDescription>
+                  </TimelineContent>
+                </li>
+              </TimelineItem>
+            ))}
+          </ol>
+        </Timeline>
+      </div>
 
       <div aria-hidden="true" className="bp-capital-feature-art">
         <Image
@@ -2006,18 +2026,30 @@ function CapitalFeatureSection({ onStart }: { onStart: () => void }): ReactEleme
         <span className="bp-capital-dimension bp-capital-dimension-width">120&apos;-0&quot;</span>
       </div>
 
-      <div aria-label="Draw plan benefits" className="bp-capital-feature-stats">
+      <ul aria-label="Draw plan benefits" className="bp-capital-feature-stats">
         {[
-          ['0', 'forced draw schedule'],
-          ['24-hour', 'draw SLA target'],
-          ['1', 'advisor-built plan'],
-        ].map(([value, label]) => (
-          <div key={label}>
-            <strong>{value}</strong>
-            <span>{label}</span>
-          </div>
+          [
+            'No forced draw calendar',
+            'Request capital when approved work and project timing call for it.',
+          ],
+          [
+            'One-business-day review target',
+            'Complete draw requests are targeted for review within one business day.',
+          ],
+          [
+            'Advisor-built evidence plan',
+            'Know what proof each milestone needs before the next draw.',
+          ],
+        ].map(([title, detail]) => (
+          <li key={title}>
+            <Check aria-hidden="true" strokeWidth={2} />
+            <span>
+              <strong>{title}</strong>
+              <small>{detail}</small>
+            </span>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   )
 }
@@ -2453,10 +2485,17 @@ function StartWithPropertySection({ onStart }: { onStart: () => void }): ReactEl
           ))}
         </ul>
         <div className="bp-start-actions">
-          <button className="bp-primary-cta" onClick={onStart} type="button">
+          <MetalButton
+            className="bp-primary-cta bp-metal-cta"
+            metalFxClassName="bp-metal-cta-shell"
+            onClick={onStart}
+            preset="silver"
+            strength={0.5}
+            type="button"
+          >
             <span>Start a build review</span>
             <ArrowRight aria-hidden="true" strokeWidth={1.8} />
-          </button>
+          </MetalButton>
           <button className="bp-start-call" onClick={onStart} type="button">
             Refer a builder
             <ArrowRight aria-hidden="true" strokeWidth={1.7} />

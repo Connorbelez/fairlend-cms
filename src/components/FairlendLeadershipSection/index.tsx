@@ -135,8 +135,8 @@ export function FairlendLeadershipSection() {
           --leadership-blueprint: var(--leadership-ink);
           --about-ink: var(--leadership-ink);
           --about-orange: var(--leadership-orange);
-          --about-display: "League Gothic", Impact, "Arial Narrow", sans-serif;
-          --about-mono: "Oxanium", "Arial Narrow", system-ui, sans-serif;
+          --about-display: var(--font-cormorant), Georgia, serif;
+          --about-mono: var(--font-inter), ui-sans-serif, sans-serif;
 
           position: relative;
           isolation: isolate;
