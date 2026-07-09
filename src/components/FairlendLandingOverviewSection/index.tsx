@@ -159,6 +159,7 @@ const financeGroups = [
   {
     items: financeItems.slice(0, 2),
     label: 'Core lending',
+    withDrawFlowInterestBadge: false,
   },
   {
     items: financeItems.slice(2),
