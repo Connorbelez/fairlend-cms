@@ -163,9 +163,14 @@ const financeGroups = [
     withDrawFlowInterestBadge: false,
   },
   {
-    items: financeItems.slice(2),
+    items: financeItems.slice(2, 6),
     label: 'Project and rental programs',
     withDrawFlowInterestBadge: true,
+  },
+  {
+    items: financeItems.slice(6),
+    label: 'Refinancing & Acquisitions',
+    withDrawFlowInterestBadge: false,
   },
 ] as const
 

@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Checkpoint 01 — Team Trust Section Page-Context Audit</title>
+  <style>
+    :root {
+      --paper: #f8f7f5;
+      --panel: #fff;
+      --ink: #08090a;
+      --muted: #55564f;
+      --line: rgba(8, 9, 10, .18);
+      --signal: #96ec18;
+      --forest: #082d23;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 15px/1.55 Inter, ui-sans-serif, system-ui, sans-serif;
+    }
+    main { width: min(1120px, calc(100% - 40px)); margin: 0 auto; padding: 64px 0 96px; }
+    header { border-top: 8px solid var(--forest); padding: 30px 0 36px; }
+    .eyebrow { margin: 0 0 12px; font: 800 12px/1.2 ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase; }
+    h1, h2, h3 { margin: 0; font-family: Georgia, serif; font-weight: 500; line-height: 1.02; }
+    h1 { max-width: 920px; font-size: clamp(42px, 6vw, 78px); }
+    h2 { font-size: clamp(28px, 3.2vw, 44px); }
+    h3 { font-size: 22px; }
+    p { max-width: 78ch; }
+    .lede { font-size: 18px; color: var(--muted); }
+    .decision {
+      margin: 24px 0 0;
+      border-left: 6px solid var(--signal);
+      background: var(--forest);
+      color: white;
+      padding: 22px 24px;
+      font-size: 18px;
+    }
+    section { border-top: 1px solid var(--line); padding: 34px 0; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 20px; }
+    .card { border: 1px solid var(--line); background: var(--panel); padding: 20px; }
+    .card strong, th { font: 800 12px/1.3 ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; }
+    ol, ul { padding-left: 22px; }
+    li + li { margin-top: 8px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid var(--line); padding: 12px; text-align: left; vertical-align: top; }
+    th { background: rgba(8, 45, 35, .06); }
+    code { font: 13px/1.4 ui-monospace, monospace; background: rgba(8, 9, 10, .06); padding: 2px 5px; }
+    .ok { color: #285e00; font-weight: 800; }
+    .warn { color: #8a4b00; font-weight: 800; }
+    .flow { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; margin-top: 20px; }
+    .flow div { min-height: 116px; border-top: 3px solid var(--ink); background: var(--panel); padding: 12px; font-size: 13px; }
+    .flow .new { border-top-color: var(--signal); background: var(--forest); color: white; }
+    .flow b { display: block; margin-bottom: 8px; font-family: ui-monospace, monospace; }
+    @media (max-width: 760px) {
+      .grid, .flow { grid-template-columns: 1fr; }
+      main { width: min(100% - 24px, 1120px); padding-top: 30px; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">Checkpoint 01 / Page-context audit</p>
+    <h1>Complete the leadership story with an operating bench—not a “Meet the Team” section.</h1>
+    <p class="lede">Homepage trust-section insertion audit for FairLend. This checkpoint locks the page-flow diagnosis only; section strategy, copy, visual concepts, and implementation remain gated.</p>
+    <p class="decision"><strong>Recommended insertion:</strong> immediately after <code>FairlendLeadershipSection</code> and before <code>FairlendFaqSection</code>, inside the same groovepaper landing rail so it reads as the static second beat of Leadership.</p>
+  </header>
+
+  <section>
+    <h2>Current flow</h2>
+    <div class="flow" aria-label="Current homepage flow with proposed insertion">
+      <div><b>01</b>Hero + application</div>
+      <div><b>02</b>Route selector</div>
+      <div><b>03</b>Who we are + what we finance</div>
+      <div><b>04</b>Build model<br />scroll narrative</div>
+      <div><b>05</b>Builder equation<br />pinned timeline</div>
+      <div><b>06</b>Leadership<br />pinned reveal</div>
+      <div class="new"><b>NEW / SAME CHAPTER</b>Operating bench<br />static continuation<br />then FAQ</div>
+    </div>
+    <p>The page moves from corporate identity, to build capability, to an economic thesis, to founder-led credibility. It then jumps directly into FAQ. The missing belief is not “FairLend has employees.” It is: <strong>the expertise shown in the leadership reveal is backed by named operators who own distinct parts of a complex file.</strong></p>
+  </section>
+
+  <section>
+    <h2>Insertion diagnosis</h2>
+    <div class="grid">
+      <article class="card"><strong>Previous section</strong><h3>Leadership reveal</h3><p>A founder-led 100svh trust panel with principal-broker proof, capabilities, commitments, and a booking CTA. On desktop it is pinned for approximately 145% additional viewport scroll.</p></article>
+      <article class="card"><strong>Next section</strong><h3>FAQ</h3><p>Objection handling across borrower, builder, investor, and partner concerns. It is information-dense and should follow a calmer proof beat.</p></article>
+      <article class="card"><strong>Narrative gap</strong><h3>“Team” is asserted, not demonstrated</h3><p>The leadership headline says the equation still needs a team and the summary says “meet the people,” but the visible experience is primarily one founder portrait.</p></article>
+      <article class="card"><strong>Conversion gap</strong><h3>Execution ownership is unclear</h3><p>A serious borrower, builder, partner, or investor can see senior judgment but cannot yet answer who handles technology, operations, administration, or the operating lifecycle around the file.</p></article>
+    </div>
+  </section>
+
+  <section>
+    <h2>What the new trust beat should accomplish</h2>
+    <ul>
+      <li>Build belief that FairLend has an accountable, multidisciplinary operating bench—not a founder plus a generic support team.</li>
+      <li>Translate each person into client value using <strong>“what they own in your file”</strong>, not biography-first copy.</li>
+      <li>Connect mortgage judgment, capital-markets/technology depth, and operating discipline to the financing lifecycle already explained above.</li>
+      <li>Reduce key-person risk without diluting the founder’s authority.</li>
+      <li>Create a calm, native-scroll decompression beat between two pinned sections and the FAQ.</li>
+    </ul>
+    <p><strong>Working content thesis for Phase 2:</strong> “Know who owns the hard parts.” This is a directional strategy line, not locked copy.</p>
+  </section>
+
+  <section>
+    <h2>Interaction and visual constraints</h2>
+    <table>
+      <thead><tr><th>Area</th><th>Existing system</th><th>Constraint for this addition</th></tr></thead>
+      <tbody>
+        <tr><td>Grid</td><td>Editorial paper shells, hairline rules, asymmetric copy/visual panels, landing gutters.</td><td>Use a compact dossier grid or ruled roster. Keep it inside the same <code>groovepaper</code> rail as Leadership.</td></tr>
+        <tr><td>Typography</td><td>Cormorant/Georgia-style serif for positioning; Inter for body; mono/technical accents.</td><td>Continue the leadership register. Avoid a new display language or “startup team card” aesthetic.</td></tr>
+        <tr><td>Color</td><td>Ivory/white paper, black ink, forest, lime signal.</td><td>No new palette. Lime should mark ownership or role—not decorate every card.</td></tr>
+        <tr><td>Components</td><td>Frames, proof cards, capability cards, dossiers, hard rules.</td><td>Prefer extending existing leadership primitives or the existing investor leadership bench over creating a fresh card system.</td></tr>
+        <tr><td>Image treatment</td><td>Founder portrait + contextual scene.</td><td>If portraits are used, require a consistent crop, lighting, background, and treatment across all team members. Only Elie’s headshot currently exists in <code>public/assets</code>.</td></tr>
+        <tr><td>Motion</td><td>Build model scroll sequence; equation pinned ~310%; Leadership pinned ~145% with staged reveals and counters.</td><td><strong>No pin, scrub, carousel, tabs, accordion, or counter animation.</strong> Native scroll; optional one-time 12–20px/200–350ms reveal only.</td></tr>
+        <tr><td>Section rhythm</td><td>Multiple high-concentration, full-viewport moments followed by FAQ.</td><td>Content-height, approximately 56–88px vertical padding. Do not force another 100svh stop.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>CTA and proof hierarchy</h2>
+    <div class="grid">
+      <article class="card"><strong>CTA hierarchy</strong><p>Leadership already owns the consultation CTA. The operating bench should not introduce another competing action. Phase 2 should decide whether the existing CTA stays in the founder panel or moves to the end of the combined Leadership chapter.</p></article>
+      <article class="card"><strong>Proof pattern</strong><p>Each person should have one role, one scope-of-ownership line, and one substantiated credential. Avoid duplicating the founder’s numeric proof band.</p></article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Claims ledger</h2>
+    <table>
+      <thead><tr><th>Claim</th><th>Status</th><th>Evidence / allowed usage</th><th>Risk</th></tr></thead>
+      <tbody>
+        <tr><td>Elie Soberano is Founder &amp; Principal Broker.</td><td class="ok">supported</td><td>Existing homepage component and company brief. Allowed as role copy.</td><td>Low</td></tr>
+        <tr><td>Connor Beleznay is CTO &amp; MIC Director; former RBC Capital Markets quantitative technical systems analyst.</td><td class="ok">user-provided</td><td>Company brief and existing investor leadership component. Verify final title and employer wording before locked copy.</td><td>Medium</td></tr>
+        <tr><td>Austin Krystek is COO; former Head of Operations at Barton Engineering.</td><td class="ok">user-provided</td><td>Company brief. Verify final role/title and exact prior-employer language before locked copy.</td><td>Medium</td></tr>
+        <tr><td>Bogdan Krystek is former President of Barton Engineering.</td><td class="ok">user-provided</td><td>Company brief. Current FairLend role is not specified and must be supplied before public copy.</td><td>High</td></tr>
+        <tr><td>Specific people personally own defined stages of every client file.</td><td class="warn">needs proof</td><td>Do not state until responsibilities and actual client workflow are confirmed.</td><td>High</td></tr>
+        <tr><td>The team includes legal/recovery, appraisal, construction, and underwriting capability.</td><td class="warn">needs proof</td><td>The company brief supports the general bench, but named internal vs partner ownership and exact wording must be confirmed.</td><td>High</td></tr>
+        <tr><td>Founder volume, years, rankings, homes built, or other numeric credentials.</td><td class="warn">needs proof</td><td>Existing audits flag exact figures and attribution. Do not repeat them in this addition unless compliance-approved.</td><td>High</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Constraints and open decisions</h2>
+    <ol>
+      <li><strong>Roster:</strong> confirm which people belong on the homepage and their current public-facing titles.</li>
+      <li><strong>Ownership:</strong> confirm the concrete client/file responsibility each person can credibly claim.</li>
+      <li><strong>Portraits:</strong> supply consistent headshots for the approved roster, or explicitly choose a text-led dossier treatment.</li>
+      <li><strong>CTA placement:</strong> retain the current Leadership CTA or move it to close the combined Leadership + operating bench chapter.</li>
+      <li><strong>External bench:</strong> decide whether legal, recovery, appraisal, and construction specialists are shown as named people, capability labels, or omitted.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Framework application ledger</h2>
+    <table>
+      <thead><tr><th>Framework</th><th>Decision influenced</th></tr></thead>
+      <tbody>
+        <tr><td>Funnel analysis</td><td>Placed the trust beat after founder authority and before FAQ so it closes the execution-credibility gap before objection handling.</td></tr>
+        <tr><td>Messaging architecture</td><td>Changed the section role from biography/team introduction to proof of accountable multidisciplinary ownership.</td></tr>
+        <tr><td>Visual hierarchy</td><td>Kept this as an unnumbered second beat of Leadership so it cannot compete with the equation or founder reveal.</td></tr>
+        <tr><td>Hick’s Law</td><td>Limited the content contract to a small roster with one responsibility and one proof per person; no tabs, filters, or secondary interaction.</td></tr>
+        <tr><td>Nielsen heuristics</td><td>Made people’s operational responsibilities visible rather than requiring visitors to infer them from job titles.</td></tr>
+        <tr><td>Distinctive assets</td><td>Preserved the existing paper/forest/lime leadership system and rejected a generic SaaS team-card visual language.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Next phase</h2>
+    <p>On approval, Phase 2 will lock the section role, target belief, roster model, CTA behavior, transition logic, proof architecture, and success criteria. It will not yet write final copy or implementation code.</p>
+  </section>
+</main>
+
+<script type="application/json" id="section-builder-state">
+{
+  "workflow": "existing-landing-page-section-builder",
+  "checkpoint_id": "checkpoint-01-page-context-audit",
+  "phase_completed": 1,
+  "previous_checkpoint": null,
+  "next_phase": "section-strategy-lock",
+  "page_context": {
+    "page_name": "FairLend homepage",
+    "page_type": "multi-audience mortgage brokerage and construction-financing landing page",
+    "primary_audience": "GTA borrowers, builders, investors, and referral partners",
+    "primary_conversion": "book a consultation or enter the application flow",
+    "existing_section_order": [
+      "Hero",
+      "Route Selector",
+      "Who We Are / What We Finance",
+      "Our Build Model",
+      "Builder Equation",
+      "Leadership",
+      "FAQ"
+    ],
+    "insertion_point": {
+      "previous_section": "FairlendLeadershipSection",
+      "next_section": "FairlendFaqSection"
+    }
+  },
+  "locked_decisions": {
+    "section_role": "pending Phase 2; recommended static operating-bench continuation of Leadership",
+    "target_belief": "pending Phase 2; recommended belief: FairLend's founder-led judgment is backed by named operators with distinct, accountable responsibilities",
+    "primary_objection": "A founder may be credible, but who actually handles the hard parts of my file?",
+    "cta_strategy": "pending Phase 2; no new competing CTA recommended",
+    "locked_copy": {}
+  },
+  "visual_system_extraction": {
+    "grid": "editorial paper shells, hard rules, asymmetric panels, landing gutters",
+    "typography": "serif positioning headlines, Inter body, mono technical accents",
+    "color": "ivory and white paper, black ink, forest, lime signal",
+    "spacing": "full-viewport motion sections followed by content-height FAQ; new beat should be content-height with 56-88px vertical padding",
+    "component_style": "framed proof cards, capability cards, dossiers, hairline dividers",
+    "motion_language": "existing equation and leadership use long pinned scroll choreography; new beat must use native scroll and at most a restrained one-time reveal"
+  },
+  "claims_ledger": [
+    {"claim":"Elie Soberano is Founder & Principal Broker","status":"supported","evidence":"existing homepage and company brief","risk":"low","allowed_usage":"role copy"},
+    {"claim":"Connor Beleznay is CTO & MIC Director with former RBC Capital Markets experience","status":"user-provided","evidence":"company brief and investor leadership component","risk":"medium","allowed_usage":"after title and wording verification"},
+    {"claim":"Austin Krystek is COO with former Barton Engineering operations leadership","status":"user-provided","evidence":"company brief","risk":"medium","allowed_usage":"after title and wording verification"},
+    {"claim":"Bogdan Krystek is former President of Barton Engineering","status":"user-provided","evidence":"company brief","risk":"high","allowed_usage":"only after current FairLend role is supplied"},
+    {"claim":"Named people own specific stages of every client file","status":"needs proof","evidence":"responsibility model not present in repository","risk":"high","allowed_usage":"none until confirmed"},
+    {"claim":"Founder numeric credentials","status":"needs proof","evidence":"existing marketing audits require attribution and compliance verification","risk":"high","allowed_usage":"do not duplicate in new beat without approval"}
+  ],
+  "framework_application_ledger": [
+    {"framework":"Funnel Analysis","phase":"Phase 1","used_for":"insertion point","decision_influenced":"place after Leadership and before FAQ","artifact_fields":["page_context.insertion_point"]},
+    {"framework":"Messaging Architecture","phase":"Phase 1","used_for":"gap definition","decision_influenced":"frame as accountable operating bench rather than a team introduction","artifact_fields":["locked_decisions.section_role","locked_decisions.target_belief"]},
+    {"framework":"Visual Hierarchy","phase":"Phase 1","used_for":"section prominence","decision_influenced":"keep unnumbered and visually continuous with Leadership","artifact_fields":["visual_system_extraction"]},
+    {"framework":"Hick's Law","phase":"Phase 1","used_for":"interaction density","decision_influenced":"no tabs, carousel, accordion, or secondary CTA","artifact_fields":["locked_decisions.cta_strategy","visual_system_extraction.motion_language"]},
+    {"framework":"Nielsen Heuristics","phase":"Phase 1","used_for":"visibility of system status","decision_influenced":"show what each person owns instead of relying on titles","artifact_fields":["locked_decisions.target_belief"]},
+    {"framework":"Distinctive Assets","phase":"Phase 1","used_for":"visual continuity","decision_influenced":"reuse paper, forest, lime, dossiers, and hard rules","artifact_fields":["visual_system_extraction"]}
+  ],
+  "section_contract": {},
+  "open_questions": [
+    "Who belongs in the homepage roster and what are their final public titles?",
+    "What does each person concretely own in the client or file lifecycle?",
+    "Are consistent portraits available for the full roster?",
+    "Should the existing Leadership CTA remain or close the combined chapter?",
+    "Should external specialists be named, capability-labelled, or omitted?"
+  ],
+  "next_phase_instructions": "Create checkpoint-02-section-strategy-lock.html after the user approves or revises this audit. Lock the operating-bench role, target belief, roster model, CTA behavior, transitions, proof architecture, and success criteria."
+}
+</script>
+</body>
+</html>

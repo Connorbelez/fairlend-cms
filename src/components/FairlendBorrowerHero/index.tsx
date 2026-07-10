@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import { Suspense, type ReactElement } from 'react'
 
 import { FairlendLeadIntake } from '@/components/FairlendLeadIntake/FairlendLeadIntake.client'
 
@@ -77,11 +77,13 @@ export function FairlendBorrowerHero(): ReactElement {
         </div>
 
         <div className="borrower-hero__form-slot">
-          <FairlendLeadIntake
-            intentOverride="mortgage"
-            mortgageVariant="hero"
-            sourceOverride="borrower-hero-inline-review"
-          />
+          <Suspense fallback={null}>
+            <FairlendLeadIntake
+              intentOverride="mortgage"
+              mortgageVariant="hero"
+              sourceOverride="borrower-hero-inline-review"
+            />
+          </Suspense>
         </div>
       </div>
 

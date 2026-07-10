@@ -4,15 +4,17 @@ import { useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+import { torontoLuxury2019Model } from './model'
+
 const years = ['2019', '2023', '2026'] as const
 
 const primaryRowStates = [
   {
     cta: 'SEE THE TIMELINE',
     ctaNote: 'Scroll through the build math',
-    note: 'Published GTA market benchmarks',
-    riskLeft: 'EST. LOSS',
-    riskRight: 'MIDPOINT COST',
+    note: 'Illustrative Toronto luxury infill model',
+    riskLeft: 'EST. PROFIT',
+    riskRight: 'POSITIVE RETURN',
     year: '2019',
   },
   {
@@ -34,11 +36,11 @@ const primaryRowStates = [
 ] as const
 
 const counterStates = {
-  'single-build': ['$115–215/ft²', '$205–280/ft²', '$150–275/ft²'],
-  'single-land': ['$1.02M', '$1.46M', '$1.36M'],
-  'single-margin': ['-51.0%*', '-48.6%*', '-52.1%*'],
-  'single-profit': ['-$555K*', '-$780K*', '-$744K*'],
-  'single-sale': ['$1.09M', '$1.60M', '$1.43M'],
+  'single-build': [torontoLuxury2019Model.build, '$205–280/ft²', '$150–275/ft²'],
+  'single-land': [torontoLuxury2019Model.land, '$1.46M', '$1.36M'],
+  'single-margin': [torontoLuxury2019Model.margin, '-48.6%*', '-52.1%*'],
+  'single-profit': [torontoLuxury2019Model.profit, '-$780K*', '-$744K*'],
+  'single-sale': [torontoLuxury2019Model.sale, '$1.60M', '$1.43M'],
 } as const satisfies Record<string, readonly [string, string, string]>
 
 function setText(targets: HTMLElement[], value: string) {
