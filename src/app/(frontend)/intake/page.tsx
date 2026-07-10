@@ -1,5 +1,6 @@
 import { FairlendIntakeRouter } from '@/components/FairlendLeadIntake/FairlendIntakeRouter.client'
 import { buildFairlendMetadata } from '@/utilities/seo'
+import { Suspense } from 'react'
 
 export const metadata = buildFairlendMetadata({
   description:
@@ -10,5 +11,9 @@ export const metadata = buildFairlendMetadata({
 })
 
 export default function IntakePage() {
-  return <FairlendIntakeRouter />
+  return (
+    <Suspense fallback={null}>
+      <FairlendIntakeRouter />
+    </Suspense>
+  )
 }

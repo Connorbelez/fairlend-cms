@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import { cn } from '@/utilities/ui'
 import { Cormorant_Garamond, Inter } from 'next/font/google'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 import { AnalyticsProvider } from '@/components/Analytics'
 import { FAIRLEND_LOGO_SRC } from '@/components/Logo/Logo'
@@ -44,7 +44,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={[fairlendOrganizationJsonLd(), fairlendWebsiteJsonLd()]} />
         <Providers initialTheme={defaultTheme}>
           <FrontendChrome footer={<Footer />}>{children}</FrontendChrome>
-          <AnalyticsProvider />
+          <Suspense fallback={null}>
+            <AnalyticsProvider />
+          </Suspense>
           <Toaster richColors />
         </Providers>
       </body>

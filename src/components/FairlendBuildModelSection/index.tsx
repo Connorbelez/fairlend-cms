@@ -480,22 +480,53 @@ function BuildModelBoard({ className }: { className?: string }) {
   )
 }
 
-function AudienceCards() {
+function AudiencePaths() {
   return (
-    <div className="bm-audience-grid">
-      <article className="bm-audience-card builders">
-        <span className="bm-audience-tag">If you already build</span>
-        <p>
-          Keep your focus on the site. We help carry the financing and business equation around it.
-        </p>
+    <div className="bm-audience-ledger" aria-label="How FairLend supports different builders">
+      <div className="bm-audience-ledger-head" aria-hidden="true">
+        <span>Your starting point</span>
+        <span>FairLend carries forward</span>
+      </div>
+
+      <article className="bm-audience-row bm-audience-row--builders">
+        <div className="bm-audience-origin">
+          <span className="bm-audience-code" aria-hidden="true">
+            01
+          </span>
+          <div>
+            <h3>Already building</h3>
+            <p>Keep your focus on the site.</p>
+          </div>
+        </div>
+
+        <ArrowRight className="bm-audience-route" aria-hidden="true" />
+
+        <div className="bm-audience-scope">
+          <span className="bm-audience-scope-label">Capital path</span>
+          <p>We carry the financing and business equation around it.</p>
+        </div>
       </article>
-      <article className="bm-audience-card">
-        <span className="bm-audience-tag">First-time builder</span>
-        <p>
-          Bring a property and a down payment. We craft the design and specs with you, assign an
-          experienced builder or project manager, and handle the rest — permits, draws, takeout,
-          everything.
-        </p>
+
+      <article className="bm-audience-row bm-audience-row--first-time">
+        <div className="bm-audience-origin">
+          <span className="bm-audience-code" aria-hidden="true">
+            02
+          </span>
+          <div>
+            <h3>First-time builder</h3>
+            <p>Bring a property and a down payment.</p>
+          </div>
+        </div>
+
+        <ArrowRight className="bm-audience-route" aria-hidden="true" />
+
+        <div className="bm-audience-scope">
+          <span className="bm-audience-scope-label">Full project team</span>
+          <p>
+            We shape the design and specs, assign an experienced builder or project manager, then
+            carry permits, draws and takeout through closing.
+          </p>
+        </div>
       </article>
     </div>
   )
@@ -722,7 +753,7 @@ export function FairlendBuildModelSection() {
               you talk to us.
             </p>
 
-            <AudienceCards />
+            <AudiencePaths />
 
             <div className="bm-cta-row" data-bm-primary-cta>
               <Link className="bm-cta" href={ctaHref}>

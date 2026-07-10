@@ -40,6 +40,7 @@ import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 import { cn } from '@/utilities/ui'
 
 import { FairlendBuilderConsultingMotion } from './Motion.client'
+import { torontoLuxury2019Model } from './model'
 
 type IconComponent = ComponentType<SVGProps<SVGSVGElement>>
 type BuilderYear = '2019' | '2023' | '2026'
@@ -89,24 +90,24 @@ const states = {
     subheadline:
       'A successful build is not only a construction problem, it is a business equation.',
     label: '2019',
-    note: '(lower market inputs. estimated return)',
-    panelNote: '(GTA market benchmarks)',
+    note: '(Toronto luxury home. positive estimated return)',
+    panelNote: '(illustrative 3,800 ft² luxury infill model)',
     cta: 'SEE THE TIMELINE',
     ctaNote: 'Scroll through the build math',
     cards: [
-      { icon: CircleHelp, text: 'Detached proxy averaged $1.02M' },
-      { icon: CircleHelp, text: 'Hard costs ranged $115-$215/ft²' },
-      { icon: CircleHelp, text: 'New-home benchmark was $1.09M' },
-      { icon: CircleHelp, text: 'Return estimated at midpoint cost' },
+      { icon: CircleHelp, text: 'Illustrative land basis: $1.45M' },
+      { icon: CircleHelp, text: 'Builder hard cost: $285/ft²' },
+      { icon: CircleHelp, text: 'Luxury-home exit: $3.65M' },
+      { icon: CircleHelp, text: 'Estimated return remained positive' },
     ],
     stripItems: [
-      { icon: Scale, text: 'Lower acquisition benchmark' },
-      { icon: NotebookPen, text: 'Lower published hard-cost range' },
+      { icon: Scale, text: 'Luxury infill land basis' },
+      { icon: NotebookPen, text: 'Builder hard-cost assumption' },
       { icon: Home, text: 'Consistent 3,800 ft² model' },
     ],
-    stripTitle: 'Benchmark. Model. Decide.',
-    stripCopy: 'In 2019, lower market inputs improved feasibility but did not guarantee profit.',
-    stripHighlight: 'did not guarantee profit',
+    stripTitle: 'Land. Build. Sell. Profit.',
+    stripCopy: 'In 2019, the Toronto luxury single-family equation still finished in the green.',
+    stripHighlight: 'in the green',
   },
   '2023': {
     year: '2023',
@@ -215,23 +216,24 @@ const singleFamilyTimelineRows = [
   {
     key: 'single-family',
     label: 'Single family',
-    note: 'Published GTA market benchmarks',
+    note: 'Illustrative Toronto luxury infill model',
     year: '2019',
-    tone: 'neutral',
+    tone: 'profit',
     values: {
-      land: '$1.02M',
-      build: '$115–215/ft²',
+      land: torontoLuxury2019Model.land,
+      build: torontoLuxury2019Model.build,
       home: '1 HOME',
-      sale: '$1.09M',
+      sale: torontoLuxury2019Model.sale,
     },
-    profit: '-$555K*',
-    margin: '-51.0%*',
-    riskLeft: 'EST. LOSS',
-    riskRight: 'MIDPOINT COST',
+    profit: torontoLuxury2019Model.profit,
+    margin: torontoLuxury2019Model.margin,
+    riskLeft: 'EST. PROFIT',
+    riskRight: 'POSITIVE RETURN',
     hints: {
-      land: 'detached resale proxy',
-      build: 'standard hard-cost range',
-      sale: 'new-home benchmark',
+      land: 'illustrative infill basis',
+      build: `${torontoLuxury2019Model.buildArea} builder model`,
+      home: torontoLuxury2019Model.buildArea,
+      sale: 'illustrative luxury exit',
     },
     outcomeHeading: 'RETURN',
     outcomeLabel: 'EST. RETURN*',
@@ -809,8 +811,9 @@ function MobileScrollEquationBoard() {
       </div>
       <EquationRows variant="compact" />
       <p className="builder-footnote builder-footnote--mobile">
-        *Estimates use midpoint hard costs and 3,800 ft² / 7,800 ft² build areas. Multiplex exit
-        uses four GTA condo benchmarks; garden yield uses $350K cost and Q1 2026 one-bedroom rent.
+        *The 2019 luxury-infill estimate uses the displayed illustrative inputs and a 3,800 ft²
+        build. Later single-family estimates use midpoint benchmark hard costs. Multiplex exit uses
+        four GTA condo benchmarks; garden yield uses $350K cost and Q1 2026 one-bedroom rent.
       </p>
     </div>
   )
@@ -831,8 +834,9 @@ function EquationDashboard() {
         <EquationRows />
       </div>
       <p className="builder-footnote">
-        *Estimates use midpoint hard costs and 3,800 ft² / 7,800 ft² build areas. Multiplex exit
-        uses four GTA condo benchmarks; garden yield uses $350K cost and Q1 2026 one-bedroom rent.
+        *The 2019 luxury-infill estimate uses the displayed illustrative inputs and a 3,800 ft²
+        build. Later single-family estimates use midpoint benchmark hard costs. Multiplex exit uses
+        four GTA condo benchmarks; garden yield uses $350K cost and Q1 2026 one-bedroom rent.
       </p>
     </div>
   )

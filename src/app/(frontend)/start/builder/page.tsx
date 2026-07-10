@@ -1,5 +1,6 @@
 import { DrawflowIntake } from '@/components/DrawflowIntake/DrawflowIntake.client'
 import { buildFairlendMetadata } from '@/utilities/seo'
+import { Suspense } from 'react'
 
 export const metadata = buildFairlendMetadata({
   description:
@@ -10,5 +11,9 @@ export const metadata = buildFairlendMetadata({
 })
 
 export default function BuilderStartPage() {
-  return <DrawflowIntake />
+  return (
+    <Suspense fallback={null}>
+      <DrawflowIntake />
+    </Suspense>
+  )
 }
