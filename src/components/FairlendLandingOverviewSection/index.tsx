@@ -13,6 +13,7 @@ import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 import { cn } from '@/utilities/ui'
 
 import { DrawFlowInterestBadge } from './DrawFlowInterestBadge'
+import styles from './overview-section.module.css'
 
 const assetBase = '/assets/about-webp/webp'
 
@@ -210,7 +211,10 @@ function ExpertiseCard({
 }) {
   return (
     <article
-      className="grid min-h-0 grid-cols-[44px_minmax(0,1fr)] grid-rows-none items-center gap-x-3 border border-[#08090a] bg-[#9DFF00] px-4 py-4 text-left shadow-[3px_3px_0_#08090a] transition-transform duration-200 hover:-translate-y-0.5 md:min-h-[148px] md:grid-cols-none md:grid-rows-[42px_auto_1fr] md:items-start md:gap-x-0 md:px-[10px] md:py-[18px]"
+      className={cn(
+        'grid min-h-0 grid-cols-[44px_minmax(0,1fr)] grid-rows-none items-center gap-x-3 border border-[#08090a] bg-[#9DFF00] px-4 py-4 text-left shadow-[3px_3px_0_#08090a] transition-transform duration-200 hover:-translate-y-0.5 md:min-h-[148px] md:grid-cols-none md:grid-rows-[42px_auto_1fr] md:items-start md:gap-x-0 md:px-[10px] md:py-[18px]',
+        styles.expertiseCard,
+      )}
       data-overview-expertise-card
     >
       <span
@@ -231,7 +235,13 @@ function ExpertiseCard({
       >
         {title}
       </h3>
-      <p className="col-start-2 m-0 mt-[4px] max-w-none text-[13px] leading-[1.28] font-medium text-[#08090a] md:col-start-auto md:mt-[10px] md:max-w-[138px]">
+      <p
+        className={cn(
+          'col-start-2 m-0 mt-[4px] max-w-none text-[13px] leading-[1.28] font-medium text-[#08090a] md:col-start-auto md:mt-[10px] md:max-w-[138px]',
+          styles.expertiseCopy,
+        )}
+        data-overview-expertise-copy
+      >
         {copy}
       </p>
     </article>
@@ -505,7 +515,13 @@ export function FairlendLandingOverviewSection() {
             </div>
           </div>
 
-          <div className="relative z-10 mx-auto mt-[36px] grid w-full max-w-[420px] gap-3 md:mx-0 md:mt-[52px] md:max-w-[486px] md:grid-cols-3 md:gap-[6px]">
+          <div
+            className={cn(
+              'relative z-10 mx-auto mt-[36px] grid w-full max-w-[420px] gap-3 md:mx-0 md:mt-[52px] md:max-w-[486px] md:grid-cols-3 md:gap-[6px]',
+              styles.expertiseGrid,
+            )}
+            data-overview-expertise-grid
+          >
             {expertiseItems.map((item) => (
               <ExpertiseCard key={item.title} {...item} />
             ))}

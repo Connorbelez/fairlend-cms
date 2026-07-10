@@ -1,0 +1,13 @@
+@media (min-width: 1024px) and (max-height: 820px) {
+  .expertiseGrid {
+    margin-top: 8px !important;
+  }
+
+  .expertiseCard {
+    padding-block: 10px !important;
+  }
+
+  .expertiseCopy {
+    margin-top: 4px !important;
+  }
+}
