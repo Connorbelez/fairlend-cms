@@ -1,3 +1,4 @@
+import { BadgeCheck, ClipboardList, Landmark, Search } from 'lucide-react'
 import type { VariantProps } from 'class-variance-authority'
 import type { CSSProperties } from 'react'
 
@@ -20,11 +21,17 @@ type FairlendRouteStepTrackProps = FairlendRouteComponentProps<HTMLDivElement> &
   VariantProps<typeof fairlendRouteStepTrackVariants> & {
     steps: string[]
     activeIndex?: number
+    descriptions?: string[]
+    detailed?: boolean
   }
+
+const detailedStepIcons = [ClipboardList, Search, BadgeCheck, Landmark]
 
 export function FairlendRouteStepTrack({
   activeIndex = 0,
   className,
+  descriptions,
+  detailed = false,
   density,
   steps,
   ...props
@@ -43,11 +50,15 @@ export function FairlendRouteStepTrack({
       <ol className="relative z-10 grid grid-cols-4 gap-0">
         {steps.map((step, index) => {
           const isActive = index === activeIndex
+          const StepIcon = detailedStepIcons[index] ?? ClipboardList
 
           return (
             <li
               key={`${step}-${index}`}
-              className="relative flex flex-col items-center gap-2"
+              className={cn(
+                'relative flex flex-col items-center gap-2',
+                detailed && 'gap-1.5 px-2 text-center',
+              )}
               style={{ '--route-step-index': index } as FairlendRouteStepStyle}
             >
               <span
@@ -55,17 +66,27 @@ export function FairlendRouteStepTrack({
                 className={fairlendRouteStepDotVariants({ active: isActive })}
                 data-fairlend-route-motion="step-dot"
               />
-              <span
-                className={fairlendRouteStepLabelVariants()}
-                data-fairlend-route-motion="step-label"
-              >
-                {step}
-                {index < steps.length - 1 ? (
-                  <span aria-hidden="true" className={fairlendRouteStepArrowVariants()}>
-                    -&gt;
+              {detailed ? (
+                <>
+                  <StepIcon aria-hidden="true" className="mt-1 size-5" strokeWidth={1.8} />
+                  <span className="text-[12px] leading-none font-bold">{step}</span>
+                  <span className="max-w-[15ch] text-[9px] leading-[1.2] font-medium text-[color:var(--fl-route-card-copy-ink)]">
+                    {descriptions?.[index]}
                   </span>
-                ) : null}
-              </span>
+                </>
+              ) : (
+                <span
+                  className={fairlendRouteStepLabelVariants()}
+                  data-fairlend-route-motion="step-label"
+                >
+                  {step}
+                  {index < steps.length - 1 ? (
+                    <span aria-hidden="true" className={fairlendRouteStepArrowVariants()}>
+                      -&gt;
+                    </span>
+                  ) : null}
+                </span>
+              )}
             </li>
           )
         })}

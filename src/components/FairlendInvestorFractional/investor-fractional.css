@@ -7,6 +7,8 @@
   padding: clamp(64px, 8vw, 120px) clamp(24px, 4vw, 56px);
   background: #fbfaf5;
   color: var(--landing-hero-ink, #08090a);
+  font-kerning: normal;
+  font-optical-sizing: auto;
 }
 
 .investor-fractional__inner {
@@ -18,19 +20,9 @@
   max-width: 760px;
 }
 
-.investor-fractional__eyebrow {
-  font-family: var(--font-inter), Arial, sans-serif;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--landing-hero-muted, rgb(73 73 68));
-  margin: 0 0 18px;
-}
-
 .investor-fractional__title {
   font-family: var(--font-cormorant), Georgia, serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: clamp(36px, 4.4vw, 64px);
   line-height: 1;
   letter-spacing: -0.035em;
@@ -42,10 +34,10 @@
 
 .investor-fractional__lede {
   font-family: var(--font-inter), Arial, sans-serif;
-  font-size: clamp(15px, 1.05vw, 17px);
+  font-size: 1rem;
   line-height: 1.6;
   font-weight: 400;
-  color: var(--landing-hero-muted, rgb(58 58 54));
+  color: var(--landing-hero-muted, #494944);
   margin: 22px 0 0;
   max-width: 64ch;
   text-wrap: pretty;
@@ -57,6 +49,9 @@
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   gap: clamp(20px, 3vw, 48px);
+  padding: clamp(24px, 3.5vw, 48px);
+  border-radius: 18px;
+  background: var(--landing-hero-ink, #08090a);
 }
 
 .investor-fractional__figure {
@@ -69,7 +64,7 @@
   font-weight: 800;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--landing-hero-muted, rgb(73 73 68));
+  color: rgb(255 253 249 / 76%);
   margin-bottom: 12px;
 }
 
@@ -92,7 +87,7 @@
   width: 100%;
   height: 100%;
   background: var(--landing-hero-ink, #08090a);
-  border-radius: 4px;
+  border-radius: 5px;
 }
 
 .investor-fractional__bar--split {
@@ -104,7 +99,7 @@
   flex: 1;
   height: 100%;
   background: rgb(8 9 10 / 22%);
-  border-radius: 4px;
+  border-radius: 5px;
 }
 
 .investor-fractional__slice--yours {
@@ -115,7 +110,7 @@
   font-family: var(--font-inter), Arial, sans-serif;
   font-size: 28px;
   font-weight: 400;
-  color: var(--landing-hero-muted, rgb(108 108 100));
+  color: var(--landing-hero-lime, #96ec18);
   text-align: center;
 }
 
@@ -149,10 +144,10 @@
   border-radius: 10px;
   background: var(--landing-hero-paper, #f8f7f5);
   font-family: var(--font-inter), Arial, sans-serif;
-  font-size: 13px;
+  font-size: 0.875rem;
   line-height: 1.55;
   font-weight: 400;
-  color: var(--landing-hero-muted, rgb(58 58 54));
+  color: var(--landing-hero-muted, #494944);
 }
 
 @media (max-width: 760px) {

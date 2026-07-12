@@ -110,10 +110,10 @@ export function FairlendInvestorFaq(): ReactElement {
       aria-labelledby="investor-faq-title"
       className="investor-faq"
       data-investor-faq
+      id="investor-faq"
     >
       <div className="investor-faq__inner">
         <header className="investor-faq__header">
-          <p className="investor-faq__eyebrow">FAQ</p>
           <h2 className="investor-faq__title" id="investor-faq-title">
             Straight answers to the questions investors ask first.
           </h2>

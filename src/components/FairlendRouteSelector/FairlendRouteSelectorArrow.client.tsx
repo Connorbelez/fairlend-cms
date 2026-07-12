@@ -46,7 +46,7 @@ export function FairlendRouteSelectorArrow() {
   )
 
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0" ref={layerRef}>
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-20" ref={layerRef}>
       <DynamicArrowCanvas
         activeOnlyWhenPointerInside
         activationElement={getRouteSelector}

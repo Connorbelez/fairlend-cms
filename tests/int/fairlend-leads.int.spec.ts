@@ -93,7 +93,9 @@ describe('Fairlend lead normalization', () => {
       intakeDetail: 'Bank declined the file, closing in two weeks.',
       intakeFinancingNeeds: null,
       intakeInvestmentFocus: null,
+      intakeMortgageGoal: null,
       intakeMortgageBalance: null,
+      intakeMortgageProduct: null,
       intakeProjectStage: null,
       intakePropertyValue: null,
       intakeSummary:
@@ -101,6 +103,67 @@ describe('Fairlend lead normalization', () => {
       intakeTimeline: 'Closing in 2 weeks',
       intakeType: 'mortgage',
     })
+  })
+
+  it('normalizes the residential mortgage lane and step-one goal for admin routing', () => {
+    const details = deriveFairlendLeadIntakeDetails(
+      {
+        mortgageProduct: 'institutional',
+        requestedIntent: 'mortgage',
+        situation: 'First-time home buyer',
+      },
+      'mortgage',
+    )
+
+    expect(details).toMatchObject({
+      intakeMortgageGoal: 'First-time home buyer',
+      intakeMortgageProduct: 'institutional',
+      intakeSummary:
+        'Type: mortgage | Mortgage lane: institutional | Mortgage goal: First-time home buyer',
+    })
+  })
+
+  it('summarizes rental-property refinance debt for admin review', () => {
+    const details = deriveFairlendLeadIntakeDetails(
+      {
+        additionalLienDetails: 'Second mortgage balance is approximately $95,000.',
+        additionalLiens: 'First mortgage plus other liens / encumbrances',
+        amount: '$900,000',
+        currentMortgage: '$700,000',
+        mortgageProduct: 'rental-property',
+        propertyValue: '$1,600,000',
+        requestedIntent: 'mortgage',
+        situation: 'Refinance',
+        timeline: 'Within 30 days',
+      },
+      'mortgage',
+    )
+
+    expect(details).toMatchObject({
+      intakeAdditionalLiens: 'First mortgage plus other liens / encumbrances',
+      intakeAmount: '$900,000',
+      intakeDetail: 'Second mortgage balance is approximately $95,000.',
+      intakeMortgageBalance: '$700,000',
+      intakeMortgageGoal: 'Refinance',
+      intakeMortgageProduct: 'rental-property',
+      intakePropertyValue: '$1,600,000',
+      intakeTimeline: 'Within 30 days',
+    })
+    expect(details.intakeSummary).toContain('Mortgage lane: rental-property')
+    expect(details.intakeSummary).toContain('Balance: $700,000')
+  })
+
+  it('uses the selected project scope as the build intake type', () => {
+    const details = deriveFairlendLeadIntakeDetails(
+      {
+        projectScope: 'Garden & laneway suites',
+        projectStage: 'Permit submitted',
+      },
+      'build',
+    )
+
+    expect(details.intakeType).toBe('Garden & laneway suites')
+    expect(details.intakeSummary).toBe('Type: Garden & laneway suites | Stage: Permit submitted')
   })
 
   it('maps normalized leads to the Payload admin collection shape', () => {
@@ -137,7 +200,9 @@ describe('Fairlend lead normalization', () => {
       intakeDetail: null,
       intakeFinancingNeeds: null,
       intakeInvestmentFocus: null,
+      intakeMortgageGoal: null,
       intakeMortgageBalance: null,
+      intakeMortgageProduct: null,
       intakeProjectStage: 'Permits submitted',
       intakePropertyValue: null,
       intakeSummary: 'Type: build | Stage: Permits submitted',
@@ -156,8 +221,10 @@ describe('Fairlend lead normalization', () => {
     })
   })
 
-  it('exposes additional liens in the Payload admin table columns', () => {
+  it('exposes mortgage routing fields and additional liens in the Payload admin table columns', () => {
     expect(FairlendLeads.admin?.defaultColumns).toContain('intakeAdditionalLiens')
+    expect(FairlendLeads.admin?.defaultColumns).toContain('intakeMortgageGoal')
+    expect(FairlendLeads.admin?.defaultColumns).toContain('intakeMortgageProduct')
   })
 
   it('preserves existing admin contact and JSON data when later drafts omit it', () => {

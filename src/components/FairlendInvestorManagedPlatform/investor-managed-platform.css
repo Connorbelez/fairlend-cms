@@ -7,6 +7,8 @@
   padding: clamp(64px, 8vw, 120px) clamp(24px, 4vw, 56px);
   background: var(--landing-hero-paper, #f8f7f5);
   color: var(--landing-hero-ink, #08090a);
+  font-kerning: normal;
+  font-optical-sizing: auto;
 }
 
 .investor-managed__inner {
@@ -18,19 +20,9 @@
   max-width: 760px;
 }
 
-.investor-managed__eyebrow {
-  font-family: var(--font-inter), Arial, sans-serif;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--landing-hero-muted, rgb(73 73 68));
-  margin: 0 0 18px;
-}
-
 .investor-managed__title {
   font-family: var(--font-cormorant), Georgia, serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: clamp(36px, 4.4vw, 64px);
   line-height: 1;
   letter-spacing: -0.035em;
@@ -42,10 +34,10 @@
 
 .investor-managed__lede {
   font-family: var(--font-inter), Arial, sans-serif;
-  font-size: clamp(15px, 1.05vw, 17px);
+  font-size: 1rem;
   line-height: 1.6;
   font-weight: 400;
-  color: var(--landing-hero-muted, rgb(58 58 54));
+  color: var(--landing-hero-muted, #494944);
   margin: 22px 0 0;
   max-width: 64ch;
   text-wrap: pretty;
@@ -66,8 +58,9 @@
 }
 
 .investor-managed__column--fairlend {
-  border-color: var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
-  box-shadow: 0 18px 42px rgb(8 9 10 / 5%);
+  border-color: var(--landing-hero-ink, #08090a);
+  background: var(--landing-hero-ink, #08090a);
+  color: var(--landing-hero-white, #fffdf9);
   position: relative;
   overflow: hidden;
 }
@@ -108,7 +101,7 @@
 
 .investor-managed__column-title {
   font-family: var(--font-cormorant), Georgia, serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: clamp(22px, 2.2vw, 30px);
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -130,12 +123,21 @@
   align-items: flex-start;
   gap: 12px;
   font-family: var(--font-inter), Arial, sans-serif;
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.5;
   font-weight: 500;
   color: var(--landing-hero-ink, #08090a);
   padding: 10px 0;
   border-top: 1px solid var(--landing-hero-line-soft, rgb(8 9 10 / 8%));
+}
+
+.investor-managed__column--fairlend .investor-managed__column-title,
+.investor-managed__column--fairlend .investor-managed__list-item {
+  color: var(--landing-hero-white, #fffdf9);
+}
+
+.investor-managed__column--fairlend .investor-managed__list-item {
+  border-color: rgb(255 253 249 / 18%);
 }
 
 .investor-managed__list-item:first-child {
@@ -157,7 +159,7 @@
 .investor-managed__mark--lime {
   width: 18px;
   height: 18px;
-  border-radius: 6px;
+  border-radius: 5px;
   background: var(--landing-hero-lime, #96ec18);
   color: #101010;
   display: inline-flex;

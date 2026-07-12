@@ -57,7 +57,9 @@ export interface NormalizedLeadPayload {
   intakeDetail: string | null
   intakeFinancingNeeds: string | null
   intakeInvestmentFocus: string | null
+  intakeMortgageGoal: string | null
   intakeMortgageBalance: string | null
+  intakeMortgageProduct: string | null
   intakeProjectStage: string | null
   intakePropertyValue: string | null
   intakeSummary: string | null
@@ -89,7 +91,9 @@ export type FairlendLeadAdminData = {
   intakeDetail: string | null
   intakeFinancingNeeds: string | null
   intakeInvestmentFocus: string | null
+  intakeMortgageGoal: string | null
   intakeMortgageBalance: string | null
+  intakeMortgageProduct: string | null
   intakeProjectStage: string | null
   intakePropertyValue: string | null
   intakeSummary: string | null
@@ -126,7 +130,9 @@ type DerivedFairlendLeadIntakeDetails = Pick<
   | 'intakeDetail'
   | 'intakeFinancingNeeds'
   | 'intakeInvestmentFocus'
+  | 'intakeMortgageGoal'
   | 'intakeMortgageBalance'
+  | 'intakeMortgageProduct'
   | 'intakeProjectStage'
   | 'intakePropertyValue'
   | 'intakeSummary'
@@ -271,7 +277,9 @@ export function toFairlendLeadAdminData(payload: NormalizedLeadPayload): Fairlen
     intakeDetail: payload.intakeDetail,
     intakeFinancingNeeds: payload.intakeFinancingNeeds,
     intakeInvestmentFocus: payload.intakeInvestmentFocus,
+    intakeMortgageGoal: payload.intakeMortgageGoal,
     intakeMortgageBalance: payload.intakeMortgageBalance,
+    intakeMortgageProduct: payload.intakeMortgageProduct,
     intakeProjectStage: payload.intakeProjectStage,
     intakePropertyValue: payload.intakePropertyValue,
     intakeSummary: payload.intakeSummary,
@@ -320,7 +328,9 @@ export function mergeFairlendLeadAdminData(
     intakeDetail: incoming.intakeDetail ?? existing.intakeDetail ?? null,
     intakeFinancingNeeds: incoming.intakeFinancingNeeds ?? existing.intakeFinancingNeeds ?? null,
     intakeInvestmentFocus: incoming.intakeInvestmentFocus ?? existing.intakeInvestmentFocus ?? null,
+    intakeMortgageGoal: incoming.intakeMortgageGoal ?? existing.intakeMortgageGoal ?? null,
     intakeMortgageBalance: incoming.intakeMortgageBalance ?? existing.intakeMortgageBalance ?? null,
+    intakeMortgageProduct: incoming.intakeMortgageProduct ?? existing.intakeMortgageProduct ?? null,
     intakeProjectStage: incoming.intakeProjectStage ?? existing.intakeProjectStage ?? null,
     intakePropertyValue: incoming.intakePropertyValue ?? existing.intakePropertyValue ?? null,
     intakeSummary: incoming.intakeSummary ?? existing.intakeSummary ?? null,
@@ -343,6 +353,7 @@ export function deriveFairlendLeadIntakeDetails(
   intent?: unknown,
 ): DerivedFairlendLeadIntakeDetails {
   const intakeType = firstText(
+    intake.projectScope,
     intake.requestedIntent,
     intake.situationType,
     intake.intent,
@@ -365,22 +376,34 @@ export function deriveFairlendLeadIntakeDetails(
     intake.detail,
     intake.notes,
     intake.message,
+    intake.additionalLienDetails,
     intake.documentStatus,
     intake.googleEventLink,
   )
   const intakeProjectStage = firstText(intake.projectStage, intake.stage, intake.permitStage)
   const intakeFinancingNeeds = firstText(intake.financingNeeds, intake.financingNeed)
   const intakePropertyValue = firstText(intake.estimatedValue, intake.propertyValue)
-  const intakeMortgageBalance = firstText(intake.mortgageBalance, intake.currentMortgageBalance)
+  const intakeMortgageBalance = firstText(
+    intake.mortgageBalance,
+    intake.currentMortgageBalance,
+    intake.currentMortgage,
+  )
   const intakeAdditionalLiens = firstText(intake.additionalLiens, intake.additionalLienBalance)
   const intakeInvestmentFocus = firstText(intake.investmentFocus, intake.focus)
+  const intakeMortgageProduct = firstText(intake.mortgageProduct)
+  const intakeMortgageGoal =
+    intakeMortgageProduct || intakeType === 'mortgage'
+      ? firstText(intake.mortgageGoal, intake.situation)
+      : null
   const intakeSummary = buildIntakeSummary({
     intakeAdditionalLiens,
     intakeAmount,
     intakeDetail,
     intakeFinancingNeeds,
     intakeInvestmentFocus,
+    intakeMortgageGoal,
     intakeMortgageBalance,
+    intakeMortgageProduct,
     intakeProjectStage,
     intakePropertyValue,
     intakeTimeline,
@@ -393,7 +416,9 @@ export function deriveFairlendLeadIntakeDetails(
     intakeDetail,
     intakeFinancingNeeds,
     intakeInvestmentFocus,
+    intakeMortgageGoal,
     intakeMortgageBalance,
+    intakeMortgageProduct,
     intakeProjectStage,
     intakePropertyValue,
     intakeSummary,
@@ -434,6 +459,8 @@ export async function syncFairlendLeadAdminRecord(payload: NormalizedLeadPayload
       intake_financing_needs,
       intake_property_value,
       intake_mortgage_balance,
+      intake_mortgage_product,
+      intake_mortgage_goal,
       intake_investment_focus,
       address_details,
       admin_notes,
@@ -468,6 +495,8 @@ export async function syncFairlendLeadAdminRecord(payload: NormalizedLeadPayload
       ${data.intakeFinancingNeeds},
       ${data.intakePropertyValue},
       ${data.intakeMortgageBalance},
+      ${data.intakeMortgageProduct},
+      ${data.intakeMortgageGoal},
       ${data.intakeInvestmentFocus},
       ${JSON.stringify(data.addressDetails)}::jsonb,
       ${data.adminNotes},
@@ -505,6 +534,8 @@ export async function syncFairlendLeadAdminRecord(payload: NormalizedLeadPayload
       intake_financing_needs = COALESCE(EXCLUDED.intake_financing_needs, lead.intake_financing_needs),
       intake_property_value = COALESCE(EXCLUDED.intake_property_value, lead.intake_property_value),
       intake_mortgage_balance = COALESCE(EXCLUDED.intake_mortgage_balance, lead.intake_mortgage_balance),
+      intake_mortgage_product = COALESCE(EXCLUDED.intake_mortgage_product, lead.intake_mortgage_product),
+      intake_mortgage_goal = COALESCE(EXCLUDED.intake_mortgage_goal, lead.intake_mortgage_goal),
       intake_investment_focus = COALESCE(EXCLUDED.intake_investment_focus, lead.intake_investment_focus),
       address_details = CASE
         WHEN EXCLUDED.address_details = '{}'::jsonb THEN lead.address_details
@@ -635,6 +666,8 @@ async function ensureFairlendLeadAdminSchema(sql: NeonQueryFunction<false, false
       intake_financing_needs varchar,
       intake_property_value varchar,
       intake_mortgage_balance varchar,
+      intake_mortgage_product varchar,
+      intake_mortgage_goal varchar,
       intake_investment_focus varchar,
       address_details jsonb,
       campaign varchar,
@@ -661,6 +694,8 @@ async function ensureFairlendLeadAdminSchema(sql: NeonQueryFunction<false, false
       ADD COLUMN IF NOT EXISTS intake_financing_needs varchar,
       ADD COLUMN IF NOT EXISTS intake_property_value varchar,
       ADD COLUMN IF NOT EXISTS intake_mortgage_balance varchar,
+      ADD COLUMN IF NOT EXISTS intake_mortgage_product varchar,
+      ADD COLUMN IF NOT EXISTS intake_mortgage_goal varchar,
       ADD COLUMN IF NOT EXISTS intake_investment_focus varchar,
       ADD COLUMN IF NOT EXISTS campaign varchar,
       ADD COLUMN IF NOT EXISTS campaign_scan_id varchar,
@@ -680,6 +715,7 @@ async function ensureFairlendLeadAdminSchema(sql: NeonQueryFunction<false, false
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_intake_amount_idx ON fairlend_leads USING btree (intake_amount)`
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_intake_timeline_idx ON fairlend_leads USING btree (intake_timeline)`
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_intake_project_stage_idx ON fairlend_leads USING btree (intake_project_stage)`
+  await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_intake_mortgage_product_idx ON fairlend_leads USING btree (intake_mortgage_product)`
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_campaign_idx ON fairlend_leads USING btree (campaign)`
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_campaign_scan_id_idx ON fairlend_leads USING btree (campaign_scan_id)`
   await ensureCampaignScanLockedDocumentRelation(sql)
@@ -796,6 +832,8 @@ function buildIntakeSummary(details: FairlendLeadIntakeSummaryParts): string | n
     labelValue('Financing', details.intakeFinancingNeeds),
     labelValue('Value', details.intakePropertyValue),
     labelValue('Balance', details.intakeMortgageBalance),
+    labelValue('Mortgage lane', details.intakeMortgageProduct),
+    labelValue('Mortgage goal', details.intakeMortgageGoal),
     labelValue('Additional liens', details.intakeAdditionalLiens),
     labelValue('Focus', details.intakeInvestmentFocus),
     labelValue('Notes', details.intakeDetail),

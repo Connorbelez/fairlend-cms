@@ -5,6 +5,7 @@ import { Cormorant_Garamond, Inter } from 'next/font/google'
 import React, { Suspense } from 'react'
 
 import { AnalyticsProvider } from '@/components/Analytics'
+import { FairlendConsultationBookingModalInterceptor } from '@/components/FairlendConsultationBooking/FairlendConsultationBookingModalInterceptor.client'
 import { FAIRLEND_LOGO_SRC } from '@/components/Logo/Logo'
 import { JsonLd } from '@/components/SEO/JsonLd'
 import { Footer } from '@/Footer/Component'
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={[fairlendOrganizationJsonLd(), fairlendWebsiteJsonLd()]} />
         <Providers initialTheme={defaultTheme}>
           <FrontendChrome footer={<Footer />}>{children}</FrontendChrome>
+          <FairlendConsultationBookingModalInterceptor />
           <Suspense fallback={null}>
             <AnalyticsProvider />
           </Suspense>

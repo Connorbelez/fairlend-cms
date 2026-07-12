@@ -4,6 +4,11 @@ import deepMerge from '@/utilities/deepMerge'
 
 export type LinkAppearances = 'default' | 'outline'
 
+export type LinkDbNames = {
+  group?: string
+  type?: string
+}
+
 export const appearanceOptions: Record<LinkAppearances, { label: string; value: string }> = {
   default: {
     label: 'Default',
@@ -17,11 +22,17 @@ export const appearanceOptions: Record<LinkAppearances, { label: string; value: 
 
 type LinkType = (options?: {
   appearances?: LinkAppearances[] | false
+  dbNames?: LinkDbNames
   disableLabel?: boolean
   overrides?: Partial<GroupField>
 }) => Field
 
-export const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
+export const link: LinkType = ({
+  appearances,
+  dbNames,
+  disableLabel = false,
+  overrides = {},
+} = {}) => {
   const linkResult: GroupField = {
     name: 'link',
     type: 'group',
@@ -65,6 +76,20 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
         ],
       },
     ],
+  }
+
+  if (dbNames?.group) {
+    ;(linkResult as GroupField & { dbName?: string }).dbName = dbNames.group
+  }
+
+  if (dbNames?.type) {
+    const typeField = linkResult.fields[0]
+    if (typeField && 'fields' in typeField) {
+      const radioField = typeField.fields[0]
+      if (radioField) {
+        ;(radioField as Field & { dbName?: string }).dbName = dbNames.type
+      }
+    }
   }
 
   const linkTypes: Field[] = [

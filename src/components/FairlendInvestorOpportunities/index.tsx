@@ -44,10 +44,10 @@ export function FairlendInvestorOpportunities(): ReactElement {
       aria-labelledby="investor-opportunities-title"
       className="investor-opportunities"
       data-investor-opportunities
+      id="investor-opportunities"
     >
       <div className="investor-opportunities__inner">
         <header className="investor-opportunities__header">
-          <p className="investor-opportunities__eyebrow">Curated opportunities</p>
           <h2 className="investor-opportunities__title" id="investor-opportunities-title">
             A curated shelf, not a firehose.
           </h2>

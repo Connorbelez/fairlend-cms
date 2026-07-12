@@ -16,6 +16,7 @@ export type FairlendRouteChoice = {
   description: string
   bullets: string[]
   steps: string[]
+  stepDescriptions?: string[]
   ctaLabel: string
   href: string
   icon: FairlendRouteIcon

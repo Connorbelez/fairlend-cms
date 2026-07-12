@@ -5,21 +5,15 @@
 .investor-final {
   position: relative;
   padding: clamp(80px, 10vw, 144px) clamp(24px, 4vw, 56px);
-  background: var(--landing-hero-paper, #f8f7f5);
-  color: var(--landing-hero-ink, #08090a);
+  background: var(--landing-hero-ink, #08090a);
+  color: var(--landing-hero-white, #fffdf9);
   overflow: hidden;
+  font-kerning: normal;
+  font-optical-sizing: auto;
 }
 
 .investor-final::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(
-    circle at 50% 0%,
-    rgb(150 236 24 / 10%),
-    transparent 60%
-  );
-  pointer-events: none;
+  content: none;
 }
 
 .investor-final__inner {
@@ -31,22 +25,21 @@
 
 .investor-final__eyebrow {
   font-family: var(--font-inter), Arial, sans-serif;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--landing-hero-muted, rgb(73 73 68));
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: normal;
+  color: var(--landing-hero-lime, #96ec18);
   margin: 0 0 22px;
 }
 
 .investor-final__title {
   font-family: var(--font-cormorant), Georgia, serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: clamp(38px, 5vw, 78px);
   line-height: 1.02;
   letter-spacing: -0.04em;
   margin: 0;
-  color: var(--landing-hero-ink, #08090a);
+  color: var(--landing-hero-white, #fffdf9);
   text-wrap: balance;
   max-width: 22ch;
   margin-inline: auto;
@@ -57,7 +50,7 @@
   font-size: clamp(16px, 1.15vw, 19px);
   line-height: 1.55;
   font-weight: 400;
-  color: var(--landing-hero-muted, rgb(58 58 54));
+  color: rgb(255 253 249 / 78%);
   margin: 26px auto 0;
   max-width: 56ch;
   text-wrap: pretty;
@@ -71,6 +64,21 @@
   justify-content: center;
 }
 
+.investor-final .fairlend-borrower-cta--secondary {
+  border-color: rgb(255 253 249 / 38%);
+  color: var(--landing-hero-white, #fffdf9);
+}
+
+.investor-final .fairlend-borrower-cta--secondary:hover {
+  border-color: var(--landing-hero-lime, #96ec18);
+  background: rgb(255 253 249 / 8%);
+}
+
+.investor-final .fairlend-borrower-cta--secondary:focus-visible {
+  --tw-ring-color: var(--landing-hero-lime, #96ec18);
+  --tw-ring-offset-color: var(--landing-hero-ink, #08090a);
+}
+
 .investor-final__risk {
   margin: clamp(32px, 4vw, 48px) auto 0;
   max-width: 56ch;
@@ -78,7 +86,7 @@
   font-size: 12px;
   line-height: 1.6;
   font-weight: 400;
-  color: var(--landing-hero-muted-soft, rgb(108 108 100));
+  color: rgb(255 253 249 / 64%);
 }
 
 @media (max-width: 480px) {

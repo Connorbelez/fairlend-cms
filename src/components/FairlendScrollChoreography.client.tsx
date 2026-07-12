@@ -4,18 +4,32 @@ import { useLayoutEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+import { createInvestorChoreography } from './FairlendInvestorChoreography'
+
+import './fairlend-investor-choreography.css'
+
 function isElement(element: Element | null): element is Element {
   return element !== null
 }
 
 const leadershipProofNumberPattern = /^([^0-9]*)(\d+(?:\.\d+)?)(.*)$/
 
-export function FairlendScrollChoreography() {
+type FairlendScrollChoreographyProps = {
+  surface?: 'home' | 'investor'
+}
+
+export function FairlendScrollChoreography({
+  surface = 'home',
+}: FairlendScrollChoreographyProps = {}) {
   useLayoutEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     gsap.registerPlugin(ScrollTrigger)
     ScrollTrigger.config({ ignoreMobileResize: true })
+
+    if (surface === 'investor') {
+      return createInvestorChoreography()
+    }
 
     const context = gsap.context(() => {
       const clientSignals = document.querySelector<HTMLElement>(
@@ -1287,7 +1301,7 @@ export function FairlendScrollChoreography() {
             {
               duration: 0.92,
               filter: 'saturate(1) contrast(1) brightness(1)',
-              scale: 1.025,
+              scale: 1.05,
               yPercent: 0,
             },
             0.68,
@@ -1436,7 +1450,7 @@ export function FairlendScrollChoreography() {
           .to(commitments, { autoAlpha: 1, duration: 0.34, stagger: 0.055, x: 0 }, 2.48)
 
         if (visualImage) {
-          gsap.to(visualPanel ? [visualPanel] : [], {
+          gsap.to(visualImage, {
             ease: 'none',
             scrollTrigger: {
               end: 'bottom top',
@@ -1931,7 +1945,7 @@ export function FairlendScrollChoreography() {
     window.requestAnimationFrame(() => ScrollTrigger.refresh())
 
     return () => context.revert()
-  }, [])
+  }, [surface])
 
   return null
 }

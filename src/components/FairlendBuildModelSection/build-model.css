@@ -219,7 +219,7 @@
     .bm-audience-ledger,
     .bm-audience-row,
     .bm-audience-code,
-    .bm-service-list li,
+    .bm-station-comparison-panel,
     .bm-drawflow,
     .bm-df-compare,
     .bm-df-cmp,
@@ -312,13 +312,9 @@
 
 .bm-board-header {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 12px;
-}
-
-.bm-board-drawflow-badge {
-  justify-self: center;
 }
 
 .bm-board-status,
@@ -490,13 +486,12 @@
 .bm-dossier-tab.is-active {
   z-index: 20;
   border-color: color-mix(in oklch, var(--bm-signal) 42%, var(--bm-line-strong));
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in oklch, var(--bm-card-surface) 98%, var(--bm-signal) 2%) 0%,
-      var(--bm-card-surface) 56%,
-      color-mix(in oklch, var(--bm-card-surface) 96%, var(--bm-blueprint) 4%) 100%
-    );
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklch, var(--bm-card-surface) 98%, var(--bm-signal) 2%) 0%,
+    var(--bm-card-surface) 56%,
+    color-mix(in oklch, var(--bm-card-surface) 96%, var(--bm-blueprint) 4%) 100%
+  );
   opacity: 1;
   transform: translate(0, 0) rotate(0deg) scale(1);
 }
@@ -885,7 +880,7 @@
 
 .bm-progress {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 5px;
 }
 
@@ -1263,55 +1258,130 @@
 /* ---------- Station panels ---------- */
 .bm-station-head {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 18px;
-  align-items: baseline;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
 }
 
 .bm-station-num {
-  color: var(--bm-signal);
-  font-size: 13px;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--bm-line-strong);
+  background: var(--bm-signal);
+  color: var(--bm-palette-ink);
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.12em;
 }
 
+.bm-station-phase,
+.bm-station-comparison-label {
+  display: block;
+  color: var(--bm-signal);
+  font-family: var(--font-oxanium), ui-monospace, monospace;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 .bm-station-head h3 {
-  max-width: 12ch;
-  margin: 0;
+  max-width: 18ch;
+  margin: 9px 0 0;
   color: var(--bm-ink-deep);
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(38px, 5vw, 70px);
+  font-size: clamp(35px, 4.35vw, 60px);
   font-weight: 500;
-  line-height: 0.88;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+  text-wrap: balance;
 }
 
-.bm-service-list {
+.bm-station-body {
+  max-width: 68ch;
+  margin: 26px 0 0 58px;
+  color: var(--bm-ink-soft);
+  font-size: 15px;
+  line-height: 1.62;
+  text-wrap: pretty;
+}
+
+.bm-station-comparison {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin: 26px 0 0;
-  padding: 0;
+  margin: 28px 0 0 58px;
+  border: 1px solid var(--bm-line-strong);
 }
 
-.bm-service-list li {
-  list-style: none;
-  border: 1px solid var(--bm-line);
-  border-radius: 8px;
-  background: color-mix(in oklch, var(--bm-card-surface) 86%, transparent);
-  color: var(--bm-ink-soft);
-  padding: 14px;
-  font-size: 14px;
-  line-height: 1.45;
+.bm-station-comparison-panel {
+  position: relative;
+  min-height: 174px;
+  padding: 20px;
+  overflow: hidden;
 }
 
-.bm-service-list li::before {
-  content: '';
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  margin-right: 9px;
-  border-radius: 50%;
+.bm-station-comparison-panel + .bm-station-comparison-panel {
+  border-left: 1px solid var(--bm-line-strong);
+}
+
+.bm-station-comparison-panel--without {
+  background-color: color-mix(in oklch, var(--bm-card-surface) 92%, transparent);
+  background-image: radial-gradient(circle, var(--bm-line-strong) 0 0.7px, transparent 0.9px);
+  background-size: 5px 5px;
+}
+
+.bm-station-comparison-panel--with {
+  background: var(--bm-card-surface);
+  box-shadow: inset 0 4px 0 var(--bm-signal);
+}
+
+.bm-station-comparison-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--bm-muted);
+}
+
+.bm-station-comparison-label::before {
+  content: '×';
+  display: inline-grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border: 1px solid currentColor;
+}
+
+.bm-station-comparison-panel--with .bm-station-comparison-label {
+  color: var(--bm-signal-deep);
+}
+
+.bm-station-comparison-panel--with .bm-station-comparison-label::before {
+  content: '+';
+  border-color: var(--bm-signal);
   background: var(--bm-signal);
+}
+
+.bm-station-comparison-panel p {
+  margin: 18px 0 0;
+  color: var(--bm-ink-soft);
+  font-size: 13.5px;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.bm-station-comparison-panel--with p {
+  color: var(--bm-ink-deep);
+}
+
+.bm-station-note {
+  margin: clamp(18px, 2vw, 24px) 0 0 58px;
+  border-top: 1px solid var(--bm-line-strong);
+  color: var(--bm-muted);
+  font-size: 13px;
+  line-height: 1.55;
+  padding-top: 14px;
 }
 
 .bm-proof {
@@ -2022,11 +2092,22 @@
   }
 
   .bm-budget-ledger,
-  .bm-service-list,
+  .bm-station-comparison,
   .bm-df-compare,
   .bm-df-flex,
   .bm-df-saved {
     grid-template-columns: 1fr;
+  }
+
+  .bm-station-body,
+  .bm-station-comparison,
+  .bm-station-note {
+    margin-left: 0;
+  }
+
+  .bm-station-comparison-panel + .bm-station-comparison-panel {
+    border-top: 1px solid var(--bm-line-strong);
+    border-left: 0;
   }
 
   .bm-df-cmp + .bm-df-cmp {
@@ -2094,11 +2175,6 @@
     gap: 10px 12px;
   }
 
-  .bm-board-drawflow-badge {
-    grid-column: 1 / -1;
-    justify-self: start;
-  }
-
   .bm-board-active {
     max-width: 11ch;
   }
@@ -2153,7 +2229,7 @@
     line-height: 0.94;
   }
 
-  .bm-service-list li,
+  .bm-station-comparison-panel p,
   .bm-audience-origin p,
   .bm-audience-scope p {
     font-size: 13.5px;

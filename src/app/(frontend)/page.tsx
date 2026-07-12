@@ -7,6 +7,7 @@ import { FairlendLandingRail } from '@/components/FairlendLandingRail'
 import { FairlendLeadershipSection } from '@/components/FairlendLeadershipSection'
 import { FairlendRouteSelector } from '@/components/FairlendRouteSelector'
 import { FairlendScrollChoreography } from '@/components/FairlendScrollChoreography.client'
+import { FairlendTeamSection } from '@/components/FairlendTeamSection'
 import { buildFairlendMetadata } from '@/utilities/seo'
 
 export const dynamic = 'force-static'
@@ -39,8 +40,9 @@ export default function Page() {
       </FairlendLandingRail>
       <FairlendLandingRail gutterTexture="groovepaper">
         <FairlendLeadershipSection />
+        <FairlendTeamSection />
       </FairlendLandingRail>
-      <FairlendLandingRail className="[--landing-gutter-width:0px] [&_.fairlend-landing-rail-dots]:hidden">
+      <FairlendLandingRail gutterTexture="groovepaper">
         <FairlendFaqSection />
       </FairlendLandingRail>
     </div>

@@ -9,7 +9,11 @@ import {
   torontoHeroAssets,
 } from '@/components/FairlendLandingHero/toronto-scene-assets'
 import { Highlighter } from '@/components/ui/highlighter'
-import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
+import {
+  buildFairlendIntakeHref,
+  fairlendRentalPropertyAcquisitionSource,
+  fairlendRentalPropertyRefinanceSource,
+} from '@/lib/fairlend-intake'
 import { cn } from '@/utilities/ui'
 
 import { DrawFlowInterestBadge } from './DrawFlowInterestBadge'
@@ -73,22 +77,22 @@ const expertiseItems = [
   withHeart?: boolean
 }>
 
-const financeItems = [
+export const financeItems = [
   {
     code: '01',
-    copy: '1st, 2nd, and 3rd mortgages with automated digital servicing.',
+    copy: 'Institutional and private residential mortgage options, including purchases, first homes, refinances, and equity access.',
     href: buildFairlendIntakeHref({
       intent: 'mortgage',
-      source: 'landing-overview-residential-private-mortgages',
+      source: 'landing-overview-residential-mortgages',
     }),
     image: overviewAssets.residentialMortgagesIcon,
-    title: 'Residential Private Mortgages',
+    title: 'Residential Mortgages',
   },
   {
     code: '02',
     copy: 'Short-term capital to bridge gaps and close fast with our 24-hour target for commitment.',
     href: buildFairlendIntakeHref({
-      intent: 'build',
+      intent: 'mortgage',
       source: 'landing-overview-bridge-loans',
     }),
     image: overviewAssets.bridgeLoansIcon,
@@ -99,6 +103,7 @@ const financeItems = [
     copy: 'Financing and hands-on guidance for renovations, with local contractor and supplier connections to keep the project on track.',
     href: buildFairlendIntakeHref({
       intent: 'build',
+      projectScope: 'renovation-financing',
       source: 'landing-overview-renovation-financing',
     }),
     image: overviewAssets.mortgageInvestmentsIcon,
@@ -109,6 +114,7 @@ const financeItems = [
     copy: 'Financing & Guidance with Local Expertise for 5 unit to multi-tower complexes. From permits to completion to CMHC takeout we handle it all.',
     href: buildFairlendIntakeHref({
       intent: 'build',
+      projectScope: 'multiplex-financing',
       source: 'landing-overview-multiplex-financing',
     }),
     image: overviewAssets.multiplexFinancingIcon,
@@ -119,6 +125,7 @@ const financeItems = [
     copy: 'Backyard and laneway homes financed by a team that knows permits, budgets and timelines.',
     href: buildFairlendIntakeHref({
       intent: 'build',
+      projectScope: 'garden-laneway-suites',
       source: 'landing-overview-garden-laneway-suites',
     }),
     image: overviewAssets.gardenSuitesIcon,
@@ -128,7 +135,8 @@ const financeItems = [
     code: '06',
     copy: 'One-stop financing, planning, and MLI Select guidance—plus access to the partner consultants and professionals needed to prepare for qualification.',
     href: buildFairlendIntakeHref({
-      intent: 'invest',
+      intent: 'build',
+      projectScope: 'mli-select-insured-housing',
       source: 'landing-overview-mli-select-insured-housing',
     }),
     image: overviewAssets.purposeBuiltRentalsIcon,
@@ -139,7 +147,7 @@ const financeItems = [
     copy: 'Flexible acquisition financing for stabilized rental properties, underwritten around income, asset quality, and closing timelines.',
     href: buildFairlendIntakeHref({
       intent: 'mortgage',
-      source: 'landing-overview-acquisition-existing-rental-properties',
+      source: fairlendRentalPropertyAcquisitionSource,
     }),
     image: overviewAssets.purposeBuiltRentalsIcon,
     title: 'Acquisition of Existing Rental Properties',
@@ -149,7 +157,7 @@ const financeItems = [
     copy: 'Refinance existing rental properties to renew debt, unlock equity, or improve the capital stack without disrupting operations.',
     href: buildFairlendIntakeHref({
       intent: 'mortgage',
-      source: 'landing-overview-refinancing-existing-rental-properties',
+      source: fairlendRentalPropertyRefinanceSource,
     }),
     image: overviewAssets.residentialMortgagesIcon,
     title: 'Refinancing of Existing Rental Properties',
@@ -235,9 +243,7 @@ function ExpertiseCard({
           />
         ) : null}
       </span>
-      <h3
-        className="m-0 max-w-none text-[15px] leading-[1.03] font-extrabold tracking-[0.01em] text-[#08090a] uppercase md:max-w-[126px]"
-      >
+      <h3 className="m-0 max-w-none text-[15px] leading-[1.03] font-extrabold tracking-[0.01em] text-[#08090a] uppercase md:max-w-[126px]">
         {title}
       </h3>
       <p
@@ -270,48 +276,47 @@ function FinanceCard({
     <article className="h-full" data-overview-finance-card>
       <Link
         aria-label={`${title} financing details`}
-        className="group relative isolate grid h-full min-h-[204px] grid-cols-[96px_minmax(0,1fr)] gap-[15px] overflow-hidden border border-[#08090a]/16 bg-[#fbfaf7]/72 px-[14px] py-[18px] text-inherit no-underline transition-[border-color,background-color,transform] duration-200 ease-out hover:-translate-y-px hover:border-[#08090a]/34 hover:bg-[#fbfaf7] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#08090a] sm:grid-cols-[106px_minmax(0,1fr)] lg:min-h-[238px] lg:px-[18px] lg:py-[20px]"
+        className={cn(
+          'group relative isolate flex h-full min-h-[289px] flex-col overflow-hidden p-3 text-[#08090a] no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#96ec18]',
+          styles.financeDossierCard,
+        )}
         href={href}
       >
-        <div aria-hidden="true" className="relative self-center">
-          <Image
-            alt=""
-            className="h-auto w-full object-contain grayscale [filter:grayscale(1)_contrast(1.34)_brightness(0.86)]"
-            data-overview-finance-image
-            height={512}
-            loading="lazy"
-            sizes="110px"
-            src={image}
-            width={512}
-          />
-        </div>
-
-        <div className="min-w-0">
-          <p
-            className="m-0 text-[18px] leading-none font-extrabold tracking-[0.02em]"
-            style={{ color: electricLime }}
-          >
-            {code}
-          </p>
-          <h3 className="mt-[8px] mb-0 max-w-[154px] text-[15.3px] leading-[1.05] font-extrabold tracking-[0.006em] text-[#050506] uppercase">
-            {title}
-          </h3>
-          <p className="mt-[7px] mb-0 max-w-[206px] text-[13px] leading-[1.24] font-normal text-[#08090a]">
+        <div className="absolute inset-3 translate-x-1 translate-y-1 rotate-[0.8deg] border border-[#08090a]/28 bg-[#d8d7d0]" />
+        <div
+          className={cn(
+            'relative z-10 flex h-full flex-1 flex-col border border-[#08090a] bg-[#f8f7f5] p-[15px] transition-transform duration-300 ease-out',
+            styles.financeDossierSheet,
+          )}
+        >
+          <div className="flex items-start justify-between border-b border-[#08090a]/25 pb-3">
+            <div>
+              <p className="m-0 text-[10px] font-extrabold tracking-[0.16em] text-[#72b900] uppercase">
+                File {code}
+              </p>
+              <h3 className="mt-2 mb-0 max-w-[175px] text-[19px] leading-[0.96] font-extrabold uppercase">
+                {title}
+              </h3>
+            </div>
+            <Image
+              alt=""
+              aria-hidden="true"
+              className="h-[70px] w-[82px] object-contain mix-blend-multiply [filter:grayscale(1)_contrast(1.18)]"
+              height={512}
+              loading="lazy"
+              sizes="82px"
+              src={image}
+              width={512}
+            />
+          </div>
+          <p className="my-4 w-full text-[13px] leading-[1.42] text-[#08090a]/78 text-pretty">
             {copy}
           </p>
-        </div>
-
-        <span
-          aria-hidden="true"
-          className="absolute right-[9px] bottom-[8px] grid size-11 place-items-center"
-        >
-          <span
-            className="grid size-[28px] place-items-center transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5"
-            style={{ color: electricLime }}
-          >
-            <ArrowRight aria-hidden="true" className="size-[22px]" strokeWidth={2} />
+          <span className="mt-auto flex items-center justify-between border-t border-[#08090a]/25 pt-3 text-[10px] font-extrabold tracking-[0.09em] uppercase">
+            Open deal file{' '}
+            <ArrowRight className="size-5 text-[#72b900] transition-transform group-hover:translate-x-1" />
           </span>
-        </span>
+        </div>
       </Link>
     </article>
   )
@@ -436,12 +441,17 @@ export function FairlendLandingOverviewSection() {
             >
               <span className="block overflow-hidden">
                 <span className="block" data-overview-title-line>
-                  Licensed. Focused.
+                  Local insight.
                 </span>
               </span>
               <span className="block overflow-hidden">
                 <span className="block" data-overview-title-line>
-                  Built for private lending.
+                  Disciplined underwriting.
+                </span>
+              </span>
+              <span className="block overflow-hidden">
+                <span className="block" data-overview-title-line>
+                  Fairer lending.
                 </span>
               </span>
             </h2>

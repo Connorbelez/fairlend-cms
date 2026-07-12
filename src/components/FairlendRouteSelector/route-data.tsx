@@ -1,4 +1,6 @@
-import { Handshake, HardHat, House, UsersRound } from 'lucide-react'
+import { Handshake, HardHat, House, Landmark, UsersRound } from 'lucide-react'
+
+import { buildFairlendMortgageHref } from '@/lib/fairlend-intake'
 
 import { fairlendRouteSelectorAssets } from './assets'
 import type {
@@ -8,19 +10,19 @@ import type {
 } from './types'
 
 export const fairlendRouteSelectorCopy = {
-  kicker: 'Choose your route',
+  kicker: 'Find your fit',
   title: (
     <>
       Where would you like
-      <br />
+      <br className="xl:hidden" />
       to go with FairLend?
     </>
   ),
   description: (
     <>
-      FairLend offers multiple ways to move your project forward.
+      Whether you&apos;re looking to build, borrow, invest, or partner,
       <br />
-      Choose the path that fits your goals and we&apos;ll guide the way.
+      start with the FairLend option that matches your goals.
     </>
   ),
 } satisfies FairlendRouteSelectorCopy
@@ -37,6 +39,12 @@ export const fairlendRouteChoices = [
       'Construction guidance from planning to completion',
     ],
     steps: ['Plan', 'Build', 'Draw', 'Complete'],
+    stepDescriptions: [
+      'Map the capital and scope',
+      'Start with a clear schedule',
+      'Release funds by stage',
+      'Finish and plan the takeout',
+    ],
     ctaLabel: 'Get Approved',
     href: '/intake',
     icon: HardHat,
@@ -56,10 +64,28 @@ export const fairlendRouteChoices = [
     ],
     steps: ['Apply', 'Review', 'Approve', 'Fund'],
     ctaLabel: 'Get Approved',
-    href: '/borrowers/private-mortgage-financing',
+    href: buildFairlendMortgageHref('route-selector-private-mortgage'),
     icon: House,
     illustration: fairlendRouteSelectorAssets.privateMortgageHouse,
     badge: 'Popular',
+  },
+  {
+    id: 'institutional-mortgage',
+    title: 'Institutional mortgages',
+    description:
+      "Access competitive mortgage financing when the banks say no, backed by FairLend's nationwide lender network.",
+    bullets: [
+      'Competitive rates when the banks say no',
+      'Flexible options',
+      'Series A & B lenders',
+      'Access to thousands of institutional lenders across Canada',
+      'Fast commitment—get the money when you need it',
+    ],
+    steps: ['Apply', 'Match', 'Commit', 'Fund'],
+    ctaLabel: 'Get Approved',
+    href: '/borrowers/institutional-mortgage',
+    icon: Landmark,
+    illustration: fairlendRouteSelectorAssets.institutionalMortgage,
   },
   {
     id: 'invest',

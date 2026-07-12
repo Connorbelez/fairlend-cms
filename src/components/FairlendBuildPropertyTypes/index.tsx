@@ -3,6 +3,7 @@ import Link from 'next/link'
 import type { ReactElement } from 'react'
 
 import { Separator } from '@/components/ui/separator'
+import { buildFairlendMortgageHref } from '@/lib/fairlend-intake'
 import { cn } from '@/utilities/ui'
 
 import { FairlendHeroOfferingsMorph } from './FairlendHeroOfferingsMorph.client'
@@ -93,7 +94,7 @@ export const fairlendBuildPropertyTypesRows = [
     title: 'Mortgage',
     tagline: 'The FairLend Mortgage',
     image: fairlendBuildPropertyTypesAssets.privateMortgage,
-    href: '/borrowers/private-mortgage-financing',
+    href: buildFairlendMortgageHref('property-types-residential-mortgage'),
   },
 ] as const satisfies readonly FairlendBuildPropertyTypeRow[]
 
@@ -187,7 +188,7 @@ export function FairlendBuildPropertyTypes({
       ) : null}
 
       {variant === 'hero' ? (
-        <div className="pointer-events-auto absolute inset-0 z-[1]">
+        <div className="pointer-events-none absolute inset-0 z-[1]">
           <FairlendHeroOfferingsMorph rows={rows} />
         </div>
       ) : (

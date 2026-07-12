@@ -21,8 +21,14 @@ const isLocalOrigin = (value: string) => /^https?:\/\/(localhost|127\.0\.0\.1)(:
 export const getCanonicalOrigin = () => {
   const configuredUrl = process.env.NEXT_PUBLIC_SERVER_URL?.trim()
   const vercelProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim()
+  const configuredOrigin = configuredUrl ? stripTrailingSlash(configuredUrl) : ''
   const origin = stripTrailingSlash(
-    configuredUrl || (vercelProductionUrl ? `https://${vercelProductionUrl}` : productionOrigin),
+    process.env.NODE_ENV === 'production' && isLocalOrigin(configuredOrigin)
+      ? vercelProductionUrl
+        ? `https://${vercelProductionUrl}`
+        : productionOrigin
+      : configuredOrigin ||
+          (vercelProductionUrl ? `https://${vercelProductionUrl}` : productionOrigin),
   )
 
   if (process.env.NODE_ENV === 'production' && isLocalOrigin(origin)) {

@@ -1,3 +1,9 @@
+import {
+  buildFairlendMortgageHref,
+  fairlendRentalPropertyAcquisitionHeaderSource,
+  fairlendRentalPropertyRefinanceHeaderSource,
+} from '@/lib/fairlend-intake'
+
 export type FairlendNavLinkOption = {
   href: string
   bookingSource?: string
@@ -30,7 +36,13 @@ export const fairlendNavLinks = {
   home: { href: '/' },
   backoffice: { href: '/#questions' },
   intake: { href: '/intake' },
-  privateMortgages: { href: '/borrowers/private-mortgage-financing' },
+  privateMortgages: { href: buildFairlendMortgageHref('header-nav-private-mortgage') },
+  rentalPropertyAcquisition: {
+    href: buildFairlendMortgageHref(fairlendRentalPropertyAcquisitionHeaderSource),
+  },
+  rentalPropertyRefinance: {
+    href: buildFairlendMortgageHref(fairlendRentalPropertyRefinanceHeaderSource),
+  },
   investing: { href: '/investing/private-mortgage-lending' },
   partners: { href: '/partners' },
   startFile: { href: '/intake' },
@@ -50,6 +62,22 @@ export const NAV_LINKS: NavLink[] = [
           items: [
             { label: 'Construction financing', link: fairlendNavLinks.intake },
             { label: 'Private mortgages', link: fairlendNavLinks.privateMortgages },
+          ],
+        },
+        {
+          accent: true,
+          heading: 'Refinancing & acquisitions',
+          items: [
+            {
+              description: 'Finance the purchase of an existing rental property.',
+              label: 'Acquire a rental property',
+              link: fairlendNavLinks.rentalPropertyAcquisition,
+            },
+            {
+              description: 'Renew debt, unlock equity, or restructure the capital stack.',
+              label: 'Refinance a rental property',
+              link: fairlendNavLinks.rentalPropertyRefinance,
+            },
           ],
         },
       ],

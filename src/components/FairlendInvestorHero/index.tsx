@@ -1,40 +1,25 @@
-import type { ReactElement } from 'react'
-import { ArrowUpRight, Check } from 'lucide-react'
+import { Suspense, type ReactElement } from 'react'
+import { ArrowDownRight, Check } from 'lucide-react'
+import Image from 'next/image'
 
-import { FairlendBorrowerCta } from '@/components/FairlendBorrowerCta'
-import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
+import { FairlendLeadIntake } from '@/components/FairlendLeadIntake/FairlendLeadIntake.client'
 
 import './investor-hero.css'
 
-const investorAccessHref = buildFairlendIntakeHref({
-  intent: 'invest',
-  source: 'investor-hero-request-access',
-})
-
-const proofChips = [
-  'Curated, pre-vetted deals',
-  'Target LTVs under 75%',
-  'Double valuation review',
-  'Administered reporting workflow',
-  'Power-of-sale recovery path',
-  'Dedicated legal recovery team',
-] as const
-
-const portalRows = [
-  { label: 'Position', detail: 'First mortgage · registered' },
-  { label: 'Loan-to-value', detail: '68% · double valuation' },
-  { label: 'Term', detail: '12 months · interest only' },
-  { label: 'Borrower', detail: 'Equity-based file · GTA' },
+const proofPoints = [
+  'Selected mortgage-backed opportunities',
+  'Conservative LTV discipline',
+  'Administration from funding through payout',
+  'Documented recovery path',
 ] as const
 
 /**
- * Section 1 — Hero (Concept A, "Operations Desk" hybrid with the proof bar).
+ * Investor conversion hero.
  *
- * Editorial split: serif H1 + subhead on the left, portal dossier on the
- * right, and a horizontal proof chip strip beneath. Credibility anchors
- * (~$2B / ~30 yrs / GTA) sit in the dossier header as a quiet stat line —
- * not as the hero-metric template. Lime is reserved for the disbursement
- * chip and the primary CTA only.
+ * The live investor intake directly reuses the borrower hero wizard shell;
+ * only its questions, progress copy, validation, and success state change.
+ * The Toronto/property engravings are established root-brand assets, while
+ * lime is reserved for route, progress, focus, and action.
  */
 export function FairlendInvestorHero(): ReactElement {
   return (
@@ -42,129 +27,92 @@ export function FairlendInvestorHero(): ReactElement {
       aria-labelledby="investor-hero-title"
       className="investor-hero"
       data-investor-hero
+      id="investor-hero"
     >
-      {/* Decorative topographic contour lines; aria-hidden, very low contrast. */}
-      <svg
-        aria-hidden="true"
-        className="investor-hero__contours"
-        fill="none"
-        preserveAspectRatio="xMidYMid slice"
-        viewBox="0 0 1440 720"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d="M-40 520 C 220 470, 380 580, 620 540 S 1080 470, 1480 520" stroke="currentColor" strokeWidth="1" />
-        <path d="M-40 560 C 240 510, 420 620, 640 580 S 1120 510, 1480 560" stroke="currentColor" strokeWidth="1" />
-        <path d="M-40 600 C 260 550, 460 660, 660 620 S 1160 550, 1480 600" stroke="currentColor" strokeWidth="1" />
-      </svg>
-
       <div className="investor-hero__grid">
-        <div className="investor-hero__copy">
-          <p className="investor-hero__kicker">Private mortgage investing</p>
-          <h1 className="investor-hero__title" id="investor-hero-title">
-            Mortgage-backed income, professionally underwritten — and fully managed for you.
-          </h1>
-          <p className="investor-hero__subhead">
-            FairLend gives investors access to curated, pre-vetted mortgage-backed opportunities,
-            then administers the lifecycle: digital closing coordination, PAD collection,
-            disbursement tracking, investor reporting context, and tax-ready export workflow
-            support. Conservative LTVs, double valuation review, and a dedicated legal recovery
-            path sit behind every deal.
-          </p>
-
-          <div className="investor-hero__cta-row">
-            <FairlendBorrowerCta
-              href={investorAccessHref}
-              label="Request Investor Access"
-              variant="primary"
-            />
-            <FairlendBorrowerCta
-              as="a"
-              href="#investor-protection-stack"
-              label="See the protection framework"
-              variant="secondary"
-            />
+        <div className="investor-hero__story">
+          <div className="investor-hero__copy">
+            <p className="investor-hero__kicker">
+              <span aria-hidden="true" />
+              Toronto. Real property. Documented process.
+            </p>
+            <h1 className="investor-hero__title" id="investor-hero-title">
+              Put your capital to work. <em>Backed by real property.</em>
+            </h1>
+            <p className="investor-hero__subhead">
+              Build a private mortgage portfolio around your capital range, timeline, and risk
+              profile. FairLend curates, underwrites, administers, and monitors the file from first
+              review through payout or recovery.
+            </p>
+            <a className="investor-hero__framework-link" href="#investor-protection-stack">
+              See the protection framework
+              <ArrowDownRight aria-hidden="true" />
+            </a>
           </div>
 
-          <p className="investor-hero__risk-line">
-            Private mortgage investments involve risk and are not bank deposits or guaranteed-return
-            products. FairLend reviews investor fit before presenting opportunities.
-          </p>
+          <div className="investor-hero__ink-scene" aria-hidden="true">
+            <div className="investor-hero__skyline">
+              <Image
+                alt=""
+                fill
+                priority
+                sizes="(max-width: 960px) 100vw, 55vw"
+                src="/assets/fairlend-route-selector/investor-skyline-engraving.webp"
+              />
+            </div>
+            <div className="investor-hero__property">
+              <Image
+                alt=""
+                fill
+                priority
+                sizes="(max-width: 960px) 70vw, 34vw"
+                src="/assets/fairlend-route-selector/private-mortgage-house-engraving.webp"
+              />
+            </div>
+            <svg
+              className="investor-hero__route"
+              fill="none"
+              preserveAspectRatio="none"
+              viewBox="0 0 760 260"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M36 206 C 170 198 190 122 318 136 S 478 194 560 98 S 660 40 726 48" />
+              <circle cx="36" cy="206" r="7" />
+              <circle cx="318" cy="136" r="7" />
+              <circle cx="560" cy="98" r="7" />
+              <path className="investor-hero__route-arrow" d="M714 34 738 48 714 62Z" />
+            </svg>
+          </div>
         </div>
 
-        <div className="investor-hero__portal-slot">
-          <div className="investor-portal-mock" data-investor-portal-mock>
-            <header className="investor-portal-mock__head">
-              <div className="investor-portal-mock__title-cluster">
-                <span className="investor-portal-mock__eyebrow">Reporting preview</span>
-                <span className="investor-portal-mock__file">Illustrative mortgage file</span>
-              </div>
-              <div className="investor-portal-mock__stat-line">
-                <span className="investor-portal-mock__stat">
-                  <strong>~$2B</strong>
-                  <em>funded</em>
-                </span>
-                <span className="investor-portal-mock__stat">
-                  <strong>~30 yrs</strong>
-                  <em>GTA</em>
-                </span>
-              </div>
-            </header>
-
-            <div className="investor-portal-mock__deal">
-              <div className="investor-portal-mock__deal-top">
-                <span className="investor-portal-mock__deal-stamp">Preview · first mortgage</span>
-                <span className="investor-portal-mock__deal-chip">
-                  <span aria-hidden="true" className="investor-portal-mock__deal-chip-dot" />
-                  Disbursement tracked
-                </span>
-              </div>
-              <dl className="investor-portal-mock__rows">
-                {portalRows.map((row) => (
-                  <div className="investor-portal-mock__row" key={row.label}>
-                    <dt>{row.label}</dt>
-                    <dd>{row.detail}</dd>
-                  </div>
-                ))}
-              </dl>
-              <div className="investor-portal-mock__payment" aria-label="Payment status timeline">
-                <span className="investor-portal-mock__payment-label">PAD collection</span>
-                <div className="investor-portal-mock__payment-track">
-                  <span className="investor-portal-mock__payment-segment is-paid" title="Paid" />
-                  <span className="investor-portal-mock__payment-segment is-paid" title="Paid" />
-                  <span className="investor-portal-mock__payment-segment is-paid" title="Paid" />
-                  <span className="investor-portal-mock__payment-segment is-current" title="Current" />
-                  <span className="investor-portal-mock__payment-segment" title="Scheduled" />
-                  <span className="investor-portal-mock__payment-segment" title="Scheduled" />
-                </div>
-              </div>
-            </div>
-
-            <footer className="investor-portal-mock__foot">
-              <span className="investor-portal-mock__foot-item">
-                <Check aria-hidden="true" size={14} strokeWidth={2.4} />
-                Tax-ready export context
-              </span>
-              <span className="investor-portal-mock__foot-item">
-                <Check aria-hidden="true" size={14} strokeWidth={2.4} />
-                Bookkeeping handoff
-              </span>
-              <span className="investor-portal-mock__foot-cta">
-                Preview file
-                <ArrowUpRight aria-hidden="true" size={14} strokeWidth={2.25} />
-              </span>
-            </footer>
-          </div>
+        <div className="investor-hero__form-slot" id="investor-profile">
+          <Suspense fallback={<div className="investor-hero__form-loading" aria-hidden="true" />}>
+            <FairlendLeadIntake
+              intentOverride="invest"
+              investorVariant="hero"
+              sourceOverride="investor-hero-inline-profile"
+            />
+          </Suspense>
         </div>
       </div>
 
-      <ul className="investor-hero__proof" aria-label="What sits behind every FairLend opportunity">
-        {proofChips.map((chip) => (
-          <li className="investor-hero__proof-chip" key={chip}>
-            <span aria-hidden="true" className="investor-hero__proof-mark" />
-            {chip}
-          </li>
-        ))}
-      </ul>
+      <div className="investor-hero__proof" aria-label="How FairLend manages investor files">
+        <p>The rate is not the product. The underwriting is.</p>
+        <ul>
+          {proofPoints.map((point) => (
+            <li key={point}>
+              <Check aria-hidden="true" />
+              {point}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <p className="investor-hero__risk-line">
+        Private mortgage investments involve borrower, property, market, legal, liquidity, and
+        recovery risk. They are not bank deposits or guaranteed-return products. Opportunities are
+        subject to investor review, suitability considerations, and availability.
+      </p>
     </section>
   )
 }

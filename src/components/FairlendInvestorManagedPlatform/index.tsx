@@ -44,10 +44,10 @@ export function FairlendInvestorManagedPlatform(): ReactElement {
       aria-labelledby="investor-managed-title"
       className="investor-managed"
       data-investor-managed
+      id="investor-managed"
     >
       <div className="investor-managed__inner">
         <header className="investor-managed__header">
-          <p className="investor-managed__eyebrow">One platform, end to end</p>
           <h2 className="investor-managed__title" id="investor-managed-title">
             One platform. End to end. Nothing left on your desk.
           </h2>

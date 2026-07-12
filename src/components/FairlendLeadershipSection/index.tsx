@@ -22,7 +22,7 @@ import {
 } from '@/components/FairlendMarketingPrimitives'
 
 const leadershipPortraitAsset = '/assets/elie-headshot.webp'
-const leadershipSceneAsset = '/assets/fairlend-principal-broker-background.webp'
+const leadershipSceneAsset = '/assets/fairlend-principal-broker-background-halftone-key.webp'
 
 const leadershipProof = [
   {
@@ -629,10 +629,10 @@ export function FairlendLeadershipSection() {
 
         .leadership-scene-image {
           object-fit: cover;
-          object-position: 58% 100%;
-          opacity: 0.72;
+          object-position: 64% 0%;
+          opacity: 0.94;
           mix-blend-mode: multiply;
-          filter: saturate(0.84) contrast(0.96) brightness(1.03);
+          filter: saturate(0.96) contrast(1.03) brightness(1.01);
           will-change: filter, transform;
         }
 

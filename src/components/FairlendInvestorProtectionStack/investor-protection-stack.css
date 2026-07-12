@@ -10,6 +10,8 @@
   background: #fbfaf5;
   color: var(--landing-hero-ink, #08090a);
   overflow: hidden;
+  font-kerning: normal;
+  font-optical-sizing: auto;
 }
 
 .investor-protection__inner {
@@ -33,7 +35,7 @@
 
 .investor-protection__title {
   font-family: var(--font-cormorant), Georgia, serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: clamp(36px, 4.4vw, 64px);
   line-height: 1;
   letter-spacing: -0.035em;
@@ -45,10 +47,10 @@
 
 .investor-protection__lede {
   font-family: var(--font-inter), Arial, sans-serif;
-  font-size: clamp(15px, 1.05vw, 17px);
+  font-size: 1rem;
   line-height: 1.6;
   font-weight: 400;
-  color: var(--landing-hero-muted, rgb(58 58 54));
+  color: var(--landing-hero-muted, #494944);
   margin: 22px 0 0;
   max-width: 64ch;
   text-wrap: pretty;
@@ -89,7 +91,7 @@
 
 .investor-protection__band-number span {
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(28px, 3vw, 40px);
+  font-size: clamp(2.25rem, 3.3vw, 3.25rem);
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--landing-hero-ink, #08090a);
@@ -112,7 +114,7 @@
 
 .investor-protection__band-name {
   font-family: var(--font-cormorant), Georgia, serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: clamp(22px, 2.2vw, 30px);
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -123,7 +125,7 @@
 
 .investor-protection__band-promise {
   font-family: var(--font-inter), Arial, sans-serif;
-  font-size: 15px;
+  font-size: 1rem;
   line-height: 1.6;
   font-weight: 400;
   color: var(--landing-hero-ink, #08090a);
@@ -137,10 +139,10 @@
   gap: 10px;
   margin: 0;
   font-family: var(--font-inter), Arial, sans-serif;
-  font-size: 13px;
+  font-size: 0.875rem;
   font-weight: 600;
   font-style: italic;
-  color: var(--landing-hero-muted, rgb(58 58 54));
+  color: var(--landing-hero-muted, #494944);
 }
 
 .investor-protection__band-question-mark {
@@ -169,12 +171,12 @@
 .investor-protection__foot-note {
   margin: clamp(32px, 4vw, 48px) 0 0;
   padding: 22px 24px;
-  border-left: 2px solid var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
+  border-block: 1px solid var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
   font-family: var(--font-inter), Arial, sans-serif;
   font-size: 13px;
   line-height: 1.6;
   font-weight: 400;
-  color: var(--landing-hero-muted, rgb(58 58 54));
+  color: var(--landing-hero-muted, #494944);
   max-width: 80ch;
 }
 

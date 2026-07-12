@@ -16,6 +16,12 @@ export const fairlendRouteSelectorAssets = {
     width: 900,
     height: 378,
   },
+  institutionalMortgage: {
+    src: '/assets/about-webp/webp/finance-icon-mortgage-investments.webp',
+    alt: 'Pen and ink mortgage document with a rising finance chart',
+    width: 512,
+    height: 512,
+  },
   constructionBuilding: {
     src: `${routeAssetBase}/construction-building-engraving.webp`,
     alt: 'Pen and ink construction site with crane',

@@ -9,6 +9,8 @@
   background: #fbfaf5;
   color: var(--landing-hero-ink, #08090a);
   overflow: hidden;
+  font-kerning: normal;
+  font-optical-sizing: auto;
 }
 
 .investor-portal__inner {
@@ -32,7 +34,7 @@
 
 .investor-portal__title {
   font-family: var(--font-cormorant), Georgia, serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: clamp(36px, 4.4vw, 64px);
   line-height: 1;
   letter-spacing: -0.035em;
@@ -44,10 +46,10 @@
 
 .investor-portal__lede {
   font-family: var(--font-inter), Arial, sans-serif;
-  font-size: clamp(15px, 1.05vw, 17px);
+  font-size: 1rem;
   line-height: 1.6;
   font-weight: 400;
-  color: var(--landing-hero-muted, rgb(58 58 54));
+  color: var(--landing-hero-muted, #494944);
   margin: 22px 0 0;
   max-width: 64ch;
   text-wrap: pretty;
@@ -57,7 +59,7 @@
 .investor-portal__stage {
   margin-top: clamp(40px, 5vw, 64px);
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.85fr);
   gap: clamp(28px, 3.5vw, 56px);
   align-items: start;
 }
@@ -67,7 +69,7 @@
   border: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
   background: var(--landing-hero-white, #fffdf9);
   border-radius: 14px;
-  box-shadow: 0 24px 60px rgb(8 9 10 / 8%);
+  box-shadow: 0 6px 8px rgb(8 9 10 / 8%);
   overflow: hidden;
 }
 
@@ -120,7 +122,7 @@
   font-weight: 600;
   color: var(--landing-hero-muted, rgb(108 108 100));
   padding: 8px 10px;
-  border-radius: 6px;
+  border-radius: 5px;
 }
 
 .investor-portal__ui-sidebar-item.is-active {
@@ -245,7 +247,7 @@
   font-family: var(--font-inter), Arial, sans-serif;
   font-size: 11px;
   font-weight: 600;
-  color: var(--landing-hero-muted, rgb(58 58 54));
+  color: var(--landing-hero-muted, #494944);
 }
 
 .investor-portal__ui-tile svg {
@@ -290,7 +292,7 @@
 .investor-portal__callout-label {
   margin: 0 0 4px;
   font-family: var(--font-inter), Arial, sans-serif;
-  font-size: 13px;
+  font-size: 0.9375rem;
   font-weight: 700;
   color: var(--landing-hero-ink, #08090a);
 }
@@ -298,10 +300,10 @@
 .investor-portal__callout-detail {
   margin: 0;
   font-family: var(--font-inter), Arial, sans-serif;
-  font-size: 13px;
+  font-size: 1rem;
   line-height: 1.5;
   font-weight: 400;
-  color: var(--landing-hero-muted, rgb(58 58 54));
+  color: var(--landing-hero-muted, #494944);
 }
 
 /* ---- Day in the life ---- */
@@ -318,7 +320,7 @@
 .investor-portal__day-title {
   margin: 0 0 12px;
   font-family: var(--font-cormorant), Georgia, serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: clamp(22px, 2.2vw, 30px);
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -328,7 +330,7 @@
 .investor-portal__day-copy {
   margin: 0;
   font-family: var(--font-inter), Arial, sans-serif;
-  font-size: 15px;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--landing-hero-ink, #08090a);
 }

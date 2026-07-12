@@ -1,6 +1,6 @@
 ---
 name: FairLend Root Landing Page
-description: Toronto atlas imagery, underwriting precision, paper tactility, and electric-lime route signals for FairLend's canonical brand surface.
+description: Monochromatic halftone-ink Toronto imagery, underwriting precision, paper fields, and electric-lime route signals for FairLend's canonical brand surface.
 colors:
   signal-lime: '#96EC18'
   acid-lime: '#8DFF00'
@@ -137,22 +137,27 @@ components:
 
 **Creative North Star: "The Toronto Financing Field Guide"**
 
-FairLend's canonical brand surface is the root landing page at `/`: a Toronto atlas crossed with a live underwriting and construction dossier. The supplied July 9, 2026 captures confirm the intended composition—engraved monochrome city and property imagery, pale paper fields, exacting rules, oversized editorial serif statements, dense practical sans-serif information, and electric lime tracing the path from intent to action. The result feels precise, established, warm, and locally fluent: a specialist who can read both the property and the capital equation.
+FairLend's canonical brand surface is the root landing page at `/`: a Toronto atlas crossed with a live underwriting and construction dossier. The supplied visual references and root implementation confirm the intended composition—monochromatic halftone and engraved-ink city, construction, property, and portrait imagery; pale paper fields; exacting rules; oversized editorial serif statements; dense practical sans-serif information; and electric lime tracing the path from intent to action. The result feels precise, established, warm, and locally fluent: a specialist who can read both the property and the capital equation.
 
-The page is not one repeated template. It moves through distinct but related artifacts: a panoramic Toronto scene, a topographic route chooser, a split lending ledger, a sticky live-deal file, builder and leadership proof, a map-led FAQ, and a structured capital-desk footer. Paper continuity, monochrome illustration, lime signals, and typography make those worlds one identity. Motion behaves like competent progress through a file—revealing, tracing, funding, and advancing—never like ornamental spectacle.
+The page is not one repeated template. It moves through distinct but related artifacts: a panoramic Toronto scene, a topographic route chooser, a split lending ledger, a sticky live-deal file, builder and leadership proof, a map-led FAQ, and a structured capital-desk footer. Paper continuity, monochromatic halftone-ink imagery, lime signals, and typography make those worlds one identity. Motion behaves like competent progress through a file—revealing, tracing, funding, and advancing—never like ornamental spectacle.
+
+The halftone-ink motif is a mandatory brand primitive, not optional decoration. New marketing sections that contain imagery must begin with black, charcoal, gray, and paper-toned architectural, place, property, construction, map, or portrait material rendered as engraving, stipple, crosshatch, screened photography, or a credible combination of those techniques. Lime is then applied as the functional annotation layer: routes, nodes, verification marks, active states, underlines, focus, and directional cues. Removing the ink treatment and keeping only the palette is a brand regression.
 
 This document is deliberately root-only. Its source of truth is `src/app/(frontend)/page.tsx`, the components imported by that file, the root `FrontendChrome`, global root footer, root-scoped CSS, and the supplied screenshots. It does not authorize styles from Payload admin, generic CMS blocks, demo routes, or non-root marketing pages.
 
 **Key Characteristics:**
 
-- Near-white paper canvas with black engraved imagery and fine technical rules.
+- Near-white paper canvas with black and charcoal halftone, stipple, crosshatch, and engraved imagery plus fine technical rules.
 - Cormorant Garamond for authority and narrative; Inter for clarity and action.
 - Electric lime as route, state, proof, focus, and conversion signal.
 - Toronto skyline, clouds, topography, parcels, buildings, and deal files as evidence—not decoration.
+- Image regions carry the monochromatic ink texture; interface fields remain clean, flat, and readable.
 - Broad editorial compositions paired with dense, practical financial information.
 - Controlled motion with explicit reduced-motion equivalents.
 
 **The Root-Only Source Rule.** When another FairLend surface conflicts with `/`, the root landing page wins. Reuse these actual components and tokens; do not average the whole repository into a diluted hybrid.
+
+**The Ink-First Brand Rule.** Every image-led root marketing composition must visibly use monochromatic halftone, stipple, crosshatch, screened photography, or engraved linework. A section that uses the right paper and lime colors but omits the ink motif is off-brand and must be revised before implementation.
 
 ## Colors
 
@@ -189,6 +194,8 @@ The palette is high-contrast paper and ink with a rare, unmistakable lime signal
 - **Paper Rule** (`rule`, `#DEDED8`): structural borders, dividers, and card outlines.
 
 **The Lime Signal Rule.** Lime identifies action, route, active state, or verified proof. It never becomes paragraph text, a full generic section fill, or ambient decoration with no meaning.
+
+**The 90/10 Ink-to-Signal Rule.** In image-led compositions, paper plus black/charcoal ink must carry at least 90% of the visual mass. Lime may carry no more than 10% and must encode action, direction, state, or verification; it may not recolor an entire illustration.
 
 **The Paper Continuity Rule.** Section changes come from material, imagery, density, and rail texture—not from unrelated background colors. The page must still read as one long physical document.
 
@@ -275,13 +282,26 @@ Build Model variables are compact uppercase Oxanium pills with a full `1px` outl
 - **Overview Finance Cell:** thin ruled rectangles with lime index and arrow, monochrome building/bridge engraving, uppercase sans title, and concise copy. They read as a ledger rather than a generic icon-card grid.
 - **Audience Card:** restrained `1px` rule and small top accent; used only to contrast experienced and first-time builders.
 
+### Monochromatic Halftone Ink Imagery
+
+This is the root brand's signature visual component. It applies to Toronto skylines, construction sites, buildings, parcels, maps, infrastructure, portrait media, and placeholder portrait wells.
+
+- **Source priority:** reuse the established root raster assets first, including the Toronto skyline, route-selector engravings, property-type engravings, construction imagery, maps, and existing portrait assets. Generate or source new imagery only when the required subject does not exist.
+- **Ink treatment:** convert or art-direct imagery into black, charcoal, gray, and paper tones using halftone dots, stippling, crosshatching, screened photography, etched contours, or engraved linework. Preserve enough midtone separation that structure remains legible at mobile sizes.
+- **Interface boundary:** contain texture inside image, illustration, mask, or intentionally art-directed atmospheric regions. Keep body-copy fields, controls, and reading surfaces clean; never cover the entire interface with a noise or grain overlay to imitate halftone.
+- **Lime annotation:** overlay Signal Lime only as a route, node, endpoint, check, active edge, focus marker, underline, or directional cue. Lime must read as information placed on top of ink, never as the ink itself.
+- **Portraits and placeholders:** real portraits render in controlled grayscale/halftone. Missing portraits use deliberate monochromatic ink fields or architectural crops with initials and replacement-ready aspect ratios—never synthetic faces, generic silhouettes, or empty gray boxes.
+- **Responsive crop:** preserve one recognizable subject, architectural edge, or face at every breakpoint. Recompose the crop on narrow screens rather than shrinking a dense desktop engraving into illegibility.
+
+**The Halftone Is Content Rule.** The ink motif must describe a real FairLend subject—Toronto, property, construction, capital flow, documentation, or people. It may not degrade into arbitrary dots, decorative grain, or a generic vintage filter.
+
 ### Landing Hero
 
 The hero is the brand's first impression: a full-viewport near-white field with a black engraved Toronto waterfront and CN Tower, layered halftone clouds, a single dashed lime route, left-anchored four-line serif promise, evidence stats, financing-path deck, consultation and expert actions, application entry, and grayscale trust portraits. The skyline is evidence of local expertise, not a decorative wallpaper. The financing deck begins readable and settles into a stacked interactive file; reduced motion shows the final state without auto-rotation or blur.
 
 ### Route Selector
 
-The route chooser sits on a quiet topographic field with one dashed black arc and lime origin. Four long cards present construction financing, private mortgage, investing, and partner paths. On desktop the cards form one comparative row; on mobile each card becomes a scannable block. Illustration stays monochrome and etching-like. The helper banner closes the choice architecture with a compass and one consultation action.
+The route chooser sits on a quiet topographic field with one dashed black arc and lime origin. Its non-interactive dashed route arrow renders above the card surfaces so the animated path remains visible as it reaches a route. Five cards present construction financing, private mortgage, institutional mortgage, investing, and partner paths. On desktop, the section fills the standard landing-page content rail inside the same left and right gutters used throughout the page, with no additional inner max-width. Construction financing anchors a large two-row card with prominent copy, a lower-right engraving, and the full process; beside it, a 2×2 grid of compact horizontal supporting routes retains benefits, right-anchored engravings, compact timelines, and pinned actions. On mobile, each card becomes a scannable block and the consultation helper closes the choice architecture.
 
 ### Landing Overview
 
@@ -289,7 +309,7 @@ The overview pairs an oversized licensing/private-lending statement and annotate
 
 ### Build Model
 
-The Build Model is a sticky-scroll live-deal file, not a marketing card. A bordered board holds status, count, title, dossier sheets, variable chips, and a six-stage progress track while the narrative advances through Plan, Finance, Build Support, DrawFlow, Takeout, and Outcome. The default ivory state matches the page; blueprint, forest, and ink states mark real changes in working context. Theme transitions use `820ms cubic-bezier(0.22, 1, 0.36, 1)`; text swaps use a restrained `150ms` blur/translate. On mobile the board and narrative linearize without hiding the current state.
+The Build Model is a sticky-scroll live-deal file, not a marketing card. A bordered board holds status, count, title, dossier sheets, variable chips, and a seven-stage progress track while the narrative advances through Intent, DrawFlow, Plan, Finance, Build Support, the Unf*ck Contingency Program, and Takeout before resolving into Outcome. The default ivory state matches the page; blueprint, forest, and ink states mark real changes in working context. Theme transitions use `820ms cubic-bezier(0.22, 1, 0.36, 1)`; text swaps use a restrained `150ms` blur/translate. On mobile the board and narrative linearize without hiding the current state.
 
 ### Builder Consulting, Leadership, FAQ, and Footer
 
@@ -304,7 +324,9 @@ These later sections retain the same paper, ink, lime, rail, and imagery system 
 - **Do** treat `/` and its imported root components as the brand source of truth.
 - **Do** preserve the sequence: header, hero, route selector, overview, Build Model, builder consulting, leadership, FAQ, and footer.
 - **Do** use real Toronto skyline, topographic, parcel, construction, property, and deal-file imagery as primary brand material.
-- **Do** keep monochrome engraving/halftone imagery dominant and reserve color for lime signals and controlled Build Model modes.
+- **Do** make monochromatic halftone, stipple, crosshatch, screened-photography, or engraved linework visibly dominant in every image-led marketing section; reserve color for lime signals and controlled Build Model modes.
+- **Do** treat lime as an annotation over ink—routes, nodes, verification marks, active edges, focus, and direction—not as a replacement for the monochromatic illustration.
+- **Do** keep halftone texture inside meaningful image and illustration regions while keeping reading and control surfaces clean.
 - **Do** pair Cormorant authority with Inter clarity; keep Oxanium and League Gothic inside technical sections.
 - **Do** keep application entry visible, compact, labeled, and usable at every viewport.
 - **Do** preserve semantic headings, keyboard focus, minimum `44px` touch targets where practical, WCAG AA contrast, and reduced-motion alternatives.
@@ -322,6 +344,10 @@ These later sections retain the same paper, ink, lime, rail, and imagery system 
 - **Don't** allow over-wrapped card labels; change the measure, scale, or responsive composition.
 - **Don't** use motion that makes the map feel like a toy.
 - **Don't** turn lime into paragraph text, a generic full-section background, or meaningless glow.
+- **Don't** ship an image-led root marketing section without a visible monochromatic halftone/engraved-ink treatment; matching the palette alone is insufficient.
+- **Don't** replace the ink motif with full-colour stock photography, generic flat vectors, pastel 3D renders, unprocessed grayscale photos, or empty neutral placeholders.
+- **Don't** tint an entire skyline, building, portrait, or construction illustration lime; lime is a sparse functional annotation layer.
+- **Don't** simulate the motif with a global grain/noise overlay. Halftone must belong to the depicted subject and remain outside core reading surfaces.
 - **Don't** introduce generic fintech blue; blueprint and forest belong only to Build Model state changes.
 - **Don't** replace the root's real raster/engraved assets with hand-drawn SVG doodles, generic line icons, or decorative CSS geometry.
 - **Don't** repeat a tiny uppercase eyebrow above every heading. Labels must identify a real route, file, phase, or technical system.

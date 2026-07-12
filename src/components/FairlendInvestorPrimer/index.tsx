@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react'
 import type { LucideIcon } from 'lucide-react'
 import { Building2, Landmark, Wallet } from 'lucide-react'
+import Image from 'next/image'
 
 import './investor-primer.css'
 
@@ -52,18 +53,36 @@ export function FairlendInvestorPrimer(): ReactElement {
       aria-labelledby="investor-primer-title"
       className="investor-primer"
       data-investor-primer
+      id="investor-primer"
     >
       <div className="investor-primer__inner">
         <header className="investor-primer__header">
-          <p className="investor-primer__eyebrow">What it is</p>
-          <h2 className="investor-primer__title" id="investor-primer-title">
-            A private mortgage is a loan secured against real estate.
-          </h2>
-          <p className="investor-primer__lede">
-            The security, valuation, borrower quality, LTV, payment structure, and exit path
-            determine whether an opportunity is worth considering. The collateral is the property —
-            but the discipline is the underwriting.
-          </p>
+          <div className="investor-primer__header-copy">
+            <h2 className="investor-primer__title" id="investor-primer-title">
+              A private mortgage is a loan secured against real estate.
+            </h2>
+            <p className="investor-primer__lede">
+              The security, valuation, borrower quality, LTV, payment structure, and exit path
+              determine whether an opportunity is worth considering. The collateral is the property —
+              but the discipline is the underwriting.
+            </p>
+          </div>
+
+          <figure className="investor-primer__dossier">
+            <div className="investor-primer__dossier-image">
+              <Image
+                alt="Engraved Toronto-area house representing the real property securing a private mortgage"
+                fill
+                loading="lazy"
+                sizes="(max-width: 820px) 90vw, 36vw"
+                src="/assets/fairlend-route-selector/private-mortgage-house-engraving.webp"
+              />
+            </div>
+            <figcaption>
+              <span>Illustrative security file</span>
+              <strong>Real property · registered mortgage</strong>
+            </figcaption>
+          </figure>
         </header>
 
         <ol className="investor-primer__flow" aria-label="How a private mortgage investment works">
