@@ -19,10 +19,10 @@ export function FairlendInvestorFractional(): ReactElement {
       aria-labelledby="investor-fractional-title"
       className="investor-fractional"
       data-investor-fractional
+      id="investor-fractional"
     >
       <div className="investor-fractional__inner">
         <header className="investor-fractional__header">
-          <p className="investor-fractional__eyebrow">Fractional access</p>
           <h2 className="investor-fractional__title" id="investor-fractional-title">
             Participate by the slice, not only the whole.
           </h2>

@@ -278,6 +278,7 @@ export function FairlendHeroOfferingsMorph({
                   className={cn(
                     'fairlend-build-property-types__row',
                     'fairlend-hero-offerings-morph__row',
+                    'pointer-events-auto',
                     layout === 'stack' && 'fairlend-hero-offerings-morph__card',
                     isTopCard && 'fairlend-hero-offerings-morph__card--top',
                   )}
@@ -324,7 +325,7 @@ export function FairlendHeroOfferingsMorph({
       </LayoutGroup>
 
       {layout === 'stack' && rows.length > 1 ? (
-        <div className="fairlend-hero-offerings-morph__controls">
+        <div className="fairlend-hero-offerings-morph__controls pointer-events-auto">
           <span aria-hidden="true" className="fairlend-hero-offerings-morph__count">
             {activeIndex + 1} / {rows.length}
           </span>

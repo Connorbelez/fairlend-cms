@@ -3,299 +3,529 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Selected Section Concept — Our Build Model (Concept B · Elevated Bridge)</title>
+    <title>Selected Section Concept — One team, every stage</title>
     <style>
       :root {
-        --paper: #fbfaf7;
-        --builder-cream: rgb(255 253 247);
-        --ink: oklch(0.235 0.026 164);
-        --ink-deep: #050506;
-        --ink-soft: rgba(8, 45, 35, 0.72);
-        --muted: rgba(8, 45, 35, 0.58);
-        --line: rgba(8, 45, 35, 0.16);
-        --line-strong: rgba(8, 45, 35, 0.34);
-        --lime: #9dff00;
-        --lime-ink: #203500;
-        --coral: oklch(0.588 0.151 42.5);
-        --coral-deep: oklch(0.48 0.14 41);
-        --blueprint: oklch(0.464 0.091 243.7);
-        --blueprint-soft: oklch(0.464 0.091 243.7 / 0.32);
-        --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-        --sans: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-        --mono: "Oxanium", ui-monospace, SFMono-Regular, Menlo, monospace;
+        --paper: #f8f7f5;
+        --white: #fffdf9;
+        --ink: #08090a;
+        --ink-deep: #030405;
+        --muted: #6c6c64;
+        --rule: #deded8;
+        --lime: #8dff00;
+        --blueprint: #002949;
+        --forest: #002416;
+        --font-inter: 'Inter';
+        --font-cormorant: 'Cormorant Garamond';
       }
-      * { box-sizing: border-box; }
-      body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); }
-      .frame { max-width: 1180px; margin: 0 auto; padding: 28px 22px 0; }
-      .frame-label {
-        display: flex; align-items: baseline; gap: 12px; margin: 0 0 14px;
+      * {
+        box-sizing: border-box;
       }
-      .frame-label span { font-family: var(--mono); font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--coral); }
-      .frame-label h1 { margin: 0; font-family: var(--serif); font-size: 24px; font-weight: 500; letter-spacing: -0.02em; color: var(--ink-deep); }
-
-      .section {
+      body {
+        margin: 0;
+        background: var(--ink);
+        color: var(--paper);
+        font-family: var(--font-inter), ui-sans-serif, sans-serif;
+      }
+      main {
+        width: min(1280px, calc(100% - 40px));
+        margin: 0 auto;
+        border-inline: 1px solid rgb(255 255 255 / 16%);
+      }
+      header {
+        padding: 72px clamp(24px, 6vw, 80px);
+        border-bottom: 1px solid rgb(255 255 255 / 18%);
+      }
+      .label {
+        color: var(--lime);
+        font:
+          800 10px/1.2 ui-monospace,
+          monospace;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--font-cormorant), Georgia, serif;
+        font-weight: 500;
+      }
+      h1 {
+        max-width: 900px;
+        margin: 20px 0;
+        font-size: clamp(54px, 7vw, 100px);
+        line-height: 0.9;
+        letter-spacing: -0.04em;
+      }
+      .lead {
+        max-width: 760px;
+        margin: 0;
+        color: var(--rule);
+        font-size: 18px;
+        line-height: 1.6;
+      }
+      .preserve {
+        padding: 48px clamp(24px, 6vw, 80px);
         background: var(--paper);
-        padding: clamp(44px, 6vw, 64px) 26px 0;
+        color: var(--ink);
       }
-
-      /* hero */
-      .kicker { text-align: center; font-family: var(--mono); font-size: 12px; font-weight: 900; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-deep); }
-      .kicker b { color: var(--coral); font-size: 16px; margin-right: 4px; }
-      .kicker i { color: var(--coral); font-style: normal; margin: 0 8px; }
-      .headline { margin: 14px auto 16px; max-width: 16ch; font-family: var(--serif); font-weight: 500; font-size: clamp(30px, 4vw, 46px); line-height: 1.02; letter-spacing: -0.03em; color: var(--ink-deep); text-align: center; }
-      .lead-line { max-width: 50ch; margin: 0 auto 16px; text-align: center; font-family: var(--serif); font-size: clamp(17px, 1.8vw, 21px); line-height: 1.32; color: var(--ink); font-style: italic; }
-      .lead-line em { font-style: normal; color: var(--coral); }
-      .var-ribbon { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; max-width: 640px; margin: 0 auto 28px; }
-      .var-ribbon span { padding: 5px 11px; border: 1px solid var(--coral); border-radius: 999px; background: rgba(232 91 47 / 0.05); font-family: var(--mono); font-size: 11px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--coral-deep); white-space: nowrap; }
-      .shared-lead { max-width: 46ch; margin: 0 auto 16px; text-align: center; font-size: 14.5px; line-height: 1.5; color: var(--ink-soft); }
-      .audience-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 760px; margin: 0 auto 10px; }
-      .audience-card { position: relative; border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px 16px 20px; background: var(--builder-cream); text-align: left; }
-      .audience-card::before { content: ""; position: absolute; left: 0; top: 14px; bottom: 14px; width: 3px; border-radius: 0 2px 2px 0; background: var(--coral); }
-      .audience-card.first::before { background: var(--blueprint); }
-      .ac-tag { display: inline-flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 10px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral); margin-bottom: 8px; }
-      .audience-card.first .ac-tag { color: var(--blueprint); }
-      .ac-tag .glyph { font-size: 12px; line-height: 1; }
-      .audience-card p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink); }
-      .audience-card p strong { color: var(--ink-deep); }
-
-      .cta-row { display: flex; flex-direction: column; align-items: center; margin: 14px 0 4px; }
-      .cta { display: inline-flex; align-items: center; gap: 10px; padding: 14px 20px; border: 1px solid var(--ink-deep); border-radius: 9px; background: var(--lime); color: var(--lime-ink); font-weight: 800; font-size: 15px; text-decoration: none; box-shadow: 0 10px 24px rgba(157 255 0 / 22%); }
-      .cta .arrow { display: grid; place-items: center; width: 26px; height: 26px; border: 1px solid rgba(32 53 0 / 0.4); border-radius: 999px; font-weight: 900; }
-      .cta-micro { text-align: center; margin: 10px 0 0; font-size: 13px; color: var(--muted); max-width: 42ch; }
-
-      /* station track */
-      .stations { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 30px 0 0; position: relative; }
-      .station-pillar {  }
-      .station-pillar > summary { list-style: none; cursor: pointer; }
-      .station-pillar > summary::-webkit-details-marker { display: none; }
-      .station { position: relative; padding: 14px 12px 12px; text-align: center; border-top: 1px solid var(--line); display: block; }
-      .station + .station { border-left: 1px solid var(--line); }
-      .st-icon { display: grid; place-items: center; height: 56px; margin-bottom: 8px; }
-      .st-num { font-family: var(--mono); font-size: 10px; font-weight: 900; color: var(--coral); letter-spacing: 0.1em; }
-      .st-name { font-weight: 800; font-size: 14px; color: var(--ink-deep); margin-top: 2px; display: block; }
-      details[open] .st-name { color: var(--coral-deep); }
-      .station-track-svg { position: absolute; top: 14px; left: 12.5%; right: 12.5%; height: 16px; pointer-events: none; }
-      .station-detail { border-top: 1px solid var(--line); background: var(--builder-cream); padding: 16px 18px; }
-      .station-detail ul { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 24px; margin: 0; padding-left: 18px; }
-      .bp-line { stroke: var(--blueprint); stroke-width: 1.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-      .bp-line-faint { stroke: var(--blueprint-soft); stroke-width: 1; fill: none; stroke-linecap: round; }
-      .bp-coral { stroke: var(--coral); stroke-width: 1.6; fill: none; stroke-linecap: round; }
-      .bp-node { fill: var(--coral); }
-      .bp-node-ring { fill: none; stroke: var(--coral); stroke-width: 1.4; }
-
-      /* DrawFlow */
-      .drawflow { position: relative; margin: 36px auto 0; max-width: 920px; border: 1px solid var(--line-strong); border-radius: 16px; background: radial-gradient(ellipse 60% 80% at 20% 0%, rgba(70 118 246 / 0.05), transparent 60%), var(--builder-cream); padding: clamp(28px, 4vw, 40px) clamp(22px, 4vw, 44px); overflow: hidden; }
-      .drawflow::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: linear-gradient(90deg, var(--blueprint) 0%, var(--coral) 100%); opacity: 0.7; }
-      .df-label { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blueprint); }
-      .df-label .pip { width: 7px; height: 7px; border-radius: 50%; background: var(--blueprint); box-shadow: 0 0 0 3px rgba(70 118 246 / 0.18); }
-      .df-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin: 10px 0 4px; }
-      .df-head h3 { margin: 0; font-family: var(--serif); font-weight: 500; font-size: clamp(22px, 2.8vw, 30px); line-height: 1.05; letter-spacing: -0.02em; color: var(--ink-deep); }
-      .df-head h3 em { font-style: italic; color: var(--blueprint); }
-      .df-sub { margin: 0; font-size: 14px; color: var(--ink-soft); max-width: 50ch; }
-      .df-sub b { color: var(--coral); font-weight: 800; }
-      .df-track { margin: 26px 0 22px; padding: 0 4px; }
-      .df-track-svg { width: 100%; height: auto; display: block; overflow: visible; }
-      .df-ms-node-done { fill: var(--blueprint); }
-      .df-ms-node-active { fill: var(--coral); }
-      .df-ms-node-active-ring { fill: none; stroke: var(--coral); stroke-width: 1.5; opacity: 0.5; }
-      .df-ms-node-future { fill: none; stroke: var(--blueprint); stroke-width: 1.4; opacity: 0.4; }
-      .df-ms-line { stroke: var(--blueprint); stroke-width: 1.4; fill: none; opacity: 0.55; }
-      .df-ms-line-active { stroke: var(--coral); stroke-width: 1.6; fill: none; }
-      .df-ms-label { font-family: "Oxanium", monospace; font-size: 9.5px; font-weight: 800; fill: var(--ink); letter-spacing: 0.05em; text-transform: uppercase; }
-      .df-ms-label-future { fill: var(--muted); opacity: 0.6; }
-      .df-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 0 0 22px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
-      .df-cmp-col { padding: 16px 18px; }
-      .df-cmp-col + .df-cmp-col { border-left: 1px solid var(--line); background: rgba(157 255 0 / 0.06); }
-      .df-cmp-tag { font-family: var(--mono); font-size: 10px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-      .df-cmp-col:last-child .df-cmp-tag { color: var(--lime-ink); }
-      .df-cmp-num { font-family: var(--serif); font-size: 30px; font-weight: 500; color: var(--ink-deep); line-height: 1; }
-      .df-cmp-num span { font-size: 14px; color: var(--ink-soft); font-family: var(--sans); font-weight: 600; }
-      .df-cmp-dots { display: flex; gap: 4px; margin-top: 10px; flex-wrap: wrap; }
-      .df-dot { width: 8px; height: 8px; border-radius: 50%; border: 1.4px solid var(--muted); background: transparent; opacity: 0.5; }
-      .df-dot.filled { background: var(--lime); border-color: var(--lime); opacity: 1; box-shadow: 0 0 6px rgba(157 255 0 / 0.4); }
-      .df-saved { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; padding: 14px 18px; border-left: 3px solid var(--lime); background: rgba(157 255 0 / 0.08); border-radius: 0 8px 8px 0; margin-bottom: 18px; }
-      .df-saved .amt { font-family: var(--serif); font-size: 26px; font-weight: 500; color: var(--ink-deep); line-height: 1; }
-      .df-saved .lbl { font-size: 13px; color: var(--ink-soft); }
-      .df-saved .lbl b { color: var(--ink-deep); }
-      .df-saved .caveat { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-left: auto; }
-      .df-more { display: flex; align-items: flex-start; gap: 12px; padding: 14px 18px; border: 1px dashed var(--line-strong); border-radius: 10px; }
-      .df-more .check { flex: 0 0 auto; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--lime); color: var(--lime-ink); font-weight: 900; font-size: 14px; }
-      .df-more p { margin: 0; font-size: 14px; color: var(--ink); line-height: 1.5; }
-      .df-more p b { color: var(--ink-deep); }
-
-      /* thesis strip */
-      .thesis-strip { position: relative; margin: 28px -26px 0; padding: clamp(40px, 6vw, 64px) clamp(22px, 5vw, 56px); background: radial-gradient(ellipse 80% 70% at 50% -10%, oklch(0.26 0.05 166), oklch(0.155 0.04 166) 78%); color: rgb(255 253 247); text-align: center; overflow: hidden; }
-      .thesis-strip::before { content: ""; position: absolute; left: 12%; right: 12%; bottom: clamp(26px, 4vw, 40px); height: 1px; background: linear-gradient(90deg, transparent, var(--blueprint-soft), transparent); opacity: 0.6; }
-      .ts-label { display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 11px; font-weight: 900; letter-spacing: 0.24em; text-transform: uppercase; color: var(--coral); }
-      .ts-label::before, .ts-label::after { content: ""; display: block; width: 28px; height: 1.5px; background: currentColor; opacity: 0.7; }
-      .ts-headline { margin: 18px auto 14px; max-width: 18ch; font-family: var(--serif); font-weight: 500; font-size: clamp(26px, 3.6vw, 40px); line-height: 1.08; letter-spacing: -0.02em; color: rgb(255 253 247); }
-      .ts-headline em { font-style: italic; color: var(--coral); background: linear-gradient(180deg, transparent 62%, rgba(232 91 47 / 0.18) 62%); padding: 0 2px; }
-      .ts-body { max-width: 54ch; margin: 0 auto 30px; font-size: clamp(14px, 1.4vw, 16px); line-height: 1.55; color: rgba(255 253 247 / 0.74); }
-      .ts-eq { display: inline-flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 10px 14px; padding-bottom: 6px; font-family: var(--mono); }
-      .ts-var { font-size: clamp(13px, 1.5vw, 17px); font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255 253 247 / 0.92); }
-      .ts-op { font-size: clamp(13px, 1.5vw, 17px); font-weight: 900; color: var(--coral); opacity: 0.85; }
-      .ts-arrow { font-size: clamp(15px, 1.8vw, 20px); font-weight: 900; color: var(--coral); margin: 0 2px; }
-      .ts-outcome { font-size: clamp(15px, 1.8vw, 20px); font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; color: var(--coral); text-shadow: 0 0 24px rgba(232 91 47 / 0.4); }
-
-      @media (max-width: 900px) { .stations { grid-template-columns: 1fr; } .station + .station { border-left: 0; border-top: 1px solid var(--line); } .audience-cards { grid-template-columns: 1fr; } }
-      @media (max-width: 640px) { .df-compare { grid-template-columns: 1fr; } .df-cmp-col + .df-cmp-col { border-left: 0; border-top: 1px solid var(--line); } .df-saved .caveat { margin-left: 0; width: 100%; } .thesis-strip { margin-left: -16px; margin-right: -16px; padding-inline: 18px; } }
+      .preserve h2,
+      .lifecycle h2 {
+        margin: 0 0 25px;
+        font-size: clamp(36px, 4vw, 58px);
+      }
+      .preserve-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        border: 1px solid var(--ink);
+      }
+      .preserve-card {
+        padding: 24px;
+      }
+      .preserve-card + .preserve-card {
+        border-left: 1px solid var(--ink);
+      }
+      .preserve-card h3 {
+        margin: 8px 0 12px;
+        font-size: 30px;
+      }
+      .preserve-card p {
+        margin: 0;
+        color: #494944;
+        line-height: 1.55;
+      }
+      .keep {
+        display: inline-block;
+        padding: 5px 8px;
+        background: var(--lime);
+        font:
+          800 9px/1 ui-monospace,
+          monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .lifecycle {
+        padding: 64px clamp(24px, 6vw, 80px);
+      }
+      .station {
+        display: grid;
+        grid-template-columns: 70px minmax(240px, 0.8fr) minmax(0, 1.2fr);
+        gap: 22px;
+        padding: 38px 0;
+        border-top: 1px solid rgb(255 255 255 / 18%);
+      }
+      .num {
+        display: grid;
+        width: 50px;
+        height: 50px;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--lime);
+        color: var(--ink);
+        font:
+          800 12px ui-monospace,
+          monospace;
+      }
+      .station h3 {
+        margin: 0 0 12px;
+        font-size: clamp(30px, 3vw, 45px);
+        line-height: 1;
+      }
+      .station-copy p {
+        margin: 0;
+        color: var(--rule);
+        line-height: 1.55;
+      }
+      .compare {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        border: 1px solid rgb(255 255 255 / 26%);
+      }
+      .compare > div {
+        padding: 18px;
+        min-height: 150px;
+      }
+      .without {
+        background-image: radial-gradient(
+          circle,
+          rgb(255 255 255 / 10%) 0 0.7px,
+          transparent 0.9px
+        );
+        background-size: 5px 5px;
+      }
+      .with {
+        border-left: 1px solid var(--ink);
+        background: var(--white);
+        color: var(--ink);
+        box-shadow: inset 0 4px 0 var(--lime);
+      }
+      .compare strong {
+        display: block;
+        margin-bottom: 12px;
+        font:
+          800 9px/1 ui-monospace,
+          monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+      .compare p {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .drawflow {
+        margin-top: 28px;
+        padding: 34px;
+        border: 1px solid var(--rule);
+        background: var(--blueprint);
+      }
+      .drawflow h3 {
+        max-width: 650px;
+        margin: 15px 0;
+        font-size: clamp(42px, 5vw, 72px);
+        line-height: 0.95;
+      }
+      .drawflow .proof {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-top: 24px;
+        border: 1px solid var(--rule);
+      }
+      .drawflow .proof div {
+        padding: 20px;
+      }
+      .drawflow .proof div + div {
+        border-left: 1px solid var(--rule);
+        background: var(--forest);
+      }
+      .drawflow b {
+        color: var(--lime);
+      }
+      .ledger {
+        padding: 48px clamp(24px, 6vw, 80px);
+        background: var(--ink-deep);
+        border-top: 1px solid rgb(255 255 255 / 18%);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        color: #ddd;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      th,
+      td {
+        padding: 14px;
+        border: 1px solid rgb(255 255 255 / 18%);
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        color: var(--lime);
+        font:
+          800 9px ui-monospace,
+          monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      footer {
+        padding: 26px clamp(24px, 6vw, 80px);
+        background: var(--lime);
+        color: var(--ink);
+        font-weight: 800;
+      }
+      @media (max-width: 800px) {
+        .preserve-grid,
+        .station,
+        .compare,
+        .drawflow .proof {
+          grid-template-columns: 1fr;
+        }
+        .preserve-card + .preserve-card,
+        .with,
+        .drawflow .proof div + div {
+          border-left: 0;
+          border-top: 1px solid var(--ink);
+        }
+      }
     </style>
   </head>
   <body>
-    <div class="frame">
-      <div class="frame-label">
-        <span>Selected Concept · B</span>
-        <h1>Our Build Model — Elevated Bridge (isolated reference)</h1>
-      </div>
-    </div>
+    <main>
+      <header>
+        <div class="label">Checkpoint 05 · Selected concept</div>
+        <h1>One team, every stage.</h1>
+        <p class="lead">
+          Keep the builder in control while FairLend connects feasibility, provided construction
+          financing, adjustable milestone draws, CMHC-insured takeout financing, and the Unf*ck
+          Contingency Program.
+        </p>
+      </header>
 
-    <section class="section" aria-labelledby="fairlend-build-model-title">
-      <div class="kicker"><b>03</b> <i>/</i> Our Build Model</div>
-      <h2 class="headline" id="fairlend-build-model-title">Bring us the property. We'll help build the equation.</h2>
-      <p class="lead-line">From <em>early intent</em> to construction financing and takeout strategy, we shape one financeable project — end to end.</p>
-      <div class="var-ribbon" aria-label="The variables FairLend helps shape">
-        <span>Land</span><span>Scope</span><span>Capital</span><span>Draw plan</span><span>Professional path</span><span>Permit &amp; MLI readiness</span><span>Exit</span>
-      </div>
-      <p class="shared-lead">You don't need the whole team, a perfect plan, or prior build experience before you talk to us.</p>
-      <div class="audience-cards">
-        <div class="audience-card first">
-          <span class="ac-tag"><span class="glyph">◤</span> If you already build</span>
-          <p><strong>Keep your focus on the site.</strong> We help carry the financing and business equation around it.</p>
+      <section class="preserve">
+        <div class="label" style="color: #203500">Content preservation lock</div>
+        <h2>These current modules remain.</h2>
+        <div class="preserve-grid">
+          <article class="preserve-card">
+            <span class="keep">Preserve</span>
+            <h3>Two builder starting points</h3>
+            <p>
+              Keep the complete “Already building / First-time builder” ledger, shared lead,
+              full-project-team promise, consultation CTA, and first-conversation microcopy.
+            </p>
+          </article>
+          <article class="preserve-card">
+            <span class="keep">Preserve</span>
+            <h3>Full DrawFlow proof chapter</h3>
+            <p>
+              Keep the milestone line of credit, up-to-15-draw comparison, illustrative savings,
+              custom schedule, mid-build modifications, specialist/network access, and client
+              signal.
+            </p>
+          </article>
         </div>
-        <div class="audience-card">
-          <span class="ac-tag"><span class="glyph">◤</span> First-time builder</span>
-          <p><strong>Bring a property and a down payment.</strong> We craft the design and specs with you, assign an experienced builder or project manager, and handle the rest — permits, draws, takeout, everything.</p>
-        </div>
-      </div>
-      <div class="cta-row">
-        <a class="cta" href="#">Book a free consultation <span class="arrow">→</span></a>
-        <p class="cta-micro">Bring a property, plan, or early idea — your first conversation is on us.</p>
-      </div>
+      </section>
 
-      <!-- station track -->
-      <div class="stations">
-        <svg class="station-track-svg" viewBox="0 0 100 16" preserveAspectRatio="none" aria-hidden="true">
-          <path class="bp-coral" d="M0 8 L100 8" stroke-dasharray="2 3" />
-          <circle class="bp-node" cx="12.5" cy="8" r="3" /><circle class="bp-node-ring" cx="12.5" cy="8" r="6" />
-          <circle class="bp-node" cx="37.5" cy="8" r="3" /><circle class="bp-node-ring" cx="37.5" cy="8" r="6" />
-          <circle class="bp-node" cx="62.5" cy="8" r="3" /><circle class="bp-node-ring" cx="62.5" cy="8" r="6" />
-          <circle class="bp-node" cx="87.5" cy="8" r="3" /><circle class="bp-node-ring" cx="87.5" cy="8" r="6" />
-        </svg>
+      <section class="lifecycle">
+        <div class="label">Selected lifecycle</div>
+        <h2>Plan → Finance → DrawFlow → Build Support → Takeout → Unf*ck</h2>
 
-        <details class="station-pillar" open>
-          <summary>
-            <span class="station">
-              <span class="st-icon"><svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true"><rect x="6" y="14" width="32" height="24" class="bp-line"/><path d="M6 14 L22 4 L38 14" class="bp-line"/><path d="M18 26 h8 v12 h-8 z" class="bp-line-faint"/></svg></span>
-              <span class="st-num">01</span>
-              <span class="st-name">Plan</span>
-            </span>
-          </summary>
-          <div class="station-detail"><ul>
-            <li>Site search &amp; feasibility review</li><li>Land basis &amp; acquisition price</li><li>Zoning path, housing form, unit mix</li><li>Budget pressure-testing</li>
-          </ul></div>
-        </details>
-        <details class="station-pillar">
-          <summary>
-            <span class="station">
-              <span class="st-icon"><svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true"><rect x="8" y="32" width="8" height="8" class="bp-line"/><rect x="18" y="22" width="8" height="18" class="bp-line"/><rect x="28" y="12" width="8" height="28" class="bp-line"/><path d="M6 12 L38 12" class="bp-line-faint"/></svg></span>
-              <span class="st-num">02</span>
-              <span class="st-name">Finance</span>
-            </span>
-          </summary>
-          <div class="station-detail"><ul>
-            <li>Construction budget &amp; borrower capital</li><li>Private financing &amp; capital structure</li><li>Draw schedule (DrawFlow)</li><li>Working-capital planning</li>
-          </ul></div>
-        </details>
-        <details class="station-pillar">
-          <summary>
-            <span class="station">
-              <span class="st-icon"><svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true"><path d="M6 36 L6 18 L22 8 L38 18 L38 36" class="bp-line"/><path d="M22 18 v18" class="bp-line-faint"/><circle cx="22" cy="26" r="3" class="bp-line"/></svg></span>
-              <span class="st-num">03</span>
-              <span class="st-name">Build support</span>
-            </span>
-          </summary>
-          <div class="station-detail"><ul>
-            <li>Network introductions where appropriate</li><li>Permit strategy &amp; documentation gaps</li><li>CMHC MLI Select readiness (where applicable)</li><li>Milestone / draw admin &amp; site monitoring</li>
-          </ul></div>
-        </details>
-        <details class="station-pillar">
-          <summary>
-            <span class="station">
-              <span class="st-icon"><svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true"><path d="M6 22 L30 22 M24 16 L30 22 L24 28" class="bp-coral"/><circle cx="34" cy="22" r="4" class="bp-line"/><path d="M6 22 L6 36 M34 26 L34 36" class="bp-line-faint"/></svg></span>
-              <span class="st-num">04</span>
-              <span class="st-name">Takeout</span>
-            </span>
-          </summary>
-          <div class="station-detail"><ul>
-            <li>Sale, refinance, or rental stabilization</li><li>Insured (MLI Select) takeout preparation</li><li>Long-term financing direction</li>
-          </ul></div>
-        </details>
-      </div>
-
-      <!-- DrawFlow -->
-      <div class="drawflow">
-        <span class="df-label"><span class="pip"></span> Powered by DrawFlow</span>
-        <div class="df-head"><h3>A milestone <em>line of credit</em> for your build.</h3></div>
-        <p class="df-sub">More draws. Less interest. <b>Fund the work, not the wait.</b></p>
-        <div class="df-track">
-          <svg class="df-track-svg" viewBox="0 0 820 70" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Milestone draw track: foundation, framing, roof, windows, mechanical, plumbing, electrical, drywall, flooring">
-            <path class="df-ms-line" d="M40 35 L680 35" />
-            <path class="df-ms-line-active" d="M680 35 L720 35" />
-            <path class="df-ms-line" d="M720 35 L790 35" stroke-dasharray="2 4" />
-            <circle class="df-ms-node-done" cx="40" cy="35" r="6" /><circle class="df-ms-node-done" cx="184" cy="35" r="6" /><circle class="df-ms-node-done" cx="328" cy="35" r="6" /><circle class="df-ms-node-done" cx="472" cy="35" r="6" /><circle class="df-ms-node-done" cx="616" cy="35" r="6" />
-            <circle class="df-ms-node-active-ring" cx="680" cy="35" r="11" /><circle class="df-ms-node-active" cx="680" cy="35" r="6" />
-            <circle class="df-ms-node-future" cx="720" cy="35" r="6" /><circle class="df-ms-node-future" cx="760" cy="35" r="6" /><circle class="df-ms-node-future" cx="790" cy="35" r="6" />
-            <text class="df-ms-label" x="40" y="58" text-anchor="middle">Foundation</text>
-            <text class="df-ms-label" x="184" y="58" text-anchor="middle">Framing</text>
-            <text class="df-ms-label" x="328" y="58" text-anchor="middle">Roof</text>
-            <text class="df-ms-label" x="472" y="58" text-anchor="middle">Windows</text>
-            <text class="df-ms-label" x="616" y="58" text-anchor="middle">Mechanical</text>
-            <text class="df-ms-label" x="680" y="20" text-anchor="middle" fill="oklch(0.588 0.151 42.5)">Plumbing ●</text>
-            <text class="df-ms-label df-ms-label-future" x="720" y="58" text-anchor="middle">Electrical</text>
-            <text class="df-ms-label df-ms-label-future" x="760" y="58" text-anchor="middle">Drywall</text>
-            <text class="df-ms-label df-ms-label-future" x="790" y="58" text-anchor="middle">Flooring</text>
-          </svg>
-        </div>
-        <div class="df-compare">
-          <div class="df-cmp-col">
-            <div class="df-cmp-tag">Traditional</div>
-            <div class="df-cmp-num">3 <span>draws</span></div>
-            <div class="df-cmp-dots"><span class="df-dot"></span><span class="df-dot"></span><span class="df-dot"></span></div>
+        <article class="station">
+          <span class="num">01</span>
+          <div class="station-copy">
+            <h3>Plan</h3>
+            <p>
+              Test whether the site, scope, budget, approvals, and exit support a financeable build
+              before committing more capital.
+            </p>
           </div>
-          <div class="df-cmp-col">
-            <div class="df-cmp-tag">FairLend · up to</div>
-            <div class="df-cmp-num">15 <span>draws</span></div>
-            <div class="df-cmp-dots"><span class="df-dot filled"></span><span class="df-dot filled"></span><span class="df-dot filled"></span><span class="df-dot filled"></span><span class="df-dot filled"></span><span class="df-dot filled"></span><span class="df-dot filled"></span><span class="df-dot filled"></span><span class="df-dot filled"></span><span class="df-dot filled"></span><span class="df-dot filled"></span><span class="df-dot filled"></span><span class="df-dot filled"></span><span class="df-dot filled"></span><span class="df-dot filled"></span></div>
+          <div class="compare">
+            <div class="without">
+              <strong>× Without FairLend</strong>
+              <p>Land and design decisions can harden before financing constraints are tested.</p>
+            </div>
+            <div class="with">
+              <strong>+ With FairLend</strong>
+              <p>
+                You pressure-test project economics and the exit while the scope can still change.
+              </p>
+            </div>
           </div>
-        </div>
-        <div class="df-saved">
-          <span class="amt">≈ $12,000</span>
-          <span class="lbl"><b>Illustrative interest saved</b> — over a typical build.</span>
-          <span class="caveat">*Illustrative only. Every project differs.</span>
-        </div>
-        <div class="df-more">
-          <span class="check" aria-hidden="true">✓</span>
-          <p><b>More than capital.</b> Complimentary access to our GTA build specialists and a deep supplier &amp; trade network — your project manager comes with the financing.</p>
-        </div>
-      </div>
+        </article>
 
-      <!-- thesis strip -->
-      <div class="thesis-strip">
-        <span class="ts-label">Builder Consulting</span>
-        <h3 class="ts-headline">FairLend's thesis: profit lives in the <em>variables</em>.</h3>
-        <p class="ts-body">A profitable build is not only a construction problem. It is a business equation that changes with land, cost, capital, draws, policy, incentives, and takeout.</p>
-        <div class="ts-eq" aria-label="The build equation: land plus cost plus capital plus draws plus policy plus incentives plus takeout yields outcome">
-          <span class="ts-var">Land</span><span class="ts-op">+</span>
-          <span class="ts-var">Cost</span><span class="ts-op">+</span>
-          <span class="ts-var">Capital</span><span class="ts-op">+</span>
-          <span class="ts-var">Draws</span><span class="ts-op">+</span>
-          <span class="ts-var">Policy</span><span class="ts-op">+</span>
-          <span class="ts-var">Incentives</span><span class="ts-op">+</span>
-          <span class="ts-var">Takeout</span>
-          <span class="ts-arrow">→</span>
-          <span class="ts-outcome">Outcome</span>
-        </div>
-      </div>
-    </section>
+        <article class="station">
+          <span class="num">02</span>
+          <div class="station-copy">
+            <h3>Finance</h3>
+            <p>
+              FairLend provides construction financing and structures advances around the actual
+              build.
+            </p>
+          </div>
+          <div class="compare">
+            <div class="without">
+              <strong>× Without FairLend</strong>
+              <p>
+                Capital can arrive too late or be advanced too early, squeezing the build or
+                increasing interest.
+              </p>
+            </div>
+            <div class="with">
+              <strong>+ With FairLend</strong>
+              <p>
+                Financing is staged around the work, balancing available capital against interest on
+                advanced funds.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <section class="drawflow">
+          <div class="label">Powered by DrawFlow · preserved</div>
+          <h3>A milestone line of credit for your build.</h3>
+          <p>More draws. Less interest. <b>Fund the work, not the wait.</b></p>
+          <div class="proof">
+            <div>
+              <span class="label">Traditional</span>
+              <h3>3 draws</h3>
+            </div>
+            <div>
+              <span class="label">FairLend</span>
+              <h3>up to 15 draws</h3>
+            </div>
+          </div>
+        </section>
+
+        <article class="station">
+          <span class="num">03</span>
+          <div class="station-copy">
+            <h3>Build Support</h3>
+            <p>Adjust the draw plan mid-build as the work and capital requirements change.</p>
+          </div>
+          <div class="compare">
+            <div class="without">
+              <strong>× Without FairLend</strong>
+              <p>A static draw schedule can stop matching the site.</p>
+            </div>
+            <div class="with">
+              <strong>+ With FairLend</strong>
+              <p>You revise milestones and draw timing with FairLend as the work shifts.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="station">
+          <span class="num">04</span>
+          <div class="station-copy">
+            <h3>Takeout</h3>
+            <p>
+              Work toward CMHC-insured eligibility early; FairLend provides the takeout financing
+              for eligible projects.
+            </p>
+          </div>
+          <div class="compare">
+            <div class="without">
+              <strong>× Without FairLend</strong>
+              <p>Eligibility gaps can surface near maturity when they are harder to correct.</p>
+            </div>
+            <div class="with">
+              <strong>+ With FairLend</strong>
+              <p>You prepare the application and takeout path with the same financing partner.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="station">
+          <span class="num">05</span>
+          <div class="station-copy">
+            <h3>Unf*ck Contingency Program</h3>
+            <p>
+              Diagnose the connected project and financing problem, then coordinate a prioritized
+              recovery path.
+            </p>
+          </div>
+          <div class="compare">
+            <div class="without">
+              <strong>× Without FairLend</strong>
+              <p>Each advisor sees one symptom while nobody owns the full recovery.</p>
+            </div>
+            <div class="with">
+              <strong>+ With FairLend</strong>
+              <p>
+                FairLend works with you to identify root constraints, priorities, owners, options,
+                and limits.
+              </p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="ledger">
+        <h2>Claims and implementation lock</h2>
+        <table>
+          <tr>
+            <th>Claim</th>
+            <th>Production rule</th>
+          </tr>
+          <tr>
+            <td>Up to 15 draws / ≈ $12,000 illustrative savings</td>
+            <td>Preserve current caveats and validate substantiation before publication.</td>
+          </tr>
+          <tr>
+            <td>FairLend-provided construction and CMHC-insured takeout financing</td>
+            <td>
+              Use approved entity/product wording; never imply guaranteed approval or funding.
+            </td>
+          </tr>
+          <tr>
+            <td>Modify draw plan mid-build</td>
+            <td>
+              Qualify with financing terms, underwriting, lender conditions, and project status
+              where required.
+            </td>
+          </tr>
+          <tr>
+            <td>Unf*ck Contingency Program</td>
+            <td>Keep name prominent and preserve no-guarantee recovery language.</td>
+          </tr>
+        </table>
+      </section>
+
+      <footer>Next phase: approve production implementation from SECTION-DESIGN.md.</footer>
+    </main>
+
+    <script type="application/json" id="section-builder-state">
+      {
+        "workflow": "existing-landing-page-section-builder",
+        "checkpoint_id": "selected-section-concept",
+        "phase_completed": 5,
+        "previous_checkpoint": "checkpoint-04-section-visual-concepts",
+        "next_phase": "production-implementation",
+        "page_context": {
+          "page_name": "FairLend root landing page",
+          "page_type": "homepage",
+          "primary_audience": "GTA builders and property owners",
+          "primary_conversion": "free build consultation",
+          "existing_section_order": ["overview", "build model", "builder consulting", "leadership"],
+          "insertion_point": {
+            "previous_section": "overview",
+            "next_section": "builder consulting"
+          }
+        },
+        "locked_decisions": {
+          "section_role": "explain and prove end-to-end builder financing support",
+          "target_belief": "FairLend works with the builder and provides financing across every stage",
+          "primary_objection": "FairLend may sound like consulting rather than a capital and execution partner",
+          "cta_strategy": "preserve free consultation CTA",
+          "locked_copy": {
+            "concept": "One team, every stage",
+            "preserve": ["AudiencePaths", "DrawFlowStep"]
+          }
+        },
+        "visual_system_extraction": {
+          "grid": "existing sticky dossier plus scroll narrative",
+          "typography": "Cormorant / Inter / Oxanium",
+          "color": "paper, ink, blueprint, forest, lime signal",
+          "spacing": "existing build-model rhythm",
+          "component_style": "working financing dossier",
+          "motion_language": "competent progress through a live deal file"
+        },
+        "claims_ledger": [
+          "up to 15 draws",
+          "illustrative savings",
+          "provided financing",
+          "CMHC-insured takeout",
+          "recovery guardrail"
+        ],
+        "framework_application_ledger": [
+          "Messaging Architecture",
+          "Problem-Solution",
+          "Choice Architecture",
+          "Cialdini",
+          "Grid Systems",
+          "Fitts's Law"
+        ],
+        "section_contract": {
+          "selected_concept": "01",
+          "preserve_components": [
+            "AudiencePaths",
+            "DrawFlowStep",
+            "ThesisStrip",
+            "BuildModelBoard",
+            "BuildModelMotion"
+          ],
+          "station_order": [
+            "Plan",
+            "Finance",
+            "DrawFlow",
+            "Build Support",
+            "Takeout",
+            "Unf*ck Contingency"
+          ]
+        },
+        "open_questions": [],
+        "next_phase_instructions": "Implement the production delta exactly from SECTION-DESIGN.md after explicit approval."
+      }
+    </script>
   </body>
 </html>

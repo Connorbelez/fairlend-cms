@@ -24,9 +24,10 @@ export function FairlendInvestorFinalCta(): ReactElement {
       aria-labelledby="investor-final-title"
       className="investor-final"
       data-investor-final
+      id="investor-access"
     >
       <div className="investor-final__inner">
-        <p className="investor-final__eyebrow">Start with a review</p>
+        <p className="investor-final__eyebrow">Investor review, not instant checkout.</p>
         <h2 className="investor-final__title" id="investor-final-title">
           A more disciplined way to participate in mortgage-backed private credit.
         </h2>

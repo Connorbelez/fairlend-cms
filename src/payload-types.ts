@@ -297,6 +297,16 @@ export interface Page {
     };
   };
   layout: (
+    | MoneyPageHeroBlock
+    | MoneyPageNarrativeBlock
+    | MoneyPageMediaSplitBlock
+    | MoneyPageFeaturesBlock
+    | MoneyPageProcessBlock
+    | MoneyPageProofBlock
+    | MoneyPageComparisonBlock
+    | MoneyPageDisclosureBlock
+    | MoneyPageFAQBlock
+    | MoneyPageCTABlock
     | CallToActionBlock
     | ContentBlock
     | MediaBlock
@@ -345,8 +355,12 @@ export interface Page {
 export interface Post {
   id: number;
   title: string;
+  /**
+   * Article uses the standard blog template. SEO money page is a commercial-intent, rank-and-convert layout using full-width sections.
+   */
+  contentMode?: ('article' | 'moneyPage') | null;
   heroImage?: (number | null) | Media;
-  content: {
+  content?: {
     root: {
       type: string;
       children: {
@@ -360,7 +374,24 @@ export interface Post {
       version: number;
     };
     [k: string]: unknown;
-  };
+  } | null;
+  /**
+   * Build the commercial-intent page in search-intent and persuasion order. Each section owns its material, spacing, responsive layout, and assets.
+   */
+  moneyPageLayout?:
+    | (
+        | MoneyPageHeroBlock
+        | MoneyPageNarrativeBlock
+        | MoneyPageMediaSplitBlock
+        | MoneyPageFeaturesBlock
+        | MoneyPageProcessBlock
+        | MoneyPageProofBlock
+        | MoneyPageComparisonBlock
+        | MoneyPageDisclosureBlock
+        | MoneyPageFAQBlock
+        | MoneyPageCTABlock
+      )[]
+    | null;
   relatedPosts?: (number | Post)[] | null;
   categories?: (number | Category)[] | null;
   meta?: {
@@ -506,6 +537,869 @@ export interface FolderInterface {
   folderType?: 'media'[] | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageHeroBlock".
+ */
+export interface MoneyPageHeroBlock {
+  variant: 'routeField' | 'splitDossier' | 'mediaStatement';
+  /**
+   * Use H1 only when the generic Page/Post hero is disabled. A page should have one H1.
+   */
+  headingLevel?: ('h1' | 'h2') | null;
+  routeLabel?: string | null;
+  heading: string;
+  summary?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  proofPoints?:
+    | {
+        label: string;
+        detail: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The first link is the primary conversion action; the second is supporting.
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  media: number | Media;
+  mobileMedia?: (number | null) | Media;
+  /**
+   * Visible evidence caption. The asset alt text remains the accessibility description.
+   */
+  mediaCaption?: string | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentation?: {
+    surface?: ('paper' | 'white' | 'ink') | null;
+    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+    spacing?: ('compact' | 'standard' | 'immersive') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageHero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageNarrativeBlock".
+ */
+export interface MoneyPageNarrativeBlock {
+  variant: 'fieldNote' | 'splitBrief' | 'pullQuote';
+  /**
+   * Optional factual label such as “Construction route” or “Borrower fit”. Do not use as decorative section grammar.
+   */
+  systemLabel?: string | null;
+  heading: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  asideTitle?: string | null;
+  aside?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * The first link is the primary conversion action; the second is supporting.
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentation?: {
+    surface?: ('paper' | 'white' | 'ink') | null;
+    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+    spacing?: ('compact' | 'standard' | 'immersive') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageNarrative';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageMediaSplitBlock".
+ */
+export interface MoneyPageMediaSplitBlock {
+  variant: 'imageLeft' | 'imageRight' | 'imageTop' | 'videoLeft' | 'videoRight';
+  /**
+   * Optional factual label such as “Construction route” or “Borrower fit”. Do not use as decorative section grammar.
+   */
+  systemLabel?: string | null;
+  heading: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  points?:
+    | {
+        title: string;
+        detail?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The first link is the primary conversion action; the second is supporting.
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  media: number | Media;
+  poster?: (number | null) | Media;
+  videoPlayback?: ('controls' | 'ambient') | null;
+  caption?: string | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentation?: {
+    surface?: ('paper' | 'white' | 'ink') | null;
+    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+    spacing?: ('compact' | 'standard' | 'immersive') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageMediaSplit';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageFeaturesBlock".
+ */
+export interface MoneyPageFeaturesBlock {
+  variant: 'alternatingEvidence' | 'routeLedger' | 'underwritingIndex';
+  /**
+   * Optional factual label such as “Construction route” or “Borrower fit”. Do not use as decorative section grammar.
+   */
+  systemLabel?: string | null;
+  heading: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  items?:
+    | {
+        routeCode?: string | null;
+        title: string;
+        body?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        media?: (number | null) | Media;
+        proof?: string | null;
+        /**
+         * The first link is the primary conversion action; the second is supporting.
+         */
+        links?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: number | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: number | Post;
+                    } | null);
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentation?: {
+    surface?: ('paper' | 'white' | 'ink') | null;
+    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+    spacing?: ('compact' | 'standard' | 'immersive') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageFeatures';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageProcessBlock".
+ */
+export interface MoneyPageProcessBlock {
+  variant: 'topographicRoute' | 'zPattern' | 'dealFile';
+  /**
+   * Optional factual label such as “Construction route” or “Borrower fit”. Do not use as decorative section grammar.
+   */
+  systemLabel?: string | null;
+  heading: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Only use this block when order is meaningful. Step numbers are generated from this sequence.
+   */
+  steps?:
+    | {
+        title: string;
+        body?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        proof?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The first link is the primary conversion action; the second is supporting.
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentation?: {
+    surface?: ('paper' | 'white' | 'ink') | null;
+    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+    spacing?: ('compact' | 'standard' | 'immersive') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageProcess';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageProofBlock".
+ */
+export interface MoneyPageProofBlock {
+  variant: 'caseFile' | 'testimonyDossier' | 'verifiedOutcomes';
+  /**
+   * Optional factual label such as “Construction route” or “Borrower fit”. Do not use as decorative section grammar.
+   */
+  systemLabel?: string | null;
+  heading: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  quote?: string | null;
+  source?: {
+    name?: string | null;
+    role?: string | null;
+    organization?: string | null;
+    portrait?: (number | null) | Media;
+  };
+  /**
+   * Use verifiable facts. Avoid vanity metrics without context.
+   */
+  outcomes?:
+    | {
+        value: string;
+        label: string;
+        context?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The first link is the primary conversion action; the second is supporting.
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentation?: {
+    surface?: ('paper' | 'white' | 'ink') | null;
+    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+    spacing?: ('compact' | 'standard' | 'immersive') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageProof';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageComparisonBlock".
+ */
+export interface MoneyPageComparisonBlock {
+  variant: 'fitCheck' | 'routeComparison' | 'decisionMatrix';
+  /**
+   * Optional factual label such as “Construction route” or “Borrower fit”. Do not use as decorative section grammar.
+   */
+  systemLabel?: string | null;
+  heading: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  columns?:
+    | {
+        title: string;
+        summary?: string | null;
+        recommended?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  criteria?:
+    | {
+        label: string;
+        /**
+         * Enter one value for each column, in the same order.
+         */
+        values?:
+          | {
+              value: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The first link is the primary conversion action; the second is supporting.
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentation?: {
+    surface?: ('paper' | 'white' | 'ink') | null;
+    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+    spacing?: ('compact' | 'standard' | 'immersive') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageComparison';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageDisclosureBlock".
+ */
+export interface MoneyPageDisclosureBlock {
+  variant: 'accordion' | 'tabs' | 'decisionPath';
+  /**
+   * Optional factual label such as “Construction route” or “Borrower fit”. Do not use as decorative section grammar.
+   */
+  systemLabel?: string | null;
+  heading: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  items?:
+    | {
+        label: string;
+        title: string;
+        body?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        signal?: string | null;
+        media?: (number | null) | Media;
+        /**
+         * The first link is the primary conversion action; the second is supporting.
+         */
+        links?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: number | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: number | Post;
+                    } | null);
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  openFirst?: boolean | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentation?: {
+    surface?: ('paper' | 'white' | 'ink') | null;
+    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+    spacing?: ('compact' | 'standard' | 'immersive') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageDisclosure';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageFAQBlock".
+ */
+export interface MoneyPageFAQBlock {
+  variant: 'routeMap' | 'compactLedger';
+  /**
+   * Optional factual label such as “Construction route” or “Borrower fit”. Do not use as decorative section grammar.
+   */
+  systemLabel?: string | null;
+  heading: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  items?:
+    | {
+        question: string;
+        answer?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Emits FAQPage JSON-LD from visible questions and answers. Disable if this FAQ duplicates another schema source on the page.
+   */
+  enableStructuredData?: boolean | null;
+  openFirst?: boolean | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentation?: {
+    surface?: ('paper' | 'white' | 'ink') | null;
+    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+    spacing?: ('compact' | 'standard' | 'immersive') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageFAQ';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageCTABlock".
+ */
+export interface MoneyPageCTABlock {
+  variant: 'applicationDesk' | 'expertRoute' | 'splitContact';
+  /**
+   * Optional factual label such as “Construction route” or “Borrower fit”. Do not use as decorative section grammar.
+   */
+  systemLabel?: string | null;
+  heading: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  body?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * The first link is the primary conversion action; the second is supporting.
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  media?: (number | null) | Media;
+  trustNotes?:
+    | {
+        note: string;
+        id?: string | null;
+      }[]
+    | null;
+  disclosure?: string | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentation?: {
+    surface?: ('paper' | 'white' | 'ink') | null;
+    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+    spacing?: ('compact' | 'standard' | 'immersive') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageCTA';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1557,6 +2451,14 @@ export interface FairlendLead {
   intakeAmount?: string | null;
   intakeTimeline?: string | null;
   intakeProjectStage?: string | null;
+  /**
+   * Residential mortgage lane selected by the intake flow.
+   */
+  intakeMortgageProduct?: ('institutional' | 'private') | null;
+  /**
+   * Step-one mortgage goal or situation selected by the lead.
+   */
+  intakeMortgageGoal?: string | null;
   intakeFinancingNeeds?: string | null;
   intakePropertyValue?: string | null;
   intakeMortgageBalance?: string | null;
@@ -2025,6 +2927,16 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
+        moneyPageHero?: T | MoneyPageHeroBlockSelect<T>;
+        moneyPageNarrative?: T | MoneyPageNarrativeBlockSelect<T>;
+        moneyPageMediaSplit?: T | MoneyPageMediaSplitBlockSelect<T>;
+        moneyPageFeatures?: T | MoneyPageFeaturesBlockSelect<T>;
+        moneyPageProcess?: T | MoneyPageProcessBlockSelect<T>;
+        moneyPageProof?: T | MoneyPageProofBlockSelect<T>;
+        moneyPageComparison?: T | MoneyPageComparisonBlockSelect<T>;
+        moneyPageDisclosure?: T | MoneyPageDisclosureBlockSelect<T>;
+        moneyPageFAQ?: T | MoneyPageFAQBlockSelect<T>;
+        moneyPageCTA?: T | MoneyPageCTABlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
@@ -2061,6 +2973,443 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageHeroBlock_select".
+ */
+export interface MoneyPageHeroBlockSelect<T extends boolean = true> {
+  variant?: T;
+  headingLevel?: T;
+  routeLabel?: T;
+  heading?: T;
+  summary?: T;
+  proofPoints?:
+    | T
+    | {
+        label?: T;
+        detail?: T;
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  media?: T;
+  mobileMedia?: T;
+  mediaCaption?: T;
+  anchor?: T;
+  presentation?:
+    | T
+    | {
+        surface?: T;
+        texture?: T;
+        spacing?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageNarrativeBlock_select".
+ */
+export interface MoneyPageNarrativeBlockSelect<T extends boolean = true> {
+  variant?: T;
+  systemLabel?: T;
+  heading?: T;
+  intro?: T;
+  content?: T;
+  asideTitle?: T;
+  aside?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  anchor?: T;
+  presentation?:
+    | T
+    | {
+        surface?: T;
+        texture?: T;
+        spacing?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageMediaSplitBlock_select".
+ */
+export interface MoneyPageMediaSplitBlockSelect<T extends boolean = true> {
+  variant?: T;
+  systemLabel?: T;
+  heading?: T;
+  intro?: T;
+  content?: T;
+  points?:
+    | T
+    | {
+        title?: T;
+        detail?: T;
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  media?: T;
+  poster?: T;
+  videoPlayback?: T;
+  caption?: T;
+  anchor?: T;
+  presentation?:
+    | T
+    | {
+        surface?: T;
+        texture?: T;
+        spacing?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageFeaturesBlock_select".
+ */
+export interface MoneyPageFeaturesBlockSelect<T extends boolean = true> {
+  variant?: T;
+  systemLabel?: T;
+  heading?: T;
+  intro?: T;
+  items?:
+    | T
+    | {
+        routeCode?: T;
+        title?: T;
+        body?: T;
+        media?: T;
+        proof?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  anchor?: T;
+  presentation?:
+    | T
+    | {
+        surface?: T;
+        texture?: T;
+        spacing?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageProcessBlock_select".
+ */
+export interface MoneyPageProcessBlockSelect<T extends boolean = true> {
+  variant?: T;
+  systemLabel?: T;
+  heading?: T;
+  intro?: T;
+  steps?:
+    | T
+    | {
+        title?: T;
+        body?: T;
+        proof?: T;
+        media?: T;
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  anchor?: T;
+  presentation?:
+    | T
+    | {
+        surface?: T;
+        texture?: T;
+        spacing?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageProofBlock_select".
+ */
+export interface MoneyPageProofBlockSelect<T extends boolean = true> {
+  variant?: T;
+  systemLabel?: T;
+  heading?: T;
+  intro?: T;
+  quote?: T;
+  source?:
+    | T
+    | {
+        name?: T;
+        role?: T;
+        organization?: T;
+        portrait?: T;
+      };
+  outcomes?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        context?: T;
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  anchor?: T;
+  presentation?:
+    | T
+    | {
+        surface?: T;
+        texture?: T;
+        spacing?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageComparisonBlock_select".
+ */
+export interface MoneyPageComparisonBlockSelect<T extends boolean = true> {
+  variant?: T;
+  systemLabel?: T;
+  heading?: T;
+  intro?: T;
+  columns?:
+    | T
+    | {
+        title?: T;
+        summary?: T;
+        recommended?: T;
+        id?: T;
+      };
+  criteria?:
+    | T
+    | {
+        label?: T;
+        values?:
+          | T
+          | {
+              value?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  anchor?: T;
+  presentation?:
+    | T
+    | {
+        surface?: T;
+        texture?: T;
+        spacing?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageDisclosureBlock_select".
+ */
+export interface MoneyPageDisclosureBlockSelect<T extends boolean = true> {
+  variant?: T;
+  systemLabel?: T;
+  heading?: T;
+  intro?: T;
+  items?:
+    | T
+    | {
+        label?: T;
+        title?: T;
+        body?: T;
+        signal?: T;
+        media?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  openFirst?: T;
+  anchor?: T;
+  presentation?:
+    | T
+    | {
+        surface?: T;
+        texture?: T;
+        spacing?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageFAQBlock_select".
+ */
+export interface MoneyPageFAQBlockSelect<T extends boolean = true> {
+  variant?: T;
+  systemLabel?: T;
+  heading?: T;
+  intro?: T;
+  items?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  enableStructuredData?: T;
+  openFirst?: T;
+  anchor?: T;
+  presentation?:
+    | T
+    | {
+        surface?: T;
+        texture?: T;
+        spacing?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageCTABlock_select".
+ */
+export interface MoneyPageCTABlockSelect<T extends boolean = true> {
+  variant?: T;
+  systemLabel?: T;
+  heading?: T;
+  intro?: T;
+  body?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  media?: T;
+  trustNotes?:
+    | T
+    | {
+        note?: T;
+        id?: T;
+      };
+  disclosure?: T;
+  anchor?: T;
+  presentation?:
+    | T
+    | {
+        surface?: T;
+        texture?: T;
+        spacing?: T;
+      };
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2730,8 +4079,23 @@ export interface WatermelonWorkflowManagementDashboardBlockSelect<T extends bool
  */
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
+  contentMode?: T;
   heroImage?: T;
   content?: T;
+  moneyPageLayout?:
+    | T
+    | {
+        moneyPageHero?: T | MoneyPageHeroBlockSelect<T>;
+        moneyPageNarrative?: T | MoneyPageNarrativeBlockSelect<T>;
+        moneyPageMediaSplit?: T | MoneyPageMediaSplitBlockSelect<T>;
+        moneyPageFeatures?: T | MoneyPageFeaturesBlockSelect<T>;
+        moneyPageProcess?: T | MoneyPageProcessBlockSelect<T>;
+        moneyPageProof?: T | MoneyPageProofBlockSelect<T>;
+        moneyPageComparison?: T | MoneyPageComparisonBlockSelect<T>;
+        moneyPageDisclosure?: T | MoneyPageDisclosureBlockSelect<T>;
+        moneyPageFAQ?: T | MoneyPageFAQBlockSelect<T>;
+        moneyPageCTA?: T | MoneyPageCTABlockSelect<T>;
+      };
   relatedPosts?: T;
   categories?: T;
   meta?:
@@ -2894,6 +4258,8 @@ export interface FairlendLeadsSelect<T extends boolean = true> {
   intakeAmount?: T;
   intakeTimeline?: T;
   intakeProjectStage?: T;
+  intakeMortgageProduct?: T;
+  intakeMortgageGoal?: T;
   intakeFinancingNeeds?: T;
   intakePropertyValue?: T;
   intakeMortgageBalance?: T;

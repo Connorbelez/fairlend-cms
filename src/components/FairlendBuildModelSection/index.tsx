@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import type { ReactNode } from 'react'
 
-import { DrawFlowInterestBadge } from '@/components/FairlendLandingOverviewSection/DrawFlowInterestBadge'
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 
 import { BuildModelMotion } from './BuildModelMotion.client'
@@ -58,6 +57,13 @@ const dossierTabs = [
     summary: 'A release schedule tied to actual site progress instead of calendar guesswork.',
   },
   {
+    id: 'recovery',
+    label: 'Recovery',
+    code: 'RC',
+    title: 'Contingency file',
+    summary: 'Early drift detection, root-cause diagnosis, and a coordinated recovery path.',
+  },
+  {
     id: 'takeout',
     label: 'Takeout',
     code: 'TO',
@@ -82,12 +88,13 @@ type BoardState = {
 type Station = BoardState & {
   num: string
   name: string
-  services: readonly string[]
-  testimonial: {
-    quote: string
-    author: string
-    context: string
+  headline: string
+  body: string
+  comparison: {
+    without: string
+    with: string
   }
+  note?: string
 }
 
 const introState = {
@@ -105,92 +112,95 @@ const stations = [
     id: 'plan',
     status: '01 / Plan',
     count: '01',
-    title: 'Land + scope',
+    title: 'Feasibility before commitment',
     variables: ['Land', 'Scope'],
     dossierTab: 'parcel',
     theme: 'builder-blueprint',
     num: '01',
     name: 'Plan',
-    services: [
-      'Site search & feasibility review',
-      'Land basis & acquisition price the project can support',
-      'Zoning path, housing form, unit mix, buildable area',
-      'Construction budget pressure-testing',
-    ],
-    testimonial: {
-      quote:
-        'They showed us what the site could actually support before we tied up more capital in the acquisition.',
-      author: 'Toronto infill buyer',
-      context: 'Land feasibility file',
+    headline: 'Test whether the site and project economics support a financeable build.',
+    body: 'Before you commit more capital to land or design, FairLend works with you to review the acquisition basis, zoning and housing form, unit mix, buildable area, hard and soft costs, contingency, timeline, expected value, and intended exit.',
+    comparison: {
+      without:
+        'Land and design decisions can harden before the financing constraints and exit requirements are tested together.',
+      with: 'You pressure-test the site, scope, budget, approvals, and exit with FairLend before committing more capital.',
     },
   },
   {
     id: 'finance',
     status: '02 / Finance',
     count: '02',
-    title: 'Capital + draw plan',
+    title: 'Capital + interest control',
     variables: ['Capital', 'Draw plan'],
     dossierTab: 'budget',
     theme: 'forest',
     num: '02',
     name: 'Finance',
-    services: [
-      'Construction budget & borrower capital position',
-      'Private financing & capital structure',
-      'Draw schedule (milestone-based, DrawFlow)',
-      'Working-capital planning',
-    ],
-    testimonial: {
-      quote:
-        'FairLend put the capital stack, draws, and borrower equity into one model we could make decisions from.',
-      author: 'Small-scale builder',
-      context: 'Construction financing borrower',
+    headline:
+      'FairLend provides the construction financing and works with you to structure it around your specific build.',
+    body: 'Together, we align the land basis, construction budget, borrower equity, working-capital needs, project milestones, and exit. FairLend stages advances around the work, helping keep enough capital available so the build is not squeezed without advancing funds earlier than needed and increasing interest carry.',
+    comparison: {
+      without:
+        'Capital can arrive too late for the work or be advanced too early, squeezing the build or increasing interest carry.',
+      with: 'FairLend provides financing staged around the work, balancing available capital against interest on advanced funds.',
     },
   },
   {
     id: 'support',
     status: '03 / Build support',
     count: '03',
-    title: 'Professional path',
-    variables: ['Professional path', 'Permit & MLI readiness'],
-    dossierTab: 'permit',
+    title: 'Draw plan that moves with the build',
+    variables: ['Capital', 'Draw plan', 'Professional path'],
+    dossierTab: 'draw',
     theme: 'ink',
     num: '03',
     name: 'Build support',
-    services: [
-      'Contractor, consultant & professional network — introductions where appropriate',
-      'Permit strategy & documentation gap analysis',
-      'CMHC MLI Select readiness support (where applicable)',
-      'Milestone/draw administration & site monitoring',
-    ],
-    testimonial: {
-      quote:
-        'The introductions and permit-readiness work saved weeks of back-and-forth before our lender package went out.',
-      author: 'Laneway developer',
-      context: 'Consultant and approval path',
+    headline: 'Adjust the draw plan mid-build as the work and capital requirements change.',
+    body: 'Builds do not always follow the original sequence. FairLend works with you to revise the draw schedule as the work shifts, subject to the financing terms, so capital is available when the project needs it without being advanced earlier than necessary and adding avoidable interest carry.',
+    comparison: {
+      without:
+        'A static draw schedule can stop matching the site, leaving capital unavailable or accruing interest too early.',
+      with: 'You revise milestones and draw timing with FairLend as the work and capital requirements shift.',
     },
   },
   {
     id: 'takeout',
     status: '04 / Takeout',
     count: '04',
-    title: 'Exit + takeout',
+    title: 'CMHC-insured takeout',
     variables: ['Exit', 'Permit & MLI readiness'],
     dossierTab: 'takeout',
     theme: 'ivory',
     num: '04',
     name: 'Takeout',
-    services: [
-      'Sale, refinance, or rental stabilization',
-      'Insured (MLI Select) takeout preparation',
-      'Long-term financing direction',
-    ],
-    testimonial: {
-      quote:
-        'They kept the refinance path visible while the build was still moving, so the exit did not become an afterthought.',
-      author: 'Rental project owner',
-      context: 'Takeout planning file',
+    headline:
+      'FairLend helps you qualify for CMHC-insured takeout and provides the takeout financing itself.',
+    body: 'FairLend works with you early to shape the project, documentation, and operating plan toward CMHC-insured takeout eligibility. As completion approaches, we prepare the application together and FairLend provides the takeout financing for eligible projects. MLI Select is one possible CMHC-insured program, not the whole takeout offering.',
+    comparison: {
+      without:
+        'CMHC requirements may surface near maturity, when design, documentation, or operating gaps are harder to correct.',
+      with: 'You work toward eligibility early; FairLend prepares the application and provides takeout financing for eligible projects.',
     },
+  },
+  {
+    id: 'contingency',
+    status: '05 / Unf*ck contingency',
+    count: '05',
+    title: 'Recovery path',
+    variables: ['Capital', 'Draw plan', 'Professional path'],
+    dossierTab: 'recovery',
+    theme: 'builder-blueprint',
+    num: '05',
+    name: 'Unf*ck Contingency Program',
+    headline:
+      'The Unf*ck Contingency Program helps you diagnose what stalled the build and coordinate a recovery plan.',
+    body: 'The program reviews schedule, budget, trades, working capital, draw requirements, and documentation with you to identify the root constraints. FairLend then helps coordinate an appropriate recovery path and the resources required to pursue it.',
+    comparison: {
+      without:
+        'Each advisor can see one symptom while nobody owns the connected schedule, budget, trade, and financing problem.',
+      with: 'The Unf*ck Contingency Program diagnoses the full picture and coordinates a prioritized recovery plan with you.',
+    },
+    note: 'Recovery support is a resource, not a guarantee of completion, timelines, cost control, contractor performance, or full recovery.',
   },
 ] as const satisfies readonly Station[]
 
@@ -228,6 +238,7 @@ const progressItems = [
   { id: 'finance', label: 'Finance' },
   { id: 'support', label: 'Support' },
   { id: 'takeout', label: 'Takeout' },
+  { id: 'contingency', label: 'Contingency' },
 ] as const
 
 const milestoneNodes = [
@@ -354,6 +365,27 @@ function DossierDrawSchedule() {
   )
 }
 
+function DossierRecoveryPlan() {
+  const rows = [
+    ['Drift signals', 'Monitoring'],
+    ['Root cause', 'Diagnosing'],
+    ['Recovery path', 'Coordinating'],
+    ['Outcome', 'Not guaranteed'],
+  ] as const
+
+  return (
+    <div className="bm-permit-matrix">
+      {rows.map(([label, status], index) => (
+        <div className="bm-permit-row" key={label}>
+          <span className="bm-permit-index">{String(index + 1).padStart(2, '0')}</span>
+          <span>{label}</span>
+          <strong>{status}</strong>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 function DossierTakeoutPlan() {
   const exits = ['Sale', 'Refi', 'Rental', 'MLI'] as const
 
@@ -396,6 +428,7 @@ function DossierTabCard({ tab }: { tab: (typeof dossierTabs)[number] }) {
         {tab.id === 'budget' ? <DossierBudgetSheet /> : null}
         {tab.id === 'permit' ? <DossierPermitMatrix /> : null}
         {tab.id === 'draw' ? <DossierDrawSchedule /> : null}
+        {tab.id === 'recovery' ? <DossierRecoveryPlan /> : null}
         {tab.id === 'takeout' ? <DossierTakeoutPlan /> : null}
       </div>
     </article>
@@ -414,7 +447,6 @@ function BuildModelBoard({ className }: { className?: string }) {
             <span aria-hidden="true" className="bm-board-status" data-bm-board-status>
               {introState.status}
             </span>
-            <DrawFlowInterestBadge className="bm-board-drawflow-badge" compact />
             <span aria-hidden="true" className="bm-board-count" data-bm-board-count>
               {introState.count}
             </span>
@@ -568,14 +600,23 @@ function StationStep({ station }: { station: Station }) {
     <ScrollStep state={station}>
       <div className="bm-station-head">
         <span className="bm-station-num">{station.num}</span>
-        <h3>{station.name}</h3>
+        <div>
+          <span className="bm-station-phase">{station.name}</span>
+          <h3>{station.headline}</h3>
+        </div>
       </div>
-      <ul className="bm-service-list">
-        {station.services.map((service) => (
-          <li key={service}>{service}</li>
-        ))}
-      </ul>
-      <BuildModelTestimonial testimonial={station.testimonial} />
+      <p className="bm-station-body">{station.body}</p>
+      <div className="bm-station-comparison">
+        <article className="bm-station-comparison-panel bm-station-comparison-panel--without">
+          <span className="bm-station-comparison-label">Without FairLend</span>
+          <p>{station.comparison.without}</p>
+        </article>
+        <article className="bm-station-comparison-panel bm-station-comparison-panel--with">
+          <span className="bm-station-comparison-label">With FairLend</span>
+          <p>{station.comparison.with}</p>
+        </article>
+      </div>
+      {station.note ? <p className="bm-station-note">{station.note}</p> : null}
     </ScrollStep>
   )
 }
@@ -739,11 +780,12 @@ export function FairlendBuildModelSection() {
               Our Build Model
             </span>
             <h2 className="bm-headline" id="fairlend-build-model-title">
-              Bring us the property. We&apos;ll help build the equation.
+              Your complete path from site selection to CMHC takeout.
             </h2>
             <p className="bm-lead">
-              From <span className="accent">early intent</span> to construction financing and
-              takeout strategy, we shape one financeable project — end to end.
+              We bring financing and development expertise together—helping you secure permits, plan
+              construction, access trusted contractors and suppliers, keep the build on track, and
+              arrange construction and takeout financing.
             </p>
 
             <VariableRibbon />

@@ -7,6 +7,8 @@
   padding: clamp(56px, 7vw, 96px) clamp(24px, 4vw, 56px);
   background: var(--landing-hero-ink, #08090a);
   color: #f5f3ee;
+  font-kerning: normal;
+  font-optical-sizing: auto;
 }
 
 .investor-regulator__inner {
@@ -27,8 +29,8 @@
 
 .investor-regulator__title {
   font-family: var(--font-cormorant), Georgia, serif;
-  font-weight: 500;
-  font-size: clamp(28px, 3.4vw, 48px);
+  font-weight: 600;
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
   line-height: 1.05;
   letter-spacing: -0.03em;
   margin: 0;
@@ -39,7 +41,7 @@
 
 .investor-regulator__lede {
   font-family: var(--font-inter), Arial, sans-serif;
-  font-size: clamp(15px, 1.05vw, 17px);
+  font-size: 1rem;
   line-height: 1.6;
   font-weight: 400;
   color: rgb(245 243 238 / 72%);
@@ -54,7 +56,8 @@
   gap: 10px;
   margin-top: 28px;
   font-family: var(--font-inter), Arial, sans-serif;
-  font-size: 13px;
+  min-height: 44px;
+  font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -62,14 +65,19 @@
   text-decoration: none;
   border-bottom: 1px solid rgb(150 236 24 / 36%);
   padding-bottom: 4px;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition: color 220ms cubic-bezier(0.16, 1, 0.3, 1), border-color 220ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .investor-regulator__link:hover,
-.investor-regulator__link:focus-visible {
-  color: #c4ff5a;
+.investor-regulator__link:hover {
+  color: var(--landing-hero-lime-hover, #a4fb20);
   border-color: var(--landing-hero-lime, #96ec18);
-  outline: none;
+}
+
+.investor-regulator__link:focus-visible {
+  border-radius: 5px;
+  outline: 3px solid var(--landing-hero-lime, #96ec18);
+  outline-offset: 4px;
 }
 
 .investor-regulator__link-arrow {

@@ -13,6 +13,7 @@ import { FairlendInvestorProtectionStack } from '@/components/FairlendInvestorPr
 import { FairlendInvestorRateReframe } from '@/components/FairlendInvestorRateReframe'
 import { FairlendInvestorRegulatorBand } from '@/components/FairlendInvestorRegulatorBand'
 import { FairlendLandingRail } from '@/components/FairlendLandingRail'
+import { FairlendScrollChoreography } from '@/components/FairlendScrollChoreography.client'
 import { FairlendServiceSeo } from '@/components/SEO/FairlendRouteSeo'
 import { buildFairlendMetadata } from '@/utilities/seo'
 
@@ -53,46 +54,47 @@ export default function InvestorPrivateMortgageLendingPage() {
   return (
     <div className="fairlend-landing-page min-h-svh bg-[#f8f7f5]">
       <FairlendServiceSeo {...serviceSeo} />
-      <FairlendLandingRail>
+      <FairlendScrollChoreography surface="investor" />
+      <FairlendLandingRail gutterTexture="fabric-of-squares">
         <FairlendInvestorHero />
       </FairlendLandingRail>
-      <FairlendLandingRail>
+      <FairlendLandingRail gutterTexture="grid-noise">
         <FairlendInvestorPrimer />
       </FairlendLandingRail>
-      <FairlendLandingRail>
+      <FairlendLandingRail gutterTexture="inflicted">
         <FairlendInvestorRateReframe />
       </FairlendLandingRail>
-      <FairlendLandingRail>
+      <FairlendLandingRail gutterTexture="debut-light">
         <FairlendInvestorProtectionStack />
       </FairlendLandingRail>
-      <FairlendLandingRail>
+      <FairlendLandingRail gutterTexture="groovepaper">
         <FairlendInvestorManagedPlatform />
       </FairlendLandingRail>
-      <FairlendLandingRail>
+      <FairlendLandingRail gutterTexture="fabric-of-squares">
         <FairlendInvestorPortal />
       </FairlendLandingRail>
-      <FairlendLandingRail>
+      <FairlendLandingRail gutterTexture="grid-noise">
         <FairlendInvestorOpportunities />
       </FairlendLandingRail>
-      <FairlendLandingRail>
+      <FairlendLandingRail gutterTexture="inflicted">
         <FairlendInvestorFractional />
       </FairlendLandingRail>
-      <FairlendLandingRail>
+      <FairlendLandingRail gutterTexture="debut-light">
         <FairlendInvestorRegulatorBand />
       </FairlendLandingRail>
-      <FairlendLandingRail>
+      <FairlendLandingRail gutterTexture="groovepaper">
         <FairlendInvestorProcess />
       </FairlendLandingRail>
-      <FairlendLandingRail>
+      <FairlendLandingRail gutterTexture="fabric-of-squares">
         <FairlendInvestorLeadership />
       </FairlendLandingRail>
-      <FairlendLandingRail>
+      <FairlendLandingRail gutterTexture="inflicted">
         <FairlendInvestorFit />
       </FairlendLandingRail>
-      <FairlendLandingRail>
+      <FairlendLandingRail gutterTexture="grid-noise">
         <FairlendInvestorFaq />
       </FairlendLandingRail>
-      <FairlendLandingRail>
+      <FairlendLandingRail gutterTexture="groovepaper">
         <FairlendInvestorFinalCta />
       </FairlendLandingRail>
     </div>

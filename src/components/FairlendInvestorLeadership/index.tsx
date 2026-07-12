@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react'
+import Image from 'next/image'
 
 import './investor-leadership.css'
 
@@ -34,14 +35,8 @@ const bench = [
       'Capital-markets and technology depth (ex-RBC Capital Markets). Leads the platform, AI-assisted underwriting, and the investor portal.',
   },
   {
-    name: 'Austin Krystek',
-    role: 'COO',
-    summary:
-      'Operations leadership across the closing, administration, payment, and reporting lifecycle.',
-  },
-  {
     name: 'Bogdan Krystek',
-    role: 'Leadership bench',
+    role: 'CFO',
     summary:
       'Adds operational and advisory depth across the firm’s underwriting and recovery work.',
   },
@@ -63,13 +58,24 @@ export function FairlendInvestorLeadership(): ReactElement {
       aria-labelledby="investor-leadership-title"
       className="investor-leadership"
       data-investor-leadership
+      id="investor-leadership"
     >
       <div className="investor-leadership__inner">
         <header className="investor-leadership__header">
-          <p className="investor-leadership__eyebrow">Leadership & track record</p>
-          <h2 className="investor-leadership__title" id="investor-leadership-title">
-            Experienced people. Documented process. Technology where it actually helps.
-          </h2>
+          <div>
+            <h2 className="investor-leadership__title" id="investor-leadership-title">
+              Experienced people. Documented process. Technology where it actually helps.
+            </h2>
+          </div>
+          <figure className="investor-leadership__ink-plate">
+            <Image
+              alt="Halftone architectural plans and key representing property-backed lending judgment"
+              fill
+              loading="lazy"
+              sizes="(max-width: 820px) 90vw, 32vw"
+              src="/assets/fairlend-principal-broker-background-halftone-key.webp"
+            />
+          </figure>
         </header>
 
         <div className="investor-leadership__stats">

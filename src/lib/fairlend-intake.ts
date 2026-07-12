@@ -1,4 +1,35 @@
 export const fairlendBuildIntent = 'build'
+export const fairlendBridgeLoanSource = 'landing-overview-bridge-loans'
+export const fairlendRentalPropertyAcquisitionSource =
+  'landing-overview-acquisition-existing-rental-properties'
+export const fairlendRentalPropertyRefinanceSource =
+  'landing-overview-refinancing-existing-rental-properties'
+export const fairlendRentalPropertyAcquisitionHeaderSource =
+  'header-nav-acquisition-existing-rental-properties'
+export const fairlendRentalPropertyRefinanceHeaderSource =
+  'header-nav-refinancing-existing-rental-properties'
+
+export type FairlendRentalPropertyTransaction = 'acquisition' | 'refinance'
+
+export const fairlendProjectScopeOptions = [
+  { label: 'Renovation financing', value: 'renovation-financing' },
+  { label: 'Multi-plex financing', value: 'multiplex-financing' },
+  { label: 'Garden & laneway suites', value: 'garden-laneway-suites' },
+  { label: 'MLI-Select insured housing', value: 'mli-select-insured-housing' },
+] as const
+
+export type FairlendProjectScope = (typeof fairlendProjectScopeOptions)[number]['value']
+
+const projectScopeAliases = new Map<string, FairlendProjectScope>([
+  ['renovation', 'renovation-financing'],
+  ['multi-plex-financing', 'multiplex-financing'],
+  ['multiplex', 'multiplex-financing'],
+  ['garden-suites', 'garden-laneway-suites'],
+  ['laneway-suites', 'garden-laneway-suites'],
+  ['mli-select', 'mli-select-insured-housing'],
+])
+
+const projectScopeSet = new Set<string>(fairlendProjectScopeOptions.map(({ value }) => value))
 
 export const fairlendGenericLeadIntents = [
   'invest',
@@ -36,10 +67,76 @@ export function normalizeFairlendIntakeIntent(intent?: string | null): FairlendI
   return 'contact'
 }
 
+/**
+ * Resolves legacy or manually-authored intake URLs where the attribution source
+ * is more specific than the generic intent parameter.
+ */
+export function resolveFairlendIntakeIntent(
+  intent?: string | null,
+  source?: string | null,
+): FairlendIntakeIntent {
+  const normalizedIntent = normalizeFairlendIntakeIntent(intent)
+  const normalizedSource = source?.trim().toLowerCase()
+
+  if (normalizedIntent === fairlendBuildIntent && normalizedSource === fairlendBridgeLoanSource) {
+    return 'mortgage'
+  }
+
+  return normalizedIntent
+}
+
+/**
+ * Identifies the dedicated existing-rental intake and preserves which homepage
+ * card sent the borrower so the transaction can be preselected without locking
+ * them into the wrong path.
+ */
+export function resolveFairlendRentalPropertyTransaction(
+  source?: string | null,
+): FairlendRentalPropertyTransaction | null {
+  const normalizedSource = source?.trim().toLowerCase()
+
+  if (
+    normalizedSource === fairlendRentalPropertyAcquisitionSource ||
+    normalizedSource === fairlendRentalPropertyAcquisitionHeaderSource
+  ) {
+    return 'acquisition'
+  }
+
+  if (
+    normalizedSource === fairlendRentalPropertyRefinanceSource ||
+    normalizedSource === fairlendRentalPropertyRefinanceHeaderSource
+  ) {
+    return 'refinance'
+  }
+
+  return null
+}
+
 export function isFairlendGenericLeadIntent(
   intent?: string | null,
 ): intent is FairlendGenericLeadIntent {
   return genericIntentSet.has(normalizeFairlendIntakeIntent(intent))
+}
+
+export function normalizeFairlendProjectScope(scope?: string | null): FairlendProjectScope | null {
+  if (!scope) {
+    return null
+  }
+
+  const normalized = scope.trim().toLowerCase()
+  const alias = projectScopeAliases.get(normalized)
+
+  if (alias) {
+    return alias
+  }
+
+  return projectScopeSet.has(normalized) ? (normalized as FairlendProjectScope) : null
+}
+
+export function getFairlendProjectScopeLabel(scope?: string | null): string {
+  const normalized = normalizeFairlendProjectScope(scope)
+
+  return fairlendProjectScopeOptions.find(({ value }) => value === normalized)?.label ?? ''
 }
 
 export function buildFairlendIntakeHref({
@@ -49,6 +146,7 @@ export function buildFairlendIntakeHref({
   leadId,
   name,
   phone,
+  projectScope,
   source,
 }: {
   address?: string | null
@@ -57,10 +155,16 @@ export function buildFairlendIntakeHref({
   leadId?: string | null
   name?: string | null
   phone?: string | null
+  projectScope?: FairlendProjectScope | string | null
   source?: string | null
 } = {}): string {
   const params = new URLSearchParams()
   params.set('intent', normalizeFairlendIntakeIntent(intent))
+
+  const normalizedProjectScope = normalizeFairlendProjectScope(projectScope)
+  if (normalizedProjectScope) {
+    params.set('projectScope', normalizedProjectScope)
+  }
 
   const optionalParams = {
     address,

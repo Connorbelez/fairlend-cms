@@ -1,0 +1,11 @@
+{
+  "input": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/faq-illustrations/generated/keyed/faq-infill-block-engraving.png",
+  "output": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-faq-reference/infill-block-engraving.webp",
+  "size": {
+    "width": 1600,
+    "height": 509
+  },
+  "transparent_background": "none",
+  "inferred_background": null,
+  "quality": 90
+}

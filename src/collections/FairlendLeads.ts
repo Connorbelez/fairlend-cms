@@ -18,6 +18,8 @@ export const FairlendLeads: CollectionConfig = {
       'priority',
       'intent',
       'intakeSummary',
+      'intakeMortgageProduct',
+      'intakeMortgageGoal',
       'intakeAmount',
       'intakeAdditionalLiens',
       'intakeTimeline',
@@ -253,6 +255,36 @@ export const FairlendLeads: CollectionConfig = {
               },
               index: true,
               label: 'Project Stage',
+            },
+          ],
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'intakeMortgageProduct',
+              type: 'select',
+              admin: {
+                description: 'Residential mortgage lane selected by the intake flow.',
+                readOnly: true,
+                width: '25%',
+              },
+              index: true,
+              label: 'Mortgage Lane',
+              options: [
+                { label: 'Institutional', value: 'institutional' },
+                { label: 'Private', value: 'private' },
+              ],
+            },
+            {
+              name: 'intakeMortgageGoal',
+              type: 'text',
+              admin: {
+                description: 'Step-one mortgage goal or situation selected by the lead.',
+                readOnly: true,
+                width: '75%',
+              },
+              label: 'Mortgage Goal',
             },
           ],
         },

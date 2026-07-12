@@ -44,16 +44,19 @@ export function FairlendRouteSelector({
   helpBanner = fairlendRouteHelpBanner,
   kicker = fairlendRouteSelectorCopy.kicker,
   routes = fairlendRouteChoices,
-  selectedRouteId = 'private-mortgage',
+  selectedRouteId = 'construction-financing',
   style,
   title = fairlendRouteSelectorCopy.title,
   ...props
 }: FairlendRouteSelectorProps) {
+  const featuredRoute = routes.find((route) => route.id === 'construction-financing') ?? routes[0]
+  const supportingRoutes = routes.filter((route) => route.id !== featuredRoute?.id)
+
   return (
     <section
       className={cn(
         fairlendRouteSelectorVariants(),
-        'py-[66px] lg:py-[66px] lg:pb-[70px]',
+        'py-10 lg:py-10 xl:h-[100svh] xl:min-h-[720px] xl:max-h-[980px] xl:px-[clamp(18px,2vw,34px)] xl:py-5',
         className,
       )}
       data-fairlend-route-selector
@@ -83,8 +86,8 @@ export function FairlendRouteSelector({
       <FairlendRouteSelectorArrow />
       <FairlendRouteSelectorMotion />
 
-      <div className="relative z-10 mx-auto max-w-[1168px]">
-        <div className="grid items-end gap-6 lg:grid-cols-[minmax(0,0.92fr)_minmax(280px,0.58fr)] lg:gap-[clamp(28px,4vw,58px)]">
+      <div className="relative z-10 mx-auto flex h-full w-full max-w-none flex-col">
+        <div className="grid shrink-0 items-end gap-6 lg:grid-cols-[minmax(0,0.92fr)_minmax(280px,0.58fr)] lg:gap-[clamp(28px,4vw,58px)] xl:grid-cols-[minmax(0,1.42fr)_minmax(320px,0.58fr)]">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left [&_*]:text-center lg:[&_*]:text-left">
             <span
               className={fairlendRouteOriginDotVariants()}
@@ -98,14 +101,17 @@ export function FairlendRouteSelector({
               {kicker}
             </p>
             <h2
-              className={cn(fairlendRouteHeaderTextVariants({ role: 'title' }), 'max-w-[680px]')}
+              className={cn(
+                fairlendRouteHeaderTextVariants({ role: 'title' }),
+                'max-w-[680px] xl:mt-2 xl:max-w-[1050px] xl:text-[52px] xl:leading-[0.9]',
+              )}
               data-fairlend-route-motion="title"
             >
               {title}
             </h2>
           </div>
           <div
-            className="mx-auto border-y border-[rgb(17_17_15_/_14%)] py-[18px] text-center text-[color:var(--fl-route-body-ink)] lg:mx-0 lg:text-left"
+            className="mx-auto border-y border-[rgb(17_17_15_/_14%)] py-[18px] text-center text-[color:var(--fl-route-body-ink)] lg:mx-0 lg:text-left xl:py-3"
             data-fairlend-route-motion="description"
           >
             <strong className="mb-[7px] block text-[12px] leading-none font-black tracking-[0.18em] text-[color:var(--fl-route-kicker-ink)] uppercase">
@@ -118,23 +124,35 @@ export function FairlendRouteSelector({
         </div>
 
         <div
-          className="mt-[34px] grid w-full grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4"
+          className="mt-6 grid w-full gap-3 xl:mt-4 xl:min-h-0 xl:flex-1 xl:grid-cols-[minmax(440px,0.92fr)_minmax(0,1.48fr)]"
           data-fairlend-route-motion="grid"
         >
-          {routes.map((route, index) => (
+          {featuredRoute ? (
             <FairlendRouteCard
-              className="min-h-[528px]"
-              key={route.id}
-              route={route}
-              selected={route.id === selectedRouteId}
-              style={{ '--route-motion-index': index } as FairlendRouteMotionStyle}
+              key={featuredRoute.id}
+              layout="featured"
+              route={featuredRoute}
+              selected={featuredRoute.id === selectedRouteId}
+              style={{ '--route-motion-index': 0 } as FairlendRouteMotionStyle}
             />
-          ))}
+          ) : null}
+
+          <div className="grid min-h-0 grid-cols-1 gap-3 md:grid-cols-2 xl:grid-rows-2">
+            {supportingRoutes.map((route, index) => (
+              <FairlendRouteCard
+                key={route.id}
+                layout="supporting"
+                route={route}
+                selected={route.id === selectedRouteId}
+                style={{ '--route-motion-index': index + 1 } as FairlendRouteMotionStyle}
+              />
+            ))}
+          </div>
         </div>
 
         {helpBanner ? (
           <FairlendRouteHelpBanner
-            className="mt-5"
+            className="mt-5 xl:hidden"
             content={helpBanner}
             data-fairlend-route-motion="helper"
           />

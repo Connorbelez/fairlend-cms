@@ -191,9 +191,14 @@ export const fairlendRouteOriginDotVariants = cva(
 )
 
 export const fairlendRouteCardVariants = cva(
-  'group relative flex min-h-[520px] flex-col overflow-hidden rounded-[var(--fl-route-radius-card)] border bg-[color:var(--fl-route-card-bg-translucent)] p-[18px] shadow-[var(--fl-route-shadow-card)] backdrop-blur-sm transition-[border-color,box-shadow,transform] duration-300 ease-[var(--route-motion-ease)] max-md:min-h-0 max-md:rounded-2xl max-md:p-4',
+  'group relative flex flex-col overflow-hidden rounded-[var(--fl-route-radius-card)] border bg-[color:var(--fl-route-card-bg-translucent)] p-[18px] shadow-[var(--fl-route-shadow-card)] backdrop-blur-sm transition-[border-color,box-shadow,transform] duration-300 ease-[var(--route-motion-ease)] max-md:min-h-0 max-md:rounded-2xl max-md:p-4',
   {
     variants: {
+      layout: {
+        default: 'min-h-[520px]',
+        featured: 'min-h-[620px] xl:h-full xl:min-h-0 xl:p-6',
+        supporting: 'min-h-[340px] xl:h-full xl:min-h-0 xl:p-4',
+      },
       selected: {
         true: 'border-[color:var(--fl-route-lime)] shadow-[var(--fl-route-shadow-card-selected)]',
         false:
@@ -201,6 +206,7 @@ export const fairlendRouteCardVariants = cva(
       },
     },
     defaultVariants: {
+      layout: 'default',
       selected: false,
     },
   },

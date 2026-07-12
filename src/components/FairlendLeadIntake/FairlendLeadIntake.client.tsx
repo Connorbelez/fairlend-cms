@@ -47,29 +47,50 @@ import { trackFairlendEvent, trackLeadFailed, trackLeadSubmitted } from '@/lib/a
 import { getFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
 import {
   buildFairlendIntakeHref,
+  type FairlendRentalPropertyTransaction,
   type FairlendGenericLeadIntent,
   normalizeFairlendIntakeIntent,
+  resolveFairlendRentalPropertyTransaction,
 } from '@/lib/fairlend-intake'
+import {
+  institutionalResidentialMortgageGoals,
+  privateMortgageSituationOptions,
+  residentialMortgageSituationOptions,
+  resolveResidentialMortgageProduct,
+  type ResolvedMortgageProduct,
+} from '@/lib/fairlend-mortgage'
 
 type LeadCaptureState = 'idle' | 'submitting' | 'success' | 'error'
 type MortgageIntakeVariant = 'hero' | 'page'
+type InvestorIntakeVariant = 'hero' | 'page'
+type SubmittedMortgageProduct = ResolvedMortgageProduct | 'rental-property'
+type MortgageProduct = SubmittedMortgageProduct | 'residential'
 
 type FairlendLeadIntakeProps = {
   intentOverride?: FairlendGenericLeadIntent
+  investorVariant?: InvestorIntakeVariant
+  mortgageProduct?: MortgageProduct
   mortgageVariant?: MortgageIntakeVariant
+  rentalPropertyTransaction?: FairlendRentalPropertyTransaction
   sourceOverride?: string
 }
 
 type LeadCaptureValues = {
   address: string
   additionalLiens: string
+  additionalLienDetails: string
   amount: string
   currentMortgage: string
   documentStatus: string
   email: string
   exitPlan: string
+  grossRentalIncome: string
   message: string
   name: string
+  numberOfUnits: string
+  occupancyStatus: string
+  ownershipStatus: string
+  ownershipStructure: string
   phone: string
   propertyUse: string
   propertyValue: string
@@ -247,16 +268,37 @@ const documentStatusOptions = [
  *   - preferredTerm  → values.timeline
  */
 const investorTypeOptions = [
-  'Individual investor',
+  'Individual',
   'Family office',
-  'Mortgage investment corp.',
+  'MIC / investment fund',
   'Syndicate / JV',
-  'Self-directed (RRSP/TFSA)',
+  'Self-directed capital',
 ] as const
 
 const investorCapitalOptions = ['$50K – $250K', '$250K – $1M', '$1M – $5M', '$5M+'] as const
 
 const investorTermOptions = ['6–12 months', '12–24 months', 'Open / flexible'] as const
+
+const investorExperienceOptions = [
+  'New to private lending',
+  '1–3 mortgage deals',
+  'Experienced lender',
+  'Professional investor',
+] as const
+
+const investorMortgageTypeOptions = [
+  'First mortgages',
+  'Second mortgages',
+  'Construction-backed',
+  'Open to the right file',
+] as const
+
+const investorPriorityOptions = [
+  'Conservative LTV',
+  'Income consistency',
+  'Shorter terms',
+  'Hands-off administration',
+] as const
 
 const investorProtectionPoints = [
   'Target LTVs under 75% with double valuation review',
@@ -330,14 +372,6 @@ const investorDossierItems: DossierItem[] = [
 
 const reviewRoute = ['Situation', 'Property', 'Timing', 'Next step'] as const
 
-const mortgageSituationOptions = [
-  'Close a property quickly',
-  'A bank or lender said no',
-  'Use equity in my property',
-  'Pay out an existing mortgage',
-  'Something else',
-] as const
-
 const mortgagePropertyUseOptions = ['Primary residence', 'Rental property', 'Other'] as const
 
 const mortgagePropertyValueOptions = ['Under $750K', '$750K-$1.5M', '$1.5M+ / not sure'] as const
@@ -363,19 +397,155 @@ const mortgageExitPlanOptions = [
   'Not sure yet',
 ] as const
 
+const institutionalMortgageGoalOptions = [
+  ...institutionalResidentialMortgageGoals,
+  'Renew or transfer a mortgage',
+  'Refinance for a better structure',
+  'Access equity',
+  'Consolidate debt',
+] as const
+
+const institutionalApplicationStatusOptions = [
+  'Exploring before I apply',
+  'My bank declined the file',
+  'My bank terms do not fit',
+  'My renewal is approaching',
+  'I already have an approval to compare',
+] as const
+
+const institutionalPropertyUseOptions = [
+  'Owner-occupied home',
+  'Residential rental',
+  'Multi-unit residential',
+  'Mixed-use or commercial',
+  'Other / not sure',
+] as const
+
+const institutionalPropertyValueOptions = [
+  'Under $750K',
+  '$750K-$1.5M',
+  '$1.5M-$3M',
+  '$3M+ / not sure',
+] as const
+
+const institutionalMortgageAmountOptions = [
+  'Under $250K',
+  '$250K-$500K',
+  '$500K-$1M',
+  '$1M-$3M',
+  '$3M+ / not sure',
+] as const
+
+const institutionalIncomeOptions = [
+  'Salaried / T4 income',
+  'Self-employed',
+  'Business or corporate income',
+  'Rental or investment income',
+  'Multiple income sources',
+] as const
+
+const institutionalCreditOptions = [
+  'Excellent (720+)',
+  'Good (680-719)',
+  'Fair (620-679)',
+  'Below 620',
+  'Not sure',
+] as const
+
+const institutionalTimelineOptions = [
+  'Closing in under 30 days',
+  'Closing in 30-60 days',
+  'Renewal within 90 days',
+  'Planning 3+ months ahead',
+] as const
+
+const rentalPropertyTransactionOptions = ['Acquisition / purchase', 'Refinance'] as const
+
+const rentalAcquisitionStatusOptions = [
+  'Property identified — no offer yet',
+  'Conditional offer / due diligence',
+  'Firm purchase agreement',
+  'Still searching',
+] as const
+
+const rentalRefinanceStatusOptions = [
+  'I am on title',
+  'My corporation or partnership is on title',
+  'I represent the registered owner',
+  'An ownership or title change is planned',
+] as const
+
+const rentalOwnershipStructureOptions = [
+  'Individual / joint ownership',
+  'Corporation',
+  'Partnership / joint venture',
+  'Trust',
+  'To be determined / other',
+] as const
+
+const rentalPropertyTypeOptions = [
+  '2–4 unit rental',
+  '5+ unit apartment',
+  'Mixed-use with residential units',
+  'Student / rooming house',
+  'Other existing rental',
+] as const
+
+const rentalOccupancyOptions = [
+  'Fully occupied',
+  'Partially occupied',
+  'Vacant',
+  'Under renovation / lease-up',
+] as const
+
+const rentalAcquisitionFinancingOptions = [
+  'No other financing arranged',
+  'Bank / institutional lender reviewing',
+  'Private lender reviewing',
+  'Vendor take-back or secondary financing',
+  'Financing already approved / committed',
+] as const
+
+const rentalRefinanceEncumbranceOptions = [
+  'Existing first mortgage only',
+  'First mortgage plus other liens / encumbrances',
+  'Tax, construction, or judgment lien',
+  'Another lender is reviewing this refinance',
+  'Not sure',
+] as const
+
+const rentalFinancingTimelineOptions = [
+  'Within 30 days',
+  '31–60 days',
+  '61–90 days',
+  'More than 90 days / exploring',
+] as const
+
 const mortgageDraftStorageKey = 'fairlend-private-mortgage-intake-v1'
+const institutionalMortgageDraftStorageKey = 'fairlend-institutional-mortgage-intake-v1'
+const residentialMortgageDraftStorageKey = 'fairlend-residential-mortgage-intake-v1'
+const rentalPropertyAcquisitionDraftStorageKey = 'fairlend-rental-property-acquisition-intake-v1'
+const rentalPropertyRefinanceDraftStorageKey = 'fairlend-rental-property-refinance-intake-v1'
 const mortgageTotalSteps = 5
+const investorDraftStorageKey = 'fairlend-private-mortgage-investor-intake-v1'
+const investorTotalSteps = 4
 
 const emptyValues: LeadCaptureValues = {
   address: '',
+  additionalLienDetails: '',
   additionalLiens: '',
   amount: '',
   currentMortgage: '',
   documentStatus: '',
   email: '',
   exitPlan: '',
+  grossRentalIncome: '',
   message: '',
   name: '',
+  numberOfUnits: '',
+  occupancyStatus: '',
+  ownershipStatus: '',
+  ownershipStructure: '',
   phone: '',
   propertyUse: '',
   propertyValue: '',
@@ -386,7 +556,10 @@ const emptyValues: LeadCaptureValues = {
 
 export function FairlendLeadIntake({
   intentOverride,
+  investorVariant = 'page',
+  mortgageProduct = 'private',
   mortgageVariant = 'page',
+  rentalPropertyTransaction,
   sourceOverride,
 }: FairlendLeadIntakeProps = {}) {
   const searchParams = useSearchParams()
@@ -394,9 +567,34 @@ export function FairlendLeadIntake({
     intentOverride ??
     (normalizeFairlendIntakeIntent(searchParams.get('intent')) as FairlendGenericLeadIntent)
   const isMortgageIntent = intent === 'mortgage'
+  const isInstitutionalMortgage = isMortgageIntent && mortgageProduct === 'institutional'
+  const isResidentialMortgage = isMortgageIntent && mortgageProduct === 'residential'
+  const isRentalPropertyMortgage = isMortgageIntent && mortgageProduct === 'rental-property'
   const isInvestorIntent = intent === 'invest'
+  const isInvestorHero = isInvestorIntent && investorVariant === 'hero'
+  const isDraftedWizard = isMortgageIntent || isInvestorHero
+  const wizardTotalSteps = isInvestorHero ? investorTotalSteps : mortgageTotalSteps
   const copy = intakeCopyByIntent[intent] ?? intakeCopyByIntent.contact
   const source = sourceOverride?.trim() || searchParams.get('source')?.trim() || `intake-${intent}`
+  const initialRentalPropertyTransaction =
+    rentalPropertyTransaction ?? resolveFairlendRentalPropertyTransaction(source)
+  const initialRentalSituation =
+    initialRentalPropertyTransaction === 'acquisition'
+      ? rentalPropertyTransactionOptions[0]
+      : initialRentalPropertyTransaction === 'refinance'
+        ? rentalPropertyTransactionOptions[1]
+        : ''
+  const wizardDraftStorageKey = isInvestorHero
+    ? investorDraftStorageKey
+    : isInstitutionalMortgage
+      ? institutionalMortgageDraftStorageKey
+      : isResidentialMortgage
+        ? residentialMortgageDraftStorageKey
+        : isRentalPropertyMortgage
+          ? initialRentalPropertyTransaction === 'refinance'
+            ? rentalPropertyRefinanceDraftStorageKey
+            : rentalPropertyAcquisitionDraftStorageKey
+          : mortgageDraftStorageKey
   const initialLeadId = searchParams.get('leadId')?.trim() || null
   const [leadId, setLeadId] = useState<string | null>(initialLeadId)
   const [state, setState] = useState<LeadCaptureState>('idle')
@@ -409,14 +607,19 @@ export function FairlendLeadIntake({
     email: searchParams.get('email')?.trim() ?? '',
     name: searchParams.get('name')?.trim() ?? '',
     phone: searchParams.get('phone')?.trim() ?? '',
+    situation: initialRentalSituation,
   }))
+  const resolvedMortgageProduct: SubmittedMortgageProduct | null =
+    mortgageProduct === 'residential'
+      ? resolveResidentialMortgageProduct(values.situation)
+      : mortgageProduct
 
   useEffect(() => {
-    if (!isMortgageIntent) return
+    if (!isDraftedWizard) return
 
     const hydrateFrame = window.requestAnimationFrame(() => {
       try {
-        const savedDraft = window.localStorage.getItem(mortgageDraftStorageKey)
+        const savedDraft = window.localStorage.getItem(wizardDraftStorageKey)
         if (savedDraft) {
           const parsedDraft = JSON.parse(savedDraft) as {
             step?: number
@@ -435,7 +638,7 @@ export function FairlendLeadIntake({
           }
 
           if (typeof parsedDraft.step === 'number') {
-            setMortgageStep(Math.min(Math.max(parsedDraft.step, 1), mortgageTotalSteps))
+            setMortgageStep(Math.min(Math.max(parsedDraft.step, 1), wizardTotalSteps))
           }
         }
       } catch {
@@ -446,20 +649,20 @@ export function FairlendLeadIntake({
     })
 
     return () => window.cancelAnimationFrame(hydrateFrame)
-  }, [isMortgageIntent])
+  }, [isDraftedWizard, wizardDraftStorageKey, wizardTotalSteps])
 
   useEffect(() => {
-    if (!isMortgageIntent || !mortgageDraftHydrated || state === 'success') return
+    if (!isDraftedWizard || !mortgageDraftHydrated || state === 'success') return
 
     try {
       window.localStorage.setItem(
-        mortgageDraftStorageKey,
+        wizardDraftStorageKey,
         JSON.stringify({ step: mortgageStep, values }),
       )
     } catch {
       // Autosave is progressive enhancement; submission does not depend on it.
     }
-  }, [isMortgageIntent, mortgageDraftHydrated, mortgageStep, state, values])
+  }, [isDraftedWizard, mortgageDraftHydrated, mortgageStep, state, values, wizardDraftStorageKey])
   const bookingsUrl = getFairlendMicrosoftBookingsUrl()
   const consultationFollowUpHref = buildFairlendIntakeHref({
     address: values.address,
@@ -507,13 +710,14 @@ export function FairlendLeadIntake({
       email: searchParams.get('email')?.trim() ?? '',
       name: searchParams.get('name')?.trim() ?? '',
       phone: searchParams.get('phone')?.trim() ?? '',
+      situation: initialRentalSituation,
     })
     setMortgageStep(1)
     setErrors({})
     setState('idle')
 
     try {
-      window.localStorage.removeItem(mortgageDraftStorageKey)
+      window.localStorage.removeItem(wizardDraftStorageKey)
     } catch {
       // The form is still reset in memory if storage is unavailable.
     }
@@ -522,7 +726,10 @@ export function FairlendLeadIntake({
   async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault()
 
-    const validationErrors = validateLeadCapture(values, { requiresName })
+    const validationErrors = validateLeadCapture(values, {
+      requiresName,
+      requiresPhone: isRentalPropertyMortgage,
+    })
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors)
       return
@@ -540,12 +747,19 @@ export function FairlendLeadIntake({
           intent,
           intake: {
             additionalLiens: values.additionalLiens,
+            additionalLienDetails: values.additionalLienDetails,
             amount: values.amount,
             currentMortgage: values.currentMortgage,
             detail: values.message,
             documentStatus: values.documentStatus,
             exitPlan: values.exitPlan,
-            page: '/intake',
+            grossRentalIncome: values.grossRentalIncome,
+            page: isInstitutionalMortgage ? '/borrowers/institutional-mortgage' : '/intake',
+            mortgageProduct: isMortgageIntent ? resolvedMortgageProduct : undefined,
+            numberOfUnits: values.numberOfUnits,
+            occupancyStatus: values.occupancyStatus,
+            ownershipStatus: values.ownershipStatus,
+            ownershipStructure: values.ownershipStructure,
             propertyUse: values.propertyUse,
             propertyValue: values.propertyValue,
             requestedIntent: intent,
@@ -578,9 +792,9 @@ export function FairlendLeadIntake({
         step: 'intake_submit',
       })
       setState('success')
-      if (isMortgageIntent) {
+      if (isDraftedWizard) {
         try {
-          window.localStorage.removeItem(mortgageDraftStorageKey)
+          window.localStorage.removeItem(wizardDraftStorageKey)
         } catch {
           // The request is already saved; clearing the local draft is best effort.
         }
@@ -600,10 +814,15 @@ export function FairlendLeadIntake({
     return (
       <MortgageIntakeSuccess
         consultationFollowUpHref={consultationFollowUpHref}
+        product={resolvedMortgageProduct ?? 'private'}
         values={values}
         variant={mortgageVariant}
       />
     )
+  }
+
+  if (state === 'success' && isInvestorHero) {
+    return <InvestorIntakeSuccess consultationFollowUpHref={consultationFollowUpHref} />
   }
 
   if (state === 'success') {
@@ -677,6 +896,8 @@ export function FairlendLeadIntake({
               <Button asChild className="fl-intake-submit">
                 {intent === 'consultation' ? (
                   <a
+                    data-consultation-booking=""
+                    data-consultation-booking-source={`${source}-scheduler`}
                     href={bookingsUrl}
                     onClick={() =>
                       trackFairlendEvent('fairlend_scheduler_opened', {
@@ -719,6 +940,32 @@ export function FairlendLeadIntake({
         updateField={updateField}
         values={values}
         variant={mortgageVariant}
+        mode={
+          isInstitutionalMortgage
+            ? 'institutional'
+            : isResidentialMortgage
+              ? 'residential'
+              : isRentalPropertyMortgage
+                ? 'rental-property'
+                : 'mortgage'
+        }
+      />
+    )
+  }
+
+  if (isInvestorHero) {
+    return (
+      <MortgageIntakeWizard
+        errors={errors}
+        onReset={resetMortgageDraft}
+        onSubmit={handleSubmit}
+        setStep={setMortgageStep}
+        state={state}
+        step={mortgageStep}
+        updateField={updateField}
+        values={values}
+        variant="hero"
+        mode="investor"
       />
     )
   }
@@ -1055,13 +1302,17 @@ export function FairlendLeadIntake({
 
 function MortgageIntakeSuccess({
   consultationFollowUpHref,
+  product,
   values,
   variant,
 }: {
   consultationFollowUpHref: string
+  product: SubmittedMortgageProduct
   values: LeadCaptureValues
   variant: MortgageIntakeVariant
 }) {
+  const isInstitutional = product === 'institutional'
+  const isRentalProperty = product === 'rental-property'
   const successPanel = (
     <Card
       className="fl-mortgage-wizard-panel fl-mortgage-success-panel"
@@ -1072,10 +1323,19 @@ function MortgageIntakeSuccess({
           <Check />
         </div>
         <p className="fl-mortgage-step-label">Request received</p>
-        <h1 id="fl-mortgage-success-title">Your mortgage file is with FairLend.</h1>
+        <h1 id="fl-mortgage-success-title">
+          Your{' '}
+          {isRentalProperty
+            ? 'rental property financing'
+            : `${isInstitutional ? 'institutional ' : ''}mortgage`}{' '}
+          file is with FairLend.
+        </h1>
         <p className="fl-mortgage-success-lede">
-          A specialist can now review the property, amount, timing, and repayment path before the
-          next conversation.
+          {isRentalProperty
+            ? 'A specialist can now review the transaction, ownership, property, rent, existing debt, requested proceeds, and timing before the first conversation.'
+            : isInstitutional
+              ? 'A specialist can now review the property, financing request, income profile, credit range, and timing before matching the file to institutional lender criteria.'
+              : 'A specialist can now review the property, amount, timing, and repayment path before the next conversation.'}
         </p>
 
         <ol className="fl-mortgage-success-route" aria-label="What happens next">
@@ -1086,8 +1346,12 @@ function MortgageIntakeSuccess({
           </li>
           <li>
             <span>02</span>
-            <strong>Prepare the options</strong>
-            <p>A specialist organizes the questions and next documents, if any are needed.</p>
+            <strong>{isInstitutional ? 'Match lender criteria' : 'Prepare the options'}</strong>
+            <p>
+              {isInstitutional
+                ? 'A specialist identifies the institutional programs that fit the complete file.'
+                : 'A specialist organizes the questions and next documents, if any are needed.'}
+            </p>
           </li>
           <li>
             <span>03</span>
@@ -1125,7 +1389,7 @@ function MortgageIntakeSuccess({
     <main className="fl-mortgage-wizard-page fl-mortgage-wizard-page--success">
       <Frame className="fl-mortgage-wizard-frame">
         <section aria-labelledby="fl-mortgage-success-title" className="fl-mortgage-wizard-stage">
-          <MortgageFileVisual step={mortgageTotalSteps} values={values} />
+          <MortgageFileVisual product={product} step={mortgageTotalSteps} values={values} />
           {successPanel}
         </section>
       </Frame>
@@ -1133,8 +1397,64 @@ function MortgageIntakeSuccess({
   )
 }
 
+function InvestorIntakeSuccess({ consultationFollowUpHref }: { consultationFollowUpHref: string }) {
+  return (
+    <div
+      className="fl-mortgage-hero-embed fl-mortgage-hero-embed--success"
+      data-intake-mode="investor"
+    >
+      <Card className="fl-mortgage-wizard-panel fl-mortgage-success-panel">
+        <div className="fl-mortgage-success-content">
+          <div className="fl-mortgage-success-mark" aria-hidden="true">
+            <Check />
+          </div>
+          <p className="fl-mortgage-step-label">Investor profile received</p>
+          <h1 id="fl-investor-success-title">Your investor review is with FairLend.</h1>
+          <p className="fl-mortgage-success-lede">
+            The investor team can now review your capital range, experience, timeline, and deal
+            preferences before the first conversation.
+          </p>
+
+          <ol className="fl-mortgage-success-route" aria-label="What happens next">
+            <li>
+              <span>01</span>
+              <strong>Review investor fit</strong>
+              <p>FairLend checks whether private mortgage investing matches your stated profile.</p>
+            </li>
+            <li>
+              <span>02</span>
+              <strong>Discuss the criteria</strong>
+              <p>Walk through security, LTV, term, administration, and private-credit risk.</p>
+            </li>
+            <li>
+              <span>03</span>
+              <strong>Confirm the next step</strong>
+              <p>You will know what information is needed before reviewing any opportunity.</p>
+            </li>
+          </ol>
+
+          <div className="fl-mortgage-success-actions">
+            <Button asChild className="fl-mortgage-continue">
+              <Link href={consultationFollowUpHref}>
+                Request an investor consultation
+                <ArrowRight aria-hidden="true" />
+              </Link>
+            </Button>
+          </div>
+
+          <p className="fl-mortgage-consent">
+            Private mortgage investments involve risk and are not bank deposits or guaranteed-return
+            products.
+          </p>
+        </div>
+      </Card>
+    </div>
+  )
+}
+
 function MortgageIntakeWizard({
   errors,
+  mode,
   onReset,
   onSubmit,
   setStep,
@@ -1145,6 +1465,7 @@ function MortgageIntakeWizard({
   variant,
 }: {
   errors: LeadCaptureErrors
+  mode: 'institutional' | 'investor' | 'mortgage' | 'rental-property' | 'residential'
   onReset: () => void
   onSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>
   setStep: (step: number) => void
@@ -1159,8 +1480,26 @@ function MortgageIntakeWizard({
 }) {
   const [stepError, setStepError] = useState('')
   const previousStep = useRef(step)
+  const isInvestor = mode === 'investor'
+  const isResidential = mode === 'residential'
+  const isRentalProperty = mode === 'rental-property'
+  const isRentalRefinance = values.situation === rentalPropertyTransactionOptions[1]
+  const residentialProduct = isResidential
+    ? resolveResidentialMortgageProduct(values.situation)
+    : null
+  const isInstitutional = mode === 'institutional' || residentialProduct === 'institutional'
+  const isPrivateMortgage = mode === 'mortgage' || residentialProduct === 'private'
+  const totalSteps = isInvestor ? investorTotalSteps : mortgageTotalSteps
 
-  const stepContent = getMortgageStepContent(step)
+  const stepContent = isInvestor
+    ? getInvestorStepContent(step)
+    : isRentalProperty
+      ? getRentalPropertyStepContent(step, values.situation)
+      : isResidential && step === 1
+        ? getResidentialMortgageStepContent()
+        : isInstitutional
+          ? getInstitutionalMortgageStepContent(step)
+          : getMortgageStepContent(step)
 
   useEffect(() => {
     if (previousStep.current === step) return
@@ -1191,19 +1530,54 @@ function MortgageIntakeWizard({
     setStepError('')
   }
 
+  function chooseResidentialSituation(value: string): void {
+    const previousProduct = resolveResidentialMortgageProduct(values.situation)
+    const nextProduct = resolveResidentialMortgageProduct(value)
+
+    choose('situation', value)
+    if (previousProduct && previousProduct !== nextProduct) {
+      choose('additionalLiens', '')
+      choose('amount', '')
+      choose('currentMortgage', '')
+      choose('documentStatus', '')
+      choose('exitPlan', '')
+      choose('propertyUse', '')
+      choose('propertyValue', '')
+      choose('role', '')
+      choose('timeline', '')
+    }
+  }
+
+  function chooseRentalPropertyTransaction(value: string): void {
+    if (values.situation && values.situation !== value) {
+      choose('additionalLienDetails', '')
+      choose('additionalLiens', '')
+      choose('currentMortgage', '')
+      choose('ownershipStatus', '')
+      choose('propertyValue', '')
+    }
+    choose('situation', value)
+  }
+
   function moveForward(): void {
-    const nextError = validateMortgageStep(step, values)
+    const nextError = isInvestor
+      ? validateInvestorStep(step, values)
+      : isRentalProperty
+        ? validateRentalPropertyStep(step, values)
+        : isInstitutional
+          ? validateInstitutionalMortgageStep(step, values)
+          : validateMortgageStep(step, values)
     if (nextError) {
       setStepError(nextError)
       return
     }
 
-    setStep(Math.min(step + 1, mortgageTotalSteps))
+    setStep(Math.min(step + 1, totalSteps))
     setStepError('')
   }
 
   function handleWizardSubmit(event: FormEvent<HTMLFormElement>): void {
-    if (step < mortgageTotalSteps) {
+    if (step < totalSteps) {
       event.preventDefault()
       moveForward()
       return
@@ -1217,18 +1591,41 @@ function MortgageIntakeWizard({
   return (
     <RootElement
       className={variant === 'hero' ? 'fl-mortgage-hero-embed' : 'fl-mortgage-wizard-page'}
+      data-intake-mode={mode}
       data-step={step}
     >
       <Frame className="fl-mortgage-wizard-frame">
         <section aria-labelledby="fl-mortgage-step-title" className="fl-mortgage-wizard-stage">
           {variant === 'page' ? (
-            <MortgageFileVisual step={step} values={values} />
+            <MortgageFileVisual
+              product={
+                isRentalProperty
+                  ? 'rental-property'
+                  : isInstitutional
+                    ? 'institutional'
+                    : isPrivateMortgage
+                      ? 'private'
+                      : 'residential'
+              }
+              step={step}
+              values={values}
+            />
           ) : (
             <div className="fl-mortgage-hero-filebar" aria-live="polite">
-              <span>Your mortgage file</span>
+              <span>
+                {isInvestor
+                  ? 'Your investor profile'
+                  : isInstitutional
+                    ? 'Your institutional mortgage file'
+                    : isResidential && isPrivateMortgage
+                      ? 'Your private mortgage file'
+                      : 'Your mortgage file'}
+              </span>
               <strong>
                 {step === 1
-                  ? 'Start with the situation'
+                  ? isInvestor
+                    ? 'Start with your fit'
+                    : 'Start with the situation'
                   : `${step - 1} ${step === 2 ? 'section' : 'sections'} complete`}
               </strong>
             </div>
@@ -1236,12 +1633,12 @@ function MortgageIntakeWizard({
 
           <Card className="fl-mortgage-wizard-panel" data-mortgage-variant={variant}>
             <form className="fl-mortgage-wizard-form" noValidate onSubmit={handleWizardSubmit}>
-              <div className="fl-mortgage-progress" aria-label={`Step ${step} of 5`}>
+              <div className="fl-mortgage-progress" aria-label={`Step ${step} of ${totalSteps}`}>
                 <span>
-                  Step {step} of {mortgageTotalSteps}
+                  Step {step} of {totalSteps}
                 </span>
                 <span className="fl-mortgage-progress__track" aria-hidden="true">
-                  <i style={{ transform: `scaleX(${step / mortgageTotalSteps})` }} />
+                  <i style={{ transform: `scaleX(${step / totalSteps})` }} />
                 </span>
               </div>
 
@@ -1254,12 +1651,245 @@ function MortgageIntakeWizard({
               </div>
 
               <div className="fl-mortgage-fields" key={`fields-${step}`}>
-                {step === 1 ? (
+                {isRentalProperty && step === 1 ? (
+                  <>
+                    <MortgageChoiceGroup
+                      compact
+                      label="Is this a purchase or a refinance?"
+                      onSelect={chooseRentalPropertyTransaction}
+                      options={rentalPropertyTransactionOptions}
+                      selectedValue={values.situation}
+                    />
+                    <MortgageChoiceGroup
+                      label={
+                        isRentalRefinance
+                          ? 'What is your ownership status?'
+                          : 'Where are you in the acquisition?'
+                      }
+                      onSelect={(value) => choose('ownershipStatus', value)}
+                      options={
+                        isRentalRefinance
+                          ? rentalRefinanceStatusOptions
+                          : rentalAcquisitionStatusOptions
+                      }
+                      selectedValue={values.ownershipStatus}
+                    />
+                    <MortgageChoiceGroup
+                      compact
+                      label="How is the property owned or expected to be owned?"
+                      onSelect={(value) => choose('ownershipStructure', value)}
+                      options={rentalOwnershipStructureOptions}
+                      selectedValue={values.ownershipStructure}
+                    />
+                  </>
+                ) : null}
+
+                {isRentalProperty && step === 2 ? (
+                  <>
+                    <GoogleAddressAutocomplete
+                      autoComplete="street-address"
+                      className="fl-mortgage-field fl-mortgage-address"
+                      id="rental-property-address"
+                      inputClassName="fl-mortgage-input"
+                      label="Property address"
+                      labelClassName="fl-mortgage-field-label"
+                      onChange={(value) => choose('address', value)}
+                      placeholder="Start typing the rental property address"
+                      value={values.address}
+                    />
+                    <MortgageChoiceGroup
+                      label="What type of rental property is it?"
+                      onSelect={(value) => choose('propertyUse', value)}
+                      options={rentalPropertyTypeOptions}
+                      selectedValue={values.propertyUse}
+                    />
+                    <div className="fl-mortgage-contact-grid">
+                      <TextField
+                        appearance="mortgage"
+                        id="rental-number-of-units"
+                        inputMode="numeric"
+                        label="Number of residential units"
+                        onChange={(value) => choose('numberOfUnits', value)}
+                        placeholder="e.g. 12"
+                        required
+                        value={values.numberOfUnits}
+                      />
+                    </div>
+                    <MortgageChoiceGroup
+                      compact
+                      label="What is the current occupancy?"
+                      onSelect={(value) => choose('occupancyStatus', value)}
+                      options={rentalOccupancyOptions}
+                      selectedValue={values.occupancyStatus}
+                    />
+                  </>
+                ) : null}
+
+                {isRentalProperty && step === 3 ? (
+                  <>
+                    <div className="fl-mortgage-contact-grid">
+                      <TextField
+                        appearance="mortgage"
+                        id="rental-amount-required"
+                        inputMode="decimal"
+                        label="Amount required (CAD)"
+                        onChange={(value) => choose('amount', value)}
+                        placeholder="e.g. $1,250,000"
+                        required
+                        value={values.amount}
+                      />
+                      <TextField
+                        appearance="mortgage"
+                        id="rental-property-value"
+                        inputMode="decimal"
+                        label={
+                          isRentalRefinance
+                            ? 'Estimated current value (CAD)'
+                            : 'Purchase price (CAD)'
+                        }
+                        onChange={(value) => choose('propertyValue', value)}
+                        placeholder="e.g. $2,000,000"
+                        required
+                        value={values.propertyValue}
+                      />
+                      {isRentalRefinance ? (
+                        <TextField
+                          appearance="mortgage"
+                          id="rental-current-mortgage"
+                          inputMode="decimal"
+                          label="Current mortgage balance (CAD)"
+                          onChange={(value) => choose('currentMortgage', value)}
+                          placeholder="e.g. $875,000"
+                          required
+                          value={values.currentMortgage}
+                        />
+                      ) : null}
+                    </div>
+                    <MortgageChoiceGroup
+                      label={
+                        isRentalRefinance
+                          ? 'Other lenders, liens, or encumbrances'
+                          : 'What other financing is involved?'
+                      }
+                      onSelect={(value) => choose('additionalLiens', value)}
+                      options={
+                        isRentalRefinance
+                          ? rentalRefinanceEncumbranceOptions
+                          : rentalAcquisitionFinancingOptions
+                      }
+                      selectedValue={values.additionalLiens}
+                    />
+                    <Field className="fl-mortgage-field">
+                      <FieldLabel htmlFor="rental-encumbrance-details">
+                        Lender, lien, or financing details <span>Optional</span>
+                      </FieldLabel>
+                      <Textarea
+                        className="fl-mortgage-textarea"
+                        id="rental-encumbrance-details"
+                        onChange={(event) => choose('additionalLienDetails', event.target.value)}
+                        placeholder="Lender names, registered positions, balances, commitment status, or anything else we should know."
+                        value={values.additionalLienDetails}
+                      />
+                    </Field>
+                  </>
+                ) : null}
+
+                {isRentalProperty && step === 4 ? (
+                  <>
+                    <div className="fl-mortgage-contact-grid">
+                      <TextField
+                        appearance="mortgage"
+                        id="rental-gross-rent"
+                        inputMode="decimal"
+                        label="Current gross monthly rent (CAD)"
+                        onChange={(value) => choose('grossRentalIncome', value)}
+                        placeholder="e.g. $18,500"
+                        required
+                        value={values.grossRentalIncome}
+                      />
+                    </div>
+                    <MortgageChoiceGroup
+                      compact
+                      label={
+                        isRentalRefinance
+                          ? 'When do you need the refinance completed?'
+                          : 'When is the expected closing?'
+                      }
+                      onSelect={(value) => choose('timeline', value)}
+                      options={rentalFinancingTimelineOptions}
+                      selectedValue={values.timeline}
+                    />
+                    <Field className="fl-mortgage-field">
+                      <FieldLabel htmlFor="rental-review-context">
+                        Anything else that affects the file? <span>Optional</span>
+                      </FieldLabel>
+                      <Textarea
+                        className="fl-mortgage-textarea"
+                        id="rental-review-context"
+                        onChange={(event) => choose('message', event.target.value)}
+                        placeholder="Closing date, rent-roll changes, property work, use of proceeds, or other deal context."
+                        value={values.message}
+                      />
+                    </Field>
+                  </>
+                ) : null}
+
+                {isRentalProperty && step === 5 ? (
+                  <>
+                    <div className="fl-mortgage-contact-grid">
+                      <TextField
+                        autoComplete="name"
+                        error={errors.name}
+                        id="rental-contact-name"
+                        label="Name"
+                        onChange={(value) => choose('name', value)}
+                        required
+                        value={values.name}
+                      />
+                      <TextField
+                        autoComplete="email"
+                        error={errors.email}
+                        id="rental-contact-email"
+                        label="Email"
+                        onChange={(value) => choose('email', value)}
+                        required
+                        type="email"
+                        value={values.email}
+                      />
+                      <TextField
+                        autoComplete="tel"
+                        error={errors.phone}
+                        id="rental-contact-phone"
+                        label="Phone"
+                        onChange={(value) => choose('phone', value)}
+                        required
+                        type="tel"
+                        value={values.phone}
+                      />
+                    </div>
+                    <p className="fl-mortgage-consent">
+                      FairLend will use these details to review the property and financing request
+                      and respond with relevant next steps. Submission is not an approval or
+                      financing commitment. See our{' '}
+                      <Link href="/en/brokerage/privacy-policy">Privacy Policy</Link>.
+                    </p>
+                  </>
+                ) : null}
+
+                {(mode === 'mortgage' || isResidential) && step === 1 ? (
                   <>
                     <MortgageChoiceGroup
                       label="What would you like this mortgage to solve?"
-                      onSelect={(value) => choose('situation', value)}
-                      options={mortgageSituationOptions}
+                      onSelect={(value) =>
+                        isResidential
+                          ? chooseResidentialSituation(value)
+                          : choose('situation', value)
+                      }
+                      options={
+                        isResidential
+                          ? residentialMortgageSituationOptions
+                          : privateMortgageSituationOptions
+                      }
                       selectedValue={values.situation}
                     />
                     <Field className="fl-mortgage-field fl-mortgage-situation-context">
@@ -1277,7 +1907,7 @@ function MortgageIntakeWizard({
                   </>
                 ) : null}
 
-                {step === 2 ? (
+                {isPrivateMortgage && step === 2 ? (
                   <>
                     <GoogleAddressAutocomplete
                       autoComplete="street-address"
@@ -1307,7 +1937,7 @@ function MortgageIntakeWizard({
                   </>
                 ) : null}
 
-                {step === 3 ? (
+                {isPrivateMortgage && step === 3 ? (
                   <>
                     <MortgageChoiceGroup
                       compact
@@ -1333,7 +1963,7 @@ function MortgageIntakeWizard({
                   </>
                 ) : null}
 
-                {step === 4 ? (
+                {isPrivateMortgage && step === 4 ? (
                   <>
                     <MortgageChoiceGroup
                       compact
@@ -1352,7 +1982,7 @@ function MortgageIntakeWizard({
                   </>
                 ) : null}
 
-                {step === 5 ? (
+                {isPrivateMortgage && step === 5 ? (
                   <>
                     <div className="fl-mortgage-contact-grid">
                       <TextField
@@ -1387,6 +2017,268 @@ function MortgageIntakeWizard({
                       FairLend will use these details to review your request and respond with
                       relevant next steps. Submission is not an approval or financing commitment.
                       See our <Link href="/en/brokerage/privacy-policy">Privacy Policy</Link>.
+                    </p>
+                  </>
+                ) : null}
+
+                {isInstitutional && step === 1 ? (
+                  <>
+                    {!isResidential ? (
+                      <MortgageChoiceGroup
+                        label="What are you financing?"
+                        onSelect={(value) => choose('situation', value)}
+                        options={institutionalMortgageGoalOptions}
+                        selectedValue={values.situation}
+                      />
+                    ) : null}
+                    <MortgageChoiceGroup
+                      compact
+                      label="Where is the application today?"
+                      onSelect={(value) => choose('exitPlan', value)}
+                      options={institutionalApplicationStatusOptions}
+                      selectedValue={values.exitPlan}
+                    />
+                  </>
+                ) : null}
+
+                {isInstitutional && step === 2 ? (
+                  <>
+                    <GoogleAddressAutocomplete
+                      autoComplete="street-address"
+                      className="fl-mortgage-field fl-mortgage-address"
+                      id="institutional-property-address"
+                      inputClassName="fl-mortgage-input"
+                      label="Property address"
+                      labelClassName="fl-mortgage-field-label"
+                      onChange={(value) => choose('address', value)}
+                      placeholder="Start typing the property address"
+                      value={values.address}
+                    />
+                    <MortgageChoiceGroup
+                      compact
+                      label="What type of property is it?"
+                      onSelect={(value) => choose('propertyUse', value)}
+                      options={institutionalPropertyUseOptions}
+                      selectedValue={values.propertyUse}
+                    />
+                    <MortgageChoiceGroup
+                      compact
+                      label="Estimated property value"
+                      onSelect={(value) => choose('propertyValue', value)}
+                      options={institutionalPropertyValueOptions}
+                      selectedValue={values.propertyValue}
+                    />
+                  </>
+                ) : null}
+
+                {isInstitutional && step === 3 ? (
+                  <>
+                    <MortgageChoiceGroup
+                      compact
+                      label="How much financing are you seeking?"
+                      onSelect={(value) => choose('amount', value)}
+                      options={institutionalMortgageAmountOptions}
+                      selectedValue={values.amount}
+                    />
+                    <MortgageChoiceGroup
+                      compact
+                      label="Current mortgage balance"
+                      onSelect={(value) => choose('currentMortgage', value)}
+                      options={mortgageCurrentBalanceOptions}
+                      selectedValue={values.currentMortgage}
+                    />
+                    <MortgageChoiceGroup
+                      compact
+                      label="Other registered debt on the property"
+                      onSelect={(value) => choose('additionalLiens', value)}
+                      options={mortgageAdditionalLiensOptions}
+                      selectedValue={values.additionalLiens}
+                    />
+                  </>
+                ) : null}
+
+                {isInstitutional && step === 4 ? (
+                  <>
+                    <MortgageChoiceGroup
+                      compact
+                      label="How is your income documented?"
+                      onSelect={(value) => choose('role', value)}
+                      options={institutionalIncomeOptions}
+                      selectedValue={values.role}
+                    />
+                    <MortgageChoiceGroup
+                      compact
+                      label="Approximate credit range"
+                      onSelect={(value) => choose('documentStatus', value)}
+                      options={institutionalCreditOptions}
+                      selectedValue={values.documentStatus}
+                    />
+                    <MortgageChoiceGroup
+                      compact
+                      label="When do you need the financing?"
+                      onSelect={(value) => choose('timeline', value)}
+                      options={institutionalTimelineOptions}
+                      selectedValue={values.timeline}
+                    />
+                  </>
+                ) : null}
+
+                {isInstitutional && step === 5 ? (
+                  <>
+                    <div className="fl-mortgage-contact-grid">
+                      <TextField
+                        autoComplete="name"
+                        error={errors.name}
+                        id="institutional-name"
+                        label="Name"
+                        onChange={(value) => choose('name', value)}
+                        required
+                        value={values.name}
+                      />
+                      <TextField
+                        autoComplete="email"
+                        error={errors.email}
+                        id="institutional-email"
+                        label="Email"
+                        onChange={(value) => choose('email', value)}
+                        required
+                        type="email"
+                        value={values.email}
+                      />
+                      <TextField
+                        autoComplete="tel"
+                        id="institutional-phone"
+                        label="Phone"
+                        onChange={(value) => choose('phone', value)}
+                        type="tel"
+                        value={values.phone}
+                      />
+                    </div>
+                    <Field className="fl-mortgage-field">
+                      <FieldLabel htmlFor="institutional-review-context">
+                        Anything useful to add? <span>Optional</span>
+                      </FieldLabel>
+                      <Textarea
+                        className="fl-mortgage-textarea"
+                        id="institutional-review-context"
+                        onChange={(event) => choose('message', event.target.value)}
+                        placeholder="A lender condition, renewal date, income detail, or question you want compared."
+                        value={values.message}
+                      />
+                    </Field>
+                    <p className="fl-mortgage-consent">
+                      FairLend will use these details to assess lender fit and respond with relevant
+                      next steps. Submission is not an approval or financing commitment. See our{' '}
+                      <Link href="/en/brokerage/privacy-policy">Privacy Policy</Link>.
+                    </p>
+                  </>
+                ) : null}
+
+                {isInvestor && step === 1 ? (
+                  <>
+                    <MortgageChoiceGroup
+                      compact
+                      label="How are you investing?"
+                      onSelect={(value) => choose('role', value)}
+                      options={investorTypeOptions}
+                      selectedValue={values.role}
+                    />
+                    <MortgageChoiceGroup
+                      compact
+                      label="What is your private mortgage experience?"
+                      onSelect={(value) => choose('situation', value)}
+                      options={investorExperienceOptions}
+                      selectedValue={values.situation}
+                    />
+                  </>
+                ) : null}
+
+                {isInvestor && step === 2 ? (
+                  <>
+                    <MortgageChoiceGroup
+                      compact
+                      label="Approximate investable amount"
+                      onSelect={(value) => choose('amount', value)}
+                      options={investorCapitalOptions}
+                      selectedValue={values.amount}
+                    />
+                    <MortgageChoiceGroup
+                      compact
+                      label="When would you like to review opportunities?"
+                      onSelect={(value) => choose('timeline', value)}
+                      options={investorTermOptions}
+                      selectedValue={values.timeline}
+                    />
+                  </>
+                ) : null}
+
+                {isInvestor && step === 3 ? (
+                  <>
+                    <MortgageChoiceGroup
+                      compact
+                      label="Which mortgage lane interests you most?"
+                      onSelect={(value) => choose('propertyUse', value)}
+                      options={investorMortgageTypeOptions}
+                      selectedValue={values.propertyUse}
+                    />
+                    <MortgageChoiceGroup
+                      compact
+                      label="What matters most in the first review?"
+                      onSelect={(value) => choose('exitPlan', value)}
+                      options={investorPriorityOptions}
+                      selectedValue={values.exitPlan}
+                    />
+                    <Field className="fl-mortgage-field">
+                      <FieldLabel htmlFor="investor-review-context">
+                        Anything useful to add? <span>Optional</span>
+                      </FieldLabel>
+                      <Textarea
+                        className="fl-mortgage-textarea"
+                        id="investor-review-context"
+                        onChange={(event) => choose('message', event.target.value)}
+                        placeholder="Return target, geography, position, or a question you want answered."
+                        value={values.message}
+                      />
+                    </Field>
+                  </>
+                ) : null}
+
+                {isInvestor && step === 4 ? (
+                  <>
+                    <div className="fl-mortgage-contact-grid">
+                      <TextField
+                        autoComplete="name"
+                        error={errors.name}
+                        id="investor-name"
+                        label="Name"
+                        onChange={(value) => choose('name', value)}
+                        required
+                        value={values.name}
+                      />
+                      <TextField
+                        autoComplete="email"
+                        error={errors.email}
+                        id="investor-email"
+                        label="Email"
+                        onChange={(value) => choose('email', value)}
+                        required
+                        type="email"
+                        value={values.email}
+                      />
+                      <TextField
+                        autoComplete="tel"
+                        id="investor-phone"
+                        label="Phone"
+                        onChange={(value) => choose('phone', value)}
+                        type="tel"
+                        value={values.phone}
+                      />
+                    </div>
+                    <p className="fl-mortgage-consent">
+                      FairLend uses these details to review investor fit and respond with relevant
+                      next steps. Private mortgage investments involve risk and are not bank
+                      deposits or guaranteed-return products. See our{' '}
+                      <Link href="/en/brokerage/privacy-policy">Privacy Policy</Link>.
                     </p>
                   </>
                 ) : null}
@@ -1425,13 +2317,19 @@ function MortgageIntakeWizard({
                 <Button
                   className="fl-mortgage-continue"
                   disabled={state === 'submitting'}
-                  type={step === mortgageTotalSteps ? 'submit' : 'button'}
-                  onClick={step === mortgageTotalSteps ? undefined : moveForward}
+                  type={step === totalSteps ? 'submit' : 'button'}
+                  onClick={step === totalSteps ? undefined : moveForward}
                 >
                   {state === 'submitting' ? (
                     <Loader2 aria-hidden="true" className="fl-intake-spinner" />
                   ) : null}
-                  {state === 'submitting' ? 'Sending your mortgage file' : stepContent.action}
+                  {state === 'submitting'
+                    ? isInvestor
+                      ? 'Sending your investor profile'
+                      : isInstitutional
+                        ? 'Sending your institutional mortgage file'
+                        : 'Sending your mortgage file'
+                    : stepContent.action}
                   {state !== 'submitting' ? <ArrowRight aria-hidden="true" /> : null}
                 </Button>
               </div>
@@ -1499,41 +2397,123 @@ function MortgageChoiceGroup({
   )
 }
 
-function MortgageFileVisual({ step, values }: { step: number; values: LeadCaptureValues }) {
-  const stages = [
-    { complete: Boolean(values.situation), label: 'Situation', value: values.situation },
-    {
-      complete: Boolean(values.propertyUse && values.propertyValue),
-      label: 'Property',
-      value: [values.propertyUse, values.propertyValue].filter(Boolean).join(' · '),
-    },
-    {
-      complete: Boolean(values.amount && values.currentMortgage && values.additionalLiens),
-      label: 'Amount',
-      value: values.amount,
-    },
-    {
-      complete: Boolean(values.timeline && values.exitPlan),
-      label: 'Timing',
-      value: values.timeline,
-    },
-    {
-      complete: Boolean(values.name && values.email),
-      label: 'Contact',
-      value: values.name,
-    },
-  ]
+function MortgageFileVisual({
+  product = 'private',
+  step,
+  values,
+}: {
+  product?: MortgageProduct
+  step: number
+  values: LeadCaptureValues
+}) {
+  const isInstitutional = product === 'institutional'
+  const isResidential = product === 'residential'
+  const isRentalProperty = product === 'rental-property'
+  const stages = isRentalProperty
+    ? [
+        {
+          complete: Boolean(
+            values.situation && values.ownershipStatus && values.ownershipStructure,
+          ),
+          label: 'Transaction',
+          value: values.situation,
+        },
+        {
+          complete: Boolean(
+            values.address && values.propertyUse && values.numberOfUnits && values.occupancyStatus,
+          ),
+          label: 'Property',
+          value: [values.numberOfUnits && `${values.numberOfUnits} units`, values.occupancyStatus]
+            .filter(Boolean)
+            .join(' · '),
+        },
+        {
+          complete: Boolean(
+            values.amount &&
+            values.propertyValue &&
+            values.additionalLiens &&
+            (values.situation !== rentalPropertyTransactionOptions[1] || values.currentMortgage),
+          ),
+          label: 'Financing',
+          value: values.amount,
+        },
+        {
+          complete: Boolean(values.grossRentalIncome && values.timeline),
+          label: 'Income & timing',
+          value: values.timeline,
+        },
+        {
+          complete: Boolean(values.name && values.email && values.phone),
+          label: 'Contact',
+          value: values.name,
+        },
+      ]
+    : [
+        { complete: Boolean(values.situation), label: 'Situation', value: values.situation },
+        {
+          complete: Boolean(values.propertyUse && values.propertyValue),
+          label: 'Property',
+          value: [values.propertyUse, values.propertyValue].filter(Boolean).join(' · '),
+        },
+        {
+          complete: Boolean(values.amount && values.currentMortgage && values.additionalLiens),
+          label: 'Amount',
+          value: values.amount,
+        },
+        {
+          complete: isInstitutional
+            ? Boolean(values.role && values.documentStatus && values.timeline)
+            : Boolean(values.timeline && values.exitPlan),
+          label: isInstitutional ? 'Qualification' : 'Timing',
+          value: isInstitutional ? values.role : values.timeline,
+        },
+        {
+          complete: Boolean(values.name && values.email),
+          label: 'Contact',
+          value: values.name,
+        },
+      ]
 
   const capturedRows = [
-    { label: 'Situation', value: values.situation },
+    { label: isRentalProperty ? 'Transaction' : 'Situation', value: values.situation },
+    ...(isRentalProperty
+      ? [
+          { label: 'Ownership status', value: values.ownershipStatus },
+          { label: 'Ownership structure', value: values.ownershipStructure },
+        ]
+      : []),
+    ...(isInstitutional ? [{ label: 'Application status', value: values.exitPlan }] : []),
     { label: 'Property address', value: values.address },
     { label: 'Property use', value: values.propertyUse },
+    ...(isRentalProperty
+      ? [
+          { label: 'Number of units', value: values.numberOfUnits },
+          { label: 'Occupancy', value: values.occupancyStatus },
+        ]
+      : []),
     { label: 'Estimated value', value: values.propertyValue },
     { label: 'Amount requested', value: values.amount },
     { label: 'Current mortgage', value: values.currentMortgage },
     { label: 'Additional liens', value: values.additionalLiens },
-    { label: 'Timing', value: values.timeline },
-    { label: 'Expected exit', value: values.exitPlan },
+    ...(isRentalProperty
+      ? [
+          { label: 'Financing details', value: values.additionalLienDetails },
+          { label: 'Gross monthly rent', value: values.grossRentalIncome },
+          { label: 'Timing', value: values.timeline },
+        ]
+      : []),
+    ...(!isRentalProperty && isInstitutional
+      ? [
+          { label: 'Income documentation', value: values.role },
+          { label: 'Credit range', value: values.documentStatus },
+          { label: 'Timing', value: values.timeline },
+        ]
+      : !isRentalProperty
+        ? [
+            { label: 'Timing', value: values.timeline },
+            { label: 'Expected exit', value: values.exitPlan },
+          ]
+        : []),
     { label: 'Applicant', value: values.name },
   ].filter((row) => row.value)
   const latestCapturedRow = capturedRows[capturedRows.length - 1]
@@ -1541,7 +2521,12 @@ function MortgageFileVisual({ step, values }: { step: number; values: LeadCaptur
   return (
     <aside className="fl-mortgage-file-visual" aria-label="Your mortgage file progress">
       <header className="fl-mortgage-file-heading">
-        <h2>Your mortgage file</h2>
+        <h2>
+          Your{' '}
+          {isRentalProperty
+            ? 'rental property file'
+            : `${isInstitutional ? 'institutional ' : ''}mortgage file`}
+        </h2>
         <p>File builds as you answer</p>
       </header>
 
@@ -1578,25 +2563,50 @@ function MortgageFileVisual({ step, values }: { step: number; values: LeadCaptur
       </div>
 
       <div className="fl-mortgage-file-stack" data-step={step}>
-        <span
-          className="fl-mortgage-file-sheet fl-mortgage-file-sheet--back-3"
-          aria-hidden="true"
-        />
-        <span
-          className="fl-mortgage-file-sheet fl-mortgage-file-sheet--back-2"
-          aria-hidden="true"
-        />
-        <span
-          className="fl-mortgage-file-sheet fl-mortgage-file-sheet--back-1"
-          aria-hidden="true"
-        />
+        {stages.slice(1).map((stage, index) => {
+          const layer = index + 1
+          const stageNumber = index + 2
+          const tabState =
+            stageNumber === step ? ' is-active' : stage.complete ? ' is-complete' : ''
+
+          return (
+            <span
+              className={`fl-mortgage-file-sheet fl-mortgage-file-sheet--back-${layer}`}
+              aria-hidden="true"
+              key={stage.label}
+            >
+              <span
+                className={`fl-mortgage-file-tab fl-mortgage-file-tab--${stageNumber}${tabState}`}
+              >
+                {stage.label}
+              </span>
+            </span>
+          )
+        })}
 
         <article
           className="fl-mortgage-file-sheet fl-mortgage-file-sheet--front"
           aria-live="polite"
         >
+          <span
+            aria-hidden="true"
+            className={`fl-mortgage-file-tab fl-mortgage-file-tab--1${
+              step === 1 ? ' is-active' : stages[0].complete ? ' is-complete' : ''
+            }`}
+          >
+            {stages[0].label}
+          </span>
+
           <div className="fl-mortgage-file-sheet__head">
-            <span>Private mortgage review</span>
+            <span>
+              {isInstitutional
+                ? 'Institutional lender review'
+                : isRentalProperty
+                  ? 'Rental property financing review'
+                  : isResidential
+                    ? 'Residential mortgage review'
+                    : 'Private mortgage review'}
+            </span>
             <strong>{String(capturedRows.length).padStart(2, '0')} details captured</strong>
           </div>
 
@@ -1631,27 +2641,85 @@ function MortgageFileVisual({ step, values }: { step: number; values: LeadCaptur
             <span>Updated automatically</span>
           </footer>
         </article>
-
-        <div className="fl-mortgage-file-tabs" aria-hidden="true">
-          {stages.map((stage, index) => (
-            <span
-              className={
-                index + 1 === step ? 'is-active' : stage.complete ? 'is-complete' : undefined
-              }
-              key={stage.label}
-            >
-              {stage.label}
-            </span>
-          ))}
-        </div>
       </div>
 
       <p className="fl-mortgage-file-note">
         <ShieldCheck aria-hidden="true" />
-        No documents needed right now.
+        {isInstitutional || isRentalProperty
+          ? 'No documents needed to start.'
+          : 'No documents needed right now.'}
       </p>
     </aside>
   )
+}
+
+function getResidentialMortgageStepContent(): {
+  action: string
+  description: string
+  label: string
+  title: string
+} {
+  return {
+    action: 'Continue to property',
+    description:
+      'Choose the closest answer. FairLend will route the next questions to the right residential mortgage lane.',
+    label: 'Mortgage goal',
+    title: 'What would you like this mortgage to solve?',
+  }
+}
+
+function getRentalPropertyStepContent(
+  step: number,
+  situation: string,
+): {
+  action: string
+  description: string
+  label: string
+  title: string
+} {
+  const isRefinance = situation === rentalPropertyTransactionOptions[1]
+  const content = [
+    {
+      action: 'Continue to property',
+      description:
+        'Confirm the transaction and title picture so FairLend starts in the right financing lane.',
+      label: 'Transaction and ownership',
+      title: 'Are you acquiring or refinancing?',
+    },
+    {
+      action: 'Continue to financing',
+      description:
+        'The unit count, property type, and occupancy establish the asset FairLend will review.',
+      label: 'Rental property',
+      title: 'Tell us about the property.',
+    },
+    {
+      action: 'Continue to income and timing',
+      description:
+        'Approximate figures are enough. Exact statements, commitments, and registrations can come later.',
+      label: 'Capital stack',
+      title: isRefinance
+        ? 'What needs to be refinanced?'
+        : 'How should the acquisition be financed?',
+    },
+    {
+      action: 'Continue to contact',
+      description:
+        'Current rent and the funding deadline help FairLend assess leverage and lender fit.',
+      label: 'Income and timing',
+      title: isRefinance
+        ? 'When does the refinance need to close?'
+        : 'When does the acquisition need to close?',
+    },
+    {
+      action: 'Request a rental property financing review',
+      description: 'A specialist will use this file to prepare the first financing conversation.',
+      label: 'Contact',
+      title: 'Where should FairLend reach you?',
+    },
+  ] as const
+
+  return content[Math.min(Math.max(step, 1), mortgageTotalSteps) - 1]
 }
 
 function getMortgageStepContent(step: number): {
@@ -1696,6 +2764,90 @@ function getMortgageStepContent(step: number): {
   return content[Math.min(Math.max(step, 1), mortgageTotalSteps) - 1]
 }
 
+function getInstitutionalMortgageStepContent(step: number): {
+  action: string
+  description: string
+  label: string
+  title: string
+} {
+  const content = [
+    {
+      action: 'Continue to property',
+      description:
+        'The objective and current application status determine which lender programs are worth reviewing.',
+      label: 'Financing objective',
+      title: 'Start with the decision in front of you.',
+    },
+    {
+      action: 'Continue to financing',
+      description:
+        'Approximate answers are enough to begin matching the property to institutional lender criteria.',
+      label: 'Property profile',
+      title: 'Tell us what the lender will be financing.',
+    },
+    {
+      action: 'Continue to qualification',
+      description:
+        'Ranges help establish leverage and the likely lender lane before documents are requested.',
+      label: 'Financing request',
+      title: 'Define the mortgage position.',
+    },
+    {
+      action: 'Continue to contact',
+      description:
+        'Income documentation, credit range, and timing help a specialist screen the file against real lender policy.',
+      label: 'Qualification picture',
+      title: 'Show us how the file qualifies.',
+    },
+    {
+      action: 'Request an institutional mortgage review',
+      description:
+        'A mortgage specialist will use this file to identify lender fit and the next documents, if any.',
+      label: 'Contact',
+      title: 'Where should FairLend reach you?',
+    },
+  ] as const
+
+  return content[Math.min(Math.max(step, 1), mortgageTotalSteps) - 1]
+}
+
+function getInvestorStepContent(step: number): {
+  action: string
+  description: string
+  label: string
+  title: string
+} {
+  const content = [
+    {
+      action: 'Continue to capital',
+      description: 'Choose the closest answers. The investor team can refine the profile with you.',
+      label: 'Investor fit',
+      title: 'Start with how you invest.',
+    },
+    {
+      action: 'Continue to preferences',
+      description: 'Approximate ranges are enough for an initial suitability conversation.',
+      label: 'Capital and timing',
+      title: 'What mandate are you considering?',
+    },
+    {
+      action: 'Continue to contact',
+      description: 'These preferences help FairLend make the first review relevant and specific.',
+      label: 'Deal criteria',
+      title: 'What should the first review prioritize?',
+    },
+    {
+      action: 'Request investor access',
+      description:
+        'An investor specialist will review the profile before presenting any opportunity.',
+      label: 'Contact',
+      title: 'Where should FairLend reach you?',
+    },
+  ] as const
+
+  return content[Math.min(Math.max(step, 1), investorTotalSteps) - 1]
+}
+
 function validateMortgageStep(step: number, values: LeadCaptureValues): string {
   if (step === 1 && !values.situation) {
     return 'Choose the closest reason for the mortgage so we can build the right file.'
@@ -1711,6 +2863,79 @@ function validateMortgageStep(step: number, values: LeadCaptureValues): string {
 
   if (step === 4 && (!values.timeline || !values.exitPlan)) {
     return 'Choose the timing and the most likely repayment path.'
+  }
+
+  return ''
+}
+
+function validateRentalPropertyStep(step: number, values: LeadCaptureValues): string {
+  const isRefinance = values.situation === rentalPropertyTransactionOptions[1]
+
+  if (step === 1 && (!values.situation || !values.ownershipStatus || !values.ownershipStructure)) {
+    return 'Choose the transaction, ownership status, and ownership structure.'
+  }
+
+  if (
+    step === 2 &&
+    (!values.address || !values.propertyUse || !values.numberOfUnits || !values.occupancyStatus)
+  ) {
+    return 'Add the address, property type, number of units, and current occupancy.'
+  }
+
+  if (step === 2 && !/^[1-9]\d*$/.test(values.numberOfUnits.trim())) {
+    return 'Enter the residential unit count as a whole number greater than zero.'
+  }
+
+  if (
+    step === 3 &&
+    (!values.amount ||
+      !values.propertyValue ||
+      !values.additionalLiens ||
+      (isRefinance && !values.currentMortgage))
+  ) {
+    return isRefinance
+      ? 'Add the requested amount, current value, mortgage balance, and other encumbrances.'
+      : 'Add the requested amount, purchase price, and any other financing involved.'
+  }
+
+  if (step === 4 && (!values.grossRentalIncome || !values.timeline)) {
+    return 'Add the current gross monthly rent and expected financing timeline.'
+  }
+
+  return ''
+}
+
+function validateInstitutionalMortgageStep(step: number, values: LeadCaptureValues): string {
+  if (step === 1 && (!values.situation || !values.exitPlan)) {
+    return 'Choose the financing objective and current application status so we can route the file.'
+  }
+
+  if (step === 2 && (!values.propertyUse || !values.propertyValue)) {
+    return 'Choose the property type and approximate value. The address can be added later.'
+  }
+
+  if (step === 3 && (!values.amount || !values.currentMortgage || !values.additionalLiens)) {
+    return 'Choose the requested amount, current mortgage balance, and other registered debt.'
+  }
+
+  if (step === 4 && (!values.role || !values.documentStatus || !values.timeline)) {
+    return 'Choose how income is documented, the approximate credit range, and the financing timeline.'
+  }
+
+  return ''
+}
+
+function validateInvestorStep(step: number, values: LeadCaptureValues): string {
+  if (step === 1 && (!values.role || !values.situation)) {
+    return 'Choose your investor type and private mortgage experience to build the profile.'
+  }
+
+  if (step === 2 && (!values.amount || !values.timeline)) {
+    return 'Choose an approximate investable amount and preferred timeline.'
+  }
+
+  if (step === 3 && (!values.propertyUse || !values.exitPlan)) {
+    return 'Choose a mortgage lane and the priority for your first review.'
   }
 
   return ''
@@ -2032,36 +3257,51 @@ function AmountRangeSelector({
 }
 
 function TextField({
+  appearance = 'default',
   autoComplete,
   error,
   id,
+  inputMode,
   label,
   onChange,
+  placeholder,
   required,
   type = 'text',
   value,
 }: {
+  appearance?: 'default' | 'mortgage'
   autoComplete?: string
   error?: string
   id: string
+  inputMode?: 'decimal' | 'numeric'
   label: string
   onChange: (value: string) => void
+  placeholder?: string
   required?: boolean
   type?: 'email' | 'tel' | 'text'
   value: string
 }) {
   return (
-    <Field className="fl-intake-field" data-invalid={Boolean(error)}>
-      <FieldLabel className="fl-intake-label" htmlFor={id}>
+    <Field
+      className={appearance === 'mortgage' ? 'fl-mortgage-field' : 'fl-intake-field'}
+      data-invalid={Boolean(error)}
+    >
+      <FieldLabel
+        className={appearance === 'mortgage' ? undefined : 'fl-intake-label'}
+        htmlFor={id}
+      >
         {label}
         {required ? <span aria-hidden="true">*</span> : null}
       </FieldLabel>
       <Input
         aria-invalid={Boolean(error)}
+        aria-required={required}
         autoComplete={autoComplete}
-        className="fl-intake-input"
+        className={appearance === 'mortgage' ? 'fl-mortgage-input' : 'fl-intake-input'}
         id={id}
+        inputMode={inputMode}
         onChange={(event) => onChange(event.target.value)}
+        placeholder={placeholder}
         type={type}
         value={value}
       />
@@ -2072,7 +3312,7 @@ function TextField({
 
 function validateLeadCapture(
   values: LeadCaptureValues,
-  { requiresName }: { requiresName: boolean },
+  { requiresName, requiresPhone = false }: { requiresName: boolean; requiresPhone?: boolean },
 ): LeadCaptureErrors {
   const errors: LeadCaptureErrors = {}
 
@@ -2084,6 +3324,10 @@ function validateLeadCapture(
     errors.email = 'Please enter an email address.'
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
     errors.email = 'Email address needs an @ symbol, like name@example.com.'
+  }
+
+  if (requiresPhone && !values.phone.trim()) {
+    errors.phone = 'Please enter a phone number so a financing specialist can reach you.'
   }
 
   return errors

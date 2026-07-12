@@ -1,0 +1,11 @@
+{
+  "input": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/faq-illustrations/generated/keyed/faq-surveyor-compass-engraving.png",
+  "output": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-faq-reference/surveyor-compass-engraving.webp",
+  "size": {
+    "width": 830,
+    "height": 960
+  },
+  "transparent_background": "none",
+  "inferred_background": null,
+  "quality": 90
+}

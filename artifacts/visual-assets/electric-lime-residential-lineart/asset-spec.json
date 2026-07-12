@@ -1,0 +1,21 @@
+{
+  "project": "fairlend-cms",
+  "notes": "Regenerated residential architectural line-art illustration with FairLend electric-lime field.",
+  "assets": [
+    {
+      "id": "residential-lineart-electric-lime",
+      "label": "Residential architectural line-art illustration on electric lime",
+      "classification": "image",
+      "role": "Standalone marketing illustration",
+      "bbox": { "x": 0, "y": 0, "width": 1202, "height": 370 },
+      "rationale": "The dense architectural drawing, trees, stippled texture, and hand-rendered linework are raster-heavy illustration content and should remain a standalone generated image.",
+      "generation": {
+        "asset_type": "wide marketing illustration",
+        "output_basename": "residential-lineart-electric-lime",
+        "transparent": false,
+        "prompt": "Use case: ads-marketing\nAsset type: wide standalone marketing illustration\nPrimary request: regenerate the supplied residential architectural line-art illustration as a new image, preserving the same wide composition, building arrangement, perspective, crop, and visual density. Use the input only as a visual reference; do not copy pixels.\nInput images: Image 1 is a reference image only for composition, subject, and line-art treatment.\nScene/backdrop: a perfectly flat FairLend electric-lime background, exact color #8DFF00, filling the entire canvas edge to edge with no gradient, texture, vignette, floor plane, or shadows.\nSubject: a broad contemporary multi-unit residential building complex with central taller mass, lower wings, balconies, repeated windows, entry steps, planted beds, and mature deciduous trees at both sides.\nStyle/medium: architectural concept-sketch / engraved pen-and-ink illustration, crisp graphite-gray and near-black hatching with subtle magenta construction accents, delicate stippling, lightly imperfect hand-rendered contours, high detail, clean editorial finish.\nComposition/framing: ultra-wide 1202:370 aspect ratio; keep the full complex centered with generous lime breathing room above and at both sides; preserve the low baseline and horizontal footprint of the reference.\nLighting/mood: flat graphic presentation; no photographic lighting; quiet, premium, technical, optimistic.\nColor palette: #8DFF00 electric lime background; charcoal, graphite, soft gray, and restrained magenta-violet line accents for the illustration.\nMaterials/textures: fine architectural hatching, brick courses, window mullions, foliage stippling, subtle paper-like line variation only inside the drawing; background remains perfectly flat.\nText (verbatim): none.\nConstraints: generate a new standalone raster image; preserve the reference subject and overall geometry; keep all buildings and trees fully inside frame; do not add people, cars, signage, logos, or extra structures; background must be a uniform #8DFF00.\nAvoid: white or cream background, off-white halo, gradient, shadows, reflections, watermark, text, logo, photorealism, cartoon styling, cropped buildings, distorted perspective, overly saturated foliage, heavy colored fills, and background details outside the architectural drawing.",
+        "negative_prompt": "No white or cream backdrop, no background gradient, no off-white edge contamination, no text, no watermark, no logo, no people, no vehicles, no extra buildings, no clipped rooflines or trees, no photorealistic rendering, no cartoon simplification, no heavy color fills, no cast shadows."
+      }
+    }
+  ]
+}

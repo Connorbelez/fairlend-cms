@@ -206,6 +206,14 @@ body:has(.fl-mortgage-wizard-page) {
   padding: clamp(26px, 3vw, 42px);
 }
 
+.fl-mortgage-hero-embed[data-intake-mode='investor'] .fl-mortgage-options.is-compact {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.fl-mortgage-hero-embed[data-intake-mode='investor'] .fl-mortgage-option > span:nth-child(2) {
+  overflow-wrap: normal;
+}
+
 .fl-mortgage-hero-embed .fl-mortgage-success-content h1 {
   font-size: clamp(2.6rem, 3.7vw, 4.2rem);
 }
@@ -372,37 +380,44 @@ body:has(.fl-mortgage-wizard-page) {
 .fl-mortgage-file-sheet {
   position: absolute;
   display: block;
+  overflow: visible;
   border: 1px solid var(--fl-mortgage-rule-strong);
   border-radius: 10px;
   background: var(--fl-mortgage-panel);
 }
 
+.fl-mortgage-file-sheet--back-4 {
+  inset: 46px -10px -10px 62px;
+  z-index: 1;
+  opacity: 0.46;
+  transform: rotate(1.75deg);
+}
+
 .fl-mortgage-file-sheet--back-3 {
   inset: 34px 0 0 48px;
-  z-index: 1;
+  z-index: 2;
   opacity: 0.58;
   transform: rotate(1.3deg);
 }
 
 .fl-mortgage-file-sheet--back-2 {
   inset: 22px 10px 10px 34px;
-  z-index: 2;
+  z-index: 3;
   opacity: 0.72;
   transform: rotate(0.7deg);
 }
 
 .fl-mortgage-file-sheet--back-1 {
   inset: 12px 20px 20px 20px;
-  z-index: 3;
+  z-index: 4;
   opacity: 0.88;
   transform: rotate(-0.45deg);
 }
 
 .fl-mortgage-file-sheet--front {
   inset: 0 34px 32px 0;
-  z-index: 4;
+  z-index: 5;
   display: flex;
-  overflow: hidden;
   flex-direction: column;
   padding: clamp(20px, 2vw, 30px);
   box-shadow: 0 6px 8px rgb(8 9 10 / 8%);
@@ -533,16 +548,10 @@ body:has(.fl-mortgage-wizard-page) {
   font-weight: 700;
 }
 
-.fl-mortgage-file-tabs {
+.fl-mortgage-file-tab {
   position: absolute;
-  top: 54px;
-  right: 0;
-  z-index: 5;
-  display: grid;
-  gap: 7px;
-}
-
-.fl-mortgage-file-tabs span {
+  right: -54px;
+  z-index: 1;
   display: flex;
   width: 54px;
   min-height: 70px;
@@ -558,13 +567,33 @@ body:has(.fl-mortgage-wizard-page) {
   writing-mode: vertical-rl;
 }
 
-.fl-mortgage-file-tabs span.is-active {
+.fl-mortgage-file-tab--1 {
+  top: 54px;
+}
+
+.fl-mortgage-file-tab--2 {
+  top: 124px;
+}
+
+.fl-mortgage-file-tab--3 {
+  top: 194px;
+}
+
+.fl-mortgage-file-tab--4 {
+  top: 264px;
+}
+
+.fl-mortgage-file-tab--5 {
+  top: 334px;
+}
+
+.fl-mortgage-file-tab.is-active {
   border-color: var(--fl-mortgage-lime);
   background: var(--fl-mortgage-lime);
   color: var(--fl-mortgage-ink);
 }
 
-.fl-mortgage-file-tabs span.is-complete {
+.fl-mortgage-file-tab.is-complete {
   color: var(--fl-mortgage-ink);
 }
 
@@ -1197,12 +1226,29 @@ body:has(.fl-mortgage-wizard-page) {
     height: 48%;
   }
 
-  .fl-mortgage-file-tabs {
+  .fl-mortgage-file-tab--1 {
     top: 36px;
   }
 
-  .fl-mortgage-file-tabs span {
+  .fl-mortgage-file-tab--2 {
+    top: 73px;
+  }
+
+  .fl-mortgage-file-tab--3 {
+    top: 112px;
+  }
+
+  .fl-mortgage-file-tab--4 {
+    top: 149px;
+  }
+
+  .fl-mortgage-file-tab--5 {
+    top: 186px;
+  }
+
+  .fl-mortgage-file-tab {
     min-height: 42px;
+    right: -44px;
     width: 44px;
     font-size: 0.54rem;
   }
@@ -1325,14 +1371,14 @@ body:has(.fl-mortgage-wizard-page) {
     font-size: 0.9rem;
   }
 
-  .fl-mortgage-file-tabs span {
+  .fl-mortgage-file-tab {
     width: 34px;
     min-height: 34px;
     overflow: hidden;
     font-size: 0;
   }
 
-  .fl-mortgage-file-tabs span::before {
+  .fl-mortgage-file-tab::before {
     content: '';
     width: 7px;
     height: 7px;
@@ -1340,7 +1386,7 @@ body:has(.fl-mortgage-wizard-page) {
     background: rgb(8 9 10 / 18%);
   }
 
-  .fl-mortgage-file-tabs span.is-active::before {
+  .fl-mortgage-file-tab.is-active::before {
     background: var(--fl-mortgage-ink);
   }
 

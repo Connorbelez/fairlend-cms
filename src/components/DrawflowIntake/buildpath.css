@@ -1108,6 +1108,7 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 .bp-address-field,
+.bp-project-scope-fieldset,
 .bp-status-fieldset {
   display: grid;
   gap: 10px;
@@ -1118,11 +1119,98 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 
 .bp-address-field > span,
 .bp-address-field > label,
+.bp-project-scope-fieldset legend,
 .bp-status-fieldset legend {
   color: var(--bp-ink);
   font-weight: 700;
   font-size: 14px;
   letter-spacing: -0.015em;
+}
+
+.bp-project-scope-fieldset {
+  margin-bottom: 14px;
+}
+
+.bp-project-scope-fieldset > p {
+  margin: -5px 0 0;
+  color: var(--bp-ink-soft);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.bp-project-scope-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.bp-project-scope-option {
+  position: relative;
+  display: grid;
+  min-height: 54px;
+  grid-template-columns: 20px 28px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  padding: 9px 11px;
+  border: 1px solid oklch(0.84 0.01 245);
+  border-radius: 12px;
+  background: oklch(0.997 0.003 70 / 0.64);
+  color: var(--bp-ink);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.14;
+  box-shadow:
+    0 8px 18px oklch(0.24 0.03 255 / 0.04),
+    inset 0 1px 0 oklch(1 0.003 70 / 0.8);
+  transition:
+    border-color 180ms var(--bp-ease-out),
+    background-color 180ms var(--bp-ease-out),
+    box-shadow 180ms var(--bp-ease-out),
+    transform 180ms var(--bp-ease-out);
+}
+
+.bp-project-scope-option:hover {
+  border-color: oklch(0.72 0.045 128.85 / 0.72);
+  box-shadow:
+    0 12px 22px oklch(0.24 0.03 255 / 0.08),
+    inset 0 1px 0 oklch(1 0.003 70 / 0.9);
+  transform: translateY(-1px);
+}
+
+.bp-project-scope-option:has(.bp-project-scope-radio[data-state='checked']) {
+  border-color: oklch(0.69 0.17 128.85 / 0.88);
+  background: oklch(0.965 0.028 128.85 / 0.82);
+  box-shadow:
+    0 12px 24px oklch(0.68 0.19 128.85 / 0.1),
+    inset 0 1px 0 oklch(1 0.003 70 / 0.9);
+}
+
+.bp-project-scope-option:has(.bp-project-scope-radio:focus-visible) {
+  outline: 3px solid oklch(0.69 0.17 128.85 / 0.26);
+  outline-offset: 2px;
+}
+
+.bp-project-scope-radio {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid oklch(0.48 0.025 245);
+  color: oklch(0.42 0.16 128.85);
+}
+
+.bp-project-scope-radio[data-state='checked'] {
+  border-color: oklch(0.56 0.17 128.85);
+}
+
+.bp-project-scope-radio:focus-visible {
+  outline: 0;
+  box-shadow: none;
+}
+
+.bp-project-scope-icon {
+  width: 25px;
+  height: 25px;
+  color: var(--bp-ink);
 }
 
 .bp-address-input {
@@ -8550,7 +8638,17 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 
   .bp-address-field > span,
   .bp-address-field > label,
+  .bp-project-scope-fieldset legend,
   .bp-status-fieldset legend {
+    font-size: 13px;
+  }
+
+  .bp-project-scope-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bp-project-scope-option {
+    min-height: 52px;
     font-size: 13px;
   }
 

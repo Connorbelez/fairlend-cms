@@ -1,11 +1,13 @@
-import * as migration_20260409_155721_initial from './20260409_155721_initial'
-import * as migration_20260622_000000_fairlend_leads from './20260622_000000_fairlend_leads'
-import * as migration_20260704_000000_fairlend_leads_admin from './20260704_000000_fairlend_leads_admin'
-import * as migration_20260705_000000_fairlend_consultation_booking from './20260705_000000_fairlend_consultation_booking'
-import * as migration_20260705_010000_fairlend_lead_workflow from './20260705_010000_fairlend_lead_workflow'
-import * as migration_20260708_000000_qr_campaign_attribution from './20260708_000000_qr_campaign_attribution'
-import * as migration_20260708_010000_fairlend_lead_intake_detail_columns from './20260708_010000_fairlend_lead_intake_detail_columns'
-import * as migration_20260709_000000_fairlend_lead_additional_liens from './20260709_000000_fairlend_lead_additional_liens'
+import * as migration_20260409_155721_initial from './20260409_155721_initial';
+import * as migration_20260622_000000_fairlend_leads from './20260622_000000_fairlend_leads';
+import * as migration_20260704_000000_fairlend_leads_admin from './20260704_000000_fairlend_leads_admin';
+import * as migration_20260705_000000_fairlend_consultation_booking from './20260705_000000_fairlend_consultation_booking';
+import * as migration_20260705_010000_fairlend_lead_workflow from './20260705_010000_fairlend_lead_workflow';
+import * as migration_20260708_000000_qr_campaign_attribution from './20260708_000000_qr_campaign_attribution';
+import * as migration_20260708_010000_fairlend_lead_intake_detail_columns from './20260708_010000_fairlend_lead_intake_detail_columns';
+import * as migration_20260709_000000_fairlend_lead_additional_liens from './20260709_000000_fairlend_lead_additional_liens';
+import * as migration_20260712_010000_fairlend_lead_mortgage_classification from './20260712_010000_fairlend_lead_mortgage_classification';
+import * as migration_20260712_223325_money_page_blocks from './20260712_223325_money_page_blocks';
 
 export const migrations = [
   {
@@ -48,4 +50,14 @@ export const migrations = [
     down: migration_20260709_000000_fairlend_lead_additional_liens.down,
     name: '20260709_000000_fairlend_lead_additional_liens',
   },
-]
+  {
+    up: migration_20260712_010000_fairlend_lead_mortgage_classification.up,
+    down: migration_20260712_010000_fairlend_lead_mortgage_classification.down,
+    name: '20260712_010000_fairlend_lead_mortgage_classification',
+  },
+  {
+    up: migration_20260712_223325_money_page_blocks.up,
+    down: migration_20260712_223325_money_page_blocks.down,
+    name: '20260712_223325_money_page_blocks'
+  },
+];

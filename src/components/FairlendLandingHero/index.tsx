@@ -39,28 +39,6 @@ const proofStats = [
   },
 ] as const
 
-const trustedAvatars = [
-  {
-    className: 'object-[48%_32%] grayscale',
-    key: 'borrower',
-    style: { '--avatar-rotate': '-7deg' } as CSSProperties,
-  },
-  {
-    className: 'object-[55%_28%] grayscale contrast-[1.04] brightness-[1.05]',
-    key: 'builder',
-    style: { '--avatar-rotate': '2deg' } as CSSProperties,
-  },
-  {
-    className: 'object-[42%_26%] grayscale contrast-[1.12] brightness-[0.86]',
-    key: 'investor',
-    style: { '--avatar-rotate': '8deg' } as CSSProperties,
-  },
-] satisfies Array<{
-  className: string
-  key: string
-  style: CSSProperties
-}>
-
 type TorontoCloudLayerProps = {
   className: string
   cloudKey: string
@@ -135,41 +113,7 @@ function HeroDesktopActions() {
 
 function ProofStats() {
   return (
-    <aside
-      aria-label="FairLend proof points"
-      className="absolute top-[19.4%] right-[4.4%] z-10 hidden w-[270px] flex-col gap-[33px] xl:flex"
-    >
-      {proofStats.map((stat, index) => (
-        <div
-          className={cn(
-            'fairlend-toronto-copy grid items-center',
-            index === 0 && 'grid-cols-[minmax(0,146px)_1fr] gap-[24px]',
-            index === 1 && 'ml-[42px] grid-cols-[74px_42px_1fr] gap-[8px]',
-            index === 2 && 'mt-[24px] ml-[42px] grid-cols-[minmax(0,126px)_1fr] gap-[24px]',
-          )}
-          key={stat.value}
-          style={{ '--toronto-delay': `${740 + index * 120}ms` } as CSSProperties}
-        >
-          <strong className="font-serif text-[72px] leading-[0.82] font-normal tracking-[-0.045em] text-[#050506]">
-            {stat.value}
-            <sup className="ml-[1px] align-super text-[14px] leading-none tracking-normal">
-              {stat.qualifier}
-            </sup>
-          </strong>
-          {'prefix' in stat ? (
-            <span className="self-center text-[18px] leading-none font-normal text-[#141414]">
-              {stat.prefix}
-            </span>
-          ) : null}
-          <span className="text-[18px] leading-[1.17] font-normal text-[#141414]">
-            <span className="block whitespace-pre-line">{stat.label}</span>
-            <small className="mt-[3px] block max-w-[112px] text-[7px] leading-[1.05] font-medium text-[#141414]/58">
-              {stat.disclaimer}
-            </small>
-          </span>
-        </div>
-      ))}
-    </aside>
+    <aside aria-label="FairLend proof points" className="animate-authority-variant-two delight-proof absolute top-[18%] right-[4.4%] z-10 hidden w-[294px] border border-[#08090a] bg-[#f8f7f5]/96 p-4 shadow-[8px_8px_0_#96ec18] xl:block"><span aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.34] mix-blend-multiply" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/halftone.png')" }} /><div className="relative flex items-center justify-between pb-3"><span aria-hidden="true" className="authority-rule absolute inset-x-0 bottom-0 h-px bg-[#08090a]" /><p className="m-0 text-[10px] font-extrabold tracking-[0.16em] uppercase">Authority file</p><span className="delight-stamp border border-[#72b900] px-2 py-1 text-[8px] font-extrabold tracking-[0.12em] text-[#72b900] opacity-60 transition-[transform,opacity] duration-300">VERIFIED</span></div><div className="relative divide-y divide-[#08090a]/25">{proofStats.map((stat) => <div className="delight-row grid grid-cols-[112px_minmax(0,1fr)] items-center gap-3 py-4 transition-transform duration-300 ease-out" key={stat.value}><strong className="font-serif text-[54px] leading-[0.82] font-semibold tracking-[-0.04em]">{stat.value}<sup className="text-[10px]">{stat.qualifier}</sup></strong><span className="text-[14px] leading-[1.08] font-bold uppercase whitespace-pre-line">{stat.label}</span></div>)}</div></aside>
   )
 }
 
@@ -271,6 +215,18 @@ function TorontoScene() {
       data-testid="toronto-hero-scene"
     >
       <div className="absolute inset-0 mx-auto h-full w-full max-w-full overflow-hidden">
+        <Image
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 block h-full w-full object-cover opacity-[0.42] mix-blend-multiply max-md:hidden"
+          decoding="async"
+          height={941}
+          priority
+          sizes="100vw"
+          src="/assets/fairlend-toronto-contour-map.png"
+          width={1672}
+        />
+
         {torontoCloudLayers
           .filter((layer) => layer.zIndex < 4)
           .map((layer) => (
@@ -305,58 +261,12 @@ function TorontoScene() {
   )
 }
 
-function TrustedBy() {
-  return (
-    <div
-      className="fairlend-toronto-copy absolute right-[1.6%] bottom-[7.7%] z-10 hidden items-center gap-[22px] lg:flex"
-      data-toronto-trust
-      style={{ '--toronto-delay': '1120ms' } as CSSProperties}
-    >
-      <div className="flex items-center">
-        {trustedAvatars.map((avatar, index) => (
-          <span
-            className="relative -ml-2 first:ml-0 grid size-[45px] overflow-hidden rounded-full border-[2px] border-[#f8f7f5] bg-[#d7d6d2] shadow-[0_6px_14px_rgb(0_0_0/8%)]"
-            key={avatar.key}
-            style={avatar.style}
-          >
-            <Image
-              alt=""
-              className={cn(
-                'size-full scale-[1.18] object-cover [transform:rotate(var(--avatar-rotate))_scale(1.18)]',
-                avatar.className,
-              )}
-              height={80}
-              loading={index === 0 ? 'eager' : 'lazy'}
-              src="/assets/elie-headshot.webp"
-              width={80}
-            />
-          </span>
-        ))}
-      </div>
-      <div className="grid gap-[7px] text-[17px] leading-[1.12] font-normal text-[#111]">
-        <svg
-          aria-hidden="true"
-          className="ml-0.5 size-[13px] fill-[#8dff00] text-[#8dff00]"
-          viewBox="0 0 24 24"
-        >
-          <path d="M12 20.4 10.55 19.1C5.4 14.45 2 11.38 2 7.62 2 4.55 4.42 2.2 7.48 2.2c1.73 0 3.39.8 4.52 2.05A6.04 6.04 0 0 1 16.52 2.2C19.58 2.2 22 4.55 22 7.62c0 3.76-3.4 6.83-8.55 11.48L12 20.4Z" />
-        </svg>
-        <span>
-          trusted by borrowers,
-          <br />
-          builders &amp; investors
-        </span>
-      </div>
-    </div>
-  )
-}
-
 export function FairlendLandingHero() {
   return (
     <main className="w-full max-w-full overflow-hidden bg-[var(--landing-hero-paper,#f8f7f5)] text-[#08090a]">
       <section
         aria-labelledby="fairlend-hero-title"
-        className="relative isolate min-h-svh w-full max-w-full overflow-hidden rounded-b-[28px] bg-[var(--landing-hero-paper,#f8f7f5)] [font-family:var(--font-inter),Arial,sans-serif]"
+        className="relative isolate w-full max-w-full overflow-hidden rounded-b-[28px] bg-[var(--landing-hero-paper,#f8f7f5)] [font-family:var(--font-inter),Arial,sans-serif]"
         data-fairlend-motion="toronto-hero"
         data-testid="fairlend-toronto-hero"
       >
@@ -426,7 +336,7 @@ export function FairlendLandingHero() {
           <TorontoScene />
 
           <div
-            className="relative z-10 mt-[64px] w-[min(43vw,466px)] max-w-[466px] max-lg:mt-[80px] max-lg:w-[min(62vw,560px)] max-md:mt-[54px] max-md:w-full max-md:max-w-[455px]"
+            className="relative z-10 mt-[64px] w-[min(43vw,466px)] max-w-[466px] max-lg:mt-[80px] max-lg:w-[min(62vw,560px)] max-md:mt-[54px] max-md:w-full max-md:max-w-[455px] hero-mobile:pointer-events-none"
             data-toronto-hero-copy
           >
             <h1
@@ -480,7 +390,6 @@ export function FairlendLandingHero() {
 
           <ProofStats />
 
-          <TrustedBy />
           <FairlendApplicationArrow />
 
           <div

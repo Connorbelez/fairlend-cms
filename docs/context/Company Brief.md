@@ -12,7 +12,7 @@ Former RBC Capital Markets Quantitative Technical Systems Analyst and co-founder
 **Austin Krystek, COO**
 Former Head of Operations at Barton Engineering, a JIT manufacturer serving Ford and other major industrial customers, and co-founder of HumanFeedback.
 
-**Bogdan Krystek**
+**Bogdan Krystek, CFO**
 Former President of Barton Engineering.
 
 ### 4.1 FairLend Is a Mortgage Brokerage, Private Lending, and Mortgage Financing Company

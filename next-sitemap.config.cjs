@@ -1,9 +1,14 @@
 const configuredUrl = process.env.NEXT_PUBLIC_SERVER_URL?.trim()
 const vercelProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim()
-const SITE_URL = (configuredUrl || (vercelProductionUrl ? `https://${vercelProductionUrl}` : '')).replace(
-  /\/+$/,
-  '',
-)
+const productionUrl = 'https://fairlend.ca'
+const isLocalUrl = (value) => /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(value)
+const SITE_URL = (
+  configuredUrl && !isLocalUrl(configuredUrl)
+    ? configuredUrl
+    : vercelProductionUrl
+      ? `https://${vercelProductionUrl}`
+      : productionUrl
+).replace(/\/+$/, '')
 
 if (!SITE_URL) {
   throw new Error('NEXT_PUBLIC_SERVER_URL or VERCEL_PROJECT_PRODUCTION_URL is required')

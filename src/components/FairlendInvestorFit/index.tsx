@@ -38,10 +38,10 @@ export function FairlendInvestorFit(): ReactElement {
       aria-labelledby="investor-fit-title"
       className="investor-fit"
       data-investor-fit
+      id="investor-fit"
     >
       <div className="investor-fit__inner">
         <header className="investor-fit__header">
-          <p className="investor-fit__eyebrow">Who this is for</p>
           <h2 className="investor-fit__title" id="investor-fit-title">
             Built for investors who care as much about the file as the rate.
           </h2>

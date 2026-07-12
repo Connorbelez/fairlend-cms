@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { RelatedPosts } from '@/blocks/RelatedPosts/Component'
+import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -54,6 +55,8 @@ export default async function Post({ params: paramsPromise }: Args) {
 
   if (!post) return <PayloadRedirects url={url} />
 
+  const isMoneyPage = post.contentMode === 'moneyPage'
+
   return (
     <article className="pt-16 pb-16">
       <PageClient />
@@ -78,19 +81,30 @@ export default async function Post({ params: paramsPromise }: Args) {
           }),
         ]}
       />
-      <PostHero post={post} />
+      {!isMoneyPage ? <PostHero post={post} /> : null}
 
-      <div className="flex flex-col items-center gap-4 pt-8">
-        <div className="container">
-          <RichText className="max-w-[48rem] mx-auto" data={post.content} enableGutter={false} />
-          {post.relatedPosts && post.relatedPosts.length > 0 && (
-            <RelatedPosts
-              className="mt-12 max-w-[52rem] lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
-              docs={post.relatedPosts.filter((post) => typeof post === 'object')}
-            />
-          )}
+      {isMoneyPage ? (
+        <div className="money-page-document">
+          <RenderBlocks blocks={post.moneyPageLayout} />
         </div>
-      </div>
+      ) : (
+        <div className="flex flex-col items-center gap-4 pt-8">
+          <div className="container">
+            {post.content ? (
+              <RichText className="max-w-[48rem] mx-auto" data={post.content} enableGutter={false} />
+            ) : null}
+          </div>
+        </div>
+      )}
+
+      {post.relatedPosts && post.relatedPosts.length > 0 ? (
+        <div className="container">
+          <RelatedPosts
+            className="mt-12 max-w-[52rem] mx-auto lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
+            docs={post.relatedPosts.filter((post) => typeof post === 'object')}
+          />
+        </div>
+      ) : null}
     </article>
   )
 }

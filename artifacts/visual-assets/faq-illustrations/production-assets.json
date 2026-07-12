@@ -1,0 +1,29 @@
+{
+  "image_asset_count": 3,
+  "assets": [
+    {
+      "id": "faq-toronto-landmark-engraving",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/faq-illustrations/crops/faq-toronto-landmark-engraving.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/faq-illustrations/generated/raw/faq-toronto-landmark-engraving.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-faq-reference/toronto-landmark-engraving.webp",
+      "imagegen_prompt": "Use case: illustration-story. Generate a new standalone monochrome pen-and-ink halftone Toronto waterfront engraving on a removable #ff00ff chroma-key background.",
+      "transparent": true
+    },
+    {
+      "id": "faq-surveyor-compass-engraving",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/faq-illustrations/crops/faq-surveyor-compass-engraving.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/faq-illustrations/generated/raw/faq-surveyor-compass-engraving.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-faq-reference/surveyor-compass-engraving.webp",
+      "imagegen_prompt": "Use case: illustration-story. Generate a new standalone Victorian surveyor compass engraving on a removable #ff00ff chroma-key background.",
+      "transparent": true
+    },
+    {
+      "id": "faq-infill-block-engraving",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/faq-illustrations/crops/faq-infill-block-engraving.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/faq-illustrations/generated/raw/faq-infill-block-engraving.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-faq-reference/infill-block-engraving.webp",
+      "imagegen_prompt": "Use case: illustration-story. Generate a new standalone wide Toronto infill residential block engraving on a removable #ff00ff chroma-key background.",
+      "transparent": true
+    }
+  ]
+}

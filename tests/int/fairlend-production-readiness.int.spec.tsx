@@ -4,8 +4,8 @@ import type React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { fairlendNavLinks } from '@/components/directional-hover-header/header/nav-data'
-import { Footer } from '@/Footer/Component'
+import { fairlendNavLinks, NAV_LINKS } from '@/components/directional-hover-header/header/nav-data'
+import { financeItems } from '@/components/FairlendLandingOverviewSection'
 import BeforeDashboard from '@/components/BeforeDashboard'
 
 const dashboardMocks = vi.hoisted(() => ({
@@ -18,33 +18,20 @@ vi.mock('payload', () => ({
   getPayload: dashboardMocks.getPayload,
 }))
 vi.mock('@payloadcms/ui/elements/Banner', () => ({
-  Banner: ({ children, className, type }: { children: React.ReactNode; className?: string; type?: string }) => (
+  Banner: ({
+    children,
+    className,
+    type,
+  }: {
+    children: React.ReactNode
+    className?: string
+    type?: string
+  }) => (
     <div className={className} data-banner-type={type}>
       {children}
     </div>
   ),
 }))
-vi.mock('@/utilities/getGlobals', () => ({
-  getCachedGlobal: () => async () => ({
-    navItems: [
-      { link: { label: 'Posts', type: 'custom', url: '/posts' } },
-      { link: { label: 'Contact', type: 'custom', url: '/contact' } },
-      { link: { label: 'Search', type: 'custom', url: '/search' } },
-    ],
-  }),
-}))
-vi.mock('@/Footer/WatermelonFooter.client', () => ({
-  WatermelonFooter: ({ navItems }: { navItems: Array<{ link: { label: string; url: string } }> }) => (
-    <footer>
-      {navItems.map(({ link }) => (
-        <a href={link.url} key={link.label}>
-          {link.label}
-        </a>
-      ))}
-    </footer>
-  ),
-}))
-
 const repoRoot = process.cwd()
 
 async function source(path: string): Promise<string> {
@@ -80,20 +67,72 @@ describe('FairLend production readiness guards', () => {
       investing: { href: '/investing/private-mortgage-lending' },
       leadership: { href: '/#leadership' },
       partners: { href: '/partners' },
-      privateMortgages: { href: '/borrowers/private-mortgage-financing' },
+      privateMortgages: {
+        href: '/intake?intent=mortgage&source=header-nav-private-mortgage',
+      },
+      rentalPropertyAcquisition: {
+        href: '/intake?intent=mortgage&source=header-nav-acquisition-existing-rental-properties',
+      },
+      rentalPropertyRefinance: {
+        href: '/intake?intent=mortgage&source=header-nav-refinancing-existing-rental-properties',
+      },
       startFile: { href: '/intake' },
     })
   })
 
-  it('normalizes CMS footer action CTAs to intake while keeping informational links direct', async () => {
-    const markup = renderToStaticMarkup(await Footer())
-
-    expect(markup).toContain(
-      '/intake?intent=consultation&amp;source=footer-default-book-consultation',
+  it('links rental-property cards and header items to their branch-specific intake sources', () => {
+    const rentalCards = financeItems.slice(6)
+    const financingMenu = NAV_LINKS.find(({ label }) => label === 'Financing')?.menu
+    const rentalHeaderColumn = financingMenu?.columns.find(
+      ({ heading }) => heading === 'Refinancing & acquisitions',
     )
-    expect(markup).toContain('/intake?intent=contact&amp;source=footer-default-contact')
-    expect(markup).toContain('href="/search"')
-    expect(markup).not.toContain('outlook.office.com/book')
+
+    expect(rentalCards.map(({ href }) => href)).toEqual([
+      '/intake?intent=mortgage&source=landing-overview-acquisition-existing-rental-properties',
+      '/intake?intent=mortgage&source=landing-overview-refinancing-existing-rental-properties',
+    ])
+    expect(rentalHeaderColumn?.items.map(({ link }) => link.href)).toEqual([
+      '/intake?intent=mortgage&source=header-nav-acquisition-existing-rental-properties',
+      '/intake?intent=mortgage&source=header-nav-refinancing-existing-rental-properties',
+    ])
+  })
+
+  it('routes private mortgage navigation and cards to the unified intake', async () => {
+    const files = await Promise.all([
+      source('src/components/FairlendRouteSelector/route-data.tsx'),
+      source('src/components/FairlendBuildPropertyTypes/index.tsx'),
+      source('src/components/directional-hover-header/header/nav-data.ts'),
+    ])
+    const combined = files.join('\n')
+
+    expect(combined).not.toContain("href: '/borrowers/private-mortgage-financing'")
+    expect(combined).toContain("buildFairlendMortgageHref('route-selector-private-mortgage')")
+    expect(combined).toContain("buildFairlendMortgageHref('property-types-residential-mortgage')")
+    expect(combined).toContain("buildFairlendMortgageHref('header-nav-private-mortgage')")
+  })
+
+  it('routes bridge-loan cards to the unified mortgage intake', async () => {
+    const files = await Promise.all([
+      source('src/components/FairlendLandingOverviewSection/index.tsx'),
+      source('src/components/FairlendAboutStorySection/index.tsx'),
+    ])
+    const combined = files.join('\n')
+
+    expect(combined).toContain("intent: 'mortgage',\n      source: 'landing-overview-bridge-loans'")
+    expect(combined).toContain("intent: 'mortgage',\n      source: 'about-story-bridge-loans'")
+    expect(combined).not.toContain(
+      "intent: 'build',\n      source: 'landing-overview-bridge-loans'",
+    )
+    expect(combined).not.toContain("intent: 'build',\n      source: 'about-story-bridge-loans'")
+  })
+
+  it('keeps footer actions routed through tracked intake links', async () => {
+    const footerSource = await source('src/Footer/WatermelonFooter.client.tsx')
+
+    expect(footerSource).toContain("buildFairlendConsultationHref('reference-footer-apply-now')")
+    expect(footerSource).toContain('href: consultationHref')
+    expect(footerSource).toContain('href="/search?q=terms"')
+    expect(footerSource).not.toContain('outlook.office.com/book')
   })
 
   it('renders the Payload operations dashboard with populated and empty states', async () => {

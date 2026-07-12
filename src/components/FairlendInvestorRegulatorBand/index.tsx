@@ -15,9 +15,10 @@ export function FairlendInvestorRegulatorBand(): ReactElement {
       aria-labelledby="investor-regulator-title"
       className="investor-regulator"
       data-investor-regulator
+      id="investor-regulation"
     >
       <div className="investor-regulator__inner">
-        <p className="investor-regulator__eyebrow">Aligned with oversight</p>
+        <p className="investor-regulator__eyebrow">FSRA-aligned administration discipline</p>
         <h2 className="investor-regulator__title" id="investor-regulator-title">
           We welcome the scrutiny private mortgages are under.
         </h2>

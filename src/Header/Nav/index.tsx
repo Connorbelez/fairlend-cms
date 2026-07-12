@@ -8,18 +8,31 @@ import { FairlendConsultationBookingDialog } from '@/components/FairlendConsulta
 import { CMSLink } from '@/components/Link'
 import Link from 'next/link'
 import { SearchIcon } from 'lucide-react'
+import {
+  buildFairlendMortgageHref,
+  fairlendRentalPropertyAcquisitionHeaderSource,
+  fairlendRentalPropertyRefinanceHeaderSource,
+} from '@/lib/fairlend-intake'
 
 type HeaderNavItem = NonNullable<HeaderType['navItems']>[number]
 type HeaderNavLink = HeaderNavItem['link']
 
 const bookingTriggerHref = '#book-consultation'
-const privateMortgageIntakeHref = '/intake?intent=mortgage&source=route-selector-private-mortgage'
+const legacyPrivateMortgageHref = '/borrowers/private-mortgage-financing'
+const privateMortgageIntakeHref = '/intake?intent=mortgage&source=header-nav-private-mortgage'
+const rentalPropertyAcquisitionIntakeHref = buildFairlendMortgageHref(
+  fairlendRentalPropertyAcquisitionHeaderSource,
+)
+const rentalPropertyRefinanceIntakeHref = buildFairlendMortgageHref(
+  fairlendRentalPropertyRefinanceHeaderSource,
+)
 
 const polishedHeaderHrefs = new Set([
   '/',
-  '/borrowers/private-mortgage-financing',
   '/intake',
   privateMortgageIntakeHref,
+  rentalPropertyAcquisitionIntakeHref,
+  rentalPropertyRefinanceIntakeHref,
   '/investing/private-mortgage-lending',
   '/partners',
 ])
@@ -113,6 +126,10 @@ function normalizeHeaderUrl(url?: string | null): string | null {
 
   if (!normalized) {
     return null
+  }
+
+  if (normalized === legacyPrivateMortgageHref) {
+    return privateMortgageIntakeHref
   }
 
   if (polishedHeaderHrefs.has(normalized)) {

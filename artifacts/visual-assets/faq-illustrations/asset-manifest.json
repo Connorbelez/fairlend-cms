@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "project": "fairlend-cms",
+  "notes": "Reference-only crops extracted from the live FAQ page before replacing its low-resolution illustrative assets. Generated outputs must retain a transparent background so they can preserve the page's multiply-blended ink treatment.",
+  "source_image": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/faq-illustrations/source-assets.png",
+  "source_size": {
+    "width": 1600,
+    "height": 1200
+  },
+  "created_at": "2026-07-12T22:23:44.014936+00:00",
+  "output_dir": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/faq-illustrations",
+  "contact_sheet": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/faq-illustrations/contact-sheet.png",
+  "assets": [
+    {
+      "id": "faq-toronto-landmark-engraving",
+      "label": "Toronto landmark engraving",
+      "classification": "image",
+      "role": "Small editorial landmark illustration in the FAQ header",
+      "bbox": {
+        "x": 100,
+        "y": 70,
+        "width": 632,
+        "height": 584
+      },
+      "rationale": "The existing miniature raster illustration is visibly soft at its 152px rendered width. It requires a new, high-detail standalone image rather than a UI component.",
+      "generation": {
+        "asset_type": "illustration-story",
+        "transparent": true,
+        "output_basename": "faq-toronto-landmark-engraving",
+        "prompt": "Use case: illustration-story. Asset type: FairLend FAQ header editorial engraving. Input image: reference crop only; generate a new standalone asset, never a crop derivative. Primary request: a refined monochrome pen-and-ink halftone engraving of the Toronto waterfront landmarks, including the CN Tower and low historic waterfront buildings. Style/medium: exceptionally crisp nineteenth-century architectural engraving with fine crosshatching, stipple halftone and restrained charcoal-gray ink. Composition/framing: compact tall composition, landmarks centered with generous transparent margins, no horizon band or box. Constraints: isolated on a perfectly flat #ff00ff chroma-key background for removal; no text, no labels, no map, no watermark, no cast shadow, no gradients, no color in the subject, and no blur."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/faq-illustrations/crops/faq-toronto-landmark-engraving.png",
+      "crop_size": {
+        "width": 632,
+        "height": 584
+      }
+    },
+    {
+      "id": "faq-surveyor-compass-engraving",
+      "label": "Surveyor compass engraving",
+      "classification": "image",
+      "role": "Decorative route-origin marker at the FAQ section footer",
+      "bbox": {
+        "x": 980,
+        "y": 90,
+        "width": 376,
+        "height": 528
+      },
+      "rationale": "The current 94\u00d7132px raster has insufficient source resolution and loses engraving detail at presentation size.",
+      "generation": {
+        "asset_type": "illustration-story",
+        "transparent": true,
+        "output_basename": "faq-surveyor-compass-engraving",
+        "prompt": "Use case: illustration-story. Asset type: FairLend FAQ route marker. Input image: reference crop only; generate a new standalone asset, never a crop derivative. Primary request: a museum-quality monochrome engraved surveyor's compass rose, a small N at the top, intricate eight-point star, concentric calibration rings, and delicate cartographic ticks. Style/medium: Victorian field-guide ink plate, fine crosshatching and stipple halftone, graphite-black ink. Composition/framing: tall compact centered object with generous transparent margins. Constraints: isolated on a perfectly flat #ff00ff chroma-key background for removal; no text except one small uppercase N, no map, no watermark, no cast shadow, no color, no blur, and no crop edge."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/faq-illustrations/crops/faq-surveyor-compass-engraving.png",
+      "crop_size": {
+        "width": 376,
+        "height": 528
+      }
+    },
+    {
+      "id": "faq-infill-block-engraving",
+      "label": "Infill block engraving",
+      "classification": "image",
+      "role": "Wide architectural illustration beside the next-section call to action",
+      "bbox": {
+        "x": 280,
+        "y": 710,
+        "width": 1038,
+        "height": 404
+      },
+      "rationale": "The current 519\u00d7202px raster is being enlarged to a 520px layout width and its pencil lines read blurred. A new wide illustration is the appropriate replacement.",
+      "generation": {
+        "asset_type": "illustration-story",
+        "transparent": true,
+        "output_basename": "faq-infill-block-engraving",
+        "prompt": "Use case: illustration-story. Asset type: FairLend next-section architectural editorial illustration. Input image: reference crop only; generate a new standalone asset, never a crop derivative. Primary request: a sophisticated wide pen-and-ink halftone engraving of a Toronto infill residential block: 3-to-5-storey contemporary brick and stone townhomes, articulated balconies, subtle street trees, a low ground plane, and construction-ready urban density. Style/medium: premium architectural journal plate with sharp fine black linework, crosshatching, restrained stipple halftone, delicate paper-like ink variation. Composition/framing: panoramic 2.6:1 layout, the building group centered and low, generous transparent margin on all sides. Constraints: isolated on a perfectly flat #ff00ff chroma-key background for removal; no people, no cars, no signage, no text, no watermark, no cast shadow, no color, and no blur."
+      },
+      "crop_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/faq-illustrations/crops/faq-infill-block-engraving.png",
+      "crop_size": {
+        "width": 1038,
+        "height": 404
+      }
+    }
+  ]
+}

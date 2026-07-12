@@ -25,10 +25,11 @@ export function FairlendInvestorRateReframe(): ReactElement {
       aria-labelledby="investor-rate-title"
       className="investor-rate"
       data-investor-rate
+      id="investor-underwriting"
     >
       <div className="investor-rate__inner">
         <div className="investor-rate__statement">
-          <p className="investor-rate__eyebrow">The reframing</p>
+          <p className="investor-rate__eyebrow">Why rate is the wrong starting point</p>
           <h2 className="investor-rate__title" id="investor-rate-title">
             The rate is not the product.
             <span className="investor-rate__title-rule" aria-hidden="true" />

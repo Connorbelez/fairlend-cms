@@ -462,28 +462,10 @@ export function FairlendFaqSectionClient() {
   return (
     <section
       aria-labelledby="fairlend-faq-title"
-      className="relative z-[70] isolate min-h-[1586px] overflow-hidden border-y border-[#d7d7d0] bg-[#f7f6f1] text-[#11110f] [font-family:var(--font-inter),Arial,sans-serif] max-md:min-h-svh"
+      className="relative z-[70] isolate min-h-[1510px] overflow-hidden border-y border-[#d7d7d0] bg-[#f7f6f1] text-[#11110f] [font-family:var(--font-inter),Arial,sans-serif] max-md:min-h-svh"
       data-testid="fairlend-faq-section"
       id="questions"
     >
-      <div className="relative z-20 grid h-[76px] grid-cols-[1fr_auto_1fr] items-center border-b border-[#d7d7d0] bg-[#f7f6f1] px-[43px] text-[11px] leading-none font-black tracking-[0.12em] text-[#30332e] uppercase max-md:grid-cols-1 max-md:gap-3 max-md:px-5 max-md:py-5 max-md:text-center">
-        <a
-          className="justify-self-start transition-colors hover:text-[#5f8500] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#11110f] max-md:hidden"
-          href="#services"
-        >
-          Prev: How it works
-        </a>
-        <p className="m-0 font-serif text-[33px] leading-none font-bold tracking-[0.03em] text-[#30332e]">
-          FAIRLEND
-        </p>
-        <a
-          className="justify-self-end transition-colors hover:text-[#5f8500] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#11110f] max-md:hidden"
-          href="#leadership"
-        >
-          Next: Partner with us
-        </a>
-      </div>
-
       <div
         ref={routePlateRef}
         className="relative min-h-[1260px] overflow-hidden max-md:h-auto"
@@ -539,7 +521,7 @@ export function FairlendFaqSectionClient() {
             className="mt-6 h-[146px] w-full object-contain object-right opacity-[0.86] mix-blend-multiply"
             height={146}
             loading="eager"
-            src="/assets/fairlend-faq-reference/toronto-skyline-reference.webp"
+            src="/assets/fairlend-faq-reference/toronto-landmark-engraving.webp"
             width={158}
           />
         </div>
@@ -574,7 +556,7 @@ export function FairlendFaqSectionClient() {
           className="absolute bottom-[58px] left-[29px] z-10 hidden h-[132px] w-[94px] object-contain opacity-[0.9] mix-blend-multiply md:block"
           height={132}
           loading="eager"
-          src="/assets/fairlend-faq-reference/compass-reference.webp"
+          src="/assets/fairlend-faq-reference/surveyor-compass-engraving.webp"
           width={94}
         />
       </div>
@@ -595,7 +577,7 @@ export function FairlendFaqSectionClient() {
             className="h-auto w-full"
             height={202}
             loading="eager"
-            src="/assets/fairlend-faq-reference/bottom-building-reference.webp"
+            src="/assets/fairlend-faq-reference/infill-block-engraving.webp"
             width={519}
           />
         </div>

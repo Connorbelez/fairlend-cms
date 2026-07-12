@@ -62,6 +62,7 @@ export function FairlendInvestorPortal(): ReactElement {
       aria-labelledby="investor-portal-title"
       className="investor-portal"
       data-investor-portal
+      id="investor-portal"
     >
       <div className="investor-portal__inner">
         <header className="investor-portal__header">

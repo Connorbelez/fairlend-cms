@@ -44,6 +44,7 @@ import { Card } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Frame } from '@/components/ui/frame'
 import { MetalButton } from '@/components/ui/metal-button'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import {
   Timeline,
   TimelineConnector,
@@ -54,7 +55,12 @@ import {
   TimelineItem,
   TimelineTitle,
 } from '@/components/ui/timeline'
-import { buildFairlendConsultationHref, buildFairlendIntakeHref } from '@/lib/fairlend-intake'
+import {
+  buildFairlendConsultationHref,
+  buildFairlendIntakeHref,
+  fairlendProjectScopeOptions,
+  getFairlendProjectScopeLabel,
+} from '@/lib/fairlend-intake'
 
 const intakeAssetBase = '/assets/drawflow-intake'
 const buildProgressFinishedImage = `${intakeAssetBase}/Build Progress Finished-optimized.webp`
@@ -336,6 +342,7 @@ interface IntakeAnswers {
   name: string
   notes: string
   phone: string
+  projectScope: string
   projectCost: string
   projectStage: string
   projectTeam: string[]
@@ -402,11 +409,18 @@ const defaultAnswers: IntakeAnswers = {
   name: '',
   email: '',
   phone: '',
+  projectScope: '',
   notes: '',
 }
 
 const intakeStorageKey = 'build-financing-intake'
 const leadIdStorageKey = 'fairlend-lead-id'
+
+const projectScopeIcons = [Wrench, Layers3, House, Landmark] as const
+const projectScopeOptions = fairlendProjectScopeOptions.map((option, index) => ({
+  ...option,
+  icon: projectScopeIcons[index] ?? Landmark,
+}))
 
 const buildTypeOptions = [
   { icon: Building, label: 'New residential construction' },
@@ -576,10 +590,15 @@ export function DrawflowIntake(): ReactElement {
   const searchParams = useSearchParams()
   const initialAddress = searchParams.get('address')?.trim() ?? ''
   const initialLeadId = searchParams.get('leadId')?.trim() ?? null
-  const [step, setStep] = useState<WizardStep>(() => (initialAddress ? 2 : 1))
+  const initialProjectScope = getFairlendProjectScopeLabel(searchParams.get('projectScope'))
+  const source = searchParams.get('source')?.trim() || 'drawflow-intake'
+  const [step, setStep] = useState<WizardStep>(() =>
+    initialAddress || initialProjectScope ? 2 : 1,
+  )
   const [answers, setAnswers] = useState<IntakeAnswers>(() => ({
     ...defaultAnswers,
     address: initialAddress,
+    projectScope: initialProjectScope,
   }))
   const [leadId, setLeadId] = useState<string | null>(initialLeadId)
   const [submitError, setSubmitError] = useState('')
@@ -605,6 +624,7 @@ export function DrawflowIntake(): ReactElement {
 
     const incomingAddress = searchParams.get('address')?.trim()
     const incomingLeadId = searchParams.get('leadId')?.trim()
+    const incomingProjectScope = getFairlendProjectScopeLabel(searchParams.get('projectScope'))
 
     const timeout = window.setTimeout(() => {
       try {
@@ -615,9 +635,15 @@ export function DrawflowIntake(): ReactElement {
             ...current,
             ...parsedAnswers,
             address: incomingAddress || current.address || parsedAnswers.address || '',
+            projectScope:
+              incomingProjectScope || current.projectScope || parsedAnswers.projectScope || '',
           }))
-        } else if (incomingAddress) {
-          setAnswers((current) => ({ ...current, address: incomingAddress }))
+        } else if (incomingAddress || incomingProjectScope) {
+          setAnswers((current) => ({
+            ...current,
+            address: incomingAddress || current.address,
+            projectScope: incomingProjectScope || current.projectScope,
+          }))
         }
 
         const savedLeadId = window.localStorage.getItem(leadIdStorageKey)
@@ -627,8 +653,12 @@ export function DrawflowIntake(): ReactElement {
           window.localStorage.setItem(leadIdStorageKey, nextLeadId)
         }
       } catch {
-        if (incomingAddress) {
-          setAnswers((current) => ({ ...current, address: incomingAddress }))
+        if (incomingAddress || incomingProjectScope) {
+          setAnswers((current) => ({
+            ...current,
+            address: incomingAddress || current.address,
+            projectScope: incomingProjectScope || current.projectScope,
+          }))
         }
         if (incomingLeadId) {
           setLeadId(incomingLeadId)
@@ -645,7 +675,7 @@ export function DrawflowIntake(): ReactElement {
     }
 
     const timeout = window.setTimeout(() => {
-      void persistLeadDraft({ answers, leadId, status: 'draft' }).then((nextLeadId) => {
+      void persistLeadDraft({ answers, leadId, source, status: 'draft' }).then((nextLeadId) => {
         if (nextLeadId && nextLeadId !== leadId) {
           setLeadId(nextLeadId)
           try {
@@ -658,7 +688,7 @@ export function DrawflowIntake(): ReactElement {
     }, 900)
 
     return () => window.clearTimeout(timeout)
-  }, [answers, isSuccessStep, leadId])
+  }, [answers, isSuccessStep, leadId, source])
 
   useEffect(() => {
     if (step) {
@@ -685,7 +715,7 @@ export function DrawflowIntake(): ReactElement {
     setIsSubmitting(true)
     setSubmitError('')
 
-    const nextLeadId = await persistLeadDraft({ answers, leadId, status: 'submitted' })
+    const nextLeadId = await persistLeadDraft({ answers, leadId, source, status: 'submitted' })
 
     if (!nextLeadId) {
       setIsSubmitting(false)
@@ -704,7 +734,7 @@ export function DrawflowIntake(): ReactElement {
 
     setIsSubmitting(false)
     runIntakeStepTransition(() => setStep(8))
-  }, [answers, leadId])
+  }, [answers, leadId, source])
 
   const goBack = (): void => {
     runIntakeStepTransition(() => {
@@ -936,6 +966,7 @@ function BuildPathHeroStart({
           onClick={onStart}
           preset="silver"
           strength={0.5}
+          theme="dark"
           type="button"
         >
           <span>Start project review</span>
@@ -1077,6 +1108,38 @@ function BuildPathPropertyStep({
             value={answers.address}
           />
 
+          <fieldset className="bp-project-scope-fieldset">
+            <legend>What are you looking to finance?</legend>
+            <p id="intake-project-scope-description">
+              Choose the option that best matches the scope of your project.
+            </p>
+            <RadioGroup
+              aria-describedby="intake-project-scope-description"
+              aria-label="Project financing scope"
+              className="bp-project-scope-grid"
+              name="projectScope"
+              onValueChange={(value) => updateAnswer('projectScope', value)}
+              required
+              value={answers.projectScope}
+            >
+              {projectScopeOptions.map((option) => {
+                const Icon = option.icon
+
+                return (
+                  <label className="bp-project-scope-option" key={option.value}>
+                    <RadioGroupItem
+                      className="bp-project-scope-radio"
+                      id={`intake-project-scope-${option.value}`}
+                      value={option.label}
+                    />
+                    <Icon aria-hidden="true" className="bp-project-scope-icon" strokeWidth={1.8} />
+                    <span>{option.label}</span>
+                  </label>
+                )
+              })}
+            </RadioGroup>
+          </fieldset>
+
           <fieldset className="bp-status-fieldset">
             <legend>Current property status</legend>
             <div className="bp-status-grid">
@@ -1117,10 +1180,12 @@ function BuildPathPropertyStep({
 
           <MetalButton
             className="bp-form-continue bp-metal-cta"
+            disabled={!answers.projectScope}
             metalFxClassName="bp-metal-cta-shell"
             onClick={onContinue}
             preset="silver"
             strength={0.5}
+            theme="dark"
             type="button"
           >
             <span>Continue</span>
@@ -1179,6 +1244,7 @@ function BuildPathWizardStep({
               onClick={onContinue}
               preset="silver"
               strength={0.5}
+              theme="dark"
               type="button"
             >
               <span>
@@ -1826,10 +1892,12 @@ function toggleMultiValue(values: string[], value: string): string[] {
 async function persistLeadDraft({
   answers,
   leadId,
+  source,
   status,
 }: {
   answers: IntakeAnswers
   leadId: string | null
+  source: string
   status: 'draft' | 'submitted'
 }): Promise<string | null> {
   try {
@@ -1842,7 +1910,7 @@ async function persistLeadDraft({
         intent: 'build',
         name: answers.name,
         phone: answers.phone,
-        source: 'drawflow-intake',
+        source,
         status,
       }),
       headers: {
@@ -1873,6 +1941,7 @@ function buildProjectSummary(answers: IntakeAnswers): string[] {
       : 'Team pending'
   return [
     answers.address || 'Property details pending',
+    answers.projectScope || 'Project scope pending',
     answers.siteControl,
     answers.buildType,
     `${answers.unitCount} units`,
@@ -2491,6 +2560,7 @@ function StartWithPropertySection({ onStart }: { onStart: () => void }): ReactEl
             onClick={onStart}
             preset="silver"
             strength={0.5}
+            theme="dark"
             type="button"
           >
             <span>Start a build review</span>

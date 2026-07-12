@@ -74,10 +74,11 @@ export function FairlendInvestorProcess(): ReactElement {
       aria-labelledby="investor-process-title"
       className="investor-process"
       data-investor-process
+      id="investor-process"
     >
       <div className="investor-process__inner">
         <header className="investor-process__header">
-          <p className="investor-process__eyebrow">How investing works</p>
+          <p className="investor-process__eyebrow">Investor access → administered mortgage</p>
           <h2 className="investor-process__title" id="investor-process-title">
             A clear path from investor review to administered mortgage.
           </h2>

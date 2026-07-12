@@ -56,14 +56,14 @@ const financeItems = [
     ),
     href: buildFairlendIntakeHref({
       intent: 'mortgage',
-      source: 'about-story-residential-private-mortgages',
+      source: 'about-story-residential-mortgages',
     }),
     icon: aboutAssets.residentialMortgagesIcon,
-    label: 'Residential Private Mortgages',
-    tag: 'Private lending',
+    label: 'Residential Mortgages',
+    tag: 'Institutional + private',
     title: (
       <>
-        Residential Private
+        Residential
         <br />
         Mortgages
       </>
@@ -80,7 +80,7 @@ const financeItems = [
       </>
     ),
     href: buildFairlendIntakeHref({
-      intent: 'build',
+      intent: 'mortgage',
       source: 'about-story-bridge-loans',
     }),
     icon: aboutAssets.bridgeLoansIcon,
@@ -106,6 +106,7 @@ const financeItems = [
     ),
     href: buildFairlendIntakeHref({
       intent: 'build',
+      projectScope: 'renovation-financing',
       source: 'about-story-renovation-financing',
     }),
     icon: aboutAssets.mortgageInvestmentsIcon,
@@ -131,6 +132,7 @@ const financeItems = [
     ),
     href: buildFairlendIntakeHref({
       intent: 'build',
+      projectScope: 'multiplex-financing',
       source: 'about-story-multiplex-financing',
     }),
     icon: aboutAssets.multiplexFinancingIcon,
@@ -156,6 +158,7 @@ const financeItems = [
     ),
     href: buildFairlendIntakeHref({
       intent: 'build',
+      projectScope: 'garden-laneway-suites',
       source: 'about-story-garden-laneway-suites',
     }),
     icon: aboutAssets.gardenSuitesIcon,
@@ -180,7 +183,8 @@ const financeItems = [
       </>
     ),
     href: buildFairlendIntakeHref({
-      intent: 'invest',
+      intent: 'build',
+      projectScope: 'mli-select-insured-housing',
       source: 'about-story-mli-select-insured-housing',
     }),
     icon: aboutAssets.purposeBuiltRentalsIcon,

@@ -10,8 +10,13 @@ import {
   buildFairlendNewsletterHref,
   buildFairlendPartnerHref,
   buildFairlendRouteHelperHref,
+  fairlendRentalPropertyAcquisitionHeaderSource,
+  fairlendRentalPropertyRefinanceHeaderSource,
   isFairlendGenericLeadIntent,
   normalizeFairlendIntakeIntent,
+  normalizeFairlendProjectScope,
+  resolveFairlendIntakeIntent,
+  resolveFairlendRentalPropertyTransaction,
 } from '@/lib/fairlend-intake'
 
 describe('Fairlend intake routing helpers', () => {
@@ -19,6 +24,38 @@ describe('Fairlend intake routing helpers', () => {
     expect(normalizeFairlendIntakeIntent(null)).toBe('build')
     expect(normalizeFairlendIntakeIntent('construction')).toBe('build')
     expect(normalizeFairlendIntakeIntent('construction-financing')).toBe('build')
+  })
+
+  it('routes the bridge-loan attribution source to residential mortgage intake', () => {
+    expect(resolveFairlendIntakeIntent('build', 'landing-overview-bridge-loans')).toBe('mortgage')
+    expect(resolveFairlendIntakeIntent('mortgage', 'landing-overview-bridge-loans')).toBe(
+      'mortgage',
+    )
+    expect(resolveFairlendIntakeIntent('build', 'landing-overview-garden-laneway-suites')).toBe(
+      'build',
+    )
+  })
+
+  it('resolves acquisition and refinance homepage sources into the rental-property intake', () => {
+    expect(
+      resolveFairlendRentalPropertyTransaction(
+        'landing-overview-acquisition-existing-rental-properties',
+      ),
+    ).toBe('acquisition')
+    expect(
+      resolveFairlendRentalPropertyTransaction(
+        'landing-overview-refinancing-existing-rental-properties',
+      ),
+    ).toBe('refinance')
+    expect(resolveFairlendRentalPropertyTransaction('landing-overview-residential-mortgages')).toBe(
+      null,
+    )
+    expect(
+      resolveFairlendRentalPropertyTransaction(fairlendRentalPropertyAcquisitionHeaderSource),
+    ).toBe('acquisition')
+    expect(
+      resolveFairlendRentalPropertyTransaction(fairlendRentalPropertyRefinanceHeaderSource),
+    ).toBe('refinance')
   })
 
   it('treats non-build CTA intents as generic lead intakes', () => {
@@ -37,6 +74,20 @@ describe('Fairlend intake routing helpers', () => {
       }),
     ).toBe(
       '/intake?intent=mortgage&email=owner%40example.com&leadId=3dc0811f-139b-49a9-a0d7-6ef364c9a40f&source=route-selector-private-mortgage',
+    )
+  })
+
+  it('normalizes and serializes project-scope prefills', () => {
+    expect(normalizeFairlendProjectScope('multiplex')).toBe('multiplex-financing')
+    expect(normalizeFairlendProjectScope('unknown-scope')).toBeNull()
+    expect(
+      buildFairlendIntakeHref({
+        intent: 'build',
+        projectScope: 'garden-laneway-suites',
+        source: 'landing-overview-garden-laneway-suites',
+      }),
+    ).toBe(
+      '/intake?intent=build&projectScope=garden-laneway-suites&source=landing-overview-garden-laneway-suites',
     )
   })
 
