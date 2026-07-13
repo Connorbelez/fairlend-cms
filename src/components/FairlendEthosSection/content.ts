@@ -10,13 +10,12 @@ export const ETHOS_COPY = {
     'We want borrowers to return because we treated them fairly—and, one day, to trust us when they have capital of their own to lend.',
   housingHeading: 'The same alignment can change what gets built.',
   capitalTrap:
-    'Too much private capital is directed toward investor-first condominiums that are too small for families, or luxury single-family projects whose economics no longer work.',
+    'Private capital is still concentrated at two weak ends of the market: investor-first condominiums that sacrifice family utility, and luxury single-family projects whose economics no longer support the build.',
   housingOpportunity:
     'We see a better opportunity in medium-density housing: multiplexes, garden suites, laneway suites, and purpose-built rentals designed to be attainable, sustainable, spacious, and good enough to raise a family in.',
   alignedEconomics:
     'When these projects are properly selected, underwritten, and financed, private investors can pursue attractive returns while helping capable builders create homes ordinary Canadians actually need. Social value and commercial value do not have to compete. With the right incentives, each makes the other stronger.',
-  pullQuote:
-    'Fair lending is not charity. It is an operating model built around shared success.',
+  pullQuote: 'Fair lending is not charity. It is an operating model built around shared success.',
   officeCaption:
     'The FairLend office in Toronto — our name on the wall and our team accountable for the standard behind it.',
   vision:
@@ -60,12 +59,14 @@ export const ALIGNED_INTERESTS = [
 export const CAPITAL_TRAP_AUDIT = [
   {
     code: 'A',
-    finding: 'Too small for families',
+    dimension: 'Household outcome',
+    finding: 'Too small for family life',
     subject: 'Investor-first condominiums',
   },
   {
     code: 'B',
-    finding: 'Economics no longer work',
+    dimension: 'Project viability',
+    finding: 'Economics no longer support the build',
     subject: 'Luxury single-family projects',
   },
 ] as const

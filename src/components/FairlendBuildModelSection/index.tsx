@@ -613,7 +613,7 @@ function StationStep({ station }: { station: Station }) {
       <p className="bm-station-body">{station.body}</p>
       <div className="bm-station-comparison">
         <article className="bm-station-comparison-panel bm-station-comparison-panel--without">
-          <span className="bm-station-comparison-label">You coordinate</span>
+          <span className="bm-station-comparison-label">Without FairLend</span>
           <p>{station.comparison.selfManaged}</p>
         </article>
         <article className="bm-station-comparison-panel bm-station-comparison-panel--with">
