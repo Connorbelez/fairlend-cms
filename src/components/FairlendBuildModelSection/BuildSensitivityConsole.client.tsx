@@ -12,9 +12,8 @@ import {
 import { AnimatePresence, motion, type PanInfo, useReducedMotion } from 'motion/react'
 import {
   type KeyboardEvent,
-  type UIEvent,
+  type WheelEvent,
   useEffect,
-  useLayoutEffect,
   useMemo,
   useReducer,
   useRef,
@@ -32,6 +31,8 @@ type BuildScenario = {
   defaultUnits: number
   icon: typeof IconHome
   label: string
+  maximumUnits: number
+  minimumUnits: number
   monthlyRentPerUnit: number
   unitsLocked: boolean
 }
@@ -42,6 +43,8 @@ const buildTypes = [
     areaPerUnit: 2_800,
     defaultUnits: 1,
     defaultBuildCost: 380,
+    minimumUnits: 1,
+    maximumUnits: 1,
     monthlyRentPerUnit: 5_500,
     unitsLocked: true,
     icon: IconHome,
@@ -51,6 +54,8 @@ const buildTypes = [
     areaPerUnit: 4_500,
     defaultUnits: 1,
     defaultBuildCost: 500,
+    minimumUnits: 1,
+    maximumUnits: 1,
     monthlyRentPerUnit: 9_000,
     unitsLocked: true,
     icon: IconBuildingEstate,
@@ -60,8 +65,10 @@ const buildTypes = [
     areaPerUnit: 1_000,
     defaultUnits: 1,
     defaultBuildCost: 420,
+    minimumUnits: 1,
+    maximumUnits: 4,
     monthlyRentPerUnit: 2_700,
-    unitsLocked: true,
+    unitsLocked: false,
     icon: IconBuildingCottage,
   },
   {
@@ -69,6 +76,8 @@ const buildTypes = [
     areaPerUnit: 1_500,
     defaultUnits: 4,
     defaultBuildCost: 310,
+    minimumUnits: 2,
+    maximumUnits: 12,
     monthlyRentPerUnit: 4_000,
     unitsLocked: false,
     icon: IconBuildingCommunity,
@@ -106,8 +115,6 @@ const buildTypeLabelMotion = {
 }
 
 const landValues = Array.from({ length: 33 }, (_, index) => 400_000 + index * 50_000)
-const multiPlexUnitValues = Array.from({ length: 11 }, (_, index) => index + 2)
-const lockedUnitValue = [1] as const
 const buildCostValues = Array.from({ length: 61 }, (_, index) => 200 + index * 5)
 const exitValueOptions = Array.from({ length: 116 }, (_, index) => 500_000 + index * 100_000)
 
@@ -191,8 +198,8 @@ function modelReducer(state: ModelState, action: ModelAction): ModelState {
       const currentScenario = buildTypes[state.buildTypeIndex] ?? buildTypes[0]
       if (
         currentScenario.unitsLocked ||
-        action.value < 2 ||
-        action.value > 12 ||
+        action.value < currentScenario.minimumUnits ||
+        action.value > currentScenario.maximumUnits ||
         action.value === state.unitCount
       ) {
         return state
@@ -306,92 +313,50 @@ function WheelPicker({
   value,
 }: WheelPickerProps) {
   const shouldReduceMotion = useReducedMotion()
-  const viewportRef = useRef<HTMLDivElement>(null)
-  const animationFrameRef = useRef<number | null>(null)
-  const scrollEndTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const programmaticTargetRef = useRef<number | null>(null)
-  const hasMountedRef = useRef(false)
+  const wheelCooldownRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const pointerStartYRef = useRef<number | null>(null)
+  const suppressClickRef = useRef(false)
   const selectedIndex = Math.max(0, options.indexOf(value))
+  const visibleOptions = options
+    .map((option, index) => ({ index, offset: index - selectedIndex, option }))
+    .filter(({ offset }) => Math.abs(offset) <= 2)
   const labelId = `bm-wheel-label-${label.toLowerCase().replaceAll(' ', '-')}`
 
-  const clearScrollEndTimer = () => {
-    if (scrollEndTimerRef.current) clearTimeout(scrollEndTimerRef.current)
-  }
-
-  const scrollToIndex = (index: number, behavior?: ScrollBehavior) => {
+  const scrollToIndex = (index: number) => {
     if (disabled) return
     const nextIndex = Math.min(options.length - 1, Math.max(0, index))
-    programmaticTargetRef.current = nextIndex
-    clearScrollEndTimer()
-    viewportRef.current?.scrollTo({
-      top: nextIndex * WHEEL_ITEM_HEIGHT,
-      behavior: behavior ?? (shouldReduceMotion ? 'auto' : 'smooth'),
-    })
     onChange(options[nextIndex] ?? options[0] ?? value)
   }
 
-  useLayoutEffect(() => {
-    const viewport = viewportRef.current
-    if (!viewport) return
-
-    const currentIndex = Math.round(viewport.scrollTop / WHEEL_ITEM_HEIGHT)
-    if (currentIndex === selectedIndex) {
-      programmaticTargetRef.current = null
-      hasMountedRef.current = true
-      return
-    }
-
-    programmaticTargetRef.current = selectedIndex
-    viewport.scrollTo({
-      top: selectedIndex * WHEEL_ITEM_HEIGHT,
-      behavior: hasMountedRef.current && !shouldReduceMotion ? 'smooth' : 'auto',
-    })
-    hasMountedRef.current = true
-
-    clearScrollEndTimer()
-    scrollEndTimerRef.current = setTimeout(
-      () => {
-        programmaticTargetRef.current = null
-      },
-      shouldReduceMotion ? 0 : 520,
-    )
-  }, [selectedIndex, shouldReduceMotion])
-
   useEffect(
     () => () => {
-      if (animationFrameRef.current !== null) cancelAnimationFrame(animationFrameRef.current)
-      clearScrollEndTimer()
+      if (wheelCooldownRef.current) clearTimeout(wheelCooldownRef.current)
     },
     [],
   )
 
-  const handleScroll = (event: UIEvent<HTMLDivElement>) => {
-    if (disabled) return
-    if (animationFrameRef.current !== null) cancelAnimationFrame(animationFrameRef.current)
+  const handleWheel = (event: WheelEvent<HTMLDivElement>) => {
+    if (disabled || Math.abs(event.deltaY) < 4 || wheelCooldownRef.current) return
+    event.preventDefault()
+    scrollToIndex(selectedIndex + (event.deltaY > 0 ? 1 : -1))
+    wheelCooldownRef.current = setTimeout(() => {
+      wheelCooldownRef.current = null
+    }, 110)
+  }
 
-    const scrollTop = event.currentTarget.scrollTop
-    animationFrameRef.current = requestAnimationFrame(() => {
-      const nextIndex = Math.min(
-        options.length - 1,
-        Math.max(0, Math.round(scrollTop / WHEEL_ITEM_HEIGHT)),
-      )
+  const handlePointerUp = (clientY: number) => {
+    const pointerStartY = pointerStartYRef.current
+    pointerStartYRef.current = null
+    if (disabled || pointerStartY === null) return
 
-      if (programmaticTargetRef.current !== null) {
-        if (
-          nextIndex === programmaticTargetRef.current &&
-          Math.abs(scrollTop - nextIndex * WHEEL_ITEM_HEIGHT) < 1
-        ) {
-          clearScrollEndTimer()
-          scrollEndTimerRef.current = setTimeout(() => {
-            programmaticTargetRef.current = null
-          }, 80)
-        }
-        return
-      }
+    const offset = clientY - pointerStartY
+    if (Math.abs(offset) < 18) return
 
-      const nextValue = options[nextIndex]
-      if (nextValue !== undefined && nextValue !== value) onChange(nextValue)
-    })
+    suppressClickRef.current = true
+    scrollToIndex(selectedIndex + (offset < 0 ? 1 : -1))
+    setTimeout(() => {
+      suppressClickRef.current = false
+    }, 0)
   }
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -424,36 +389,62 @@ function WheelPicker({
       <div className="bm-wheel-shell">
         <span className="bm-wheel-selection" aria-hidden="true" />
         <div
-          aria-activedescendant={`${labelId}-${selectedIndex}`}
           aria-disabled={disabled}
           aria-labelledby={labelId}
-          aria-orientation="vertical"
+          aria-roledescription="wheel picker"
           className="bm-wheel-viewport"
           onKeyDown={handleKeyDown}
-          onScroll={handleScroll}
-          ref={viewportRef}
-          role="listbox"
+          onPointerCancel={() => {
+            pointerStartYRef.current = null
+          }}
+          onPointerDown={(event) => {
+            pointerStartYRef.current = event.clientY
+            suppressClickRef.current = false
+          }}
+          onPointerUp={(event) => handlePointerUp(event.clientY)}
+          onWheel={handleWheel}
+          role="group"
           tabIndex={disabled ? -1 : 0}
         >
-          {options.map((option, index) => {
-            const isSelected = option === value
+          <AnimatePresence initial={false}>
+            {visibleOptions.map(({ index, offset, option }) => {
+              const isSelected = option === value
 
-            return (
-              <button
-                aria-selected={isSelected}
-                className="bm-wheel-option"
-                disabled={disabled}
-                id={`${labelId}-${index}`}
-                key={`${label}-${option}`}
-                onClick={() => scrollToIndex(index)}
-                role="option"
-                tabIndex={-1}
-                type="button"
-              >
-                {formatValue(option)}
-              </button>
-            )
-          })}
+              return (
+                <motion.button
+                  animate={{
+                    filter: isSelected ? 'blur(0px)' : 'blur(0.35px)',
+                    opacity: isSelected ? 1 : Math.abs(offset) === 1 ? 0.38 : 0.14,
+                    scale: isSelected ? 1 : 0.9,
+                    y: offset * WHEEL_ITEM_HEIGHT,
+                  }}
+                  aria-label={`${formatValue(option)}${isSelected ? ', selected' : ''}`}
+                  aria-pressed={isSelected}
+                  className="bm-wheel-option"
+                  disabled={disabled}
+                  exit={{ opacity: 0, y: offset * WHEEL_ITEM_HEIGHT }}
+                  id={`${labelId}-${index}`}
+                  key={`${label}-${option}`}
+                  onClick={() => {
+                    if (suppressClickRef.current) {
+                      suppressClickRef.current = false
+                      return
+                    }
+                    scrollToIndex(index)
+                  }}
+                  tabIndex={-1}
+                  transition={
+                    shouldReduceMotion
+                      ? { duration: 0 }
+                      : { duration: 0.28, ease: [0.22, 1, 0.36, 1] }
+                  }
+                  type="button"
+                >
+                  {formatValue(option)}
+                </motion.button>
+              )
+            })}
+          </AnimatePresence>
         </div>
       </div>
       <div className="bm-variable-footer">
@@ -533,12 +524,6 @@ function BuildTypeCarousel({
           <IconChevronLeft aria-hidden="true" />
         </button>
         <div className="bm-build-carousel-stage">
-          <span
-            className="bm-build-carousel-peek bm-build-carousel-peek--previous"
-            aria-hidden="true"
-          >
-            {previousType.label}
-          </span>
           <AnimatePresence custom={direction} initial={false} mode="popLayout">
             <motion.div
               animate="center"
@@ -560,9 +545,6 @@ function BuildTypeCarousel({
               <span>{activeType.label}</span>
             </motion.div>
           </AnimatePresence>
-          <span className="bm-build-carousel-peek bm-build-carousel-peek--next" aria-hidden="true">
-            {nextType.label}
-          </span>
         </div>
         <button
           aria-label={`Next build type: ${nextType.label}`}
@@ -584,6 +566,14 @@ function BuildTypeCarousel({
 export function BuildSensitivityConsole() {
   const [state, dispatch] = useReducer(modelReducer, initialModelState)
   const buildType = buildTypes[state.buildTypeIndex] ?? buildTypes[0]
+  const unitOptions = useMemo(
+    () =>
+      Array.from(
+        { length: buildType.maximumUnits - buildType.minimumUnits + 1 },
+        (_, index) => buildType.minimumUnits + index,
+      ),
+    [buildType.maximumUnits, buildType.minimumUnits],
+  )
 
   const model = useMemo(() => {
     const buildCost = state.buildCostOverride ?? buildType.defaultBuildCost
@@ -630,8 +620,10 @@ export function BuildSensitivityConsole() {
         <BuildTypeCarousel
           activeIndex={state.buildTypeIndex}
           details={[
-            `${formatArea(buildType.areaPerUnit)} / unit`,
-            buildType.unitsLocked ? '1 dwelling door · fixed' : '2–12 dwelling doors',
+            `${formatArea(buildType.areaPerUnit)} / door`,
+            buildType.unitsLocked
+              ? '1 dwelling door · fixed'
+              : `${buildType.minimumUnits}–${buildType.maximumUnits} dwelling doors`,
           ]}
           onChange={(index) => dispatch({ type: 'selectBuildType', index })}
           pulseKey={pulseKey('buildType')}
@@ -646,7 +638,7 @@ export function BuildSensitivityConsole() {
           formatValue={(value) => `${value}`}
           label="Units"
           onChange={(value) => dispatch({ type: 'setUnits', value })}
-          options={buildType.unitsLocked ? lockedUnitValue : multiPlexUnitValues}
+          options={unitOptions}
           pulseKey={pulseKey('units')}
           value={state.unitCount}
         />
@@ -693,6 +685,12 @@ export function BuildSensitivityConsole() {
           <DependencyPulse pulseKey={pulseKey('profit')} />
           <span className="bm-sensitivity-label">Profit</span>
           <div className="bm-profit-orbit">
+            <span aria-hidden="true" className="bm-profit-orbit-radar">
+              <i className="bm-profit-ring bm-profit-ring--outer" />
+              <i className="bm-profit-ring bm-profit-ring--inner" />
+              <i className="bm-profit-orbit-arcs" />
+              <i className="bm-profit-orbit-nodes" />
+            </span>
             <NumberFlow
               aria-label={`Illustrative profit ${formatCompactCurrency(model.profit)}`}
               className="bm-profit-value"
