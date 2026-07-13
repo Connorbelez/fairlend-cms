@@ -842,7 +842,7 @@ body:has(.fl-mortgage-wizard-page) {
 }
 
 .fl-mortgage-options.is-compact {
-  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .fl-mortgage-option {
@@ -873,7 +873,7 @@ body:has(.fl-mortgage-wizard-page) {
 
 .fl-mortgage-option > span:nth-child(2) {
   min-width: 0;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
 }
 
 .fl-mortgage-option[data-selected='true'] {

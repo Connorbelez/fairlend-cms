@@ -1,16 +1,22 @@
 import type { ReactElement } from 'react'
 
 import { ALIGNED_INTERESTS, ETHOS_COPY, type AlignedInterest } from '../content'
+import { AlignmentPaletteMotion } from './AlignmentPaletteMotion.client'
+
+const INTEREST_PALETTE_THEMES = ['ivory', 'electric-lime', 'builder-blueprint', 'ivory'] as const
+
+type InterestPaletteTheme = (typeof INTEREST_PALETTE_THEMES)[number]
 
 type InterestLedgerEntryProps = {
   interest: AlignedInterest
+  paletteTheme: InterestPaletteTheme
 }
 
-function InterestLedgerEntry({ interest }: InterestLedgerEntryProps): ReactElement {
+function InterestLedgerEntry({ interest, paletteTheme }: InterestLedgerEntryProps): ReactElement {
   const headingId = `fairlend-ethos-interest-${interest.code}`
 
   return (
-    <li className="fairlend-ethos__interest-row">
+    <li className="fairlend-ethos__interest-row" data-ethos-palette-theme={paletteTheme}>
       <article aria-labelledby={headingId} className="fairlend-ethos__interest-entry">
         <div className="fairlend-ethos__interest-heading">
           <span className="fairlend-ethos__interest-code">{interest.code}</span>
@@ -19,7 +25,10 @@ function InterestLedgerEntry({ interest }: InterestLedgerEntryProps): ReactEleme
 
         <p className="fairlend-ethos__interest-copy">{interest.copy}</p>
 
-        <ul aria-label={`${interest.audience} alignment fields`} className="fairlend-ethos__interest-fields">
+        <ul
+          aria-label={`${interest.audience} alignment fields`}
+          className="fairlend-ethos__interest-fields"
+        >
           {interest.fields.map((field) => (
             <li key={field}>{field}</li>
           ))}
@@ -40,8 +49,12 @@ export function AlignedInterestsBlock(): ReactElement {
       aria-labelledby="fairlend-ethos-alignment-title"
       className="fairlend-ethos__alignment"
       data-ethos-block="alignment"
+      data-ethos-alignment-palette
+      data-palette-theme="ivory"
       id="ethos-aligned-interests"
     >
+      <AlignmentPaletteMotion />
+
       <div className="fairlend-ethos__alignment-spine">
         <div className="fairlend-ethos__alignment-spine-meta">
           <span>01 / Shared mortgage file</span>
@@ -54,8 +67,12 @@ export function AlignedInterestsBlock(): ReactElement {
       </div>
 
       <ol className="fairlend-ethos__interest-ledger">
-        {ALIGNED_INTERESTS.map((interest) => (
-          <InterestLedgerEntry interest={interest} key={interest.audience} />
+        {ALIGNED_INTERESTS.map((interest, index) => (
+          <InterestLedgerEntry
+            interest={interest}
+            key={interest.audience}
+            paletteTheme={INTEREST_PALETTE_THEMES[index] ?? 'ivory'}
+          />
         ))}
       </ol>
     </section>

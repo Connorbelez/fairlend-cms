@@ -48,6 +48,7 @@ export const fairlendNavLinks = {
   partners: { href: '/partners' },
   startFile: { href: '/intake' },
   about: { href: '/#overview' },
+  ethos: { href: '/#ethos' },
   leadership: { href: '/#leadership' },
   residentialMortgages: {
     href: buildFairlendMortgageHref('header-nav-residential-mortgages'),
@@ -152,6 +153,7 @@ export const NAV_LINKS: NavLink[] = [
           heading: 'FairLend',
           items: [
             { label: 'About', link: fairlendNavLinks.about },
+            { label: 'Our ethos', link: fairlendNavLinks.ethos },
             { label: 'Leadership', link: fairlendNavLinks.leadership },
           ],
         },

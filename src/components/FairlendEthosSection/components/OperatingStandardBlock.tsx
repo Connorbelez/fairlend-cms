@@ -10,7 +10,8 @@ export function OperatingStandardBlock(): ReactElement {
       data-ethos-block="operating-standard"
       id="ethos-operating-standard"
     >
-      <div className="fairlend-ethos__operating-file">
+      <div className="fairlend-ethos__operating-file" data-ethos-operating-file>
+        <span aria-hidden="true" className="fairlend-ethos__operating-scan" />
         <header className="fairlend-ethos__operating-header">
           <p>02 / Operating clause</p>
           <h3 id="fairlend-ethos-operating-title">How we operate</h3>
@@ -21,15 +22,15 @@ export function OperatingStandardBlock(): ReactElement {
           <p className="fairlend-ethos__operating-statement">{ETHOS_COPY.operatingStandard}</p>
 
           <dl className="fairlend-ethos__fee-register">
-            <div>
+            <div data-ethos-fee-row>
               <dt>Hidden charges</dt>
               <dd>Excluded</dd>
             </div>
-            <div>
+            <div data-ethos-fee-row>
               <dt>Predatory fees</dt>
               <dd>Excluded</dd>
             </div>
-            <div>
+            <div data-ethos-fee-row>
               <dt>Repeat trust</dt>
               <dd>Required</dd>
             </div>

@@ -64,7 +64,7 @@ Preserve this content and hierarchy from the current implementation:
 - Label: `Plan / Feasibility and project economics`
 - Headline: `FairLend works with you to test whether the site and project economics support a financeable build.`
 - Body: `Before you commit more capital to land or design, FairLend works with you to review the acquisition basis, zoning and housing form, unit mix, buildable area, hard and soft costs, contingency, timeline, expected value, and intended exit. This identifies financing constraints while the scope can still be changed.`
-- You coordinate: `Source and brief a planner, designer, builder or project manager, cost consultant, and permit specialists—then reconcile their advice with the budget, financing, and exit.`
+- Without FairLend: `Source and brief a planner, designer, builder or project manager, cost consultant, and permit specialists—then reconcile their advice with the budget, financing, and exit.`
 - One FairLend team: `Bring us the site or early idea. FairLend helps assemble the required specialists and turns their inputs into one financeable project plan.`
 - Sticky-board title: `Feasibility review before you commit more capital.`
 - Sticky-board output: `Feasibility review and financing brief`
@@ -74,7 +74,7 @@ Preserve this content and hierarchy from the current implementation:
 - Label: `Finance / Provide and structure construction capital`
 - Headline: `FairLend provides the construction financing and works with you to structure it around your specific build.`
 - Body: `Together, we align the land basis, construction budget, borrower equity, working-capital needs, project milestones, and exit. FairLend provides the financing and stages the advances around the work, helping keep enough capital available so the build is not squeezed without advancing funds earlier than needed and increasing interest carry.`
-- You coordinate: `Find a construction lender, compare structures, and coordinate the appraisal, legal, insurance, budget review, draw requirements, and working-capital plan.`
+- Without FairLend: `Find a construction lender, compare structures, and coordinate the appraisal, legal, insurance, budget review, draw requirements, and working-capital plan.`
 - One FairLend team: `FairLend leads the capital plan, construction financing, diligence, and milestone draw structure through one financing relationship.`
 - Sticky-board title: `Construction financing provided and structured around your build.`
 - Sticky-board output: `Financing sized and staged for the build`
@@ -105,7 +105,7 @@ Place DrawFlow immediately after the Finance station as proof of how FairLend st
 - Label: `Build support / Adjust draws as the build changes`
 - Headline: `Adjust the draw plan mid-build as the work and capital requirements change.`
 - Body: `Builds do not always follow the original sequence. FairLend works with you to revise the draw schedule as the work shifts, subject to the financing terms, so capital is available when the project needs it without being advanced earlier than necessary and adding avoidable interest carry.`
-- You coordinate: `Find and manage a builder or project manager, organize trades and suppliers, coordinate consultants and inspections, prepare each draw package, and relay every change to the lender.`
+- Without FairLend: `Find and manage a builder or project manager, organize trades and suppliers, coordinate consultants and inspections, prepare each draw package, and relay every change to the lender.`
 - One FairLend team: `FairLend helps put the right project team around the build, then keeps the draw process, project milestones, and capital plan working from one coordinated file.`
 - Sticky-board title: `A draw plan that can change with the build.`
 - Sticky-board output: `Adjustable draw plan and current funding file`
@@ -115,7 +115,7 @@ Place DrawFlow immediately after the Finance station as proof of how FairLend st
 - Label: `Takeout / CMHC-insured financing`
 - Headline: `FairLend helps you qualify for CMHC-insured takeout financing and provides the takeout financing itself.`
 - Body: `FairLend works with you early to shape the project, documentation, and operating plan toward CMHC-insured takeout eligibility. As completion approaches, we prepare the application together and FairLend provides the takeout financing for eligible projects. MLI Select is one possible CMHC-insured program, not the whole takeout offering.`
-- You coordinate: `Start a second lender search, confirm CMHC eligibility, assemble valuation, completion, occupancy, income, and operating documents, and coordinate the refinance before maturity.`
+- Without FairLend: `Start a second lender search, confirm CMHC eligibility, assemble valuation, completion, occupancy, income, and operating documents, and coordinate the refinance before maturity.`
 - One FairLend team: `FairLend sets the takeout requirements early, prepares the application with you, and provides CMHC-insured takeout financing for eligible projects.`
 - Sticky-board title: `CMHC-insured takeout qualification and financing.`
 - Sticky-board output: `CMHC-insured takeout qualification and financing plan`
@@ -125,7 +125,7 @@ Place DrawFlow immediately after the Finance station as proof of how FairLend st
 - Label: `Unf*ck Contingency Program`
 - Headline: `The Unf*ck Contingency Program helps you diagnose what stalled the build and coordinate a recovery plan.`
 - Body: `The Unf*ck Contingency Program reviews schedule, budget, trades, working capital, draw requirements, and documentation to identify the root constraints. FairLend then helps coordinate an appropriate recovery path and the resources required to pursue it. Recovery support does not guarantee cost, timing, contractor performance, completion, or full recovery.`
-- You coordinate: `Call the project manager, trades, consultants, quantity surveyor, and lender separately, piece together competing diagnoses, and coordinate a recovery plan while the project is stalled.`
+- Without FairLend: `Call the project manager, trades, consultants, quantity surveyor, and lender separately, piece together competing diagnoses, and coordinate a recovery plan while the project is stalled.`
 - One FairLend team: `Bring the whole problem to one escalation point. FairLend diagnoses the connected schedule, budget, trade, documentation, and capital constraints, then coordinates a prioritized recovery path.`
 - Sticky-board title: `The Unf*ck Contingency Program.`
 - Sticky-board output: `Prioritized recovery plan with clear owners`
@@ -150,8 +150,8 @@ Preserve the existing Builder Consulting thesis strip and its position after the
 Selected direction: **Concept 01 — One team, every stage.**
 
 - Keep the existing sticky dossier on the left and scroll narrative on the right.
-- Use a direct two-column responsibility comparison: `You coordinate` on the left and `One FairLend team` on the right.
-- `You coordinate`: screened paper field, subdued ink, and a stacked-workstreams `≡` marker. The copy inventories the specialists, documents, and handoffs the client would otherwise manage personally; it does not predict a poor outcome.
+- Use a direct two-column responsibility comparison: `Without FairLend` on the left and `One FairLend team` on the right.
+- `Without FairLend`: screened paper field, subdued ink, and a stacked-workstreams `≡` marker. The copy inventories the specialists, documents, and handoffs the client would otherwise manage personally; it does not predict a poor outcome.
 - `One FairLend team`: clean paper or active state surface, lime verification edge, and a single-accountability `1` marker.
 - Preserve blueprint and forest theme changes only for working states in the build model.
 - Preserve the existing audience ledger and DrawFlow designs rather than reinterpreting them.
@@ -177,20 +177,20 @@ Tablet/mobile:
 
 - Preserve the current mobile dossier behavior.
 - Narrative order remains linear and complete.
-- Comparison stays left-right where readable; below 420px it may stack `You coordinate` then `One FairLend team`, with both headings always visible.
+- Comparison stays left-right where readable; below 420px it may stack `Without FairLend` then `One FairLend team`, with both headings always visible.
 
 ## 10. Typography Treatment
 
 - Station headlines: Cormorant, responsive `clamp(38px, 5vw, 70px)`, maximum measure adjusted to fit the longer direct copy without orphaned words.
 - Technical labels: Oxanium uppercase, 9–13px, tracked.
 - Body: Inter, 14–16px, 1.45–1.65 line height.
-- Comparison headings must read literally `You coordinate` and `One FairLend team`.
+- Comparison headings must read literally `Without FairLend` and `One FairLend team`.
 - Preserve the current DrawFlow type hierarchy shown in the supplied screenshot.
 
 ## 11. Color Treatment
 
 - Base section remains paper/ink with current theme transitions.
-- You coordinate: current theme surface plus low-opacity stipple/dot screen and muted copy.
+- Without FairLend: current theme surface plus low-opacity stipple/dot screen and muted copy.
 - One FairLend team: higher-contrast surface with a 3–4px lime verification edge.
 - Do not use red or a failure marker. Contrast, screening, the `≡` workstream marker, and the `1` accountability marker establish the difference.
 - Unf\*ck station uses ink/blueprint with lime outline; do not introduce a new warning-red theme.
@@ -289,7 +289,7 @@ Tablet/mobile:
 - State plainly that FairLend provides financing.
 - Make adjustable draws and interest timing a core differentiator.
 - Keep the Unf\*ck Contingency Program name prominent.
-- Use literal `You coordinate` and `One FairLend team` labels.
+- Use literal `Without FairLend` and `One FairLend team` labels.
 - Describe the real sourcing, briefing, document, and handoff workload on the self-managed side; do not frame it as a predicted failure or poor consequence.
 
 ### Don't
@@ -308,7 +308,7 @@ Tablet/mobile:
 - Current `AudiencePaths` content and consultation CTA are preserved.
 - Current DrawFlow milestone, comparison, savings, flexibility, network, and testimonial content are preserved.
 - Lifecycle order is Plan → Finance → DrawFlow proof → Build Support → Takeout → Unf\*ck Contingency.
-- Every lifecycle station contains a clear left/right `You coordinate / One FairLend team` responsibility comparison on desktop.
+- Every lifecycle station contains a clear left/right `Without FairLend / One FairLend team` responsibility comparison on desktop.
 - FairLend-provided financing, adjustable draws, interest timing, CMHC-insured takeout, and Unf\*ck are explicit.
 - Existing sticky board, dossier tabs, theme transitions, CTA behavior, thesis strip, and reduced-motion behavior continue to work.
 - Mobile contains the complete content with no clipping or horizontal page overflow.

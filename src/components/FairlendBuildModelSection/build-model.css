@@ -1855,11 +1855,14 @@
 }
 
 .bm-thesis-inner {
-  width: min(100%, 1298px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1298px) minmax(0, 1fr);
+  width: 100%;
   margin: 0 auto;
 }
 
 .bm-ts-label-row {
+  grid-column: 2;
   display: flex;
   align-items: center;
   gap: clamp(16px, 2vw, 22px);
@@ -1867,6 +1870,7 @@
 }
 
 .bm-thesis-copy {
+  grid-column: 2;
   margin-top: clamp(18px, 2vw, 24px);
 }
 
@@ -1912,9 +1916,10 @@
   --bm-equation-axis: 222px;
 
   position: relative;
-  min-height: 410px;
+  grid-column: 1 / -1;
+  min-height: 430px;
   margin-top: clamp(24px, 2.6vw, 34px);
-  overflow: clip;
+  overflow: visible;
   border-top: 1px solid var(--bm-line);
   border-bottom: 1px solid var(--bm-line);
   background-color: transparent;
@@ -1929,8 +1934,9 @@
   position: relative;
   display: grid;
   grid-template-columns:
-    minmax(190px, 1.18fr) minmax(112px, 0.72fr) repeat(3, minmax(145px, 0.94fr))
-    minmax(210px, 1.18fr);
+    minmax(170px, 1.12fr) minmax(92px, 0.58fr) minmax(118px, 0.76fr)
+    minmax(125px, 0.82fr) minmax(130px, 0.84fr) minmax(145px, 0.96fr)
+    minmax(200px, 1.16fr);
   isolation: isolate;
 }
 
@@ -2034,7 +2040,7 @@
 .bm-derived-values {
   display: grid;
   gap: 3px;
-  min-height: 25px;
+  min-height: 36px;
   color: color-mix(in oklch, var(--bm-ink-deep) 68%, var(--bm-paper));
   font-family: 'Oxanium', ui-monospace, monospace;
   font-variant-numeric: tabular-nums;
@@ -2266,6 +2272,54 @@
   opacity: 1;
 }
 
+.bm-strategy-toggle {
+  position: absolute;
+  top: var(--bm-equation-axis);
+  left: 50%;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  width: min(calc(100% - 28px), 166px);
+  min-height: 54px;
+  border: 1px solid var(--bm-line-strong);
+  transform: translate(-50%, -50%);
+}
+
+.bm-strategy-toggle > button {
+  min-width: 0;
+  height: 52px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--bm-muted);
+  font-family: 'Oxanium', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.bm-strategy-toggle > button + button {
+  border-left: 1px solid var(--bm-line-strong);
+}
+
+.bm-strategy-toggle > button:hover,
+.bm-strategy-toggle > button:focus-visible {
+  background: var(--bm-signal-surface);
+  color: var(--bm-ink-deep);
+}
+
+.bm-strategy-toggle > button:focus-visible {
+  outline: 2px solid var(--bm-signal);
+  outline-offset: -3px;
+}
+
+.bm-strategy-toggle > button[data-state='on'] {
+  background: var(--bm-signal);
+  color: var(--bm-on-signal);
+}
+
 .bm-sensitivity-variable.is-locked .bm-wheel-viewport {
   overflow: hidden;
   cursor: not-allowed;
@@ -2306,7 +2360,7 @@
   display: grid;
   place-items: center;
   align-content: center;
-  width: min(116%, 260px);
+  width: min(calc(100% - 16px), 260px);
   max-width: none;
   aspect-ratio: 1;
   overflow: visible;

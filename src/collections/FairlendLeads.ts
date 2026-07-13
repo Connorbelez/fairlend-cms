@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '@/access/authenticated'
+import { fairlendLeadExportEndpoint } from '@/endpoints/exportFairlendLeads'
 
 export const FairlendLeads: CollectionConfig = {
   slug: 'fairlend-leads',
@@ -12,6 +13,9 @@ export const FairlendLeads: CollectionConfig = {
     update: authenticated,
   },
   admin: {
+    components: {
+      beforeList: ['@/components/FairlendLeads/ExportLeadsButton.client'],
+    },
     defaultColumns: [
       'workflowStatus',
       'status',
@@ -38,6 +42,7 @@ export const FairlendLeads: CollectionConfig = {
   },
   defaultSort: '-updatedAt',
   disableDuplicate: true,
+  endpoints: [fairlendLeadExportEndpoint],
   fields: [
     {
       name: 'leadId',

@@ -4,6 +4,7 @@ import { FairlendPaperSection, FairlendPaperShell } from '@/components/FairlendM
 
 import { AlignedInterestsBlock } from './components/AlignedInterestsBlock'
 import { CapitalTrapsBlock } from './components/CapitalTrapsBlock'
+import { EthosSectionMotion } from './components/EthosSectionMotion.client'
 import { EthosManifestoBlock } from './components/EthosManifestoBlock'
 import { EthosProofBlock } from './components/EthosProofBlock'
 import { HousingOpportunityBlock } from './components/HousingOpportunityBlock'
@@ -26,6 +27,7 @@ export function FairlendEthosSection({
       id="ethos"
     >
       <FairlendPaperShell className="fairlend-ethos__shell">
+        <EthosSectionMotion />
         <EthosProofBlock officeImageSrc={officeImageSrc} />
         <AlignedInterestsBlock />
         <OperatingStandardBlock />
