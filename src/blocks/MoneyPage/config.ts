@@ -15,7 +15,7 @@ const textureOptions = [
   { label: 'Groove paper', value: 'groovepaper' },
 ] as const
 
-const presentationFields: Field[] = [
+const presentationFields = (dbNamePrefix: string): Field[] => [
   {
     name: 'anchor',
     type: 'text',
@@ -30,43 +30,38 @@ const presentationFields: Field[] = [
     },
   },
   withDbName({
-    name: 'presentation',
-    dbName: 'pres',
-    type: 'group',
+    name: 'presentationSurface',
+    dbName: `${dbNamePrefix}s`,
+    type: 'select',
     admin: {
       description: 'Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.',
-      hideGutter: true,
     },
-    fields: [
-      withDbName({
-        name: 'surface',
-        dbName: 's',
-        type: 'select',
-        defaultValue: 'paper',
-        options: [
-          { label: 'Landing paper', value: 'paper' },
-          { label: 'White dossier', value: 'white' },
-          { label: 'Ink field', value: 'ink' },
-        ],
-      }),
-      withDbName({
-        name: 'texture',
-        dbName: 't',
-        type: 'select',
-        defaultValue: 'fabric-of-squares',
-        options: [...textureOptions],
-      }),
-      withDbName({
-        name: 'spacing',
-        dbName: 'p',
-        type: 'select',
-        defaultValue: 'standard',
-        options: [
-          { label: 'Compact', value: 'compact' },
-          { label: 'Standard', value: 'standard' },
-          { label: 'Immersive', value: 'immersive' },
-        ],
-      }),
+    defaultValue: 'paper',
+    label: 'Surface',
+    options: [
+      { label: 'Landing paper', value: 'paper' },
+      { label: 'White dossier', value: 'white' },
+      { label: 'Ink field', value: 'ink' },
+    ],
+  }),
+  withDbName({
+    name: 'presentationTexture',
+    dbName: `${dbNamePrefix}t`,
+    type: 'select',
+    defaultValue: 'fabric-of-squares',
+    label: 'Texture',
+    options: [...textureOptions],
+  }),
+  withDbName({
+    name: 'presentationSpacing',
+    dbName: `${dbNamePrefix}p`,
+    type: 'select',
+    defaultValue: 'standard',
+    label: 'Spacing',
+    options: [
+      { label: 'Compact', value: 'compact' },
+      { label: 'Standard', value: 'standard' },
+      { label: 'Immersive', value: 'immersive' },
     ],
   }),
 ]
@@ -92,12 +87,11 @@ const mediaField = (
   required,
 })
 
-const actionsField = (maxRows = 2): Field =>
+const actionsField = (maxRows = 2, typeDbName = 'at'): Field =>
   linkGroup({
     appearances: false,
     linkDbNames: {
-      group: 'a',
-      type: 'at',
+      type: typeDbName,
     },
     overrides: {
       admin: {
@@ -109,7 +103,7 @@ const actionsField = (maxRows = 2): Field =>
     },
   })
 
-const sectionHeadingFields: Field[] = [
+const sectionHeadingFields = (): Field[] => [
   {
     name: 'systemLabel',
     type: 'text',
@@ -179,7 +173,7 @@ export const MoneyPageHero: Block = {
       label: 'At-a-glance proof',
       maxRows: 4,
     },
-    actionsField(),
+    actionsField(2, 'ha'),
     mediaField('media', 'Primary image or video', true),
     mediaField('mobileMedia', 'Optional mobile crop'),
     {
@@ -187,7 +181,7 @@ export const MoneyPageHero: Block = {
       type: 'text',
       admin: { description: 'Visible evidence caption. The asset alt text remains the accessibility description.' },
     },
-    ...presentationFields,
+    ...presentationFields('h'),
   ],
 }
 
@@ -208,7 +202,7 @@ export const MoneyPageNarrative: Block = {
       ],
       required: true,
     },
-    ...sectionHeadingFields,
+    ...sectionHeadingFields(),
     bodyField('content', 'Narrative'),
     {
       name: 'asideTitle',
@@ -217,8 +211,8 @@ export const MoneyPageNarrative: Block = {
       label: 'Takeaway title',
     },
     bodyField('aside', 'Takeaway or pull quote support'),
-    actionsField(1),
-    ...presentationFields,
+    actionsField(1, 'na'),
+    ...presentationFields('n'),
   ],
 }
 
@@ -241,7 +235,7 @@ export const MoneyPageMediaSplit: Block = {
       ],
       required: true,
     },
-    ...sectionHeadingFields,
+    ...sectionHeadingFields(),
     bodyField('content', 'Content'),
     {
       name: 'points',
@@ -253,7 +247,7 @@ export const MoneyPageMediaSplit: Block = {
       ],
       maxRows: 5,
     },
-    actionsField(),
+    actionsField(2, 'ma'),
     mediaField('media', 'Image or video', true),
     mediaField(
       'poster',
@@ -274,7 +268,7 @@ export const MoneyPageMediaSplit: Block = {
       ],
     },
     { name: 'caption', type: 'text' },
-    ...presentationFields,
+    ...presentationFields('m'),
   ],
 }
 
@@ -295,7 +289,7 @@ export const MoneyPageFeatures: Block = {
       ],
       required: true,
     },
-    ...sectionHeadingFields,
+    ...sectionHeadingFields(),
     {
       name: 'items',
       type: 'array',
@@ -306,11 +300,11 @@ export const MoneyPageFeatures: Block = {
         bodyField('body', 'Explanation'),
         mediaField('media', 'Optional evidence asset'),
         { name: 'proof', type: 'text', label: 'Concise proof or outcome' },
-        actionsField(1),
+        actionsField(1, 'fa'),
       ],
       minRows: 2,
     },
-    ...presentationFields,
+    ...presentationFields('f'),
   ],
 }
 
@@ -331,7 +325,7 @@ export const MoneyPageProcess: Block = {
       ],
       required: true,
     },
-    ...sectionHeadingFields,
+    ...sectionHeadingFields(),
     {
       name: 'steps',
       type: 'array',
@@ -347,8 +341,8 @@ export const MoneyPageProcess: Block = {
       ],
       minRows: 2,
     },
-    actionsField(1),
-    ...presentationFields,
+    actionsField(1, 'oa'),
+    ...presentationFields('o'),
   ],
 }
 
@@ -369,7 +363,7 @@ export const MoneyPageProof: Block = {
       ],
       required: true,
     },
-    ...sectionHeadingFields,
+    ...sectionHeadingFields(),
     { name: 'quote', type: 'textarea' },
     {
       name: 'source',
@@ -395,8 +389,8 @@ export const MoneyPageProof: Block = {
       ],
       maxRows: 5,
     },
-    actionsField(1),
-    ...presentationFields,
+    actionsField(1, 'ra'),
+    ...presentationFields('r'),
   ],
 }
 
@@ -417,7 +411,7 @@ export const MoneyPageComparison: Block = {
       ],
       required: true,
     },
-    ...sectionHeadingFields,
+    ...sectionHeadingFields(),
     {
       name: 'columns',
       type: 'array',
@@ -445,8 +439,8 @@ export const MoneyPageComparison: Block = {
       ],
       minRows: 2,
     },
-    actionsField(1),
-    ...presentationFields,
+    actionsField(1, 'ca'),
+    ...presentationFields('c'),
   ],
 }
 
@@ -467,7 +461,7 @@ export const MoneyPageDisclosure: Block = {
       ],
       required: true,
     },
-    ...sectionHeadingFields,
+    ...sectionHeadingFields(),
     {
       name: 'items',
       type: 'array',
@@ -478,7 +472,7 @@ export const MoneyPageDisclosure: Block = {
         bodyField('body', 'Revealed content'),
         { name: 'signal', type: 'text', label: 'State, fit signal, or short outcome' },
         mediaField('media', 'Optional revealed asset'),
-        actionsField(1),
+        actionsField(1, 'da'),
       ],
       minRows: 2,
     },
@@ -488,7 +482,7 @@ export const MoneyPageDisclosure: Block = {
       defaultValue: true,
       label: 'Open the first item initially',
     },
-    ...presentationFields,
+    ...presentationFields('d'),
   ],
 }
 
@@ -508,7 +502,7 @@ export const MoneyPageFAQ: Block = {
       ],
       required: true,
     },
-    ...sectionHeadingFields,
+    ...sectionHeadingFields(),
     {
       name: 'items',
       type: 'array',
@@ -533,7 +527,7 @@ export const MoneyPageFAQ: Block = {
       defaultValue: true,
       label: 'Open the first answer initially',
     },
-    ...presentationFields,
+    ...presentationFields('q'),
   ],
 }
 
@@ -554,9 +548,9 @@ export const MoneyPageCTA: Block = {
       ],
       required: true,
     },
-    ...sectionHeadingFields,
+    ...sectionHeadingFields(),
     bodyField('body', 'Conversion copy'),
-    actionsField(),
+    actionsField(2, 'xa'),
     mediaField('media', 'Optional trust or project asset'),
     {
       name: 'trustNotes',
@@ -566,7 +560,7 @@ export const MoneyPageCTA: Block = {
       maxRows: 4,
     },
     { name: 'disclosure', type: 'textarea', label: 'Regulatory or qualification disclosure' },
-    ...presentationFields,
+    ...presentationFields('x'),
   ],
 }
 

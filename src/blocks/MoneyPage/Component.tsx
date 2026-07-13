@@ -130,17 +130,22 @@ const Frame = ({
   blockType,
   children,
   presentation,
+  presentationSpacing,
+  presentationSurface,
+  presentationTexture,
   variant,
 }: MoneyPageBlockData & { children: React.ReactNode }) => {
-  const texture = (presentation?.texture || 'fabric-of-squares') as MoneyPageTexture
+  const texture = (presentationTexture || presentation?.texture || 'fabric-of-squares') as MoneyPageTexture
+  const surface = presentationSurface || presentation?.surface || 'paper'
+  const spacing = presentationSpacing || presentation?.spacing || 'standard'
 
   return (
     <div
       className={cn(
         'money-page-block',
         `money-page-block--${blockType}`,
-        `money-page-block--${presentation?.surface || 'paper'}`,
-        `money-page-block--${presentation?.spacing || 'standard'}`,
+        `money-page-block--${surface}`,
+        `money-page-block--${spacing}`,
       )}
       data-money-page-block={blockType}
       data-money-page-variant={variant || undefined}

@@ -351,7 +351,7 @@
   position: absolute;
   z-index: -2;
   inset: 0;
-  background: url('/assets/fairlend-toronto-contour-map.png') 72% 36% / 78% auto no-repeat;
+  background: url('/assets/fairlend-toronto-contour-map.webp') 72% 36% / 78% auto no-repeat;
   opacity: 0.09;
   filter: grayscale(1) contrast(1.2);
 }
@@ -1152,7 +1152,7 @@
   padding: var(--pm-y) var(--pm-x);
   background:
     linear-gradient(90deg, rgb(247 246 241 / 82%), rgb(247 246 241 / 94%)),
-    url('/assets/fairlend-toronto-contour-map.png') center / cover no-repeat,
+    url('/assets/fairlend-toronto-contour-map.webp') center / cover no-repeat,
     #f7f6f1;
   overflow: hidden;
 }

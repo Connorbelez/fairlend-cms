@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 
+import Image from 'next/image'
+
 import { useState } from "react";
 import { motion } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -116,12 +118,15 @@ export default function Hero30({
           <div className="mb-6 flex items-center gap-3">
             <div className="flex -space-x-3">
               {avatars.map((url, i) => (
-                <img
+                <Image
                   key={i}
                   src={url}
                   alt={`Customer ${i + 1}`}
                   className="size-8 rounded-full border-2 border-[#8FC5E7] object-cover sm:size-10"
-                />
+                
+          width={96}
+          height={96}
+          sizes="96px"/>
               ))}
             </div>
             <span className="text-sm font-medium text-[#1C201A]/90 sm:text-base">

@@ -1,6 +1,8 @@
 // @ts-nocheck
 'use client'
 
+import Image from 'next/image'
+
 import LogoIcon from '@/assets/logo-icon';
 import { ArrowRight, ArrowDown, Globe } from 'lucide-react';
 import { motion } from 'motion/react';
@@ -68,11 +70,14 @@ export default function Hero3({
                 animate={{ scale: 1 }}
                 transition={{ duration: 2.8, ease: [0.25, 0.1, 0.25, 1] }}
             >
-                <img
+                <Image
                     src="https://assets.watermelon.sh/hero-3.avif"
                     alt="Hero background"
                     className="absolute inset-0 h-full w-full object-cover object-center"
-                />
+                
+          width={1600}
+          height={900}
+          sizes="100vw"/>
             </motion.div>
 
             {/* Gradient overlays for depth */}

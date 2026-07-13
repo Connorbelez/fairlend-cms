@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 import { cn } from '@/utilities/ui'
 
 type LogoType = {
@@ -51,7 +53,7 @@ function IntegrationCard({ row, col, logo }: TileData) {
       }}
     >
       {logo && (
-        <img
+        <Image
           alt={logo.alt}
           className={cn(
             'pointer-events-none size-8 select-none object-contain p-1',

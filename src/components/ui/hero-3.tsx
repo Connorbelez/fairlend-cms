@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 
+import Image from 'next/image'
+
 import { useState, type ReactNode } from 'react';
 import { motion, AnimatePresence, type Variants } from 'motion/react';
 import {
@@ -115,12 +117,15 @@ export function Hero3({
     <section className="dark bg-background text-foreground relative min-h-screen w-full overflow-hidden font-sans">
       {backgroundImage && (
         <div className="absolute inset-0 z-0">
-          <img
+          <Image
             src={backgroundImage}
             alt=""
             aria-hidden="true"
             className="pointer-events-none h-full w-full object-cover brightness-40 select-none"
-          />
+          
+          width={1600}
+          height={900}
+          sizes="100vw"/>
         </div>
       )}
 

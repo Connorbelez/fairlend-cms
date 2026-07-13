@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { GithubIcon } from './icons/github-icon'
 import { XIcon } from './icons/x-icon'
 import { Logo } from './logo'
@@ -69,13 +70,14 @@ export function Footer() {
             rel="noreferrer"
             target="_blank"
           >
-            <img
+            <Image
               alt="shaban"
               className="size-4 rounded-full"
-              height="auto"
+              height={40}
               src="https://github.com/shabanhr.png"
-              width="auto"
-            />
+              width={140}
+            
+          sizes="96px"/>
             Shaban
           </a>
         </p>

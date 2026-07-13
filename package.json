@@ -5,6 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "audit:images": "node scripts/audit-images.mjs",
     "build": "cross-env NODE_OPTIONS=\"--max-old-space-size=6144 --no-deprecation\" next build",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
     "ci": "pnpm build",

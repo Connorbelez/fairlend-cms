@@ -1,5 +1,7 @@
 // @ts-nocheck
 "use client"
+
+import Image from 'next/image'
 import * as React from "react"
 import {
   Activity,
@@ -166,7 +168,8 @@ export function AppSidebar({ onNavigate, currentView, ...props }: AppSidebarProp
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className="flex aspect-square size-8 items-center justify-center rounded-md shadow-sm">
-                    <img src="/logo.png" alt="Logo" width={50} height={50} className="rounded-md" />
+                    <Image src="/logo.png" alt="Logo" width={50} height={50} className="rounded-md" 
+          sizes="96px"/>
                   </div>
                   <span className="font-semibold text-base">OceanLabs</span>
                 </div>

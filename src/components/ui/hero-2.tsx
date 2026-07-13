@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 
+import Image from 'next/image'
+
 import React, { useState } from "react";
 import { motion, AnimatePresence, type Variants } from "motion/react";
 import { ArrowRight, ArrowDown, Play, ChevronDown } from "lucide-react";
@@ -89,13 +91,16 @@ export function Hero2({
         >
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
-                <img
+                <Image
                     src={
                     "https://assets.watermelon.sh/hero-2.avif"
                     }
                     alt="Background"
                     className="absolute inset-0 h-full w-full object-cover object-right md:object-center opacity-100"
-                />
+                
+          width={1600}
+          height={900}
+          sizes="100vw"/>
             </div>
 
             {/* Header / Navbar */}

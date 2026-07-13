@@ -1,5 +1,7 @@
 'use client'
 
+import Image from 'next/image'
+
 import { cn } from '@/utilities/ui'
 import { useInView } from 'motion/react'
 import React from 'react'
@@ -60,8 +62,7 @@ export function LazyImage({
       ref={ref}
     >
       {imgSrc && (
-        // biome-ignore lint/correctness/useImageSize: dynamic image size
-        <img
+        <Image
           alt={alt}
           className={cn(
             'size-full object-cover transition-opacity duration-500',
@@ -76,7 +77,10 @@ export function LazyImage({
           ref={imgRef}
           role="presentation" // Changed from "img" to "presentation" since it's decorative
           src={imgSrc}
-        />
+        
+          width={96}
+          height={96}
+          sizes="96px"/>
       )}
     </AspectRatio>
   )

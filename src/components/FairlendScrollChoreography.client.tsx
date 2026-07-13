@@ -31,7 +31,14 @@ export function FairlendScrollChoreography({
       return createInvestorChoreography()
     }
 
-    const context = gsap.context(() => {
+    let revertContext: (() => void) | undefined
+
+    const initialize = () => {
+      revertContext?.()
+
+      // Keep the existing choreography body stable; this wrapper only manages late section mounts.
+      // prettier-ignore
+      const context = gsap.context(() => {
       const clientSignals = document.querySelector<HTMLElement>(
         '[data-fairlend-motion="client-signals"]',
       )
@@ -1940,11 +1947,34 @@ export function FairlendScrollChoreography({
           animateFinance(financeTimeline, 0)
         })
       }
-    })
+      })
 
-    window.requestAnimationFrame(() => ScrollTrigger.refresh())
+      revertContext = () => context.revert()
 
-    return () => context.revert()
+      window.requestAnimationFrame(() => ScrollTrigger.refresh())
+    }
+
+    initialize()
+
+    let deferredSectionsObserver: MutationObserver | undefined
+    let hasLeadership = Boolean(document.querySelector('[data-fairlend-motion="leadership"]'))
+
+    if (!hasLeadership && typeof MutationObserver !== 'undefined' && document.body) {
+      deferredSectionsObserver = new MutationObserver(() => {
+        if (!document.querySelector('[data-fairlend-motion="leadership"]')) return
+
+        hasLeadership = true
+        deferredSectionsObserver?.disconnect()
+        initialize()
+      })
+
+      deferredSectionsObserver.observe(document.body, { childList: true, subtree: true })
+    }
+
+    return () => {
+      deferredSectionsObserver?.disconnect()
+      revertContext?.()
+    }
   }, [surface])
 
   return null

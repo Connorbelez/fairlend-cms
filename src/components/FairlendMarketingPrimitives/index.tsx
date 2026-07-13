@@ -356,7 +356,7 @@ export function FairlendFinanceCard({
       data-finance-index={String(index + 1).padStart(2, '0')}
       render={<a aria-label={`${label} - learn more`} href={href} />}
     >
-      <img
+      <Image
         alt=""
         data-about-finance-icon
         decoding="async"
@@ -364,7 +364,8 @@ export function FairlendFinanceCard({
         height={512}
         src={icon}
         width={512}
-      />
+      
+          sizes="100vw"/>
       <div data-about-finance-copy>
         <span className="about-finance-tag" data-about-finance-tag>
           {tag}

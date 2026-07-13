@@ -1,5 +1,7 @@
 'use client'
 
+import Image from 'next/image'
+
 import { salesData, emailData, salesConfig, emailConfig, employees, stats } from '../data'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -431,11 +433,14 @@ const OverviewTabContent = () => {
                   </TableCell>
                   <TableCell className="py-4">
                     <div className="flex items-center gap-2.5">
-                      <img
+                      <Image
                         src={emp.image}
                         alt={emp.name}
                         className="size-6 rounded-full object-cover border border-neutral-200 dark:border-neutral-800"
-                      />
+                      
+          width={96}
+          height={96}
+          sizes="96px"/>
                       <span className="text-neutral-900 dark:text-neutral-400 text-xs font-semibold tracking-tight">
                         {emp.name}
                       </span>
@@ -491,11 +496,14 @@ const OverviewTabContent = () => {
                             </DialogDescription>
                           </DialogHeader>
                           <div className="flex items-center gap-4 py-4">
-                            <img
+                            <Image
                               src={emp.image}
                               alt={emp.name}
                               className="size-16 rounded-full object-cover border border-neutral-200 dark:border-neutral-800"
-                            />
+                            
+          width={96}
+          height={96}
+          sizes="96px"/>
                             <div>
                               <h4 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
                                 {emp.name}

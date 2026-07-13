@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import type { ComponentProps, FormEventHandler, ReactNode } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { ArrowRight, Handshake, MapPin, Medal, ShieldCheck, type LucideIcon } from 'lucide-react'
@@ -375,11 +376,14 @@ function FairlendFinancingRouteReference({
         <div className="relative min-h-[520px] overflow-hidden px-3 py-3 sm:min-h-[620px]">
           {/* Illustration is caller-owned so crops/reference assets never ship from this component. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             alt={illustrationAlt}
             className={cn('h-full min-h-[500px] w-full object-contain', illustrationClassName)}
             src={illustrationSrc}
-          />
+          
+          width={1600}
+          height={900}
+          sizes="100vw"/>
           {inlineCtaProps !== false && (
             <FairlendInlineApplicationCta
               className="absolute right-5 bottom-6 hidden w-[320px] lg:block"

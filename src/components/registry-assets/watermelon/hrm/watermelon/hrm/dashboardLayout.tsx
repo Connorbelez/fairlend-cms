@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { IconRail, SecondarySidebar } from './components/app-sidebar'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { Button } from '@/components/ui/button'
@@ -77,11 +78,14 @@ export const DashboardLayout = ({
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className="rounded-full outline-none p-1 hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-all active:scale-95 duration-200">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                     alt="User"
                     className="size-7 rounded-full object-cover shadow-sm"
-                  />
+                  
+          width={96}
+          height={96}
+          sizes="96px"/>
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
@@ -90,11 +94,14 @@ export const DashboardLayout = ({
               >
                 <DropdownMenuLabel className="font-normal flex p-3 gap-3 pb-2">
                   <div className="flex items-center gap-2 overflow-hidden">
-                    <img
+                    <Image
                       src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="User"
                       className="size-8 rounded-lg object-cover"
-                    />
+                    
+          width={96}
+          height={96}
+          sizes="96px"/>
                     <div className="grid flex-1 text-left text-sm leading-tight">
                       <span className="truncate font-semibold text-foreground">Admin User</span>
                       <span className="truncate text-xs text-muted-foreground">admin@gr8r.io</span>

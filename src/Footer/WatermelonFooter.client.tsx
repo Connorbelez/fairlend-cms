@@ -26,18 +26,18 @@ const footerColumns = [
     links: [
       { label: 'Development Financing', href: '/construction-draw-financing' },
       { label: 'Construction Loans', href: '/construction-draw-financing' },
-      { label: 'Bridge Financing', href: '/search?q=bridge+financing' },
-      { label: 'Mezzanine Capital', href: '/search?q=mezzanine+capital' },
-      { label: 'Project Advisory', href: consultationHref },
+      { label: 'Bridge Financing', href: '/borrowers/private-mortgage-financing' },
+      { label: 'Mezzanine Capital', href: '/borrowers/institutional-mortgage' },
+      { label: 'Project Advisory', href: '/partners' },
     ],
   },
   {
     title: 'Borrow',
     links: [
       { label: 'Loan Programs', href: '/multiplex-financing-gta' },
-      { label: 'How It Works', href: '/#how-it-works' },
-      { label: 'Rate Sheet', href: '/search?q=rate+sheet' },
-      { label: 'Documents', href: '/search?q=documents' },
+      { label: 'How It Works', href: '/intake' },
+      { label: 'Rate Sheet', href: '/borrowers/private-mortgage-financing' },
+      { label: 'Documents', href: '/en/brokerage/privacy-policy' },
       { label: 'Apply Now', href: consultationHref },
     ],
   },
@@ -45,20 +45,20 @@ const footerColumns = [
     title: 'Invest',
     links: [
       { label: 'Investment Approach', href: '/investing/private-mortgage-lending' },
-      { label: 'Opportunities', href: '/investing/private-mortgage-lending#opportunities' },
-      { label: 'Track Record', href: '/investing/private-mortgage-lending#track-record' },
-      { label: 'Investor Resources', href: '/search?q=investor+resources' },
+      { label: 'Opportunities', href: '/investing/private-mortgage-lending' },
+      { label: 'Track Record', href: '/investing/private-mortgage-lending' },
+      { label: 'Investor Resources', href: '/posts' },
       { label: 'Partner With Us', href: consultationHref },
     ],
   },
   {
     title: 'Insights',
     links: [
-      { label: 'Market Commentary', href: '/search?q=market+commentary' },
-      { label: 'Toronto Field Guide', href: '/search?q=toronto+field+guide' },
-      { label: 'Reports & Data', href: '/search?q=reports+data' },
-      { label: 'Case Studies', href: '/search?q=case+studies' },
-      { label: 'Newsroom', href: '/search?q=newsroom' },
+      { label: 'Market Commentary', href: '/posts' },
+      { label: 'Toronto Field Guide', href: '/garden-suite-financing-gta' },
+      { label: 'Reports & Data', href: '/cmhc-mli-select-multiplex-financing' },
+      { label: 'Case Studies', href: '/partners' },
+      { label: 'Newsroom', href: '/posts' },
     ],
   },
 ] as const
@@ -266,7 +266,7 @@ export function WatermelonFooter() {
               <p>
                 <a href="tel:+14165550199">416-555-0199</a>
                 <br />
-                <a href="mailto:capital@fairlend.com">capital@fairlend.com</a>
+                <a href="mailto:capital@fairlend.ca">capital@fairlend.ca</a>
               </p>
             </div>
           </section>
@@ -278,12 +278,29 @@ export function WatermelonFooter() {
             <span>TORONTO&nbsp;&nbsp;43.6532° N</span>
           </div>
           <span aria-hidden="true" className={styles.centerTick} />
-          <div className={styles.legalLinks}>
-            <a href="https://mbsweblist.fsco.gov.on.ca/ShowLicence.aspx?13827~">FSRA LICENSED</a>
+          <div aria-label="FairLend licence information" className={styles.legalLinks}>
+            <span className="sr-only">
+              FairLend Management Inc. operating as FairLend Mortgage.
+            </span>
+            <a
+              href="https://mbsweblist.fsco.gov.on.ca/ShowLicence.aspx?13827~"
+              rel="noreferrer"
+              target="_blank"
+            >
+              FSRA brokerage licence #13827
+            </a>
+            <span aria-hidden="true" className={styles.verticalRule} />
+            <a
+              href="https://mbsweblist.fsco.gov.on.ca/ShowLicence.aspx?13828~"
+              rel="noreferrer"
+              target="_blank"
+            >
+              FSRA administrator licence #13828
+            </a>
             <span aria-hidden="true" className={styles.verticalRule} />
             <Link href="/en/brokerage/privacy-policy">Privacy</Link>
             <span aria-hidden="true" className={styles.verticalRule} />
-            <Link href="/search?q=terms">Terms</Link>
+            <Link href="/terms">Terms</Link>
             <span aria-hidden="true" className={styles.crosshair} />
           </div>
         </div>

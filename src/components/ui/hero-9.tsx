@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 
+import Image from 'next/image'
+
 import { useState, type ReactNode } from 'react';
 import { AnimatePresence, motion, type Variants } from 'motion/react';
 import { FaArrowRight, FaChevronDown, FaXmark } from 'react-icons/fa6';
@@ -128,11 +130,14 @@ export function Hero9({
         className="absolute inset-0 will-change-transform"
         aria-hidden="true"
       >
-        <img
+        <Image
           src={backgroundImage}
           alt=""
           className="h-full w-full object-cover object-center  outline-1 outline-black/10"
-        />
+        
+          width={1600}
+          height={900}
+          sizes="100vw"/>
       </motion.div>
 
 
@@ -253,12 +258,15 @@ export function Hero9({
           >
             <span className="flex -space-x-2">
               {avatars.map((avatar) => (
-                <img
+                <Image
                   key={avatar.src}
                   src={avatar.src}
                   alt={avatar.alt}
                   className="size-5 rounded-full object-cover shadow-xs outline-1 -outline-offset-1 outline-white/10"
-                />
+                
+          width={96}
+          height={96}
+          sizes="96px"/>
               ))}
               <span className="grid size-5 -rotate-45 place-items-center rounded-full bg-white text-slate-800">
                 <FaArrowRight className="size-2.5" />

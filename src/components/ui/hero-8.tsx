@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 
+import Image from 'next/image'
+
 import { useState, type ReactNode } from 'react';
 import { AnimatePresence, motion, type Variants } from 'motion/react';
 import { FaBars, FaChevronDown, FaPlay, FaXmark } from 'react-icons/fa6';
@@ -104,12 +106,15 @@ export function Hero8({
         viewport={{ once: true, amount: 0.35 }}
         className="absolute inset-0 will-change-transform"
       >
-        <img
+        <Image
           src={backgroundImage}
           alt=""
           aria-hidden="true"
           className="h-full w-full object-cover object-center opacity-75 outline outline-1 outline-white/10"
-        />
+        
+          width={1600}
+          height={900}
+          sizes="100vw"/>
       </motion.div>
 
       <div className="relative z-10 flex min-h-[720px] w-full flex-col px-7 py-5 sm:min-h-screen sm:px-10 lg:px-12">

@@ -115,7 +115,7 @@ export function MoneyPageDisclosure({
     )
   }
 
-  const defaultValue = items[0]?.id || 'item-0'
+  const defaultValue = openFirst ? items[0]?.id || 'item-0' : undefined
 
   return (
     <Tabs

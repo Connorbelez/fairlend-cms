@@ -1,5 +1,7 @@
 'use client'
 
+import Image from 'next/image'
+
 /**
  * @author: @dorianbaffier
  * @description: Card Stack
@@ -204,12 +206,15 @@ const Card = ({ product, index, totalCards, isExpanded }: CardProps) => {
             'shadow-inner',
           )}
         >
-          <img
+          <Image
             alt={product.title}
             className="h-full w-full object-cover"
             loading="lazy"
             src={product.image}
-          />
+          
+          width={1600}
+          height={900}
+          sizes="100vw"/>
         </div>
 
         <div className="mt-4">

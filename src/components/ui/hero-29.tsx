@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 
+import Image from 'next/image'
+
 import { useState } from "react";
 import { motion } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -165,7 +167,10 @@ export default function Hero29({
         {/* Left Consultation Pill */}
         <div className="flex w-fit shrink-0 cursor-pointer items-center gap-4 rounded-full border border-white/10 bg-black/40 py-2 pl-2 pr-6 shadow-xl backdrop-blur-md transition-colors hover:bg-black/50">
           <div className="relative shrink-0">
-            <img src={avatarUrl} alt="Consultant" className="size-10 rounded-full object-cover" />
+            <Image src={avatarUrl} alt="Consultant" className="size-10 rounded-full object-cover" 
+          width={96}
+          height={96}
+          sizes="96px"/>
           </div>
           <div className="flex items-center gap-3">
             <div className="size-2 shrink-0 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]" />

@@ -1,6 +1,8 @@
 // @ts-nocheck
 'use client';
 
+import Image from 'next/image'
+
 import LogoIcon from '@/assets/logo-icon';
 import { ArrowRight, ChevronDown, Globe2 } from 'lucide-react';
 import { motion, type Variants } from 'motion/react';
@@ -191,11 +193,14 @@ function FloatingCard({
       transition={{ duration: 4, ease: 'easeInOut', repeat: Infinity, repeatType: 'loop' }}
       className="group absolute bottom-8 left-7 z-20 w-[220px] rounded-md bg-emerald-950/20 p-1.5 shadow-[0_20px_50px_rgba(6,78,59,0.22),inset_0_0_0_1px_rgba(255,255,255,0.18)] backdrop-blur-md transition-[background-color,box-shadow] duration-300 ease-out hover:bg-emerald-950/30 hover:shadow-[0_28px_60px_rgba(6,78,59,0.32),inset_0_0_0_1px_rgba(255,255,255,0.26)] active:scale-[0.96] sm:left-11 lg:left-14"
     >
-      <img
+      <Image
         src={previewImage}
         alt=""
         className="h-[6.2rem] w-full rounded-sm object-cover object-center shadow-[0_0_0_1px_rgba(255,255,255,0.1)]"
-      />
+      
+          width={1600}
+          height={900}
+          sizes="100vw"/>
       <span className="mt-2 flex min-h-7 items-center justify-between gap-3 px-1 text-sm font-normal text-white">
         {previewLabel}
         <ArrowRight className="size-4 -rotate-45 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

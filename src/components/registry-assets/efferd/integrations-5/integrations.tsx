@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { cn } from '@/utilities/ui'
 import { Button } from '@/components/ui/button'
 import { ArrowUpRightIcon } from 'lucide-react'
@@ -74,16 +75,17 @@ export function Integrations() {
             >
               <div className="flex size-12 items-center justify-center overflow-hidden rounded-full border bg-card shadow-sm md:size-16">
                 {item.src && (
-                  <img
+                  <Image
                     alt={item.name}
                     className={cn(
                       'pointer-events-auto size-5 select-none object-contain md:size-6',
                       item.isInvertable && 'dark:invert',
                     )}
-                    height="auto"
+                    height={40}
                     src={item.src}
-                    width="auto"
-                  />
+                    width={140}
+                  
+          sizes="96px"/>
                 )}
               </div>
             </div>

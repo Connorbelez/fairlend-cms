@@ -1,5 +1,7 @@
 // @ts-nocheck
 "use client"
+
+import Image from 'next/image'
 import {
     X,
     Plus,
@@ -207,7 +209,10 @@ export default function QueueView() {
                                                 <div className="flex -space-x-2">
                                                     {[1, 2, 3].map(i => (
                                                         <div key={i} className="size-4 rounded-full border border-neutral-200 dark:border-zinc-900 bg-neutral-200 dark:bg-zinc-800 ring-1 ring-neutral-200/50 dark:ring-zinc-800/50 overflow-hidden">
-                                                            <img src={`https://i.pravatar.cc/150?u=${i + 10}`} alt="" className="w-full h-full object-cover" />
+                                                            <Image src={`https://i.pravatar.cc/150?u=${i + 10}`} alt="" className="w-full h-full object-cover" 
+          width={96}
+          height={96}
+          sizes="96px"/>
                                                         </div>
                                                     ))}
                                                 </div>
@@ -221,7 +226,10 @@ export default function QueueView() {
                                                 <button key={member.name} onClick={() => setOwners(prev => prev.includes(member.name) ? prev.filter(x => x !== member.name) : [...prev, member.name])}
                                                     className="w-full flex items-center gap-2.5 px-2 py-1.5 rounded-md text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:bg-neutral-100 dark:focus:bg-neutral-800 outline-none transition-colors">
                                                     <div className="size-5 rounded-full overflow-hidden shrink-0">
-                                                        <img src={member.img} alt="" className="w-full h-full object-cover" />
+                                                        <Image src={member.img} alt="" className="w-full h-full object-cover" 
+          width={96}
+          height={96}
+          sizes="96px"/>
                                                     </div>
                                                     <span>{member.name}</span>
                                                     {owners.includes(member.name) && <Check className="size-3 ml-auto text-neutral-400" />}

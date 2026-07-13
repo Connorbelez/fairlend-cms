@@ -1,3 +1,4 @@
+import Image from 'next/image'
 /* eslint-disable @next/next/no-img-element */
 import { type LucideIcon, ShieldCheck, TrendingUp, Users } from 'lucide-react'
 import type { ReactElement } from 'react'
@@ -247,7 +248,7 @@ export function FairlendAboutStorySection(): ReactElement {
             <FairlendExpertisePanel items={expertiseItems} />
           </div>
 
-          <img
+          <Image
             alt=""
             className="about-skyline"
             data-about-skyline
@@ -256,7 +257,8 @@ export function FairlendAboutStorySection(): ReactElement {
             height={847}
             src={aboutAssets.torontoSkyline}
             width={1681}
-          />
+          
+          sizes="100vw"/>
         </section>
 
         <section

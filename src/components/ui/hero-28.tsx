@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 
+import Image from 'next/image'
+
 import { useState } from "react";
 import { motion } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -151,12 +153,15 @@ export default function Hero28({
           <div className="mb-8 flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
             <div className="flex -space-x-3">
               {PLACEHOLDER_AVATARS.map((avatar, index) => (
-                <img
+                <Image
                   key={index}
                   src={avatar}
                   alt="Customer avatar"
                   className="size-10 rounded-full border-2 border-[#EAE8DE] object-cover shadow-sm"
-                />
+                
+          width={96}
+          height={96}
+          sizes="96px"/>
               ))}
             </div>
             <div className="flex flex-col items-center sm:items-start">

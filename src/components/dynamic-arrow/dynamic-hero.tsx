@@ -1,5 +1,7 @@
 'use client'
 
+import Image from 'next/image'
+
 import { useEffect, useMemo, useRef, useState, type ComponentPropsWithoutRef } from 'react'
 
 import {
@@ -159,14 +161,16 @@ export function HeroSection({
             <div className="relative flex h-64 items-center justify-center overflow-hidden rounded-[1.75rem] bg-card sm:h-72 md:h-80 lg:h-96">
               {imageUrl ? (
                 // The original dynamic-arrow demo accepts arbitrary image URLs, so this remains a plain img.
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <Image
                   alt="Preview"
                   className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${
                     showVideo ? 'pointer-events-none opacity-0' : 'opacity-100'
                   }`}
                   src={imageUrl}
-                />
+                
+          width={1600}
+          height={900}
+          sizes="100vw"/>
               ) : null}
 
               {videoUrl ? (

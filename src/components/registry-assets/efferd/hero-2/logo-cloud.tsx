@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { cn } from '@/utilities/ui'
 import { DecorIcon } from './decor-icon'
 
@@ -93,13 +94,14 @@ function LogoCard({ logo, className, children, ...props }: LogoCardProps) {
       className={cn('flex items-center justify-center bg-background px-4 py-8 md:p-8', className)}
       {...props}
     >
-      <img
+      <Image
         alt={logo.alt}
         className="pointer-events-none h-4 select-none md:h-5 dark:brightness-0 dark:invert"
-        height="auto"
+        height={40}
         src={logo.src}
-        width="auto"
-      />
+        width={140}
+      
+          sizes="96px"/>
       {children}
     </div>
   )

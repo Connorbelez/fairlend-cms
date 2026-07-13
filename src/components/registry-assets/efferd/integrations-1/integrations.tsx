@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { cn } from '@/utilities/ui'
 import { Button } from '@/components/ui/button'
 import { ArrowUpRightIcon } from 'lucide-react'
@@ -48,7 +49,7 @@ export function Integrations() {
           )}
           key={item.name}
         >
-          <img
+          <Image
             alt={item.name}
             className={cn(
               'pointer-events-none size-8 shrink-0 select-none object-contain',
@@ -57,7 +58,8 @@ export function Integrations() {
             height={32}
             src={item.src}
             width={32}
-          />
+          
+          sizes="96px"/>
           <div className="space-y-1">
             <h3 className="font-semibold">{item.name}</h3>
             <p className="text-muted-foreground text-xs md:text-sm">{item.description}</p>

@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 
+import Image from 'next/image'
+
 import LogoIcon from "@/assets/logo-icon";
 import { motion, type Variants } from "motion/react";
 import { ArrowRight, ChevronDown } from "lucide-react";
@@ -69,11 +71,14 @@ export default function Hero38() {
         animate="show"
         className="pointer-events-none absolute inset-0 z-0 will-change-transform select-none"
       >
-        <img
+        <Image
           src="https://assets.watermelon.sh/bg-hero-38.avif"
           alt="Astronaut looking at a glowing planet"
           className="h-full w-full translate-y-20 object-cover object-bottom"
-        />
+        
+          width={1600}
+          height={900}
+          sizes="100vw"/>
       </motion.div>
 
       <div className="relative z-10 flex min-h-screen flex-col">

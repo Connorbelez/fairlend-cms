@@ -113,43 +113,60 @@ function HeroDesktopActions() {
 
 function ProofStats() {
   return (
-    <aside aria-label="FairLend proof points" className="animate-authority-variant-two delight-proof absolute top-[18%] right-[4.4%] z-10 hidden w-[294px] border border-[#08090a] bg-[#f8f7f5]/96 p-4 shadow-[8px_8px_0_#96ec18] xl:block"><span aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.34] mix-blend-multiply" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/halftone.png')" }} /><div className="relative flex items-center justify-between pb-3"><span aria-hidden="true" className="authority-rule absolute inset-x-0 bottom-0 h-px bg-[#08090a]" /><p className="m-0 text-[10px] font-extrabold tracking-[0.16em] uppercase">Authority file</p><span className="delight-stamp border border-[#72b900] px-2 py-1 text-[8px] font-extrabold tracking-[0.12em] text-[#72b900] opacity-60 transition-[transform,opacity] duration-300">VERIFIED</span></div><div className="relative divide-y divide-[#08090a]/25">{proofStats.map((stat) => <div className="delight-row grid grid-cols-[112px_minmax(0,1fr)] items-center gap-3 py-4 transition-transform duration-300 ease-out" key={stat.value}><strong className="font-serif text-[54px] leading-[0.82] font-semibold tracking-[-0.04em]">{stat.value}<sup className="text-[10px]">{stat.qualifier}</sup></strong><span className="text-[14px] leading-[1.08] font-bold uppercase whitespace-pre-line">{stat.label}</span></div>)}</div></aside>
+    <aside aria-label="FairLend proof points" className="animate-authority-variant-two delight-proof absolute top-[18%] right-[4.4%] z-10 hidden w-[294px] border border-[#08090a] bg-[#f8f7f5]/96 p-4 shadow-[8px_8px_0_#96ec18] xl:block"><span aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.34] mix-blend-multiply" style={{ backgroundImage: "url('/textures/grid-noise.png')" }} /><div className="relative flex items-center justify-between pb-3"><span aria-hidden="true" className="authority-rule absolute inset-x-0 bottom-0 h-px bg-[#08090a]" /><p className="m-0 text-[10px] font-extrabold tracking-[0.16em] uppercase">Authority file</p><span className="delight-stamp border border-[#72b900] px-2 py-1 text-[8px] font-extrabold tracking-[0.12em] text-[#72b900] opacity-60 transition-[transform,opacity] duration-300">VERIFIED</span></div><div className="relative divide-y divide-[#08090a]/25">{proofStats.map((stat) => <div className="delight-row grid grid-cols-[112px_minmax(0,1fr)] items-center gap-3 py-4 transition-transform duration-300 ease-out" key={stat.value}><strong className="font-serif text-[54px] leading-[0.82] font-semibold tracking-[-0.04em]">{stat.value}<sup className="text-[10px]">{stat.qualifier}</sup></strong><span className="text-[14px] leading-[1.08] font-bold uppercase whitespace-pre-line">{stat.label}</span></div>)}</div></aside>
   )
 }
 
 function MobileAuthorityBar() {
   const statValueClassName =
-    'whitespace-nowrap font-serif text-[22px] leading-none font-normal tracking-[-0.035em] text-[#050506]'
+    'whitespace-nowrap font-serif text-[clamp(22px,7.4vw,30px)] leading-[0.82] font-semibold tracking-[-0.04em] text-[#050506]'
   const statLabelClassName =
-    'whitespace-nowrap text-[9px] leading-none font-semibold tracking-[0.03em] text-[#141414]/72 uppercase'
+    'min-h-[30px] text-[8px] leading-[1.06] font-bold tracking-[0.08em] text-[#141414]/72 uppercase hero-compact:text-[7px]'
 
   return (
     <aside
       aria-label="FairLend authority points"
-      className="fairlend-toronto-copy hidden w-full rounded-[9px] border border-[#111]/12 bg-[#f8f7f5]/88 px-4 py-2 shadow-[0_10px_24px_rgb(17_17_17/10%)] backdrop-blur-[2px] hero-mobile:block"
+      className="fairlend-toronto-copy relative isolate hidden w-full overflow-hidden rounded-[9px] border border-[#08090a] bg-[#f8f7f5]/96 p-3 shadow-[6px_6px_0_#96ec18] hero-compact:p-2.5 hero-mobile:block"
       style={{ '--toronto-delay': '780ms' } as CSSProperties}
     >
-      <div className="flex w-full items-baseline justify-between gap-x-3">
-        <div className="flex shrink-0 items-baseline gap-1.5">
-          <strong className={statValueClassName}>{proofStats[0].value}</strong>
-          <span className={statLabelClassName}>volume</span>
-        </div>
-        <div className="flex shrink-0 items-baseline gap-1.5">
-          <strong className={statValueClassName}>{proofStats[2].value}</strong>
-          <span className={statLabelClassName}>years</span>
-        </div>
-        <div className="flex min-w-0 shrink items-baseline gap-1.5 border-l border-[#111]/10 pl-3">
-          <strong className={cn(statValueClassName, 'shrink-0')}>
-            {proofStats[1].value} {proofStats[1].prefix}
-          </strong>
-          <span className={cn(statLabelClassName, 'whitespace-pre-line leading-[1.1]')}>
-            {proofStats[1].label}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.34] mix-blend-multiply"
+        style={{ backgroundImage: "url('/textures/grid-noise.png')" }}
+      />
+      <div className="relative">
+        <div className="flex items-center justify-between border-b border-[#08090a] pb-2">
+          <p className="m-0 text-[9px] font-extrabold tracking-[0.16em] uppercase hero-compact:text-[8px]">
+            Authority file
+          </p>
+          <span className="border border-[#72b900] px-1.5 py-1 text-[7px] leading-none font-extrabold tracking-[0.12em] text-[#5e9800] uppercase">
+            Verified
           </span>
         </div>
+        <dl className="grid grid-cols-3 divide-x divide-[#08090a]/25 pt-2.5">
+          {proofStats.map((stat) => (
+            <div className="flex min-w-0 flex-col justify-between px-2 first:pl-0 last:pr-0" key={stat.value}>
+              <dt className={cn(statLabelClassName, 'order-2 mt-2 whitespace-pre-line')}>
+                {stat.label}
+              </dt>
+              <dd className="order-1 flex items-baseline gap-1">
+                <strong className={statValueClassName}>
+                  {stat.value}
+                  <sup className="align-top text-[8px] tracking-normal">{stat.qualifier}</sup>
+                </strong>
+                {'prefix' in stat ? (
+                  <span className="text-[11px] leading-none font-bold tracking-[-0.02em] text-[#050506]">
+                    {stat.prefix}
+                  </span>
+                ) : null}
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <p className="mt-2.5 border-t border-[#08090a]/25 pt-2 text-[8px] leading-[1.15] font-medium tracking-[0.01em] text-[#141414]/65">
+          *Principal-broker lifetime volume. Commitment timing varies by complete file.
+        </p>
       </div>
-      <p className="mt-1 text-[8px] leading-[1.15] font-medium tracking-[0.01em] text-[#141414]/58">
-        *Principal broker lifetime
-      </p>
     </aside>
   )
 }
@@ -223,7 +240,7 @@ function TorontoScene() {
           height={941}
           priority
           sizes="100vw"
-          src="/assets/fairlend-toronto-contour-map.png"
+          src="/assets/fairlend-toronto-contour-map.webp"
           width={1672}
         />
 

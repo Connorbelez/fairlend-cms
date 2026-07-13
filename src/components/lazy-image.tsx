@@ -2,6 +2,7 @@
 
 import { cn } from '@/utilities/ui'
 import { useInView } from 'motion/react'
+import Image from 'next/image'
 import React from 'react'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 
@@ -54,21 +55,21 @@ export function LazyImage({
       ref={ref}
     >
       {imgSrc && (
-        // biome-ignore lint/correctness/useImageSize: dynamic image size
-        <img
+        <Image
           alt={alt}
           className={cn(
             'size-full object-cover transition-opacity duration-500',
             isLoading ? 'opacity-0' : 'opacity-100',
             className,
           )}
-          decoding="async"
+          fill
           fetchPriority={inView ? 'high' : 'low'}
           loading="lazy"
           onError={handleError}
           onLoad={handleLoad}
           ref={imgRef}
           role="presentation" // Changed from "img" to "presentation" since it's decorative
+          sizes="100vw"
           src={imgSrc}
         />
       )}
