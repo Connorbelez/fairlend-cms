@@ -1,6 +1,6 @@
-import { FairlendDeferredLandingSections } from '@/components/FairlendDeferredLandingSections.client'
 import { FairlendLandingHero } from '@/components/FairlendLandingHero'
 import { FairlendLandingRail } from '@/components/FairlendLandingRail'
+import { FairlendLandingSections } from '@/components/FairlendLandingSections'
 import { FairlendLazyScrollChoreography } from '@/components/FairlendLazyScrollChoreography.client'
 import { FairlendRouteSelector } from '@/components/FairlendRouteSelector'
 import { buildFairlendMetadata } from '@/utilities/seo'
@@ -24,7 +24,7 @@ export default function Page() {
       <FairlendLandingRail gutterTexture="grid-noise">
         <FairlendRouteSelector id="services" />
       </FairlendLandingRail>
-      <FairlendDeferredLandingSections />
+      <FairlendLandingSections />
     </div>
   )
 }

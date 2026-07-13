@@ -1,47 +1,71 @@
 .fairlend-ethos {
-  --ethos-paper: #f8f7f5;
-  --ethos-white: #fffdf9;
-  --ethos-ink: #08090a;
-  --ethos-muted: #494944;
-  --ethos-rule: rgb(8 9 10 / 26%);
-  --ethos-signal: #96ec18;
+  --ethos-paper: var(--landing-hero-paper, #f8f7f5);
+  --ethos-white: var(--landing-hero-white, #fff);
+  --ethos-ink: var(--landing-hero-ink, #08090a);
+  --ethos-muted: var(--landing-hero-muted, rgb(73 73 68));
+  --ethos-rule: var(--landing-hero-line, rgb(8 9 10 / 14%));
+  --ethos-rule-strong: var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
+  --ethos-signal: var(--landing-hero-lime, #96ec18);
+  --ethos-signal-ink: var(--landing-hero-lime-ink, #203500);
+  --ethos-header-offset: calc(var(--fairlend-public-header-height, 72px) + 18px);
+  --ethos-ease: cubic-bezier(0.16, 1, 0.3, 1);
 
   position: relative;
   isolation: isolate;
   overflow: clip;
-  border-top: 1px solid var(--ethos-rule);
+  border-top: 1px solid var(--ethos-rule-strong);
   background: var(--ethos-paper);
   color: var(--ethos-ink);
-  scroll-margin-top: 96px;
-}
-
-.fairlend-ethos__texture {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  mix-blend-mode: multiply;
+  scroll-margin-top: var(--ethos-header-offset);
 }
 
 .fairlend-ethos__shell {
   position: relative;
-  z-index: 1;
-  width: min(100%, 1800px);
+  width: 100%;
   margin-inline: auto;
 }
 
-.fairlend-ethos__proof-wall {
+.fairlend-ethos [data-ethos-block] {
   position: relative;
-  min-height: 122svh;
-  padding: clamp(34px, 3.5vw, 58px) clamp(22px, 3.8vw, 64px) clamp(78px, 8vw, 132px);
+}
+
+.fairlend-ethos__eyebrow,
+.fairlend-ethos__block-code,
+.fairlend-ethos__proof-index,
+.fairlend-ethos__alignment-spine-meta,
+.fairlend-ethos__interest-code,
+.fairlend-ethos__interest-status,
+.fairlend-ethos__operating-header,
+.fairlend-ethos__clause-status,
+.fairlend-ethos__capital-skyline figcaption,
+.fairlend-ethos__site-plan-meta,
+.fairlend-ethos__housing-types figcaption,
+.fairlend-ethos__manifesto-seal {
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+/* Proof exhibit */
+
+.fairlend-ethos__proof {
+  min-height: 110svh;
+  padding: clamp(2.25rem, 4vw, 4.5rem) clamp(1.375rem, 3.8vw, 4rem)
+    clamp(5rem, 9vw, 9rem);
+}
+
+.fairlend-ethos__proof-exhibit {
+  position: relative;
+  margin: 0;
 }
 
 .fairlend-ethos__proof-photo {
-  position: absolute;
-  top: clamp(34px, 3.5vw, 58px);
-  right: clamp(22px, 3.8vw, 64px);
-  left: clamp(22px, 3.8vw, 64px);
-  height: min(70svh, 760px);
+  position: relative;
+  height: min(68svh, 48rem);
+  min-height: 32rem;
   overflow: hidden;
   border: 1px solid rgb(8 9 10 / 72%);
   background: #d8dbd9;
@@ -50,685 +74,1425 @@
 .fairlend-ethos__proof-image {
   object-fit: cover;
   object-position: center;
-  filter: saturate(0.84) contrast(1.06);
+  filter: saturate(0.86) contrast(1.06);
+  transform: scale(1.015);
 }
 
 .fairlend-ethos__proof-screen {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgb(8 9 10 / 18%) 0 0.62px, transparent 0.82px);
+  background-image: radial-gradient(circle, rgb(8 9 10 / 19%) 0 0.62px, transparent 0.82px);
   background-size: 4px 4px;
   mix-blend-mode: multiply;
-  opacity: 0.5;
+  opacity: 0.46;
+  pointer-events: none;
 }
 
 .fairlend-ethos__proof-photo::after {
   position: absolute;
   inset: auto 0 0;
   height: 42%;
-  background: linear-gradient(180deg, transparent, rgb(8 9 10 / 54%));
+  background: linear-gradient(180deg, transparent, rgb(8 9 10 / 58%));
   content: '';
   pointer-events: none;
 }
 
+.fairlend-ethos__proof-registration {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: clamp(0.875rem, 1.4vw, 1.5rem);
+  z-index: 2;
+  width: 4px;
+  background: var(--ethos-signal);
+  box-shadow: 8px 0 16px rgb(150 236 24 / 18%);
+  transform-origin: bottom;
+}
+
 .fairlend-ethos__proof-index {
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 0;
+  right: 0;
   z-index: 2;
   margin: 0;
-  padding: 8px 10px;
+  padding: 0.75rem 0.875rem;
   background: var(--ethos-signal);
-  font-family: var(--font-inter), ui-sans-serif, sans-serif;
-  font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  line-height: 1;
+  color: var(--ethos-signal-ink);
 }
 
-.fairlend-ethos__proof-title {
-  position: absolute;
-  top: min(46svh, 500px);
-  left: clamp(22px, 3.8vw, 64px);
+.fairlend-ethos__proof-docket {
+  position: relative;
   z-index: 3;
-  width: min(73%, 1080px);
-}
-
-.fairlend-ethos__eyebrow,
-.fairlend-ethos__section-code,
-.fairlend-ethos__interest-code,
-.fairlend-ethos__interest-audience,
-.fairlend-ethos__anti-label,
-.fairlend-ethos__manifesto-kicker {
-  margin: 0;
-  font-family: var(--font-inter), ui-sans-serif, sans-serif;
-  font-size: 11px;
-  font-weight: 880;
-  letter-spacing: 0.15em;
-  line-height: 1.2;
-  text-transform: uppercase;
+  width: min(76%, 64rem);
+  margin: clamp(-10rem, -12vw, -7.5rem) 0 0 clamp(1.25rem, 4.8vw, 5rem);
+  padding: clamp(2.3rem, 4.1vw, 4.5rem) clamp(1.5rem, 3.5vw, 3.75rem)
+    clamp(1.8rem, 3vw, 3.25rem);
+  background: var(--ethos-ink);
+  box-shadow: 8px 8px 0 var(--ethos-signal);
+  color: var(--ethos-white);
 }
 
 .fairlend-ethos__eyebrow {
-  display: inline-block;
-  padding: 10px 12px;
+  position: absolute;
+  top: 0;
+  left: clamp(1.5rem, 3.5vw, 3.75rem);
+  margin: 0;
+  padding: 0.65rem 0.75rem;
   background: var(--ethos-signal);
-  color: var(--ethos-ink);
+  color: var(--ethos-signal-ink);
+  transform: translateY(-50%);
 }
 
-.fairlend-ethos__proof-title h2 {
-  margin: 18px 0 0;
-  color: var(--ethos-white);
+.fairlend-ethos__proof-docket h2 {
+  max-width: 15ch;
+  margin: 0;
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(68px, 7vw, 96px);
-  font-weight: 560;
-  letter-spacing: -0.04em;
-  line-height: 0.78;
-  text-shadow: 0 2px 18px rgb(0 0 0 / 24%);
+  font-size: clamp(3.8rem, 6.8vw, 6rem);
+  font-weight: 580;
+  letter-spacing: -0.038em;
+  line-height: 0.88;
+  text-wrap: balance;
 }
 
-.fairlend-ethos__proof-title h2 span {
+.fairlend-ethos__proof-docket h2 span {
   display: block;
-  width: max-content;
-  max-width: 100%;
-  padding: 0 0.07em 0.08em;
-  background: var(--ethos-ink);
+}
+
+.fairlend-ethos__office-caption {
+  max-width: 35ch;
+  margin: 2.75rem 0 0 auto;
+  color: var(--ethos-muted);
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 620;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.fairlend-ethos__proof-ledger {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.34fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 7rem);
+  align-items: end;
+  margin-top: clamp(3.5rem, 6vw, 6rem);
+  border-block: 1px solid var(--ethos-rule-strong);
+  padding-block: clamp(2rem, 4vw, 4rem);
+}
+
+.fairlend-ethos__proof-ledger-meta {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.7rem 1rem;
+  color: var(--ethos-muted);
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+  font-size: 0.6875rem;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.fairlend-ethos__proof-ledger-meta span {
+  font-weight: 650;
+  letter-spacing: 0.1em;
+}
+
+.fairlend-ethos__proof-ledger-meta strong {
+  color: var(--ethos-ink);
+  font-weight: 850;
+  letter-spacing: 0.04em;
 }
 
 .fairlend-ethos__proof-thesis {
-  position: absolute;
-  right: clamp(22px, 3.8vw, 64px);
-  bottom: clamp(62px, 7vw, 112px);
-  z-index: 3;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.64fr);
-  gap: clamp(32px, 5vw, 80px);
-  width: min(70%, 980px);
-  border-top: 1px solid rgb(8 9 10 / 68%);
-  padding-top: clamp(24px, 2.5vw, 38px);
-}
-
-.fairlend-ethos__proof-thesis > p:first-child {
+  max-width: 38ch;
   margin: 0;
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(27px, 2.8vw, 46px);
+  font-size: clamp(2rem, 3.2vw, 3.25rem);
   font-weight: 620;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
   line-height: 1.02;
   text-wrap: pretty;
 }
 
-.fairlend-ethos__office-caption {
-  align-self: end;
-  margin: 0;
-  color: var(--ethos-muted);
-  font-family: var(--font-inter), ui-sans-serif, sans-serif;
-  font-size: 12px;
-  font-weight: 620;
-  line-height: 1.5;
-}
+/* Aligned interests ledger */
 
 .fairlend-ethos__alignment {
   display: grid;
-  grid-template-columns: minmax(310px, 0.72fr) minmax(0, 1fr);
-  gap: clamp(42px, 7vw, 118px);
-  min-height: 280svh;
-  border-top: 1px solid rgb(8 9 10 / 64%);
-  padding: 0 clamp(22px, 3.8vw, 64px);
+  grid-template-columns: minmax(20rem, 0.72fr) minmax(0, 1.28fr);
+  min-height: 224svh;
+  border-top: 1px solid var(--ethos-rule-strong);
+  background: var(--ethos-paper);
 }
 
-.fairlend-ethos__alignment-sticky {
+.fairlend-ethos__alignment-spine {
   position: sticky;
-  top: 82px;
+  top: var(--ethos-header-offset);
   align-self: start;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: calc(100svh - 82px);
-  padding-block: 64px;
+  min-height: calc(100svh - var(--ethos-header-offset));
+  padding: clamp(3.5rem, 6vw, 7rem) clamp(1.375rem, 3.8vw, 4rem);
 }
 
-.fairlend-ethos__section-code {
+.fairlend-ethos__alignment-spine::after {
+  position: absolute;
+  top: 11%;
+  right: 0;
+  bottom: 11%;
+  width: 2px;
+  background: var(--ethos-signal);
+  content: '';
+  transform-origin: top;
+}
+
+.fairlend-ethos__alignment-spine-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0;
+  border-bottom: 1px solid var(--ethos-rule-strong);
+  padding-bottom: 0.875rem;
   color: var(--ethos-muted);
 }
 
-.fairlend-ethos__section-code--inverse {
-  color: var(--ethos-signal);
-}
-
-.fairlend-ethos__alignment-sticky h3 {
-  max-width: 11ch;
-  margin: 30px 0 0;
+.fairlend-ethos__alignment-spine h3 {
+  max-width: 10.5ch;
+  margin: clamp(2.25rem, 4vw, 4rem) 0 0;
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(54px, 5.4vw, 88px);
+  font-size: clamp(3.75rem, 5.5vw, 5.5rem);
   font-weight: 580;
-  letter-spacing: -0.035em;
-  line-height: 0.9;
+  letter-spacing: -0.037em;
+  line-height: 0.92;
   text-wrap: balance;
 }
 
-.fairlend-ethos__alignment-note {
-  width: max-content;
-  max-width: 100%;
-  margin: 38px 0 0;
-  padding: 9px 11px;
-  background: var(--ethos-signal);
+.fairlend-ethos__alignment-filing-note {
+  max-width: 34ch;
+  margin: clamp(2rem, 3vw, 3.25rem) 0 0;
+  border-top: 3px solid var(--ethos-signal);
+  padding-top: 1rem;
   font-family: var(--font-inter), ui-sans-serif, sans-serif;
-  font-size: 12px;
-  font-weight: 850;
-  letter-spacing: 0.06em;
-  line-height: 1;
-  text-transform: uppercase;
+  font-size: 0.9375rem;
+  font-weight: 620;
+  line-height: 1.55;
+  text-wrap: pretty;
 }
 
-.fairlend-ethos__interest-sequence {
-  border-left: 1px solid var(--ethos-rule);
+.fairlend-ethos__interest-ledger {
+  margin: 0;
+  border-inline: 1px solid var(--ethos-rule-strong);
+  padding: 0;
+  list-style: none;
 }
 
-.fairlend-ethos__interest-scene {
-  position: relative;
+.fairlend-ethos__interest-row {
+  min-height: 56svh;
+  border-bottom: 1px solid var(--ethos-rule-strong);
+}
+
+.fairlend-ethos__interest-row:last-child {
+  border-bottom: 0;
+  background: var(--ethos-ink);
+  color: var(--ethos-white);
+}
+
+.fairlend-ethos__interest-entry {
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  min-height: inherit;
+  padding: clamp(2.75rem, 5vw, 6rem);
+}
+
+.fairlend-ethos__interest-heading {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 70svh;
-  border-bottom: 1px solid var(--ethos-rule);
-  padding: clamp(42px, 6vw, 96px);
+  align-items: baseline;
+  gap: clamp(1rem, 2vw, 2.5rem);
+  border-bottom: 1px solid var(--ethos-rule-strong);
+  padding-bottom: 1.25rem;
 }
 
-.fairlend-ethos__interest-scene:nth-child(2),
-.fairlend-ethos__interest-scene:nth-child(4) {
-  background: rgb(255 253 249 / 58%);
+.fairlend-ethos__interest-row:last-child .fairlend-ethos__interest-heading {
+  border-color: rgb(255 255 255 / 24%);
 }
 
 .fairlend-ethos__interest-code {
-  position: absolute;
-  top: 34px;
-  right: 34px;
   color: var(--ethos-muted);
 }
 
-.fairlend-ethos__interest-audience {
-  color: var(--ethos-muted);
-}
-
-.fairlend-ethos__interest-copy {
-  max-width: 30ch;
-  margin: 28px 0 0;
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(40px, 4vw, 66px);
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  line-height: 0.98;
-  text-wrap: pretty;
-}
-
-.fairlend-ethos__anti-predatory {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(170px, 0.26fr) minmax(0, 0.9fr) minmax(250px, 0.46fr);
-  gap: clamp(34px, 5vw, 84px);
-  align-items: end;
-  min-height: 110svh;
-  overflow: hidden;
-  padding: clamp(64px, 8vw, 130px) clamp(22px, 3.8vw, 64px);
-  background: var(--ethos-ink);
-  color: var(--ethos-white);
-}
-
-.fairlend-ethos__anti-label {
-  align-self: start;
+.fairlend-ethos__interest-row:last-child .fairlend-ethos__interest-code {
   color: var(--ethos-signal);
 }
 
-.fairlend-ethos__anti-statement {
-  position: relative;
-  z-index: 2;
-  max-width: 20ch;
+.fairlend-ethos__interest-heading h4 {
   margin: 0;
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(50px, 6.2vw, 96px);
+  font-size: clamp(2.7rem, 4vw, 4.25rem);
+  font-weight: 620;
+  letter-spacing: -0.03em;
+  line-height: 0.94;
+}
+
+.fairlend-ethos__interest-copy {
+  align-self: center;
+  max-width: 43ch;
+  margin: clamp(2rem, 4vw, 4.5rem) 0;
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+  font-size: clamp(1.25rem, 1.85vw, 1.75rem);
   font-weight: 560;
-  letter-spacing: -0.038em;
-  line-height: 0.88;
+  letter-spacing: -0.018em;
+  line-height: 1.42;
   text-wrap: pretty;
 }
 
-.fairlend-ethos__anti-relationship {
-  position: relative;
-  z-index: 2;
+.fairlend-ethos__interest-fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin: 0;
-  border-top: 3px solid var(--ethos-signal);
-  padding-top: 24px;
-  color: rgb(255 253 249 / 84%);
-  font-family: var(--font-inter), ui-sans-serif, sans-serif;
-  font-size: clamp(16px, 1.3vw, 21px);
-  font-weight: 540;
-  line-height: 1.6;
-  text-wrap: pretty;
+  border-block: 1px solid var(--ethos-rule-strong);
+  padding: 0;
+  list-style: none;
 }
 
-.fairlend-ethos__anti-stamp {
-  position: absolute;
-  right: -0.05em;
-  bottom: -0.15em;
-  z-index: 0;
-  color: rgb(255 253 249 / 5%);
+.fairlend-ethos__interest-fields li {
+  min-width: 0;
+  padding: 0.9rem clamp(0.5rem, 1vw, 1rem);
+  border-right: 1px solid var(--ethos-rule-strong);
   font-family: var(--font-inter), ui-sans-serif, sans-serif;
-  font-size: clamp(90px, 14vw, 230px);
-  font-weight: 950;
-  letter-spacing: -0.07em;
-  line-height: 0.69;
-  text-align: right;
+  font-size: 0.75rem;
+  font-weight: 760;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+  text-align: center;
   text-transform: uppercase;
-  white-space: nowrap;
 }
 
-.fairlend-ethos__anti-stamp span {
+.fairlend-ethos__interest-fields li:last-child {
+  border-right: 0;
+}
+
+.fairlend-ethos__interest-row:last-child .fairlend-ethos__interest-fields,
+.fairlend-ethos__interest-row:last-child .fairlend-ethos__interest-fields li {
+  border-color: rgb(255 255 255 / 24%);
+}
+
+.fairlend-ethos__interest-status {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: max-content;
+  margin: 1.4rem 0 0 auto;
+  color: var(--ethos-muted);
+}
+
+.fairlend-ethos__interest-status span {
   display: block;
+  width: 3.5rem;
+  height: 3px;
+  background: var(--ethos-signal);
+  transform-origin: left;
 }
 
-.fairlend-ethos__trap-scene {
-  position: relative;
-  min-height: 118svh;
-  overflow: hidden;
+.fairlend-ethos__interest-row:last-child .fairlend-ethos__interest-status {
+  color: var(--ethos-white);
+}
+
+/* Operating clause */
+
+.fairlend-ethos__operating {
+  min-height: 105svh;
+  padding: clamp(5rem, 9vw, 10rem) clamp(1.375rem, 5vw, 5.5rem);
+  border-top: 1px solid var(--ethos-rule-strong);
+  background: var(--ethos-paper);
+}
+
+.fairlend-ethos__operating-file {
+  border: 1px solid var(--ethos-ink);
+  background: var(--ethos-white);
+  box-shadow: 8px 8px 0 var(--ethos-signal);
+}
+
+.fairlend-ethos__operating-header {
+  display: grid;
+  grid-template-columns: 0.52fr 1fr 0.8fr;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.1rem clamp(1.25rem, 3vw, 3rem);
   background: var(--ethos-ink);
   color: var(--ethos-white);
 }
 
-.fairlend-ethos__trap-copy {
-  position: relative;
-  z-index: 3;
-  width: min(58%, 860px);
-  padding: clamp(72px, 8vw, 132px) clamp(22px, 3.8vw, 64px);
-}
-
-.fairlend-ethos__trap-copy h3 {
-  max-width: 12ch;
-  margin: 32px 0 0;
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(58px, 7vw, 96px);
-  font-weight: 560;
-  letter-spacing: -0.04em;
-  line-height: 0.84;
-  text-wrap: balance;
-}
-
-.fairlend-ethos__trap-copy > p:last-child {
-  max-width: 45ch;
-  margin: clamp(48px, 6vw, 94px) 0 0;
-  border-top: 1px solid rgb(255 253 249 / 34%);
-  padding-top: 28px;
-  color: rgb(255 253 249 / 82%);
-  font-family: var(--font-inter), ui-sans-serif, sans-serif;
-  font-size: clamp(17px, 1.5vw, 24px);
-  font-weight: 540;
-  line-height: 1.58;
-  text-wrap: pretty;
-}
-
-.fairlend-ethos__trap-skyline {
-  position: absolute;
-  right: -5%;
-  bottom: -2%;
-  width: 70%;
-  height: 70%;
-  opacity: 0.84;
-}
-
-.fairlend-ethos__trap-skyline img {
-  object-fit: contain;
-  object-position: right bottom;
-  filter: grayscale(1) invert(1) contrast(1.4);
-  mix-blend-mode: screen;
-}
-
-.fairlend-ethos__trap-word {
-  position: absolute;
-  right: -0.02em;
-  bottom: -0.18em;
-  z-index: 1;
+.fairlend-ethos__operating-header p,
+.fairlend-ethos__operating-header h3 {
   margin: 0;
-  color: rgb(255 255 255 / 4.5%);
-  font-family: var(--font-inter), ui-sans-serif, sans-serif;
-  font-size: clamp(170px, 28vw, 470px);
-  font-weight: 950;
-  letter-spacing: -0.08em;
-  line-height: 0.72;
 }
 
-.fairlend-ethos__build-scene {
-  padding: clamp(72px, 8vw, 132px) clamp(22px, 3.8vw, 64px) clamp(84px, 9vw, 150px);
+.fairlend-ethos__operating-header h3 {
+  font: inherit;
+  text-align: center;
 }
 
-.fairlend-ethos__build-heading {
+.fairlend-ethos__operating-header p:last-child {
+  color: var(--ethos-signal);
+  text-align: right;
+}
+
+.fairlend-ethos__operating-body {
   display: grid;
-  grid-template-columns: minmax(180px, 0.28fr) minmax(0, 0.9fr);
-  gap: clamp(38px, 6vw, 102px);
-  align-items: start;
+  grid-template-columns: minmax(0, 1.35fr) minmax(17rem, 0.65fr);
+  gap: clamp(3rem, 7vw, 8rem);
+  align-items: end;
+  padding: clamp(3.5rem, 7vw, 7.5rem) clamp(1.5rem, 5vw, 5.5rem);
 }
 
-.fairlend-ethos__build-proposition {
-  max-width: 27ch;
+.fairlend-ethos__operating-statement {
+  max-width: 22ch;
   margin: 0;
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(44px, 5.3vw, 86px);
+  font-size: clamp(3rem, 5.2vw, 5.25rem);
   font-weight: 590;
-  letter-spacing: -0.035em;
-  line-height: 0.93;
+  letter-spacing: -0.038em;
+  line-height: 0.94;
   text-wrap: pretty;
 }
 
-.fairlend-ethos__housing-stage {
-  position: relative;
-  min-height: clamp(760px, 78vw, 1240px);
-  margin-top: clamp(36px, 4vw, 62px);
-  overflow: hidden;
-  border-block: 1px solid var(--ethos-rule);
-}
-
-.fairlend-ethos__housing-stage::before {
-  position: absolute;
-  inset: 7% auto 7% 52%;
-  width: 1px;
-  background: var(--ethos-rule);
-  content: '';
-}
-
-.fairlend-ethos__housing-asset {
-  position: absolute;
+.fairlend-ethos__fee-register {
   margin: 0;
-}
-
-.fairlend-ethos__housing-asset img {
-  object-fit: contain;
-  filter: grayscale(1) contrast(1.12);
-  mix-blend-mode: multiply;
-}
-
-.fairlend-ethos__housing-asset figcaption {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  margin: 0;
-  padding: 8px 10px;
-  background: var(--ethos-signal);
+  border-top: 1px solid var(--ethos-ink);
   font-family: var(--font-inter), ui-sans-serif, sans-serif;
-  font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 0.11em;
-  line-height: 1;
+}
+
+.fairlend-ethos__fee-register > div {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  min-height: 4.5rem;
+  border-bottom: 1px solid var(--ethos-ink);
+}
+
+.fairlend-ethos__fee-register dt,
+.fairlend-ethos__fee-register dd {
+  margin: 0;
+}
+
+.fairlend-ethos__fee-register dt {
+  font-size: 0.875rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
-.fairlend-ethos__housing-asset--multiplex {
-  inset: 4% 34% 4% 0;
+.fairlend-ethos__fee-register dd {
+  padding: 0.5rem 0.65rem;
+  background: var(--ethos-signal);
+  color: var(--ethos-signal-ink);
+  font-size: 0.6875rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.fairlend-ethos__housing-asset--garden {
-  right: 2%;
-  bottom: 7%;
-  width: 39%;
-  height: 47%;
+.fairlend-ethos__relationship-clause {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(2rem, 5vw, 6rem);
+  align-items: end;
+  border-top: 1px solid var(--ethos-ink);
+  padding: clamp(2rem, 4vw, 4rem) clamp(1.5rem, 5vw, 5.5rem);
 }
 
-.fairlend-ethos__housing-stage-label {
-  position: absolute;
-  top: 7%;
-  right: 0;
-  width: 43%;
+.fairlend-ethos__relationship-clause > p:first-child {
+  max-width: 66ch;
   margin: 0;
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(42px, 5vw, 82px);
-  font-weight: 620;
-  letter-spacing: -0.035em;
-  line-height: 0.9;
-  text-wrap: balance;
-}
-
-.fairlend-ethos__build-economics {
-  display: flex;
-  justify-content: flex-end;
-  padding-top: clamp(48px, 6vw, 92px);
-}
-
-.fairlend-ethos__build-economics p {
-  max-width: 53ch;
-  margin: 0;
-  border-top: 4px solid var(--ethos-signal);
-  padding-top: 28px;
   font-family: var(--font-inter), ui-sans-serif, sans-serif;
-  font-size: clamp(18px, 1.65vw, 26px);
+  font-size: clamp(1.125rem, 1.5vw, 1.375rem);
   font-weight: 570;
   line-height: 1.58;
   text-wrap: pretty;
 }
 
-.fairlend-ethos__manifesto {
+.fairlend-ethos__clause-status {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 112svh;
-  padding: clamp(72px, 8vw, 132px) clamp(22px, 3.8vw, 64px);
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.fairlend-ethos__clause-status span {
+  display: block;
+  width: 4rem;
+  height: 4px;
   background: var(--ethos-signal);
+  transform-origin: left;
+}
+
+/* Capital allocation audit */
+
+.fairlend-ethos__capital-audit {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(19rem, 0.58fr);
+  grid-template-areas:
+    'copy findings'
+    'skyline skyline';
+  gap: clamp(2.5rem, 6vw, 7rem);
+  min-height: 118svh;
+  overflow: hidden;
+  padding: clamp(5rem, 8vw, 9rem) clamp(1.375rem, 3.8vw, 4rem) 0;
+  background: var(--ethos-ink);
+  color: var(--ethos-white);
+}
+
+.fairlend-ethos__capital-audit-copy {
+  z-index: 2;
+  grid-area: copy;
+}
+
+.fairlend-ethos__block-code {
+  margin: 0;
+  color: var(--ethos-muted);
+}
+
+.fairlend-ethos__block-code--inverse {
+  color: var(--ethos-signal);
+}
+
+.fairlend-ethos__capital-audit-copy h3 {
+  max-width: 10ch;
+  margin: clamp(2rem, 3vw, 3rem) 0 0;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(4rem, 7vw, 6rem);
+  font-weight: 570;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  text-wrap: balance;
+}
+
+.fairlend-ethos__capital-audit-copy > p:last-child {
+  max-width: 50ch;
+  margin: clamp(2.5rem, 4vw, 4.5rem) 0 0;
+  border-top: 1px solid rgb(255 255 255 / 34%);
+  padding-top: 1.5rem;
+  color: rgb(255 255 255 / 86%);
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+  font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+  font-weight: 540;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.fairlend-ethos__capital-findings {
+  z-index: 3;
+  grid-area: findings;
+  align-self: end;
+  margin: 0;
+  border: 1px solid rgb(255 255 255 / 52%);
+  padding: 0;
+  list-style: none;
+}
+
+.fairlend-ethos__capital-findings li {
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
+  gap: 0.55rem 1rem;
+  padding: 1.4rem;
+  border-bottom: 1px solid rgb(255 255 255 / 32%);
+}
+
+.fairlend-ethos__capital-findings li:last-child {
+  border-bottom: 0;
+}
+
+.fairlend-ethos__capital-findings span {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  background: var(--ethos-signal);
+  color: var(--ethos-signal-ink);
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+.fairlend-ethos__capital-findings strong,
+.fairlend-ethos__capital-findings p {
+  margin: 0;
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+}
+
+.fairlend-ethos__capital-findings strong {
+  font-size: 0.875rem;
+  font-weight: 820;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.fairlend-ethos__capital-findings p {
+  color: rgb(255 255 255 / 68%);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.fairlend-ethos__capital-skyline {
+  position: relative;
+  grid-area: skyline;
+  height: min(60svh, 46rem);
+  margin: clamp(-2rem, -3vw, -1rem) clamp(-1.375rem, -3.8vw, -4rem) 0;
+  overflow: hidden;
+}
+
+.fairlend-ethos__capital-skyline::after {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgb(150 236 24 / 15%) 0 0.55px, transparent 0.75px);
+  background-size: 5px 5px;
+  mix-blend-mode: screen;
+  content: '';
+  pointer-events: none;
+}
+
+.fairlend-ethos__capital-skyline img {
+  object-fit: contain;
+  object-position: center bottom;
+  filter: grayscale(1) invert(1) contrast(1.45);
+  mix-blend-mode: screen;
+  opacity: 0.86;
+}
+
+.fairlend-ethos__capital-skyline figcaption {
+  position: absolute;
+  right: clamp(1.375rem, 3.8vw, 4rem);
+  bottom: 1.5rem;
+  z-index: 2;
+  margin: 0;
+  padding: 0.6rem 0.7rem;
+  background: var(--ethos-white);
   color: var(--ethos-ink);
 }
 
-.fairlend-ethos__manifesto-kicker {
-  align-self: center;
+.fairlend-ethos__reallocation-rule {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  height: 6px;
+  background: rgb(255 255 255 / 12%);
+}
+
+.fairlend-ethos__reallocation-rule span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--ethos-signal);
+  transform-origin: left;
+}
+
+/* Medium-density site plan */
+
+.fairlend-ethos__opportunity {
+  min-height: 145svh;
+  overflow: clip;
+  padding: clamp(5rem, 9vw, 10rem) clamp(1.375rem, 3.8vw, 4rem);
+  background: var(--ethos-paper);
+}
+
+.fairlend-ethos__opportunity::before {
+  display: none;
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 20;
+  height: 100svh;
+  background: var(--ethos-ink);
+  box-shadow: inset 6px 0 0 var(--ethos-signal);
+  content: '';
+  pointer-events: none;
+}
+
+.fairlend-ethos__opportunity-header {
+  display: grid;
+  grid-template-columns: minmax(17rem, 0.55fr) minmax(0, 1fr);
+  gap: clamp(3rem, 7vw, 8rem);
+  align-items: end;
+}
+
+.fairlend-ethos__opportunity-header h3 {
+  max-width: 10ch;
+  margin: clamp(1.5rem, 3vw, 2.75rem) 0 0;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(3.5rem, 5.8vw, 5.75rem);
+  font-weight: 590;
+  letter-spacing: -0.038em;
+  line-height: 0.9;
+  text-wrap: balance;
+}
+
+.fairlend-ethos__opportunity-proposition {
+  max-width: 58ch;
+  margin: 0;
+  border-top: 4px solid var(--ethos-signal);
+  padding-top: clamp(1.5rem, 3vw, 2.75rem);
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+  font-size: clamp(1.25rem, 1.85vw, 1.75rem);
+  font-weight: 570;
+  letter-spacing: -0.018em;
+  line-height: 1.48;
+  text-wrap: pretty;
+}
+
+.fairlend-ethos__site-plan {
+  position: relative;
+  margin-top: clamp(4.5rem, 8vw, 9rem);
+  border-block: 1px solid var(--ethos-ink);
+}
+
+.fairlend-ethos__site-plan::after {
+  position: absolute;
+  right: 0;
+  bottom: 4.1rem;
+  left: 0;
+  z-index: 3;
+  height: 3px;
+  background: var(--ethos-ink);
+  content: '';
+  pointer-events: none;
+}
+
+.fairlend-ethos__site-plan-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--ethos-ink);
+  color: var(--ethos-muted);
+}
+
+.fairlend-ethos__site-plan-meta span {
+  padding: 0.9rem 1rem;
+  border-right: 1px solid var(--ethos-rule-strong);
+}
+
+.fairlend-ethos__site-plan-meta span:nth-child(2) {
+  color: var(--ethos-ink);
+  text-align: center;
+}
+
+.fairlend-ethos__site-plan-meta span:last-child {
+  border-right: 0;
+  text-align: right;
+}
+
+.fairlend-ethos__housing-types {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fairlend-ethos__housing-types > li {
+  min-width: 0;
+  border-right: 1px solid var(--ethos-ink);
+}
+
+.fairlend-ethos__housing-types > li:last-child {
+  border-right: 0;
+}
+
+.fairlend-ethos__housing-types figure {
+  display: grid;
+  grid-template-rows: minmax(25rem, 1fr) auto;
+  min-height: 34rem;
+  margin: 0;
+}
+
+.fairlend-ethos__housing-image {
+  position: relative;
+  align-self: end;
+  width: 100%;
+  height: 100%;
+  min-height: 24rem;
+  padding: 1.5rem;
+}
+
+.fairlend-ethos__housing-image img {
+  object-fit: contain;
+  filter: grayscale(1) contrast(1.14);
+  mix-blend-mode: multiply;
+}
+
+.fairlend-ethos__housing-types figcaption {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-height: 4.1rem;
+  padding: 1rem;
+  background: var(--ethos-paper);
+  color: var(--ethos-ink);
+}
+
+.fairlend-ethos__housing-types figcaption span {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  background: var(--ethos-signal);
+  color: var(--ethos-signal-ink);
+}
+
+.fairlend-ethos__economics-ledger {
+  display: grid;
+  grid-template-columns: minmax(13rem, 0.34fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 7rem);
+  margin-top: clamp(5rem, 9vw, 10rem);
+  border-block: 1px solid var(--ethos-ink);
+  padding-block: clamp(2.5rem, 5vw, 5rem);
+}
+
+.fairlend-ethos__economics-meta {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.8rem 1rem;
+  align-self: start;
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+  font-size: 0.6875rem;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.fairlend-ethos__economics-meta span {
+  color: var(--ethos-muted);
+  font-weight: 650;
+  letter-spacing: 0.1em;
+}
+
+.fairlend-ethos__economics-meta strong {
+  font-weight: 850;
+  letter-spacing: 0.03em;
+}
+
+.fairlend-ethos__economics-ledger > p:not(.fairlend-ethos__economics-reconciliation) {
+  max-width: 62ch;
+  margin: 0;
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+  font-size: clamp(1.125rem, 1.55vw, 1.375rem);
+  font-weight: 560;
+  line-height: 1.64;
+  text-wrap: pretty;
+}
+
+.fairlend-ethos__economics-reconciliation {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: auto minmax(4rem, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  margin: 0;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(1.75rem, 2.6vw, 2.75rem);
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+
+.fairlend-ethos__economics-reconciliation span {
+  display: block;
+  height: 5px;
+  background: var(--ethos-signal);
+  transform-origin: center;
+}
+
+/* Manifesto seal */
+
+.fairlend-ethos__manifesto {
+  display: grid;
+  align-content: center;
+  min-height: 112svh;
+  padding: clamp(5rem, 9vw, 10rem) clamp(1.375rem, 3.8vw, 4rem);
+  background: var(--ethos-ink);
+  color: var(--ethos-white);
+}
+
+.fairlend-ethos__manifesto-seal {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.25rem;
+  align-items: center;
+  margin: 0;
+  color: rgb(255 255 255 / 72%);
+}
+
+.fairlend-ethos__manifesto-seal p {
+  margin: 0;
+}
+
+.fairlend-ethos__manifesto-seal span {
+  display: block;
+  height: 3px;
+  background: var(--ethos-signal);
+  transform-origin: left;
 }
 
 .fairlend-ethos__manifesto blockquote {
-  max-width: 20ch;
-  margin: clamp(38px, 5vw, 78px) auto 0;
+  max-width: 18ch;
+  margin: clamp(4rem, 8vw, 8rem) 0 0;
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(56px, 7.6vw, 96px);
+  font-size: clamp(4rem, 7.4vw, 6rem);
   font-weight: 620;
   letter-spacing: -0.04em;
-  line-height: 0.82;
-  text-align: center;
+  line-height: 0.88;
   text-wrap: balance;
+}
+
+.fairlend-ethos__manifesto blockquote span {
+  display: block;
+}
+
+.fairlend-ethos__manifesto blockquote span:first-child {
+  margin-bottom: 0.3em;
+  color: var(--ethos-signal);
+  font-size: 0.65em;
+  letter-spacing: -0.025em;
+  line-height: 0.95;
+}
+
+.fairlend-ethos__vision-file {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(25rem, 1.1fr);
+  gap: clamp(3rem, 7vw, 8rem);
+  align-items: end;
+  margin-top: clamp(4rem, 7vw, 7rem);
+  border-top: 1px solid rgb(255 255 255 / 34%);
+  padding-top: clamp(2.5rem, 4vw, 4rem);
 }
 
 .fairlend-ethos__vision {
   max-width: 63ch;
-  margin: clamp(46px, 5vw, 78px) auto 0;
-  border-top: 1px solid rgb(8 9 10 / 54%);
-  padding-top: 28px;
+  margin: 0;
+  color: rgb(255 255 255 / 86%);
   font-family: var(--font-inter), ui-sans-serif, sans-serif;
-  font-size: clamp(17px, 1.4vw, 22px);
-  font-weight: 650;
-  line-height: 1.55;
-  text-align: center;
+  font-size: clamp(1.0625rem, 1.35vw, 1.25rem);
+  font-weight: 560;
+  letter-spacing: 0.005em;
+  line-height: 1.65;
   text-wrap: pretty;
 }
 
-@media (max-width: 980px) {
-  .fairlend-ethos__proof-wall {
-    min-height: 132svh;
-  }
+.fairlend-ethos__vision-outcomes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  border-top: 1px solid rgb(255 255 255 / 34%);
+  border-left: 1px solid rgb(255 255 255 / 34%);
+  padding: 0;
+  list-style: none;
+}
 
-  .fairlend-ethos__proof-title {
-    top: min(48svh, 470px);
-    width: 88%;
-  }
+.fairlend-ethos__vision-outcomes li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.8rem;
+  align-items: center;
+  min-height: 4.5rem;
+  border-right: 1px solid rgb(255 255 255 / 34%);
+  border-bottom: 1px solid rgb(255 255 255 / 34%);
+  padding: 0.9rem;
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 720;
+  letter-spacing: 0.025em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
 
-  .fairlend-ethos__proof-thesis {
-    width: calc(100% - clamp(44px, 7.6vw, 128px));
+.fairlend-ethos__vision-outcomes span {
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  background: var(--ethos-signal);
+  color: var(--ethos-signal-ink);
+  font-size: 0.6875rem;
+  font-weight: 900;
+}
+
+/* Responsive composition */
+
+@media (max-width: 1080px) {
+  .fairlend-ethos__proof-docket {
+    width: min(84%, 58rem);
   }
 
   .fairlend-ethos__alignment {
-    grid-template-columns: minmax(260px, 0.62fr) minmax(0, 1fr);
+    grid-template-columns: minmax(17rem, 0.62fr) minmax(0, 1.38fr);
   }
 
-  .fairlend-ethos__anti-predatory {
-    grid-template-columns: minmax(130px, 0.24fr) minmax(0, 1fr);
+  .fairlend-ethos__alignment-spine-meta {
+    display: grid;
   }
 
-  .fairlend-ethos__anti-relationship {
-    grid-column: 2;
+  .fairlend-ethos__interest-entry {
+    padding-inline: clamp(2rem, 4vw, 4rem);
   }
 
-  .fairlend-ethos__trap-copy {
-    width: 72%;
+  .fairlend-ethos__operating-body {
+    grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.58fr);
+    gap: 3rem;
+  }
+
+  .fairlend-ethos__capital-audit {
+    grid-template-columns: minmax(0, 1fr) minmax(17rem, 0.62fr);
+  }
+
+  .fairlend-ethos__opportunity-header {
+    grid-template-columns: minmax(15rem, 0.48fr) minmax(0, 1fr);
+  }
+
+  .fairlend-ethos__vision-file {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 760px) {
-  .fairlend-ethos__proof-wall {
-    min-height: 1200px;
-    padding-inline: 20px;
+  .fairlend-ethos__eyebrow,
+  .fairlend-ethos__block-code,
+  .fairlend-ethos__proof-index,
+  .fairlend-ethos__alignment-spine-meta,
+  .fairlend-ethos__interest-code,
+  .fairlend-ethos__interest-status,
+  .fairlend-ethos__operating-header,
+  .fairlend-ethos__clause-status,
+  .fairlend-ethos__capital-skyline figcaption,
+  .fairlend-ethos__site-plan-meta,
+  .fairlend-ethos__housing-types figcaption,
+  .fairlend-ethos__manifesto-seal {
+    font-size: 0.6875rem;
+  }
+
+  .fairlend-ethos__proof {
+    min-height: 0;
+    padding: 1.25rem 1.25rem 5rem;
   }
 
   .fairlend-ethos__proof-photo {
-    right: 20px;
-    left: 20px;
-    height: 56svh;
-    min-height: 470px;
+    height: 58svh;
+    min-height: 28rem;
   }
 
   .fairlend-ethos__proof-image {
     object-position: 55% center;
   }
 
-  .fairlend-ethos__proof-title {
-    top: 390px;
-    left: 20px;
-    width: calc(100% - 40px);
+  .fairlend-ethos__proof-registration {
+    left: 0.75rem;
+    width: 3px;
   }
 
-  .fairlend-ethos__proof-title h2 {
-    font-size: clamp(56px, 17.2vw, 74px);
-    line-height: 0.82;
+  .fairlend-ethos__proof-index {
+    max-width: 13rem;
+    padding: 0.6rem 0.7rem;
+    text-align: right;
   }
 
-  .fairlend-ethos__proof-title h2 span {
-    width: fit-content;
+  .fairlend-ethos__proof-docket {
+    width: calc(100% - 1rem);
+    margin: -5rem 0 0 0;
+    padding: 2.5rem 1.25rem 1.75rem;
+    box-shadow: 5px 5px 0 var(--ethos-signal);
+  }
+
+  .fairlend-ethos__eyebrow {
+    left: 1.25rem;
+  }
+
+  .fairlend-ethos__proof-docket h2 {
+    font-size: clamp(3.25rem, 15vw, 4.6rem);
+    line-height: 0.9;
+  }
+
+  .fairlend-ethos__office-caption {
+    margin-top: 2rem;
+  }
+
+  .fairlend-ethos__proof-ledger {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+    margin-top: 3.5rem;
   }
 
   .fairlend-ethos__proof-thesis {
-    right: 20px;
-    bottom: 64px;
-    grid-template-columns: 1fr;
-    gap: 28px;
-    width: calc(100% - 40px);
+    font-size: clamp(2rem, 10vw, 2.8rem);
   }
 
   .fairlend-ethos__alignment {
     display: block;
     min-height: 0;
-    padding-inline: 20px;
   }
 
-  .fairlend-ethos__alignment-sticky {
+  .fairlend-ethos__alignment-spine {
     position: relative;
     top: auto;
-    min-height: 90svh;
+    min-height: 0;
+    padding: 5rem 1.25rem;
   }
 
-  .fairlend-ethos__interest-sequence {
-    border-top: 1px solid var(--ethos-rule);
+  .fairlend-ethos__alignment-spine::after {
+    top: auto;
+    right: 1.25rem;
+    bottom: 0;
+    left: 1.25rem;
+    width: auto;
+    height: 3px;
+  }
+
+  .fairlend-ethos__alignment-spine h3 {
+    font-size: clamp(3.35rem, 15vw, 4.5rem);
+  }
+
+  .fairlend-ethos__interest-ledger {
+    border-right: 0;
     border-left: 0;
   }
 
-  .fairlend-ethos__interest-scene {
-    min-height: 72svh;
-    padding: 54px 0;
+  .fairlend-ethos__interest-row {
+    min-height: 0;
+  }
+
+  .fairlend-ethos__interest-entry {
+    min-height: 36rem;
+    padding: 3.5rem 1.25rem;
+  }
+
+  .fairlend-ethos__interest-heading h4 {
+    font-size: clamp(2.8rem, 13vw, 3.8rem);
   }
 
   .fairlend-ethos__interest-copy {
-    max-width: 16ch;
-    font-size: clamp(42px, 12vw, 58px);
+    margin-block: 2.25rem;
+    font-size: clamp(1.25rem, 5.5vw, 1.55rem);
   }
 
-  .fairlend-ethos__anti-predatory {
+  .fairlend-ethos__interest-fields {
     grid-template-columns: 1fr;
+  }
+
+  .fairlend-ethos__interest-fields li {
+    border-right: 0;
+    border-bottom: 1px solid var(--ethos-rule-strong);
+    text-align: left;
+  }
+
+  .fairlend-ethos__interest-fields li:last-child {
+    border-bottom: 0;
+  }
+
+  .fairlend-ethos__interest-row:last-child .fairlend-ethos__interest-fields li {
+    border-color: rgb(255 255 255 / 24%);
+  }
+
+  .fairlend-ethos__operating {
+    min-height: 0;
+    padding: 5rem 1.25rem 6rem;
+  }
+
+  .fairlend-ethos__operating-file {
+    box-shadow: 5px 5px 0 var(--ethos-signal);
+  }
+
+  .fairlend-ethos__operating-header {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
     align-items: start;
-    min-height: 120svh;
-    padding: 68px 20px;
   }
 
-  .fairlend-ethos__anti-statement {
-    font-size: clamp(54px, 15vw, 72px);
+  .fairlend-ethos__operating-header h3,
+  .fairlend-ethos__operating-header p:last-child {
+    text-align: left;
   }
 
-  .fairlend-ethos__anti-relationship {
-    grid-column: auto;
+  .fairlend-ethos__operating-body {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+    padding: 3.5rem 1.25rem;
   }
 
-  .fairlend-ethos__anti-stamp {
+  .fairlend-ethos__operating-statement {
+    font-size: clamp(3.1rem, 13.8vw, 4.2rem);
+    line-height: 0.96;
+  }
+
+  .fairlend-ethos__relationship-clause {
+    grid-template-columns: 1fr;
+    padding: 2.5rem 1.25rem;
+  }
+
+  .fairlend-ethos__clause-status {
+    white-space: normal;
+  }
+
+  .fairlend-ethos__capital-audit {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'copy'
+      'findings'
+      'skyline';
+    gap: 3.5rem;
+    min-height: 0;
+    padding: 5rem 1.25rem 0;
+  }
+
+  .fairlend-ethos__capital-audit-copy h3 {
+    font-size: clamp(3.7rem, 16.5vw, 5rem);
+    line-height: 0.9;
+  }
+
+  .fairlend-ethos__capital-skyline {
+    height: 27rem;
+    margin: 0 -1.25rem;
+  }
+
+  .fairlend-ethos__capital-skyline img {
+    object-position: 58% bottom;
+  }
+
+  .fairlend-ethos__capital-skyline figcaption {
+    right: 1.25rem;
+    bottom: 1rem;
+    max-width: 16rem;
+  }
+
+  .fairlend-ethos__opportunity {
+    min-height: 0;
+    padding: 5.5rem 1.25rem 6rem;
+  }
+
+  .fairlend-ethos__opportunity::before {
+    display: none !important;
+  }
+
+  .fairlend-ethos__opportunity-header {
+    grid-template-columns: 1fr;
+    gap: 3.25rem;
+  }
+
+  .fairlend-ethos__opportunity-header h3 {
+    font-size: clamp(3.35rem, 15vw, 4.6rem);
+  }
+
+  .fairlend-ethos__opportunity-proposition {
+    font-size: clamp(1.25rem, 5.5vw, 1.55rem);
+  }
+
+  .fairlend-ethos__site-plan {
+    margin-top: 5rem;
+  }
+
+  .fairlend-ethos__site-plan::after {
     display: none;
   }
 
-  .fairlend-ethos__trap-scene {
-    min-height: 1160px;
-  }
-
-  .fairlend-ethos__trap-copy {
-    width: 100%;
-    padding: 72px 20px;
-  }
-
-  .fairlend-ethos__trap-copy h3 {
-    font-size: clamp(60px, 17vw, 78px);
-  }
-
-  .fairlend-ethos__trap-skyline {
-    right: -28%;
-    width: 126%;
-    height: 48%;
-  }
-
-  .fairlend-ethos__build-scene {
-    padding: 72px 20px 96px;
-  }
-
-  .fairlend-ethos__build-heading {
+  .fairlend-ethos__site-plan-meta {
     grid-template-columns: 1fr;
   }
 
-  .fairlend-ethos__build-proposition {
-    font-size: clamp(44px, 12.5vw, 60px);
+  .fairlend-ethos__site-plan-meta span {
+    border-right: 0;
+    border-bottom: 1px solid var(--ethos-rule-strong);
+    text-align: left !important;
   }
 
-  .fairlend-ethos__housing-stage {
-    min-height: 760px;
+  .fairlend-ethos__site-plan-meta span:last-child {
+    border-bottom: 0;
   }
 
-  .fairlend-ethos__housing-stage::before {
-    display: none;
+  .fairlend-ethos__housing-types {
+    grid-template-columns: 1fr;
   }
 
-  .fairlend-ethos__housing-stage-label {
-    top: 4%;
-    width: 73%;
+  .fairlend-ethos__housing-types > li {
+    border-right: 0;
+    border-bottom: 1px solid var(--ethos-ink);
   }
 
-  .fairlend-ethos__housing-asset--multiplex {
-    inset: 22% 0 22% -14%;
+  .fairlend-ethos__housing-types > li:last-child {
+    border-bottom: 0;
   }
 
-  .fairlend-ethos__housing-asset--garden {
-    right: -4%;
-    bottom: 3%;
-    width: 58%;
-    height: 37%;
+  .fairlend-ethos__housing-types figure {
+    grid-template-rows: minmax(20rem, 1fr) auto;
+    min-height: 26rem;
+  }
+
+  .fairlend-ethos__housing-image {
+    min-height: 20rem;
+  }
+
+  .fairlend-ethos__economics-ledger {
+    grid-template-columns: 1fr;
+    gap: 2.75rem;
+    margin-top: 6rem;
+  }
+
+  .fairlend-ethos__economics-reconciliation {
+    grid-column: 1;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    line-height: 1.05;
+  }
+
+  .fairlend-ethos__economics-reconciliation span {
+    width: 100%;
   }
 
   .fairlend-ethos__manifesto {
-    min-height: 112svh;
-    padding-inline: 20px;
+    min-height: 0;
+    padding: 6rem 1.25rem;
+  }
+
+  .fairlend-ethos__manifesto-seal {
+    grid-template-columns: 1fr;
+  }
+
+  .fairlend-ethos__manifesto-seal span {
+    grid-row: 2;
   }
 
   .fairlend-ethos__manifesto blockquote {
-    font-size: clamp(57px, 16.4vw, 78px);
-    line-height: 0.84;
-    text-align: left;
+    margin-top: 5rem;
+    font-size: clamp(3.55rem, 16vw, 4.75rem);
+    line-height: 0.91;
   }
 
-  .fairlend-ethos__manifesto-kicker,
-  .fairlend-ethos__vision {
-    align-self: flex-start;
-    text-align: left;
+  .fairlend-ethos__vision-file {
+    grid-template-columns: 1fr;
+    margin-top: 5rem;
+  }
+
+  .fairlend-ethos__vision-outcomes {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-height: 700px) and (min-width: 761px) {
+  .fairlend-ethos__proof {
+    min-height: 58rem;
+  }
+
+  .fairlend-ethos__proof-photo {
+    height: 36rem;
+  }
+}
+
+/* Purposeful progressive motion. Every block remains complete without it. */
+
+@keyframes ethos-photo-settle {
+  from {
+    transform: scale(1.05);
+  }
+
+  to {
+    transform: scale(1.015);
+  }
+}
+
+@keyframes ethos-register-line {
+  from {
+    transform: scaleY(0.16);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes ethos-verify-line {
+  from {
+    transform: scaleX(0.08);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes ethos-skyline-settle {
+  from {
+    transform: translate3d(0, 5%, 0) scale(1.02);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes ethos-building-settle {
+  from {
+    transform: translate3d(0, 1.4rem, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes ethos-capital-curtain {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .fairlend-ethos__proof-image {
+      animation: ethos-photo-settle 1ms linear both;
+      animation-range: entry 0% cover 34%;
+      animation-timeline: view();
+    }
+
+    .fairlend-ethos__proof-registration {
+      animation: ethos-register-line 1ms linear both;
+      animation-range: entry 10% cover 34%;
+      animation-timeline: view();
+    }
+
+    .fairlend-ethos__interest-status span,
+    .fairlend-ethos__clause-status span,
+    .fairlend-ethos__manifesto-seal span {
+      animation: ethos-verify-line 1ms linear both;
+      animation-range: entry 18% cover 42%;
+      animation-timeline: view();
+    }
+
+    .fairlend-ethos__capital-skyline img {
+      animation: ethos-skyline-settle 1ms linear both;
+      animation-range: entry 0% cover 55%;
+      animation-timeline: view();
+    }
+
+    .fairlend-ethos__reallocation-rule span {
+      animation: ethos-verify-line 1ms linear both;
+      animation-range: entry 8% cover 72%;
+      animation-timeline: view();
+    }
+
+    .fairlend-ethos__opportunity::before {
+      display: block;
+      animation: ethos-capital-curtain 1ms linear both;
+      animation-range: entry 0% entry 48%;
+      animation-timeline: view();
+    }
+
+    .fairlend-ethos__housing-types > li {
+      animation: ethos-building-settle 1ms var(--ethos-ease) both;
+      animation-range: entry 5% cover 32%;
+      animation-timeline: view();
+    }
   }
 }
 
@@ -736,7 +1500,19 @@
   .fairlend-ethos *,
   .fairlend-ethos *::before,
   .fairlend-ethos *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .fairlend-ethos__opportunity::before {
+    display: none !important;
+  }
+
+  .fairlend-ethos__proof-image,
+  .fairlend-ethos__capital-skyline img,
+  .fairlend-ethos__housing-types > li {
+    transform: none !important;
   }
 }

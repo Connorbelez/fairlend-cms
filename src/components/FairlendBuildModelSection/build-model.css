@@ -1797,7 +1797,7 @@
 }
 
 .bm-thesis-texture > [aria-hidden='true'] {
-  filter: invert(1) contrast(0.82);
+  filter: invert(1) contrast(0.9);
   mix-blend-mode: screen;
 }
 
@@ -1915,14 +1915,17 @@
 }
 
 .bm-sensitivity-label {
+  justify-self: center;
   color: var(--bm-muted);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.2em;
   line-height: 1;
+  text-align: center;
 }
 
 .bm-sensitivity-value {
+  justify-self: center;
   display: block;
   min-width: 0;
   margin-top: 12px;
@@ -1932,6 +1935,7 @@
   font-weight: 850;
   letter-spacing: -0.035em;
   line-height: 1;
+  text-align: center;
   white-space: nowrap;
 }
 
@@ -2001,7 +2005,7 @@
   grid-template-columns: 44px minmax(0, 1fr) 44px;
   align-items: stretch;
   width: 100%;
-  min-height: 108px;
+  min-height: 84px;
   margin-block: 22px 20px;
   border: 1px solid var(--bm-line-strong);
   user-select: none;
@@ -2085,8 +2089,8 @@
 }
 
 .bm-build-carousel-current svg {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   stroke-width: 1.35;
 }
 
@@ -2101,60 +2105,6 @@
   text-overflow: ellipsis;
   text-transform: uppercase;
   white-space: nowrap;
-}
-
-.bm-build-carousel-peek {
-  position: absolute;
-  top: 50%;
-  z-index: 1;
-  max-width: 52%;
-  overflow: hidden;
-  color: var(--bm-muted);
-  font-family: 'Oxanium', ui-monospace, monospace;
-  font-size: 7px;
-  font-weight: 800;
-  letter-spacing: 0.07em;
-  opacity: 0.32;
-  text-overflow: ellipsis;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.bm-build-carousel-peek--previous {
-  left: 8px;
-  transform: translate(-48%, -50%) rotateY(54deg);
-  transform-origin: right center;
-}
-
-.bm-build-carousel-peek--next {
-  right: 8px;
-  transform: translate(48%, -50%) rotateY(-54deg);
-  transform-origin: left center;
-}
-
-.bm-equation-node {
-  position: absolute;
-  top: var(--bm-equation-axis);
-  left: 50%;
-  z-index: 5;
-  width: 10px;
-  height: 10px;
-  border: 2px solid var(--bm-signal);
-  border-radius: 50%;
-  background: var(--bm-paper);
-  box-shadow: 0 0 0 3px color-mix(in oklch, var(--bm-signal) 14%, transparent);
-  transform: translate(-50%, -50%);
-}
-
-.bm-equation-node::before {
-  content: '';
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  width: 1px;
-  height: 28px;
-  background: var(--bm-line-strong);
-  transform: translateX(-50%);
 }
 
 .bm-wheel-shell {
@@ -2213,24 +2163,21 @@
 }
 
 .bm-wheel-selection::before {
-  left: -4px;
+  left: 6px;
 }
 
 .bm-wheel-selection::after {
-  right: -4px;
+  right: 6px;
 }
 
 .bm-wheel-viewport {
   position: relative;
   z-index: 3;
   height: 152px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding-block: 57px;
-  overscroll-behavior: contain;
+  overflow: hidden;
+  cursor: ns-resize;
   scrollbar-width: none;
-  scroll-snap-type: y mandatory;
-  touch-action: pan-y;
+  touch-action: none;
 }
 
 .bm-wheel-viewport::-webkit-scrollbar {
@@ -2238,6 +2185,9 @@
 }
 
 .bm-wheel-option {
+  position: absolute;
+  top: 57px;
+  left: 0;
   display: block;
   width: 100%;
   height: 38px;
@@ -2250,14 +2200,14 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   opacity: 0.34;
-  scroll-snap-align: center;
+  will-change: transform, filter, opacity;
   transition:
     color 150ms ease,
     font-size 150ms ease,
     opacity 150ms ease;
 }
 
-.bm-wheel-option[aria-selected='true'] {
+.bm-wheel-option[aria-pressed='true'] {
   color: var(--bm-ink-deep);
   font-size: 13px;
   opacity: 1;
@@ -2292,7 +2242,7 @@
 }
 
 .bm-sensitivity-profit > .bm-sensitivity-label {
-  justify-self: start;
+  justify-self: center;
 }
 
 .bm-profit-orbit {
@@ -2303,16 +2253,16 @@
   display: grid;
   place-items: center;
   align-content: center;
-  width: min(100%, 220px);
-  max-width: 100%;
+  width: min(116%, 260px);
+  max-width: none;
   aspect-ratio: 1;
-  overflow: hidden;
-  border: 1px solid color-mix(in oklch, var(--bm-signal) 46%, transparent);
+  overflow: visible;
+  border: 1px solid color-mix(in oklch, var(--bm-signal) 58%, transparent);
   border-radius: 50%;
   box-shadow:
-    inset 0 0 0 14px color-mix(in oklch, var(--bm-signal) 3%, transparent),
-    inset 0 0 0 28px color-mix(in oklch, var(--bm-signal) 3%, transparent),
-    0 0 32px color-mix(in oklch, var(--bm-signal) 6%, transparent);
+    inset 0 0 0 16px color-mix(in oklch, var(--bm-signal) 3.5%, transparent),
+    inset 0 0 0 34px color-mix(in oklch, var(--bm-signal) 3.5%, transparent),
+    0 0 38px color-mix(in oklch, var(--bm-signal) 8%, transparent);
   transform: translate(-50%, -50%);
 }
 
@@ -2322,6 +2272,53 @@
   position: absolute;
   z-index: 0;
   background: color-mix(in oklch, var(--bm-signal) 28%, transparent);
+}
+
+.bm-profit-orbit-radar,
+.bm-profit-ring,
+.bm-profit-orbit-arcs,
+.bm-profit-orbit-nodes {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+.bm-profit-orbit-radar {
+  inset: 0;
+  z-index: 1;
+}
+
+.bm-profit-ring {
+  border: 1px solid color-mix(in oklch, var(--bm-signal) 14%, transparent);
+}
+
+.bm-profit-ring--outer {
+  inset: 17%;
+}
+
+.bm-profit-ring--inner {
+  inset: 31%;
+}
+
+.bm-profit-orbit-arcs {
+  inset: -8px;
+  background: repeating-conic-gradient(
+    from 8deg,
+    color-mix(in oklch, var(--bm-signal) 82%, transparent) 0deg 13deg,
+    transparent 13deg 42deg
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 0);
+  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 0);
+}
+
+.bm-profit-orbit-nodes {
+  inset: -3px;
+  background:
+    radial-gradient(circle at 50% 0, var(--bm-signal) 0 2px, transparent 2.5px),
+    radial-gradient(circle at 100% 50%, var(--bm-signal) 0 2px, transparent 2.5px),
+    radial-gradient(circle at 50% 100%, var(--bm-signal) 0 2px, transparent 2.5px),
+    radial-gradient(circle at 0 50%, var(--bm-signal) 0 2px, transparent 2.5px);
+  filter: drop-shadow(0 0 4px color-mix(in oklch, var(--bm-signal) 42%, transparent));
 }
 
 .bm-profit-orbit::before {
@@ -2346,7 +2343,7 @@
   overflow: hidden;
   color: var(--bm-signal);
   font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif;
-  font-size: clamp(46px, 3.8vw, 62px);
+  font-size: clamp(54px, 4.6vw, 78px);
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 0.86;

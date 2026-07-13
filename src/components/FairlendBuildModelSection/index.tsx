@@ -731,7 +731,7 @@ function DrawFlowStep() {
 function ThesisStrip() {
   return (
     <section className="bm-thesis bm-scroll-step" {...stateData(thesisState)}>
-      <BackgroundImageTexture className="bm-thesis-texture" opacity={0.16} variant="groovepaper">
+      <BackgroundImageTexture className="bm-thesis-texture" opacity={0.24} variant="groovepaper">
         <div className="bm-thesis-inner">
           <div className="bm-ts-label-row">
             <span className="bm-ts-label">Builder Consulting</span>
