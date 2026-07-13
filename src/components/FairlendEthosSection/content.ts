@@ -96,6 +96,9 @@ export const VISION_OUTCOMES = [
 ] as const
 
 export const ETHOS_ASSETS = {
+  auditSpecimen: '/assets/fairlend-ethos/capital-allocation-audit-specimen.webp',
+  manifestoHousing:
+    '/assets/visual-assets/small-residential-construction/small-residential-construction-04.webp',
   office: '/assets/fairlend-ethos/office-sign-placeholder.webp',
   skyline: '/assets/fairlend-route-selector/investor-skyline-engraving.webp',
 } as const

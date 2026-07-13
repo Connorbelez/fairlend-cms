@@ -580,6 +580,37 @@
   text-wrap: pretty;
 }
 
+.fairlend-ethos__capital-audit-specimen {
+  position: absolute;
+  top: clamp(5.5rem, 8.5vw, 8.5rem);
+  right: clamp(1.375rem, 3.8vw, 4rem);
+  z-index: 1;
+  width: min(28vw, 24rem);
+  aspect-ratio: 0.8;
+  margin: 0;
+  overflow: hidden;
+  opacity: 0.24;
+  pointer-events: none;
+  mask-image: linear-gradient(180deg, #000 0%, #000 82%, transparent 100%);
+}
+
+.fairlend-ethos__capital-audit-specimen::after {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgb(255 255 255 / 22%) 0 0.55px, transparent 0.8px);
+  background-size: 4px 4px;
+  content: '';
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.fairlend-ethos__capital-audit-specimen img {
+  object-fit: contain;
+  object-position: center;
+  filter: grayscale(1) contrast(1.22) brightness(1.08);
+  mix-blend-mode: screen;
+}
+
 .fairlend-ethos__capital-findings {
   z-index: 3;
   grid-area: findings;
@@ -910,9 +941,17 @@
   display: grid;
   align-content: center;
   min-height: 112svh;
+  overflow: hidden;
   padding: clamp(5rem, 9vw, 10rem) clamp(1.375rem, 3.8vw, 4rem);
-  background: var(--ethos-ink);
-  color: var(--ethos-white);
+  background: var(--ethos-signal);
+  color: var(--ethos-ink);
+}
+
+.fairlend-ethos__manifesto-seal,
+.fairlend-ethos__manifesto blockquote,
+.fairlend-ethos__vision-file {
+  position: relative;
+  z-index: 2;
 }
 
 .fairlend-ethos__manifesto-seal {
@@ -921,7 +960,7 @@
   gap: 1.25rem;
   align-items: center;
   margin: 0;
-  color: rgb(255 255 255 / 72%);
+  color: var(--ethos-ink);
 }
 
 .fairlend-ethos__manifesto-seal p {
@@ -931,8 +970,41 @@
 .fairlend-ethos__manifesto-seal span {
   display: block;
   height: 3px;
-  background: var(--ethos-signal);
+  background: var(--ethos-ink);
   transform-origin: left;
+}
+
+.fairlend-ethos__manifesto-housing {
+  position: absolute;
+  top: clamp(9rem, 13vw, 13rem);
+  right: clamp(1.375rem, 3.8vw, 4rem);
+  z-index: 1;
+  width: min(31vw, 28rem);
+  aspect-ratio: 1.15;
+  margin: 0;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 26%, #000 100%);
+}
+
+.fairlend-ethos__manifesto-housing::after {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgb(8 9 10 / 22%) 0 0.55px, transparent 0.8px);
+  background-size: 5px 5px;
+  content: '';
+  mix-blend-mode: multiply;
+  opacity: 0.48;
+  pointer-events: none;
+}
+
+.fairlend-ethos__manifesto-housing img {
+  object-fit: cover;
+  object-position: 52% center;
+  filter: grayscale(1) contrast(1.6);
+  mix-blend-mode: multiply;
+  opacity: 0.24;
+  transform: scale(1.08);
 }
 
 .fairlend-ethos__manifesto blockquote {
@@ -952,7 +1024,7 @@
 
 .fairlend-ethos__manifesto blockquote span:first-child {
   margin-bottom: 0.3em;
-  color: var(--ethos-signal);
+  color: var(--ethos-ink);
   font-size: 0.65em;
   letter-spacing: -0.025em;
   line-height: 0.95;
@@ -964,14 +1036,14 @@
   gap: clamp(3rem, 7vw, 8rem);
   align-items: end;
   margin-top: clamp(4rem, 7vw, 7rem);
-  border-top: 1px solid rgb(255 255 255 / 34%);
+  border-top: 1px solid rgb(8 9 10 / 46%);
   padding-top: clamp(2.5rem, 4vw, 4rem);
 }
 
 .fairlend-ethos__vision {
   max-width: 63ch;
   margin: 0;
-  color: rgb(255 255 255 / 86%);
+  color: var(--ethos-ink);
   font-family: var(--font-inter), ui-sans-serif, sans-serif;
   font-size: clamp(1.0625rem, 1.35vw, 1.25rem);
   font-weight: 560;
@@ -984,8 +1056,8 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin: 0;
-  border-top: 1px solid rgb(255 255 255 / 34%);
-  border-left: 1px solid rgb(255 255 255 / 34%);
+  border-top: 1px solid rgb(8 9 10 / 46%);
+  border-left: 1px solid rgb(8 9 10 / 46%);
   padding: 0;
   list-style: none;
 }
@@ -996,8 +1068,8 @@
   gap: 0.8rem;
   align-items: center;
   min-height: 4.5rem;
-  border-right: 1px solid rgb(255 255 255 / 34%);
-  border-bottom: 1px solid rgb(255 255 255 / 34%);
+  border-right: 1px solid rgb(8 9 10 / 46%);
+  border-bottom: 1px solid rgb(8 9 10 / 46%);
   padding: 0.9rem;
   font-family: var(--font-inter), ui-sans-serif, sans-serif;
   font-size: 0.75rem;
@@ -1012,8 +1084,8 @@
   place-items: center;
   width: 1.9rem;
   height: 1.9rem;
-  background: var(--ethos-signal);
-  color: var(--ethos-signal-ink);
+  background: var(--ethos-ink);
+  color: var(--ethos-signal);
   font-size: 0.6875rem;
   font-weight: 900;
 }
@@ -1046,12 +1118,24 @@
     grid-template-columns: minmax(0, 1fr) minmax(17rem, 0.62fr);
   }
 
+  .fairlend-ethos__capital-audit-specimen {
+    top: 5.25rem;
+    right: 1.5rem;
+    width: min(27vw, 18rem);
+  }
+
   .fairlend-ethos__opportunity-header {
     grid-template-columns: minmax(15rem, 0.48fr) minmax(0, 1fr);
   }
 
   .fairlend-ethos__vision-file {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .fairlend-ethos__manifesto-housing {
+    display: none;
   }
 }
 
@@ -1077,8 +1161,9 @@
   }
 
   .fairlend-ethos__proof-photo {
-    height: 58svh;
-    min-height: 28rem;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 16 / 10;
   }
 
   .fairlend-ethos__proof-image {
@@ -1241,6 +1326,10 @@
     gap: 3.5rem;
     min-height: 0;
     padding: 5rem 1.25rem 0;
+  }
+
+  .fairlend-ethos__capital-audit-specimen {
+    display: none;
   }
 
   .fairlend-ethos__capital-audit-copy h3 {

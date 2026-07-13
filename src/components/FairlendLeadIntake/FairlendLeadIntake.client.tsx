@@ -20,6 +20,8 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { type FormEvent, useEffect, useRef, useState } from 'react'
 
+import './lead-intake.css'
+
 import { Button } from '@/components/ui/button'
 import { GoogleAddressAutocomplete } from '@/components/address/GoogleAddressAutocomplete'
 import {

@@ -1,7 +1,14 @@
 import type { Metadata } from 'next'
 
 import { cn } from '@/utilities/ui'
-import { Cormorant_Garamond, Inter } from 'next/font/google'
+import {
+  Architects_Daughter,
+  Cormorant_Garamond,
+  DM_Serif_Display,
+  Inter,
+  League_Gothic,
+  Oxanium,
+} from 'next/font/google'
 import React, { Suspense } from 'react'
 
 import { AnalyticsProvider } from '@/components/Analytics'
@@ -30,10 +37,53 @@ const cormorantGaramond = Cormorant_Garamond({
   weight: ['400', '500', '600', '700'],
 })
 
+// These display faces previously came from a render-blocking Google Fonts @import.
+// Keep them self-hosted and out of the critical preload queue; the browser fetches
+// each face only on routes that actually render it.
+const architectsDaughter = Architects_Daughter({
+  display: 'swap',
+  preload: false,
+  subsets: ['latin'],
+  variable: '--font-architects-daughter',
+  weight: '400',
+})
+
+const dmSerifDisplay = DM_Serif_Display({
+  display: 'swap',
+  preload: false,
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  variable: '--font-dm-serif-display',
+  weight: '400',
+})
+
+const leagueGothic = League_Gothic({
+  display: 'swap',
+  preload: false,
+  subsets: ['latin'],
+  variable: '--font-league-gothic',
+  weight: '400',
+})
+
+const oxanium = Oxanium({
+  display: 'swap',
+  preload: false,
+  subsets: ['latin'],
+  variable: '--font-oxanium',
+  weight: ['400', '500', '600', '700', '800'],
+})
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      className={cn(inter.variable, cormorantGaramond.variable)}
+      className={cn(
+        inter.variable,
+        cormorantGaramond.variable,
+        architectsDaughter.variable,
+        dmSerifDisplay.variable,
+        leagueGothic.variable,
+        oxanium.variable,
+      )}
       data-theme={defaultTheme}
       lang="en"
       suppressHydrationWarning

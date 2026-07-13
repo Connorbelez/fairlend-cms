@@ -29,9 +29,12 @@ export function FairlendEthosSection({
         <EthosProofBlock officeImageSrc={officeImageSrc} />
         <AlignedInterestsBlock />
         <OperatingStandardBlock />
-        <CapitalTrapsBlock skylineImageSrc={ETHOS_ASSETS.skyline} />
+        <CapitalTrapsBlock
+          auditSpecimenImageSrc={ETHOS_ASSETS.auditSpecimen}
+          skylineImageSrc={ETHOS_ASSETS.skyline}
+        />
         <HousingOpportunityBlock />
-        <EthosManifestoBlock />
+        <EthosManifestoBlock housingImageSrc={ETHOS_ASSETS.manifestoHousing} />
       </FairlendPaperShell>
     </FairlendPaperSection>
   )

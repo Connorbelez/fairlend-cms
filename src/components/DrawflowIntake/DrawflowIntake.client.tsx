@@ -39,6 +39,8 @@ import type { ReactElement } from 'react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
 
+import './buildpath.css'
+
 import { GoogleAddressAutocomplete } from '@/components/address/GoogleAddressAutocomplete'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'

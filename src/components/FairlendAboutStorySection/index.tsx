@@ -1,7 +1,8 @@
 import Image from 'next/image'
-/* eslint-disable @next/next/no-img-element */
 import { type LucideIcon, ShieldCheck, TrendingUp, Users } from 'lucide-react'
 import type { ReactElement } from 'react'
+
+import './styles.css'
 
 import {
   FairlendExpertisePanel,
