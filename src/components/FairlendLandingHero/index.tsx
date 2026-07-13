@@ -4,7 +4,6 @@ import Image from 'next/image'
 
 import { FairlendConsultationBookingDialog } from '@/components/FairlendConsultationBooking/FairlendConsultationBookingDialog.client'
 import { FairlendBuildPropertyTypes } from '@/components/FairlendBuildPropertyTypes'
-import { Highlighter } from '@/components/ui/highlighter'
 import {
   FAIRLEND_CONTACT_PHONE_HREF,
   FAIRLEND_CONTACT_PHONE_LABEL,
@@ -68,7 +67,7 @@ function BookConsultationButton({ mobileDocked = false }: { mobileDocked?: boole
       source={
         mobileDocked ? 'homepage-hero-mobile-book-consultation' : 'homepage-hero-book-consultation'
       }
-      style={{ '--toronto-delay': '720ms' } as CSSProperties}
+      style={{ '--toronto-delay': '320ms' } as CSSProperties}
     >
       <span className={cn(mobileDocked && 'min-w-0 text-left')}>
         {mobileDocked ? 'Book Consultation' : 'Book a Free Consultation'}
@@ -97,7 +96,7 @@ function HeroTalkToExpertButton({ mobileDocked = false }: { mobileDocked?: boole
       eyebrow="Talk to an expert"
       href={FAIRLEND_CONTACT_PHONE_HREF}
       label={FAIRLEND_CONTACT_PHONE_LABEL}
-      style={{ '--toronto-delay': mobileDocked ? '760ms' : '820ms' } as CSSProperties}
+      style={{ '--toronto-delay': mobileDocked ? '380ms' : '360ms' } as CSSProperties}
     />
   )
 }
@@ -127,7 +126,7 @@ function MobileAuthorityBar() {
     <aside
       aria-label="FairLend authority points"
       className="fairlend-toronto-copy relative isolate hidden w-full overflow-hidden rounded-[9px] border border-[#08090a] bg-[#f8f7f5]/96 p-3 shadow-[6px_6px_0_#96ec18] hero-compact:p-2.5 hero-mobile:block"
-      style={{ '--toronto-delay': '780ms' } as CSSProperties}
+      style={{ '--toronto-delay': '420ms' } as CSSProperties}
     >
       <span
         aria-hidden="true"
@@ -212,8 +211,9 @@ function CloudLayer({
             alt=""
             className="block h-auto w-full select-none object-contain opacity-[0.82] [filter:contrast(0.76)_brightness(1.16)] [-webkit-user-drag:none]"
             decoding="async"
+            fetchPriority="low"
             height={height}
-            priority
+            loading="lazy"
             sizes="(max-width: 768px) 35vw, 28vw"
             src={src}
             width={width}
@@ -238,7 +238,7 @@ function TorontoScene() {
           className="absolute inset-0 block h-full w-full object-cover opacity-[0.42] mix-blend-multiply max-md:hidden"
           decoding="async"
           height={941}
-          priority
+          preload
           sizes="100vw"
           src="/assets/fairlend-toronto-contour-map.webp"
           width={1672}
@@ -259,6 +259,7 @@ function TorontoScene() {
               alt=""
               className="block h-auto w-full select-none object-contain opacity-[0.88] [filter:contrast(0.86)_brightness(1.13)] [-webkit-user-drag:none]"
               decoding="async"
+              fetchPriority="high"
               height={1000}
               priority
               sizes="(max-width: 576px) 260vw, (max-width: 768px) 178vw, (max-width: 1024px) 122vw, (min-width: 1536px) 83vw, 1280px"
@@ -290,13 +291,23 @@ export function FairlendLandingHero() {
         <style>{`
           @keyframes fairlendTorontoTitleLineIn {
             from {
-              opacity: 0.18;
-              clip-path: inset(0 0 108% 0);
-              transform: translate3d(0, 0.42em, 0);
+              opacity: 0.68;
+              transform: translate3d(0, 0.12em, 0);
             }
             to {
               opacity: 1;
-              clip-path: inset(0 0 -8% 0);
+              transform: translate3d(0, 0, 0);
+            }
+          }
+          @keyframes fairlendTorontoCopySettle {
+            from {
+              opacity: 0.72;
+              filter: blur(2px);
+              transform: translate3d(0, 6px, 0);
+            }
+            to {
+              opacity: 1;
+              filter: blur(0);
               transform: translate3d(0, 0, 0);
             }
           }
@@ -304,36 +315,38 @@ export function FairlendLandingHero() {
             display: block;
             padding-bottom: 0.02em;
           }
+          .fairlend-toronto-title-highlight {
+            position: relative;
+            display: inline-block;
+            isolation: isolate;
+          }
+          .fairlend-toronto-title-highlight::after {
+            position: absolute;
+            right: -0.035em;
+            bottom: 0.035em;
+            left: -0.035em;
+            z-index: -1;
+            height: 0.09em;
+            border-radius: 999px 72% 999px 64%;
+            background: #96ec18;
+            box-shadow: 0 0.045em 0 -0.018em rgb(150 236 24 / 78%);
+            content: '';
+            transform: rotate(-1.2deg);
+          }
           .fairlend-toronto-title[data-title-cascade] {
             animation: none;
             opacity: 1;
           }
           @media (prefers-reduced-motion: no-preference) {
-            /* Hold pre-wipe until fonts/skyline settle — avoids finishing during load blur. */
-            [data-fairlend-motion='toronto-hero']:not([data-hero-intro-ready='true'])
-              .fairlend-toronto-title-line {
-              animation: none;
-              clip-path: inset(0 0 108% 0);
-              opacity: 0.18;
-              transform: translate3d(0, 0.42em, 0);
-            }
-            [data-fairlend-motion='toronto-hero'][data-hero-intro-ready='true']
-              .fairlend-toronto-title-line {
-              animation: fairlendTorontoTitleLineIn 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
-              animation-delay: calc(var(--toronto-delay, 120ms) + (var(--line-index, 0) * 95ms));
+            [data-fairlend-motion='toronto-hero'] .fairlend-toronto-title-line {
+              animation: fairlendTorontoTitleLineIn 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+              animation-delay: calc(var(--toronto-delay, 20ms) + (var(--line-index, 0) * 55ms));
               backface-visibility: hidden;
-              will-change: clip-path, opacity, transform;
+              will-change: opacity, transform;
             }
-            [data-fairlend-motion='toronto-hero']:not([data-hero-intro-ready='true'])
-              .fairlend-toronto-copy {
-              animation: none;
-              opacity: 0;
-              filter: blur(9px);
-              transform: translate3d(0, 18px, 0);
-            }
-            [data-fairlend-motion='toronto-hero'][data-hero-intro-ready='true']
-              .fairlend-toronto-copy {
-              animation-delay: calc(var(--toronto-delay, 980ms));
+            [data-fairlend-motion='toronto-hero'] .fairlend-toronto-copy {
+              animation: fairlendTorontoCopySettle 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+              animation-delay: var(--toronto-delay, 240ms);
             }
           }
           @media (prefers-reduced-motion: reduce) {
@@ -360,7 +373,7 @@ export function FairlendLandingHero() {
               className="fairlend-toronto-title m-0 font-serif text-[clamp(64px,5.35vw,82px)] leading-[0.98] font-semibold tracking-[-0.04em] text-[#030405] max-lg:text-[clamp(58px,7vw,72px)] max-md:text-[58px] max-md:leading-[1.03] max-md:font-bold max-[390px]:text-[51px]"
               data-title-cascade
               id="fairlend-hero-title"
-              style={{ '--toronto-delay': '120ms' } as CSSProperties}
+              style={{ '--toronto-delay': '20ms' } as CSSProperties}
             >
               {(['Fast', 'Flexible', 'Fair', 'Financing for:'] as const).map((line, index) => (
                 <span
@@ -369,17 +382,7 @@ export function FairlendLandingHero() {
                   style={{ '--line-index': index } as CSSProperties}
                 >
                   {line === 'Fair' ? (
-                    <Highlighter
-                      action="underline"
-                      animationDuration={950}
-                      color="#96ec18"
-                      isView
-                      iterations={3}
-                      padding={3}
-                      strokeWidth={3}
-                    >
-                      {line}
-                    </Highlighter>
+                    <span className="fairlend-toronto-title-highlight">{line}</span>
                   ) : (
                     line
                   )}
@@ -393,7 +396,7 @@ export function FairlendLandingHero() {
 
             <div
               className="fairlend-toronto-copy mt-[18px] w-full max-w-[466px] max-md:mt-3 hero-mobile:mt-3"
-              style={{ '--toronto-delay': '980ms' } as CSSProperties}
+              style={{ '--toronto-delay': '240ms' } as CSSProperties}
             >
               <FairlendBuildPropertyTypes
                 className="w-full shadow-none"

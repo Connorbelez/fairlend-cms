@@ -4,10 +4,14 @@ import type { ReactElement } from 'react'
 import { CAPITAL_TRAP_AUDIT, ETHOS_COPY } from '../content'
 
 type CapitalTrapsBlockProps = {
+  auditSpecimenImageSrc: string
   skylineImageSrc: string
 }
 
-export function CapitalTrapsBlock({ skylineImageSrc }: CapitalTrapsBlockProps): ReactElement {
+export function CapitalTrapsBlock({
+  auditSpecimenImageSrc,
+  skylineImageSrc,
+}: CapitalTrapsBlockProps): ReactElement {
   return (
     <section
       aria-labelledby="fairlend-ethos-housing-title"
@@ -22,6 +26,16 @@ export function CapitalTrapsBlock({ skylineImageSrc }: CapitalTrapsBlockProps): 
         <h3 id="fairlend-ethos-housing-title">{ETHOS_COPY.housingHeading}</h3>
         <p>{ETHOS_COPY.capitalTrap}</p>
       </div>
+
+      <figure aria-hidden="true" className="fairlend-ethos__capital-audit-specimen">
+        <Image
+          alt=""
+          fill
+          loading="lazy"
+          sizes="(max-width: 760px) 1px, (max-width: 1080px) 27vw, 24rem"
+          src={auditSpecimenImageSrc}
+        />
+      </figure>
 
       <figure className="fairlend-ethos__capital-skyline">
         <Image

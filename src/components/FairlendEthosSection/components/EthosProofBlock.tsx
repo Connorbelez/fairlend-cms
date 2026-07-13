@@ -29,8 +29,9 @@ export function EthosProofBlock({ officeImageSrc }: EthosProofBlockProps): React
         <div className="fairlend-ethos__proof-docket">
           <p className="fairlend-ethos__eyebrow">{ETHOS_COPY.eyebrow}</p>
           <h2 id="fairlend-ethos-title">
-            <span>The name on the sign</span>
-            <span>is the standard inside.</span>
+            <span className="sr-only">{ETHOS_COPY.headline}</span>
+            <span aria-hidden="true">The name on the sign</span>
+            <span aria-hidden="true">is the standard inside.</span>
           </h2>
         </div>
 

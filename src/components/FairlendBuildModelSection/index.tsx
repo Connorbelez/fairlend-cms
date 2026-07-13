@@ -84,7 +84,7 @@ type BoardState = {
   title: string
   variables: readonly BuildVariable[]
   dossierTab: DossierTabId
-  theme: 'ivory' | 'builder-blueprint' | 'forest' | 'ink'
+  theme: 'ivory' | 'builder-blueprint' | 'electric-lime' | 'forest' | 'ink'
 }
 
 type Station = BoardState & {
@@ -93,8 +93,8 @@ type Station = BoardState & {
   headline: string
   body: string
   comparison: {
-    without: string
-    with: string
+    selfManaged: string
+    fairlendLed: string
   }
   note?: string
 }
@@ -117,15 +117,16 @@ const stations = [
     title: 'Feasibility before commitment',
     variables: ['Land', 'Scope'],
     dossierTab: 'parcel',
-    theme: 'builder-blueprint',
+    theme: 'electric-lime',
     num: '01',
     name: 'Plan',
     headline: 'Test whether the site and project economics support a financeable build.',
     body: 'Before you commit more capital to land or design, FairLend works with you to review the acquisition basis, zoning and housing form, unit mix, buildable area, hard and soft costs, contingency, timeline, expected value, and intended exit.',
     comparison: {
-      without:
-        'Land and design decisions can harden before the financing constraints and exit requirements are tested together.',
-      with: 'You pressure-test the site, scope, budget, approvals, and exit with FairLend before committing more capital.',
+      selfManaged:
+        'Source and brief a planner, designer, builder or project manager, cost consultant, and permit specialists—then reconcile their advice with the budget, financing, and exit.',
+      fairlendLed:
+        'Bring us the site or early idea. FairLend helps assemble the required specialists and turns their inputs into one financeable project plan.',
     },
   },
   {
@@ -142,9 +143,10 @@ const stations = [
       'FairLend provides the construction financing and works with you to structure it around your specific build.',
     body: 'Together, we align the land basis, construction budget, borrower equity, working-capital needs, project milestones, and exit. FairLend stages advances around the work, helping keep enough capital available so the build is not squeezed without advancing funds earlier than needed and increasing interest carry.',
     comparison: {
-      without:
-        'Capital can arrive too late for the work or be advanced too early, squeezing the build or increasing interest carry.',
-      with: 'FairLend provides financing staged around the work, balancing available capital against interest on advanced funds.',
+      selfManaged:
+        'Find a construction lender, compare structures, and coordinate the appraisal, legal, insurance, budget review, draw requirements, and working-capital plan.',
+      fairlendLed:
+        'FairLend leads the capital plan, construction financing, diligence, and milestone draw structure through one financing relationship.',
     },
   },
   {
@@ -160,9 +162,10 @@ const stations = [
     headline: 'Adjust the draw plan mid-build as the work and capital requirements change.',
     body: 'Builds do not always follow the original sequence. FairLend works with you to revise the draw schedule as the work shifts, subject to the financing terms, so capital is available when the project needs it without being advanced earlier than necessary and adding avoidable interest carry.',
     comparison: {
-      without:
-        'A static draw schedule can stop matching the site, leaving capital unavailable or accruing interest too early.',
-      with: 'You revise milestones and draw timing with FairLend as the work and capital requirements shift.',
+      selfManaged:
+        'Find and manage a builder or project manager, organize trades and suppliers, coordinate consultants and inspections, prepare each draw package, and relay every change to the lender.',
+      fairlendLed:
+        'FairLend helps put the right project team around the build, then keeps the draw process, project milestones, and capital plan working from one coordinated file.',
     },
   },
   {
@@ -179,9 +182,10 @@ const stations = [
       'FairLend helps you qualify for CMHC-insured takeout and provides the takeout financing itself.',
     body: 'FairLend works with you early to shape the project, documentation, and operating plan toward CMHC-insured takeout eligibility. As completion approaches, we prepare the application together and FairLend provides the takeout financing for eligible projects. MLI Select is one possible CMHC-insured program, not the whole takeout offering.',
     comparison: {
-      without:
-        'CMHC requirements may surface near maturity, when design, documentation, or operating gaps are harder to correct.',
-      with: 'You work toward eligibility early; FairLend prepares the application and provides takeout financing for eligible projects.',
+      selfManaged:
+        'Start a second lender search, confirm CMHC eligibility, assemble valuation, completion, occupancy, income, and operating documents, and coordinate the refinance before maturity.',
+      fairlendLed:
+        'FairLend sets the takeout requirements early, prepares the application with you, and provides CMHC-insured takeout financing for eligible projects.',
     },
   },
   {
@@ -198,9 +202,10 @@ const stations = [
       'The Unf*ck Contingency Program helps you diagnose what stalled the build and coordinate a recovery plan.',
     body: 'The program reviews schedule, budget, trades, working capital, draw requirements, and documentation with you to identify the root constraints. FairLend then helps coordinate an appropriate recovery path and the resources required to pursue it.',
     comparison: {
-      without:
-        'Each advisor can see one symptom while nobody owns the connected schedule, budget, trade, and financing problem.',
-      with: 'The Unf*ck Contingency Program diagnoses the full picture and coordinates a prioritized recovery plan with you.',
+      selfManaged:
+        'Call the project manager, trades, consultants, quantity surveyor, and lender separately, piece together competing diagnoses, and coordinate a recovery plan while the project is stalled.',
+      fairlendLed:
+        'Bring the whole problem to one escalation point. FairLend diagnoses the connected schedule, budget, trade, documentation, and capital constraints, then coordinates a prioritized recovery path.',
     },
     note: 'Recovery support is a resource, not a guarantee of completion, timelines, cost control, contractor performance, or full recovery.',
   },
@@ -608,12 +613,12 @@ function StationStep({ station }: { station: Station }) {
       <p className="bm-station-body">{station.body}</p>
       <div className="bm-station-comparison">
         <article className="bm-station-comparison-panel bm-station-comparison-panel--without">
-          <span className="bm-station-comparison-label">Without FairLend</span>
-          <p>{station.comparison.without}</p>
+          <span className="bm-station-comparison-label">You coordinate</span>
+          <p>{station.comparison.selfManaged}</p>
         </article>
         <article className="bm-station-comparison-panel bm-station-comparison-panel--with">
-          <span className="bm-station-comparison-label">With FairLend</span>
-          <p>{station.comparison.with}</p>
+          <span className="bm-station-comparison-label">One FairLend team</span>
+          <p>{station.comparison.fairlendLed}</p>
         </article>
       </div>
       {station.note ? <p className="bm-station-note">{station.note}</p> : null}
@@ -784,8 +789,9 @@ export function FairlendBuildModelSection() {
             <VariableRibbon />
 
             <p className="bm-shared-lead">
-              You don&apos;t need the whole team, a perfect plan, or prior build experience before
-              you talk to us.
+              Instead of finding and coordinating every party yourself, bring FairLend the
+              property, plan, or early idea. We help assemble the right team and keep the project,
+              financing, draws, and takeout moving through one coordinated plan.
             </p>
 
             <AudiencePaths />
