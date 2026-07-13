@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 
+import Image from 'next/image'
+
 import { useState, type ReactNode } from "react";
 import { AnimatePresence, motion, type Variants } from "motion/react";
 import { FaBars, FaXmark } from "react-icons/fa6";
@@ -114,12 +116,15 @@ export function Hero6({
   return (
     <section className="relative flex  w-full overflow-hidden text-white antialiased min-h-screen font-sans">
       <div className="absolute inset-0">
-        <img
+        <Image
           src={backgroundImage}
           alt=""
           aria-hidden="true"
           className="h-full w-full object-cover object-center opacity-100 outline outline-1 outline-white/10"
-        />
+        
+          width={1600}
+          height={900}
+          sizes="100vw"/>
         <div className="absolute inset-0 bg-sky-950/10" />
       
       </div>

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { cn } from '@/utilities/ui'
 import { Button } from '@/components/ui/button'
 import { FullWidthDivider } from './full-width-divider'
@@ -68,13 +69,14 @@ function IntegrationCard({ row, col, logo }: TileData) {
       }}
     >
       {logo && (
-        <img
+        <Image
           alt={logo.alt}
           className={cn('pointer-events-none size-8 select-none object-contain p-1 dark:invert')}
           height={40}
           src={logo.src}
           width={40}
-        />
+        
+          sizes="96px"/>
       )}
     </div>
   )

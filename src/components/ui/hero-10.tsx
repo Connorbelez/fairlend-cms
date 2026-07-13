@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 
+import Image from 'next/image'
+
 import { useState } from 'react';
 import { AnimatePresence, motion, type Variants } from 'motion/react';
 import { FaArrowRight, FaChevronDown, FaXmark } from 'react-icons/fa6';
@@ -110,11 +112,14 @@ export function Hero10({
         className="absolute inset-0 will-change-transform"
         aria-hidden="true"
       >
-        <img
+        <Image
           src={backgroundImage}
           alt=""
           className="h-full w-full object-cover object-center outline outline-1 outline-black/10"
-        />
+        
+          width={1600}
+          height={900}
+          sizes="100vw"/>
       </motion.div>
 
       <div

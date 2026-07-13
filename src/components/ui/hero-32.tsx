@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 
+import Image from 'next/image'
+
 import { motion, type Variants } from 'motion/react';
 import { Play } from 'lucide-react';
 import React from 'react';
@@ -73,11 +75,14 @@ export default function Hero32({
     return (
       <div className="relative min-h-screen w-full overflow-hidden bg-[#5bb2ff] font-sans antialiased selection:bg-white/20">
         <div className="pointer-events-none absolute inset-0 z-0 select-none">
-          <img
+          <Image
             className="absolute inset-0 h-full w-full object-cover"
             src={backgroundImage}
             alt="Sunflowers background"
-          />
+          
+          width={1600}
+          height={900}
+          sizes="100vw"/>
         </div>
 
         <div className="relative z-10 flex min-h-screen flex-col pt-6">

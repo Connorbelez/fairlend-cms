@@ -1573,7 +1573,7 @@
   --landing-content-max: calc(var(--landing-frame-max) - (var(--landing-gutter-width) * 2));
   --landing-gutter-line: rgb(8 9 10 / 10%);
   --landing-gutter-line-soft: rgb(8 9 10 / 6%);
-  --landing-gutter-material-image: url('https://www.transparenttextures.com/patterns/fabric-of-squares.png');
+  --landing-gutter-material-image: url('/textures/fabric-of-squares.png');
   --landing-gutter-material-opacity: 0.34;
   --landing-gutter-material-size: auto;
   --landing-rail-dot: rgb(8 9 10 / 18%);
@@ -1628,27 +1628,27 @@
 }
 
 .fairlend-landing-rail[data-gutter-texture='fabric-of-squares'] {
-  --landing-gutter-material-image: url('https://www.transparenttextures.com/patterns/fabric-of-squares.png');
+  --landing-gutter-material-image: url('/textures/fabric-of-squares.png');
   --landing-gutter-material-opacity: 0.36;
 }
 
 .fairlend-landing-rail[data-gutter-texture='grid-noise'] {
-  --landing-gutter-material-image: url('https://www.transparenttextures.com/patterns/grid-noise.png');
+  --landing-gutter-material-image: url('/textures/grid-noise.png');
   --landing-gutter-material-opacity: 0.42;
 }
 
 .fairlend-landing-rail[data-gutter-texture='inflicted'] {
-  --landing-gutter-material-image: url('https://www.transparenttextures.com/patterns/inflicted.png');
+  --landing-gutter-material-image: url('/textures/inflicted.png');
   --landing-gutter-material-opacity: 0.28;
 }
 
 .fairlend-landing-rail[data-gutter-texture='debut-light'] {
-  --landing-gutter-material-image: url('https://www.transparenttextures.com/patterns/debut-light.png');
+  --landing-gutter-material-image: url('/textures/debut-light.png');
   --landing-gutter-material-opacity: 0.3;
 }
 
 .fairlend-landing-rail[data-gutter-texture='groovepaper'] {
-  --landing-gutter-material-image: url('https://www.transparenttextures.com/patterns/groovepaper.png');
+  --landing-gutter-material-image: url('/textures/groovepaper.png');
   --landing-gutter-material-opacity: 0.4;
 }
 
@@ -1668,6 +1668,25 @@
   margin-left: -4px;
   background: var(--landing-rail-dot);
   will-change: transform, border-radius, background-color, box-shadow;
+}
+
+.fairlend-landing-rail-dot.is-active {
+  background-color: var(--landing-hero-lime);
+  border-radius: 999px;
+  box-shadow:
+    0 0 18px rgb(150 236 24 / 72%),
+    0 0 34px rgb(150 236 24 / 34%);
+  transform: scale(1.55);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fairlend-landing-rail-dot {
+    transition:
+      background-color 280ms ease-out,
+      border-radius 280ms ease-out,
+      box-shadow 280ms ease-out,
+      transform 280ms ease-out;
+  }
 }
 
 .fairlend-landing-rail-dot--top {
@@ -2333,8 +2352,8 @@
     top: 38% !important;
     left: -8% !important;
     width: 54vw !important;
-    --cloud-drift-duration: 92s !important;
-    --cloud-drift-x: 100vw !important;
+    --cloud-drift-duration: 184s !important;
+    --cloud-drift-x: 200vw !important;
     z-index: 5 !important;
   }
 
@@ -2342,8 +2361,8 @@
     top: 27% !important;
     left: 62% !important;
     width: 46vw !important;
-    --cloud-drift-duration: 128s !important;
-    --cloud-drift-x: -100vw !important;
+    --cloud-drift-duration: 256s !important;
+    --cloud-drift-x: -200vw !important;
     z-index: 2 !important;
   }
 
@@ -2351,8 +2370,8 @@
     top: 43.5% !important;
     left: 12% !important;
     width: 68vw !important;
-    --cloud-drift-duration: 96s !important;
-    --cloud-drift-x: 100vw !important;
+    --cloud-drift-duration: 192s !important;
+    --cloud-drift-x: 200vw !important;
     z-index: 5 !important;
   }
 
@@ -2360,8 +2379,8 @@
     top: clamp(76px, 12svh, 104px) !important;
     left: 62% !important;
     width: 52vw !important;
-    --cloud-drift-duration: 132s !important;
-    --cloud-drift-x: -100vw !important;
+    --cloud-drift-duration: 264s !important;
+    --cloud-drift-x: -200vw !important;
     z-index: 5 !important;
   }
 

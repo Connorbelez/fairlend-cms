@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 
+import Image from 'next/image'
+
 import {
   Home,
   Users,
@@ -206,11 +208,14 @@ export function SecondarySidebar({
         {/* Header */}
         <div className="h-14 border-b border-sidebar-border flex items-center justify-center p-1.5">
           <div className="w-full flex items-center gap-2 rounded-md p-1 bg-muted/60 border border-sidebar-border">
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Logo"
               className="size-7 rounded"
-            />
+            
+          width={96}
+          height={96}
+          sizes="96px"/>
             <div className="flex-1 text-left text-sm leading-tight">
               <div className="truncate font-medium text-foreground">GR8R HRM</div>
               <div className="truncate text-xs text-muted-foreground/60">Admin</div>

@@ -1,4 +1,5 @@
 import {
+  buildFairlendIntakeHref,
   buildFairlendMortgageHref,
   fairlendRentalPropertyAcquisitionHeaderSource,
   fairlendRentalPropertyRefinanceHeaderSource,
@@ -48,6 +49,38 @@ export const fairlendNavLinks = {
   startFile: { href: '/intake' },
   about: { href: '/#overview' },
   leadership: { href: '/#leadership' },
+  residentialMortgages: {
+    href: buildFairlendMortgageHref('header-nav-residential-mortgages'),
+  },
+  bridgeLoans: { href: buildFairlendMortgageHref('header-nav-bridge-loans') },
+  renovationFinancing: {
+    href: buildFairlendIntakeHref({
+      intent: 'build',
+      projectScope: 'renovation-financing',
+      source: 'header-nav-renovation-financing',
+    }),
+  },
+  multiplexFinancing: {
+    href: buildFairlendIntakeHref({
+      intent: 'build',
+      projectScope: 'multiplex-financing',
+      source: 'header-nav-multiplex-financing',
+    }),
+  },
+  gardenLanewaySuites: {
+    href: buildFairlendIntakeHref({
+      intent: 'build',
+      projectScope: 'garden-laneway-suites',
+      source: 'header-nav-garden-laneway-suites',
+    }),
+  },
+  mliSelectInsuredHousing: {
+    href: buildFairlendIntakeHref({
+      intent: 'build',
+      projectScope: 'mli-select-insured-housing',
+      source: 'header-nav-mli-select-insured-housing',
+    }),
+  },
 } as const
 
 /** Keep the existing dropdown interaction, with the polished sitemap only. */
@@ -60,22 +93,36 @@ export const NAV_LINKS: NavLink[] = [
         {
           heading: 'Financing options',
           items: [
+            { label: 'Residential Mortgages', link: fairlendNavLinks.residentialMortgages },
+            { label: 'Bridge Loans', link: fairlendNavLinks.bridgeLoans },
             { label: 'Construction financing', link: fairlendNavLinks.intake },
             { label: 'Private mortgages', link: fairlendNavLinks.privateMortgages },
           ],
         },
         {
           accent: true,
+          heading: 'Project financing',
+          items: [
+            { label: 'Renovation Financing', link: fairlendNavLinks.renovationFinancing },
+            { label: 'Multi-plex Financing', link: fairlendNavLinks.multiplexFinancing },
+            { label: 'Garden & Laneway Suites', link: fairlendNavLinks.gardenLanewaySuites },
+            {
+              label: 'MLI-Select Insured Housing',
+              link: fairlendNavLinks.mliSelectInsuredHousing,
+            },
+          ],
+        },
+        {
           heading: 'Refinancing & acquisitions',
           items: [
             {
               description: 'Finance the purchase of an existing rental property.',
-              label: 'Acquire a rental property',
+              label: 'Acquisition of Existing Rental Properties',
               link: fairlendNavLinks.rentalPropertyAcquisition,
             },
             {
               description: 'Renew debt, unlock equity, or restructure the capital stack.',
-              label: 'Refinance a rental property',
+              label: 'Refinancing of Existing Rental Properties',
               link: fairlendNavLinks.rentalPropertyRefinance,
             },
           ],

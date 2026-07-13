@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 
+import Image from 'next/image'
+
 import LogoIcon from "@/assets/logo-icon";
 import { motion, type Variants } from "motion/react";
 import { ArrowRight } from "lucide-react";
@@ -61,11 +63,14 @@ export default function Hero35() {
     <div className="relative min-h-screen w-full overflow-hidden bg-black font-sans antialiased selection:bg-white/30 selection:text-white">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <img
+        <Image
           src="https://assets.watermelon.sh/hero-35-bg.avif"
           alt="Magical landscape"
           className="h-full w-full object-cover"
-        />
+        
+          width={1600}
+          height={900}
+          sizes="100vw"/>
         {/* Gradient for text legibility */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/80" />
       </div>

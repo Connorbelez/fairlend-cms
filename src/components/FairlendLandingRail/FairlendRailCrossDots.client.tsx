@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { motion, useReducedMotion } from 'motion/react'
 
 import { cn } from '@/utilities/ui'
 
@@ -36,7 +35,6 @@ function hasActiveDotChanged(current: Record<DotKey, boolean>, next: Record<DotK
 }
 
 export function FairlendRailCrossDots() {
-  const reduceMotion = useReducedMotion()
   const [activeDots, setActiveDots] = useState(initialActiveDots)
   const dotRefs = useRef<Record<DotKey, HTMLSpanElement | null>>({
     'bottom-left': null,
@@ -51,7 +49,7 @@ export function FairlendRailCrossDots() {
   }, [activeDots])
 
   useEffect(() => {
-    if (reduceMotion) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     let animationFrame = 0
     let pointerX = 0
@@ -115,7 +113,7 @@ export function FairlendRailCrossDots() {
       window.removeEventListener('blur', resetDots)
       document.removeEventListener('mouseleave', resetDots)
     }
-  }, [reduceMotion])
+  }, [])
 
   return (
     <div aria-hidden="true" className="fairlend-landing-rail-dots">
@@ -123,21 +121,12 @@ export function FairlendRailCrossDots() {
         const isActive = activeDots[key]
 
         return (
-          <motion.span
-            animate={{
-              backgroundColor: isActive ? 'var(--landing-hero-lime)' : 'var(--landing-rail-dot)',
-              borderRadius: isActive ? '999px' : '2px',
-              boxShadow: isActive
-                ? '0 0 18px rgb(150 236 24 / 0.72), 0 0 34px rgb(150 236 24 / 0.34)'
-                : '0 0 0 rgb(150 236 24 / 0)',
-              scale: isActive ? 1.55 : 1,
-            }}
-            className={cn('fairlend-landing-rail-dot', className)}
+          <span
+            className={cn('fairlend-landing-rail-dot', className, isActive && 'is-active')}
             key={key}
             ref={(node) => {
               dotRefs.current[key] = node
             }}
-            transition={{ duration: 0.28, ease: 'easeOut' }}
           />
         )
       })}

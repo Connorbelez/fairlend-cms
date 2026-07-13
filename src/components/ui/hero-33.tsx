@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 
+import Image from 'next/image'
+
 import { motion, type Variants } from 'motion/react';
 import { Armchair, Monitor, PlaneTakeoff } from 'lucide-react';
 import React from 'react';
@@ -117,11 +119,14 @@ export default function Hero33({
     <div className="relative min-h-screen w-full overflow-hidden bg-[#130f0c] font-sans antialiased selection:bg-white/20">
       {/* Background Image */}
       <div className="pointer-events-none absolute inset-0 z-0 select-none">
-        <img
+        <Image
           className="absolute inset-0 h-full w-full object-cover object-center"
           src={backgroundImage}
           alt="Airplane window sunset view"
-        />
+        
+          width={1600}
+          height={900}
+          sizes="100vw"/>
       </div>
 
       {/* Content Container */}

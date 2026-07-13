@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client"
 
+import Image from 'next/image'
+
 import * as React from "react"
 import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
@@ -208,7 +210,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenuItem className="mt-1">
               <SidebarMenuButton className="group/menu-button h-10 gap-x-3 text-neutral-500 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-900/80! text-[13px] hover:text-neutral-900 dark:hover:text-white! transition-colors duration-150" size="lg">
                 <div className="size-6 rounded-full overflow-hidden bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300/50 dark:ring-neutral-700/50 shrink-0">
-                  <img src="https://i.pravatar.cc/150?u=stephen" alt="Stephen" className="h-full w-full object-cover" />
+                  <Image src="https://i.pravatar.cc/150?u=stephen" alt="Stephen" className="h-full w-full object-cover" 
+          width={96}
+          height={96}
+          sizes="96px"/>
                 </div>
                 <span className="font-medium text-neutral-700 dark:text-neutral-200 group-hover/menu-button:text-neutral-900 dark:group-hover/menu-button:text-white transition-colors">Henry</span>
               </SidebarMenuButton>

@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 
+import Image from 'next/image'
+
 import LogoIcon from "@/assets/logo-icon";
 import { motion, type Variants } from "motion/react";
 import { Search } from "lucide-react";
@@ -90,11 +92,14 @@ export default function Hero39() {
         animate="show"
         className="pointer-events-none absolute inset-0 z-0 will-change-transform select-none"
       >
-        <img
+        <Image
           src="https://assets.watermelon.sh/bg-hero-39.avif"
           alt="Peaceful nature landscape painting"
           className="h-full w-full object-cover object-bottom"
-        />
+        
+          width={1600}
+          height={900}
+          sizes="100vw"/>
 
         <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-[#5a86ae]/30 to-transparent mix-blend-multiply" />
         <div className="absolute inset-0 bg-black/5" />

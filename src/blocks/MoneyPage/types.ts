@@ -47,6 +47,10 @@ export type MoneyPageBase = {
   blockName?: string | null
   blockType: string
   id?: string | null
+  presentationSpacing?: 'compact' | 'immersive' | 'standard' | null
+  presentationSurface?: MoneyPageSurface | null
+  presentationTexture?: MoneyPageTexture | null
+  /** Supports records authored before presentation controls were flattened. */
   presentation?: MoneyPagePresentation | null
   variant?: string | null
 }

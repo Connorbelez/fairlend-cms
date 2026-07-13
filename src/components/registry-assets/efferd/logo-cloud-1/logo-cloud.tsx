@@ -1,3 +1,4 @@
+import Image from 'next/image'
 export function LogoCloud() {
   return (
     <div className="grid grid-cols-2 rounded-lg bg-border shadow md:grid-cols-4">
@@ -6,14 +7,15 @@ export function LogoCloud() {
           className="flex items-center justify-center rounded-lg border bg-background p-8"
           key={logo.alt}
         >
-          <img
+          <Image
             alt={logo.alt}
             className="pointer-events-none block h-4 select-none md:h-5 dark:brightness-0 dark:invert"
-            height="auto"
+            height={40}
             loading="lazy"
             src={logo.src}
-            width="auto"
-          />
+            width={140}
+          
+          sizes="96px"/>
         </div>
       ))}
     </div>

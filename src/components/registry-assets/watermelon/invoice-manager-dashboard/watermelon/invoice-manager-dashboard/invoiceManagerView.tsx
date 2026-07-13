@@ -1,5 +1,7 @@
 'use client'
 
+import Image from 'next/image'
+
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -416,13 +418,14 @@ export const InvoiceManagerView = () => {
                 </TableCell>
                 <TableCell className="border-r border-border min-w-[150px]">
                   <div className="flex items-center gap-2">
-                    <img
+                    <Image
                       src={`https://avatar.vercel.sh/${row.clientName}`}
                       alt={row.clientName}
                       width={22.5}
                       height={22.5}
                       className="rounded-full"
-                    />
+                    
+          sizes="96px"/>
                     <span className="text-[10px] sm:text-xs text-foreground font-medium">
                       {row.clientName}
                     </span>

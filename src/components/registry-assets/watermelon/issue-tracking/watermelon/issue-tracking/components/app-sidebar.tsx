@@ -1,5 +1,7 @@
 'use client'
 
+import Image from 'next/image'
+
 import * as React from 'react'
 import { useState, useEffect } from 'react'
 import { useTheme } from 'next-themes'
@@ -250,11 +252,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 size="lg"
               >
                 <div className="size-6 rounded-full overflow-hidden bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300/50 dark:ring-neutral-700/50 shrink-0">
-                  <img
+                  <Image
                     src="https://i.pravatar.cc/150?u=stephen"
                     alt="Stephen"
                     className="h-full w-full object-cover"
-                  />
+                  
+          width={96}
+          height={96}
+          sizes="96px"/>
                 </div>
                 <span className="font-medium text-neutral-700 dark:text-neutral-200 group-hover/menu-button:text-neutral-900 dark:group-hover/menu-button:text-white transition-colors">
                   Henry

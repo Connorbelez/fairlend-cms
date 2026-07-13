@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 
 import { cn } from '@/utilities/ui'
@@ -121,11 +122,11 @@ export function GlowCard({ name, handle, avatar, className }: GlowCardProps) {
             'opacity-(--card-icon-opacity) will-change-[transform,filter]',
           )}
         >
-          <img className="size-20" src={avatar} alt={name} />
+          <Image alt={name} className="size-20" height={80} src={avatar} width={80} />
         </div>
 
         <div className="z-1 flex flex-1 flex-col items-center justify-center gap-4">
-          <img className="size-20 rounded-full" src={avatar} alt={name} />
+          <Image alt={name} className="size-20 rounded-full" height={80} src={avatar} width={80} />
 
           <div className="flex flex-col items-center gap-1">
             <h2 className="text-base leading-none font-semibold text-foreground">{name}</h2>

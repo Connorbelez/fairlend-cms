@@ -643,14 +643,9 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 .bp-metal-cta-shell {
   width: 100%;
   min-width: 0;
-  background: #08090a !important;
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 8%),
     0 14px 28px rgb(8 9 10 / 18%);
-}
-
-.bp-metal-cta-shell:hover {
-  background: #10130d !important;
 }
 
 .bp-primary-cta.bp-metal-cta::after {
@@ -4145,12 +4140,8 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   height: auto;
 }
 
-.bp-cash-stress-curve {
-  position: absolute;
-  top: 50.8%;
-  left: 0;
-  width: 100%;
-  height: auto;
+.bp-cash-stress-curve-mobile {
+  display: none;
 }
 
 .bp-rigid-note {
@@ -4229,6 +4220,15 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   stroke-width: 4;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.bp-capital-continuum-risk-line {
+  fill: none;
+  stroke: #f15a49;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 8 7;
 }
 
 .bp-capital-continuum-checks {
@@ -4596,14 +4596,6 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
     opacity: 0;
     transform: translate3d(-12px, 0, 0);
     animation: bp-axis-draw-in 780ms var(--bp-ease-out) 260ms both;
-  }
-
-  .bp-cash-stress-curve {
-    opacity: 0;
-    transform: translate3d(0, 5px, 0);
-    animation:
-      bp-cash-curve-in 760ms var(--bp-ease-out) 460ms both,
-      bp-cash-curve-breathe 3600ms var(--bp-ease-out) 1500ms infinite;
   }
 
   .bp-rigid-callouts p,
@@ -7254,31 +7246,6 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   }
 }
 
-@keyframes bp-cash-curve-in {
-  from {
-    opacity: 0;
-    filter: blur(5px);
-    transform: translate3d(0, 5px, 0);
-  }
-  to {
-    opacity: 1;
-    filter: blur(0);
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes bp-cash-curve-breathe {
-  0%,
-  100% {
-    filter: drop-shadow(0 0 0 oklch(0.68 0.19 128.85 / 0));
-    transform: translate3d(0, 0, 0);
-  }
-  45% {
-    filter: drop-shadow(0 4px 7px oklch(0.68 0.19 128.85 / 0.12));
-    transform: translate3d(0, 2px, 0);
-  }
-}
-
 @keyframes bp-small-annotation-in {
   from {
     opacity: 0;
@@ -9729,17 +9696,78 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   margin-top: clamp(22px, 2.4vw, 34px);
 }
 
-.bp-capital-feature-actions .bp-primary-cta {
-  height: 54px;
-  border-radius: 6px;
+.bp-capital-feature-actions .bp-capital-review-cta {
+  --bp-capital-cta-signal: #96ec18;
+  --bp-capital-cta-signal-hover: #a4fb20;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 58px;
+  width: 100%;
+  height: 60px;
+  gap: 0;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 7px;
+  background: var(--bp-ink);
+  color: oklch(0.985 0.006 78);
+  box-shadow: 0 4px 0 var(--bp-capital-cta-signal);
   font-size: 15px;
-  letter-spacing: -0.02em;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  isolation: isolate;
+  transition:
+    background-color 220ms var(--bp-ease-out),
+    box-shadow 220ms var(--bp-ease-out),
+    color 180ms var(--bp-ease-out),
+    transform 180ms var(--bp-ease-out);
 }
 
-.bp-capital-feature-actions .bp-primary-cta {
-  box-shadow:
-    0 9px 8px oklch(0.68 0.19 128.85 / 0.16),
-    inset 0 1px 0 oklch(1 0.003 70 / 0.2);
+.bp-capital-feature-actions .bp-capital-review-cta::after {
+  content: none;
+}
+
+.bp-capital-review-cta__label {
+  min-width: 0;
+  padding: 0 20px;
+  text-align: left;
+  text-wrap: balance;
+}
+
+.bp-capital-review-cta__direction {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  border-radius: 0 7px 7px 0;
+  background: var(--bp-capital-cta-signal);
+  color: var(--bp-ink);
+  transition: background-color 220ms var(--bp-ease-out);
+}
+
+.bp-capital-feature-actions .bp-capital-review-cta svg {
+  position: static;
+  width: 21px;
+  height: 21px;
+  transition: transform 220ms var(--bp-ease-out);
+}
+
+.bp-capital-feature-actions .bp-capital-review-cta:hover {
+  background: oklch(0.19 0.012 120);
+  box-shadow: 0 6px 0 var(--bp-capital-cta-signal);
+  transform: translateY(-2px);
+}
+
+.bp-capital-feature-actions .bp-capital-review-cta:hover .bp-capital-review-cta__direction {
+  background: var(--bp-capital-cta-signal-hover);
+}
+
+.bp-capital-feature-actions .bp-capital-review-cta:hover svg {
+  transform: translateX(3px);
+}
+
+.bp-capital-feature-actions .bp-capital-review-cta:active {
+  box-shadow: 0 2px 0 var(--bp-capital-cta-signal);
+  transform: translateY(2px);
 }
 
 .bp-capital-action-note {
@@ -10757,9 +10785,21 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   }
 
   .bp-capital-feature-actions .bp-primary-cta {
-    height: 58px;
+    height: 62px;
     border-radius: 8px;
-    font-size: 16px;
+  }
+
+  .bp-capital-feature-actions .bp-capital-review-cta {
+    grid-template-columns: minmax(0, 1fr) 62px;
+    font-size: 15px;
+  }
+
+  .bp-capital-review-cta__label {
+    padding: 0 17px;
+  }
+
+  .bp-capital-review-cta__direction {
+    border-radius: 0 8px 8px 0;
   }
 
   .bp-capital-action-note,
@@ -11036,10 +11076,13 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
     width: 116%;
   }
 
-  .bp-cash-stress-curve {
+  .bp-cash-stress-curve-mobile {
+    position: absolute;
     top: 222px;
     left: -8%;
+    display: block;
     width: 116%;
+    height: auto;
   }
 
   .bp-rigid-note {
@@ -11244,8 +11287,12 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
     left: 73%;
   }
 
-  .bp-rigid-axis,
-  .bp-cash-stress-curve {
+  .bp-rigid-axis {
+    left: -13%;
+    width: 126%;
+  }
+
+  .bp-cash-stress-curve-mobile {
     left: -13%;
     width: 126%;
   }
@@ -11254,5 +11301,456 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 @media (max-width: 640px) {
   .bp-capital-feature-stats {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* =====================================================================
+   Impeccable section pipeline
+   Polish -> bolder -> typeset -> animate -> overdrive -> delight.
+   The shared direction is a tactile underwriting blueprint: motion marks
+   progress, approval, or document handling and never gates visibility.
+   ===================================================================== */
+
+/* Page polish: resolve the oversized soft-shell treatment and keep every
+   section on the same sharper physical-document frame. */
+.bp-shell {
+  border-radius: 24px;
+}
+
+.bp-canvas,
+.bp-testimonials,
+.bp-capital-feature,
+.bp-squeeze,
+.bp-operating-system,
+.bp-referral {
+  font-kerning: normal;
+  font-optical-sizing: auto;
+}
+
+/* 01 — Project-review hero
+   Delight candidate: the central action orb becomes a precise route signal. */
+.bp-copy h1,
+.bp-form-copy h1 {
+  max-width: 13ch;
+  font-family: var(--font-cormorant), Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  font-size: clamp(3.25rem, 5.45vw, 5.5rem);
+  line-height: 0.94;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.bp-copy > p,
+.bp-form-copy > p {
+  max-width: 54ch;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.bp-orb,
+.bp-orb svg,
+.bp-blueprint,
+.bp-multiplex {
+  transition:
+    filter 420ms var(--bp-ease-out),
+    transform 520ms var(--bp-ease-expo);
+}
+
+.bp-orb:hover,
+.bp-orb:focus-visible {
+  filter: saturate(1.12) drop-shadow(0 8px 8px var(--bp-lime-cta-shadow));
+  transform: translateY(-4px) scale(1.035);
+}
+
+.bp-orb:hover svg,
+.bp-orb:focus-visible svg {
+  transform: translateX(4px) rotate(-8deg);
+}
+
+.bp-canvas:has(.bp-primary-cta:hover) .bp-blueprint {
+  filter: saturate(1.05) contrast(1.04);
+  transform: translate3d(-7px, -4px, 0) rotate(-0.35deg);
+}
+
+.bp-canvas:has(.bp-primary-cta:hover) .bp-multiplex {
+  filter: saturate(1.03) contrast(1.03);
+  transform: translate3d(8px, -5px, 0) rotate(0.25deg);
+}
+
+/* 02 — Proof from the field
+   Strip decorative grid wallpaper; the rail, tape, pins, and field notes carry
+   the physical metaphor. Delight candidate: a note settles under the cursor. */
+.bp-testimonials {
+  background:
+    radial-gradient(
+      circle at 9% 26%,
+      color-mix(in oklch, var(--bp-blueprint-blue) 13%, transparent),
+      transparent 18%
+    ),
+    linear-gradient(90deg, var(--bp-paper) 0 34%, color-mix(in oklch, var(--bp-paper) 96%, black));
+}
+
+.bp-proof-copy h2 {
+  max-width: 8ch;
+  font-family: var(--font-cormorant), Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  font-size: clamp(2.75rem, 3.4vw, 3.75rem);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.bp-proof-copy span {
+  max-width: 28ch;
+  color: var(--bp-ink-soft);
+  font-size: 1rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.bp-testimonial-card {
+  background: oklch(0.993 0.004 70 / 0.96);
+  box-shadow:
+    0 6px 8px oklch(0.2 0.022 255 / 0.1),
+    inset 0 1px 0 oklch(1 0.003 70 / 0.9);
+  transition:
+    border-color 220ms var(--bp-ease-out),
+    transform 360ms var(--bp-ease-expo);
+}
+
+.bp-testimonial-card:hover {
+  border-color: color-mix(in oklch, var(--bp-lime-ink) 34%, transparent);
+  transform: translateY(-5px) rotate(-0.55deg);
+}
+
+.bp-testimonial-card:nth-child(2n):hover {
+  transform: translateY(-4px) rotate(0.7deg);
+}
+
+.bp-card-tape {
+  transform-origin: 12% 50%;
+  transition: transform 360ms var(--bp-ease-expo);
+}
+
+.bp-testimonial-card:hover .bp-card-tape {
+  transform: rotate(-2.5deg) translateY(-2px);
+}
+
+.bp-marquee-control {
+  transition:
+    background-color 180ms var(--bp-ease-out),
+    color 180ms var(--bp-ease-out),
+    transform 180ms var(--bp-ease-out);
+}
+
+.bp-marquee-control:hover,
+.bp-marquee-control:focus-visible {
+  background: var(--bp-lime);
+  color: var(--bp-ink);
+  transform: translateY(-2px);
+}
+
+/* 03 — Milestone-backed capital
+   Overdrive: the timeline fills like a live underwriting schedule.
+   Delight candidate: each milestone becomes the active sheet on hover. */
+.bp-capital-feature-copy h2 {
+  font-size: clamp(3.25rem, 4.9vw, 4.75rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+}
+
+.bp-capital-feature-copy > p:not(.bp-capital-feature-note) {
+  max-width: 52ch;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.bp-capital-milestone-card,
+.bp-capital-milestone-dot,
+.bp-capital-feature-stack {
+  transition:
+    border-color 220ms var(--bp-ease-out),
+    box-shadow 260ms var(--bp-ease-out),
+    filter 360ms var(--bp-ease-out),
+    transform 360ms var(--bp-ease-expo);
+}
+
+.bp-capital-milestone-item:hover .bp-capital-milestone-card {
+  border-color: color-mix(in oklch, var(--bp-lime-ink) 58%, transparent);
+  box-shadow: 0 6px 8px color-mix(in oklch, var(--bp-ink) 8%, transparent);
+  transform: translateX(6px);
+}
+
+.bp-capital-milestone-item:hover .bp-capital-milestone-dot {
+  border-color: var(--bp-lime);
+  box-shadow: 0 0 0 6px var(--bp-lime-soft);
+  transform: scale(1.08);
+}
+
+.bp-capital-feature:has(.bp-capital-milestone-item:hover) .bp-capital-feature-stack {
+  filter: saturate(1) contrast(1.06) drop-shadow(0 7px 8px oklch(0.24 0.04 255 / 0.08));
+  transform: translateX(clamp(-28px, -2.2vw, -14px)) scale(1.012);
+}
+
+.bp-capital-unlock-bar em {
+  transform-origin: left center;
+}
+
+@supports (animation-timeline: view()) {
+  .bp-capital-unlock-bar em {
+    animation: bp-impeccable-capital-fill 1ms linear both;
+    animation-range: entry 5% cover 32%;
+    animation-timeline: view();
+  }
+}
+
+/* 04 — Risk-to-approved comparison
+   Bolder approved state, restrained risk state, one explicit handoff moment. */
+.bp-squeeze-hero-copy h2 {
+  font-family: var(--font-cormorant), Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  font-size: clamp(3.25rem, 5vw, 4.75rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.bp-squeeze-hero-copy > p:last-child {
+  max-width: 42ch;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.bp-squeeze-panel {
+  box-shadow: none;
+  transition:
+    background-color 260ms var(--bp-ease-out),
+    border-color 260ms var(--bp-ease-out),
+    transform 360ms var(--bp-ease-expo);
+}
+
+.bp-squeeze-panel-approved {
+  border-color: color-mix(in oklch, var(--bp-lime-ink) 42%, transparent);
+}
+
+.bp-squeeze-panel-approved:hover {
+  background: color-mix(in oklch, var(--bp-lime) 16%, var(--bp-paper));
+  transform: translateY(-4px);
+}
+
+.bp-squeeze-panel-risk:hover {
+  transform: translateY(-2px);
+}
+
+.bp-squeeze-handoff {
+  transition:
+    filter 300ms var(--bp-ease-out),
+    transform 520ms var(--bp-ease-expo);
+}
+
+.bp-squeeze-bottom:has(.bp-squeeze-panel:hover) .bp-squeeze-handoff {
+  filter: saturate(1.14) drop-shadow(0 6px 6px var(--bp-lime-cta-shadow));
+  transform: translateX(5px) rotate(8deg) scale(1.06);
+}
+
+/* 05 — FairLend operating system
+   Overdrive: the route rail draws as the operating steps enter the viewport.
+   Delight candidate: the local instrument icon acknowledges inspection. */
+.bp-system-copy h2 {
+  font-family: var(--font-cormorant), Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  font-size: clamp(2.75rem, 4.25vw, 4rem);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+}
+
+.bp-system-copy p {
+  max-width: 48ch;
+  color: var(--bp-ink-soft);
+  font-size: 1rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.bp-system-rail {
+  overflow: hidden;
+}
+
+.bp-system-rail::after {
+  position: absolute;
+  inset: 0;
+  background: var(--bp-lime);
+  content: '';
+  transform: scaleY(0);
+  transform-origin: top center;
+}
+
+.bp-system-step {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.bp-system-step:hover {
+  border-color: color-mix(in oklch, var(--bp-lime-ink) 26%, transparent);
+  background: color-mix(in oklch, var(--bp-paper) 88%, transparent);
+  box-shadow: 0 6px 8px color-mix(in oklch, var(--bp-ink) 7%, transparent);
+}
+
+.bp-system-step-icon,
+.bp-system-step-icon svg {
+  transition:
+    color 220ms var(--bp-ease-out),
+    transform 360ms var(--bp-ease-expo);
+}
+
+.bp-system-step:hover .bp-system-step-icon {
+  color: var(--bp-lime-ink);
+  transform: rotate(-5deg) scale(1.06);
+}
+
+.bp-system-step:hover .bp-system-step-icon svg {
+  transform: translateX(1px);
+}
+
+@supports (animation-timeline: view()) {
+  .bp-system-rail::after {
+    animation: bp-impeccable-route-draw 1ms linear both;
+    animation-range: entry 4% cover 74%;
+    animation-timeline: view();
+  }
+}
+
+/* 06 — Bring us in early
+   Final hierarchy is copy -> referral evidence -> action -> credential.
+   Delight candidate: the CMHC mark presses onto the document on hover. */
+.bp-start-copy h2 {
+  font-family: var(--font-cormorant), Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  font-size: clamp(3rem, 4.4vw, 4.25rem);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.bp-start-copy > p {
+  max-width: 52ch;
+  color: var(--bp-ink-soft);
+  font-size: 1rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.bp-referral-panel.bp-start-form {
+  border-color: color-mix(in oklch, var(--bp-lime-ink) 24%, transparent);
+  box-shadow: 0 6px 8px color-mix(in oklch, var(--bp-ink) 7%, transparent);
+}
+
+.bp-referral-panel-heading strong {
+  font-family: var(--font-cormorant), Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  font-size: clamp(1.75rem, 2.25vw, 2.25rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.bp-referral-moments li {
+  transition:
+    color 180ms var(--bp-ease-out),
+    transform 260ms var(--bp-ease-out);
+}
+
+.bp-referral-moments li:hover {
+  color: var(--bp-ink);
+  transform: translateX(5px);
+}
+
+.bp-real-projects-stamp {
+  transition:
+    background-color 220ms var(--bp-ease-out),
+    box-shadow 220ms var(--bp-ease-out),
+    color 220ms var(--bp-ease-out),
+    transform 420ms var(--bp-ease-expo);
+}
+
+.bp-referral:hover .bp-real-projects-stamp {
+  background: color-mix(in oklch, var(--bp-lime) 10%, var(--bp-paper));
+  box-shadow: 0 4px 0 color-mix(in oklch, var(--bp-lime-ink) 22%, transparent);
+  color: var(--bp-lime-ink);
+  transform: translateY(4px) rotate(-13deg) scale(1.025);
+}
+
+@keyframes bp-impeccable-capital-fill {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes bp-impeccable-route-draw {
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@media (max-width: 760px) {
+  .bp-copy h1,
+  .bp-form-copy h1,
+  .bp-capital-feature-copy h2,
+  .bp-squeeze-hero-copy h2,
+  .bp-system-copy h2,
+  .bp-start-copy h2 {
+    font-size: clamp(2.75rem, 12vw, 4rem);
+    letter-spacing: -0.025em;
+  }
+
+  .bp-testimonials {
+    background: oklch(0.988 0.004 70);
+  }
+
+  .bp-proof-copy h2 {
+    max-width: 12ch;
+    font-size: clamp(2.5rem, 11vw, 3.5rem);
+  }
+
+  .bp-proof-copy span,
+  .bp-capital-feature-copy > p:not(.bp-capital-feature-note),
+  .bp-squeeze-hero-copy > p:last-child,
+  .bp-system-copy p,
+  .bp-start-copy > p {
+    font-size: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bp-orb,
+  .bp-orb svg,
+  .bp-blueprint,
+  .bp-multiplex,
+  .bp-testimonial-card,
+  .bp-card-tape,
+  .bp-marquee-control,
+  .bp-capital-milestone-card,
+  .bp-capital-milestone-dot,
+  .bp-capital-feature-stack,
+  .bp-capital-unlock-bar em,
+  .bp-squeeze-panel,
+  .bp-squeeze-handoff,
+  .bp-system-rail::after,
+  .bp-system-step,
+  .bp-system-step-icon,
+  .bp-system-step-icon svg,
+  .bp-referral-moments li,
+  .bp-real-projects-stamp {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .bp-system-rail::after {
+    transform: scaleY(1);
   }
 }

@@ -1,13 +1,8 @@
-import { FairlendBuilderConsultingSection } from '@/components/FairlendBuilderConsultingSection'
-import { FairlendBuildModelSection } from '@/components/FairlendBuildModelSection'
-import { FairlendFaqSection } from '@/components/FairlendFaqSection'
+import { FairlendDeferredLandingSections } from '@/components/FairlendDeferredLandingSections.client'
 import { FairlendLandingHero } from '@/components/FairlendLandingHero'
-import { FairlendLandingOverviewSection } from '@/components/FairlendLandingOverviewSection'
 import { FairlendLandingRail } from '@/components/FairlendLandingRail'
-import { FairlendLeadershipSection } from '@/components/FairlendLeadershipSection'
+import { FairlendLazyScrollChoreography } from '@/components/FairlendLazyScrollChoreography.client'
 import { FairlendRouteSelector } from '@/components/FairlendRouteSelector'
-import { FairlendScrollChoreography } from '@/components/FairlendScrollChoreography.client'
-import { FairlendTeamSection } from '@/components/FairlendTeamSection'
 import { buildFairlendMetadata } from '@/utilities/seo'
 
 export const dynamic = 'force-static'
@@ -22,29 +17,14 @@ export const metadata = buildFairlendMetadata({
 export default function Page() {
   return (
     <div className="fairlend-landing-page min-h-svh bg-[#f8f7f5]">
-      <FairlendScrollChoreography />
+      <FairlendLazyScrollChoreography />
       <FairlendLandingRail gutterTexture="fabric-of-squares">
         <FairlendLandingHero />
       </FairlendLandingRail>
       <FairlendLandingRail gutterTexture="grid-noise">
         <FairlendRouteSelector id="services" />
       </FairlendLandingRail>
-      <FairlendLandingRail gutterTexture="inflicted">
-        <FairlendLandingOverviewSection />
-      </FairlendLandingRail>
-      <FairlendLandingRail gutterTexture="fabric-of-squares">
-        <FairlendBuildModelSection />
-      </FairlendLandingRail>
-      <FairlendLandingRail gutterTexture="debut-light">
-        <FairlendBuilderConsultingSection />
-      </FairlendLandingRail>
-      <FairlendLandingRail gutterTexture="groovepaper">
-        <FairlendLeadershipSection />
-        <FairlendTeamSection />
-      </FairlendLandingRail>
-      <FairlendLandingRail gutterTexture="groovepaper">
-        <FairlendFaqSection />
-      </FairlendLandingRail>
+      <FairlendDeferredLandingSections />
     </div>
   )
 }

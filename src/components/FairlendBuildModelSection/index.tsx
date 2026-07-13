@@ -4,8 +4,10 @@ import { ArrowRight } from 'lucide-react'
 import type { ReactNode } from 'react'
 
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
+import { BackgroundImageTexture } from '@/components/ui/bg-image-texture'
 
 import { BuildModelMotion } from './BuildModelMotion.client'
+import { BuildSensitivityConsole } from './BuildSensitivityConsole.client'
 import './build-model.css'
 
 /* ------------------------------------------------------------------ */
@@ -252,8 +254,6 @@ const milestoneNodes = [
   'Drywall',
   'Flooring',
 ] as const
-
-const thesisCells = ['Single family', 'Land', 'Build cost', 'Exit value', 'Profit'] as const
 
 function stateData(state: BoardState) {
   return {
@@ -731,28 +731,21 @@ function DrawFlowStep() {
 function ThesisStrip() {
   return (
     <section className="bm-thesis bm-scroll-step" {...stateData(thesisState)}>
-      <div className="bm-thesis-inner">
-        <div className="bm-ts-label-row">
-          <span className="bm-ts-label">Builder Consulting</span>
-          <span className="bm-ts-rule" aria-hidden="true" />
+      <BackgroundImageTexture className="bm-thesis-texture" opacity={0.16} variant="groovepaper">
+        <div className="bm-thesis-inner">
+          <div className="bm-ts-label-row">
+            <span className="bm-ts-label">Builder Consulting</span>
+            <span className="bm-ts-rule" aria-hidden="true" />
+          </div>
+          <div className="bm-thesis-copy">
+            <h3 className="bm-ts-head">Building shouldnt be the easy part</h3>
+            <p className="bm-ts-body">
+              A successful build is not only a construction problem, it is a business equation.
+            </p>
+          </div>
+          <BuildSensitivityConsole />
         </div>
-        <div className="bm-thesis-copy">
-          <h3 className="bm-ts-head">Building shouldnt be the easy part</h3>
-          <p className="bm-ts-body">
-            A successful build is not only a construction problem, it is a business equation.
-          </p>
-        </div>
-        <div
-          className="bm-ts-grid"
-          aria-label="2019 build equation inputs: single family, land, build cost, exit value, profit"
-        >
-          {thesisCells.map((cell) => (
-            <span className="bm-ts-cell" key={`bm-thesis-cell-${cell}`}>
-              {cell}
-            </span>
-          ))}
-        </div>
-      </div>
+      </BackgroundImageTexture>
     </section>
   )
 }

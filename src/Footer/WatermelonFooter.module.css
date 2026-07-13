@@ -159,8 +159,7 @@
   width: 100%;
   min-height: 383px;
   background:
-    radial-gradient(circle at 50% -35%, rgb(255 255 255 / 3%), transparent 45%),
-    var(--footer-black);
+    radial-gradient(circle at 50% -35%, rgb(255 255 255 / 3%), transparent 45%), var(--footer-black);
 }
 
 .primaryRow {
@@ -409,7 +408,11 @@
 }
 
 .legalLinks {
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   gap: 36px;
+  padding-block: 18px;
 }
 
 .legalLinks a {
@@ -572,6 +575,7 @@
 
   .legalLinks {
     width: 100%;
+    justify-content: flex-start;
     gap: 24px;
   }
 

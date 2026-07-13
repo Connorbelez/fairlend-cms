@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 
+import Image from 'next/image'
+
 import { motion, AnimatePresence, type Variants } from 'motion/react';
 import { ArrowRight, Blocks, Command, Sparkles, Workflow, Zap } from 'lucide-react';
 import LogoIcon from '@/assets/logo-icon';
@@ -94,11 +96,14 @@ export default function Hero31({
     return (
       <div className="relative min-h-screen w-full overflow-hidden bg-black font-sans text-white antialiased selection:bg-white/20">
         <div className="pointer-events-none absolute inset-0 z-0 select-none">
-          <img
+          <Image
             className="absolute inset-0 h-full w-full object-cover opacity-60"
             src={backgroundImage}
             alt="Background"
-          />
+          
+          width={1600}
+          height={900}
+          sizes="100vw"/>
         </div>
 
         {/* Content Container */}

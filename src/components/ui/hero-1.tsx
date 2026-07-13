@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 
+import Image from 'next/image'
+
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowUpRight, ArrowDown } from "lucide-react";
@@ -138,11 +140,14 @@ export default function Hero1({
                 variants={backgroundVariants}
                 className="absolute bottom-0 left-0 w-full sm:w-[85%] md:w-[65%] h-[80%] md:h-[75%] pointer-events-none select-none z-0 overflow-hidden"
             >
-                <img
+                <Image
                     src={"https://assets.watermelon.sh/hero-1.avif"}
                     alt="Purple grid structure background"
                     className="absolute inset-0 h-full w-full object-cover object-bottom-left opacity-90"
-                />
+                
+          width={1600}
+          height={900}
+          sizes="100vw"/>
               
                 <div
                     className="absolute inset-0"

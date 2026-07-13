@@ -608,11 +608,9 @@ export interface MoneyPageHeroBlock {
   /**
    * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
    */
-  presentation?: {
-    surface?: ('paper' | 'white' | 'ink') | null;
-    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
-    spacing?: ('compact' | 'standard' | 'immersive') | null;
-  };
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'moneyPageHero';
@@ -704,11 +702,9 @@ export interface MoneyPageNarrativeBlock {
   /**
    * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
    */
-  presentation?: {
-    surface?: ('paper' | 'white' | 'ink') | null;
-    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
-    spacing?: ('compact' | 'standard' | 'immersive') | null;
-  };
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'moneyPageNarrative';
@@ -795,11 +791,9 @@ export interface MoneyPageMediaSplitBlock {
   /**
    * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
    */
-  presentation?: {
-    surface?: ('paper' | 'white' | 'ink') | null;
-    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
-    spacing?: ('compact' | 'standard' | 'immersive') | null;
-  };
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'moneyPageMediaSplit';
@@ -884,11 +878,9 @@ export interface MoneyPageFeaturesBlock {
   /**
    * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
    */
-  presentation?: {
-    surface?: ('paper' | 'white' | 'ink') | null;
-    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
-    spacing?: ('compact' | 'standard' | 'immersive') | null;
-  };
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'moneyPageFeatures';
@@ -975,11 +967,9 @@ export interface MoneyPageProcessBlock {
   /**
    * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
    */
-  presentation?: {
-    surface?: ('paper' | 'white' | 'ink') | null;
-    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
-    spacing?: ('compact' | 'standard' | 'immersive') | null;
-  };
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'moneyPageProcess';
@@ -1058,11 +1048,9 @@ export interface MoneyPageProofBlock {
   /**
    * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
    */
-  presentation?: {
-    surface?: ('paper' | 'white' | 'ink') | null;
-    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
-    spacing?: ('compact' | 'standard' | 'immersive') | null;
-  };
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'moneyPageProof';
@@ -1146,11 +1134,9 @@ export interface MoneyPageComparisonBlock {
   /**
    * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
    */
-  presentation?: {
-    surface?: ('paper' | 'white' | 'ink') | null;
-    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
-    spacing?: ('compact' | 'standard' | 'immersive') | null;
-  };
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'moneyPageComparison';
@@ -1236,11 +1222,9 @@ export interface MoneyPageDisclosureBlock {
   /**
    * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
    */
-  presentation?: {
-    surface?: ('paper' | 'white' | 'ink') | null;
-    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
-    spacing?: ('compact' | 'standard' | 'immersive') | null;
-  };
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'moneyPageDisclosure';
@@ -1304,11 +1288,9 @@ export interface MoneyPageFAQBlock {
   /**
    * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
    */
-  presentation?: {
-    surface?: ('paper' | 'white' | 'ink') | null;
-    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
-    spacing?: ('compact' | 'standard' | 'immersive') | null;
-  };
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'moneyPageFAQ';
@@ -1392,11 +1374,9 @@ export interface MoneyPageCTABlock {
   /**
    * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
    */
-  presentation?: {
-    surface?: ('paper' | 'white' | 'ink') | null;
-    texture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
-    spacing?: ('compact' | 'standard' | 'immersive') | null;
-  };
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'moneyPageCTA';
@@ -3009,13 +2989,9 @@ export interface MoneyPageHeroBlockSelect<T extends boolean = true> {
   mobileMedia?: T;
   mediaCaption?: T;
   anchor?: T;
-  presentation?:
-    | T
-    | {
-        surface?: T;
-        texture?: T;
-        spacing?: T;
-      };
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
   id?: T;
   blockName?: T;
 }
@@ -3046,13 +3022,9 @@ export interface MoneyPageNarrativeBlockSelect<T extends boolean = true> {
         id?: T;
       };
   anchor?: T;
-  presentation?:
-    | T
-    | {
-        surface?: T;
-        texture?: T;
-        spacing?: T;
-      };
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
   id?: T;
   blockName?: T;
 }
@@ -3092,13 +3064,9 @@ export interface MoneyPageMediaSplitBlockSelect<T extends boolean = true> {
   videoPlayback?: T;
   caption?: T;
   anchor?: T;
-  presentation?:
-    | T
-    | {
-        surface?: T;
-        texture?: T;
-        spacing?: T;
-      };
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
   id?: T;
   blockName?: T;
 }
@@ -3136,13 +3104,9 @@ export interface MoneyPageFeaturesBlockSelect<T extends boolean = true> {
         id?: T;
       };
   anchor?: T;
-  presentation?:
-    | T
-    | {
-        surface?: T;
-        texture?: T;
-        spacing?: T;
-      };
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
   id?: T;
   blockName?: T;
 }
@@ -3179,13 +3143,9 @@ export interface MoneyPageProcessBlockSelect<T extends boolean = true> {
         id?: T;
       };
   anchor?: T;
-  presentation?:
-    | T
-    | {
-        surface?: T;
-        texture?: T;
-        spacing?: T;
-      };
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
   id?: T;
   blockName?: T;
 }
@@ -3230,13 +3190,9 @@ export interface MoneyPageProofBlockSelect<T extends boolean = true> {
         id?: T;
       };
   anchor?: T;
-  presentation?:
-    | T
-    | {
-        surface?: T;
-        texture?: T;
-        spacing?: T;
-      };
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
   id?: T;
   blockName?: T;
 }
@@ -3284,13 +3240,9 @@ export interface MoneyPageComparisonBlockSelect<T extends boolean = true> {
         id?: T;
       };
   anchor?: T;
-  presentation?:
-    | T
-    | {
-        surface?: T;
-        texture?: T;
-        spacing?: T;
-      };
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
   id?: T;
   blockName?: T;
 }
@@ -3329,13 +3281,9 @@ export interface MoneyPageDisclosureBlockSelect<T extends boolean = true> {
       };
   openFirst?: T;
   anchor?: T;
-  presentation?:
-    | T
-    | {
-        surface?: T;
-        texture?: T;
-        spacing?: T;
-      };
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
   id?: T;
   blockName?: T;
 }
@@ -3358,13 +3306,9 @@ export interface MoneyPageFAQBlockSelect<T extends boolean = true> {
   enableStructuredData?: T;
   openFirst?: T;
   anchor?: T;
-  presentation?:
-    | T
-    | {
-        surface?: T;
-        texture?: T;
-        spacing?: T;
-      };
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
   id?: T;
   blockName?: T;
 }
@@ -3401,13 +3345,9 @@ export interface MoneyPageCTABlockSelect<T extends boolean = true> {
       };
   disclosure?: T;
   anchor?: T;
-  presentation?:
-    | T
-    | {
-        surface?: T;
-        texture?: T;
-        spacing?: T;
-      };
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
   id?: T;
   blockName?: T;
 }

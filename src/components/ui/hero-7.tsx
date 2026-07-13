@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 
+import Image from 'next/image'
+
 import { useState, type ReactNode } from "react";
 import { AnimatePresence, motion, type Variants } from "motion/react";
 import { FaArrowDown, FaArrowRight, FaBars, FaXmark } from "react-icons/fa6";
@@ -126,12 +128,15 @@ export function Hero7({
         viewport={{ once: true, amount: 0.35 }}
         className="absolute inset-0"
       >
-        <img
+        <Image
           src={backgroundImage}
           alt=""
           aria-hidden="true"
           className="h-full w-full object-cover  outline outline-1 outline-black/10"
-        />
+        
+          width={1600}
+          height={900}
+          sizes="100vw"/>
         <div className="absolute inset-0 bg-gradient-to-t from-white/0 via-sky-100/0 to-sky-200/10" />
       </motion.div>
 

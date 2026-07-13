@@ -1,6 +1,8 @@
 // @ts-nocheck
 'use client'
 
+import Image from 'next/image'
+
 import React from 'react';
 import { Play, ChevronDown } from 'lucide-react';
 import { motion, useMotionValue, useMotionTemplate } from 'motion/react';
@@ -80,11 +82,14 @@ export default function Hero4({
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 2.6, ease: [0.25, 0.1, 0.25, 1] }}
             >
-                <img
+                <Image
                     src={backgroundImage}
                     alt="Hero background"
                     className="absolute inset-0 h-full w-full object-cover object-center"
-                />
+                
+          width={1600}
+          height={900}
+          sizes="100vw"/>
             </motion.div>
 
             {/* Layered gradient overlays */}
@@ -307,11 +312,14 @@ export default function Hero4({
                         <div className="flex -space-x-2">
                             {["wm_alex.png", "wm_olivia.png", "wm_mia.png"].map((i) => (
                                 <div key={i} className="w-7 h-7 md:w-8 md:h-8 rounded-full border-2 border-[#0d0b0f] bg-white/5 backdrop-blur-md overflow-hidden relative">
-                                    <img 
+                                    <Image 
                                         src={`https://assets.watermelon.sh/${i}`} 
                                         alt="User avatar" 
                                         className="absolute inset-0 h-full w-full object-cover opacity-80" 
-                                    />
+                                    
+          width={96}
+          height={96}
+          sizes="96px"/>
                                 </div>
                             ))}
                         </div>

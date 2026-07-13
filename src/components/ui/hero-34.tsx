@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 
+import Image from 'next/image'
+
 import LogoIcon from "@/assets/logo-icon";
 import { motion, type Variants } from "motion/react";
 import { 
@@ -82,11 +84,14 @@ export default function Hero34() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden font-sans antialiased selection:bg-green-200 selection:text-green-900">
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <img
+        <Image
           src="https://assets.watermelon.sh/hero-34-bg.avif"
           alt="Nature landscape"
           className="h-full w-full object-cover"
-        />
+        
+          width={1600}
+          height={900}
+          sizes="100vw"/>
       </div>
 
       <div className="relative z-10 flex min-h-screen flex-col">
@@ -157,11 +162,14 @@ export default function Hero34() {
                     key={i}
                     className="h-8 w-8 overflow-hidden rounded-full border-2 border-[#FAF9F5] shadow-sm ring-1 ring-black/10"
                   >
-                    <img
+                    <Image
                       src={src}
                       alt={`Customer ${i + 1}`}
                       className="h-full w-full object-cover"
-                    />
+                    
+          width={1600}
+          height={900}
+          sizes="100vw"/>
                   </div>
                 ))}
               </div>

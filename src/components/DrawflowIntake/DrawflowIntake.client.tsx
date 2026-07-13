@@ -41,6 +41,7 @@ import { flushSync } from 'react-dom'
 
 import { GoogleAddressAutocomplete } from '@/components/address/GoogleAddressAutocomplete'
 import { Card } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Frame } from '@/components/ui/frame'
 import { MetalButton } from '@/components/ui/metal-button'
@@ -962,10 +963,11 @@ function BuildPathHeroStart({
       <div className="bp-cta-stack">
         <MetalButton
           className="bp-primary-cta bp-metal-cta"
-          metalFxClassName="bp-metal-cta-shell"
+          metalFxClassName="bp-metal-cta-shell bg-(--bp-lime-ink)! hover:bg-(--bp-lime)! before:ring-transparent! dark:before:ring-transparent! after:shadow-none!"
           onClick={onStart}
           preset="silver"
-          strength={0.5}
+          ringCssPx={1.5}
+          strength={0.82}
           theme="dark"
           type="button"
         >
@@ -2019,10 +2021,19 @@ function CapitalFeatureSection({ onStart }: { onStart: () => void }): ReactEleme
           milestone expands the amount you can draw, without forcing interest on idle funds.
         </p>
         <div className="bp-capital-feature-actions">
-          <button className="bp-primary-cta" onClick={onStart} type="button">
-            <span>Check my project&apos;s financeability</span>
-            <ArrowRight aria-hidden="true" strokeWidth={1.8} />
-          </button>
+          <Button
+            className="bp-primary-cta bp-capital-review-cta"
+            onClick={onStart}
+            size="clear"
+            type="button"
+          >
+            <span className="bp-capital-review-cta__label">
+              Check my project&apos;s financeability
+            </span>
+            <span aria-hidden="true" className="bp-capital-review-cta__direction">
+              <ArrowRight strokeWidth={2} />
+            </span>
+          </Button>
           <p className="bp-capital-action-note">
             Answer a few project questions and receive a clear review path.
           </p>
@@ -2185,7 +2196,7 @@ function BuilderSqueezeSection(): ReactElement {
           <Image
             alt=""
             aria-hidden="true"
-            className="bp-cash-stress-curve"
+            className="bp-cash-stress-curve-mobile"
             height={105}
             src={`${extractedSqueezeAssetBase}/cash-stress-dashed-curve.svg`}
             unoptimized
@@ -2247,6 +2258,10 @@ function BuilderSqueezeSection(): ReactElement {
           focusable="false"
           viewBox="0 0 1672 941"
         >
+          <path
+            className="bp-capital-continuum-risk-line"
+            d="M126.5 598.4 C231.9 602.3 274.9 611.1 356.8 599.4 S475.9 583.8 583.2 598.4 C690.5 613 780 590 831 590"
+          />
           <path
             className="bp-capital-continuum-line"
             d="M831 590 C852 590 862 587 875 576 C894 560 898 529 921 510 C939 496 956 487 962 481 C987 477 1007 474 1028 471 C1074 466 1103 455 1151 449 C1198 444 1248 444 1275 446 C1338 449 1379 448 1390 449 C1441 451 1483 454 1511 457 C1534 459 1556 461 1582 461"
@@ -2406,25 +2421,6 @@ function BlueprintDraftingGrid(): ReactElement {
       preserveAspectRatio="none"
       viewBox="0 0 1672 941"
     >
-      <defs>
-        <filter id="bp-squeeze-rough-line">
-          <feTurbulence
-            baseFrequency="0.018 0.09"
-            numOctaves="2"
-            result="noise"
-            seed="19"
-            type="fractalNoise"
-          />
-          <feDisplacementMap
-            in="SourceGraphic"
-            in2="noise"
-            scale="1.35"
-            xChannelSelector="R"
-            yChannelSelector="G"
-          />
-        </filter>
-      </defs>
-
       <g className="bp-squeeze-minor-grid">
         {minorVerticalLines.map((percent) => (
           <path d={`M ${percent * 16.72} 24 V 918`} key={`v-${percent}`} />

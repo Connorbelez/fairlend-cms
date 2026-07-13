@@ -1,5 +1,7 @@
 // @ts-nocheck
 'use client';
+
+import Image from 'next/image'
 import { useState, useMemo } from 'react';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@/components/ui/breadcrumb';
 import { Separator } from '@/components/ui/separator';
@@ -380,13 +382,14 @@ export const SiteHeader = ({ currentView }: { currentView?: string }) => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <div className="flex h-fit cursor-pointer items-center justify-center gap-2 rounded-full border-y border-neutral-200 bg-neutral-100 p-1 text-neutral-900 transition-colors hover:bg-neutral-200/50 md:pr-2.5 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-700/50">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="user"
                 height={20}
                 width={20}
                 className="size-5 rounded-full object-cover"
-              />
+              
+          sizes="96px"/>
               <span className="hidden text-xs sm:inline">John doe</span>
             </div>
           </DropdownMenuTrigger>
@@ -397,11 +400,14 @@ export const SiteHeader = ({ currentView }: { currentView?: string }) => {
           >
             {/* profile */}
             <div className="flex items-center gap-3 px-3 py-2.5">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="user"
                 className="size-8 rounded-full object-cover"
-              />
+              
+          width={96}
+          height={96}
+          sizes="96px"/>
               <div className="min-w-0">
                 <p className="truncate text-sm font-medium text-neutral-900 dark:text-white">
                   John Doe
