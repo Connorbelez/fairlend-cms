@@ -2,6 +2,7 @@ import Image from 'next/image'
 import type { ReactElement } from 'react'
 
 import { ETHOS_COPY } from '../content'
+import { FairlendOfficeMap } from './FairlendOfficeMap.client'
 
 type EthosProofBlockProps = {
   officeImageSrc: string
@@ -12,16 +13,19 @@ export function EthosProofBlock({ officeImageSrc }: EthosProofBlockProps): React
     <header className="fairlend-ethos__proof" data-ethos-block="proof">
       <figure className="fairlend-ethos__proof-exhibit">
         <div className="fairlend-ethos__proof-photo">
-          <Image
-            alt="FairLend Toronto office exterior with the company sign above the entrance"
-            aria-describedby="fairlend-ethos-office-caption"
-            className="fairlend-ethos__proof-image"
-            fill
-            loading="lazy"
-            sizes="(max-width: 760px) 100vw, 92vw"
-            src={officeImageSrc}
-          />
-          <span aria-hidden="true" className="fairlend-ethos__proof-screen" />
+          <div className="fairlend-ethos__proof-office-panel">
+            <Image
+              alt="FairLend Toronto office exterior with the company sign above the entrance"
+              aria-describedby="fairlend-ethos-office-caption"
+              className="fairlend-ethos__proof-image"
+              fill
+              loading="lazy"
+              sizes="(max-width: 760px) 100vw, 58vw"
+              src={officeImageSrc}
+            />
+            <span aria-hidden="true" className="fairlend-ethos__proof-screen" />
+          </div>
+          <FairlendOfficeMap />
           <span aria-hidden="true" className="fairlend-ethos__proof-registration" />
           <p className="fairlend-ethos__proof-index">FL–ETHOS / TORONTO / EXHIBIT 001</p>
         </div>
@@ -35,10 +39,7 @@ export function EthosProofBlock({ officeImageSrc }: EthosProofBlockProps): React
           </h2>
         </div>
 
-        <figcaption
-          className="fairlend-ethos__office-caption"
-          id="fairlend-ethos-office-caption"
-        >
+        <figcaption className="fairlend-ethos__office-caption" id="fairlend-ethos-office-caption">
           {ETHOS_COPY.officeCaption}
         </figcaption>
       </figure>

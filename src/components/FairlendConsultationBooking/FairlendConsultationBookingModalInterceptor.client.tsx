@@ -57,7 +57,7 @@ export function FairlendConsultationBookingModalInterceptor() {
       event.preventDefault()
       setSource(bookingSource)
       setIsOpen(true)
-      trackFairlendEvent('fairlend_consultation_cta_clicked', { source: bookingSource })
+      trackFairlendEvent('fairlend_consultation_scheduler_opened', { source: bookingSource })
     }
 
     document.addEventListener('click', handleClick, { capture: true })

@@ -1,0 +1,106 @@
+{
+  "pages": [
+    {
+      "url": "https://www.fairlend.ca/",
+      "status": 200,
+      "title_length": 57,
+      "meta_description_length": 146
+    },
+    {
+      "url": "https://www.fairlend.ca/affordable-sustainable-rental-housing",
+      "status": 200,
+      "title_length": 47,
+      "meta_description_length": 143
+    },
+    {
+      "url": "https://www.fairlend.ca/borrowers",
+      "status": 200,
+      "title_length": 53,
+      "meta_description_length": 164
+    },
+    {
+      "url": "https://www.fairlend.ca/borrowers/institutional-mortgage",
+      "status": 200,
+      "title_length": 51,
+      "meta_description_length": 196
+    },
+    {
+      "url": "https://www.fairlend.ca/borrowers/private-mortgage-financing",
+      "status": 200,
+      "title_length": 45,
+      "meta_description_length": 168
+    },
+    {
+      "url": "https://www.fairlend.ca/construction-draw-financing",
+      "status": 200,
+      "title_length": 38,
+      "meta_description_length": 128
+    },
+    {
+      "url": "https://www.fairlend.ca/contact",
+      "status": 200,
+      "title_length": 53,
+      "meta_description_length": 156
+    },
+    {
+      "url": "https://www.fairlend.ca/disclosures",
+      "status": 200,
+      "title_length": 54,
+      "meta_description_length": 153
+    },
+    {
+      "url": "https://www.fairlend.ca/en/brokerage/privacy-policy",
+      "status": 200,
+      "title_length": 41,
+      "meta_description_length": 168
+    },
+    {
+      "url": "https://www.fairlend.ca/garden-suite-financing-gta",
+      "status": 200,
+      "title_length": 37,
+      "meta_description_length": 157
+    },
+    {
+      "url": "https://www.fairlend.ca/garden-suite",
+      "status": 200,
+      "title_length": 42,
+      "meta_description_length": 141
+    },
+    {
+      "url": "https://www.fairlend.ca/investing",
+      "status": 200,
+      "title_length": 48,
+      "meta_description_length": 132
+    },
+    {
+      "url": "https://www.fairlend.ca/investing/private-mortgage-lending",
+      "status": 200,
+      "title_length": 45,
+      "meta_description_length": 166
+    },
+    {
+      "url": "https://www.fairlend.ca/multiplex-financing-gta",
+      "status": 200,
+      "title_length": 34,
+      "meta_description_length": 161
+    },
+    {
+      "url": "https://www.fairlend.ca/partners",
+      "status": 200,
+      "title_length": 59,
+      "meta_description_length": 177
+    },
+    {
+      "url": "https://www.fairlend.ca/posts",
+      "status": 200,
+      "title_length": 46,
+      "meta_description_length": 145
+    },
+    {
+      "url": "https://www.fairlend.ca/terms",
+      "status": 200,
+      "title_length": 47,
+      "meta_description_length": 94
+    }
+  ]
+}

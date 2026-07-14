@@ -57,17 +57,28 @@
 }
 
 .fairlend-ethos__proof-exhibit {
+  --ethos-proof-docket-left: clamp(1.25rem, 4.8vw, 5rem);
+  --ethos-proof-media-split: 57.5%;
+
   position: relative;
   margin: 0;
 }
 
 .fairlend-ethos__proof-photo {
   position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(21rem, 0.85fr);
   height: min(68svh, 48rem);
   min-height: 32rem;
   overflow: hidden;
   border: 1px solid rgb(8 9 10 / 72%);
   background: #d8dbd9;
+}
+
+.fairlend-ethos__proof-office-panel {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .fairlend-ethos__proof-image {
@@ -87,13 +98,223 @@
   pointer-events: none;
 }
 
-.fairlend-ethos__proof-photo::after {
+.fairlend-ethos__proof-office-panel::after {
   position: absolute;
   inset: auto 0 0;
   height: 42%;
   background: linear-gradient(180deg, transparent, rgb(8 9 10 / 58%));
   content: '';
   pointer-events: none;
+}
+
+.fairlend-ethos__office-map-panel {
+  position: relative;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-width: 0;
+  border-left: 1px solid rgb(255 255 255 / 18%);
+  background: var(--ethos-ink);
+  color: var(--ethos-white);
+}
+
+.fairlend-ethos__office-map-frame {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  background: #0c0e0f;
+}
+
+.fairlend-ethos__office-map {
+  isolation: isolate;
+  background: #0c0e0f;
+}
+
+.fairlend-ethos__office-map::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border: 1px solid rgb(255 255 255 / 8%);
+  background-image:
+    linear-gradient(
+      90deg,
+      transparent calc(50% - 0.5px),
+      rgb(150 236 24 / 14%) 50%,
+      transparent calc(50% + 0.5px)
+    ),
+    linear-gradient(
+      transparent calc(50% - 0.5px),
+      rgb(150 236 24 / 14%) 50%,
+      transparent calc(50% + 0.5px)
+    );
+  content: '';
+  pointer-events: none;
+}
+
+.fairlend-ethos__office-map .maplibregl-canvas {
+  filter: grayscale(0.72) contrast(1.04) brightness(1.14);
+}
+
+.fairlend-ethos__office-map .maplibregl-ctrl-attrib {
+  background: rgb(8 9 10 / 78%);
+  color: rgb(255 255 255 / 62%);
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+  font-size: 0.5625rem;
+}
+
+.fairlend-ethos__office-map .maplibregl-ctrl-attrib a {
+  color: inherit;
+}
+
+.fairlend-ethos__office-map-marker-wrap {
+  z-index: 3;
+  cursor: default;
+}
+
+.fairlend-ethos__office-map-marker {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid var(--ethos-ink);
+  background: var(--ethos-signal);
+  box-shadow:
+    0 0 0 1px var(--ethos-signal),
+    0 0 0 8px rgb(150 236 24 / 16%),
+    0 0 2.5rem rgb(150 236 24 / 44%);
+  color: var(--ethos-signal-ink);
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.fairlend-ethos__office-map-marker::before,
+.fairlend-ethos__office-map-marker::after {
+  position: absolute;
+  background: var(--ethos-signal);
+  content: '';
+  pointer-events: none;
+}
+
+.fairlend-ethos__office-map-marker::before {
+  top: 50%;
+  right: -1.3rem;
+  left: -1.3rem;
+  height: 1px;
+}
+
+.fairlend-ethos__office-map-marker::after {
+  top: -1.3rem;
+  bottom: -1.3rem;
+  left: 50%;
+  width: 1px;
+}
+
+.fairlend-ethos__office-map-label {
+  margin-top: 0.8rem;
+  border: 1px solid rgb(150 236 24 / 56%);
+  padding: 0.42rem 0.6rem;
+  background: var(--ethos-ink);
+  color: var(--ethos-white);
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.fairlend-ethos__office-map-controls {
+  z-index: 4;
+}
+
+.fairlend-ethos__office-map-controls > div {
+  border: 1px solid rgb(150 236 24 / 48%);
+  border-radius: 0;
+  background: var(--ethos-ink);
+  box-shadow: none;
+}
+
+.fairlend-ethos__office-map-controls button {
+  border-radius: 0;
+  color: var(--ethos-white);
+}
+
+.fairlend-ethos__office-map-controls button:hover {
+  background: var(--ethos-signal);
+  color: var(--ethos-signal-ink);
+}
+
+.fairlend-ethos__office-map-coordinates {
+  position: absolute;
+  bottom: 0.8rem;
+  left: 0.8rem;
+  z-index: 3;
+  margin: 0;
+  color: rgb(255 255 255 / 72%);
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+  font-size: 0.5625rem;
+  font-weight: 720;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.fairlend-ethos__office-address {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.75rem 1rem;
+  align-items: center;
+  border-top: 1px solid rgb(150 236 24 / 42%);
+  padding: 1rem;
+  background: var(--ethos-ink);
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+}
+
+.fairlend-ethos__office-address p,
+.fairlend-ethos__office-address address {
+  margin: 0;
+}
+
+.fairlend-ethos__office-address p {
+  color: var(--ethos-signal);
+  font-size: 0.75rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.fairlend-ethos__office-address address {
+  color: var(--ethos-white);
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 640;
+  line-height: 1.5;
+}
+
+.fairlend-ethos__office-address a {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+  border-bottom: 1px solid var(--ethos-signal);
+  padding-block: 0.3rem;
+  color: var(--ethos-signal);
+  font-size: 0.75rem;
+  font-weight: 820;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.fairlend-ethos__office-address a:hover {
+  color: var(--ethos-white);
+}
+
+.fairlend-ethos__office-address a:focus-visible {
+  outline: 2px solid var(--ethos-signal);
+  outline-offset: 4px;
 }
 
 .fairlend-ethos__proof-registration {
@@ -117,16 +338,17 @@
   padding: 0.75rem 0.875rem;
   background: var(--ethos-signal);
   color: var(--ethos-signal-ink);
+  font-size: 0.75rem;
 }
 
 .fairlend-ethos__proof-docket {
   position: relative;
   z-index: 3;
-  width: min(76%, 64rem);
-  margin: clamp(-10rem, -12vw, -7.5rem) 0 0 clamp(1.25rem, 4.8vw, 5rem);
+  width: calc(var(--ethos-proof-media-split) - var(--ethos-proof-docket-left));
+  margin: clamp(-10rem, -12vw, -7.5rem) 0 0 var(--ethos-proof-docket-left);
   padding: clamp(2.3rem, 4.1vw, 4.5rem) clamp(1.5rem, 3.5vw, 3.75rem) clamp(1.8rem, 3vw, 3.25rem);
   background: var(--ethos-ink);
-  box-shadow: 8px 8px 0 var(--ethos-signal);
+  box-shadow: 6px 6px 0 var(--ethos-signal);
   color: var(--ethos-white);
 }
 
@@ -145,7 +367,7 @@
   max-width: 15ch;
   margin: 0;
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(3.8rem, 6.8vw, 6rem);
+  font-size: clamp(3.8rem, 6.2vw, 5.75rem);
   font-weight: 580;
   letter-spacing: -0.038em;
   line-height: 0.88;
@@ -1395,8 +1617,8 @@
 }
 
 @media (max-width: 1080px) {
-  .fairlend-ethos__proof-docket {
-    width: min(84%, 58rem);
+  .fairlend-ethos__proof-exhibit {
+    --ethos-proof-media-split: 55%;
   }
 
   .fairlend-ethos__alignment {
@@ -1474,7 +1696,22 @@
   .fairlend-ethos__proof-photo {
     height: auto;
     min-height: 0;
+    grid-template-columns: 1fr;
+  }
+
+  .fairlend-ethos__proof-office-panel {
+    min-height: 0;
     aspect-ratio: 16 / 10;
+  }
+
+  .fairlend-ethos__office-map-panel {
+    min-height: 26rem;
+    border-top: 1px solid rgb(255 255 255 / 18%);
+    border-left: 0;
+  }
+
+  .fairlend-ethos__office-map-frame {
+    min-height: 19rem;
   }
 
   .fairlend-ethos__proof-image {
@@ -1494,7 +1731,7 @@
 
   .fairlend-ethos__proof-docket {
     width: calc(100% - 1rem);
-    margin: -5rem 0 0 0;
+    margin: 0;
     padding: 2.5rem 1.25rem 1.75rem;
     box-shadow: 5px 5px 0 var(--ethos-signal);
   }
@@ -1510,6 +1747,14 @@
 
   .fairlend-ethos__office-caption {
     margin-top: 2rem;
+  }
+
+  .fairlend-ethos__office-address {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .fairlend-ethos__office-address p {
+    grid-column: 1 / -1;
   }
 
   .fairlend-ethos__proof-ledger {

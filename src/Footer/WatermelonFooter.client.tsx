@@ -3,6 +3,13 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { buildFairlendConsultationHref } from '@/lib/fairlend-intake'
+import {
+  completeLeadAnalytics,
+  getAnalyticsContext,
+  trackFairlendEvent,
+  trackLeadFailed,
+  type LeadSubmissionResponse,
+} from '@/lib/analytics/events'
 import { ArrowRight, Phone } from 'lucide-react'
 import Link from 'next/link'
 import {
@@ -70,6 +77,17 @@ export function WatermelonFooter() {
   const pointerFrameRef = useRef<number | null>(null)
   const pointerPositionRef = useRef({ x: 0, y: 0 })
   const wordmarkRef = useRef<HTMLDivElement>(null)
+  const hasTrackedNewsletterStartRef = useRef(false)
+
+  function trackNewsletterStart(): void {
+    if (hasTrackedNewsletterStartRef.current) return
+    hasTrackedNewsletterStartRef.current = true
+    trackFairlendEvent('fairlend_intake_started', {
+      form_id: 'fairlend_footer_newsletter',
+      journey_type: 'newsletter',
+      source: 'footer-newsletter',
+    })
+  }
 
   useEffect(() => {
     return () => {
@@ -128,6 +146,14 @@ export function WatermelonFooter() {
     const normalizedEmail = email.trim()
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
       setState('error')
+      trackFairlendEvent('fairlend_intake_validation_failed', {
+        form_id: 'fairlend_footer_newsletter',
+        journey_type: 'newsletter',
+        source: 'footer-newsletter',
+        step_key: 'contact',
+        step_number: 1,
+        total_steps: 1,
+      })
       return
     }
 
@@ -137,6 +163,7 @@ export function WatermelonFooter() {
       const submittedAt = new Date().toISOString()
       const response = await fetch('/api/leads', {
         body: JSON.stringify({
+          analyticsContext: getAnalyticsContext(),
           email: normalizedEmail,
           intent: 'newsletter',
           intake: {
@@ -155,10 +182,23 @@ export function WatermelonFooter() {
 
       if (!response.ok) throw new Error(`Newsletter lead POST failed: ${response.status}`)
 
+      const payload = (await response.json()) as LeadSubmissionResponse
+
       setEmail('')
+      completeLeadAnalytics(payload, {
+        completion_status: 'complete',
+        form_id: 'fairlend_footer_newsletter',
+        journey_type: 'newsletter',
+        source: 'footer-newsletter',
+      })
       setState('success')
     } catch (error) {
       console.error('Footer newsletter lead failed', error)
+      trackLeadFailed({
+        form_id: 'fairlend_footer_newsletter',
+        journey_type: 'newsletter',
+        source: 'footer-newsletter',
+      })
       setState('error')
     }
   }
@@ -216,7 +256,11 @@ export function WatermelonFooter() {
 
           <section className={styles.contactPanel}>
             <h2>Speak with an expert</h2>
-            <form className={styles.form} onSubmit={handleSubmit}>
+            <form
+              className={styles.form}
+              onFocusCapture={trackNewsletterStart}
+              onSubmit={handleSubmit}
+            >
               <label className="sr-only" htmlFor="footer-email">
                 Email address
               </label>

@@ -18,10 +18,12 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import {
+  completeLeadAnalytics,
+  getAnalyticsContext,
+  resolveJourneyType,
   trackFairlendEvent,
   trackLeadFailed,
-  trackLeadStarted,
-  trackLeadSubmitted,
+  type LeadSubmissionResponse,
 } from '@/lib/analytics/events'
 import { cn } from '@/utilities/ui'
 
@@ -201,8 +203,8 @@ export function FairlendApplicationForm() {
       setIsAddressAutocompleteOpen(false)
       setTabDirection(Math.sign(nextIndex - currentIndex))
       setActiveTab(value)
-      trackFairlendEvent('fairlend_application_tab_selected', {
-        intent: value,
+      trackFairlendEvent('fairlend_route_selected', {
+        journey_type: resolveJourneyType({ intent: value }),
         source: 'homepage-application-form',
       })
     },
@@ -249,15 +251,22 @@ export function FairlendApplicationForm() {
 
     setIsSubmitting(true)
     setSubmitError('')
-    trackLeadStarted({
+    const journeyType = resolveJourneyType({
       intent: activeTab,
+      mortgageProduct:
+        activeTab === 'mortgage' ? MORTGAGE_PRODUCT_LANES[values.mortgage.product] : undefined,
+    })
+    const formId = `fairlend_homepage_${activeTab}`
+    trackFairlendEvent('fairlend_intake_started', {
+      form_id: formId,
+      journey_type: journeyType,
       source: `homepage-${activeTab}-application-form`,
-      step: 'homepage_submit',
     })
 
     let leadId: string | undefined
     const isDirectLeadIntake = activeTab === 'invest' || activeTab === 'mortgage'
     const body: Record<string, unknown> = {
+      analyticsContext: isDirectLeadIntake ? getAnalyticsContext() : undefined,
       intent: activeTab,
       source: `homepage-${activeTab}-application-form`,
       status: isDirectLeadIntake ? 'submitted' : 'started',
@@ -319,21 +328,22 @@ export function FairlendApplicationForm() {
       })
 
       if (response.ok) {
-        const payload = (await response.json()) as { id?: string }
+        const payload = (await response.json()) as LeadSubmissionResponse
         leadId = payload.id
         if (isDirectLeadIntake) {
-          trackLeadSubmitted({
-            intent: activeTab,
+          completeLeadAnalytics(payload, {
+            completion_status: 'complete',
+            form_id: formId,
+            journey_type: journeyType,
             source: `homepage-${activeTab}-application-form`,
-            step: 'homepage_direct_lead_submit',
           })
         }
       } else {
         trackLeadFailed({
-          intent: activeTab,
+          failure_type: 'http',
+          form_id: formId,
+          journey_type: journeyType,
           source: `homepage-${activeTab}-application-form`,
-          status: response.status,
-          step: 'homepage_lead_save',
         })
         setSubmitError(
           isDirectLeadIntake
@@ -346,9 +356,10 @@ export function FairlendApplicationForm() {
       }
     } catch {
       trackLeadFailed({
-        intent: activeTab,
+        failure_type: 'network',
+        form_id: formId,
+        journey_type: journeyType,
         source: `homepage-${activeTab}-application-form`,
-        step: 'homepage_lead_save',
       })
       setSubmitError(
         isDirectLeadIntake

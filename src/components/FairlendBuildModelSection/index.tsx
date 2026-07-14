@@ -505,6 +505,9 @@ function BuildModelBoard({ className }: { className?: string }) {
             className="bm-board-cta"
             data-bm-board-cta
             href={ctaHref}
+            data-analytics-build-model-cta=""
+            data-analytics-cta-id="build-model-consultation"
+            data-analytics-cta-location="build-model-status"
             tabIndex={-1}
           >
             <span>
@@ -778,7 +781,13 @@ export function FairlendBuildModelSection() {
             <AudiencePaths />
 
             <div className="bm-cta-row" data-bm-primary-cta>
-              <Link className="bm-cta" href={ctaHref}>
+              <Link
+                className="bm-cta"
+                data-analytics-build-model-cta=""
+                data-analytics-cta-id="build-model-consultation"
+                data-analytics-cta-location="build-model-footer"
+                href={ctaHref}
+              >
                 Book a free consultation
                 <span className="arrow-box" aria-hidden="true">
                   <ArrowRight />

@@ -7,7 +7,13 @@ import { Button } from '@/components/ui/button'
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { trackLeadFailed, trackLeadSubmitted } from '@/lib/analytics/events'
+import {
+  completeLeadAnalytics,
+  getAnalyticsContext,
+  trackFairlendEvent,
+  trackLeadFailed,
+  type LeadSubmissionResponse,
+} from '@/lib/analytics/events'
 
 type ContactFormState = 'idle' | 'submitting' | 'success' | 'error'
 
@@ -19,6 +25,17 @@ export function ContactForm() {
   const [error, setError] = useState('')
   const emailRef = useRef<HTMLInputElement>(null)
   const messageRef = useRef<HTMLTextAreaElement>(null)
+  const hasTrackedStartRef = useRef(false)
+
+  function trackStart(): void {
+    if (hasTrackedStartRef.current) return
+    hasTrackedStartRef.current = true
+    trackFairlendEvent('fairlend_intake_started', {
+      form_id: 'fairlend_contact',
+      journey_type: 'contact',
+      source: 'contact-page',
+    })
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -34,6 +51,13 @@ export function ContactForm() {
       setError('Enter a valid email address.')
       setState('error')
       emailRef.current?.focus()
+      trackFairlendEvent('fairlend_intake_validation_failed', {
+        form_id: 'fairlend_contact',
+        journey_type: 'contact',
+        step_key: 'contact',
+        step_number: 1,
+        total_steps: 1,
+      })
       return
     }
 
@@ -41,6 +65,13 @@ export function ContactForm() {
       setError('Tell us what you need help financing.')
       setState('error')
       messageRef.current?.focus()
+      trackFairlendEvent('fairlend_intake_validation_failed', {
+        form_id: 'fairlend_contact',
+        journey_type: 'contact',
+        step_key: 'contact',
+        step_number: 1,
+        total_steps: 1,
+      })
       return
     }
 
@@ -50,6 +81,7 @@ export function ContactForm() {
     try {
       const response = await fetch('/api/leads', {
         body: JSON.stringify({
+          analyticsContext: getAnalyticsContext(),
           email,
           intake: {
             firstName,
@@ -71,11 +103,22 @@ export function ContactForm() {
         throw new Error(`Contact lead POST failed: ${response.status}`)
       }
 
+      const payload = (await response.json()) as LeadSubmissionResponse
+
       form.reset()
-      trackLeadSubmitted({ intent: 'contact', source: 'contact-page', step: 'contact_submit' })
+      completeLeadAnalytics(payload, {
+        completion_status: 'complete',
+        form_id: 'fairlend_contact',
+        journey_type: 'contact',
+        source: 'contact-page',
+      })
       setState('success')
     } catch {
-      trackLeadFailed({ intent: 'contact', source: 'contact-page', step: 'contact_submit' })
+      trackLeadFailed({
+        form_id: 'fairlend_contact',
+        journey_type: 'contact',
+        source: 'contact-page',
+      })
       setError('We could not send the message. Try again or call FairLend directly.')
       setState('error')
     }
@@ -89,6 +132,7 @@ export function ContactForm() {
       aria-busy={state === 'submitting'}
       className="contact-form"
       noValidate
+      onFocusCapture={trackStart}
       onSubmit={handleSubmit}
     >
       <FieldGroup className="gap-7">

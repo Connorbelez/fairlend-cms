@@ -11,6 +11,7 @@ import {
 } from '@tabler/icons-react'
 import { AnimatePresence, motion, type PanInfo, useReducedMotion } from 'motion/react'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { trackFairlendEvent } from '@/lib/analytics/events'
 import { BUILD_MODEL_ASSUMPTIONS } from './market-data'
 import {
   calculateBuildUnderwriting,
@@ -665,6 +666,29 @@ function StrategySelector({
 
 export function BuildSensitivityConsole() {
   const [state, dispatch] = useReducer(modelReducer, initialModelState)
+  const hasTrackedStartRef = useRef(false)
+  const changeEventTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  function updateModel(action: ModelAction, inputCategory: ModelDriver): void {
+    if (!hasTrackedStartRef.current) {
+      hasTrackedStartRef.current = true
+      trackFairlendEvent('fairlend_build_model_started', { source: 'build-model' })
+    }
+    dispatch(action)
+    if (changeEventTimeoutRef.current) clearTimeout(changeEventTimeoutRef.current)
+    changeEventTimeoutRef.current = setTimeout(() => {
+      trackFairlendEvent('fairlend_build_model_changed', {
+        input_category: inputCategory,
+        source: 'build-model',
+      })
+    }, 500)
+  }
+
+  useEffect(() => {
+    return () => {
+      if (changeEventTimeoutRef.current) clearTimeout(changeEventTimeoutRef.current)
+    }
+  }, [])
   const buildType = buildTypes[state.buildTypeIndex] ?? buildTypes[0]
   const unitOptions = useMemo(
     () =>
@@ -728,7 +752,7 @@ export function BuildSensitivityConsole() {
               ? '1 dwelling door · fixed'
               : `${buildType.minimumUnits}–${buildType.maximumUnits} dwelling doors`,
           ]}
-          onChange={(index) => dispatch({ type: 'selectBuildType', index })}
+          onChange={(index) => updateModel({ type: 'selectBuildType', index }, 'buildType')}
           pulseKey={pulseKey('buildType')}
         />
         <WheelPicker
@@ -740,7 +764,7 @@ export function BuildSensitivityConsole() {
           disabled={buildType.unitsLocked}
           formatValue={(value) => `${value}`}
           label="Units"
-          onChange={(value) => dispatch({ type: 'setUnits', value })}
+          onChange={(value) => updateModel({ type: 'setUnits', value }, 'units')}
           options={unitOptions}
           pulseKey={pulseKey('units')}
           value={state.unitCount}
@@ -758,7 +782,7 @@ export function BuildSensitivityConsole() {
           disabled={buildType.assumesOwnedLand}
           formatValue={formatCompactCurrency}
           label="Land"
-          onChange={(value) => dispatch({ type: 'setLand', value })}
+          onChange={(value) => updateModel({ type: 'setLand', value }, 'land')}
           options={buildType.assumesOwnedLand ? [0] : landValues}
           pulseKey={pulseKey('land')}
           value={model.landValue}
@@ -773,7 +797,7 @@ export function BuildSensitivityConsole() {
           ]}
           formatValue={(value) => `$${value} / ft²`}
           label="Build cost"
-          onChange={(value) => dispatch({ type: 'setBuildCost', value })}
+          onChange={(value) => updateModel({ type: 'setBuildCost', value }, 'buildCost')}
           options={buildCostValues}
           pulseKey={pulseKey('buildCost')}
           value={model.buildCost}
@@ -790,7 +814,7 @@ export function BuildSensitivityConsole() {
                 ]
               : ['Construction loan repaid on sale', 'No takeout financing required']
           }
-          onChange={(value) => dispatch({ type: 'setStrategy', value })}
+          onChange={(value) => updateModel({ type: 'setStrategy', value }, 'strategy')}
           pulseKey={pulseKey('strategy')}
           value={state.strategy}
         />
@@ -803,7 +827,7 @@ export function BuildSensitivityConsole() {
             ]}
             formatValue={formatMonthlyCurrency}
             label="Rent / unit"
-            onChange={(value) => dispatch({ type: 'setMonthlyRent', value })}
+            onChange={(value) => updateModel({ type: 'setMonthlyRent', value }, 'return')}
             options={monthlyRentOptions}
             pulseKey={pulseKey('return')}
             value={model.monthlyRentPerUnit}
@@ -817,7 +841,7 @@ export function BuildSensitivityConsole() {
             ]}
             formatValue={formatCompactCurrency}
             label="Exit value"
-            onChange={(value) => dispatch({ type: 'setExitValue', value })}
+            onChange={(value) => updateModel({ type: 'setExitValue', value }, 'return')}
             options={exitValueOptions}
             pulseKey={pulseKey('return')}
             value={model.exitValue}

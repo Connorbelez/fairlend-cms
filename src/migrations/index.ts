@@ -13,6 +13,7 @@ import * as migration_20260714_120000_twenty_crm_sync from './20260714_120000_tw
 import * as migration_20260714_130000_twenty_intake_model from './20260714_130000_twenty_intake_model'
 import * as migration_20260714_140000_search_readiness from './20260714_140000_search_readiness'
 import * as migration_20260714_150000_campaign_journey_analytics from './20260714_150000_campaign_journey_analytics'
+import * as migration_20260714_160000_posthog_analytics_consent from './20260714_160000_posthog_analytics_consent'
 
 export const migrations = [
   {
@@ -89,5 +90,10 @@ export const migrations = [
     up: migration_20260714_150000_campaign_journey_analytics.up,
     down: migration_20260714_150000_campaign_journey_analytics.down,
     name: '20260714_150000_campaign_journey_analytics',
+  },
+  {
+    up: migration_20260714_160000_posthog_analytics_consent.up,
+    down: migration_20260714_160000_posthog_analytics_consent.down,
+    name: '20260714_160000_posthog_analytics_consent',
   },
 ]

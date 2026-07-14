@@ -64,7 +64,13 @@ import {
   getFairlendProjectScopeLabel,
   type FairlendBuildIntakeVariant,
 } from '@/lib/fairlend-intake'
-import { trackLeadFailed, trackLeadSubmitted } from '@/lib/analytics/events'
+import {
+  completeLeadAnalytics,
+  getAnalyticsContext,
+  trackFairlendEvent,
+  trackLeadFailed,
+  type LeadSubmissionResponse,
+} from '@/lib/analytics/events'
 
 const intakeAssetBase = '/assets/drawflow-intake'
 const buildProgressFinishedImage = `${intakeAssetBase}/Build Progress Finished-optimized.webp`
@@ -290,6 +296,16 @@ const propertyStatusOptions: Array<{
 
 const TOTAL_STEPS = 7
 const HOMEOWNER_TOTAL_STEPS = 3
+const builderStepKeys = [
+  'route',
+  'project_site',
+  'build_profile',
+  'financing_path',
+  'capital_snapshot',
+  'execution_readiness',
+  'contact',
+] as const
+const homeownerStepKeys = ['property_suite', 'financing_readiness', 'contact'] as const
 const gardenSuiteProjectScopeLabel =
   getFairlendProjectScopeLabel('garden-laneway-suites') || 'Garden & laneway suites'
 
@@ -697,6 +713,7 @@ function BuilderDrawflowIntake(): ReactElement {
   const [submitError, setSubmitError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const hasHydratedFromEntryRef = useRef(false)
+  const didTrackJourneyStartRef = useRef(false)
   const isFormStep = step > 1
   const isSuccessStep = step === 8
 
@@ -763,16 +780,40 @@ function BuilderDrawflowIntake(): ReactElement {
   }, [searchParams])
 
   useEffect(() => {
+    if (didTrackJourneyStartRef.current) return
+    let hasSavedDraft = false
+    try {
+      hasSavedDraft = Boolean(window.localStorage.getItem(intakeStorageKey))
+    } catch {
+      // Storage is optional.
+    }
+    if (step === 1 && !hasSavedDraft) return
+    didTrackJourneyStartRef.current = true
+    const properties = {
+      form_id: 'fairlend_builder',
+      journey_type: 'builder' as const,
+      source,
+      step_key: builderStepKeys[Math.min(step, TOTAL_STEPS) - 1],
+      step_number: Math.min(step, TOTAL_STEPS),
+      total_steps: TOTAL_STEPS,
+    }
+    trackFairlendEvent(
+      hasSavedDraft ? 'fairlend_intake_resumed' : 'fairlend_intake_started',
+      properties,
+    )
+  }, [source, step])
+
+  useEffect(() => {
     if (!leadId || isSuccessStep || !hasHydratedFromEntryRef.current) {
       return
     }
 
     const timeout = window.setTimeout(() => {
-      void persistLeadDraft({ answers, leadId, source, status: 'draft' }).then((nextLeadId) => {
-        if (nextLeadId && nextLeadId !== leadId) {
-          setLeadId(nextLeadId)
+      void persistLeadDraft({ answers, leadId, source, status: 'draft' }).then((result) => {
+        if (result?.id && result.id !== leadId) {
+          setLeadId(result.id)
           try {
-            window.localStorage.setItem(leadIdStorageKey, nextLeadId)
+            window.localStorage.setItem(leadIdStorageKey, result.id)
           } catch {
             // Storage can be unavailable in private browsing or locked-down embedded contexts.
           }
@@ -787,7 +828,17 @@ function BuilderDrawflowIntake(): ReactElement {
     if (step) {
       window.scrollTo({ behavior: 'auto', top: 0 })
     }
-  }, [step])
+    if (step <= TOTAL_STEPS && didTrackJourneyStartRef.current) {
+      trackFairlendEvent('fairlend_intake_step_viewed', {
+        form_id: 'fairlend_builder',
+        journey_type: 'builder',
+        source,
+        step_key: builderStepKeys[step - 1],
+        step_number: step,
+        total_steps: TOTAL_STEPS,
+      })
+    }
+  }, [source, step])
 
   const summaryItems = useMemo(() => buildProjectSummary(answers), [answers])
 
@@ -802,46 +853,61 @@ function BuilderDrawflowIntake(): ReactElement {
   const submitProjectLead = useCallback(async (): Promise<void> => {
     if (!answers.name.trim() || !isValidIntakeEmail(answers.email)) {
       setSubmitError('Add your name and a valid email before submitting the project.')
+      trackBuilderValidationFailure(step, source)
       return
     }
 
     if (!answers.termsAccepted) {
       setSubmitError('Confirm the acknowledgement before submitting the project.')
+      trackBuilderValidationFailure(step, source)
       return
     }
 
     setIsSubmitting(true)
     setSubmitError('')
 
-    const nextLeadId = await persistLeadDraft({
+    const result = await persistLeadDraft({
       answers,
       leadId,
       source,
       status: 'submitted',
     })
 
-    if (!nextLeadId) {
+    if (!result?.id) {
       setIsSubmitting(false)
       setSubmitError(
         'We could not save the project yet. Check the required contact fields and try again.',
       )
-      trackLeadFailed({ completion: 'complete', intent: 'build', source })
+      trackLeadFailed({ form_id: 'fairlend_builder', journey_type: 'builder', source })
       return
     }
 
-    setLeadId(nextLeadId)
+    setLeadId(result.id)
     try {
-      window.localStorage.setItem(leadIdStorageKey, nextLeadId)
+      window.localStorage.setItem(leadIdStorageKey, result.id)
     } catch {
       // Storage can be unavailable in private browsing or locked-down embedded contexts.
     }
 
     setIsSubmitting(false)
-    trackLeadSubmitted({ completion: 'complete', intent: 'build', source })
+    completeLeadAnalytics(result, {
+      completion_status: 'complete',
+      form_id: 'fairlend_builder',
+      journey_type: 'builder',
+      source,
+    })
     runIntakeStepTransition(() => setStep(8))
-  }, [answers, leadId, source])
+  }, [answers, leadId, source, step])
 
   const goBack = (): void => {
+    trackFairlendEvent('fairlend_intake_back_clicked', {
+      form_id: 'fairlend_builder',
+      journey_type: 'builder',
+      source,
+      step_key: builderStepKeys[Math.min(step, TOTAL_STEPS) - 1],
+      step_number: Math.min(step, TOTAL_STEPS),
+      total_steps: TOTAL_STEPS,
+    })
     runIntakeStepTransition(() => {
       setStep((current) => {
         if (current <= 2) {
@@ -853,6 +919,22 @@ function BuilderDrawflowIntake(): ReactElement {
   }
 
   const goForward = (): void => {
+    if (!didTrackJourneyStartRef.current) {
+      didTrackJourneyStartRef.current = true
+      trackFairlendEvent('fairlend_intake_started', {
+        form_id: 'fairlend_builder',
+        journey_type: 'builder',
+        source,
+      })
+    }
+    trackFairlendEvent('fairlend_intake_step_completed', {
+      form_id: 'fairlend_builder',
+      journey_type: 'builder',
+      source,
+      step_key: builderStepKeys[Math.min(step, TOTAL_STEPS) - 1],
+      step_number: Math.min(step, TOTAL_STEPS),
+      total_steps: TOTAL_STEPS,
+    })
     runIntakeStepTransition(() => {
       setStep((current) => Math.min(current + 1, 8) as WizardStep)
     })
@@ -973,6 +1055,8 @@ function GardenSuiteHomeownerIntake(): ReactElement {
   const [hasHydratedDraft, setHasHydratedDraft] = useState(false)
   const [submitError, setSubmitError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const didTrackJourneyStartRef = useRef(false)
+  const resumedDraftRef = useRef(false)
   const isSuccessStep = step === 4
 
   useEffect(() => {
@@ -983,6 +1067,7 @@ function GardenSuiteHomeownerIntake(): ReactElement {
       try {
         const savedAnswers = window.localStorage.getItem(homeownerIntakeStorageKey)
         if (savedAnswers) {
+          resumedDraftRef.current = true
           const parsedAnswers = JSON.parse(savedAnswers) as Partial<HomeownerIntakeAnswers>
           setAnswers((current) => ({
             ...current,
@@ -1014,6 +1099,24 @@ function GardenSuiteHomeownerIntake(): ReactElement {
   }, [searchParams])
 
   useEffect(() => {
+    if (!hasHydratedDraft || didTrackJourneyStartRef.current) return
+    didTrackJourneyStartRef.current = true
+    const properties = {
+      form_id: 'fairlend_homeowner_garden_suite',
+      journey_type: 'homeowner_garden_suite' as const,
+      source,
+      step_key: homeownerStepKeys[step - 1],
+      step_number: step,
+      total_steps: HOMEOWNER_TOTAL_STEPS,
+    }
+    trackFairlendEvent(
+      resumedDraftRef.current ? 'fairlend_intake_resumed' : 'fairlend_intake_started',
+      properties,
+    )
+    trackFairlendEvent('fairlend_intake_step_viewed', properties)
+  }, [hasHydratedDraft, source, step])
+
+  useEffect(() => {
     if (!hasHydratedDraft || isSuccessStep) return
 
     try {
@@ -1027,11 +1130,11 @@ function GardenSuiteHomeownerIntake(): ReactElement {
     if (!hasHydratedDraft || !leadId || isSuccessStep) return
 
     const timeout = window.setTimeout(() => {
-      void persistHomeownerLead({ answers, leadId, source, status: 'draft' }).then((nextLeadId) => {
-        if (nextLeadId && nextLeadId !== leadId) {
-          setLeadId(nextLeadId)
+      void persistHomeownerLead({ answers, leadId, source, status: 'draft' }).then((result) => {
+        if (result?.id && result.id !== leadId) {
+          setLeadId(result.id)
           try {
-            window.localStorage.setItem(homeownerLeadIdStorageKey, nextLeadId)
+            window.localStorage.setItem(homeownerLeadIdStorageKey, result.id)
           } catch {
             // Storage can be unavailable in private browsing or locked-down embedded contexts.
           }
@@ -1047,7 +1150,17 @@ function GardenSuiteHomeownerIntake(): ReactElement {
     window.requestAnimationFrame(() => {
       document.getElementById('bp-form-title')?.focus({ preventScroll: true })
     })
-  }, [step])
+    if (step <= HOMEOWNER_TOTAL_STEPS && didTrackJourneyStartRef.current) {
+      trackFairlendEvent('fairlend_intake_step_viewed', {
+        form_id: 'fairlend_homeowner_garden_suite',
+        journey_type: 'homeowner_garden_suite',
+        source,
+        step_key: homeownerStepKeys[step - 1],
+        step_number: step,
+        total_steps: HOMEOWNER_TOTAL_STEPS,
+      })
+    }
+  }, [source, step])
 
   const summaryItems = useMemo(() => buildHomeownerSummary(answers), [answers])
 
@@ -1077,10 +1190,19 @@ function GardenSuiteHomeownerIntake(): ReactElement {
     const error = validateHomeownerStep(step, answers)
     if (error) {
       setSubmitError(error)
+      trackHomeownerValidationFailure(step, source)
       return
     }
 
     setSubmitError('')
+    trackFairlendEvent('fairlend_intake_step_completed', {
+      form_id: 'fairlend_homeowner_garden_suite',
+      journey_type: 'homeowner_garden_suite',
+      source,
+      step_key: homeownerStepKeys[step - 1],
+      step_number: step,
+      total_steps: HOMEOWNER_TOTAL_STEPS,
+    })
     runIntakeStepTransition(() => {
       setStep((current) => Math.min(current + 1, HOMEOWNER_TOTAL_STEPS) as HomeownerStep)
     })
@@ -1088,6 +1210,14 @@ function GardenSuiteHomeownerIntake(): ReactElement {
 
   const moveBack = (): void => {
     setSubmitError('')
+    trackFairlendEvent('fairlend_intake_back_clicked', {
+      form_id: 'fairlend_homeowner_garden_suite',
+      journey_type: 'homeowner_garden_suite',
+      source,
+      step_key: homeownerStepKeys[step - 1],
+      step_number: step,
+      total_steps: HOMEOWNER_TOTAL_STEPS,
+    })
     runIntakeStepTransition(() => {
       setStep((current) => Math.max(current - 1, 1) as HomeownerStep)
     })
@@ -1097,35 +1227,45 @@ function GardenSuiteHomeownerIntake(): ReactElement {
     const error = validateHomeownerStep(3, answers)
     if (error) {
       setSubmitError(error)
+      trackHomeownerValidationFailure(3, source)
       return
     }
 
     setIsSubmitting(true)
     setSubmitError('')
 
-    const nextLeadId = await persistHomeownerLead({
+    const result = await persistHomeownerLead({
       answers,
       leadId,
       source,
       status: 'submitted',
     })
 
-    if (!nextLeadId) {
+    if (!result?.id) {
       setIsSubmitting(false)
       setSubmitError('We could not save your property check. Please try again.')
-      trackLeadFailed({ completion: 'complete', intent: 'build', source })
+      trackLeadFailed({
+        form_id: 'fairlend_homeowner_garden_suite',
+        journey_type: 'homeowner_garden_suite',
+        source,
+      })
       return
     }
 
-    setLeadId(nextLeadId)
+    setLeadId(result.id)
     try {
-      window.localStorage.setItem(homeownerLeadIdStorageKey, nextLeadId)
+      window.localStorage.setItem(homeownerLeadIdStorageKey, result.id)
     } catch {
       // Storage can be unavailable in private browsing or locked-down embedded contexts.
     }
 
     setIsSubmitting(false)
-    trackLeadSubmitted({ completion: 'complete', intent: 'build', source })
+    completeLeadAnalytics(result, {
+      completion_status: 'complete',
+      form_id: 'fairlend_homeowner_garden_suite',
+      journey_type: 'homeowner_garden_suite',
+      source,
+    })
     runIntakeStepTransition(() => setStep(4))
   }, [answers, leadId, source])
 
@@ -2701,6 +2841,30 @@ function validateHomeownerStep(
   return ''
 }
 
+function trackBuilderValidationFailure(step: WizardStep, source: string): void {
+  const safeStep = Math.min(step, TOTAL_STEPS)
+  trackFairlendEvent('fairlend_intake_validation_failed', {
+    form_id: 'fairlend_builder',
+    journey_type: 'builder',
+    source,
+    step_key: builderStepKeys[safeStep - 1],
+    step_number: safeStep,
+    total_steps: TOTAL_STEPS,
+  })
+}
+
+function trackHomeownerValidationFailure(step: HomeownerStep, source: string): void {
+  const safeStep = Math.min(step, HOMEOWNER_TOTAL_STEPS)
+  trackFairlendEvent('fairlend_intake_validation_failed', {
+    form_id: 'fairlend_homeowner_garden_suite',
+    journey_type: 'homeowner_garden_suite',
+    source,
+    step_key: homeownerStepKeys[safeStep - 1],
+    step_number: safeStep,
+    total_steps: HOMEOWNER_TOTAL_STEPS,
+  })
+}
+
 async function persistHomeownerLead({
   answers,
   leadId,
@@ -2711,10 +2875,11 @@ async function persistHomeownerLead({
   leadId: string | null
   source: string
   status: 'draft' | 'submitted'
-}): Promise<string | null> {
+}): Promise<LeadSubmissionResponse | null> {
   try {
     const response = await fetch('/api/leads', {
       body: JSON.stringify({
+        analyticsContext: status === 'submitted' ? getAnalyticsContext() : undefined,
         address: answers.address,
         email: answers.email,
         id: leadId ?? undefined,
@@ -2746,8 +2911,7 @@ async function persistHomeownerLead({
 
     if (!response.ok) return null
 
-    const payload = (await response.json()) as { id?: string }
-    return payload.id ?? leadId
+    return (await response.json()) as LeadSubmissionResponse
   } catch {
     return null
   }
@@ -2763,10 +2927,11 @@ async function persistLeadDraft({
   leadId: string | null
   source: string
   status: 'draft' | 'submitted'
-}): Promise<string | null> {
+}): Promise<LeadSubmissionResponse | null> {
   try {
     const response = await fetch('/api/leads', {
       body: JSON.stringify({
+        analyticsContext: status === 'submitted' ? getAnalyticsContext() : undefined,
         address: answers.address,
         email: answers.email,
         id: leadId ?? undefined,
@@ -2791,8 +2956,7 @@ async function persistLeadDraft({
       return null
     }
 
-    const payload = (await response.json()) as { id?: string }
-    return payload.id ?? leadId
+    return (await response.json()) as LeadSubmissionResponse
   } catch {
     return null
   }
