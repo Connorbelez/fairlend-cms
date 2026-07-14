@@ -3,14 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { AnimatePresence, LayoutGroup, motion, type PanInfo, useReducedMotion } from 'motion/react'
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-  type ReactElement,
-} from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactElement } from 'react'
 
 import { cn } from '@/utilities/ui'
 
@@ -136,8 +129,10 @@ export function FairlendHeroOfferingsMorph({
   const isDraggingRef = useRef(false)
   const isInViewRef = useRef(true)
   const isVisibleRef = useRef(true)
-  const layout: OfferingsLayout =
-    viewportMode === 'desktop' && !shouldReduceMotion ? desktopLayout : 'stack'
+  // The server cannot know the viewport. Default to the desktop list so the
+  // canonical HTML is useful on first paint; CSS presents this unresolved
+  // state as a deck on mobile until the media query resolves.
+  const layout: OfferingsLayout = viewportMode === 'mobile' ? 'stack' : desktopLayout
 
   const announce = useCallback(
     (index: number) => {
@@ -266,13 +261,15 @@ export function FairlendHeroOfferingsMorph({
     <div
       className={cn('fairlend-hero-offerings-morph', className)}
       data-offerings-layout={layout}
+      data-viewport-mode={viewportMode}
       ref={rootRef}
     >
       <LayoutGroup>
         <motion.div
           className={cn(
             'fairlend-build-property-types__list',
-            layout === 'stack' && 'fairlend-hero-offerings-morph__stack',
+            (layout === 'stack' || viewportMode === 'unresolved') &&
+              'fairlend-hero-offerings-morph__stack',
           )}
           layout
         >
@@ -314,8 +311,10 @@ export function FairlendHeroOfferingsMorph({
                     'fairlend-build-property-types__row',
                     'fairlend-hero-offerings-morph__row',
                     'pointer-events-auto',
-                    layout === 'stack' && 'fairlend-hero-offerings-morph__card',
-                    isTopCard && 'fairlend-hero-offerings-morph__card--top',
+                    (layout === 'stack' || viewportMode === 'unresolved') &&
+                      'fairlend-hero-offerings-morph__card',
+                    (isTopCard || (viewportMode === 'unresolved' && index === 0)) &&
+                      'fairlend-hero-offerings-morph__card--top',
                   )}
                   data-offering-id={card.id}
                   drag={isTopCard && !shouldReduceMotion ? 'x' : false}
@@ -334,17 +333,17 @@ export function FairlendHeroOfferingsMorph({
                       ? { duration: 0 }
                       : !viewportMotionReady
                         ? { duration: 0 }
-                      : {
-                          layout: {
-                            duration: 0.55,
-                            ease: [0.22, 1, 0.36, 1],
-                          },
-                          opacity: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
-                          rotate: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
-                          scale: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
-                          x: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
-                          default: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
-                        }
+                        : {
+                            layout: {
+                              duration: 0.55,
+                              ease: [0.22, 1, 0.36, 1],
+                            },
+                            opacity: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+                            rotate: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+                            scale: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+                            x: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+                            default: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+                          }
                   }
                   whileDrag={{ cursor: 'grabbing', scale: 1.015 }}
                 >
