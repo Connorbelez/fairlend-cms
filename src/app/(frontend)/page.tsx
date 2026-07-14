@@ -1,9 +1,10 @@
 import { FairlendLandingHero } from '@/components/FairlendLandingHero'
 import { FairlendLandingRail } from '@/components/FairlendLandingRail'
 import { FairlendLandingSections } from '@/components/FairlendLandingSections'
-import { FairlendLazyScrollChoreography } from '@/components/FairlendLazyScrollChoreography.client'
 import { FairlendRouteSelector } from '@/components/FairlendRouteSelector'
+import { JsonLd } from '@/components/SEO/JsonLd'
 import { buildFairlendMetadata } from '@/utilities/seo'
+import { buildWebPageJsonLd, getSchemaNodeId } from '@/utilities/structuredData'
 
 export const dynamic = 'force-static'
 
@@ -16,8 +17,17 @@ export const metadata = buildFairlendMetadata({
 
 export default function Page() {
   return (
-    <div className="fairlend-landing-page min-h-svh bg-[#f8f7f5]">
-      <FairlendLazyScrollChoreography />
+    <main className="fairlend-landing-page min-h-svh bg-[#f8f7f5]">
+      <JsonLd
+        data={buildWebPageJsonLd({
+          description:
+            'FairLend guides Southern Ontario builders, borrowers, and investors through private mortgage, acquisition, construction, and completion financing.',
+          hasBreadcrumb: false,
+          mainEntityId: getSchemaNodeId('/', 'organization'),
+          name: 'FairLend Mortgage | Private Real Estate Financing Ontario',
+          path: '/',
+        })}
+      />
       <FairlendLandingRail gutterTexture="fabric-of-squares">
         <FairlendLandingHero />
       </FairlendLandingRail>
@@ -25,6 +35,6 @@ export default function Page() {
         <FairlendRouteSelector id="services" />
       </FairlendLandingRail>
       <FairlendLandingSections />
-    </div>
+    </main>
   )
 }

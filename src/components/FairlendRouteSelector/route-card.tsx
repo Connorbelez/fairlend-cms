@@ -105,7 +105,7 @@ export function FairlendRouteCard({
         >
           <Image
             alt=""
-            className="h-auto max-h-[104px] w-full object-contain object-right-top mix-blend-multiply"
+            className="h-auto max-h-[104px] w-full object-contain object-right-top"
             height={route.illustration.height}
             sizes="245px"
             src={route.illustration.src}

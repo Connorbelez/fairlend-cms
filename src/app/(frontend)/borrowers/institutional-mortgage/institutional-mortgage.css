@@ -71,6 +71,13 @@
   color: var(--im-deep);
 }
 
+.im-system-label a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.2em;
+}
+
 /* Cover sheet: underwriting file over the Toronto waterfront. */
 .im-cover {
   isolation: isolate;

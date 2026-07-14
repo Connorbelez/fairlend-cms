@@ -39,12 +39,10 @@ const polishedHeaderHrefs = new Set([
 
 const headerAnchorFallbacks = new Map([
   ['/affordable-sustainable-rental-housing', '/#services'],
-  ['/cmhc-mli-select-multiplex-financing', '/#services'],
   ['/construction-draw-financing', '/#builder-consulting'],
   ['/garden-suite-financing-gta', '/#services'],
   ['/multiplex-financing-gta', '/#services'],
   ['/posts', '/#questions'],
-  ['/resources/construction-draws-small-builders', '/#builder-consulting'],
   ['/search', '/#questions'],
 ])
 

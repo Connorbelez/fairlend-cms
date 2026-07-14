@@ -3,6 +3,7 @@ import { createHash } from 'crypto'
 import { neon, type NeonQueryFunction } from '@neondatabase/serverless'
 
 import { getCanonicalUrl } from '@/utilities/seo'
+import { DEFAULT_INDEXNOW_KEY } from '@/lib/indexnow-key'
 
 export type IndexNowChangeType = 'deleted' | 'published' | 'unpublished' | 'updated'
 
@@ -22,21 +23,33 @@ export type IndexNowNotificationResult =
 const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow'
 const INDEXNOW_MAX_ATTEMPTS = 3
 const INDEXNOW_RETRY_DELAYS_MS = [250, 1000]
+const INDEXNOW_REQUEST_TIMEOUT_MS = 5000
 const INDEXNOW_KEY_PATTERN = /^[A-Za-z0-9-]{8,128}$/
 
 let indexNowSql: NeonQueryFunction<false, false> | null = null
 let indexNowSchemaReady = false
 
 export function getIndexNowKey(): string | null {
-  const key = process.env.INDEXNOW_KEY?.trim()
-  return key && INDEXNOW_KEY_PATTERN.test(key) ? key : null
+  const configuredKey = process.env.INDEXNOW_KEY?.trim()
+
+  if (!configuredKey) {
+    return DEFAULT_INDEXNOW_KEY
+  }
+
+  return INDEXNOW_KEY_PATTERN.test(configuredKey) ? configuredKey : null
 }
 
 export function isIndexNowEnabled(): boolean {
-  return (
-    Boolean(getIndexNowKey()) &&
-    (process.env.NODE_ENV === 'production' || process.env.INDEXNOW_ENABLED === 'true')
-  )
+  if (process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'production') {
+    return false
+  }
+
+  const isProduction =
+    process.env.VERCEL_ENV === 'production' ||
+    (!process.env.VERCEL_ENV && process.env.NODE_ENV === 'production')
+  const isExplicitLocalOverride = !process.env.VERCEL_ENV && process.env.INDEXNOW_ENABLED === 'true'
+
+  return Boolean(getIndexNowKey()) && (isProduction || isExplicitLocalOverride)
 }
 
 export async function notifyIndexNowChange(
@@ -112,6 +125,7 @@ export async function notifyIndexNowChange(
           body: JSON.stringify(requestBody),
           headers: { 'Content-Type': 'application/json; charset=utf-8' },
           method: 'POST',
+          signal: AbortSignal.timeout(INDEXNOW_REQUEST_TIMEOUT_MS),
         })
 
         responseCode = response.status

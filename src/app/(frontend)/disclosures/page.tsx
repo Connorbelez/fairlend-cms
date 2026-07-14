@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { FairlendRegistrationDisclosure } from '@/components/FairlendRegistrationDisclosure'
 import { JsonLd } from '@/components/SEO/JsonLd'
 import { buildFairlendMetadata } from '@/utilities/seo'
-import { buildBreadcrumbJsonLd } from '@/utilities/structuredData'
+import { buildBreadcrumbJsonLd, buildWebPageJsonLd } from '@/utilities/structuredData'
 
 export const dynamic = 'force-static'
 
@@ -37,10 +37,18 @@ export default function DisclosuresPage() {
   return (
     <main className="bg-[#f8f7f5] px-5 py-16 text-[#08090a] sm:px-8 sm:py-24">
       <JsonLd
-        data={buildBreadcrumbJsonLd([
-          { name: 'Home', path: '/' },
-          { name: 'Disclosures', path: '/disclosures' },
-        ])}
+        data={[
+          buildBreadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: 'Disclosures', path: '/disclosures' },
+          ]),
+          buildWebPageJsonLd({
+            description:
+              'Review FairLend Mortgage legal identity, Ontario FSRA mortgage brokerage and administrator licence details, service limitations, and website disclosures.',
+            name: 'Regulatory and Website Disclosures | FairLend Mortgage',
+            path: '/disclosures',
+          }),
+        ]}
       />
       <article className="mx-auto max-w-5xl">
         <p className="font-[family-name:var(--font-oxanium)] text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#203500]">
@@ -75,8 +83,8 @@ export default function DisclosuresPage() {
             Verify, read, then ask.
           </h2>
           <p className="mt-4 max-w-2xl text-base font-medium leading-7 text-white/75">
-            Confirm licence records with the regulator and review the policies governing your use
-            of this website before sending sensitive information.
+            Confirm licence records with the regulator and review the policies governing your use of
+            this website before sending sensitive information.
           </p>
           <div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-sm font-bold">
             <a

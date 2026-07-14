@@ -14,8 +14,16 @@ Last updated: 2026-07-14.
 - CRM outcomes: daily Twenty reconciliation at 01:00 UTC
 - Privacy: shared sanitizer, balanced replay masking, no network bodies/headers, signed lifecycle revocation
 - Internal QA: persist with `?analytics_internal=1`
+- PostHog actions: 7 production actions configured
+- PostHog cohorts: 6 production cohorts configured
+- PostHog journeys: 6 saved 90-day funnels and 3 saved path views configured
+- Heatmaps: 9 production pages/routes configured
+- Dashboards: `FairLend Executive`, `Acquisition & Content`, `Intake UX`, and `Data Quality`
+- Survey: no-free-text abandonment survey saved disabled pending the volume threshold
+- Alert: submission failures at 3 or more per hour (15-minute evaluation requires PostHog Boost)
+- Replay playlists: deferred until the first consented production recordings exist; PostHog cannot save an empty collection
 
-Post-deployment verification and the saved PostHog actions, cohorts, funnels, paths, heatmaps, replay playlists, dashboard suite, and alerts are recorded in the task handoff once browser configuration is complete.
+Post-deployment browser verification confirmed that PostHog remains absent before consent and receives sanitized pageviews, autocapture, Web Vitals, and canonical events after consent. Custom replay playlists must be created after the first consented production recordings arrive.
 
 ## Other vendors
 

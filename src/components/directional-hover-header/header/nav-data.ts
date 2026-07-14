@@ -57,7 +57,7 @@ export const fairlendNavLinks = {
   ethos: { href: '/#ethos' },
   leadership: { href: '/#leadership' },
   resources: { href: '/posts' },
-  builderResource: { href: '/resources/construction-draws-small-builders' },
+  builderResource: { href: '/construction-draw-financing' },
   residentialMortgages: {
     href: buildFairlendMortgageHref('header-nav-residential-mortgages'),
   },
@@ -76,7 +76,7 @@ export const fairlendNavLinks = {
     href: '/garden-suite-financing-gta',
   },
   mliSelectInsuredHousing: {
-    href: '/cmhc-mli-select-multiplex-financing',
+    href: '/multiplex-financing-gta',
   },
 } as const
 
@@ -84,6 +84,7 @@ export const fairlendNavLinks = {
 export const NAV_LINKS: NavLink[] = [
   {
     label: 'Financing',
+    link: fairlendNavLinks.borrowers,
     menu: {
       id: 'financing',
       columns: [
@@ -131,6 +132,7 @@ export const NAV_LINKS: NavLink[] = [
   },
   {
     label: 'Investing',
+    link: fairlendNavLinks.investing,
     menu: {
       id: 'investing',
       columns: [

@@ -54,7 +54,7 @@ Calibration is 100% of consented sessions for 30 days or 500 sessions, then 25% 
 
 ## QA and verification
 
-Use `?analytics_internal=1` on a production URL to persist `is_internal_user=true`; use `?analytics_internal=0` to clear it. Saved production insights exclude internal users by default.
+Use `?analytics_internal=1` on a production URL to persist both `is_internal_user=true` and PostHog's native `$internal_or_test_user=true`; use `?analytics_internal=0` to clear both flags. Saved production insights exclude internal users by default.
 
 For every release:
 
@@ -68,3 +68,11 @@ For every release:
 The privacy-policy PostHog wording is an implementation-accurate draft and must receive legal review before being treated as legal advice.
 
 `scripts/seed-posthog-schema.mjs` can emit one idempotent, internal-only example of every canonical event so PostHog assets can be configured before rare lifecycle outcomes occur. Run it only with Production environment variables; all seed events use `is_internal_user=true` and deterministic insert IDs.
+
+## PostHog project status
+
+The production project is `FairLend Production` (US Cloud project 503855), using `America/Toronto` and the canonical `www.fairlend.ca`/`fairlend.ca` domains. The configured reporting suite contains seven actions, six cohorts, six 90-day funnels, three path analyses, nine heatmaps, the four operational dashboards, and a disabled abandonment-survey draft.
+
+The current PostHog subscription does not support 15-minute insight-alert evaluation. The submission-failure alert is therefore configured at the supported hourly cadence with a threshold of three. Upgrade to PostHog Boost before representing this alert as a 15-minute operational SLA.
+
+PostHog cannot persist empty replay collections. Create the intake-abandonment, validation/submission-failure, exception, frustration, and converted-session playlists after the first consented production recordings exist; the built-in frustration playlist remains available in the interim.

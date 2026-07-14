@@ -21,7 +21,7 @@ import { buildFairlendMetadata } from '@/utilities/seo'
 export const dynamic = 'force-static'
 
 const pageDescription =
-  'The FairLend Partner Program helps Southern Ontario brokers, agents, architects, planners, engineers, and builders bring financing structure into complex build projects earlier.'
+  'FairLend helps Southern Ontario brokers, agents, designers, planners, engineers, and builders structure financing earlier for complex build projects.'
 
 export const metadata = buildFairlendMetadata({
   description: pageDescription,
@@ -45,13 +45,12 @@ const serviceSeo = {
  * reserved for one dominant action per decision area, topographic contour
  * motifs, and pen-and-ink linework. Copy locked from the section breakdown.
  *
- * Compliance: $2B+ funded, "nearly three decades," DrawFlow, and any CMHC MLI
- * Select language are flagged in component source and must be substantiated
- * before publishing.
+ * Quantitative credibility claims are centralized with an as-of methodology.
+ * DrawFlow and CMHC MLI Select language remain narrowly scoped and qualified.
  */
 export default function PartnerProgramPage() {
   return (
-    <div className="fairlend-landing-page fairlend-partners-page min-h-svh bg-[#f8f7f5]">
+    <main className="fairlend-landing-page fairlend-partners-page min-h-svh bg-[#f8f7f5]">
       <FairlendServiceSeo {...serviceSeo} />
       <FairlendLandingRail
         className="fairlend-partner-rail fairlend-partner-rail--paper"
@@ -134,6 +133,6 @@ export default function PartnerProgramPage() {
       <FairlendLandingRail className="fairlend-partner-rail fairlend-partner-rail--charcoal [--landing-gutter-width:0px] [&_.fairlend-landing-rail-dots]:hidden">
         <FairlendPartnerFinalCta />
       </FairlendLandingRail>
-    </div>
+    </main>
   )
 }

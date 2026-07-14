@@ -9,19 +9,19 @@ import {
   FAIRLEND_CONTACT_PHONE_LABEL,
   FairlendTalkToExpertCta,
 } from '@/components/FairlendTalkToExpertCta'
+import { fairlendPrincipalBrokerClaims } from '@/lib/fairlend-claims'
 import { cn } from '@/utilities/ui'
 
 import { FairlendApplicationArrow } from './FairlendApplicationArrow.client'
 import { FairlendApplicationForm } from './FairlendApplicationForm.client'
-import { FairlendTorontoHeroParallax } from './FairlendTorontoHeroParallax.client'
 import { torontoCloudLayers, torontoHeroAssets } from './toronto-scene-assets'
 
 const proofStats = [
   {
-    disclaimer: '*Principal-broker lifetime volume; final figure to be verified.',
+    disclaimer: `*${fairlendPrincipalBrokerClaims.volumeDisclosure}`,
     label: 'volume by\nprincipal\nbroker',
     qualifier: '*',
-    value: '$1B+',
+    value: fairlendPrincipalBrokerClaims.volumeValue,
   },
   {
     disclaimer: '*Available for complete files; timing varies by file.',
@@ -31,10 +31,10 @@ const proofStats = [
     value: '24',
   },
   {
-    disclaimer: '*Principal-broker experience.',
+    disclaimer: `*${fairlendPrincipalBrokerClaims.experienceDisclosure}`,
     label: 'years\nexperience',
     qualifier: '*',
-    value: '28+',
+    value: fairlendPrincipalBrokerClaims.experienceValue,
   },
 ] as const
 
@@ -112,7 +112,52 @@ function HeroDesktopActions() {
 
 function ProofStats() {
   return (
-    <aside aria-label="FairLend proof points" className="animate-authority-variant-two delight-proof absolute top-[18%] right-[4.4%] z-10 hidden w-[294px] border border-[#08090a] bg-[#f8f7f5]/96 p-4 shadow-[8px_8px_0_#96ec18] xl:block"><span aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.34] mix-blend-multiply" style={{ backgroundImage: "url('/textures/grid-noise.png')" }} /><div className="relative flex items-center justify-between pb-3"><span aria-hidden="true" className="authority-rule absolute inset-x-0 bottom-0 h-px bg-[#08090a]" /><p className="m-0 text-[10px] font-extrabold tracking-[0.16em] uppercase">Authority file</p><span className="delight-stamp border border-[#72b900] px-2 py-1 text-[8px] font-extrabold tracking-[0.12em] text-[#72b900] opacity-60 transition-[transform,opacity] duration-300">VERIFIED</span></div><div className="relative divide-y divide-[#08090a]/25">{proofStats.map((stat) => <div className="delight-row grid grid-cols-[112px_minmax(0,1fr)] items-center gap-3 py-4 transition-transform duration-300 ease-out" key={stat.value}><strong className="text-[54px] leading-[0.82] font-normal tracking-[-0.04em] [font-family:var(--font-dm-serif-display),Georgia,serif]">{stat.value}{'prefix' in stat ? <span className="ml-1 font-sans text-[12px] font-extrabold tracking-[0.08em] uppercase">{stat.prefix}</span> : null}<sup className="text-[10px]">{stat.qualifier}</sup></strong><span className="text-[14px] leading-[1.08] font-bold uppercase whitespace-pre-line">{stat.label}</span></div>)}</div></aside>
+    <aside
+      aria-label="FairLend proof points"
+      className="animate-authority-variant-two delight-proof absolute top-[18%] right-[4.4%] z-10 hidden w-[294px] border border-[#08090a] bg-[#f8f7f5]/96 p-4 shadow-[8px_8px_0_#96ec18] xl:block"
+    >
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.34] mix-blend-multiply"
+        style={{ backgroundImage: "url('/textures/grid-noise.png')" }}
+      />
+      <div className="relative flex items-center justify-between pb-3">
+        <span
+          aria-hidden="true"
+          className="authority-rule absolute inset-x-0 bottom-0 h-px bg-[#08090a]"
+        />
+        <p className="m-0 text-[10px] font-extrabold tracking-[0.16em] uppercase">Authority file</p>
+        <span className="delight-stamp border border-[#72b900] px-2 py-1 text-[8px] font-extrabold tracking-[0.12em] text-[#72b900] opacity-60 transition-[transform,opacity] duration-300">
+          VERIFIED
+        </span>
+      </div>
+      <div className="relative divide-y divide-[#08090a]/25">
+        {proofStats.map((stat) => (
+          <div
+            className="delight-row grid grid-cols-[112px_minmax(0,1fr)] items-center gap-3 py-4 transition-transform duration-300 ease-out"
+            key={stat.value}
+          >
+            <strong className="text-[54px] leading-[0.82] font-normal tracking-[-0.04em] [font-family:var(--font-dm-serif-display),Georgia,serif]">
+              {stat.value}
+              {'prefix' in stat ? (
+                <span className="ml-1 font-sans text-[12px] font-extrabold tracking-[0.08em] uppercase">
+                  {stat.prefix}
+                </span>
+              ) : null}
+              <sup className="text-[10px]">{stat.qualifier}</sup>
+            </strong>
+            <span className="text-[14px] leading-[1.08] font-bold uppercase whitespace-pre-line">
+              {stat.label}
+            </span>
+          </div>
+        ))}
+      </div>
+      <p className="relative mt-2 border-t border-[#08090a]/25 pt-2 text-[8px] leading-[1.25] font-semibold text-[#141414]/65">
+        *Career funded-mortgage volume uses internal funded-file records; experience and volume
+        reviewed {fairlendPrincipalBrokerClaims.asOfDate}. Commitment timing varies by complete
+        file.
+      </p>
+    </aside>
   )
 }
 
@@ -144,7 +189,10 @@ function MobileAuthorityBar() {
         </div>
         <dl className="grid grid-cols-3 divide-x divide-[#08090a]/25 pt-2.5">
           {proofStats.map((stat) => (
-            <div className="flex min-w-0 flex-col justify-between px-2 first:pl-0 last:pr-0" key={stat.value}>
+            <div
+              className="flex min-w-0 flex-col justify-between px-2 first:pl-0 last:pr-0"
+              key={stat.value}
+            >
               <dt className={cn(statLabelClassName, 'order-2 mt-2 whitespace-pre-line')}>
                 {stat.label}
               </dt>
@@ -163,7 +211,9 @@ function MobileAuthorityBar() {
           ))}
         </dl>
         <p className="mt-2.5 border-t border-[#08090a]/25 pt-2 text-[8px] leading-[1.15] font-medium tracking-[0.01em] text-[#141414]/65">
-          *Principal-broker lifetime volume. Commitment timing varies by complete file.
+          *Career funded-mortgage volume uses internal funded-file records; experience and volume
+          reviewed {fairlendPrincipalBrokerClaims.asOfDate}. Commitment timing varies by complete
+          file.
         </p>
       </div>
     </aside>
@@ -281,7 +331,7 @@ function TorontoScene() {
 
 export function FairlendLandingHero() {
   return (
-    <main className="w-full max-w-full overflow-hidden bg-[var(--landing-hero-paper,#f8f7f5)] text-[#08090a]">
+    <div className="w-full max-w-full overflow-hidden bg-[var(--landing-hero-paper,#f8f7f5)] text-[#08090a]">
       <section
         aria-labelledby="fairlend-hero-title"
         className="relative isolate w-full max-w-full overflow-hidden rounded-b-[28px] bg-[var(--landing-hero-paper,#f8f7f5)] [font-family:var(--font-inter),Arial,sans-serif]"
@@ -358,7 +408,6 @@ export function FairlendLandingHero() {
             }
           }
         `}</style>
-        <FairlendTorontoHeroParallax />
         <div
           className="fairlend-toronto-hero-canvas relative mx-auto h-[min(100svh,972px)] min-h-[760px] w-full max-w-full overflow-hidden bg-[var(--landing-hero-paper,#f8f7f5)] px-[clamp(24px,4.55vw,60px)] pt-[clamp(28px,4vw,40px)] max-lg:h-svh max-lg:min-h-[860px] max-md:!h-auto max-md:min-h-[calc(100svh+clamp(36px,6svh,64px))] max-md:px-5 max-md:pt-5 max-md:pb-[clamp(40px,7svh,64px)] hero-mobile:flex hero-mobile:flex-col"
           data-toronto-hero-canvas
@@ -416,15 +465,15 @@ export function FairlendLandingHero() {
             className="contents hero-mobile:relative hero-mobile:z-10 hero-mobile:mt-1 hero-mobile:grid hero-mobile:w-full hero-mobile:max-w-[455px] hero-mobile:grid-cols-2 hero-mobile:gap-2"
             data-toronto-mobile-application
           >
-            <FairlendApplicationForm />
             <BookConsultationButton mobileDocked />
             <HeroTalkToExpertButton mobileDocked />
             <div className="hidden hero-mobile:col-span-2 hero-mobile:block">
               <MobileAuthorityBar />
             </div>
+            <FairlendApplicationForm />
           </div>
         </div>
       </section>
-    </main>
+    </div>
   )
 }

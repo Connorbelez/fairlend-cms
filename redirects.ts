@@ -1,6 +1,31 @@
 import type { NextConfig } from 'next'
 
 export const redirects: NextConfig['redirects'] = async () => {
+  const canonicalHostRedirect = {
+    destination: 'https://www.fairlend.ca/:path*',
+    has: [
+      {
+        type: 'host' as const,
+        value: 'fairlend.ca',
+      },
+    ],
+    permanent: true,
+    source: '/:path*',
+  }
+
+  const retiredResourceRedirects = [
+    {
+      destination: '/multiplex-financing-gta',
+      permanent: true,
+      source: '/cmhc-mli-select-multiplex-financing',
+    },
+    {
+      destination: '/construction-draw-financing',
+      permanent: true,
+      source: '/resources/construction-draws-small-builders',
+    },
+  ]
+
   const internetExplorerRedirect = {
     destination: '/ie-incompatible.html',
     has: [
@@ -14,5 +39,5 @@ export const redirects: NextConfig['redirects'] = async () => {
     source: '/:path((?!ie-incompatible.html$).*)', // all pages except the incompatibility page
   }
 
-  return [internetExplorerRedirect]
+  return [canonicalHostRedirect, ...retiredResourceRedirects, internetExplorerRedirect]
 }

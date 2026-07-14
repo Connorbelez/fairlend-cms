@@ -20,6 +20,7 @@ import {
   FairlendPaperSection,
   FairlendPaperShell,
 } from '@/components/FairlendMarketingPrimitives'
+import { fairlendPrincipalBrokerClaims } from '@/lib/fairlend-claims'
 
 const leadershipPortraitAsset = '/assets/elie-headshot.webp'
 const leadershipSceneAsset = '/assets/fairlend-principal-broker-background-halftone-key.webp'
@@ -27,19 +28,19 @@ const leadershipSceneAsset = '/assets/fairlend-principal-broker-background-halft
 const leadershipProof = [
   {
     detail: 'Across mortgage brokerage, private lending, and investment finance.',
-    disclaimer: '*Principal-broker experience.',
+    disclaimer: `*${fairlendPrincipalBrokerClaims.experienceDisclosure}`,
     Icon: ShieldCheck,
     label: 'Years experience',
     qualifier: '*',
-    value: '28+',
+    value: fairlendPrincipalBrokerClaims.experienceValue,
   },
   {
     detail: 'Lifetime funded deals by Principal Broker.',
-    disclaimer: '*Principal-broker lifetime volume; final figure to be verified.',
+    disclaimer: `*${fairlendPrincipalBrokerClaims.volumeDisclosure}`,
     Icon: Landmark,
     label: 'Principal Broker volume',
     qualifier: '*',
-    value: '$2B+',
+    value: fairlendPrincipalBrokerClaims.volumeValue,
   },
   {
     detail: 'Relationships across borrowers, lenders, brokers, and investors.',

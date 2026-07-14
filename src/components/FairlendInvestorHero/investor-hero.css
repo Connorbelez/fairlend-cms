@@ -56,6 +56,13 @@
   background: var(--landing-hero-lime, #96ec18);
 }
 
+.investor-hero__kicker a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.24em;
+}
+
 .investor-hero__title {
   max-width: 14ch;
   margin: 0;

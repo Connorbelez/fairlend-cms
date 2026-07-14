@@ -1,6 +1,8 @@
 import Link from 'next/link'
 
+import { JsonLd } from '@/components/SEO/JsonLd'
 import { buildFairlendMetadata } from '@/utilities/seo'
+import { buildBreadcrumbJsonLd, buildWebPageJsonLd } from '@/utilities/structuredData'
 
 const termsUrl = '/terms'
 
@@ -55,6 +57,21 @@ const sections = [
 export default function TermsPage() {
   return (
     <main className="bg-[#f8f7f5] px-5 py-16 text-[#090909] sm:px-8 sm:py-24">
+      <JsonLd
+        data={[
+          buildBreadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: 'Website Terms', path: termsUrl },
+          ]),
+          buildWebPageJsonLd({
+            dateModified: '2026-07-12',
+            description:
+              'Read the terms governing use of the FairLend Mortgage website and its financing request tools.',
+            name: 'Website Terms of Use | Fairlend Management Inc.',
+            path: termsUrl,
+          }),
+        ]}
+      />
       <article className="mx-auto max-w-3xl">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#42656d]">
           Fairlend Management Inc. o/a FairLend Mortgage

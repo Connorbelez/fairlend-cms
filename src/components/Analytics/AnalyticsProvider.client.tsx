@@ -25,15 +25,9 @@ import {
   type AnalyticsConsent,
   type StoredAnalyticsConsent,
 } from '@/lib/analytics/config'
-import {
-  revokeStoredAnalyticsIdentities,
-  trackFairlendEvent,
-} from '@/lib/analytics/events'
+import { revokeStoredAnalyticsIdentities, trackFairlendEvent } from '@/lib/analytics/events'
 import { classifyFairlendRoute } from '@/lib/analytics/routes'
-import {
-  readAllowlistedCampaignProperties,
-  sanitizePostHogEvent,
-} from '@/lib/analytics/sanitize'
+import { readAllowlistedCampaignProperties, sanitizePostHogEvent } from '@/lib/analytics/sanitize'
 import { cn } from '@/utilities/ui'
 
 import { FairlendCampaignJourneyTracker } from './FairlendCampaignJourneyTracker.client'
@@ -124,8 +118,10 @@ function getCurrentPageProperties(pathname: string) {
 }
 
 function isReplayBlockedPath(pathname: string): boolean {
-  return /^\/(admin|api|account|dashboard|preview)(\/|$)/.test(pathname) ||
+  return (
+    /^\/(admin|api|account|dashboard|preview)(\/|$)/.test(pathname) ||
     /\/(documents?|uploads?)(\/|$)/.test(pathname)
+  )
 }
 
 export function AnalyticsProvider(): React.ReactElement | null {
@@ -208,8 +204,7 @@ export function AnalyticsProvider(): React.ReactElement | null {
         disable_session_recording: isReplayBlockedPath(window.location.pathname),
         loaded: (client) => {
           window.posthog = client
-          const isInternalUser =
-            window.localStorage.getItem(internalAnalyticsStorageKey) === 'true'
+          const isInternalUser = window.localStorage.getItem(internalAnalyticsStorageKey) === 'true'
           client.register({
             $internal_or_test_user: isInternalUser,
             deployment_environment: 'production',
@@ -266,8 +261,7 @@ export function AnalyticsProvider(): React.ReactElement | null {
     const internalFlag = new URLSearchParams(searchParamsString).get('analytics_internal')
     const isInternalUser =
       internalFlag === '1' ||
-      (internalFlag !== '0' &&
-        window.localStorage.getItem(internalAnalyticsStorageKey) === 'true')
+      (internalFlag !== '0' && window.localStorage.getItem(internalAnalyticsStorageKey) === 'true')
 
     window.dataLayer?.push({
       event: 'page_view',
@@ -494,21 +488,20 @@ export function AnalyticsProvider(): React.ReactElement | null {
       {shouldShowBanner && (
         <div
           className={cn(
-            'fixed bottom-3 left-1/2 z-[70] flex w-[calc(100vw-1.5rem)] max-w-4xl -translate-x-1/2 flex-col gap-4 overflow-hidden rounded-lg border border-[#d8c7b6] bg-[#fffdf8] p-4 text-[#101010] shadow-[0_22px_80px_rgb(8_9_10/20%)] sm:w-[calc(100vw-3rem)] sm:flex-row sm:items-center sm:justify-between',
+            'fixed bottom-2 left-1/2 z-[70] flex w-[calc(100vw-1rem)] max-w-3xl -translate-x-1/2 flex-col gap-2.5 overflow-hidden rounded-lg border border-[#d8c7b6] bg-[#fffdf8] p-3 text-[#101010] shadow-[0_18px_60px_rgb(8_9_10/18%)] sm:bottom-3 sm:w-[calc(100vw-3rem)] sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:p-4',
           )}
           role="dialog"
           aria-label="Cookie preferences"
         >
           <div className="min-w-0 max-w-2xl">
-            <p className="text-sm font-extrabold uppercase tracking-[0.14em] text-[#4f6f10]">
+            <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-[#4f6f10] sm:text-sm">
               Privacy preferences
             </p>
-            <p className="mt-1 break-words text-sm leading-6 font-semibold text-[#34403d]">
-              FairLend uses analytics to improve the site and advertising tags to measure or
-              retarget campaigns. Optional tracking stays off unless you allow it.
+            <p className="mt-1 break-words text-xs leading-5 font-semibold text-[#34403d] sm:text-sm sm:leading-6">
+              Optional analytics and advertising stay off unless you allow them.
             </p>
           </div>
-          <div className="grid w-full shrink-0 grid-cols-1 gap-2 sm:w-auto sm:grid-cols-3">
+          <div className="grid w-full shrink-0 grid-cols-2 gap-2 sm:w-auto sm:grid-cols-3">
             <Button
               className="min-h-11 w-full rounded-md border-[#08090a] bg-[#fffdf9] text-[#08090a] hover:bg-[#f7f6f1] hover:text-[#08090a]"
               onClick={() => setAndPersistConsent(deniedConsent)}
@@ -518,7 +511,7 @@ export function AnalyticsProvider(): React.ReactElement | null {
               Reject optional
             </Button>
             <Button
-              className="min-h-11 w-full rounded-md"
+              className="order-3 col-span-2 min-h-11 w-full rounded-md sm:order-none sm:col-span-1"
               onClick={() => {
                 setDraftConsent(consent)
                 setIsPreferencesOpen(true)

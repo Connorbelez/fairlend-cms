@@ -1,7 +1,9 @@
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 
+import { JsonLd } from '@/components/SEO/JsonLd'
 import { buildFairlendMetadata } from '@/utilities/seo'
+import { buildBreadcrumbJsonLd, buildWebPageJsonLd } from '@/utilities/structuredData'
 
 type PolicyBlock = {
   level?: 0 | 1
@@ -593,6 +595,21 @@ function renderPolicyBlocks(blocks: PolicyBlock[]) {
 export default function FairlendPrivacyPolicyPage() {
   return (
     <main className="min-h-svh bg-[#f8f7f5] text-[#090909]">
+      <JsonLd
+        data={[
+          buildBreadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: 'Privacy Policy', path: policyUrl },
+          ]),
+          buildWebPageJsonLd({
+            dateModified: '2026-07-14',
+            description:
+              'Read the Fairlend Management Inc. privacy policy for mortgage administration, brokerage activities, website privacy, consent, disclosure, retention, and contact rights.',
+            name: 'Privacy Policy | Fairlend Management Inc.',
+            path: policyUrl,
+          }),
+        ]}
+      />
       <section className="border-b border-black/10 bg-[linear-gradient(135deg,#ffffff_0%,#f8f7f5_54%,rgb(150_236_24/13%)_100%)] px-5 pt-24 pb-14 sm:px-8 lg:px-12 lg:pt-32 lg:pb-20">
         <div className="mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-[minmax(0,0.72fr)_minmax(280px,0.28fr)] lg:items-end">
           <div>

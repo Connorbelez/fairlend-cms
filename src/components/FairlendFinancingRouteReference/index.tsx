@@ -8,6 +8,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/utilities/ui'
+import { fairlendPrincipalBrokerClaims } from '@/lib/fairlend-claims'
 
 const applicationCtaVariants = {
   form: cva('flex flex-col', {
@@ -161,9 +162,9 @@ const defaultStats: CredibilityStat[] = [
   {
     label: (
       <>
-        25+ years
+        {fairlendPrincipalBrokerClaims.experienceLabel}
         <br />
-        of experience
+        as of Jul 2026
       </>
     ),
     icon: ShieldCheck,
@@ -171,9 +172,9 @@ const defaultStats: CredibilityStat[] = [
   {
     label: (
       <>
-        $2B+ financing
+        {fairlendPrincipalBrokerClaims.volumeLabel}
         <br />
-        by Principal Broker
+        internal records
       </>
     ),
     icon: Handshake,
@@ -375,15 +376,14 @@ function FairlendFinancingRouteReference({
         </div>
         <div className="relative min-h-[520px] overflow-hidden px-3 py-3 sm:min-h-[620px]">
           {/* Illustration is caller-owned so crops/reference assets never ship from this component. */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <Image
             alt={illustrationAlt}
             className={cn('h-full min-h-[500px] w-full object-contain', illustrationClassName)}
             src={illustrationSrc}
-          
-          width={1600}
-          height={900}
-          sizes="100vw"/>
+            width={1600}
+            height={900}
+            sizes="100vw"
+          />
           {inlineCtaProps !== false && (
             <FairlendInlineApplicationCta
               className="absolute right-5 bottom-6 hidden w-[320px] lg:block"

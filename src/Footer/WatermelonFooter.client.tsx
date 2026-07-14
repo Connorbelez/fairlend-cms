@@ -11,6 +11,7 @@ import {
   type LeadSubmissionResponse,
 } from '@/lib/analytics/events'
 import { ArrowRight, Phone } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import {
   type FormEvent,
@@ -31,29 +32,41 @@ const footerColumns = [
   {
     title: 'Build',
     links: [
-      { label: 'Development Financing', href: '/construction-draw-financing' },
-      { label: 'Construction Loans', href: '/construction-draw-financing' },
-      { label: 'Bridge Financing', href: '/borrowers/private-mortgage-financing' },
-      { label: 'Mezzanine Capital', href: '/borrowers/institutional-mortgage' },
+      { label: 'Construction Draw Financing', href: '/construction-draw-financing' },
+      { label: 'Multiplex Financing', href: '/multiplex-financing-gta' },
+      { label: 'Garden Suite Financing', href: '/garden-suite-financing-gta' },
+      { label: 'Private Bridge Financing', href: '/borrowers/private-mortgage-financing' },
+      { label: 'Institutional Mortgages', href: '/borrowers/institutional-mortgage' },
       { label: 'Project Advisory', href: '/partners' },
     ],
   },
   {
     title: 'Borrow',
     links: [
-      { label: 'Loan Programs', href: '/multiplex-financing-gta' },
+      { label: 'Borrower Overview', href: '/borrowers' },
+      { label: 'Multiplex Financing', href: '/multiplex-financing-gta' },
       { label: 'How It Works', href: '/intake' },
-      { label: 'Rate Sheet', href: '/borrowers/private-mortgage-financing' },
-      { label: 'Documents', href: '/en/brokerage/privacy-policy' },
+      { label: 'Private Mortgage Guide', href: '/borrowers/private-mortgage-financing' },
+      { label: 'Privacy Policy', href: '/en/brokerage/privacy-policy' },
       { label: 'Apply Now', href: consultationHref },
     ],
   },
   {
     title: 'Invest',
     links: [
-      { label: 'Investment Approach', href: '/investing/private-mortgage-lending' },
-      { label: 'Opportunities', href: '/investing/private-mortgage-lending' },
-      { label: 'Track Record', href: '/investing/private-mortgage-lending' },
+      { label: 'Investor Overview', href: '/investing' },
+      {
+        label: 'Investment Approach',
+        href: '/investing/private-mortgage-lending#investor-primer',
+      },
+      {
+        label: 'Opportunities',
+        href: '/investing/private-mortgage-lending#investor-opportunities',
+      },
+      {
+        label: 'Underwriting Process',
+        href: '/investing/private-mortgage-lending#investor-underwriting',
+      },
       { label: 'Investor Resources', href: '/posts' },
       { label: 'Partner With Us', href: consultationHref },
     ],
@@ -63,8 +76,8 @@ const footerColumns = [
     links: [
       { label: 'Market Commentary', href: '/posts' },
       { label: 'Toronto Field Guide', href: '/garden-suite-financing-gta' },
-      { label: 'Reports & Data', href: '/cmhc-mli-select-multiplex-financing' },
-      { label: 'Builder Draw Guide', href: '/resources/construction-draws-small-builders' },
+      { label: 'Multiplex Financing', href: '/multiplex-financing-gta' },
+      { label: 'Construction Draw Financing', href: '/construction-draw-financing' },
       { label: 'Contact FairLend', href: '/contact' },
       { label: 'Regulatory Disclosures', href: '/disclosures' },
     ],
@@ -211,6 +224,15 @@ export function WatermelonFooter() {
         onPointerLeave={handleSkylinePointerLeave}
         onPointerMove={handleSkylinePointerMove}
       >
+        <Image
+          alt=""
+          aria-hidden="true"
+          className={styles.skylineImage}
+          fill
+          loading="lazy"
+          sizes="100vw"
+          src="/assets/footer/fairlend-toronto-waterfront.webp"
+        />
         <div aria-hidden="true" className={styles.wordmark} data-text="FAIRLEND" ref={wordmarkRef}>
           FAIRLEND
         </div>

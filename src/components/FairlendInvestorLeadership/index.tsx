@@ -1,6 +1,8 @@
 import type { ReactElement } from 'react'
 import Image from 'next/image'
 
+import { fairlendPrincipalBrokerClaims } from '@/lib/fairlend-claims'
+
 import './investor-leadership.css'
 
 const stats = [
@@ -8,13 +10,12 @@ const stats = [
     detail:
       'Across lending, private mortgages, construction, appraisal, and recovery in Southern Ontario.',
     label: 'Southern Ontario-focused',
-    value: '~30 yrs',
+    value: fairlendPrincipalBrokerClaims.experienceLabel,
   },
   {
-    detail:
-      'One of Canada’s top mortgage brokers by volume — across lending and private mortgages.',
+    detail: fairlendPrincipalBrokerClaims.volumeDisclosure,
     label: 'Funded',
-    value: '~$2B',
+    value: fairlendPrincipalBrokerClaims.volumeValue,
   },
   {
     detail: 'Permitting, appraisal dynamics, land values, neighbourhoods, and borrower profiles.',
@@ -27,8 +28,7 @@ const bench = [
   {
     name: 'Elie Soberano',
     role: 'Principal Broker · Founder · MIC Director',
-    summary:
-      'Nearly 30 years in mortgage brokerage and more than $2B funded, with deep Southern Ontario experience across lending, private mortgages, construction, appraisal, and recovery. Has built custom homes, managed major rental properties, and advised at the product-strategy level.',
+    summary: `${fairlendPrincipalBrokerClaims.experienceLabel} in mortgage brokerage and ${fairlendPrincipalBrokerClaims.volumeLabel}, with deep Southern Ontario experience across lending, private mortgages, construction, appraisal, and recovery. Has built custom homes, managed major rental properties, and advised at the product-strategy level.`,
   },
   {
     name: 'Connor Beleznay',
@@ -48,11 +48,11 @@ const bench = [
  * Section 11 — Leadership & Track Record (Concept A + B hybrid).
  *
  * Credibility through pattern recognition, not celebrity. Founder-led profile
- * (Elie) leads, then a stat band (~$2B / ~30 yrs / GTA), then a brief bench.
+ * (Elie) leads, then a stat band (funded volume / experience / GTA), then a brief bench.
  * The numbers land here hardest, alongside the recovery and technology bench.
  *
- * Compliance: "nearly 30 years" / "~$2B" used consistently. "Top 1% / top-volume"
- * framed conservatively. Recovery language stays sober — capability and process.
+ * Quantitative claims are centralized in fairlend-claims.ts with an as-of methodology.
+ * Recovery language stays sober — capability and process.
  */
 export function FairlendInvestorLeadership(): ReactElement {
   return (

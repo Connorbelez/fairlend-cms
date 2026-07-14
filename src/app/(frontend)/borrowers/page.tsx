@@ -5,7 +5,7 @@ export const dynamic = 'force-static'
 
 export const metadata = buildFairlendMetadata({
   description:
-    'Compare FairLend mortgage financing paths for Ontario borrowers and builders, including private, institutional, construction, multiplex, and garden-suite financing.',
+    'Compare FairLend financing for Ontario borrowers and builders, including private, institutional, construction, multiplex, and garden-suite mortgages.',
   path: '/borrowers',
   title: 'Mortgage Financing for Ontario Borrowers and Builders',
 })
@@ -50,7 +50,7 @@ const paths = [
   {
     description:
       'Review the insured-financing path for qualifying multi-unit rental housing and the operating evidence a lender will expect.',
-    href: '/cmhc-mli-select-multiplex-financing',
+    href: '/multiplex-financing-gta',
     title: 'CMHC MLI Select financing',
   },
   {

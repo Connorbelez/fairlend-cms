@@ -1,8 +1,9 @@
 import Image from 'next/image'
 import type { ReactElement } from 'react'
 
+import { FairlendOfficeMap } from '@/components/FairlendOfficeMap'
+
 import { ETHOS_COPY } from '../content'
-import { FairlendOfficeMap } from './FairlendOfficeMap.client'
 
 type EthosProofBlockProps = {
   officeImageSrc: string

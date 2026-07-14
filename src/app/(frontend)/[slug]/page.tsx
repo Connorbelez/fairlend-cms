@@ -9,8 +9,8 @@ import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
 import { JsonLd } from '@/components/SEO/JsonLd'
 import { generateMeta } from '@/utilities/generateMeta'
-import { buildBreadcrumbJsonLd } from '@/utilities/structuredData'
-import { getPayloadPagePath } from '@/utilities/seo'
+import { buildBreadcrumbJsonLd, buildWebPageJsonLd } from '@/utilities/structuredData'
+import { getPayloadDescription, getPayloadPagePath, getPayloadTitle } from '@/utilities/seo'
 import { isFairlendTombstonedPageSlug } from '@/lib/fairlend-routes'
 import { notFound } from 'next/navigation'
 import PageClient from './page.client'
@@ -72,10 +72,19 @@ export default async function Page({ params: paramsPromise }: Args) {
       <PayloadRedirects disableNotFound url={url} />
 
       <JsonLd
-        data={buildBreadcrumbJsonLd([
-          { name: 'Home', path: '/' },
-          { name: page.title, path: getPayloadPagePath(page) },
-        ])}
+        data={[
+          buildBreadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: page.title, path: getPayloadPagePath(page) },
+          ]),
+          buildWebPageJsonLd({
+            dateModified: page.updatedAt,
+            datePublished: page.createdAt,
+            description: getPayloadDescription(page),
+            name: getPayloadTitle(page),
+            path: getPayloadPagePath(page),
+          }),
+        ]}
       />
       <RenderHero {...hero} />
       <RenderBlocks blocks={layout} />

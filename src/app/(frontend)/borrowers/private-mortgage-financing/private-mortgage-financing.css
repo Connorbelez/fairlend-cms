@@ -93,6 +93,13 @@
   color: var(--pm-ink);
 }
 
+.pm-label a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.2em;
+}
+
 /* 1. Cover sheet */
 .pm-cover {
   isolation: isolate;

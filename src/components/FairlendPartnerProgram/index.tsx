@@ -3,6 +3,7 @@ import Image from 'next/image'
 
 import { FairlendBorrowerCta } from '@/components/FairlendBorrowerCta'
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
+import { fairlendPrincipalBrokerClaims } from '@/lib/fairlend-claims'
 import {
   Timeline,
   TimelineConnector,
@@ -922,18 +923,17 @@ export function FairlendPartnerCredibility(): ReactElement {
             <h2 className="partner-display" id="partner-credibility-title">
               Most of these capabilities exist somewhere. Rarely in one place.
             </h2>
-            {/* COMPLIANCE: $2B+ and "nearly three decades" must be substantiated before publishing. */}
             <p className="partner-credibility__body">
               FairLend combines mortgage brokerage, private lending, construction financing,
-              mortgage administration, draw planning, build support, and local Southern Ontario market judgment —
-              led by <strong>Elie Soberano</strong>, with <strong>nearly three decades</strong> in
-              mortgage brokerage and <strong>more than $2B funded</strong> [COMPLIANCE], supported
-              by a team spanning technology, operations, construction, appraisal, legal, and
-              recovery.
+              mortgage administration, draw planning, build support, and local Southern Ontario
+              market judgment — led by <strong>Elie Soberano</strong>, with{' '}
+              <strong>{fairlendPrincipalBrokerClaims.experienceLabel}</strong> in mortgage brokerage
+              and <strong>{fairlendPrincipalBrokerClaims.volumeLabel}</strong>, supported by a team
+              spanning technology, operations, construction, appraisal, legal, and recovery.
             </p>
             <p className="partner-credibility__footnote">
-              Human-led judgment, AI-assisted workflow. Technology supports underwriting; people
-              make the calls.
+              {fairlendPrincipalBrokerClaims.methodology} Human-led judgment, AI-assisted workflow.
+              Technology supports underwriting; people make the calls.
             </p>
           </div>
 

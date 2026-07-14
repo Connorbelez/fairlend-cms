@@ -23,14 +23,12 @@
   isolation: isolate;
 }
 
-.skyline::before {
+.skylineImage {
   position: absolute;
   z-index: 1;
   inset: 0;
-  background-image: url('/assets/footer/fairlend-toronto-waterfront.webp');
-  background-position: center bottom;
-  background-size: cover;
-  content: '';
+  object-fit: cover;
+  object-position: center bottom;
 }
 
 .wordmark {
