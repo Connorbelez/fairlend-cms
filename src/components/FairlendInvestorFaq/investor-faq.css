@@ -1,0 +1,176 @@
+/* ------------------------------------------------------------------
+   Investor FAQ — grouped accordion.
+   ------------------------------------------------------------------ */
+
+.investor-faq {
+  position: relative;
+  padding: clamp(64px, 8vw, 120px) clamp(24px, 4vw, 56px);
+  background: #fbfaf5;
+  color: var(--landing-hero-ink, #08090a);
+  font-kerning: normal;
+  font-optical-sizing: auto;
+}
+
+.investor-faq__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+  gap: clamp(40px, 6vw, 88px);
+  align-items: start;
+}
+
+.investor-faq__header {
+  max-width: 760px;
+  margin-bottom: clamp(36px, 4vw, 56px);
+}
+
+.investor-faq__title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(34px, 4.2vw, 56px);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  margin: 0;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+  max-width: 22ch;
+}
+
+.investor-faq__groups {
+  display: grid;
+  gap: clamp(32px, 4vw, 56px);
+}
+
+.investor-faq__group-title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--landing-hero-muted, rgb(73 73 68));
+  margin: 0 0 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+}
+
+.investor-faq__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+
+.investor-faq__item {
+  border-bottom: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+}
+
+.investor-faq__item:first-child {
+  border-top: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+}
+
+.investor-faq__question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 22px 4px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(18px, 1.8vw, 24px);
+  min-height: 64px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--landing-hero-ink, #08090a);
+  transition: color 0.18s ease;
+}
+
+.investor-faq__question:hover {
+  color: var(--landing-hero-muted, #494944);
+}
+
+.investor-faq__question:focus-visible {
+  outline: 2px solid var(--landing-hero-ink, #08090a);
+  outline-offset: 4px;
+  border-radius: 5px;
+}
+
+.investor-faq__question.is-open {
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-faq__icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
+  border-radius: 7px;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-faq__question.is-open .investor-faq__icon {
+  background: var(--landing-hero-ink, #08090a);
+  color: var(--landing-hero-lime, #96ec18);
+  border-color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-faq__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.investor-faq__panel.is-open {
+  grid-template-rows: 1fr;
+}
+
+.investor-faq__panel-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.investor-faq__panel-inner p {
+  margin: 0;
+  padding: 0 56px 24px 4px;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--landing-hero-muted, #494944);
+  max-width: 70ch;
+}
+
+@media (max-width: 600px) {
+  .investor-faq__panel-inner p {
+    padding-right: 0;
+  }
+
+  .investor-faq__icon {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+@media (max-width: 900px) {
+  .investor-faq__inner {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .investor-faq__panel {
+    transition: none;
+  }
+
+  .investor-faq * {
+    transition: none !important;
+  }
+}

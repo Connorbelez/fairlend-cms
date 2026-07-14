@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, Field } from 'payload'
 
 import {
   BlocksFeature,
@@ -14,6 +14,7 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Banner } from '../../blocks/Banner/config'
 import { Code } from '../../blocks/Code/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { MoneyPageBlocks } from '../../blocks/MoneyPage/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
 import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
@@ -26,6 +27,41 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import { slugField } from 'payload'
+
+const moneyPageContentModeField: Field = {
+  name: 'contentMode',
+  type: 'select',
+  admin: {
+    description:
+      'Article uses the standard blog template. SEO money page is a commercial-intent, rank-and-convert layout using full-width sections.',
+  },
+  defaultValue: 'article',
+  label: 'Presentation',
+  options: [
+    { label: 'Article', value: 'article' },
+    { label: 'SEO money page · commercial intent', value: 'moneyPage' },
+  ],
+}
+
+const moneyPageLayoutField: Field = {
+  name: 'moneyPageLayout',
+  type: 'blocks',
+  admin: {
+    condition: (_data, siblingData) => siblingData?.contentMode === 'moneyPage',
+    description:
+      'Build the commercial-intent page in search-intent and persuasion order. Each section owns its material, spacing, responsive layout, and assets.',
+    initCollapsed: true,
+  },
+  blocks: MoneyPageBlocks,
+  label: 'SEO money page sections',
+  validate: (value, { siblingData }) => {
+    const contentMode = (siblingData as { contentMode?: string } | undefined)?.contentMode
+    if (contentMode !== 'moneyPage') return true
+    return Array.isArray(value) && value.length > 0
+      ? true
+      : 'Money pages require at least one section.'
+  },
+}
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -79,14 +115,21 @@ export const Posts: CollectionConfig = {
       tabs: [
         {
           fields: [
+            moneyPageContentModeField,
             {
               name: 'heroImage',
               type: 'upload',
+              admin: {
+                condition: (_data, siblingData) => siblingData?.contentMode !== 'moneyPage',
+              },
               relationTo: 'media',
             },
             {
               name: 'content',
               type: 'richText',
+              admin: {
+                condition: (_data, siblingData) => siblingData?.contentMode !== 'moneyPage',
+              },
               editor: lexicalEditor({
                 features: ({ rootFeatures }) => {
                   return [
@@ -100,8 +143,13 @@ export const Posts: CollectionConfig = {
                 },
               }),
               label: false,
-              required: true,
+              validate: (value, { siblingData }) => {
+                const contentMode = (siblingData as { contentMode?: string } | undefined)?.contentMode
+                if (contentMode === 'moneyPage') return true
+                return value ? true : 'Article posts require content.'
+              },
             },
+            moneyPageLayoutField,
           ],
           label: 'Content',
         },

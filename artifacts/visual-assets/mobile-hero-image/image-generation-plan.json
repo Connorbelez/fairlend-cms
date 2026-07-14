@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "manifest_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/mobile-hero-image/asset-manifest.json",
+  "image_asset_count": 1,
+  "assets": [
+    {
+      "id": "mobile-hero-property-path",
+      "label": "Mobile hero property path illustration",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/mobile-hero-image/crops/mobile-hero-property-path.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/mobile-hero-image/generated/raw/mobile-hero-property-path.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/mobile-hero-image/generated/webp/mobile-hero-property-path.webp",
+      "transparent": true,
+      "prompt": "Use case: ads-marketing\nAsset type: Phone-first hero raster showing the FairLend financing path across multiplex, single-family, and land property types.\nPrimary request: Reference image only. Generate a new standalone transparent mobile hero illustration for FairLend, portrait composition around 390 by 435. Premium monochrome engraved real-estate finance scene on transparent background: three stacked property-path moments with a multiplex building engraving, a single-family house engraving, and a land parcel/site-plan engraving, connected by thin vertical electric-lime route markers. Add soft Toronto waterfront skyline and pale cloud/foliage engraving near the lower third. Leave clean open space at the upper left for a live heading overlay. Keep the composition quiet, precise, paper-finance, high-trust, grayscale ink linework with restrained lime route accents. Do not include any readable text, logo, buttons, form fields, UI cards, people, watermarks, or page background.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "No text, no letters, no numbers, no logo, no CTA, no form, no browser chrome, no phone frame, no colored background, no navy-and-gold banking cliche, no generic stock photo, no cartoon, no hand-drawn sloppy doodle, no glassmorphism, no clipped property drawings."
+    }
+  ]
+}

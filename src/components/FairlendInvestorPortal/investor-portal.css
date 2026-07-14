@@ -1,0 +1,395 @@
+/* ------------------------------------------------------------------
+   Investor Portal — annotated portal mock with numbered callouts.
+   Restrained financial UI. Lime reserved for the Live pulse + current status.
+   ------------------------------------------------------------------ */
+
+.investor-portal {
+  position: relative;
+  padding: clamp(64px, 8vw, 120px) clamp(24px, 4vw, 56px);
+  background: #fbfaf5;
+  color: var(--landing-hero-ink, #08090a);
+  overflow: hidden;
+  font-kerning: normal;
+  font-optical-sizing: auto;
+}
+
+.investor-portal__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.investor-portal__header {
+  max-width: 760px;
+}
+
+.investor-portal__eyebrow {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--landing-hero-muted, rgb(73 73 68));
+  margin: 0 0 18px;
+}
+
+.investor-portal__title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(36px, 4.4vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin: 0;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+  max-width: 18ch;
+}
+
+.investor-portal__lede {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--landing-hero-muted, #494944);
+  margin: 22px 0 0;
+  max-width: 64ch;
+  text-wrap: pretty;
+}
+
+/* ---- Stage: portal UI + callouts ---- */
+.investor-portal__stage {
+  margin-top: clamp(40px, 5vw, 64px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.85fr);
+  gap: clamp(28px, 3.5vw, 56px);
+  align-items: start;
+}
+
+/* ---- The mock UI ---- */
+.investor-portal__ui {
+  border: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+  background: var(--landing-hero-white, #fffdf9);
+  border-radius: 14px;
+  box-shadow: 0 6px 8px rgb(8 9 10 / 8%);
+  overflow: hidden;
+}
+
+.investor-portal__ui-chrome {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+  background: #f3f1ea;
+}
+
+.investor-portal__ui-chrome-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
+}
+
+.investor-portal__ui-chrome-file {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--landing-hero-muted, rgb(108 108 100));
+  letter-spacing: 0.04em;
+}
+
+.investor-portal__ui-chrome-spacer {
+  flex: 1;
+}
+
+.investor-portal__ui-body {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  min-height: 360px;
+}
+
+.investor-portal__ui-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 14px;
+  border-right: 1px solid var(--landing-hero-line-soft, rgb(8 9 10 / 10%));
+  background: #faf8f1;
+}
+
+.investor-portal__ui-sidebar-item {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--landing-hero-muted, rgb(108 108 100));
+  padding: 8px 10px;
+  border-radius: 5px;
+}
+
+.investor-portal__ui-sidebar-item.is-active {
+  background: var(--landing-hero-ink, #08090a);
+  color: #fff;
+}
+
+.investor-portal__ui-main {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.investor-portal__ui-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.investor-portal__ui-toolbar-title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-portal__ui-toolbar-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #101010;
+  background: var(--landing-hero-lime, #96ec18);
+  padding: 4px 9px;
+  border-radius: 999px;
+}
+
+.investor-portal__ui-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #101010;
+  box-shadow: 0 0 0 3px rgb(16 16 16 / 12%);
+}
+
+.investor-portal__ui-table {
+  border: 1px solid var(--landing-hero-line-soft, rgb(8 9 10 / 10%));
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 12px;
+}
+
+.investor-portal__ui-table-head,
+.investor-portal__ui-table-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) 0.6fr 0.5fr 1fr 1.1fr;
+  gap: 8px;
+  padding: 10px 12px;
+  align-items: center;
+}
+
+.investor-portal__ui-table-head {
+  background: #f3f1ea;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--landing-hero-muted, rgb(73 73 68));
+}
+
+.investor-portal__ui-table-row {
+  border-top: 1px solid var(--landing-hero-line-soft, rgb(8 9 10 / 8%));
+  font-weight: 500;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-portal__ui-status {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 4px 8px;
+  border-radius: 999px;
+  text-align: center;
+}
+
+.investor-portal__ui-status--ok {
+  background: var(--landing-hero-lime, #96ec18);
+  color: #101010;
+}
+
+.investor-portal__ui-status--current {
+  background: rgb(8 9 10 / 6%);
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-portal__ui-status--scheduled {
+  background: transparent;
+  color: var(--landing-hero-muted, rgb(108 108 100));
+  border: 1px dashed var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
+}
+
+.investor-portal__ui-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 8px;
+}
+
+.investor-portal__ui-tile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--landing-hero-line-soft, rgb(8 9 10 / 10%));
+  border-radius: 8px;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--landing-hero-muted, #494944);
+}
+
+.investor-portal__ui-tile svg {
+  color: var(--landing-hero-ink, #08090a);
+}
+
+/* ---- Callouts ---- */
+.investor-portal__callouts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 18px;
+}
+
+.investor-portal__callout {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 14px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--landing-hero-line-soft, rgb(8 9 10 / 8%));
+}
+
+.investor-portal__callout:last-child {
+  border-bottom: none;
+}
+
+.investor-portal__callout-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid var(--landing-hero-ink, #08090a);
+  border-radius: 50%;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-portal__callout-label {
+  margin: 0 0 4px;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-portal__callout-detail {
+  margin: 0;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--landing-hero-muted, #494944);
+}
+
+/* ---- Day in the life ---- */
+.investor-portal__day-in-life {
+  position: relative;
+  margin-top: clamp(40px, 5vw, 64px);
+  padding: clamp(28px, 3vw, 40px);
+  border: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+  border-radius: 14px;
+  background: var(--landing-hero-paper, #f8f7f5);
+  max-width: 80ch;
+}
+
+.investor-portal__day-title {
+  margin: 0 0 12px;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(22px, 2.2vw, 30px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-portal__day-copy {
+  margin: 0;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-portal__day-copy em {
+  font-style: italic;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-portal__day-mark {
+  position: absolute;
+  top: clamp(24px, 2.6vw, 32px);
+  right: clamp(24px, 2.6vw, 32px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--landing-hero-ink, #08090a);
+  color: var(--landing-hero-lime, #96ec18);
+}
+
+@media (max-width: 960px) {
+  .investor-portal__stage {
+    grid-template-columns: 1fr;
+  }
+
+  .investor-portal__ui-body {
+    grid-template-columns: 120px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .investor-portal__ui-body {
+    grid-template-columns: 1fr;
+  }
+
+  .investor-portal__ui-sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: none;
+    border-bottom: 1px solid var(--landing-hero-line-soft, rgb(8 9 10 / 10%));
+  }
+
+  .investor-portal__ui-table-head,
+  .investor-portal__ui-table-row {
+    grid-template-columns: 1fr 1fr;
+    font-size: 11px;
+  }
+
+  .investor-portal__ui-table-head span:nth-child(3),
+  .investor-portal__ui-table-row span:nth-child(3) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .investor-portal * {
+    transition: none !important;
+  }
+}

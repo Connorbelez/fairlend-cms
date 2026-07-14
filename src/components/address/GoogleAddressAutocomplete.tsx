@@ -25,6 +25,7 @@ type AddressDetails = {
 
 interface GoogleAddressAutocompleteProps {
   ariaDescribedBy?: string
+  autoComplete?: React.InputHTMLAttributes<HTMLInputElement>['autoComplete']
   className?: string
   disabled?: boolean
   id?: string
@@ -48,6 +49,7 @@ interface GoogleAddressAutocompleteProps {
 
 export function GoogleAddressAutocomplete({
   ariaDescribedBy,
+  autoComplete = 'off',
   className,
   disabled = false,
   id,
@@ -162,11 +164,19 @@ export function GoogleAddressAutocomplete({
         method: 'POST',
       })
 
+      const responsePayload = (await response.json().catch(() => null)) as
+        | (AddressDetails & { code?: string; error?: string })
+        | null
+
       if (!response.ok) {
+        if (responsePayload?.code === 'NON_CANADIAN_ADDRESS') {
+          setError(responsePayload.error ?? 'Select a Canadian address.')
+          return
+        }
         throw new Error('Address details failed')
       }
 
-      const details = (await response.json()) as AddressDetails
+      const details = responsePayload as AddressDetails
       const nextValue = details.formattedAddress || suggestion.text
       onChange(nextValue, { source: 'selection' })
       onPlaceSelect?.(suggestion, details)
@@ -192,7 +202,7 @@ export function GoogleAddressAutocomplete({
     'aria-describedby': ariaDescribedBy,
     'aria-expanded': isOpen,
     'aria-label': typeof label === 'string' ? label : 'Project address',
-    autoComplete: 'off',
+    autoComplete,
     className: cn('w-full min-w-0', inputClassName),
     'data-testid': testId,
     disabled,

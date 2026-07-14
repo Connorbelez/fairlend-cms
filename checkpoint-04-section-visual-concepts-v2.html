@@ -1,0 +1,1094 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Checkpoint 04 V2 — Integrated Visual Concepts · Our Build Model</title>
+    <style>
+      /* ---------- Shared brand tokens (locked from DESIGN.md / CP3-V2) ---------- */
+      :root {
+        --paper: #fbfaf7;
+        --paper-warm: #fffaf1;
+        --builder-cream: rgb(255 253 247);
+        --builder-paper: rgb(255 250 241);
+        --ink: oklch(0.235 0.026 164);          /* builder forest */
+        --ink-deep: #050506;
+        --ink-soft: rgba(8, 45, 35, 0.72);
+        --muted: rgba(8, 45, 35, 0.58);
+        --line: rgba(8, 45, 35, 0.16);
+        --line-strong: rgba(8, 45, 35, 0.34);
+        --lime: #9dff00;
+        --lime-ink: #203500;
+        --coral: oklch(0.588 0.151 42.5);
+        --coral-deep: oklch(0.48 0.14 41);
+        --blueprint: oklch(0.464 0.091 243.7);
+        --blueprint-soft: oklch(0.464 0.091 243.7 / 0.32);
+        --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+        --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+        --mono: "Oxanium", ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+        line-height: 1.5;
+      }
+
+      /* ---------- Page chrome (concept switcher + notes) ---------- */
+      .doc { max-width: 1280px; margin: 0 auto; padding: 32px 22px 80px; }
+      .doc-head { margin-bottom: 28px; }
+      .doc-eyebrow {
+        display: inline-flex; gap: 10px; align-items: center;
+        font-family: var(--mono); font-size: 11px; font-weight: 800;
+        letter-spacing: 0.2em; text-transform: uppercase; color: var(--coral);
+      }
+      .doc-eyebrow::after { content: ""; display: block; width: 72px; height: 2px; background: currentColor; }
+      .doc-version {
+        margin-left: 10px; padding: 2px 9px; border-radius: 999px;
+        background: var(--lime); color: var(--lime-ink);
+        font-family: var(--mono); font-size: 10px; font-weight: 900; letter-spacing: 0.1em;
+      }
+      .doc h1 {
+        margin: 14px 0 8px; font-family: var(--serif);
+        font-size: clamp(30px, 4.2vw, 50px); font-weight: 500;
+        letter-spacing: -0.03em; line-height: 1; color: var(--ink-deep);
+      }
+      .doc h1 em { font-style: normal; color: var(--coral); }
+      .doc-sub { max-width: 70ch; color: var(--ink-soft); font-size: 16px; }
+
+      .tabs {
+        position: sticky; top: 0; z-index: 50;
+        display: flex; gap: 8px; flex-wrap: wrap;
+        margin: 24px -22px 0; padding: 14px 22px;
+        background: rgba(251 250 247 0.92); backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--line);
+      }
+      .tab {
+        flex: 1 1 auto; min-width: 180px;
+        padding: 12px 14px; border: 1px solid var(--line-strong); border-radius: 10px;
+        background: var(--builder-cream); color: var(--ink-deep);
+        font-family: var(--sans); font-size: 13px; font-weight: 700; text-align: left;
+        cursor: pointer; transition: border-color .15s, background .15s, transform .15s;
+      }
+      .tab b { display: block; font-family: var(--mono); font-size: 10px; font-weight: 900; letter-spacing: 0.14em; color: var(--coral); margin-bottom: 4px; }
+      .tab[aria-selected="true"] { border-color: var(--ink-deep); background: var(--lime); }
+      .tab[aria-selected="true"] b { color: var(--lime-ink); }
+      .tab:hover { transform: translateY(-1px); }
+
+      .concept { display: none; margin-top: 28px; }
+      .concept[aria-hidden="false"] { display: block; }
+
+      /* ---------- Context artboard frame ---------- */
+      .artboard-label {
+        display: flex; align-items: baseline; gap: 12px; margin: 0 0 10px;
+      }
+      .artboard-label h2 {
+        margin: 0; font-family: var(--serif); font-size: 26px; font-weight: 500;
+        letter-spacing: -0.02em; color: var(--ink-deep);
+      }
+      .artboard-label span { font-family: var(--mono); font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--coral); }
+      .artboard {
+        border: 1px solid var(--line-strong); border-radius: 16px; overflow: hidden;
+        background: var(--paper); box-shadow: 0 24px 60px rgba(8 45 35 / 8%);
+      }
+      .ab-section { position: relative; padding: 0; }
+      .ab-tag {
+        position: absolute; top: 10px; left: 10px; z-index: 5;
+        padding: 3px 8px; border-radius: 4px; background: rgba(8 9 10 / 0.78); color: #fff;
+        font-family: var(--mono); font-size: 9px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      }
+      .ab-tag.new { background: var(--lime); color: var(--lime-ink); }
+
+      /* ---------- Context strip: Overview tail (shared simplified) ---------- */
+      .ctx-overview {
+        padding: 22px 26px; background: var(--builder-cream);
+        border-bottom: 1px solid var(--line);
+      }
+      .ctx-overview .mini-kicker { font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+      .ctx-overview .mini-kicker b { color: var(--coral); }
+      .ctx-overview .mini-title { margin: 6px 0 14px; font-family: var(--serif); font-size: 22px; font-weight: 500; letter-spacing: -0.02em; color: var(--ink-deep); }
+      .ctx-overview .mini-cards { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+      .ctx-overview .mini-card { border: 1px solid var(--line); border-radius: 6px; padding: 8px; background: rgba(255 255 255 0.5); font-size: 10px; color: var(--ink-soft); }
+      .ctx-overview .mini-card b { display: block; font-family: var(--mono); font-size: 9px; color: var(--coral); margin-bottom: 3px; }
+      .ctx-fade { padding: 8px 26px 4px; background: var(--builder-cream); font-family: var(--serif); font-style: italic; color: var(--muted); font-size: 13px; border-bottom: 1px dashed var(--line); }
+
+      /* ---------- Context strip: Builder Consulting start (shared simplified) ---------- */
+      .ctx-builder {
+        padding: 22px 26px; background: linear-gradient(180deg, var(--builder-paper), var(--paper-warm));
+        border-top: 1px solid var(--line);
+      }
+      .ctx-builder .bc-eyebrow { display: inline-flex; gap: 6px; align-items: center; font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blueprint); }
+      .ctx-builder .bc-title { margin: 8px 0 6px; font-family: "League Gothic", Impact, sans-serif; font-size: 30px; letter-spacing: 0.01em; text-transform: uppercase; color: var(--ink-deep); }
+      .ctx-builder .bc-title span { color: var(--coral); }
+      .ctx-builder .bc-eq { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; font-family: var(--mono); font-size: 10px; }
+      .ctx-builder .bc-eq span { padding: 4px 7px; border: 1px solid var(--line); border-radius: 4px; background: rgba(255 255 255 0.6); color: var(--ink-soft); }
+      .ctx-builder .bc-eq span.op { border: 0; background: 0; color: var(--coral); font-weight: 900; padding: 4px 0; }
+
+      /* ---------- Shared new-section primitives ---------- */
+      .new-section { padding: 44px 26px; background: var(--paper); }
+      .new-section .kicker { font-family: var(--mono); font-size: 12px; font-weight: 900; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-deep); }
+      .new-section .kicker b { color: var(--coral); font-size: 16px; margin-right: 4px; }
+      .new-section .kicker i { color: var(--coral); font-style: normal; margin: 0 8px; }
+      .new-section h2.headline {
+        margin: 14px 0 12px; font-family: var(--serif); font-weight: 500;
+        font-size: clamp(30px, 4vw, 46px); line-height: 1.02; letter-spacing: -0.03em; color: var(--ink-deep);
+      }
+      .new-section p.subhead { max-width: 58ch; margin: 0 0 12px; color: var(--ink-soft); font-size: 15px; line-height: 1.5; }
+      .new-section p.body { max-width: 60ch; margin: 0 0 18px; color: var(--ink); font-size: 14.5px; line-height: 1.55; }
+      .new-section p.body strong { color: var(--ink-deep); }
+
+      /* Lime CTA (shared, one-action rule) */
+      .cta {
+        display: inline-flex; align-items: center; gap: 10px;
+        padding: 14px 20px; border: 1px solid var(--ink-deep); border-radius: 9px;
+        background: var(--lime); color: var(--lime-ink);
+        font-weight: 800; font-size: 15px; text-decoration: none;
+        box-shadow: 0 10px 24px rgba(157 255 0 / 22%);
+      }
+      .cta .arrow { display: grid; place-items: center; width: 26px; height: 26px; border: 1px solid rgba(32 53 0 / 0.4); border-radius: 999px; font-weight: 900; }
+      .cta-micro { margin: 10px 0 0; font-size: 13px; color: var(--muted); max-width: 42ch; }
+
+      /* Accordion pillars (shared structure, per-concept styling) */
+      .pillars { display: grid; gap: 8px; margin-top: 20px; }
+      .pillar { border: 1px solid var(--line); border-radius: 10px; background: var(--builder-cream); overflow: hidden; }
+      .pillar > summary {
+        list-style: none; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+      }
+      .pillar > summary::-webkit-details-marker { display: none; }
+      .pillar .pnum { font-family: var(--mono); font-weight: 900; font-size: 12px; color: var(--coral); letter-spacing: 0.06em; }
+      .pillar .ptitle { font-weight: 800; font-size: 15px; color: var(--ink-deep); }
+      .pillar .chev { margin-left: auto; color: var(--muted); font-family: var(--mono); font-weight: 900; transition: transform .2s; }
+      .pillar[open] .chev { transform: rotate(180deg); }
+      .pillar-body { padding: 0 16px 16px; }
+      .pillar-body ul { margin: 8px 0 0; padding-left: 18px; }
+      .pillar-body li { font-size: 13.5px; color: var(--ink-soft); line-height: 1.5; margin-bottom: 4px; }
+
+      /* Payoff + transition (shared) */
+      .payoff {
+        margin-top: 20px; padding: 16px 18px; border-left: 4px solid var(--lime);
+        background: rgba(157 255 0 / 0.1); border-radius: 0 10px 10px 0;
+      }
+      .payoff b { font-family: var(--mono); font-size: 10px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lime-ink); display: block; margin-bottom: 6px; }
+      .payoff p { margin: 0; font-size: 14.5px; color: var(--ink-deep); }
+      .thesis {
+        margin-top: 16px; padding: 16px 18px; border-left: 4px solid var(--coral);
+        background: rgba(232 91 47 / 0.06); border-radius: 0 10px 10px 0;
+      }
+      .thesis b { font-family: var(--mono); font-size: 10px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: var(--coral); display: block; margin-bottom: 6px; }
+      .thesis p { margin: 0; font-size: 14px; color: var(--ink); }
+      .thesis p strong { color: var(--ink-deep); }
+
+      /* ---------- Blueprint line motifs (SVG, NO grid fills) ---------- */
+      .bp-line { stroke: var(--blueprint); stroke-width: 1.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .bp-line-faint { stroke: var(--blueprint-soft); stroke-width: 1; fill: none; stroke-linecap: round; }
+      .bp-coral { stroke: var(--coral); stroke-width: 1.6; fill: none; stroke-linecap: round; }
+      .bp-node { fill: var(--coral); }
+      .bp-node-ring { fill: none; stroke: var(--coral); stroke-width: 1.4; }
+      .bp-lime { fill: var(--lime); }
+
+      /* ============================================================ */
+      /* CONCEPT A — NATIVE CONTINUATION                              */
+      /* ============================================================ */
+      .concept-a .new-section {
+        display: grid; grid-template-columns: 1.05fr 1fr; gap: 36px; align-items: start;
+      }
+      .concept-a .a-left { position: relative; }
+      .concept-a .a-left::before {
+        content: ""; position: absolute; top: 60px; bottom: 0; left: -18px; width: 2px;
+        background: linear-gradient(180deg, var(--blueprint-soft), transparent);
+      }
+      .concept-a .a-right { position: relative; padding-left: 20px; border-left: 1px solid var(--line); }
+      .concept-a .a-right::before {
+        content: "OPERATING LAYER"; position: absolute; top: 0; left: 20px;
+        font-family: var(--mono); font-size: 10px; font-weight: 900; letter-spacing: 0.18em; color: var(--muted);
+      }
+      .concept-a .pillars { margin-top: 28px; }
+      /* route line connector down the pillar spine */
+      .concept-a .spine-svg { position: absolute; left: 8px; top: 0; height: 100%; width: 24px; pointer-events: none; opacity: 0.7; }
+
+      /* ============================================================ */
+      /* CONCEPT B — ELEVATED BRIDGE                                  */
+      /* ============================================================ */
+      .concept-b .new-section { text-align: center; padding: 56px 26px 48px; position: relative; overflow: hidden; }
+      .concept-b .new-section > .kicker,
+      .concept-b .new-section > h2.headline,
+      .concept-b .new-section > p.subhead,
+      .concept-b .new-section > p.body { margin-left: auto; margin-right: auto; }
+      .concept-b .new-section > p.subhead,
+      .concept-b .new-section > p.body { text-align: center; }
+      .concept-b .new-section h2.headline { max-width: 16ch; }
+      .concept-b .cta-row { display: flex; flex-direction: column; align-items: center; margin: 8px 0 4px; }
+      .concept-b .cta-micro { text-align: center; }
+
+      /* Concept B — scannable copy treatment (replaces dense paragraph stack) */
+      .concept-b .lead-line {
+        max-width: 50ch; margin: 0 auto 16px; text-align: center;
+        font-family: var(--serif); font-size: clamp(17px, 1.8vw, 21px); line-height: 1.32;
+        color: var(--ink); font-style: italic;
+      }
+      .concept-b .lead-line em { font-style: normal; color: var(--coral); }
+      .concept-b .var-ribbon {
+        display: flex; flex-wrap: wrap; justify-content: center; gap: 7px;
+        max-width: 640px; margin: 0 auto 28px;
+      }
+      .concept-b .var-ribbon span {
+        padding: 5px 11px; border: 1px solid var(--coral); border-radius: 999px;
+        background: rgba(232 91 47 / 0.05);
+        font-family: var(--mono); font-size: 11px; font-weight: 800;
+        letter-spacing: 0.05em; text-transform: uppercase; color: var(--coral-deep);
+        white-space: nowrap;
+      }
+      .concept-b .shared-lead {
+        max-width: 46ch; margin: 0 auto 16px; text-align: center;
+        font-size: 14.5px; line-height: 1.5; color: var(--ink-soft);
+      }
+      .concept-b .audience-cards {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+        max-width: 760px; margin: 0 auto 10px;
+      }
+      .concept-b .audience-card {
+        position: relative; border: 1px solid var(--line); border-radius: 12px;
+        padding: 16px 18px 16px 20px; background: var(--builder-cream); text-align: left;
+      }
+      .concept-b .audience-card::before {
+        content: ""; position: absolute; left: 0; top: 14px; bottom: 14px; width: 3px;
+        border-radius: 0 2px 2px 0; background: var(--coral);
+      }
+      .concept-b .audience-card.first::before { background: var(--blueprint); }
+      .concept-b .ac-tag {
+        display: inline-flex; align-items: center; gap: 7px;
+        font-family: var(--mono); font-size: 10px; font-weight: 900;
+        letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral);
+        margin-bottom: 8px;
+      }
+      .concept-b .audience-card.first .ac-tag { color: var(--blueprint); }
+      .concept-b .ac-tag .glyph { font-size: 12px; line-height: 1; }
+      .concept-b .audience-card p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink); }
+      .concept-b .audience-card p strong { color: var(--ink-deep); }
+      @media (max-width: 720px) { .concept-b .audience-cards { grid-template-columns: 1fr; } }
+
+      /* Concept B — thesis strip (replaces payoff + thesis boxes; forest-green manifesto handoff) */
+      .concept-b .thesis-strip {
+        position: relative;
+        margin: 28px -26px -44px;            /* bleed to artboard edges; meet the next band flush */
+        padding: clamp(40px, 6vw, 64px) clamp(22px, 5vw, 56px);
+        background:
+          radial-gradient(ellipse 80% 70% at 50% -10%, oklch(0.26 0.05 166), oklch(0.155 0.04 166) 78%);
+        color: rgb(255 253 247);
+        text-align: center;
+        overflow: hidden;
+      }
+      /* single blueprint baseline accent (NOT a grid) */
+      .concept-b .thesis-strip::before {
+        content: ""; position: absolute; left: 12%; right: 12%; bottom: clamp(26px, 4vw, 40px);
+        height: 1px; background: linear-gradient(90deg, transparent, var(--blueprint-soft), transparent);
+        opacity: 0.6;
+      }
+      .concept-b .ts-label {
+        display: inline-flex; align-items: center; gap: 10px;
+        font-family: var(--mono); font-size: 11px; font-weight: 900;
+        letter-spacing: 0.24em; text-transform: uppercase; color: var(--coral);
+      }
+      .concept-b .ts-label::before,
+      .concept-b .ts-label::after {
+        content: ""; display: block; width: 28px; height: 1.5px; background: currentColor; opacity: 0.7;
+      }
+      .concept-b .ts-headline {
+        margin: 18px auto 14px; max-width: 18ch;
+        font-family: var(--serif); font-weight: 500;
+        font-size: clamp(26px, 3.6vw, 40px); line-height: 1.08; letter-spacing: -0.02em;
+        color: rgb(255 253 247);
+      }
+      .concept-b .ts-headline em {
+        font-style: italic; color: var(--coral);
+        background: linear-gradient(180deg, transparent 62%, rgba(232 91 47 / 0.18) 62%);
+        padding: 0 2px;
+      }
+      .concept-b .ts-body {
+        max-width: 54ch; margin: 0 auto 30px;
+        font-size: clamp(14px, 1.4vw, 16px); line-height: 1.55;
+        color: rgba(255 253 247 / 0.74);
+      }
+      /* equation row — rhymes with Builder Consulting's LAND + BUILD COST + HOME = SALE → PROFIT */
+      .concept-b .ts-eq {
+        display: inline-flex; flex-wrap: wrap; justify-content: center; align-items: baseline;
+        gap: 10px 14px; padding-bottom: 6px;
+        font-family: var(--mono);
+      }
+      .concept-b .ts-var {
+        font-size: clamp(13px, 1.5vw, 17px); font-weight: 800;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        color: rgba(255 253 247 / 0.92);
+      }
+      .concept-b .ts-op {
+        font-size: clamp(13px, 1.5vw, 17px); font-weight: 900;
+        color: var(--coral); opacity: 0.85;
+      }
+      .concept-b .ts-arrow {
+        font-size: clamp(15px, 1.8vw, 20px); font-weight: 900;
+        color: var(--coral); margin: 0 2px;
+      }
+      .concept-b .ts-outcome {
+        font-size: clamp(15px, 1.8vw, 20px); font-weight: 900;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--coral);
+        text-shadow: 0 0 24px rgba(232 91 47 / 0.4);
+      }
+      @media (max-width: 560px) {
+        .concept-b .thesis-strip { margin-left: -16px; margin-right: -16px; padding-inline: 18px; }
+        .concept-b .ts-eq { gap: 8px 10px; }
+      }
+
+      /* ---------- Concept B — DrawFlow signature block ---------- */
+      .concept-b .drawflow {
+        position: relative;
+        margin: 36px auto 0; max-width: 920px;
+        border: 1px solid var(--line-strong); border-radius: 16px;
+        background:
+          radial-gradient(ellipse 60% 80% at 20% 0%, rgba(70 118 246 / 0.05), transparent 60%),
+          var(--builder-cream);
+        padding: clamp(28px, 4vw, 40px) clamp(22px, 4vw, 44px);
+        overflow: hidden;
+      }
+      /* single blueprint baseline hairline (NOT a grid) */
+      .concept-b .drawflow::after {
+        content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+        background: linear-gradient(90deg, var(--blueprint) 0%, var(--coral) 100%); opacity: 0.7;
+      }
+      .concept-b .df-label {
+        display: inline-flex; align-items: center; gap: 8px;
+        font-family: var(--mono); font-size: 11px; font-weight: 900;
+        letter-spacing: 0.2em; text-transform: uppercase; color: var(--blueprint);
+      }
+      .concept-b .df-label .pip { width: 7px; height: 7px; border-radius: 50%; background: var(--blueprint); box-shadow: 0 0 0 3px rgba(70 118 246 / 0.18); }
+      .concept-b .df-head {
+        display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin: 10px 0 4px;
+      }
+      .concept-b .df-head h3 {
+        margin: 0; font-family: var(--serif); font-weight: 500;
+        font-size: clamp(22px, 2.8vw, 30px); line-height: 1.05; letter-spacing: -0.02em; color: var(--ink-deep);
+      }
+      .concept-b .df-head h3 em { font-style: italic; color: var(--blueprint); }
+      .concept-b .df-sub { margin: 0; font-size: 14px; color: var(--ink-soft); max-width: 50ch; }
+      .concept-b .df-sub b { color: var(--coral); font-weight: 800; }
+
+      /* milestone node track */
+      .concept-b .df-track { margin: 26px 0 22px; padding: 0 4px; }
+      .concept-b .df-track-svg { width: 100%; height: auto; display: block; overflow: visible; }
+      .concept-b .df-ms-node-done { fill: var(--blueprint); }
+      .concept-b .df-ms-node-active { fill: var(--coral); }
+      .concept-b .df-ms-node-active-ring { fill: none; stroke: var(--coral); stroke-width: 1.5; opacity: 0.5; }
+      .concept-b .df-ms-node-future { fill: none; stroke: var(--blueprint); stroke-width: 1.4; opacity: 0.4; }
+      .concept-b .df-ms-line { stroke: var(--blueprint); stroke-width: 1.4; fill: none; opacity: 0.55; }
+      .concept-b .df-ms-line-active { stroke: var(--coral); stroke-width: 1.6; fill: none; }
+      .concept-b .df-ms-label { font-family: "Oxanium", monospace; font-size: 9.5px; font-weight: 800; fill: var(--ink); letter-spacing: 0.05em; text-transform: uppercase; }
+      .concept-b .df-ms-label-future { fill: var(--muted); opacity: 0.6; }
+
+      /* comparison: 3 vs 15 draws */
+      .concept-b .df-compare {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+        margin: 0 0 22px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+      }
+      .concept-b .df-cmp-col { padding: 16px 18px; }
+      .concept-b .df-cmp-col + .df-cmp-col { border-left: 1px solid var(--line); background: rgba(157 255 0 / 0.06); }
+      .concept-b .df-cmp-tag { font-family: var(--mono); font-size: 10px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+      .concept-b .df-cmp-col:last-child .df-cmp-tag { color: var(--lime-ink); }
+      .concept-b .df-cmp-num { font-family: var(--serif); font-size: 30px; font-weight: 500; color: var(--ink-deep); line-height: 1; }
+      .concept-b .df-cmp-num span { font-size: 14px; color: var(--ink-soft); font-family: var(--sans); font-weight: 600; }
+      .concept-b .df-cmp-dots { display: flex; gap: 4px; margin-top: 10px; flex-wrap: wrap; }
+      .concept-b .df-dot { width: 8px; height: 8px; border-radius: 50%; border: 1.4px solid var(--muted); background: transparent; opacity: 0.5; }
+      .concept-b .df-dot.filled { background: var(--lime); border-color: var(--lime); opacity: 1; box-shadow: 0 0 6px rgba(157 255 0 / 0.4); }
+
+      /* interest saved callout */
+      .concept-b .df-saved {
+        display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px;
+        padding: 14px 18px; border-left: 3px solid var(--lime); background: rgba(157 255 0 / 0.08);
+        border-radius: 0 8px 8px 0; margin-bottom: 18px;
+      }
+      .concept-b .df-saved .amt { font-family: var(--serif); font-size: 26px; font-weight: 500; color: var(--ink-deep); line-height: 1; }
+      .concept-b .df-saved .lbl { font-size: 13px; color: var(--ink-soft); }
+      .concept-b .df-saved .lbl b { color: var(--ink-deep); }
+      .concept-b .df-saved .caveat { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-left: auto; }
+
+      /* more than capital */
+      .concept-b .df-more {
+        display: flex; align-items: flex-start; gap: 12px;
+        padding: 14px 18px; border: 1px dashed var(--line-strong); border-radius: 10px;
+      }
+      .concept-b .df-more .check { flex: 0 0 auto; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--lime); color: var(--lime-ink); font-weight: 900; font-size: 14px; }
+      .concept-b .df-more p { margin: 0; font-size: 14px; color: var(--ink); line-height: 1.5; }
+      .concept-b .df-more p b { color: var(--ink-deep); }
+
+      @media (max-width: 640px) {
+        .concept-b .df-compare { grid-template-columns: 1fr; }
+        .concept-b .df-cmp-col + .df-cmp-col { border-left: 0; border-top: 1px solid var(--line); }
+        .concept-b .df-saved .caveat { margin-left: 0; width: 100%; }
+        .concept-b .df-ms-label { font-size: 8.5px; }
+      }
+      /* horizontal build-station track */
+      .concept-b .stations {
+        display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+        margin: 30px 0 0; position: relative;
+      }
+      .concept-b .station {
+        position: relative; padding: 14px 12px 12px; text-align: center;
+        border-top: 1px solid var(--line);
+      }
+      .concept-b .station + .station { border-left: 1px solid var(--line); }
+      .concept-b .station .st-icon { display: grid; place-items: center; height: 56px; margin-bottom: 8px; }
+      .concept-b .station .st-num { font-family: var(--mono); font-size: 10px; font-weight: 900; color: var(--coral); letter-spacing: 0.1em; }
+      .concept-b .station .st-name { font-weight: 800; font-size: 14px; color: var(--ink-deep); margin-top: 2px; }
+      .concept-b .station .st-name[aria-expanded="true"] { color: var(--coral-deep); }
+      /* continuous connector across station tops */
+      .concept-b .station-track { position: absolute; top: 14px; left: 12.5%; right: 12.5%; height: 16px; pointer-events: none; }
+      .concept-b .station-detail { grid-column: 1 / -1; border-top: 1px solid var(--line); background: var(--builder-cream); padding: 16px 18px; }
+      .concept-b .station-detail ul { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 24px; margin: 0; padding-left: 18px; }
+      /* single cross-section blueprint line behind headline */
+      .concept-b .section-drawing { position: absolute; top: 10px; right: -40px; width: 280px; opacity: 0.5; pointer-events: none; }
+
+      /* ============================================================ */
+      /* CONCEPT C — SIGNATURE MOMENT                                 */
+      /* ============================================================ */
+      .concept-c .new-section { padding: 40px 26px 44px; position: relative; }
+      .concept-c .master-eq {
+        position: relative; height: 130px; margin: 8px 0 24px;
+        border: 1px solid var(--line); border-radius: 12px; background: var(--builder-cream);
+        overflow: hidden;
+      }
+      .concept-c .master-eq svg { width: 100%; height: 100%; display: block; }
+      .concept-c .master-stamp {
+        position: absolute; top: 12px; right: 14px; transform: rotate(-6deg);
+        border: 2px solid var(--coral); color: var(--coral);
+        padding: 4px 9px; border-radius: 4px;
+        font-family: var(--mono); font-size: 9px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase;
+        background: rgba(232 91 47 / 0.06);
+      }
+      .concept-c .master-stamp b { display: block; font-size: 8px; }
+      .concept-c .c-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+      .concept-c .pillars { margin-top: 0; }
+      .concept-c .pillar-body { position: relative; }
+      /* dashed leader from pillar up to master drawing node */
+      .concept-c .leader { position: absolute; left: -20px; top: -10px; width: 16px; height: 20px; pointer-events: none; }
+
+      /* ---------- Responsive notes block (shared) ---------- */
+      .notes {
+        margin: 22px 0 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+      }
+      .note {
+        border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: var(--builder-cream);
+      }
+      .note h4 { margin: 0 0 6px; font-family: var(--mono); font-size: 10px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: var(--coral); }
+      .note p { margin: 0; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+      .risks { margin-top: 18px; padding: 14px 16px; border-left: 4px solid var(--ink-deep); background: rgba(8 9 10 / 0.04); border-radius: 0 10px 10px 0; }
+      .risks h4 { margin: 0 0 6px; font-family: var(--mono); font-size: 10px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-deep); }
+      .risks p { margin: 0; font-size: 13px; color: var(--ink-soft); }
+
+      @media (max-width: 900px) {
+        .concept-a .new-section, .concept-b .stations, .concept-c .c-grid, .notes { grid-template-columns: 1fr; }
+        .concept-b .stations { gap: 0; }
+        .concept-b .station + .station { border-left: 0; border-top: 1px solid var(--line); }
+        .ctx-overview .mini-cards { grid-template-columns: repeat(3, 1fr); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="doc">
+      <header class="doc-head">
+        <div class="doc-eyebrow">Checkpoint 04 V2 / Integrated Visual Concepts <span class="doc-version">V2</span></div>
+        <h1>Three directions for <em>Our Build Model</em>, shown in page context.</h1>
+        <p class="doc-sub">
+          Each artboard renders the Overview tail → the new <em>Our Build Model</em> section → the Builder
+          Consulting start. All three preserve locked copy, the accordion pillars, the single lime CTA,
+          blueprint <strong>line</strong> motifs only (no grid/repeating fills), and the build-thesis
+          transition. They differ in layout, density, and signature. Choose, reject, or blend.
+        </p>
+      </header>
+
+      <div class="tabs" role="tablist" aria-label="Visual concept">
+        <button class="tab" role="tab" aria-selected="true" aria-controls="concept-a" data-tab="a">
+          <b>Concept A</b>Native Continuation — a quiet editorial extension of Overview
+        </button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="concept-b" data-tab="b">
+          <b>Concept B</b>Elevated Bridge — a build-station track that foreshadows the feasibility board
+        </button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="concept-c" data-tab="c">
+          <b>Concept C</b>Signature Moment — a master build-equation line drawing with pinned callouts
+        </button>
+      </div>
+
+      <!-- ====================================================== -->
+      <!-- CONCEPT A — NATIVE CONTINUATION                         -->
+      <!-- ====================================================== -->
+      <section id="concept-a" class="concept concept-a" role="tabpanel" aria-hidden="false">
+        <div class="artboard-label">
+          <span>Concept A</span>
+          <h2>Native Continuation</h2>
+        </div>
+        <div class="artboard">
+          <!-- Overview tail -->
+          <div class="ab-section ctx-overview">
+            <span class="ab-tag">Previous · Overview tail</span>
+            <div class="mini-kicker"><b>02</b> / What We Finance</div>
+            <div class="mini-title">Flexible capital for every project.</div>
+            <div class="mini-cards">
+              <div class="mini-card"><b>01</b>Residential Mortgages</div>
+              <div class="mini-card"><b>02</b>Bridge Loans</div>
+              <div class="mini-card"><b>03</b>Renovation Financing</div>
+              <div class="mini-card"><b>04</b>Multi-plex Financing</div>
+              <div class="mini-card"><b>05</b>Garden &amp; Laneway</div>
+              <div class="mini-card"><b>06</b>MLI-Select</div>
+            </div>
+          </div>
+          <div class="ctx-fade">Disciplined capital. Local insight. Aligned outcomes.</div>
+
+          <!-- NEW SECTION -->
+          <div class="ab-section new-section">
+            <span class="ab-tag new">New · Our Build Model</span>
+            <!-- route line spine -->
+            <svg class="spine-svg" viewBox="0 0 24 400" preserveAspectRatio="none" aria-hidden="true">
+              <path class="bp-line" d="M12 0 L12 40 M12 40 C 6 60, 18 80, 12 110 M12 110 C 6 130, 18 150, 12 180 M12 180 C 6 200, 18 220, 12 250 M12 250 C 6 270, 18 290, 12 320 L12 400" />
+              <circle class="bp-node" cx="12" cy="40" r="3.5" />
+              <circle class="bp-node" cx="12" cy="110" r="3.5" />
+              <circle class="bp-node" cx="12" cy="180" r="3.5" />
+              <circle class="bp-node" cx="12" cy="250" r="3.5" />
+            </svg>
+
+            <div class="a-left">
+              <div class="kicker"><b>03</b> <i>/</i> Our Build Model</div>
+              <h2 class="headline">Bring us the property. We'll help build the equation.</h2>
+              <p class="subhead">From early intent to construction financing and takeout strategy, FairLend helps shape the land, scope, capital, draw plan, professional path, permit and MLI readiness, and exit around one financeable project.</p>
+              <p class="body">You do not need the whole team, a perfect plan, or prior build experience before you talk to us. If you already build, keep your focus on the site while we help carry the financing and business equation around it. If you are exploring a garden suite, laneway suite, multiplex, or infill project for the first time, we can help make the path legible before expensive decisions harden.</p>
+              <a class="cta" href="#">Book a free consultation <span class="arrow">→</span></a>
+              <p class="cta-micro">Bring a property, plan, or early idea — your first conversation is on us.</p>
+            </div>
+
+            <div class="a-right">
+              <div class="pillars">
+                <details class="pillar" open>
+                  <summary><span class="pnum">01</span><span class="ptitle">Plan</span><span class="chev">▾</span></summary>
+                  <div class="pillar-body"><ul><li>Site search &amp; feasibility review</li><li>Land basis &amp; acquisition price the project can support</li><li>Zoning path, housing form, unit mix, buildable area</li><li>Construction budget pressure-testing</li></ul></div>
+                </details>
+                <details class="pillar">
+                  <summary><span class="pnum">02</span><span class="ptitle">Finance</span><span class="chev">▾</span></summary>
+                  <div class="pillar-body"><ul><li>Construction budget &amp; borrower capital</li><li>Private financing &amp; capital structure</li><li>Draw schedule (milestone-based, DrawFlow)</li><li>Working-capital planning</li></ul></div>
+                </details>
+                <details class="pillar">
+                  <summary><span class="pnum">03</span><span class="ptitle">Build support</span><span class="chev">▾</span></summary>
+                  <div class="pillar-body"><ul><li>Contractor, consultant &amp; professional network — introductions where appropriate</li><li>Permit strategy &amp; documentation gaps</li><li>CMHC MLI Select readiness support (where applicable)</li><li>Milestone / draw administration &amp; site monitoring</li></ul></div>
+                </details>
+                <details class="pillar">
+                  <summary><span class="pnum">04</span><span class="ptitle">Takeout</span><span class="chev">▾</span></summary>
+                  <div class="pillar-body"><ul><li>Sale, refinance, or rental stabilization</li><li>Insured (MLI Select) takeout preparation</li><li>Long-term financing direction</li></ul></div>
+                </details>
+              </div>
+              <div class="payoff">
+                <b>Included operating advantage</b>
+                <p>Every step of this planning layer is complimentary when you finance with FairLend — your partner in the build, not another consultant you stitch on later.</p>
+              </div>
+            </div>
+
+            <div class="thesis" style="grid-column:1 / -1">
+              <b>Transition → Our build thesis</b>
+              <p>That operating layer is built around a thesis: what makes a build profitable isn't static. The inputs — land, construction cost, housing form, exit value, incentives — keep moving. <strong>For experienced builders</strong>, the next section respects what you know and gets straight to the math. <strong>For everyone else</strong>, it's an honest look at how the variables behind a successful project behave.</p>
+            </div>
+          </div>
+
+          <!-- Builder Consulting start -->
+          <div class="ab-section ctx-builder">
+            <span class="ab-tag">Next · Builder Consulting</span>
+            <div class="bc-eyebrow">◤ Builder Consulting</div>
+            <div class="bc-title">Building shouldnt be the easy part <span>A successful build is not only a construction problem, it is a business equation.</span></div>
+            <div class="bc-eq"><span>LAND</span><span class="op">+</span><span>BUILD COST</span><span class="op">+</span><span>HOME</span><span class="op">=</span><span>SALE</span><span class="op">→</span><span>+PROFIT</span></div>
+          </div>
+        </div>
+
+        <div class="notes">
+          <div class="note"><h4>Design rationale</h4><p>Mirrors Overview's two-column editorial split (Who We Are | What We Finance) → now (Build Model | Operating Layer). Reads as the inevitable next page-spread, not a new chapter. Lowest register-disruption.</p></div>
+          <div class="note"><h4>Grid &amp; signature</h4><p>1.05fr / 1fr split matches Overview. Signature: a single blueprint route-line spine runs down the pillar gutter, its nodes aligning to each pillar — visually rhymes with Overview's connector lines and hands into Builder Consulting's equation rail.</p></div>
+          <div class="note"><h4>Type &amp; color</h4><p>Cormorant headline + Inter body + Oxanium pillar numbers (coral). Lime reserved for the single CTA. Blueprint blue appears only as the route-line stroke. No League Gothic. No grid fills.</p></div>
+          <div class="note"><h4>Motion</h4><p>Scroll-reveal of headline + pillars via FairlendScrollChoreography; route-line draws top-to-bottom on enter; chevron rotates on expand. All flatten under reduced-motion.</p></div>
+          <div class="note"><h4>Responsive</h4><p>Desktop: two columns. ≤900px: single column, pillars stack, spine becomes a short vertical accent above the pillars. CTA stays above the fold.</p></div>
+          <div class="note"><h4>Accessibility</h4><p>Native &lt;details&gt; accordions; chevron aria-hidden; CTA is a real link with visible focus ring; route-line is decorative aria-hidden SVG.</p></div>
+        </div>
+        <div class="risks"><h4>Risks &amp; tradeoffs</h4><p>Lowest-risk option — but the quietest. The route-line spine is the only signature element; if it under-delivers in build, the section may feel like "more of Overview" rather than a new beat. Mitigation: give the spine a coral node-fill on the active/first pillar.</p></div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- CONCEPT B — ELEVATED BRIDGE                             -->
+      <!-- ====================================================== -->
+      <section id="concept-b" class="concept concept-b" role="tabpanel" aria-hidden="true">
+        <div class="artboard-label">
+          <span>Concept B</span>
+          <h2>Elevated Bridge</h2>
+        </div>
+        <div class="artboard">
+          <div class="ab-section ctx-overview">
+            <span class="ab-tag">Previous · Overview tail</span>
+            <div class="mini-kicker"><b>02</b> / What We Finance</div>
+            <div class="mini-title">Flexible capital for every project.</div>
+            <div class="mini-cards">
+              <div class="mini-card"><b>01</b>Residential Mortgages</div>
+              <div class="mini-card"><b>02</b>Bridge Loans</div>
+              <div class="mini-card"><b>03</b>Renovation Financing</div>
+              <div class="mini-card"><b>04</b>Multi-plex Financing</div>
+              <div class="mini-card"><b>05</b>Garden &amp; Laneway</div>
+              <div class="mini-card"><b>06</b>MLI-Select</div>
+            </div>
+          </div>
+          <div class="ctx-fade">Disciplined capital. Local insight. Aligned outcomes.</div>
+
+          <div class="ab-section new-section">
+            <span class="ab-tag new">New · Our Build Model</span>
+            <!-- single cross-section blueprint line motif behind headline (NOT a grid) -->
+            <svg class="section-drawing" viewBox="0 0 280 130" aria-hidden="true">
+              <!-- a building cross-section: ground line + two roof forms + a foundation -->
+              <path class="bp-line-faint" d="M0 110 L280 110" />
+              <path class="bp-line" d="M30 110 L30 70 L60 50 L90 70 L90 110" />
+              <path class="bp-line" d="M110 110 L110 40 L160 40 L160 110" />
+              <path class="bp-line" d="M180 110 L180 60 L230 30 L250 60 L250 110" />
+              <path class="bp-line-faint" d="M30 110 L30 124 M90 110 L90 124 M160 110 L160 124 M250 110 L250 124" />
+            </svg>
+
+            <div class="kicker" style="text-align:center"><b>03</b> <i>/</i> Our Build Model</div>
+            <h2 class="headline">Bring us the property. We'll help build the equation.</h2>
+            <p class="lead-line">From <em>early intent</em> to construction financing and takeout strategy, we shape one financeable project — end to end.</p>
+            <div class="var-ribbon" aria-label="The variables FairLend helps shape">
+              <span>Land</span><span>Scope</span><span>Capital</span><span>Draw plan</span><span>Professional path</span><span>Permit &amp; MLI readiness</span><span>Exit</span>
+            </div>
+            <p class="shared-lead">You don't need the whole team, a perfect plan, or prior build experience before you talk to us.</p>
+            <div class="audience-cards">
+              <div class="audience-card first">
+                <span class="ac-tag"><span class="glyph">◤</span> If you already build</span>
+                <p><strong>Keep your focus on the site.</strong> We help carry the financing and business equation around it.</p>
+              </div>
+              <div class="audience-card">
+                <span class="ac-tag"><span class="glyph">◤</span> First-time builder</span>
+                <p><strong>Bring a property and a down payment.</strong> We craft the design and specs with you, assign an experienced builder or project manager, and handle the rest — permits, draws, takeout, everything.</p>
+              </div>
+            </div>
+            <div class="cta-row">
+              <a class="cta" href="#">Book a free consultation <span class="arrow">→</span></a>
+              <p class="cta-micro">Bring a property, plan, or early idea — your first conversation is on us.</p>
+            </div>
+
+            <!-- horizontal build-station track; pillars become tappable stations -->
+            <div class="stations">
+              <svg class="station-track" viewBox="0 0 100 16" preserveAspectRatio="none" aria-hidden="true">
+                <path class="bp-coral" d="M0 8 L100 8" stroke-dasharray="2 3" />
+                <circle class="bp-node" cx="12.5" cy="8" r="3" /><circle class="bp-node-ring" cx="12.5" cy="8" r="6" />
+                <circle class="bp-node" cx="37.5" cy="8" r="3" /><circle class="bp-node-ring" cx="37.5" cy="8" r="6" />
+                <circle class="bp-node" cx="62.5" cy="8" r="3" /><circle class="bp-node-ring" cx="62.5" cy="8" r="6" />
+                <circle class="bp-node" cx="87.5" cy="8" r="3" /><circle class="bp-node-ring" cx="87.5" cy="8" r="6" />
+              </svg>
+
+              <details class="station-pillar" open>
+                <summary class="station" aria-expanded="true">
+                  <span class="st-icon">
+                    <svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true"><rect x="6" y="14" width="32" height="24" class="bp-line"/><path d="M6 14 L22 4 L38 14" class="bp-line"/><path d="M18 26 h8 v12 h-8 z" class="bp-line-faint"/></svg>
+                  </span>
+                  <span class="st-num">01</span>
+                  <span class="st-name" aria-expanded="true">Plan</span>
+                </summary>
+                <div class="station-detail"><ul>
+                  <li>Site search &amp; feasibility review</li><li>Land basis &amp; acquisition price</li><li>Zoning path, housing form, unit mix</li><li>Budget pressure-testing</li>
+                </ul></div>
+              </details>
+              <details class="station-pillar">
+                <summary class="station">
+                  <span class="st-icon">
+                    <svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true"><rect x="8" y="32" width="8" height="8" class="bp-line"/><rect x="18" y="22" width="8" height="18" class="bp-line"/><rect x="28" y="12" width="8" height="28" class="bp-line"/><path d="M6 12 L38 12" class="bp-line-faint"/></svg>
+                  </span>
+                  <span class="st-num">02</span>
+                  <span class="st-name">Finance</span>
+                </summary>
+              </details>
+              <details class="station-pillar">
+                <summary class="station">
+                  <span class="st-icon">
+                    <svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true"><path d="M6 36 L6 18 L22 8 L38 18 L38 36" class="bp-line"/><path d="M22 18 v18" class="bp-line-faint"/><circle cx="22" cy="26" r="3" class="bp-line"/></svg>
+                  </span>
+                  <span class="st-num">03</span>
+                  <span class="st-name">Build support</span>
+                </summary>
+              </details>
+              <details class="station-pillar">
+                <summary class="station">
+                  <span class="st-icon">
+                    <svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true"><path d="M6 22 L30 22 M24 16 L30 22 L24 28" class="bp-coral"/><circle cx="34" cy="22" r="4" class="bp-line"/><path d="M6 22 L6 36 M34 26 L34 36" class="bp-line-faint"/></svg>
+                  </span>
+                  <span class="st-num">04</span>
+                  <span class="st-name">Takeout</span>
+                </summary>
+              </details>
+            </div>
+
+            <!-- DRAWFLOW signature block -->
+            <div class="drawflow">
+              <span class="df-label"><span class="pip"></span> Powered by DrawFlow</span>
+              <div class="df-head">
+                <h3>A milestone <em>line of credit</em> for your build.</h3>
+              </div>
+              <p class="df-sub">More draws. Less interest. <b>Fund the work, not the wait.</b></p>
+
+              <!-- milestone node track -->
+              <div class="df-track">
+                <svg class="df-track-svg" viewBox="0 0 820 70" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Milestone draw track: foundation, framing, roof, windows, mechanical, plumbing, electrical, insulation, drywall, flooring">
+                  <!-- completed segment -->
+                  <path class="df-ms-line" d="M40 35 L680 35" />
+                  <!-- active segment (mechanical -> plumbing) -->
+                  <path class="df-ms-line-active" d="M680 35 L720 35" />
+                  <!-- future segment -->
+                  <path class="df-ms-line" d="M720 35 L790 35" stroke-dasharray="2 4" />
+                  <!-- nodes: 10 milestones -->
+                  <g>
+                    <!-- done nodes (5) -->
+                    <circle class="df-ms-node-done" cx="40" cy="35" r="6" />
+                    <circle class="df-ms-node-done" cx="184" cy="35" r="6" />
+                    <circle class="df-ms-node-done" cx="328" cy="35" r="6" />
+                    <circle class="df-ms-node-done" cx="472" cy="35" r="6" />
+                    <circle class="df-ms-node-done" cx="616" cy="35" r="6" />
+                    <!-- active node -->
+                    <circle class="df-ms-node-active-ring" cx="680" cy="35" r="11" />
+                    <circle class="df-ms-node-active" cx="680" cy="35" r="6" />
+                    <!-- future nodes (3) -->
+                    <circle class="df-ms-node-future" cx="720" cy="35" r="6" />
+                    <circle class="df-ms-node-future" cx="760" cy="35" r="6" />
+                    <circle class="df-ms-node-future" cx="790" cy="35" r="6" />
+                  </g>
+                  <!-- labels -->
+                  <text class="df-ms-label" x="40" y="58" text-anchor="middle">Foundation</text>
+                  <text class="df-ms-label" x="184" y="58" text-anchor="middle">Framing</text>
+                  <text class="df-ms-label" x="328" y="58" text-anchor="middle">Roof</text>
+                  <text class="df-ms-label" x="472" y="58" text-anchor="middle">Windows</text>
+                  <text class="df-ms-label" x="616" y="58" text-anchor="middle">Mechanical</text>
+                  <text class="df-ms-label" x="680" y="20" text-anchor="middle" fill="oklch(0.588 0.151 42.5)">Plumbing ●</text>
+                  <text class="df-ms-label df-ms-label-future" x="720" y="58" text-anchor="middle">Electrical</text>
+                  <text class="df-ms-label df-ms-label-future" x="760" y="58" text-anchor="middle">Drywall</text>
+                  <text class="df-ms-label df-ms-label-future" x="790" y="58" text-anchor="middle">Flooring</text>
+                </svg>
+              </div>
+
+              <!-- comparison: 3 draws vs 15 draws -->
+              <div class="df-compare">
+                <div class="df-cmp-col">
+                  <div class="df-cmp-tag">Traditional</div>
+                  <div class="df-cmp-num">3 <span>draws</span></div>
+                  <div class="df-cmp-dots">
+                    <span class="df-dot"></span><span class="df-dot"></span><span class="df-dot"></span>
+                  </div>
+                </div>
+                <div class="df-cmp-col">
+                  <div class="df-cmp-tag">FairLend · up to</div>
+                  <div class="df-cmp-num">15 <span>draws</span></div>
+                  <div class="df-cmp-dots">
+                    <span class="df-dot filled"></span><span class="df-dot filled"></span><span class="df-dot filled"></span>
+                    <span class="df-dot filled"></span><span class="df-dot filled"></span><span class="df-dot filled"></span>
+                    <span class="df-dot filled"></span><span class="df-dot filled"></span><span class="df-dot filled"></span>
+                    <span class="df-dot filled"></span><span class="df-dot filled"></span><span class="df-dot filled"></span>
+                    <span class="df-dot filled"></span><span class="df-dot filled"></span><span class="df-dot filled"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- interest saved -->
+              <div class="df-saved">
+                <span class="amt">≈ $12,000</span>
+                <span class="lbl"><b>Illustrative interest saved</b> — over a typical build.</span>
+                <span class="caveat">*Illustrative only. Every project differs.</span>
+              </div>
+
+              <!-- more than capital -->
+              <div class="df-more">
+                <span class="check" aria-hidden="true">✓</span>
+                <p><b>More than capital.</b> Complimentary access to our GTA build specialists and a deep supplier &amp; trade network — your project manager comes with the financing.</p>
+              </div>
+            </div>
+
+            <div class="thesis-strip">
+              <span class="ts-label">Builder Consulting</span>
+              <h3 class="ts-headline">FairLend's thesis: profit lives in the <em>variables</em>.</h3>
+              <p class="ts-body">A profitable build is not only a construction problem. It is a business equation that changes with land, cost, capital, draws, policy, incentives, and takeout.</p>
+              <div class="ts-eq" aria-label="The build equation: land plus cost plus capital plus draws plus policy plus incentives plus takeout yields outcome">
+                <span class="ts-var">Land</span>
+                <span class="ts-op">+</span>
+                <span class="ts-var">Cost</span>
+                <span class="ts-op">+</span>
+                <span class="ts-var">Capital</span>
+                <span class="ts-op">+</span>
+                <span class="ts-var">Draws</span>
+                <span class="ts-op">+</span>
+                <span class="ts-var">Policy</span>
+                <span class="ts-op">+</span>
+                <span class="ts-var">Incentives</span>
+                <span class="ts-op">+</span>
+                <span class="ts-var">Takeout</span>
+                <span class="ts-arrow">→</span>
+                <span class="ts-outcome">Outcome</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ab-section ctx-builder">
+            <span class="ab-tag">Next · Builder Consulting</span>
+            <div class="bc-eyebrow">◤ Builder Consulting</div>
+            <div class="bc-title">Building shouldnt be the easy part <span>A successful build is not only a construction problem, it is a business equation.</span></div>
+            <div class="bc-eq"><span>LAND</span><span class="op">+</span><span>BUILD COST</span><span class="op">+</span><span>HOME</span><span class="op">=</span><span>SALE</span><span class="op">→</span><span>+PROFIT</span></div>
+          </div>
+        </div>
+
+        <div class="notes">
+          <div class="note"><h4>Design rationale</h4><p>A centered, full-width band that signals "we're shifting gears into build territory." The horizontal build-station track turns the four pillars into a process you read left-to-right — foreshadowing Builder Consulting's feasibility-board register without adopting its League Gothic. <strong>Copy treatment (user-selected refinement):</strong> the dense two-paragraph hero is broken into scannable units — an italic lead line, a coral variable ribbon (chips), a one-line shared lead, then two parallel audience cards (builders | first-timers). Same words, scan-first layout; section may exceed one viewport.</p></div>
+          <div class="note"><h4>Grid &amp; signature</h4><p>Centered column for copy; 4-col station track below. Signature: each station carries a single-stroke blueprint plan/elevation line icon (site plan, loan stack, build form, takeout arrow), connected by a dashed coral route along the track tops.</p></div>
+          <div class="note"><h4>Type &amp; color</h4><p>Same stack (Cormorant / Inter / Oxanium). Coral moves from a pure accent into the connector + active station — a controlled escalation that prepares the eye for Builder Consulting's coral-heavy risk marks. Lime stays single-use (CTA).</p></div>
+          <div class="note"><h4>Motion</h4><p>Stations cascade in left-to-right on scroll; coral route-line draws across the track; expanding a station slides its detail drawer down. Reduced-motion: instant.</p></div>
+          <div class="note"><h4>Responsive</h4><p>Desktop: 4-col track. ≤900px: stations stack vertically with the route-line bending 90° down the left edge — the process reads top-to-bottom on mobile.</p></div>
+          <div class="note"><h4>Accessibility</h4><p>Stations are &lt;summary&gt; toggles; active state conveyed by color + ring + aria-expanded (redundant). Icons are aria-hidden; meaning is in the text labels.</p></div>
+        </div>
+        <div class="risks"><h4>Risks &amp; tradeoffs</h4><p>Bolder than A — the centered layout is a register shift, which is the point, but risks feeling less "editorial FairLend." The station icons are the highest-effort art: if they read as generic, the concept loses its reason to exist. Mitigation: icons must be unmistakably blueprint linework, not icon-pack glyphs.</p></div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- CONCEPT C — SIGNATURE MOMENT                            -->
+      <!-- ====================================================== -->
+      <section id="concept-c" class="concept concept-c" role="tabpanel" aria-hidden="true">
+        <div class="artboard-label">
+          <span>Concept C</span>
+          <h2>Signature Moment</h2>
+        </div>
+        <div class="artboard">
+          <div class="ab-section ctx-overview">
+            <span class="ab-tag">Previous · Overview tail</span>
+            <div class="mini-kicker"><b>02</b> / What We Finance</div>
+            <div class="mini-title">Flexible capital for every project.</div>
+            <div class="mini-cards">
+              <div class="mini-card"><b>01</b>Residential Mortgages</div>
+              <div class="mini-card"><b>02</b>Bridge Loans</div>
+              <div class="mini-card"><b>03</b>Renovation Financing</div>
+              <div class="mini-card"><b>04</b>Multi-plex Financing</div>
+              <div class="mini-card"><b>05</b>Garden &amp; Laneway</div>
+              <div class="mini-card"><b>06</b>MLI-Select</div>
+            </div>
+          </div>
+          <div class="ctx-fade">Disciplined capital. Local insight. Aligned outcomes.</div>
+
+          <div class="ab-section new-section">
+            <span class="ab-tag new">New · Our Build Model</span>
+            <div class="kicker"><b>03</b> <i>/</i> Our Build Model</div>
+            <h2 class="headline">Bring us the property. We'll help build the equation.</h2>
+
+            <!-- MASTER build-equation line drawing (the signature) -->
+            <div class="master-eq" role="img" aria-label="Build equation line drawing: property, plan, finance, build, takeout">
+              <svg viewBox="0 0 800 130" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                <!-- baseline -->
+                <path class="bp-line-faint" d="M20 104 L780 104" />
+                <!-- property node -->
+                <rect x="40" y="78" width="40" height="26" class="bp-line" />
+                <path d="M40 78 L60 64 L80 78" class="bp-line" />
+                <!-- connector to plan -->
+                <path class="bp-coral" d="M80 91 C 120 91, 130 60, 170 60" />
+                <!-- plan node (site plan: lot + footprint) -->
+                <rect x="170" y="40" width="60" height="40" class="bp-line" />
+                <rect x="186" y="52" width="28" height="16" class="bp-line-faint" />
+                <!-- connector to finance -->
+                <path class="bp-coral" d="M230 60 C 270 60, 280 91, 320 91" />
+                <!-- finance node (stacked capital) -->
+                <rect x="320" y="66" width="34" height="10" class="bp-line" />
+                <rect x="322" y="78" width="30" height="9" class="bp-line" />
+                <rect x="324" y="89" width="26" height="8" class="bp-line" />
+                <!-- connector to build -->
+                <path class="bp-coral" d="M354 91 C 400 91, 410 55, 450 55" />
+                <!-- build node (framed form under construction) -->
+                <path d="M450 96 L450 55 L490 40 L530 55 L530 96" class="bp-line" />
+                <path d="M490 55 L490 96" class="bp-line-faint" />
+                <path d="M470 75 h12 M508 75 h12" class="bp-line-faint" />
+                <!-- connector to takeout -->
+                <path class="bp-coral" d="M530 55 C 580 55, 590 91, 630 91" />
+                <!-- takeout node (arrow out) -->
+                <path d="M630 91 L720 91 M712 85 L720 91 L712 97" class="bp-coral" />
+                <!-- nodes -->
+                <circle cx="60" cy="91" r="4" class="bp-node" />
+                <circle cx="200" cy="60" r="4" class="bp-node" />
+                <circle cx="337" cy="91" r="4" class="bp-node" />
+                <circle cx="490" cy="55" r="4" class="bp-node" />
+                <!-- labels (Oxanium) -->
+                <text x="60" y="120" text-anchor="middle" font-family="Oxanium, monospace" font-size="9" font-weight="800" fill="oklch(0.235 0.026 164)" letter-spacing="1">PROPERTY</text>
+                <text x="200" y="32" text-anchor="middle" font-family="Oxanium, monospace" font-size="9" font-weight="800" fill="oklch(0.235 0.026 164)" letter-spacing="1">01 PLAN</text>
+                <text x="337" y="120" text-anchor="middle" font-family="Oxanium, monospace" font-size="9" font-weight="800" fill="oklch(0.235 0.026 164)" letter-spacing="1">02 FINANCE</text>
+                <text x="490" y="32" text-anchor="middle" font-family="Oxanium, monospace" font-size="9" font-weight="800" fill="oklch(0.235 0.026 164)" letter-spacing="1">03 BUILD</text>
+                <text x="700" y="120" text-anchor="middle" font-family="Oxanium, monospace" font-size="9" font-weight="800" fill="oklch(0.588 0.151 42.5)" letter-spacing="1">04 TAKEOUT</text>
+              </svg>
+              <div class="master-stamp"><b>INCLUDED</b>when you finance<br/>with FairLend</div>
+            </div>
+
+            <div class="c-grid">
+              <div>
+                <p class="subhead">From early intent to construction financing and takeout strategy, FairLend helps shape the land, scope, capital, draw plan, professional path, permit and MLI readiness, and exit around one financeable project.</p>
+                <p class="body">You do not need the whole team, a perfect plan, or prior build experience before you talk to us. If you already build, keep your focus on the site while we help carry the financing and business equation around it. If you are exploring a garden suite, laneway suite, multiplex, or infill project for the first time, we can help make the path legible before expensive decisions harden.</p>
+                <a class="cta" href="#">Book a free consultation <span class="arrow">→</span></a>
+                <p class="cta-micro">Bring a property, plan, or early idea — your first conversation is on us.</p>
+              </div>
+              <div>
+                <div class="pillars">
+                  <details class="pillar" open>
+                    <summary><span class="pnum">01</span><span class="ptitle">Plan</span><span class="chev">▾</span></summary>
+                    <div class="pillar-body"><ul><li>Site search &amp; feasibility review</li><li>Land basis &amp; acquisition price</li><li>Zoning path, housing form, unit mix</li><li>Budget pressure-testing</li></ul></div>
+                  </details>
+                  <details class="pillar">
+                    <summary><span class="pnum">02</span><span class="ptitle">Finance</span><span class="chev">▾</span></summary>
+                    <div class="pillar-body"><ul><li>Construction budget &amp; borrower capital</li><li>Private financing &amp; capital structure</li><li>Draw schedule (DrawFlow)</li><li>Working-capital planning</li></ul></div>
+                  </details>
+                  <details class="pillar">
+                    <summary><span class="pnum">03</span><span class="ptitle">Build support</span><span class="chev">▾</span></summary>
+                    <div class="pillar-body"><ul><li>Network introductions where appropriate</li><li>Permit strategy &amp; documentation gaps</li><li>CMHC MLI Select readiness (where applicable)</li><li>Milestone / draw admin &amp; site monitoring</li></ul></div>
+                  </details>
+                  <details class="pillar">
+                    <summary><span class="pnum">04</span><span class="ptitle">Takeout</span><span class="chev">▾</span></summary>
+                    <div class="pillar-body"><ul><li>Sale, refinance, or rental stabilization</li><li>Insured (MLI Select) takeout preparation</li><li>Long-term financing direction</li></ul></div>
+                  </details>
+                </div>
+              </div>
+            </div>
+
+            <div class="payoff">
+              <b>Included operating advantage</b>
+              <p>Every step of this planning layer is complimentary when you finance with FairLend — your partner in the build, not another consultant you stitch on later.</p>
+            </div>
+            <div class="thesis">
+              <b>Transition → Our build thesis</b>
+              <p>That operating layer is built around a thesis: what makes a build profitable isn't static. The inputs — land, construction cost, housing form, exit value, incentives — keep moving. <strong>For experienced builders</strong>, the next section respects what you know and gets straight to the math. <strong>For everyone else</strong>, it's an honest look at how the variables behave.</p>
+            </div>
+          </div>
+
+          <div class="ab-section ctx-builder">
+            <span class="ab-tag">Next · Builder Consulting</span>
+            <div class="bc-eyebrow">◤ Builder Consulting</div>
+            <div class="bc-title">Building shouldnt be the easy part <span>A successful build is not only a construction problem, it is a business equation.</span></div>
+            <div class="bc-eq"><span>LAND</span><span class="op">+</span><span>BUILD COST</span><span class="op">+</span><span>HOME</span><span class="op">=</span><span>SALE</span><span class="op">→</span><span>+PROFIT</span></div>
+          </div>
+        </div>
+
+        <div class="notes">
+          <div class="note"><h4>Design rationale</h4><p>Leads with the strategic idea — <em>build = an equation</em> — as a single hand-drawn blueprint line drawing across the top. The pillars become annotated callouts pinned to it. This pre-figures Builder Consulting's equation board in blueprint language, so the handoff is the most inevitable of the three.</p></div>
+          <div class="note"><h4>Grid &amp; signature</h4><p>Full-width master drawing on top; 1/1 split below (copy | pillars). Signature: the master build-equation drawing itself — property → plan → finance → build → takeout, in continuous single-stroke linework with a rotated "INCLUDED" plan-stamp.</p></div>
+          <div class="note"><h4>Type &amp; color</h4><p>Oxanium labels live inside the drawing (node captions) — a bolder use of the technical register that still stays on warm paper + Cormorant headline. Coral carries the connectors; lime stays single-use. No League Gothic; no grid fills.</p></div>
+          <div class="note"><h4>Motion</h4><p>On scroll-into-view the master drawing strokes draw left-to-right (dashoffset), nodes pop, then the stamp rotates in. Pillars reveal after. Reduced-motion: static drawing, no draw-on.</p></div>
+          <div class="note"><h4>Responsive</h4><p>Master drawing scales full-width (it's an SVG). ≤900px: c-grid collapses; drawing stays but labels may abbreviate. Pillars remain accordion below.</p></div>
+          <div class="note"><h4>Accessibility</h4><p>Master drawing is role="img" with a descriptive aria-label (not aria-hidden in the final build — here shown aria-hidden as a render placeholder). Pillars are native &lt;details&gt;; stamp is decorative.</p></div>
+        </div>
+        <div class="risks"><h4>Risks &amp; tradeoffs</h4><p>The boldest, and the most effort to build well. The master drawing must read instantly as a build equation or it becomes decoration. Risk of crowding the Builder Consulting equation that follows — mitigation: this drawing is structural/schematic (blueprint linework), while Builder Consulting's is numeric/profit-led, so they rhyme without repeating.</p></div>
+      </section>
+
+      <!-- Framework application ledger (shared, at bottom) -->
+      <section style="margin-top:40px; border-top:2px solid var(--ink-deep); padding-top:24px;">
+        <h2 style="font-family:var(--mono); font-size:12px; font-weight:900; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink-deep); margin:0 0 14px;">Framework application ledger</h2>
+        <div class="notes">
+          <div class="note"><h4>CRAP (Contrast · Repetition · Alignment · Proximity)</h4><p>Contrast via serif headline vs Oxanium labels; repetition of kicker/numbering system from Overview; alignment to the paper-rail grid; proximity groups each pillar with its sub-services. All three concepts.</p></div>
+          <div class="note"><h4>Gestalt / Visual Hierarchy</h4><p>A: spine continuity ties pillars into one figure. B: the station track is read as a single process (common region). C: the master drawing is the dominant figure; pillars are closure-attached callouts.</p></div>
+          <div class="note"><h4>White Space / Grid Systems</h4><p>Generous vertical rhythm preserved from Overview. A keeps the editorial split; B centralizes; C splits after a full-width figure.</p></div>
+          <div class="note"><h4>Progressive Disclosure / Hick's</h4><p>Accordion pillars in all three limit first-scan to 4 choices (within 7±2); sub-services revealed on demand — directly drove the per-concept pillar treatment.</p></div>
+          <div class="note"><h4>Brand Personality / Distinctive Assets</h4><p>Reused: warm paper, Cormorant, Oxanium, lime-one-action, blueprint linework. Avoided AI-slop: no grid/repeating fills, no black-bg acid-green, no League Gothic in this section.</p></div>
+          <div class="note"><h4>Fitts's Law</h4><p>CTA sized as a large tap target with generous padding; station/pillar summaries are full-width tap rows on mobile — drove the mobile station-stack in B and pillar treatment in A/C.</p></div>
+        </div>
+      </section>
+
+      <p style="margin-top:28px; padding:18px; border:1px solid var(--line-strong); background:var(--builder-cream); border-radius:10px; font-size:14px; color:var(--ink);">
+        <strong>Choose, reject, or blend.</strong> Tell me which concept (or which elements to combine — e.g.
+        "C's master drawing + A's editorial split") and I'll proceed to <strong>Phase 5 — SECTION-DESIGN.md</strong>,
+        the production-ready spec. Per your instruction, the <code>frontend-design</code> skill drove these mockups;
+        it will continue to guide Phase 5–6.
+      </p>
+    </div>
+
+    <script>
+      // Concept switcher
+      (function () {
+        var tabs = document.querySelectorAll('.tab');
+        var panels = document.querySelectorAll('.concept');
+        tabs.forEach(function (tab) {
+          tab.addEventListener('click', function () {
+            var id = tab.getAttribute('data-tab');
+            tabs.forEach(function (t) { t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
+            panels.forEach(function (p) {
+              var match = p.id === 'concept-' + id;
+              p.setAttribute('aria-hidden', match ? 'false' : 'true');
+            });
+            document.getElementById('concept-' + id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        });
+      })();
+    </script>
+
+    <script type="application/json" id="section-builder-state">
+    {
+      "workflow": "existing-landing-page-section-builder",
+      "checkpoint_id": "checkpoint-04-section-visual-concepts-v2",
+      "checkpoint_version": "V2",
+      "phase_completed": 4,
+      "previous_checkpoint": "checkpoint-03-section-blueprint-copy-lock-v2",
+      "next_phase": "section-design-spec",
+      "page_context": {
+        "page_name": "FairLend root landing page (/)",
+        "insertion_point": { "previous_section": "FairlendLandingOverviewSection", "next_section": "FairlendBuilderConsultingSection" }
+      },
+      "locked_decisions": {
+        "kicker": "03 / Our Build Model",
+        "headline": "Bring us the property. We'll help build the equation.",
+        "cta": "Book a free consultation -> /intake?intent=consultation&source=build-model-consultation (single lime action)",
+        "pillars": ["01 Plan", "02 Finance", "03 Build support", "04 Takeout"],
+        "imagery_constraint": "blueprint LINE motifs only; no grid/repeating fills",
+        "register": "warm paper + forest ink + Cormorant serif + restrained Oxanium; League Gothic excluded"
+      },
+      "concepts": [
+        {
+          "id": "a",
+          "name": "Native Continuation",
+          "thesis": "Mirror Overview's editorial split; quiet route-line spine as the only signature. Lowest register-disruption.",
+          "layout": "1.05fr / 1fr two-column (copy | pillars)",
+          "signature": "blueprint route-line spine down the pillar gutter, nodes per pillar",
+          "tradeoffs": "Safest; risks reading as 'more of Overview' if the spine under-delivers",
+          "status": "available"
+        },
+        {
+          "id": "b",
+          "name": "Elevated Bridge",
+          "thesis": "Centered band + horizontal build-station track; pillars become tappable stations with blueprint plan/elevation icons. Foreshadows the feasibility board.",
+          "layout": "centered copy column + 4-col station track",
+          "signature": "station icons as continuous blueprint build cross-section; dashed coral route across tops",
+          "tradeoffs": "Bolder; depends on high-quality bespoke line icons (not icon-pack glyphs)",
+          "status": "SELECTED",
+          "selected_refinements": [
+            "Dense two-paragraph hero replaced with scannable units: italic lead line + coral variable ribbon (chips) + one-line shared lead + two parallel audience cards (builders | first-timers)",
+            "Section permitted to exceed a single viewport to reduce reading density",
+            "Variable chips preview the four station-track categories below",
+            "Payoff + thesis boxes REPLACED by a single forest-green thesis strip handoff into Builder Consulting (equation row Land + Cost + Capital + Draws + Policy + Incentives + Takeout → Outcome)",
+            "NOVICE AUDIENCE CARD REVISED to carry the turnkey promise: 'Bring a property and a down payment. We craft the design and specs with you, assign an experienced builder or project manager, and handle the rest — permits, draws, takeout, everything.' Tag changed from 'Exploring for the first time' to 'First-time builder'.",
+            "DRAWFLOW SIGNATURE BLOCK ADDED between station track and thesis strip: 'Powered by DrawFlow' label, headline 'A milestone line of credit for your build.', sub 'More draws. Less interest. Fund the work, not the wait.', a blueprint milestone node-track (Foundation → Framing → Roof → Windows → Mechanical → Plumbing(active) → Electrical → Drywall → Flooring), a 3-vs-15-draws comparison, an illustrative ≈$12,000 interest-saved callout (clearly marked illustrative only), and a 'More than capital' closer tying the build specialist + trade network to the project manager promise. All visuals are blueprint LINE motifs (nodes + tracks), no grid fills."
+          ]
+        },
+        {
+          "id": "c",
+          "name": "Signature Moment",
+          "thesis": "Leads with a master build-equation line drawing (property -> plan -> finance -> build -> takeout); pillars are pinned callouts. Pre-figures Builder Consulting's equation in blueprint language.",
+          "layout": "full-width master drawing + 1/1 split (copy | pillars)",
+          "signature": "master build-equation line drawing with rotated INCLUDED plan-stamp",
+          "tradeoffs": "Boldest and highest-effort; must read instantly as a build equation or it becomes decoration",
+          "status": "available"
+        }
+      ],
+      "selected_concept": "b",
+      "framework_application_ledger": [
+        { "framework": "CRAP", "phase": 4, "used_for": "visual coherence", "decision_influenced": "kicker/numbering repetition + serif/mono contrast across all three" },
+        { "framework": "Gestalt / Visual Hierarchy", "phase": 4, "used_for": "figure grouping", "decision_influenced": "A spine, B common-region track, C dominant master figure with closure-attached callouts" },
+        { "framework": "Progressive Disclosure / Hick's", "phase": 4, "used_for": "pillar treatment", "decision_influenced": "4 pillars always visible (7±2), sub-services on demand in all three" },
+        { "framework": "Brand Personality / Distinctive Assets", "phase": 4, "used_for": "anti-slop guardrails", "decision_influenced": "blueprint line motifs only; explicitly avoided grid fills, black/acid, League Gothic" },
+        { "framework": "Fitts's Law", "phase": 4, "used_for": "mobile tap targets", "decision_influenced": "full-width pillar/station rows + oversized CTA on mobile" }
+      ],
+      "open_questions": [],
+      "next_phase_instructions": "Concept B (Elevated Bridge) is SELECTED with the scannable-copy refinement. Proceed to Phase 5: write SECTION-DESIGN.md as a production-ready design delta for Concept B only, including the new scannable hero (lead line + variable ribbon + shared lead + audience cards), the station-track pillars, single lime CTA, blueprint line motifs, and build-thesis transition."
+    }
+    </script>
+  </body>
+</html>

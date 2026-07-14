@@ -1,0 +1,195 @@
+/* ------------------------------------------------------------------
+   Investor Process — vertical stepper with you/we ownership tags.
+   ------------------------------------------------------------------ */
+
+.investor-process {
+  position: relative;
+  padding: clamp(64px, 8vw, 120px) clamp(24px, 4vw, 56px);
+  background: var(--landing-hero-paper, #f8f7f5);
+  color: var(--landing-hero-ink, #08090a);
+  font-kerning: normal;
+  font-optical-sizing: auto;
+}
+
+.investor-process__inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.investor-process__header {
+  max-width: 760px;
+}
+
+.investor-process__eyebrow {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--landing-hero-muted, rgb(73 73 68));
+  margin: 0 0 18px;
+}
+
+.investor-process__title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(36px, 4.4vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin: 0;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+  max-width: 22ch;
+}
+
+.investor-process__lede {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--landing-hero-muted, #494944);
+  margin: 22px 0 0;
+  max-width: 64ch;
+  text-wrap: pretty;
+}
+
+.investor-process__steps {
+  list-style: none;
+  margin: clamp(40px, 5vw, 64px) 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+
+.investor-process__step {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: clamp(20px, 3vw, 36px);
+  padding: 24px 0;
+  border-top: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+}
+
+.investor-process__step:first-child {
+  border-top: 1px solid var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
+}
+
+.investor-process__step:last-child {
+  border-bottom: 1px solid var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
+}
+
+.investor-process__step-rail {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 4px;
+}
+
+.investor-process__step-number {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--landing-hero-ink, #08090a);
+  line-height: 1;
+}
+
+.investor-process__step-line {
+  display: none;
+}
+
+.investor-process__step-body {
+  max-width: 64ch;
+}
+
+.investor-process__step-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.investor-process__step-title {
+  margin: 0;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(22px, 2.2vw, 30px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-process__step-tag {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.investor-process__step-tag[data-owner='you'] {
+  color: #101010;
+  background: var(--landing-hero-lime, #96ec18);
+}
+
+.investor-process__step-tag[data-owner='fairlend'] {
+  color: #fff;
+  background: var(--landing-hero-ink, #08090a);
+}
+
+.investor-process__step-detail {
+  margin: 0;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--landing-hero-muted, #494944);
+}
+
+.investor-process__step[data-owner='fairlend'] {
+  padding-inline: clamp(18px, 2.4vw, 30px);
+  border-color: rgb(255 253 249 / 18%);
+  background: var(--landing-hero-ink, #08090a);
+}
+
+.investor-process__step[data-owner='fairlend'] .investor-process__step-number,
+.investor-process__step[data-owner='fairlend'] .investor-process__step-title,
+.investor-process__step[data-owner='fairlend'] .investor-process__step-detail {
+  color: var(--landing-hero-white, #fffdf9);
+}
+
+.investor-process__step[data-owner='fairlend'] .investor-process__step-tag {
+  background: var(--landing-hero-lime, #96ec18);
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-process__cta-row {
+  margin-top: clamp(36px, 4vw, 56px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+@media (max-width: 720px) {
+  .investor-process__step {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .investor-process__cta-row :is(a, .fairlend-borrower-cta) {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .investor-process * {
+    transition: none !important;
+  }
+}

@@ -47,6 +47,7 @@ export type DiaTextRevealProps = Omit<
   once?: boolean;
   className?: string;
   fixedWidth?: boolean;
+  solidAfterReveal?: boolean;
 };
 
 const sweepEase = (t: number) =>
@@ -117,6 +118,7 @@ const DiaTextReveal = forwardRef<HTMLSpanElement, DiaTextRevealProps>(
       once = true,
       className,
       fixedWidth = false,
+      solidAfterReveal = false,
       ...props
     },
     ref
@@ -124,6 +126,7 @@ const DiaTextReveal = forwardRef<HTMLSpanElement, DiaTextRevealProps>(
     const spanRef = useRef<HTMLSpanElement | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
     const [measuredWidths, setMeasuredWidths] = useState<number[]>([]);
+    const [isSolidText, setIsSolidText] = useState(false);
 
     const indexRef = useRef(0);
     const hasPlayedRef = useRef(false);
@@ -192,7 +195,10 @@ const DiaTextReveal = forwardRef<HTMLSpanElement, DiaTextRevealProps>(
     const contentStyle = useMemo(
       (): NonNullable<DiaTextMotionProps["style"]> => ({
         display: "inline-block",
-        color: "transparent",
+        color: isSolidText ? textColor : "transparent",
+        WebkitTextFillColor: isSolidText ? textColor : "transparent",
+        WebkitTextStroke: isSolidText ? undefined : "0 transparent",
+        textShadow: isSolidText ? undefined : "none",
         backgroundClip: "text",
         WebkitBackgroundClip: "text",
         backgroundSize: "100% 100%",
@@ -202,7 +208,14 @@ const DiaTextReveal = forwardRef<HTMLSpanElement, DiaTextRevealProps>(
         transform: contentTransform,
         willChange: "filter, opacity, transform",
       }),
-      [backgroundImage, contentFilter, contentTransform, textOpacity]
+      [
+        backgroundImage,
+        contentFilter,
+        contentTransform,
+        isSolidText,
+        textColor,
+        textOpacity,
+      ]
     );
 
     const clearCycle = useCallback(() => {
@@ -233,9 +246,11 @@ const DiaTextReveal = forwardRef<HTMLSpanElement, DiaTextRevealProps>(
 
       if (shouldReduceMotion) {
         sweepPos.set(SWEEP_END);
+        setIsSolidText(solidAfterReveal);
         return;
       }
 
+      setIsSolidText(false);
       sweepPos.set(SWEEP_START);
 
       controlsRef.current = animate(sweepPos, SWEEP_END, {
@@ -243,6 +258,10 @@ const DiaTextReveal = forwardRef<HTMLSpanElement, DiaTextRevealProps>(
         delay,
         ease: sweepEase,
         onComplete() {
+          if (solidAfterReveal && !repeat) {
+            setIsSolidText(true);
+          }
+
           if (!repeat || texts.length === 0) {
             return;
           }
@@ -270,6 +289,7 @@ const DiaTextReveal = forwardRef<HTMLSpanElement, DiaTextRevealProps>(
       clearCycle();
 
       sweepPos.set(SWEEP_START);
+      setIsSolidText(false);
 
       if (isVisible) {
         hasPlayedRef.current = true;

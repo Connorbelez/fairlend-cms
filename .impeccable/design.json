@@ -1,0 +1,561 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-14T18:35:37Z",
+  "title": "Design System: FairLend Root Landing Page",
+  "extensions": {
+    "colorMeta": {
+      "signal-lime": {
+        "role": "primary",
+        "displayName": "FairLend Signal Lime",
+        "canonical": "oklch(85.5% 0.231 131.4)",
+        "tonalRamp": [
+          "oklch(15% 0.231 131.4)",
+          "oklch(28% 0.231 131.4)",
+          "oklch(40% 0.231 131.4)",
+          "oklch(52% 0.231 131.4)",
+          "oklch(64% 0.231 131.4)",
+          "oklch(76% 0.231 131.4)",
+          "oklch(86% 0.231 131.4)",
+          "oklch(95% 0.231 131.4)"
+        ]
+      },
+      "acid-lime": {
+        "role": "primary",
+        "displayName": "Acid Lime",
+        "canonical": "oklch(89.6% 0.258 134.3)",
+        "tonalRamp": [
+          "oklch(15% 0.258 134.3)",
+          "oklch(28% 0.258 134.3)",
+          "oklch(40% 0.258 134.3)",
+          "oklch(52% 0.258 134.3)",
+          "oklch(64% 0.258 134.3)",
+          "oklch(76% 0.258 134.3)",
+          "oklch(86% 0.258 134.3)",
+          "oklch(95% 0.258 134.3)"
+        ]
+      },
+      "route-lime": {
+        "role": "primary",
+        "displayName": "Route Lime",
+        "canonical": "oklch(90.3% 0.251 132.1)",
+        "tonalRamp": [
+          "oklch(15% 0.251 132.1)",
+          "oklch(28% 0.251 132.1)",
+          "oklch(40% 0.251 132.1)",
+          "oklch(52% 0.251 132.1)",
+          "oklch(64% 0.251 132.1)",
+          "oklch(76% 0.251 132.1)",
+          "oklch(86% 0.251 132.1)",
+          "oklch(95% 0.251 132.1)"
+        ]
+      },
+      "signal-hover": {
+        "role": "primary",
+        "displayName": "Signal Hover",
+        "canonical": "oklch(89.8% 0.238 130.8)",
+        "tonalRamp": [
+          "oklch(15% 0.238 130.8)",
+          "oklch(28% 0.238 130.8)",
+          "oklch(40% 0.238 130.8)",
+          "oklch(52% 0.238 130.8)",
+          "oklch(64% 0.238 130.8)",
+          "oklch(76% 0.238 130.8)",
+          "oklch(86% 0.238 130.8)",
+          "oklch(95% 0.238 130.8)"
+        ]
+      },
+      "signal-soft": {
+        "role": "secondary",
+        "displayName": "Signal Soft",
+        "canonical": "oklch(96.1% 0.127 119.4)",
+        "tonalRamp": [
+          "oklch(15% 0.127 119.4)",
+          "oklch(28% 0.127 119.4)",
+          "oklch(40% 0.127 119.4)",
+          "oklch(52% 0.127 119.4)",
+          "oklch(64% 0.127 119.4)",
+          "oklch(76% 0.127 119.4)",
+          "oklch(86% 0.127 119.4)",
+          "oklch(95% 0.127 119.4)"
+        ]
+      },
+      "signal-ink": {
+        "role": "secondary",
+        "displayName": "Signal Ink",
+        "canonical": "oklch(30.0% 0.080 129.7)",
+        "tonalRamp": [
+          "oklch(15% 0.080 129.7)",
+          "oklch(28% 0.080 129.7)",
+          "oklch(40% 0.080 129.7)",
+          "oklch(52% 0.080 129.7)",
+          "oklch(64% 0.080 129.7)",
+          "oklch(76% 0.080 129.7)",
+          "oklch(86% 0.080 129.7)",
+          "oklch(95% 0.080 129.7)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Landing Paper",
+        "canonical": "oklch(97.6% 0.003 84.6)",
+        "tonalRamp": [
+          "oklch(15% 0.003 84.6)",
+          "oklch(28% 0.003 84.6)",
+          "oklch(40% 0.003 84.6)",
+          "oklch(52% 0.003 84.6)",
+          "oklch(64% 0.003 84.6)",
+          "oklch(76% 0.003 84.6)",
+          "oklch(86% 0.003 84.6)",
+          "oklch(95% 0.003 84.6)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Chrome Surface",
+        "canonical": "oklch(98.5% 0.003 84.6)",
+        "tonalRamp": [
+          "oklch(15% 0.003 84.6)",
+          "oklch(28% 0.003 84.6)",
+          "oklch(40% 0.003 84.6)",
+          "oklch(52% 0.003 84.6)",
+          "oklch(64% 0.003 84.6)",
+          "oklch(76% 0.003 84.6)",
+          "oklch(86% 0.003 84.6)",
+          "oklch(95% 0.003 84.6)"
+        ]
+      },
+      "route-paper": {
+        "role": "neutral",
+        "displayName": "Route Paper",
+        "canonical": "oklch(97.3% 0.007 97.4)",
+        "tonalRamp": [
+          "oklch(15% 0.007 97.4)",
+          "oklch(28% 0.007 97.4)",
+          "oklch(40% 0.007 97.4)",
+          "oklch(52% 0.007 97.4)",
+          "oklch(64% 0.007 97.4)",
+          "oklch(76% 0.007 97.4)",
+          "oklch(86% 0.007 97.4)",
+          "oklch(95% 0.007 97.4)"
+        ]
+      },
+      "card-paper": {
+        "role": "neutral",
+        "displayName": "Card Paper",
+        "canonical": "oklch(98.4% 0.007 97.3)",
+        "tonalRamp": [
+          "oklch(15% 0.007 97.3)",
+          "oklch(28% 0.007 97.3)",
+          "oklch(40% 0.007 97.3)",
+          "oklch(52% 0.007 97.3)",
+          "oklch(64% 0.007 97.3)",
+          "oklch(76% 0.007 97.3)",
+          "oklch(86% 0.007 97.3)",
+          "oklch(95% 0.007 97.3)"
+        ]
+      },
+      "white-paper": {
+        "role": "neutral",
+        "displayName": "White Paper",
+        "canonical": "oklch(99.4% 0.006 84.6)",
+        "tonalRamp": [
+          "oklch(15% 0.006 84.6)",
+          "oklch(28% 0.006 84.6)",
+          "oklch(40% 0.006 84.6)",
+          "oklch(52% 0.006 84.6)",
+          "oklch(64% 0.006 84.6)",
+          "oklch(76% 0.006 84.6)",
+          "oklch(86% 0.006 84.6)",
+          "oklch(95% 0.006 84.6)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(13.9% 0.003 246.3)",
+        "tonalRamp": [
+          "oklch(15% 0.003 246.3)",
+          "oklch(28% 0.003 246.3)",
+          "oklch(40% 0.003 246.3)",
+          "oklch(52% 0.003 246.3)",
+          "oklch(64% 0.003 246.3)",
+          "oklch(76% 0.003 246.3)",
+          "oklch(86% 0.003 246.3)",
+          "oklch(95% 0.003 246.3)"
+        ]
+      },
+      "ink-deep": {
+        "role": "neutral",
+        "displayName": "Deep Ink",
+        "canonical": "oklch(10.5% 0.005 244.3)",
+        "tonalRamp": [
+          "oklch(15% 0.005 244.3)",
+          "oklch(28% 0.005 244.3)",
+          "oklch(40% 0.005 244.3)",
+          "oklch(52% 0.005 244.3)",
+          "oklch(64% 0.005 244.3)",
+          "oklch(76% 0.005 244.3)",
+          "oklch(86% 0.005 244.3)",
+          "oklch(95% 0.005 244.3)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Ink",
+        "canonical": "oklch(40.4% 0.008 106.8)",
+        "tonalRamp": [
+          "oklch(15% 0.008 106.8)",
+          "oklch(28% 0.008 106.8)",
+          "oklch(40% 0.008 106.8)",
+          "oklch(52% 0.008 106.8)",
+          "oklch(64% 0.008 106.8)",
+          "oklch(76% 0.008 106.8)",
+          "oklch(86% 0.008 106.8)",
+          "oklch(95% 0.008 106.8)"
+        ]
+      },
+      "muted-soft": {
+        "role": "neutral",
+        "displayName": "Soft Muted Ink",
+        "canonical": "oklch(52.9% 0.012 106.8)",
+        "tonalRamp": [
+          "oklch(15% 0.012 106.8)",
+          "oklch(28% 0.012 106.8)",
+          "oklch(40% 0.012 106.8)",
+          "oklch(52% 0.012 106.8)",
+          "oklch(64% 0.012 106.8)",
+          "oklch(76% 0.012 106.8)",
+          "oklch(86% 0.012 106.8)",
+          "oklch(95% 0.012 106.8)"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Paper Rule",
+        "canonical": "oklch(89.9% 0.008 106.6)",
+        "tonalRamp": [
+          "oklch(15% 0.008 106.6)",
+          "oklch(28% 0.008 106.6)",
+          "oklch(40% 0.008 106.6)",
+          "oklch(52% 0.008 106.6)",
+          "oklch(64% 0.008 106.6)",
+          "oklch(76% 0.008 106.6)",
+          "oklch(86% 0.008 106.6)",
+          "oklch(95% 0.008 106.6)"
+        ]
+      },
+      "builder-blueprint": {
+        "role": "tertiary",
+        "displayName": "Builder Blueprint",
+        "canonical": "oklch(27.5% 0.074 247)",
+        "tonalRamp": [
+          "oklch(15% 0.074 247)",
+          "oklch(28% 0.074 247)",
+          "oklch(40% 0.074 247)",
+          "oklch(52% 0.074 247)",
+          "oklch(64% 0.074 247)",
+          "oklch(76% 0.074 247)",
+          "oklch(86% 0.074 247)",
+          "oklch(95% 0.074 247)"
+        ]
+      },
+      "builder-forest": {
+        "role": "tertiary",
+        "displayName": "Builder Forest",
+        "canonical": "oklch(22.8% 0.055 166)",
+        "tonalRamp": [
+          "oklch(15% 0.055 166)",
+          "oklch(28% 0.055 166)",
+          "oklch(40% 0.055 166)",
+          "oklch(52% 0.055 166)",
+          "oklch(64% 0.055 166)",
+          "oklch(76% 0.055 166)",
+          "oklch(86% 0.055 166)",
+          "oklch(95% 0.055 166)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display Serif",
+        "purpose": "Hero promise and major narrative statements."
+      },
+      "headline": {
+        "displayName": "Section Headline",
+        "purpose": "Route choice and major section propositions."
+      },
+      "title": {
+        "displayName": "Serif Title",
+        "purpose": "Route cards, dossier sheets, and helper titles."
+      },
+      "body": {
+        "displayName": "Operational Body",
+        "purpose": "Financial explanation, controls, benefits, and supporting copy."
+      },
+      "label": {
+        "displayName": "System Label",
+        "purpose": "Route and section metadata where a real system is being named."
+      },
+      "technical-label": {
+        "displayName": "Technical Label",
+        "purpose": "Build Model and builder/leadership instrumentation."
+      },
+      "technical-display": {
+        "displayName": "Technical Display",
+        "purpose": "Condensed site-board and underwriting-ledger statements only."
+      }
+    },
+    "shadows": [
+      {
+        "name": "landing-section",
+        "value": "0 22px 58px rgb(8 9 10 / 7%)",
+        "purpose": "Root-scoped proof and model panels."
+      },
+      {
+        "name": "hero-cta",
+        "value": "0 10px 24px rgb(118 205 0 / 12%)",
+        "purpose": "Primary hero conversion action at rest."
+      },
+      {
+        "name": "header-shell",
+        "value": "0 18px 54px rgb(17 18 18 / 7%), inset 0 1px 0 rgb(255 255 255 / 72%)",
+        "purpose": "Fixed translucent navigation shell."
+      },
+      {
+        "name": "route-card",
+        "value": "0 18px 42px rgb(27 25 18 / 5%)",
+        "purpose": "Quiet paper separation on default route cards."
+      },
+      {
+        "name": "route-card-hover",
+        "value": "0 24px 52px rgb(27 25 18 / 8%)",
+        "purpose": "Hover evidence when motion is allowed."
+      },
+      {
+        "name": "route-card-selected",
+        "value": "0 22px 48px rgb(138 255 0 / 14%), inset 0 0 0 1px rgb(156 255 0 / 24%)",
+        "purpose": "Redundant selected-route evidence."
+      },
+      {
+        "name": "build-model-board",
+        "value": "0 24px 80px var(--bm-shadow)",
+        "purpose": "Sticky physical dossier above the Build Model narrative."
+      },
+      {
+        "name": "footer-panel",
+        "value": "0 28px 80px rgb(8 9 10 / 8%), inset 0 1px 0 rgb(255 255 255 / 88%)",
+        "purpose": "Terminal capital-desk slab."
+      }
+    ],
+    "motion": [
+      {
+        "name": "reveal-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Hero, header, route, and card entrances and state changes."
+      },
+      {
+        "name": "build-theme",
+        "value": "820ms cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Build Model paper, rule, color, and shadow transitions."
+      },
+      {
+        "name": "build-text-swap",
+        "value": "150ms ease-in-out",
+        "purpose": "Four-pixel translate plus two-pixel blur between live dossier values."
+      },
+      {
+        "name": "state-control",
+        "value": "160ms ease",
+        "purpose": "Navigation, links, borders, and compact controls."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce",
+        "purpose": "Show final states immediately; remove parallax, drift, scrub, blur, and auto-rotation."
+      }
+    ],
+    "breakpoints": [
+      { "name": "compact", "value": "360px" },
+      { "name": "hero-copy-floor", "value": "390px" },
+      { "name": "hero-mobile", "value": "576px" },
+      { "name": "rail-mobile", "value": "768px" },
+      { "name": "desktop", "value": "1024px" },
+      { "name": "hero-landscape", "value": "1280px" },
+      { "name": "wide", "value": "1500px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Hero CTA",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The canonical lime conversion action with a contained black direction tile.",
+      "html": "<button class=\"ds-btn-primary\"><span>Book a Free Consultation</span><span class=\"ds-btn-primary__icon\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 17 17 7M8 7h9v9\"/></svg></span></button>",
+      "css": ".ds-btn-primary{height:55px;display:inline-flex;align-items:center;gap:12px;border:0;border-radius:9px;background:#96ec18;color:#101010;padding:0 20px 0 18px;font:500 17px/1 var(--font-inter),Arial,sans-serif;box-shadow:0 10px 24px rgb(118 205 0 / 12%);transition:background-color 200ms,transform 200ms,box-shadow 200ms}.ds-btn-primary__icon{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:#111;color:#aaff00}.ds-btn-primary__icon svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.25}.ds-btn-primary:hover{background:#a4fb20;transform:translateY(-2px);box-shadow:0 14px 32px rgb(118 205 0 / 18%)}.ds-btn-primary:active{transform:translateY(0)}.ds-btn-primary:focus-visible{outline:2px solid #111;outline-offset:4px}"
+    },
+    {
+      "name": "Expert Phone Action",
+      "kind": "button",
+      "refersTo": "button-dark",
+      "description": "Compact black human-access action used by the header and hero.",
+      "html": "<a class=\"ds-btn-expert\" href=\"tel:+16478317605\"><span class=\"ds-btn-expert__disc\">☎</span><span>Talk to an expert<br><strong>647-831-7605</strong></span></a>",
+      "css": ".ds-btn-expert{min-height:42px;display:inline-flex;align-items:center;gap:9px;border:1px solid rgb(17 18 18 / 92%);border-radius:9999px;background:#101213;color:#8dff00;padding:7px 15px 7px 8px;font:600 12px/1.05 var(--font-inter),Arial,sans-serif;text-decoration:none;box-shadow:0 12px 28px rgb(17 18 18 / 13%);transition:background-color 160ms,transform 160ms,box-shadow 160ms}.ds-btn-expert__disc{width:28px;height:28px;display:grid;place-items:center;border-radius:9999px;background:#8dff00;color:#101213}.ds-btn-expert strong{font-size:15px}.ds-btn-expert:hover{background:#050607;transform:translateY(-1px);box-shadow:0 16px 34px rgb(17 18 18 / 18%)}.ds-btn-expert:focus-visible{outline:2px solid #96ec18;outline-offset:3px}"
+    },
+    {
+      "name": "Application Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Bright paper field for the immediate application entry point.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field__label\">Property address</span><input placeholder=\"Enter an address\"></label>",
+      "css": ".ds-field{display:grid;gap:7px;color:#2f3b39;font:800 11px/1 var(--font-inter),Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase}.ds-field input{height:52px;min-width:260px;border:1px solid #dededb;border-radius:12px;background:rgb(255 253 249 / 92%);padding:0 16px;color:#15201f;font:500 15px/1.2 var(--font-inter),Arial,sans-serif;transition:border-color 220ms cubic-bezier(.16,1,.3,1),box-shadow 220ms cubic-bezier(.16,1,.3,1)}.ds-field input::placeholder{color:#586562}.ds-field input:focus{border-color:#96ec18;outline:0;box-shadow:0 0 0 3px rgb(150 236 24 / 18%)}"
+    },
+    {
+      "name": "Navigation Item",
+      "kind": "nav",
+      "refersTo": "nav-item",
+      "description": "Forty-four-pixel pill target inside the fixed paper header.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav__item\" href=\"#\">Financing Solutions</a><a class=\"ds-nav__item\" href=\"#\">Who We Are</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:5px;font-family:var(--font-inter),Arial,sans-serif}.ds-nav__item{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:9999px;padding:0 13px;color:rgb(16 18 19 / 76%);font-size:.94rem;font-weight:500;text-decoration:none;transition:background-color 160ms,color 160ms,transform 160ms}.ds-nav__item:hover{background:rgb(255 255 255 / 58%);color:#101213}.ds-nav__item:active{transform:translateY(1px)}.ds-nav__item:focus-visible{outline:2px solid rgb(145 235 0 / 72%);outline-offset:3px}"
+    },
+    {
+      "name": "Active Build Variable",
+      "kind": "chip",
+      "refersTo": "chip-active",
+      "description": "Technical pill marking a variable currently active in the live deal file.",
+      "html": "<span class=\"ds-chip-active\">Capital</span>",
+      "css": ".ds-chip-active{display:inline-flex;align-items:center;min-height:30px;border:1px solid #96ec18;border-radius:9999px;background:rgb(150 236 24 / 14%);padding:7px 12px;color:#203500;font:800 10px/1 Oxanium,ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase}.ds-chip-active:focus-visible{outline:2px solid #08090a;outline-offset:2px}"
+    },
+    {
+      "name": "Selected Route Card",
+      "kind": "card",
+      "refersTo": "route-card-selected",
+      "description": "Comparative route card whose selected state is communicated by border, shadow, label, progress, and action.",
+      "html": "<article class=\"ds-route-card\"><span class=\"ds-route-card__badge\">Popular</span><h3>Get a private mortgage</h3><p>Access private mortgage financing when traditional lending does not fit your timing, property, or exit.</p><button>Get Approved <span>↗</span></button></article>",
+      "css": ".ds-route-card{position:relative;min-height:320px;display:flex;flex-direction:column;border:1px solid #9cff00;border-radius:18px;background:rgb(251 250 245 / 92%);padding:18px;color:#11110f;font-family:var(--font-inter),Arial,sans-serif;box-shadow:0 22px 48px rgb(138 255 0 / 14%),inset 0 0 0 1px rgb(156 255 0 / 24%)}.ds-route-card h3{max-width:150px;margin:8px 0 20px;font:600 27px/.94 var(--font-cormorant),Georgia,serif}.ds-route-card p{margin:0;color:#242620;font-size:14px;line-height:1.4}.ds-route-card__badge{position:absolute;top:11px;right:11px;border-radius:5px;background:#9cff00;padding:4px 8px;color:#0b0d07;font-size:9px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}.ds-route-card button{height:44px;margin-top:auto;display:flex;align-items:center;justify-content:space-between;border:1px solid #9cff00;border-radius:8px;background:#9cff00;padding:0 12px;color:#0a0b08;font-weight:600}.ds-route-card button:hover{background:#8df000}.ds-route-card button:focus-visible{outline:3px solid #9cff00;outline-offset:2px}"
+    },
+    {
+      "name": "Live Dossier Sheet",
+      "kind": "card",
+      "refersTo": "dossier-card",
+      "description": "Active evidence sheet inside the sticky Build Model board.",
+      "html": "<article class=\"ds-dossier\"><header><span>PL</span><small>Parcel</small></header><h3>Parcel sketch</h3><p>Lot, form, frontage, and the first buildable-area pass.</p><div class=\"ds-dossier__plan\">PROPERTY / BUILDABLE AREA</div></article>",
+      "css": ".ds-dossier{width:min(100%,420px);border:1px solid color-mix(in oklch,#96ec18 42%,#69746e);border-radius:10px;background:linear-gradient(180deg,#fffdf9 0%,#fffdf9 56%,#f6f8f3 100%);padding:12px;color:#050506;font-family:var(--font-inter),Arial,sans-serif}.ds-dossier header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgb(18 34 27 / 16%);padding-bottom:10px}.ds-dossier header span,.ds-dossier header small{font:800 9px/1 Oxanium,ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase}.ds-dossier header span{border:1px solid rgb(18 34 27 / 34%);border-radius:9999px;padding:7px 10px;color:#96ec18}.ds-dossier h3{margin:14px 0 8px;font:600 31px/.94 var(--font-cormorant),Georgia,serif;letter-spacing:-.018em}.ds-dossier p{max-width:32ch;margin:0;color:rgb(18 34 27 / 72%);font-size:11.5px;line-height:1.36}.ds-dossier__plan{min-height:120px;margin-top:12px;display:grid;place-items:center;border:1px solid rgb(18 34 27 / 34%);border-radius:8px;background:#edf4ee;color:#245e88;font:800 9px/1 Oxanium,ui-monospace,monospace;letter-spacing:.12em}.ds-dossier:focus-within{outline:2px solid #96ec18;outline-offset:3px}"
+    },
+    {
+      "name": "Footer Square Submit",
+      "kind": "button",
+      "refersTo": "button-footer",
+      "description": "Hard-edged lime submit action reserved for the footer's capital-desk grid.",
+      "html": "<button class=\"ds-footer-submit\">Get updates <span>→</span></button>",
+      "css": ".ds-footer-submit{height:48px;display:inline-flex;align-items:center;justify-content:space-between;gap:18px;border:0;border-radius:0;background:#96ec18;padding:0 20px;color:#101010;font:800 14px/1 var(--font-inter),Arial,sans-serif;box-shadow:inset 0 1px 0 rgb(255 255 255 / 48%),0 14px 26px rgb(150 236 24 / 22%);transition:background-color 160ms,transform 160ms}.ds-footer-submit:hover{background:#a4fb20}.ds-footer-submit:active{transform:scale(.985)}.ds-footer-submit:focus-visible{outline:2px solid #08090a;outline-offset:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Toronto Financing Field Guide",
+    "overview": "FairLend's canonical brand surface is the root landing page at `/`: a Toronto atlas crossed with a live underwriting and construction dossier. The supplied visual references and root implementation confirm the intended composition—monochromatic halftone and engraved-ink city, construction, property, and portrait imagery; pale paper fields; exacting rules; oversized editorial serif statements; dense practical sans-serif information; and electric lime tracing the path from intent to action. The result feels precise, established, warm, and locally fluent: a specialist who can read both the property and the capital equation.\n\nThe page is not one repeated template. It moves through distinct but related artifacts: a panoramic Toronto scene, a topographic route chooser, a split lending ledger, a sticky live-deal file, builder and leadership proof, a map-led FAQ, and a structured capital-desk footer. Paper continuity, monochromatic halftone-ink imagery, lime signals, and typography make those worlds one identity. Motion behaves like competent progress through a file—revealing, tracing, funding, and advancing—never like ornamental spectacle.\n\nThe halftone-ink motif is a mandatory brand primitive, not optional decoration. New marketing sections that contain imagery must begin with black, charcoal, gray, and paper-toned architectural, place, property, construction, map, or portrait material rendered as engraving, stipple, crosshatch, screened photography, or a credible combination of those techniques. Lime is then applied as the functional annotation layer: routes, nodes, verification marks, active states, underlines, focus, and directional cues. Removing the ink treatment and keeping only the palette is a brand regression.\n\nThis document is deliberately root-only. Its source of truth is `src/app/(frontend)/page.tsx`, the components imported by that file, the root `FrontendChrome`, global root footer, root-scoped CSS, and the supplied screenshots. It does not authorize styles from Payload admin, generic CMS blocks, demo routes, or non-root marketing pages.",
+    "keyCharacteristics": [
+      "Near-white paper canvas with black and charcoal halftone, stipple, crosshatch, and engraved imagery plus fine technical rules.",
+      "Cormorant Garamond for authority and narrative; Inter for clarity and action.",
+      "Electric lime as route, state, proof, focus, and conversion signal.",
+      "Toronto skyline, clouds, topography, parcels, buildings, and deal files as evidence—not decoration.",
+      "Image regions carry the monochromatic ink texture; interface fields remain clean, flat, and readable.",
+      "Broad editorial compositions paired with dense, practical financial information.",
+      "Controlled motion with explicit reduced-motion equivalents."
+    ],
+    "rules": [
+      {
+        "name": "The Root-Only Source Rule",
+        "body": "When another FairLend surface conflicts with `/`, the root landing page wins. Reuse these actual components and tokens; do not average the whole repository into a diluted hybrid.",
+        "section": "overview"
+      },
+      {
+        "name": "The Ink-First Brand Rule",
+        "body": "Every image-led root marketing composition must visibly use monochromatic halftone, stipple, crosshatch, screened photography, or engraved linework. A section that uses the right paper and lime colors but omits the ink motif is off-brand and must be revised before implementation.",
+        "section": "overview"
+      },
+      {
+        "name": "The Lime Signal Rule",
+        "body": "Lime identifies action, route, active state, or verified proof. It never becomes paragraph text, a full generic section fill, or ambient decoration with no meaning.",
+        "section": "colors"
+      },
+      {
+        "name": "The 90/10 Ink-to-Signal Rule",
+        "body": "In image-led compositions, paper plus black/charcoal ink must carry at least 90% of the visual mass. Lime may carry no more than 10% and must encode action, direction, state, or verification; it may not recolor an entire illustration.",
+        "section": "colors"
+      },
+      {
+        "name": "The Paper Continuity Rule",
+        "body": "Section changes come from material, imagery, density, and rail texture—not from unrelated background colors. The page must still read as one long physical document.",
+        "section": "colors"
+      },
+      {
+        "name": "The Blueprint Exception Rule",
+        "body": "Blueprint and forest are permitted only where the Build Model changes state. They must feel like working-document modes, never like generic blue fintech branding.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two-Register Rule",
+        "body": "Cormorant tells the story; Inter explains and operates it. Oxanium and League Gothic are compartmentalized technical voices, never general-purpose decoration.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tight-but-Legible Rule",
+        "body": "New display work never tracks tighter than `-0.04em`. Existing tighter overview treatments are locked compositions, not precedents.",
+        "section": "typography"
+      },
+      {
+        "name": "The Layered Evidence Rule",
+        "body": "Borders describe paper edges; shadows describe a real layer or active state. A wide shadow on every bordered box destroys the document metaphor.",
+        "section": "elevation"
+      },
+      {
+        "name": "The One Elevated State Rule",
+        "body": "Within a component group, only the active or sticky object earns the strongest shadow. Siblings remain quiet.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Motion Means Progress Rule",
+        "body": "Motion may reveal a route, move a boat in its sailing direction, advance a file, select a card, trace a line, or expose proof. It may not make the map, skyline, or financial process feel like a toy. Every transform-heavy behavior has a reduced-motion final state.",
+        "section": "components"
+      },
+      {
+        "name": "The Halftone Is Content Rule",
+        "body": "The ink motif must describe a real FairLend subject—Toronto, property, construction, capital flow, documentation, or people. It may not degrade into arbitrary dots, decorative grain, or a generic vintage filter.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do treat `/` and its imported root components as the brand source of truth.",
+      "Do preserve the sequence: header, hero, route selector, overview, Build Model, builder consulting, leadership, FAQ, and footer.",
+      "Do use real Toronto skyline, topographic, parcel, construction, property, and deal-file imagery as primary brand material.",
+      "Do make monochromatic halftone, stipple, crosshatch, screened-photography, or engraved linework visibly dominant in every image-led marketing section; reserve color for lime signals and controlled Build Model modes.",
+      "Do treat lime as an annotation over ink—routes, nodes, verification marks, active edges, focus, and direction—not as a replacement for the monochromatic illustration.",
+      "Do keep halftone texture inside meaningful image and illustration regions while keeping reading and control surfaces clean.",
+      "Do pair Cormorant authority with Inter clarity; keep Oxanium and League Gothic inside technical sections.",
+      "Do keep application entry visible, compact, labeled, and usable at every viewport.",
+      "Do preserve semantic headings, keyboard focus, minimum `44px` touch targets where practical, WCAG AA contrast, and reduced-motion alternatives.",
+      "Do use lime redundantly for meaningful selected states: color plus border, label, icon, or progress treatment.",
+      "Do keep body copy dark on paper and cap long measures around `65–72ch`.",
+      "Do adapt or reuse the actual root components before creating any new brand primitive."
+    ],
+    "donts": [
+      "Don't use navy-and-gold bank cliches.",
+      "Don't produce generic AI finance landing pages.",
+      "Don't use decorative glassmorphism for its own sake; the fixed header is the sole functional translucent-chrome exception.",
+      "Don't add city labels or pins that compete with the offer.",
+      "Don't ship cramped hero type; new display tracking stops at `-0.04em`, and headings must be tested for overflow.",
+      "Don't allow over-wrapped card labels; change the measure, scale, or responsive composition.",
+      "Don't use motion that makes the map feel like a toy.",
+      "Don't turn lime into paragraph text, a generic full-section background, or meaningless glow.",
+      "Don't ship an image-led root marketing section without a visible monochromatic halftone/engraved-ink treatment; matching the palette alone is insufficient.",
+      "Don't replace the ink motif with full-colour stock photography, generic flat vectors, pastel 3D renders, unprocessed grayscale photos, or empty neutral placeholders.",
+      "Don't tint an entire skyline, building, portrait, or construction illustration lime; lime is a sparse functional annotation layer.",
+      "Don't simulate the motif with a global grain/noise overlay. Halftone must belong to the depicted subject and remain outside core reading surfaces.",
+      "Don't introduce generic fintech blue; blueprint and forest belong only to Build Model state changes.",
+      "Don't replace the root's real raster/engraved assets with hand-drawn SVG doodles, generic line icons, or decorative CSS geometry.",
+      "Don't repeat a tiny uppercase eyebrow above every heading. Labels must identify a real route, file, phase, or technical system.",
+      "Don't build an endless identical card grid. Cards are reserved for genuine comparison, file, or evidence structures.",
+      "Don't add gradient text, decorative side-stripe borders, diagonal stripe fills, or arbitrary `32px+` card radii."
+    ]
+  }
+}

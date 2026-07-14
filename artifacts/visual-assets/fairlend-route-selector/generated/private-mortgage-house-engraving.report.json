@@ -1,0 +1,15 @@
+{
+  "input": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/raw/private-mortgage-house-engraving.png",
+  "output": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/webp/private-mortgage-house-engraving.webp",
+  "size": {
+    "width": 900,
+    "height": 378
+  },
+  "transparent_background": "auto",
+  "inferred_background": [
+    24,
+    241,
+    18
+  ],
+  "quality": 88
+}

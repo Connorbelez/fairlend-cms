@@ -1,0 +1,468 @@
+/* ------------------------------------------------------------------
+   Borrower Scenarios - self-identification ledger.
+   Avoids identical cards; the list reads like route options in a file.
+   ------------------------------------------------------------------ */
+
+.borrower-scenarios {
+  position: relative;
+  padding: clamp(78px, 8.6vw, 136px) clamp(24px, 4vw, 56px);
+  background: #fffdf9;
+  color: var(--landing-hero-ink, #08090a);
+  overflow: hidden;
+}
+
+.borrower-scenarios::before {
+  content: '';
+  position: absolute;
+  inset: clamp(28px, 3vw, 44px) clamp(24px, 4vw, 56px);
+  border-top: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+  border-bottom: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+  pointer-events: none;
+}
+
+.borrower-scenarios__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+  gap: clamp(44px, 6.8vw, 108px);
+  align-items: start;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.borrower-scenarios__copy {
+  position: sticky;
+  top: 112px;
+  max-width: 35.5rem;
+  padding-top: clamp(20px, 2vw, 30px);
+}
+
+.borrower-scenarios__kicker {
+  margin: 0 0 20px;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--landing-hero-muted, rgb(73 73 68));
+}
+
+.borrower-scenarios__title {
+  max-width: 11.4ch;
+  margin: 0;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(3.125rem, 4.85vw, 5.25rem);
+  font-weight: 500;
+  line-height: 0.94;
+  letter-spacing: -0.026em;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+}
+
+.borrower-scenarios__body {
+  max-width: 58ch;
+  margin: 1.5rem 0 0;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: clamp(1.03125rem, 0.99rem + 0.16vw, 1.125rem);
+  line-height: 1.66;
+  color: rgb(38 38 34);
+  text-wrap: pretty;
+}
+
+.borrower-scenarios__cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  margin-top: 34px;
+}
+
+.borrower-scenarios__small-note {
+  max-width: 30ch;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.45;
+  color: rgb(73 73 68);
+  text-wrap: pretty;
+}
+
+.borrower-scenarios__list-wrap {
+  position: relative;
+  min-width: 0;
+}
+
+.borrower-scenarios__ledger-head {
+  display: grid;
+  grid-template-columns:
+    3.75rem minmax(9rem, 0.56fr) 2.25rem minmax(15rem, 1fr) minmax(9.5rem, 0.5fr)
+    1.5rem;
+  gap: clamp(14px, 1.6vw, 20px);
+  padding: 0 0 15px;
+  border-bottom: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+  font-family: 'Oxanium', var(--font-inter), Arial, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 850;
+  line-height: 1.15;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgb(73 73 68);
+}
+
+.borrower-scenarios__ledger-head span:nth-child(1) {
+  grid-column: 2;
+}
+
+.borrower-scenarios__ledger-head span:nth-child(2) {
+  grid-column: 4;
+}
+
+.borrower-scenarios__ledger-head span:nth-child(3) {
+  grid-column: 5;
+}
+
+.borrower-scenarios__list {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.borrower-scenarios__list::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 1.375rem;
+  width: 1px;
+  background: var(--landing-hero-line, rgb(8 9 10 / 14%));
+}
+
+.borrower-scenarios__item {
+  position: relative;
+  display: grid;
+  grid-template-columns:
+    3.75rem minmax(9rem, 0.56fr) 2.25rem minmax(15rem, 1fr) minmax(9.5rem, 0.5fr)
+    1.5rem;
+  gap: clamp(14px, 1.6vw, 20px);
+  align-items: start;
+  padding: clamp(1.45rem, 2.55vw, 2.15rem) 0;
+  border-bottom: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+}
+
+.borrower-scenarios__number {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 2.625rem;
+  height: 2.625rem;
+  place-items: center;
+  border: 1px solid var(--landing-hero-ink, #08090a);
+  border-radius: 10px;
+  background: var(--landing-hero-ink, #08090a);
+  font-family: 'Oxanium', var(--font-inter), Arial, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  color: var(--landing-hero-lime, #96ec18);
+  font-variant-numeric: tabular-nums;
+}
+
+.borrower-scenarios__signal,
+.borrower-scenarios__review-focus {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+  padding-top: 0.25rem;
+}
+
+.borrower-scenarios__micro-label {
+  font-family: 'Oxanium', var(--font-inter), Arial, sans-serif;
+  font-size: 0.65625rem;
+  font-weight: 850;
+  line-height: 1.15;
+  letter-spacing: 0.085em;
+  text-transform: uppercase;
+  color: rgb(84 84 76);
+  overflow-wrap: anywhere;
+}
+
+.borrower-scenarios__signal-text,
+.borrower-scenarios__review-focus-text {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: clamp(0.9375rem, 0.89rem + 0.13vw, 1rem);
+  font-weight: 800;
+  line-height: 1.28;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.borrower-scenarios__review-focus-text {
+  color: var(--landing-hero-lime-ink, #203500);
+}
+
+.borrower-scenarios__icon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+  border-radius: 9px;
+  color: var(--landing-hero-ink, #08090a);
+  background: #fbfaf5;
+}
+
+.borrower-scenarios__icon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.borrower-scenarios__text {
+  display: grid;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.borrower-scenarios__item-title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(1.75rem, 2.25vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.018em;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.borrower-scenarios__item-body {
+  max-width: 60ch;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.96875rem;
+  line-height: 1.62;
+  color: rgb(49 49 45);
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+.borrower-scenarios__arrow {
+  margin-top: 7px;
+  color: var(--landing-hero-muted-soft, rgb(108 108 100));
+}
+
+.borrower-scenarios__review-strip {
+  position: relative;
+  margin-top: clamp(28px, 3vw, 40px);
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.42fr) minmax(0, 1fr);
+  gap: clamp(20px, 3vw, 34px);
+  padding: clamp(22px, 2.6vw, 32px);
+  border: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+  border-radius: 12px;
+  background: #fbfaf5;
+  overflow: hidden;
+}
+
+.borrower-scenarios__review-head {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-width: 0;
+}
+
+.borrower-scenarios__review-headline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 850;
+  line-height: 1.2;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.borrower-scenarios__review-note {
+  max-width: 34ch;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.55;
+  color: rgb(49 49 45);
+  text-wrap: pretty;
+}
+
+.borrower-scenarios__review-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+  border-left: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+}
+
+.borrower-scenarios__review-list li {
+  display: grid;
+  gap: 0.375rem;
+  min-height: 4.5rem;
+  align-content: start;
+  padding: 0.875rem 0.9rem;
+  border-right: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+  border-bottom: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+  color: var(--landing-hero-ink, #08090a);
+  background: rgb(255 255 255 / 46%);
+  overflow-wrap: anywhere;
+}
+
+.borrower-scenarios__review-list li span {
+  font-family: 'Oxanium', var(--font-inter), Arial, sans-serif;
+  font-size: 0.71875rem;
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--landing-hero-lime-ink, #203500);
+  font-variant-numeric: tabular-nums;
+}
+
+.borrower-scenarios__review-list li strong {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.90625rem;
+  font-weight: 800;
+  line-height: 1.24;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+}
+
+.borrower-scenarios__review-mark {
+  position: absolute;
+  right: -18px;
+  bottom: -24px;
+  width: 118px;
+  height: 118px;
+  color: var(--landing-hero-line, rgb(8 9 10 / 14%));
+  opacity: 0.44;
+}
+
+@media (max-width: 980px) {
+  .borrower-scenarios__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .borrower-scenarios__copy {
+    position: relative;
+    top: auto;
+  }
+
+  .borrower-scenarios__title {
+    max-width: 13ch;
+  }
+
+  .borrower-scenarios__ledger-head,
+  .borrower-scenarios__item {
+    grid-template-columns: 4rem minmax(8rem, 0.5fr) 2.5rem minmax(0, 1fr);
+  }
+
+  .borrower-scenarios__ledger-head span:nth-child(3),
+  .borrower-scenarios__arrow {
+    display: none;
+  }
+
+  .borrower-scenarios__review-focus {
+    grid-column: 4;
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 620px) {
+  .borrower-scenarios {
+    padding-inline: clamp(18px, 5vw, 24px);
+  }
+
+  .borrower-scenarios::before {
+    inset-inline: clamp(18px, 5vw, 24px);
+  }
+
+  .borrower-scenarios__title {
+    max-width: 11.2ch;
+    font-size: clamp(2.65rem, 12vw, 3.5rem);
+    line-height: 0.96;
+    letter-spacing: -0.022em;
+  }
+
+  .borrower-scenarios__body {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .borrower-scenarios__ledger-head {
+    display: none;
+  }
+
+  .borrower-scenarios__list::before {
+    left: 1.25rem;
+  }
+
+  .borrower-scenarios__item {
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    gap: 0.875rem 1rem;
+    padding-block: 1.75rem;
+  }
+
+  .borrower-scenarios__number {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .borrower-scenarios__signal,
+  .borrower-scenarios__text,
+  .borrower-scenarios__review-focus {
+    grid-column: 2;
+  }
+
+  .borrower-scenarios__signal {
+    padding-top: 0.125rem;
+  }
+
+  .borrower-scenarios__item-title {
+    font-size: clamp(1.875rem, 8vw, 2.35rem);
+    line-height: 1;
+  }
+
+  .borrower-scenarios__item-body {
+    max-width: 100%;
+  }
+
+  .borrower-scenarios__icon {
+    display: none;
+  }
+
+  .borrower-scenarios__arrow {
+    display: none;
+  }
+
+  .borrower-scenarios__cta-row :is(a, .fairlend-borrower-cta) {
+    width: 100%;
+  }
+
+  .borrower-scenarios__review-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .borrower-scenarios__review-list {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .borrower-scenarios__review-list li {
+    min-height: 4.25rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .borrower-scenarios__review-list {
+    grid-template-columns: 1fr;
+  }
+}

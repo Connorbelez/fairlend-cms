@@ -1,0 +1,191 @@
+/* ------------------------------------------------------------------
+   Investor Managed Platform — DIY vs FairLend, two-column before/after.
+   ------------------------------------------------------------------ */
+
+.investor-managed {
+  position: relative;
+  padding: clamp(64px, 8vw, 120px) clamp(24px, 4vw, 56px);
+  background: var(--landing-hero-paper, #f8f7f5);
+  color: var(--landing-hero-ink, #08090a);
+  font-kerning: normal;
+  font-optical-sizing: auto;
+}
+
+.investor-managed__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.investor-managed__header {
+  max-width: 760px;
+}
+
+.investor-managed__title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(36px, 4.4vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin: 0;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+  max-width: 22ch;
+}
+
+.investor-managed__lede {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--landing-hero-muted, #494944);
+  margin: 22px 0 0;
+  max-width: 64ch;
+  text-wrap: pretty;
+}
+
+.investor-managed__columns {
+  margin-top: clamp(40px, 5vw, 64px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(20px, 2.5vw, 36px);
+}
+
+.investor-managed__column {
+  padding: clamp(24px, 2.6vw, 36px);
+  border: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+  background: #fbfaf5;
+  border-radius: 14px;
+}
+
+.investor-managed__column--fairlend {
+  border-color: var(--landing-hero-ink, #08090a);
+  background: var(--landing-hero-ink, #08090a);
+  color: var(--landing-hero-white, #fffdf9);
+  position: relative;
+  overflow: hidden;
+}
+
+.investor-managed__column--fairlend::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--landing-hero-lime, #96ec18);
+}
+
+.investor-managed__column-head {
+  margin-bottom: 20px;
+}
+
+.investor-managed__column-tag {
+  display: inline-block;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--landing-hero-muted, rgb(73 73 68));
+  padding-bottom: 12px;
+}
+
+.investor-managed__column-tag--lime {
+  color: #101010;
+  background: var(--landing-hero-lime, #96ec18);
+  padding: 4px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.14em;
+  margin-bottom: 8px;
+}
+
+.investor-managed__column-title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(22px, 2.2vw, 30px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 8px 0 0;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+}
+
+.investor-managed__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.investor-managed__list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 500;
+  color: var(--landing-hero-ink, #08090a);
+  padding: 10px 0;
+  border-top: 1px solid var(--landing-hero-line-soft, rgb(8 9 10 / 8%));
+}
+
+.investor-managed__column--fairlend .investor-managed__column-title,
+.investor-managed__column--fairlend .investor-managed__list-item {
+  color: var(--landing-hero-white, #fffdf9);
+}
+
+.investor-managed__column--fairlend .investor-managed__list-item {
+  border-color: rgb(255 253 249 / 18%);
+}
+
+.investor-managed__list-item:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.investor-managed__mark {
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.investor-managed__mark--diy {
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--landing-hero-muted, rgb(108 108 100));
+}
+
+.investor-managed__mark--lime {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  background: var(--landing-hero-lime, #96ec18);
+  color: #101010;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.investor-managed__mark--lime svg {
+  width: 12px;
+  height: 12px;
+}
+
+.investor-managed__cta-row {
+  margin-top: clamp(32px, 4vw, 48px);
+  display: flex;
+  justify-content: flex-start;
+}
+
+@media (max-width: 820px) {
+  .investor-managed__columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .investor-managed * {
+    transition: none !important;
+  }
+}

@@ -5,6 +5,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { DecorIcon } from '@/components/decor-icon'
+import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 
 export function FaqsSection() {
   return (
@@ -19,7 +20,10 @@ export function FaqsSection() {
           </p>
           <p className="text-muted-foreground">
             {"Can't find what you're looking for? "}
-            <a className="text-primary hover:underline" href="#">
+            <a
+              className="text-primary hover:underline"
+              href={buildFairlendIntakeHref({ intent: 'contact', source: 'faq-contact-link' })}
+            >
               Contact Us
             </a>
           </p>

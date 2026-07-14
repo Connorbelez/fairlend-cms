@@ -1,0 +1,16 @@
+{
+  "image_asset_count": 1,
+  "notes": "Imagegen was invoked for this asset, but the built-in generator did not expose a raw filesystem output. The production asset below is a deterministic mobile composite assembled from existing approved FairLend engraving assets and optimized through prepare_web_asset.py. The reference crop is not shipped.",
+  "assets": [
+    {
+      "id": "mobile-hero-property-path",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/mobile-hero-image/crops/mobile-hero-property-path.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/mobile-hero-image/generated/raw/mobile-hero-property-path.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/mobile-hero-image/generated/webp/mobile-hero-property-path.webp",
+      "production_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend/mobile-hero-property-path.webp",
+      "imagegen_prompt": "Reference image only. Generate a new standalone transparent PNG asset for a mobile landing-page hero illustration for FairLend, portrait composition around 390 by 435. Premium monochrome engraved real-estate finance scene on transparent background: three stacked property-path moments with a multiplex building engraving at upper left, a single-family house engraving in the middle left, and a land parcel/site-plan engraving lower left, connected by thin vertical electric-lime route markers near center. Add soft Toronto waterfront skyline, pale cloud banks, and subtle foliage engraving near the lower third. Leave clean open space at the upper left for a live heading overlay and open space at the right for live labels. Quiet precise paper-finance aesthetic, high-trust grayscale ink linework, restrained lime route accents. No readable text, no letters, no numbers, no logo, no CTA, no form fields, no UI cards, no people, no watermark, no page background, no phone frame, no cartoon, no sloppy doodle.",
+      "transparent": true,
+      "production_source": "deterministic-approved-source-composite"
+    }
+  ]
+}

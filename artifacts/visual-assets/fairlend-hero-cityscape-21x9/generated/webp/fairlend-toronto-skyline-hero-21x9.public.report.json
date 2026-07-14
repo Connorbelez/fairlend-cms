@@ -1,0 +1,11 @@
+{
+  "input": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-hero-cityscape-21x9/generated/normalized/fairlend-toronto-skyline-hero-21x9-2520x1080.png",
+  "output": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend/fairlend-toronto-skyline-hero-21x9.webp",
+  "size": {
+    "width": 2520,
+    "height": 1080
+  },
+  "transparent_background": "none",
+  "inferred_background": null,
+  "quality": 90
+}

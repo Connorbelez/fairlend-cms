@@ -3,13 +3,13 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
 
+import { getCanonicalOrigin } from '@/utilities/seo'
+import { isFairlendDemoPostSlug } from '@/lib/fairlend-posts'
+
 const getPostsSitemap = unstable_cache(
   async () => {
     const payload = await getPayload({ config })
-    const SITE_URL =
-      process.env.NEXT_PUBLIC_SERVER_URL ||
-      process.env.VERCEL_PROJECT_PRODUCTION_URL ||
-      'https://example.com'
+    const SITE_URL = getSitemapSiteUrl()
 
     const results = await payload.find({
       collection: 'posts',
@@ -29,14 +29,12 @@ const getPostsSitemap = unstable_cache(
       },
     })
 
-    const dateFallback = new Date().toISOString()
-
     const sitemap = results.docs
       ? results.docs
-          .filter((post) => Boolean(post?.slug))
+          .filter((post) => Boolean(post?.slug) && !isFairlendDemoPostSlug(post.slug))
           .map((post) => ({
             loc: `${SITE_URL}/posts/${post?.slug}`,
-            lastmod: post.updatedAt || dateFallback,
+            lastmod: post.updatedAt,
           }))
       : []
 
@@ -52,4 +50,8 @@ export async function GET() {
   const sitemap = await getPostsSitemap()
 
   return getServerSideSitemap(sitemap)
+}
+
+function getSitemapSiteUrl(): string {
+  return getCanonicalOrigin()
 }

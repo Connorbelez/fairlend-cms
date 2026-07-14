@@ -8,7 +8,7 @@ import type { Props as MediaProps } from '../types'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 
 export const VideoMedia: React.FC<MediaProps> = (props) => {
-  const { onClick, resource, videoClassName } = props
+  const { onClick, resource, videoClassName, videoOptions } = props
 
   const videoRef = useRef<HTMLVideoElement>(null)
   // const [showFallback] = useState<boolean>()
@@ -24,20 +24,27 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
   }, [])
 
   if (resource && typeof resource === 'object') {
-    const { filename } = resource
+    const { filename, url } = resource
+    const posterResource = videoOptions?.posterResource
+    const poster =
+      posterResource && typeof posterResource === 'object' && posterResource.url
+        ? getMediaUrl(posterResource.url, posterResource.updatedAt)
+        : undefined
 
     return (
       <video
-        autoPlay
+        autoPlay={videoOptions?.autoPlay ?? true}
         className={cn(videoClassName)}
-        controls={false}
-        loop
-        muted
+        controls={videoOptions?.controls ?? false}
+        loop={videoOptions?.loop ?? true}
+        muted={videoOptions?.muted ?? true}
         onClick={onClick}
         playsInline
+        poster={poster}
+        preload="metadata"
         ref={videoRef}
       >
-        <source src={getMediaUrl(`/media/${filename}`)} />
+        <source src={getMediaUrl(url || `/media/${filename}`, resource.updatedAt)} type={resource.mimeType || undefined} />
       </video>
     )
   }

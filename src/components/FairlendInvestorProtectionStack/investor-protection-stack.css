@@ -1,0 +1,202 @@
+/* ------------------------------------------------------------------
+   Investor Protection Stack — six numbered vertical bands.
+   The visual idea is defense in depth: a single column of stacked layers.
+   Lime is restricted to the layer-number marker and the question-rule mark.
+   ------------------------------------------------------------------ */
+
+.investor-protection {
+  position: relative;
+  padding: clamp(64px, 8vw, 120px) clamp(24px, 4vw, 56px);
+  background: #fbfaf5;
+  color: var(--landing-hero-ink, #08090a);
+  overflow: hidden;
+  font-kerning: normal;
+  font-optical-sizing: auto;
+}
+
+.investor-protection__inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.investor-protection__header {
+  max-width: 760px;
+}
+
+.investor-protection__eyebrow {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--landing-hero-muted, rgb(73 73 68));
+  margin: 0 0 18px;
+}
+
+.investor-protection__title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(36px, 4.4vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin: 0;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+  max-width: 18ch;
+}
+
+.investor-protection__lede {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--landing-hero-muted, #494944);
+  margin: 22px 0 0;
+  max-width: 64ch;
+  text-wrap: pretty;
+}
+
+.investor-protection__stack {
+  list-style: none;
+  margin: clamp(40px, 5vw, 64px) 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+
+.investor-protection__band {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: clamp(20px, 3vw, 40px);
+  align-items: start;
+  padding: clamp(28px, 3vw, 40px) 0;
+  border-top: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+}
+
+.investor-protection__band:first-child {
+  border-top: 1px solid var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
+}
+
+.investor-protection__band:last-child {
+  border-bottom: 1px solid var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
+}
+
+.investor-protection__band-number {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 44px;
+}
+
+.investor-protection__band-number span {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(2.25rem, 3.3vw, 3.25rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-protection__band-number::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 36px;
+  height: 2px;
+  transform: translateY(-50%);
+  background: var(--landing-hero-lime, #96ec18);
+}
+
+.investor-protection__band-body {
+  max-width: 60ch;
+}
+
+.investor-protection__band-name {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(22px, 2.2vw, 30px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+}
+
+.investor-protection__band-promise {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--landing-hero-ink, #08090a);
+  margin: 0 0 14px;
+  text-wrap: pretty;
+}
+
+.investor-protection__band-question {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--landing-hero-muted, #494944);
+}
+
+.investor-protection__band-question-mark {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--landing-hero-ink, #08090a);
+  border-radius: 50%;
+  position: relative;
+}
+
+.investor-protection__band-question-mark::before {
+  content: "?";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  font-style: normal;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-protection__foot-note {
+  margin: clamp(32px, 4vw, 48px) 0 0;
+  padding: 22px 24px;
+  border-block: 1px solid var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--landing-hero-muted, #494944);
+  max-width: 80ch;
+}
+
+@media (max-width: 720px) {
+  .investor-protection__band {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .investor-protection__band-number {
+    height: auto;
+  }
+
+  .investor-protection__band-number::before {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .investor-protection * {
+    transition: none !important;
+  }
+}

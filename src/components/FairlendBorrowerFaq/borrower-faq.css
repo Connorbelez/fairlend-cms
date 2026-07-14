@@ -1,0 +1,286 @@
+/* ------------------------------------------------------------------
+   Borrower FAQ - ruled hard-answer rows.
+   ------------------------------------------------------------------ */
+
+.borrower-faq {
+  position: relative;
+  padding: clamp(68px, 7.6vw, 116px) clamp(22px, 4vw, 56px);
+  background: #fffdf9;
+  color: var(--landing-hero-ink, #08090a);
+  font-kerning: normal;
+  font-optical-sizing: auto;
+}
+
+.borrower-faq__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.borrower-faq__header {
+  display: grid;
+  grid-template-columns: minmax(200px, 0.31fr) minmax(0, 0.69fr);
+  column-gap: clamp(26px, 5vw, 74px);
+  row-gap: clamp(20px, 2.3vw, 32px);
+  align-items: start;
+  padding-bottom: clamp(34px, 4.4vw, 62px);
+  border-bottom: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+}
+
+.borrower-faq__kicker {
+  align-self: start;
+  max-width: 16ch;
+  margin: 12px 0 0;
+  padding-top: 13px;
+  border-top: 1px solid var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
+  font-family: 'Oxanium', var(--font-inter), Arial, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+}
+
+.borrower-faq__title {
+  min-width: 0;
+  max-width: 15.5ch;
+  margin: 0;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(2.625rem, 4.35vw, 4.5rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.024em;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.borrower-faq__intro {
+  grid-column: 2;
+  min-width: 0;
+  max-width: 56ch;
+  margin: 0;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  font-weight: 500;
+  line-height: 1.58;
+  color: rgb(32 32 28);
+  text-wrap: pretty;
+}
+
+.borrower-faq__content {
+  display: grid;
+  grid-template-columns: minmax(236px, 0.3fr) minmax(0, 0.7fr);
+  gap: clamp(30px, 5vw, 80px);
+  align-items: start;
+  margin-top: clamp(36px, 4.8vw, 62px);
+}
+
+.borrower-faq__side-note {
+  position: sticky;
+  top: 112px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  max-width: 32ch;
+  min-width: 0;
+  padding: 18px 18px 17px;
+  border: 1px solid var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
+  border-radius: 12px;
+  background: rgb(251 250 245 / 72%);
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.96875rem;
+  font-weight: 600;
+  line-height: 1.56;
+  color: rgb(30 30 26);
+  text-wrap: pretty;
+}
+
+.borrower-faq__side-note svg {
+  flex: 0 0 auto;
+  color: var(--landing-hero-lime-ink, #203500);
+}
+
+.borrower-faq__side-note p {
+  margin: 0;
+}
+
+.borrower-faq__groups {
+  display: grid;
+  min-width: 0;
+  gap: clamp(34px, 4vw, 54px);
+}
+
+.borrower-faq__group-title {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  margin: 0 0 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+  font-family: 'Oxanium', var(--font-inter), Arial, sans-serif;
+  font-size: 0.765625rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.borrower-faq__group-title svg {
+  color: var(--landing-hero-lime-ink, #203500);
+}
+
+.borrower-faq__accordion {
+  border-top: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+}
+
+.borrower-faq__item {
+  border-bottom: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+}
+
+.borrower-faq__trigger {
+  min-height: 70px;
+  width: 100%;
+  min-width: 0;
+  padding: 19px 0;
+  gap: clamp(16px, 2.2vw, 26px);
+  align-items: flex-start;
+  justify-content: space-between;
+  text-align: left;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(1.375rem, 1.1rem + 1vw, 1.8125rem);
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: -0.01em;
+  color: var(--landing-hero-ink, #08090a);
+  text-decoration: none;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+.borrower-faq__trigger:hover {
+  text-decoration: none;
+}
+
+.borrower-faq__trigger svg {
+  flex: 0 0 auto;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.42em;
+  color: var(--landing-hero-lime-ink, #203500);
+}
+
+.borrower-faq__answer {
+  max-width: 62ch;
+  padding: 0 clamp(24px, 5vw, 56px) 27px 0;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.68;
+  color: rgb(28 28 24);
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 900px) {
+  .borrower-faq__header,
+  .borrower-faq__content {
+    grid-template-columns: 1fr;
+  }
+
+  .borrower-faq__intro {
+    grid-column: auto;
+    max-width: 62ch;
+  }
+
+  .borrower-faq__side-note {
+    position: relative;
+    top: auto;
+    max-width: 58ch;
+  }
+}
+
+@media (max-width: 560px) {
+  .borrower-faq {
+    padding: 58px clamp(18px, 5vw, 22px);
+  }
+
+  .borrower-faq__header {
+    row-gap: 18px;
+    padding-bottom: 30px;
+  }
+
+  .borrower-faq__kicker {
+    max-width: none;
+    margin-top: 0;
+    padding-top: 11px;
+    font-size: 0.75rem;
+    letter-spacing: 0.065em;
+  }
+
+  .borrower-faq__title {
+    max-width: 13.5ch;
+    font-size: clamp(2.375rem, 10.4vw, 3.0625rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+  }
+
+  .borrower-faq__intro {
+    font-size: 1rem;
+    line-height: 1.56;
+  }
+
+  .borrower-faq__content {
+    gap: 28px;
+    margin-top: 30px;
+  }
+
+  .borrower-faq__side-note {
+    max-width: none;
+    padding: 16px;
+    font-size: 0.9375rem;
+    line-height: 1.52;
+  }
+
+  .borrower-faq__groups {
+    gap: 32px;
+  }
+
+  .borrower-faq__group-title {
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 0.734375rem;
+    letter-spacing: 0.055em;
+  }
+
+  .borrower-faq__trigger {
+    min-height: 62px;
+    gap: 14px;
+    padding: 16px 0;
+    font-size: clamp(1.25rem, 5.25vw, 1.5rem);
+    line-height: 1.16;
+    text-wrap: pretty;
+  }
+
+  .borrower-faq__trigger svg {
+    width: 0.9375rem;
+    height: 0.9375rem;
+    margin-top: 0.38em;
+  }
+
+  .borrower-faq__answer {
+    max-width: 100%;
+    padding-right: 0;
+    padding-bottom: 23px;
+    font-size: 1rem;
+    line-height: 1.64;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .borrower-faq__trigger svg {
+    transition: none;
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "manifest_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/build-model-parcel-sketch/asset-manifest.json",
+  "image_asset_count": 1,
+  "assets": [
+    {
+      "id": "build-model-parcel-sketch",
+      "label": "Build model parcel sketch",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/build-model-parcel-sketch/crops/build-model-parcel-sketch.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/build-model-parcel-sketch/generated/raw/build-model-parcel-sketch.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/build-model-parcel-sketch/generated/webp/build-model-parcel-sketch.webp",
+      "transparent": false,
+      "prompt": "Use case: ads-marketing\nAsset type: Raster parcel feasibility artwork inside the active Parcel sketch dossier tab\nPrimary request: Use case: productivity-visual. Asset type: website card illustration for a residential construction financing landing page. Primary request: create an on-brand parcel feasibility sketch asset for FairLend's Parcel sketch tab, showing a top-down residential lot, buildable envelope, main multiplex massing, rear laneway-suite option, setback guides, frontage tick marks, and professional feasibility markups. Scene/backdrop: clean planning-desk blueprint sheet, no surrounding page UI or browser chrome. Subject: a single urban infill parcel diagram with lot boundary, soft blueprint grid, dimension ticks, buildable-area overlay, main building rectangle, rear suite pad, driveway/lane hint, and a few small lender/permit review marks. Style/medium: refined editorial technical illustration, premium financial/property-consulting brand, crisp vector-like drafting lines rendered as a raster image. Composition/framing: landscape rectangle, centered diagram, generous padding, readable at small card size, slight paper texture, no perspective distortion. Lighting/mood: calm, analytical, high-end advisory, clear and pragmatic. Color palette: warm ivory paper, pale blueprint blue, deep ink navy, muted teal, restrained FairLend green accents, small electric lime highlights. Materials/textures: subtle paper grain, fine drafting linework, translucent buildable-area washes. Text: none. Constraints: no words, no numbers, no logo, no watermark, no people, no photoreal house photo, no screenshot UI, no browser frame, no cast shadow outside the asset.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate as a clean standalone rectangular image asset.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "negative_prompt": "words, numbers, logo, watermark, people, photoreal house photo, screenshot UI, browser chrome, generic stock blueprint"
+    }
+  ]
+}

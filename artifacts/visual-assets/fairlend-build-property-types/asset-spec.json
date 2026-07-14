@@ -1,0 +1,85 @@
+{
+  "project": "fairlend-cms",
+  "source": "/Users/connor/Library/Containers/com.apple.Notes/Data/tmp/TemporaryItems/NSIRD_Notes_inywUw/HardLinkURLTemp/7805F72C-79D9-4853-8DFC-AC0AB7D84E44/1783467310/Multi-plex.png",
+  "notes": "Decomposition of the three-option build/property type selector. Crops are references only; final raster drawings must be newly generated assets.",
+  "assets": [
+    {
+      "id": "build-property-type-selector",
+      "label": "Build property type selector section",
+      "classification": "component",
+      "role": "Reusable three-row editorial selector component with live text and generated sketch assets",
+      "bbox": { "x": 0, "y": 0, "width": 915, "height": 840 },
+      "rationale": "The rows, typography, dividers, spacing, and responsive behavior should remain editable in React. The pencil drawings are referenced through separate generated image assets.",
+      "implementation": {
+        "component_name": "FairlendBuildPropertyTypes",
+        "suggested_shadcn_search": "card separator",
+        "acceptance": [
+          "Uses live text for property type labels and taglines",
+          "Uses generated WebP illustration assets rather than crop files",
+          "Adapts existing local shadcn Separator primitive or documents why CSS dividers are a better fit",
+          "Exports reusable data and component props for alternate row content"
+        ]
+      }
+    },
+    {
+      "id": "multiplex-building-engraving",
+      "label": "Multi-plex building pencil engraving",
+      "classification": "image",
+      "role": "Illustration for multi-plex row",
+      "bbox": { "x": 61, "y": 61, "width": 258, "height": 203 },
+      "rationale": "Detailed architectural pencil rendering with shrubs and trees is better generated as a transparent raster asset than recreated with code.",
+      "generation": {
+        "asset_type": "transparent architectural illustration",
+        "output_basename": "multiplex-building-engraving",
+        "transparent": true,
+        "prompt": "Use the reference crop only as visual guidance. Generate a new standalone transparent-background graphite pencil and fine ink architectural illustration of a compact three-storey urban multi-plex apartment building with a small side stair volume, front shrubs, one mature tree, and light ground hatching. Editorial real-estate marketing style, grayscale linework, subtle paper-sketch texture, crisp edges, no text, no logo, no frame, no colored background.",
+        "negative_prompt": "Do not copy the crop exactly. No words, labels, watermark, people, cars, heavy shadows, photorealism, color fill, blueprints, or background rectangle."
+      }
+    },
+    {
+      "id": "single-family-house-engraving",
+      "label": "Single family house pencil engraving",
+      "classification": "image",
+      "role": "Illustration for single-family row",
+      "bbox": { "x": 59, "y": 325, "width": 271, "height": 180 },
+      "rationale": "Detailed residential pencil rendering with landscaping is an illustration asset and should be generated as standalone raster artwork.",
+      "generation": {
+        "asset_type": "transparent architectural illustration",
+        "output_basename": "single-family-house-engraving",
+        "transparent": true,
+        "prompt": "Use the reference crop only as visual guidance. Generate a new standalone transparent-background graphite pencil and fine ink illustration of a traditional two-storey single-family home with pitched roof, front porch, centered door, windows, garden shrubs, and small trees. Editorial real-estate marketing style, grayscale architectural linework, subtle hand-rendered texture, crisp edges, no text, no logo, no frame, no colored background.",
+        "negative_prompt": "Do not copy the crop exactly. No words, labels, watermark, people, cars, heavy shadows, photorealism, color fill, or background rectangle."
+      }
+    },
+    {
+      "id": "land-parcel-plan-engraving",
+      "label": "Land parcel plan pencil engraving",
+      "classification": "image",
+      "role": "Illustration for land row",
+      "bbox": { "x": 52, "y": 625, "width": 286, "height": 134 },
+      "rationale": "The perspective parcel drawing and trees have irregular graphite texture that should be generated as a transparent raster asset.",
+      "generation": {
+        "asset_type": "transparent architectural illustration",
+        "output_basename": "land-parcel-plan-engraving",
+        "transparent": true,
+        "prompt": "Use the reference crop only as visual guidance. Generate a new standalone transparent-background graphite pencil and fine ink illustration of a perspective land parcel plan with lot lines, contour-like curves, small plotted building pads, and two trees at the back-left edge. Editorial real-estate marketing style, grayscale planning sketch, light hatching, crisp edges, no text, no logo, no frame, no colored background.",
+        "negative_prompt": "Do not copy the crop exactly. No words, labels, watermark, people, cars, heavy shadows, photorealism, color fill, or background rectangle."
+      }
+    },
+    {
+      "id": "corner-foliage-engraving",
+      "label": "Lower-right foliage pencil engraving",
+      "classification": "image",
+      "role": "Subtle decorative foliage for the selector corner",
+      "bbox": { "x": 794, "y": 708, "width": 121, "height": 96 },
+      "rationale": "The decorative shrub cluster is an irregular hand-rendered raster detail.",
+      "generation": {
+        "asset_type": "transparent botanical illustration",
+        "output_basename": "corner-foliage-engraving",
+        "transparent": true,
+        "prompt": "Use the reference crop only as visual guidance. Generate a new standalone transparent-background graphite pencil botanical illustration of a soft low shrub cluster entering from the lower-right corner, made from rounded leafy masses and light stippled texture. Grayscale editorial real-estate sketch style, subtle and airy, no text, no logo, no frame, no colored background.",
+        "negative_prompt": "Do not copy the crop exactly. No words, labels, watermark, hard border, photorealism, color fill, or background rectangle."
+      }
+    }
+  ]
+}

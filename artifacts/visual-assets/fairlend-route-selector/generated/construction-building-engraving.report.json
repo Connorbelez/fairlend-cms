@@ -1,0 +1,15 @@
+{
+  "input": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/raw/construction-building-engraving.png",
+  "output": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/webp/construction-building-engraving.webp",
+  "size": {
+    "width": 900,
+    "height": 452
+  },
+  "transparent_background": "auto",
+  "inferred_background": [
+    25,
+    233,
+    15
+  ],
+  "quality": 88
+}

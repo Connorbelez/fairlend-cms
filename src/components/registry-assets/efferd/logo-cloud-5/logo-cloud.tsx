@@ -1,16 +1,18 @@
+import Image from 'next/image'
 export function LogoCloud() {
   return (
     <div className="relative flex flex-wrap items-center justify-center gap-x-10 gap-y-8 py-6 sm:gap-x-12 sm:gap-y-12">
       {logos.map((logo) => (
-        <img
+        <Image
           alt={logo.alt}
           className="pointer-events-none h-5 w-fit select-none dark:brightness-0 dark:invert"
-          height="auto"
+          height={40}
           key={logo.alt}
           loading="lazy"
           src={logo.src}
-          width="auto"
-        />
+          width={140}
+        
+          sizes="96px"/>
       ))}
     </div>
   )

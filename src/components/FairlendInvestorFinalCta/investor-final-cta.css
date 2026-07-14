@@ -1,0 +1,107 @@
+/* ------------------------------------------------------------------
+   Investor Final CTA — calm reassurance close.
+   ------------------------------------------------------------------ */
+
+.investor-final {
+  position: relative;
+  padding: clamp(80px, 10vw, 144px) clamp(24px, 4vw, 56px);
+  background: var(--landing-hero-ink, #08090a);
+  color: var(--landing-hero-white, #fffdf9);
+  overflow: hidden;
+  font-kerning: normal;
+  font-optical-sizing: auto;
+}
+
+.investor-final::before {
+  content: none;
+}
+
+.investor-final__inner {
+  position: relative;
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.investor-final__eyebrow {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: normal;
+  color: var(--landing-hero-lime, #96ec18);
+  margin: 0 0 22px;
+}
+
+.investor-final__title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(38px, 5vw, 78px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  margin: 0;
+  color: var(--landing-hero-white, #fffdf9);
+  text-wrap: balance;
+  max-width: 22ch;
+  margin-inline: auto;
+}
+
+.investor-final__lede {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: clamp(16px, 1.15vw, 19px);
+  line-height: 1.55;
+  font-weight: 400;
+  color: rgb(255 253 249 / 78%);
+  margin: 26px auto 0;
+  max-width: 56ch;
+  text-wrap: pretty;
+}
+
+.investor-final__cta-row {
+  margin-top: clamp(32px, 4vw, 48px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.investor-final .fairlend-borrower-cta--secondary {
+  border-color: rgb(255 253 249 / 38%);
+  color: var(--landing-hero-white, #fffdf9);
+}
+
+.investor-final .fairlend-borrower-cta--secondary:hover {
+  border-color: var(--landing-hero-lime, #96ec18);
+  background: rgb(255 253 249 / 8%);
+}
+
+.investor-final .fairlend-borrower-cta--secondary:focus-visible {
+  --tw-ring-color: var(--landing-hero-lime, #96ec18);
+  --tw-ring-offset-color: var(--landing-hero-ink, #08090a);
+}
+
+.investor-final__risk {
+  margin: clamp(32px, 4vw, 48px) auto 0;
+  max-width: 56ch;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.6;
+  font-weight: 400;
+  color: rgb(255 253 249 / 64%);
+}
+
+@media (max-width: 480px) {
+  .investor-final__cta-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .investor-final__cta-row :is(a, .fairlend-borrower-cta) {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .investor-final * {
+    transition: none !important;
+  }
+}

@@ -1,0 +1,604 @@
+.footer {
+  --footer-black: #050607;
+  --footer-ink: #f1f0ea;
+  --footer-muted: #a4a4a2;
+  --footer-rule: rgb(241 240 234 / 25%);
+  --footer-lime: #b3dd2c;
+  position: relative;
+  margin-top: auto;
+  overflow: hidden;
+  background: var(--footer-black);
+  color: var(--footer-ink);
+  font-family: var(--font-inter), Arial, sans-serif;
+}
+
+.skyline {
+  --spotlight-x: 50%;
+  --spotlight-y: 32%;
+  position: relative;
+  aspect-ratio: 2170 / 725;
+  overflow: hidden;
+  background: var(--footer-black);
+  border-bottom: 1px solid var(--footer-rule);
+  isolation: isolate;
+}
+
+.skyline::before {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background-image: url('/assets/footer/fairlend-toronto-waterfront.webp');
+  background-position: center bottom;
+  background-size: cover;
+  content: '';
+}
+
+.wordmark {
+  position: absolute;
+  z-index: 2;
+  top: 30px;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%) scaleX(1.24);
+  background-image: radial-gradient(circle, rgb(241 240 234 / 22%) 0.85px, transparent 1px);
+  background-position: center;
+  background-size: 3px 3px;
+  background-clip: text;
+  color: transparent;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(150px, 19.75vw, 330px);
+  font-weight: 500;
+  line-height: 0.82;
+  letter-spacing: -0.075em;
+  text-align: center;
+  white-space: nowrap;
+  mix-blend-mode: screen;
+  user-select: none;
+  -webkit-background-clip: text;
+}
+
+.wordmark::after {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--footer-lime) 0.85px, transparent 1px);
+  background-position: center;
+  background-size: 3px 3px;
+  background-clip: text;
+  color: transparent;
+  content: attr(data-text);
+  filter: drop-shadow(0 0 8px rgb(179 221 44 / 28%));
+  opacity: 0;
+  transition: opacity 350ms cubic-bezier(0.22, 1, 0.36, 1);
+  -webkit-background-clip: text;
+  -webkit-mask-image: radial-gradient(
+    circle 190px at var(--wordmark-spotlight-x, 50%) var(--wordmark-spotlight-y, 50%),
+    #000 0%,
+    rgb(0 0 0 / 88%) 34%,
+    transparent 76%
+  );
+  mask-image: radial-gradient(
+    circle 190px at var(--wordmark-spotlight-x, 50%) var(--wordmark-spotlight-y, 50%),
+    #000 0%,
+    rgb(0 0 0 / 88%) 34%,
+    transparent 76%
+  );
+  pointer-events: none;
+}
+
+.signalGlow {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: radial-gradient(
+    circle 240px at var(--spotlight-x) var(--spotlight-y),
+    rgb(179 221 44 / 9%),
+    rgb(179 221 44 / 3%) 42%,
+    transparent 74%
+  );
+  mix-blend-mode: screen;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.skyline[data-pointer-active='true'] .wordmark::after {
+  opacity: 0.78;
+}
+
+.skyline[data-pointer-active='true'] .signalGlow {
+  opacity: 1;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .wordmark::after,
+  .signalGlow {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wordmark::after,
+  .signalGlow {
+    opacity: 0;
+    transition: none;
+  }
+}
+
+.content {
+  width: 100%;
+  min-height: 383px;
+  background:
+    radial-gradient(circle at 50% -35%, rgb(255 255 255 / 3%), transparent 45%), var(--footer-black);
+}
+
+.primaryRow {
+  display: grid;
+  grid-template-columns: 312px minmax(0, 1fr) 375px;
+  min-height: 311px;
+  padding: 32px 66px 34px;
+}
+
+.brandPanel {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid var(--footer-rule);
+  padding: 6px 42px 8px 0;
+}
+
+.statement {
+  margin: 0;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.21;
+  letter-spacing: 0.01em;
+}
+
+.brandLockup {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 18px;
+  color: var(--footer-ink);
+  text-decoration: none;
+}
+
+.brandMark {
+  display: grid;
+  width: 41px;
+  height: 41px;
+  place-items: center;
+  border: 1.5px solid var(--footer-lime);
+  border-radius: 999px;
+  color: var(--footer-lime);
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 29px;
+  line-height: 1;
+}
+
+.brandName {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 17px;
+  letter-spacing: 0.42em;
+}
+
+.navigation {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 38px;
+  min-width: 0;
+  padding: 13px 40px 0;
+}
+
+.navColumn {
+  min-width: 0;
+}
+
+.navColumn h2 {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.columnRule {
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin-bottom: 16px;
+  background: var(--footer-rule);
+}
+
+.navColumn ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  gap: 15px;
+  list-style: none;
+}
+
+.navColumn a {
+  color: var(--footer-muted);
+  font-size: 15px;
+  line-height: 1.3;
+  text-decoration: none;
+  transition: color 160ms ease;
+  white-space: nowrap;
+}
+
+.navColumn a:hover,
+.navColumn a:focus-visible,
+.legalLinks a:hover,
+.legalLinks a:focus-visible,
+.contactDetails a:hover,
+.contactDetails a:focus-visible {
+  color: var(--footer-lime);
+}
+
+.contactPanel {
+  border-left: 1px solid var(--footer-rule);
+  padding: 13px 0 0 42px;
+}
+
+.contactPanel h2 {
+  margin: 0 0 14px;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0.015em;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 60px;
+  gap: 12px;
+  width: 100%;
+  height: 58px;
+}
+
+.emailInput {
+  height: 58px;
+  border: 0;
+  border-radius: 0;
+  background: #f4f4f4;
+  padding: 0 19px;
+  color: #242424;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 17px;
+  box-shadow: none;
+}
+
+.emailInput::placeholder {
+  color: #747474;
+  opacity: 1;
+}
+
+.emailInput:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--footer-lime);
+}
+
+.submitButton {
+  width: 60px;
+  height: 58px;
+  border: 0;
+  border-radius: 0;
+  background: var(--footer-lime);
+  color: #0d1600;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 28%);
+}
+
+.submitButton:hover,
+.submitButton:focus-visible {
+  background: #c0ff2c;
+}
+
+.submitButton svg {
+  width: 25px;
+  height: 25px;
+  stroke-width: 1.7;
+}
+
+.formStatus {
+  min-height: 16px;
+  margin: 4px 0 0;
+  color: var(--footer-muted);
+  font-size: 11px;
+}
+
+.contactRule {
+  height: 1px;
+  margin: 14px 0 26px;
+  background: var(--footer-rule);
+}
+
+.contactDetails {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.phoneIcon {
+  display: grid;
+  width: 47px;
+  height: 47px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--footer-lime);
+  color: #071000;
+}
+
+.phoneIcon svg {
+  width: 22px;
+  height: 22px;
+  fill: currentcolor;
+  stroke-width: 1.8;
+}
+
+.contactDetails p {
+  margin: 0;
+  color: var(--footer-muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.contactDetails a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.legalRow {
+  position: relative;
+  display: flex;
+  min-height: 72px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 66px;
+  border-top: 1px solid var(--footer-rule);
+  color: #929393;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+}
+
+.coordinates,
+.legalLinks {
+  display: flex;
+  align-items: center;
+}
+
+.coordinates {
+  gap: 39px;
+}
+
+.legalLinks {
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 36px;
+  padding-block: 18px;
+}
+
+.legalLinks a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.legalLinks a:not(:first-child) {
+  letter-spacing: 0;
+}
+
+.verticalRule {
+  width: 1px;
+  height: 27px;
+  background: var(--footer-rule);
+}
+
+.crosshair,
+.centerTick {
+  position: relative;
+  display: block;
+  width: 25px;
+  height: 25px;
+  flex: 0 0 auto;
+}
+
+.crosshair::before,
+.crosshair::after,
+.centerTick::before,
+.centerTick::after {
+  position: absolute;
+  content: '';
+  background: #777979;
+}
+
+.crosshair::before,
+.centerTick::before {
+  top: 12px;
+  left: 0;
+  width: 25px;
+  height: 1px;
+}
+
+.crosshair::after,
+.centerTick::after {
+  top: 0;
+  left: 12px;
+  width: 1px;
+  height: 25px;
+}
+
+.crosshair {
+  border: 1px solid #777979;
+  border-radius: 999px;
+  transform: scale(0.58);
+}
+
+.centerTick {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 1279px) {
+  .wordmark {
+    top: 40px;
+  }
+
+  .primaryRow {
+    grid-template-columns: 260px minmax(0, 1fr);
+    padding-inline: 40px;
+  }
+
+  .navigation {
+    gap: 24px;
+    padding-right: 0;
+  }
+
+  .contactPanel {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(170px, 0.5fr) minmax(360px, 1fr) minmax(260px, 0.7fr);
+    align-items: center;
+    gap: 24px;
+    margin-top: 32px;
+    border-top: 1px solid var(--footer-rule);
+    border-left: 0;
+    padding: 28px 0 0;
+  }
+
+  .contactPanel h2,
+  .formStatus {
+    margin: 0;
+  }
+
+  .contactRule {
+    display: none;
+  }
+
+  .legalRow {
+    margin-inline: 40px;
+  }
+}
+
+@media (max-width: 899px) {
+  .wordmark {
+    top: 58px;
+    font-size: 24vw;
+  }
+
+  .primaryRow {
+    grid-template-columns: 1fr;
+    padding: 36px 28px;
+  }
+
+  .brandPanel {
+    flex-direction: row;
+    align-items: flex-end;
+    border-right: 0;
+    border-bottom: 1px solid var(--footer-rule);
+    padding: 0 0 30px;
+  }
+
+  .statement {
+    font-size: 27px;
+  }
+
+  .navigation {
+    gap: 40px 28px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 36px 0;
+  }
+
+  .contactPanel {
+    grid-column: auto;
+    grid-template-columns: 1fr;
+    margin: 0;
+  }
+
+  .formStatus {
+    position: absolute;
+  }
+
+  .contactDetails {
+    margin-top: 6px;
+  }
+
+  .legalRow {
+    min-height: 118px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 24px;
+    margin-inline: 28px;
+  }
+
+  .centerTick {
+    display: none;
+  }
+
+  .legalLinks {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 24px;
+  }
+
+  .legalLinks .crosshair {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 559px) {
+  .wordmark {
+    top: 72px;
+    font-size: 25vw;
+  }
+
+  .primaryRow {
+    padding-inline: 20px;
+  }
+
+  .brandPanel {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .statement {
+    font-size: 25px;
+  }
+
+  .navigation {
+    gap: 34px 18px;
+  }
+
+  .navColumn h2 {
+    font-size: 12px;
+  }
+
+  .navColumn a {
+    font-size: 13px;
+  }
+
+  .legalRow {
+    margin-inline: 20px;
+  }
+
+  .coordinates {
+    gap: 18px;
+  }
+
+  .legalLinks {
+    flex-wrap: wrap;
+    font-size: 10px;
+  }
+
+  .verticalRule {
+    height: 18px;
+  }
+}

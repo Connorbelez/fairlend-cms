@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Selected Section Concept — One team, every stage</title>
+    <style>
+      :root {
+        --paper: #f8f7f5;
+        --white: #fffdf9;
+        --ink: #08090a;
+        --ink-deep: #030405;
+        --muted: #6c6c64;
+        --rule: #deded8;
+        --lime: #8dff00;
+        --blueprint: #002949;
+        --forest: #002416;
+        --font-inter: 'Inter';
+        --font-cormorant: 'Cormorant Garamond';
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--ink);
+        color: var(--paper);
+        font-family: var(--font-inter), ui-sans-serif, sans-serif;
+      }
+      main {
+        width: min(1280px, calc(100% - 40px));
+        margin: 0 auto;
+        border-inline: 1px solid rgb(255 255 255 / 16%);
+      }
+      header {
+        padding: 72px clamp(24px, 6vw, 80px);
+        border-bottom: 1px solid rgb(255 255 255 / 18%);
+      }
+      .label {
+        color: var(--lime);
+        font:
+          800 10px/1.2 ui-monospace,
+          monospace;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--font-cormorant), Georgia, serif;
+        font-weight: 500;
+      }
+      h1 {
+        max-width: 900px;
+        margin: 20px 0;
+        font-size: clamp(54px, 7vw, 100px);
+        line-height: 0.9;
+        letter-spacing: -0.04em;
+      }
+      .lead {
+        max-width: 760px;
+        margin: 0;
+        color: var(--rule);
+        font-size: 18px;
+        line-height: 1.6;
+      }
+      .preserve {
+        padding: 48px clamp(24px, 6vw, 80px);
+        background: var(--paper);
+        color: var(--ink);
+      }
+      .preserve h2,
+      .lifecycle h2 {
+        margin: 0 0 25px;
+        font-size: clamp(36px, 4vw, 58px);
+      }
+      .preserve-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        border: 1px solid var(--ink);
+      }
+      .preserve-card {
+        padding: 24px;
+      }
+      .preserve-card + .preserve-card {
+        border-left: 1px solid var(--ink);
+      }
+      .preserve-card h3 {
+        margin: 8px 0 12px;
+        font-size: 30px;
+      }
+      .preserve-card p {
+        margin: 0;
+        color: #494944;
+        line-height: 1.55;
+      }
+      .keep {
+        display: inline-block;
+        padding: 5px 8px;
+        background: var(--lime);
+        font:
+          800 9px/1 ui-monospace,
+          monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .lifecycle {
+        padding: 64px clamp(24px, 6vw, 80px);
+      }
+      .station {
+        display: grid;
+        grid-template-columns: 70px minmax(240px, 0.8fr) minmax(0, 1.2fr);
+        gap: 22px;
+        padding: 38px 0;
+        border-top: 1px solid rgb(255 255 255 / 18%);
+      }
+      .num {
+        display: grid;
+        width: 50px;
+        height: 50px;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--lime);
+        color: var(--ink);
+        font:
+          800 12px ui-monospace,
+          monospace;
+      }
+      .station h3 {
+        margin: 0 0 12px;
+        font-size: clamp(30px, 3vw, 45px);
+        line-height: 1;
+      }
+      .station-copy p {
+        margin: 0;
+        color: var(--rule);
+        line-height: 1.55;
+      }
+      .compare {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        border: 1px solid rgb(255 255 255 / 26%);
+      }
+      .compare > div {
+        padding: 18px;
+        min-height: 150px;
+      }
+      .without {
+        background-image: radial-gradient(
+          circle,
+          rgb(255 255 255 / 10%) 0 0.7px,
+          transparent 0.9px
+        );
+        background-size: 5px 5px;
+      }
+      .with {
+        border-left: 1px solid var(--ink);
+        background: var(--white);
+        color: var(--ink);
+        box-shadow: inset 0 4px 0 var(--lime);
+      }
+      .compare strong {
+        display: block;
+        margin-bottom: 12px;
+        font:
+          800 9px/1 ui-monospace,
+          monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+      .compare p {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .drawflow {
+        margin-top: 28px;
+        padding: 34px;
+        border: 1px solid var(--rule);
+        background: var(--blueprint);
+      }
+      .drawflow h3 {
+        max-width: 650px;
+        margin: 15px 0;
+        font-size: clamp(42px, 5vw, 72px);
+        line-height: 0.95;
+      }
+      .drawflow .proof {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-top: 24px;
+        border: 1px solid var(--rule);
+      }
+      .drawflow .proof div {
+        padding: 20px;
+      }
+      .drawflow .proof div + div {
+        border-left: 1px solid var(--rule);
+        background: var(--forest);
+      }
+      .drawflow b {
+        color: var(--lime);
+      }
+      .ledger {
+        padding: 48px clamp(24px, 6vw, 80px);
+        background: var(--ink-deep);
+        border-top: 1px solid rgb(255 255 255 / 18%);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        color: #ddd;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      th,
+      td {
+        padding: 14px;
+        border: 1px solid rgb(255 255 255 / 18%);
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        color: var(--lime);
+        font:
+          800 9px ui-monospace,
+          monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      footer {
+        padding: 26px clamp(24px, 6vw, 80px);
+        background: var(--lime);
+        color: var(--ink);
+        font-weight: 800;
+      }
+      @media (max-width: 800px) {
+        .preserve-grid,
+        .station,
+        .compare,
+        .drawflow .proof {
+          grid-template-columns: 1fr;
+        }
+        .preserve-card + .preserve-card,
+        .with,
+        .drawflow .proof div + div {
+          border-left: 0;
+          border-top: 1px solid var(--ink);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="label">Checkpoint 05 · Selected concept</div>
+        <h1>One team, every stage.</h1>
+        <p class="lead">
+          Keep the builder in control while FairLend connects feasibility, provided construction
+          financing, adjustable milestone draws, CMHC-insured takeout financing, and the Unf*ck
+          Contingency Program.
+        </p>
+      </header>
+
+      <section class="preserve">
+        <div class="label" style="color: #203500">Content preservation lock</div>
+        <h2>These current modules remain.</h2>
+        <div class="preserve-grid">
+          <article class="preserve-card">
+            <span class="keep">Preserve</span>
+            <h3>Two builder starting points</h3>
+            <p>
+              Keep the complete “Already building / First-time builder” ledger, shared lead,
+              full-project-team promise, consultation CTA, and first-conversation microcopy.
+            </p>
+          </article>
+          <article class="preserve-card">
+            <span class="keep">Preserve</span>
+            <h3>Full DrawFlow proof chapter</h3>
+            <p>
+              Keep the milestone line of credit, up-to-15-draw comparison, illustrative savings,
+              custom schedule, mid-build modifications, specialist/network access, and client
+              signal.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="lifecycle">
+        <div class="label">Selected lifecycle</div>
+        <h2>Plan → Finance → DrawFlow → Build Support → Takeout → Unf*ck</h2>
+
+        <article class="station">
+          <span class="num">01</span>
+          <div class="station-copy">
+            <h3>Plan</h3>
+            <p>
+              Test whether the site, scope, budget, approvals, and exit support a financeable build
+              before committing more capital.
+            </p>
+          </div>
+          <div class="compare">
+            <div class="without">
+              <strong>× Without FairLend</strong>
+              <p>Land and design decisions can harden before financing constraints are tested.</p>
+            </div>
+            <div class="with">
+              <strong>+ With FairLend</strong>
+              <p>
+                You pressure-test project economics and the exit while the scope can still change.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article class="station">
+          <span class="num">02</span>
+          <div class="station-copy">
+            <h3>Finance</h3>
+            <p>
+              FairLend provides construction financing and structures advances around the actual
+              build.
+            </p>
+          </div>
+          <div class="compare">
+            <div class="without">
+              <strong>× Without FairLend</strong>
+              <p>
+                Capital can arrive too late or be advanced too early, squeezing the build or
+                increasing interest.
+              </p>
+            </div>
+            <div class="with">
+              <strong>+ With FairLend</strong>
+              <p>
+                Financing is staged around the work, balancing available capital against interest on
+                advanced funds.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <section class="drawflow">
+          <div class="label">Powered by DrawFlow · preserved</div>
+          <h3>A milestone line of credit for your build.</h3>
+          <p>More draws. Less interest. <b>Fund the work, not the wait.</b></p>
+          <div class="proof">
+            <div>
+              <span class="label">Traditional</span>
+              <h3>3 draws</h3>
+            </div>
+            <div>
+              <span class="label">FairLend</span>
+              <h3>up to 15 draws</h3>
+            </div>
+          </div>
+        </section>
+
+        <article class="station">
+          <span class="num">03</span>
+          <div class="station-copy">
+            <h3>Build Support</h3>
+            <p>Adjust the draw plan mid-build as the work and capital requirements change.</p>
+          </div>
+          <div class="compare">
+            <div class="without">
+              <strong>× Without FairLend</strong>
+              <p>A static draw schedule can stop matching the site.</p>
+            </div>
+            <div class="with">
+              <strong>+ With FairLend</strong>
+              <p>You revise milestones and draw timing with FairLend as the work shifts.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="station">
+          <span class="num">04</span>
+          <div class="station-copy">
+            <h3>Takeout</h3>
+            <p>
+              Work toward CMHC-insured eligibility early; FairLend provides the takeout financing
+              for eligible projects.
+            </p>
+          </div>
+          <div class="compare">
+            <div class="without">
+              <strong>× Without FairLend</strong>
+              <p>Eligibility gaps can surface near maturity when they are harder to correct.</p>
+            </div>
+            <div class="with">
+              <strong>+ With FairLend</strong>
+              <p>You prepare the application and takeout path with the same financing partner.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="station">
+          <span class="num">05</span>
+          <div class="station-copy">
+            <h3>Unf*ck Contingency Program</h3>
+            <p>
+              Diagnose the connected project and financing problem, then coordinate a prioritized
+              recovery path.
+            </p>
+          </div>
+          <div class="compare">
+            <div class="without">
+              <strong>× Without FairLend</strong>
+              <p>Each advisor sees one symptom while nobody owns the full recovery.</p>
+            </div>
+            <div class="with">
+              <strong>+ With FairLend</strong>
+              <p>
+                FairLend works with you to identify root constraints, priorities, owners, options,
+                and limits.
+              </p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="ledger">
+        <h2>Claims and implementation lock</h2>
+        <table>
+          <tr>
+            <th>Claim</th>
+            <th>Production rule</th>
+          </tr>
+          <tr>
+            <td>Up to 15 draws / ≈ $12,000 illustrative savings</td>
+            <td>Preserve current caveats and validate substantiation before publication.</td>
+          </tr>
+          <tr>
+            <td>FairLend-provided construction and CMHC-insured takeout financing</td>
+            <td>
+              Use approved entity/product wording; never imply guaranteed approval or funding.
+            </td>
+          </tr>
+          <tr>
+            <td>Modify draw plan mid-build</td>
+            <td>
+              Qualify with financing terms, underwriting, lender conditions, and project status
+              where required.
+            </td>
+          </tr>
+          <tr>
+            <td>Unf*ck Contingency Program</td>
+            <td>Keep name prominent and preserve no-guarantee recovery language.</td>
+          </tr>
+        </table>
+      </section>
+
+      <footer>Next phase: approve production implementation from SECTION-DESIGN.md.</footer>
+    </main>
+
+    <script type="application/json" id="section-builder-state">
+      {
+        "workflow": "existing-landing-page-section-builder",
+        "checkpoint_id": "selected-section-concept",
+        "phase_completed": 5,
+        "previous_checkpoint": "checkpoint-04-section-visual-concepts",
+        "next_phase": "production-implementation",
+        "page_context": {
+          "page_name": "FairLend root landing page",
+          "page_type": "homepage",
+          "primary_audience": "GTA builders and property owners",
+          "primary_conversion": "free build consultation",
+          "existing_section_order": ["overview", "build model", "builder consulting", "leadership"],
+          "insertion_point": {
+            "previous_section": "overview",
+            "next_section": "builder consulting"
+          }
+        },
+        "locked_decisions": {
+          "section_role": "explain and prove end-to-end builder financing support",
+          "target_belief": "FairLend works with the builder and provides financing across every stage",
+          "primary_objection": "FairLend may sound like consulting rather than a capital and execution partner",
+          "cta_strategy": "preserve free consultation CTA",
+          "locked_copy": {
+            "concept": "One team, every stage",
+            "preserve": ["AudiencePaths", "DrawFlowStep"]
+          }
+        },
+        "visual_system_extraction": {
+          "grid": "existing sticky dossier plus scroll narrative",
+          "typography": "Cormorant / Inter / Oxanium",
+          "color": "paper, ink, blueprint, forest, lime signal",
+          "spacing": "existing build-model rhythm",
+          "component_style": "working financing dossier",
+          "motion_language": "competent progress through a live deal file"
+        },
+        "claims_ledger": [
+          "up to 15 draws",
+          "illustrative savings",
+          "provided financing",
+          "CMHC-insured takeout",
+          "recovery guardrail"
+        ],
+        "framework_application_ledger": [
+          "Messaging Architecture",
+          "Problem-Solution",
+          "Choice Architecture",
+          "Cialdini",
+          "Grid Systems",
+          "Fitts's Law"
+        ],
+        "section_contract": {
+          "selected_concept": "01",
+          "preserve_components": [
+            "AudiencePaths",
+            "DrawFlowStep",
+            "ThesisStrip",
+            "BuildModelBoard",
+            "BuildModelMotion"
+          ],
+          "station_order": [
+            "Plan",
+            "Finance",
+            "DrawFlow",
+            "Build Support",
+            "Takeout",
+            "Unf*ck Contingency"
+          ]
+        },
+        "open_questions": [],
+        "next_phase_instructions": "Implement the production delta exactly from SECTION-DESIGN.md after explicit approval."
+      }
+    </script>
+  </body>
+</html>

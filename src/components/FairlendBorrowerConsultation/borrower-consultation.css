@@ -1,0 +1,570 @@
+/* ------------------------------------------------------------------
+   Borrower Consultation — final CTA with wired lead form.
+   Two-column close: copy left, bordered paper panel form right.
+   ------------------------------------------------------------------ */
+
+.borrower-consultation {
+  --borrower-consultation-ink: var(--landing-hero-ink, #08090a);
+  --borrower-consultation-body: rgb(45 45 40);
+  --borrower-consultation-muted: rgb(73 73 68);
+  --borrower-consultation-soft: rgb(87 87 80);
+  --borrower-consultation-error: rgb(159 31 31);
+
+  padding: clamp(64px, 7vw, 112px) clamp(24px, 4vw, 56px);
+  background: #f7f6f1;
+  color: var(--landing-hero-ink, #08090a);
+  font-kerning: normal;
+  scroll-margin-top: 24px;
+}
+
+.borrower-consultation__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+  gap: clamp(38px, 5.5vw, 88px);
+  align-items: start;
+}
+
+/* ---- Copy column ---- */
+.borrower-consultation__copy {
+  padding-top: clamp(2px, 0.8vw, 12px);
+}
+
+.borrower-consultation__kicker {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--borrower-consultation-muted);
+  margin: 0 0 18px;
+  overflow-wrap: anywhere;
+}
+
+.borrower-consultation__title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(3.25rem, 5.3vw, 5.375rem);
+  line-height: 0.94;
+  letter-spacing: -0.028em;
+  margin: 0;
+  color: var(--borrower-consultation-ink);
+  text-wrap: balance;
+  max-width: 13.5ch;
+  overflow-wrap: anywhere;
+}
+
+.borrower-consultation__body {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: clamp(1rem, 1.02vw, 1.125rem);
+  line-height: 1.66;
+  font-weight: 450;
+  color: var(--borrower-consultation-body);
+  margin: clamp(24px, 2.5vw, 34px) 0 0;
+  max-width: 57ch;
+  text-wrap: pretty;
+}
+
+.borrower-consultation__reassurance {
+  list-style: none;
+  margin: clamp(30px, 3vw, 42px) 0 0;
+  padding: 0;
+  display: grid;
+  border-top: 1px solid rgb(8 9 10 / 18%);
+  border-bottom: 1px solid rgb(8 9 10 / 18%);
+}
+
+.borrower-consultation__reassurance-item {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(12px, 1.2vw, 16px);
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: clamp(0.9375rem, 0.9vw, 1rem);
+  line-height: 1.5;
+  font-weight: 500;
+  color: var(--borrower-consultation-ink);
+  max-width: 60ch;
+  padding: clamp(15px, 1.5vw, 18px) 0;
+  text-wrap: pretty;
+}
+
+.borrower-consultation__reassurance-item + .borrower-consultation__reassurance-item {
+  border-top: 1px solid rgb(8 9 10 / 10%);
+}
+
+.borrower-consultation__reassurance-mark {
+  flex-shrink: 0;
+  width: 11px;
+  height: 11px;
+  margin-top: 0.35em;
+  border-radius: 2px;
+  background: var(--landing-hero-lime, #96ec18);
+  box-shadow: inset 0 0 0 1px rgb(8 9 10 / 18%);
+}
+
+.borrower-consultation__reassurance-copy {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.borrower-consultation__reassurance-copy strong {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.28;
+  font-weight: 800;
+  color: var(--borrower-consultation-ink);
+  text-wrap: balance;
+}
+
+.borrower-consultation__reassurance-copy span {
+  display: block;
+  color: var(--borrower-consultation-body);
+  max-width: 56ch;
+}
+
+.borrower-consultation__support {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.5rem, 2.25vw, 2.25rem);
+  line-height: 1.12;
+  letter-spacing: -0.012em;
+  color: var(--borrower-consultation-ink);
+  margin: clamp(28px, 3vw, 42px) 0 0;
+  max-width: 28ch;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.borrower-consultation__specialist {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.borrower-consultation__phone {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--borrower-consultation-soft);
+  max-width: 32ch;
+  text-wrap: pretty;
+}
+
+.borrower-consultation__phone span {
+  overflow-wrap: anywhere;
+}
+
+.borrower-consultation__phone svg {
+  flex: 0 0 auto;
+  margin-top: 0.2em;
+}
+
+.borrower-consultation__specialist .fairlend-borrower-cta__label {
+  font-size: 0.9375rem;
+  line-height: 1.15;
+  font-weight: 650;
+  text-wrap: balance;
+}
+
+/* ---- Form panel ---- */
+.borrower-consultation__form-panel {
+  padding: clamp(24px, 3vw, 40px);
+  background: #fbfaf5;
+  border: 1px solid rgb(8 9 10 / 22%);
+  border-radius: 14px;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 72%);
+}
+
+/* ---- Form internals ---- */
+.consultation-form {
+  display: block;
+}
+
+.consultation-form__heading {
+  display: grid;
+  gap: 10px;
+  padding: 0 0 clamp(20px, 2.4vw, 28px);
+  margin: 0 0 clamp(20px, 2.4vw, 28px);
+  border-bottom: 1px solid rgb(8 9 10 / 16%);
+}
+
+.consultation-form__eyebrow,
+.consultation-form__success-kicker {
+  font-family: 'Oxanium', 'Arial Narrow', system-ui, sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: 0.105em;
+  text-transform: uppercase;
+  color: var(--borrower-consultation-muted);
+  overflow-wrap: anywhere;
+}
+
+.consultation-form__eyebrow {
+  margin: 0;
+}
+
+.consultation-form__title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(2.125rem, 2.8vw, 2.875rem);
+  line-height: 1.02;
+  letter-spacing: -0.022em;
+  font-weight: 500;
+  color: var(--borrower-consultation-ink);
+  margin: 0;
+  max-width: 15ch;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.consultation-form__promise {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.62;
+  font-weight: 500;
+  color: var(--borrower-consultation-body);
+  max-width: 54ch;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.consultation-form__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 22px;
+}
+
+.consultation-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.consultation-form__field--full {
+  grid-column: 1 / -1;
+}
+
+.consultation-form__label {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.28;
+  font-weight: 750;
+  letter-spacing: 0;
+  color: var(--borrower-consultation-ink);
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+.consultation-form__required {
+  color: var(--borrower-consultation-soft);
+}
+
+.consultation-form__field input,
+.consultation-form__field textarea,
+.consultation-form__field [data-slot='select-trigger'] {
+  /* Override shadcn defaults so fields meet 44px touch targets and match the
+     dossier/editorial feel. */
+  min-height: 48px;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.35;
+  border-radius: 9px;
+  border-color: rgb(8 9 10 / 18%);
+  background: #fffdf9;
+  color: var(--borrower-consultation-ink);
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+  text-overflow: ellipsis;
+}
+
+.consultation-form__field [data-slot='select-trigger'] {
+  height: 48px;
+}
+
+.consultation-form__field textarea {
+  min-height: auto;
+  line-height: 1.5;
+  resize: vertical;
+  overflow-wrap: anywhere;
+}
+
+.consultation-form__field input::placeholder,
+.consultation-form__field textarea::placeholder,
+.consultation-form__field [data-placeholder] {
+  color: var(--borrower-consultation-muted);
+  opacity: 1;
+}
+
+.consultation-form__field input:focus-visible,
+.consultation-form__field textarea:focus-visible,
+.consultation-form__field [data-slot='select-trigger']:focus-visible {
+  outline: none;
+  border-color: var(--landing-hero-ink, #08090a);
+  box-shadow: 0 0 0 3px rgb(8 9 10 / 8%);
+}
+
+.consultation-form__field input[aria-invalid='true'],
+.consultation-form__field [data-slot='select-trigger'][aria-invalid='true'] {
+  border-color: rgb(176 38 38);
+}
+
+.consultation-form__error {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.48;
+  font-weight: 650;
+  color: var(--borrower-consultation-error);
+  margin-top: 2px;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+.consultation-form__alert {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  font-weight: 500;
+  color: var(--borrower-consultation-error);
+  background: rgb(159 31 31 / 8%);
+  border: 1px solid rgb(159 31 31 / 24%);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 0 0 22px;
+  display: grid;
+  gap: 4px;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+.consultation-form__alert strong {
+  font-weight: 800;
+  color: rgb(122 17 17);
+}
+
+.consultation-form__actions {
+  margin-top: 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.consultation-form__submit {
+  /* Lime CTA — matches the page's primary action treatment. */
+  height: 52px;
+  border-radius: 9px;
+  background: #96ec18;
+  color: #101010;
+  font-size: 1rem;
+  line-height: 1.15;
+  font-weight: 650;
+  letter-spacing: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  text-wrap: balance;
+  box-shadow: 0 10px 24px rgb(118 205 0 / 12%);
+  transition:
+    background-color 200ms ease,
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.consultation-form__submit:hover:not(:disabled) {
+  background: #a4fb20;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 32px rgb(118 205 0 / 18%);
+}
+
+.consultation-form__submit:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #111,
+    0 0 0 6px #f8f7f5;
+}
+
+.consultation-form__submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.consultation-form__microcopy {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  font-weight: 600;
+  color: var(--borrower-consultation-body);
+  margin: 0;
+  text-align: left;
+  text-wrap: pretty;
+  max-width: 62ch;
+  align-self: center;
+  overflow-wrap: anywhere;
+}
+
+.consultation-form__microcopy a {
+  color: var(--borrower-consultation-ink);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---- Success state ---- */
+.consultation-form--success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 520px;
+  padding: clamp(34px, 5vw, 58px) 8px;
+}
+
+.consultation-form__success-icon {
+  width: 54px;
+  height: 54px;
+  padding: 10px;
+  border-radius: 50%;
+  color: #101010;
+  background: var(--landing-hero-lime, #96ec18);
+  box-shadow: inset 0 0 0 1px rgb(8 9 10 / 16%);
+}
+
+.consultation-form__success-kicker {
+  margin: 6px 0 0;
+  color: var(--borrower-consultation-body);
+}
+
+.consultation-form__success-title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(2.375rem, 3.6vw, 3.625rem);
+  line-height: 0.98;
+  letter-spacing: -0.022em;
+  font-weight: 500;
+  color: var(--borrower-consultation-ink);
+  margin: 2px 0 0;
+  max-width: 11ch;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.consultation-form__success-copy {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.62;
+  color: var(--borrower-consultation-body);
+  max-width: 42ch;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.consultation-form__success-note {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--borrower-consultation-muted);
+  margin: 4px 0 0;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 960px) {
+  .borrower-consultation__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .borrower-consultation__title {
+    max-width: 15ch;
+  }
+
+  .consultation-form__title {
+    max-width: 16ch;
+  }
+}
+
+@media (max-width: 560px) {
+  .borrower-consultation {
+    padding: clamp(56px, 14vw, 72px) clamp(18px, 5vw, 24px);
+  }
+
+  .borrower-consultation__title {
+    font-size: clamp(2.75rem, 12vw, 3.375rem);
+    line-height: 0.98;
+    max-width: 13ch;
+  }
+
+  .borrower-consultation__body,
+  .borrower-consultation__reassurance-item,
+  .borrower-consultation__support,
+  .borrower-consultation__phone {
+    max-width: none;
+  }
+
+  .borrower-consultation__form-panel {
+    padding: 22px 18px;
+    border-radius: 12px;
+  }
+
+  .consultation-form__heading {
+    gap: 9px;
+  }
+
+  .consultation-form__title {
+    font-size: clamp(1.875rem, 8.6vw, 2.25rem);
+    max-width: 17ch;
+  }
+
+  .consultation-form__grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .consultation-form__submit {
+    min-height: 54px;
+    height: auto;
+    padding: 14px 18px;
+    white-space: normal;
+  }
+
+  .borrower-consultation__specialist .fairlend-borrower-cta {
+    width: min(100%, 22rem);
+  }
+
+  .borrower-consultation__specialist .fairlend-borrower-cta__label {
+    max-width: 18ch;
+  }
+
+  .consultation-form__microcopy {
+    font-size: 0.8125rem;
+    line-height: 1.65;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .consultation-form__submit,
+  .consultation-form__field input,
+  .consultation-form__field textarea,
+  .consultation-form__field [data-slot='select-trigger'] {
+    transition: none;
+  }
+
+  .consultation-form__submit:hover:not(:disabled) {
+    transform: none;
+  }
+}

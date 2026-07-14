@@ -1,0 +1,1178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Checkpoint 04 - Integrated Visual Concepts</title>
+    <style>
+      :root {
+        --paper: #fffdf7;
+        --paper-soft: #faf4eb;
+        --ink: #082d23;
+        --ink-soft: rgba(8, 45, 35, 0.72);
+        --line: rgba(8, 45, 35, 0.18);
+        --line-strong: rgba(8, 45, 35, 0.34);
+        --lime: #9dff00;
+        --orange: #e85b2f;
+        --black: #050506;
+        --deep: #061912;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        overflow-x: hidden;
+        background:
+          radial-gradient(circle at 72% 4%, rgba(157, 255, 0, 0.16), transparent 24rem),
+          radial-gradient(circle at 18% 26%, rgba(232, 91, 47, 0.11), transparent 28rem),
+          linear-gradient(180deg, var(--paper) 0%, var(--paper-soft) 100%);
+        color: var(--ink);
+        font-family:
+          "Cabinet Grotesk", "Avenir Next", "Neue Haas Grotesk Text", ui-sans-serif, system-ui,
+          sans-serif;
+      }
+
+      button,
+      a {
+        font: inherit;
+      }
+
+      main {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+
+      .shell {
+        width: min(100% - 44px, 1260px);
+        margin-inline: auto;
+      }
+
+      .concept-nav {
+        position: sticky;
+        top: 12px;
+        z-index: 20;
+        display: flex;
+        width: min(100% - 36px, 860px);
+        margin: 16px auto 0;
+        padding: 7px;
+        border: 1px solid rgba(8, 45, 35, 0.18);
+        border-radius: 999px;
+        background: rgba(255, 253, 247, 0.82);
+        box-shadow: 0 16px 48px rgba(8, 45, 35, 0.1);
+        backdrop-filter: blur(18px);
+      }
+
+      .concept-nav button {
+        min-height: 42px;
+        flex: 1;
+        border: 0;
+        border-radius: 999px;
+        background: transparent;
+        color: var(--ink);
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 850;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .concept-nav button[aria-selected="true"] {
+        background: var(--black);
+        color: white;
+      }
+
+      .intro {
+        padding: 78px 0 52px;
+      }
+
+      .kicker {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 22px;
+        color: var(--orange);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+      }
+
+      .kicker::after {
+        display: block;
+        width: 92px;
+        height: 2px;
+        background: currentColor;
+        content: "";
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      p {
+        margin: 0;
+      }
+
+      h1,
+      h2 {
+        color: var(--black);
+        font-family: Georgia, "Times New Roman", serif;
+        font-weight: 500;
+        letter-spacing: -0.045em;
+        line-height: 0.94;
+      }
+
+      h1 {
+        max-width: 1120px;
+        font-size: clamp(54px, 7vw, 104px);
+      }
+
+      h2 {
+        max-width: 980px;
+        font-size: clamp(42px, 5.5vw, 86px);
+      }
+
+      h3 {
+        color: var(--black);
+        font-size: 24px;
+        line-height: 1.02;
+      }
+
+      h4 {
+        color: var(--black);
+        font-size: 15px;
+        letter-spacing: 0.08em;
+        line-height: 1.1;
+        text-transform: uppercase;
+      }
+
+      p {
+        color: var(--ink-soft);
+        font-size: 15px;
+        line-height: 1.55;
+      }
+
+      .intro-copy {
+        max-width: 780px;
+        margin-top: 22px;
+        font-size: 18px;
+        line-height: 1.45;
+      }
+
+      .concept {
+        display: none;
+        padding-bottom: 96px;
+      }
+
+      .concept[data-active="true"] {
+        display: block;
+      }
+
+      .artboard {
+        margin-top: 22px;
+        border: 1px solid var(--line-strong);
+        background:
+          linear-gradient(180deg, rgba(255, 253, 247, 0.92), rgba(250, 244, 235, 0.94)),
+          url("/assets/fairlend-route-selector/topographic-paper-background.webp");
+        background-position: center;
+        background-size: cover;
+        box-shadow: 0 28px 90px rgba(8, 45, 35, 0.1);
+      }
+
+      .context-tail,
+      .next-start {
+        position: relative;
+        overflow: hidden;
+        padding: 56px clamp(22px, 4vw, 58px);
+        border-block: 1px solid var(--line);
+      }
+
+      .context-tail {
+        min-height: 250px;
+        background:
+          radial-gradient(circle at 18% 8%, rgba(255, 255, 255, 0.84), transparent 18rem),
+          radial-gradient(circle at 85% 12%, rgba(157, 255, 0, 0.08), transparent 20rem),
+          linear-gradient(180deg, #fffdf7 0%, #faf4eb 100%);
+      }
+
+      .tail-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.82fr) minmax(280px, 0.48fr);
+        gap: 28px;
+        align-items: end;
+      }
+
+      .tail-cards,
+      .micro-grid,
+      .dense-grid,
+      .concept-c-grid {
+        display: grid;
+        grid-auto-flow: dense;
+        gap: 14px;
+      }
+
+      .tail-cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .mini-card,
+      .service-card,
+      .note-card {
+        border: 1px solid var(--line);
+        background: rgba(255, 253, 247, 0.72);
+      }
+
+      .mini-card {
+        min-height: 118px;
+        padding: 16px;
+      }
+
+      .mini-card strong,
+      .service-card strong,
+      .note-card strong {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--orange);
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .build-section {
+        position: relative;
+        overflow: hidden;
+        padding: clamp(70px, 9vw, 130px) clamp(22px, 4vw, 58px);
+      }
+
+      .build-section::before {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(circle at 12% 14%, rgba(255, 255, 255, 0.74), transparent 17rem),
+          radial-gradient(circle at 88% 8%, rgba(157, 255, 0, 0.08), transparent 18rem),
+          linear-gradient(180deg, rgba(255, 253, 247, 0.44), rgba(250, 244, 235, 0.34));
+        content: "";
+      }
+
+      .build-section > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .inline-img {
+        display: inline-block;
+        width: clamp(68px, 8vw, 124px);
+        height: clamp(28px, 3vw, 46px);
+        margin-inline: 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(8, 45, 35, 0.22);
+        background-color: rgba(255, 253, 247, 0.9);
+        background-image: url("/assets/fairlend-route-selector/construction-building-engraving.webp");
+        background-position: center;
+        background-size: 118%;
+        filter: grayscale(1) contrast(1.18) brightness(0.98);
+        vertical-align: middle;
+      }
+
+      .cta {
+        display: inline-flex;
+        width: fit-content;
+        min-height: 50px;
+        align-items: center;
+        justify-content: center;
+        padding: 0 18px;
+        border: 1px solid #111;
+        background: var(--lime);
+        color: #101010;
+        font-weight: 900;
+        text-decoration: none;
+      }
+
+      .cta-dark {
+        border-color: white;
+        background: var(--black);
+        color: white;
+      }
+
+      .next-start {
+        min-height: 190px;
+        padding-block: clamp(28px, 3.2vw, 40px);
+        background: var(--deep);
+        color: white;
+      }
+
+      .next-start .kicker {
+        margin-bottom: 14px;
+      }
+
+      .next-start h3,
+      .next-start h2,
+      .next-start h4 {
+        color: white;
+      }
+
+      .next-start p {
+        max-width: 860px;
+        margin-top: 6px;
+        color: rgba(255, 255, 255, 0.72);
+        line-height: 1.34;
+      }
+
+      .equation-row {
+        display: grid;
+        grid-template-columns: 1.1fr 0.8fr 0.8fr 0.8fr 0.8fr;
+        gap: 8px;
+        margin-top: 14px;
+      }
+
+      .equation-row span {
+        min-height: 40px;
+        padding: 10px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .concept-meta {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 16px;
+        margin-top: 18px;
+      }
+
+      .note-card {
+        padding: 17px;
+      }
+
+      .note-card ul {
+        display: grid;
+        gap: 7px;
+        margin: 0;
+        padding-left: 18px;
+        color: var(--ink-soft);
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      /* Concept A */
+      .concept-a .build-section {
+        background:
+          radial-gradient(circle at 86% 12%, rgba(157, 255, 0, 0.16), transparent 20rem),
+          linear-gradient(180deg, #fffdf7 0%, #faf4eb 100%);
+      }
+
+      .a-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 0.92fr) minmax(330px, 0.44fr);
+        gap: clamp(22px, 4vw, 58px);
+      }
+
+      .a-copy {
+        max-width: 820px;
+      }
+
+      .a-copy p {
+        max-width: 720px;
+        margin-top: 20px;
+        font-size: 18px;
+      }
+
+      .a-cta-panel {
+        position: relative;
+        display: grid;
+        align-content: center;
+        gap: 16px;
+        min-height: 320px;
+        overflow: hidden;
+        border: 1px solid var(--line-strong);
+        background:
+          linear-gradient(135deg, rgba(157, 255, 0, 0.14), rgba(255, 253, 247, 0.92)),
+          url("/assets/fairlend-route-selector/topographic-paper-background.webp");
+        background-position: center;
+        background-size: cover;
+        background-blend-mode: normal;
+        padding: 22px;
+      }
+
+      .a-cta-panel::after {
+        position: absolute;
+        right: -42px;
+        bottom: -24px;
+        width: min(68%, 310px);
+        aspect-ratio: 882 / 452;
+        background-image: url("/assets/fairlend-route-selector/construction-building-engraving.webp");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        content: "";
+        filter: grayscale(1) contrast(1.1);
+        opacity: 0.18;
+        pointer-events: none;
+      }
+
+      .a-cta-panel > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .dense-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        margin-top: 36px;
+      }
+
+      .service-card {
+        min-height: 190px;
+        overflow: hidden;
+        padding: 18px;
+        transition:
+          transform 700ms ease,
+          border-color 700ms ease;
+      }
+
+      .service-card:hover {
+        border-color: rgba(8, 45, 35, 0.42);
+        transform: translateY(-4px);
+      }
+
+      .a-differentiator {
+        margin-top: 14px;
+        padding: 22px;
+        border: 1px solid var(--lime);
+        background: rgba(157, 255, 0, 0.11);
+      }
+
+      /* Concept B */
+      .concept-b .build-section {
+        background:
+          radial-gradient(circle at 16% 6%, rgba(232, 91, 47, 0.13), transparent 22rem),
+          linear-gradient(180deg, #f7f1e8 0%, #fffdf7 100%);
+      }
+
+      .b-heading {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(280px, 0.42fr);
+        gap: 30px;
+        align-items: end;
+      }
+
+      .b-heading p {
+        font-size: 18px;
+      }
+
+      .accordion {
+        display: flex;
+        gap: 10px;
+        min-height: 410px;
+        margin-top: 42px;
+      }
+
+      .accordion-panel {
+        position: relative;
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background: rgba(255, 253, 247, 0.78);
+        transition: flex 700ms ease;
+      }
+
+      .accordion-panel:hover {
+        flex: 2.2;
+      }
+
+      .accordion-panel img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center 26%;
+        padding: 26px 14px 130px;
+        opacity: 0.22;
+        filter: grayscale(1) contrast(1.16);
+        transition: transform 700ms ease, opacity 700ms ease;
+      }
+
+      .accordion-panel:hover img {
+        opacity: 0.34;
+        transform: scale(1.05);
+      }
+
+      .accordion-panel div {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        align-content: end;
+        min-height: 100%;
+        padding: 20px;
+      }
+
+      .b-footer {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 18px;
+        align-items: center;
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid var(--lime);
+        background: rgba(157, 255, 0, 0.11);
+      }
+
+      /* Concept C */
+      .concept-c .build-section {
+        background:
+          radial-gradient(circle at 18% 10%, rgba(255, 255, 255, 0.8), transparent 20rem),
+          radial-gradient(circle at 82% 12%, rgba(157, 255, 0, 0.14), transparent 24rem),
+          linear-gradient(180deg, #fffdf7 0%, #f7efe4 100%);
+        color: var(--ink);
+      }
+
+      .concept-c-grid {
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        align-items: stretch;
+      }
+
+      .c-hero {
+        position: relative;
+        grid-column: span 7;
+        min-height: 540px;
+        overflow: hidden;
+        padding: 24px;
+        border: 1px solid var(--line-strong);
+        background:
+          linear-gradient(180deg, rgba(255, 253, 247, 0.86), rgba(250, 244, 235, 0.92)),
+          url("/assets/fairlend-route-selector/topographic-paper-background.webp");
+        background-position: center;
+        background-size: cover;
+      }
+
+      .c-hero::after {
+        position: absolute;
+        right: -74px;
+        bottom: -28px;
+        width: min(72%, 520px);
+        aspect-ratio: 900 / 378;
+        background-image: url("/assets/fairlend-route-selector/private-mortgage-house-engraving.webp");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        content: "";
+        filter: grayscale(1) contrast(1.12);
+        opacity: 0.22;
+        pointer-events: none;
+      }
+
+      .c-hero > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .c-stack {
+        grid-column: span 5;
+        display: grid;
+        gap: 12px;
+      }
+
+      .c-card {
+        min-height: 122px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        background: rgba(255, 253, 247, 0.76);
+        transform-origin: center bottom;
+      }
+
+      .c-differentiator {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 18px;
+        align-items: center;
+        margin-top: 12px;
+        padding: 22px;
+        border: 1px solid rgba(157, 255, 0, 0.8);
+        background: rgba(157, 255, 0, 0.11);
+      }
+
+      .c-image-pill {
+        display: inline-block;
+        width: clamp(80px, 10vw, 148px);
+        height: clamp(30px, 3.5vw, 52px);
+        margin-inline: 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(8, 45, 35, 0.22);
+        background-color: rgba(255, 253, 247, 0.9);
+        background-image: url("/assets/about-webp/webp/finance-icon-garden-suites.webp");
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        filter: grayscale(1) contrast(1.18) brightness(0.94);
+        vertical-align: middle;
+      }
+
+      .framework-ledger {
+        margin-top: 26px;
+        padding: 24px;
+        border: 1px solid var(--line);
+        background: rgba(255, 253, 247, 0.78);
+      }
+
+      .framework-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 14px;
+      }
+
+      .framework-grid div {
+        padding: 14px;
+        border: 1px solid var(--line);
+      }
+
+      .framework-grid strong {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--black);
+        font-size: 12px;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+      }
+
+      .final-instructions {
+        padding: 44px 0 80px;
+      }
+
+      .final-instructions .shell {
+        padding: 24px;
+        border: 1px solid var(--line-strong);
+        background: rgba(255, 253, 247, 0.82);
+      }
+
+      @media (max-width: 980px) {
+        .tail-grid,
+        .a-layout,
+        .b-heading,
+        .b-footer,
+        .concept-meta,
+        .framework-grid,
+        .c-differentiator {
+          grid-template-columns: 1fr;
+        }
+
+        .dense-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .concept-c-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .c-hero,
+        .c-stack {
+          grid-column: auto;
+        }
+      }
+
+      @media (max-width: 700px) {
+        .concept-nav {
+          position: static;
+          flex-direction: column;
+          border-radius: 24px;
+        }
+
+        .tail-cards,
+        .dense-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .accordion {
+          flex-direction: column;
+        }
+
+        .accordion-panel,
+        .accordion-panel:hover {
+          flex: 1;
+        }
+
+        .equation-row {
+          grid-template-columns: 1fr;
+        }
+
+        h1 {
+          font-size: clamp(42px, 14vw, 64px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="concept-nav" aria-label="Visual concept selector">
+      <button type="button" aria-selected="true" data-concept-target="concept-a">Native Continuation</button>
+      <button type="button" aria-selected="false" data-concept-target="concept-b">Elevated Bridge</button>
+      <button type="button" aria-selected="false" data-concept-target="concept-c">Signature Moment</button>
+    </nav>
+
+    <main>
+      <header class="intro">
+        <div class="shell">
+          <div class="kicker">Checkpoint 04 / Integrated Visual Concepts</div>
+          <h1>Three ways to bridge FairLend's build thesis into the equation.</h1>
+          <p class="intro-copy">
+            Each artboard shows the tail of the existing overview, the new Build Partner Bridge, and
+            the start of the builder equation. Copy is locked from Checkpoint 3; these concepts vary
+            layout, density, transition rhythm, and motion direction only.
+          </p>
+        </div>
+      </header>
+
+      <section class="concept concept-a" id="concept-a" data-active="true">
+        <div class="shell">
+          <div class="kicker">Concept A / Native Continuation</div>
+          <h2>Quietly extend the existing FairLend operating system.</h2>
+          <p class="intro-copy">
+            This direction feels like the missing rail between the overview and the builder equation:
+            warm paper, hard rules, technical cards, and one contained CTA panel.
+          </p>
+          <div class="artboard">
+            <div class="context-tail">
+              <div class="tail-grid">
+                <div>
+                  <div class="kicker">What We Finance</div>
+                  <h3>Flexible capital for every project.</h3>
+                  <p>From private mortgages to permit-heavy rental projects, FairLend supports build paths across the GTA.</p>
+                </div>
+                <div class="tail-cards">
+                  <div class="mini-card"><strong>Multiplex</strong><p>3-20 unit project paths.</p></div>
+                  <div class="mini-card"><strong>Garden suites</strong><p>Backyard and laneway homes.</p></div>
+                </div>
+              </div>
+            </div>
+
+            <section class="build-section" aria-labelledby="a-title">
+              <div class="a-layout">
+                <div class="a-copy">
+                  <div class="kicker">Build with FairLend</div>
+                  <h2 id="a-title">Bring us the property. We will help build the equation.</h2>
+                  <p>
+                    From early intent to construction financing and takeout strategy, FairLend helps
+                    shape the land, scope, capital, draw plan, professional path, permit and MLI
+                    readiness, and exit around one financeable project.
+                  </p>
+                  <p>
+                    You do not need the whole team, a perfect plan, or prior build experience before
+                    you talk to us. If you already build, keep your focus on the site while we help
+                    carry the financing and business equation around it.
+                  </p>
+                </div>
+                <aside class="a-cta-panel">
+                  <h4>Build intake</h4>
+                  <a class="cta" href="#">Map my build financing</a>
+                  <p>Bring a property, plan, or early idea. We will help identify what has to be true before the numbers can work.</p>
+                </aside>
+              </div>
+              <div class="dense-grid">
+                <article class="service-card"><strong>Property + feasibility</strong><p>Site, land basis, zoning path, housing form, unit mix, and buildable area.</p></article>
+                <article class="service-card"><strong>Capital + draw plan</strong><p>Construction budget, borrower capital, private financing, draw schedule, and working capital.</p></article>
+                <article class="service-card"><strong>Team + readiness</strong><p>Contractor, consultant, professional, supplier, permit, and CMHC MLI Select readiness path where applicable.</p></article>
+                <article class="service-card"><strong>Exit + takeout</strong><p>Sale, refinance, rental stabilization, insured takeout preparation, and long-term financing direction.</p></article>
+              </div>
+              <div class="a-differentiator">
+                <h4>Included operating advantage</h4>
+                <p>This planning layer is built into the way FairLend approaches construction financing. It is a reason to finance with us, not another consultant you have to stitch onto the project later.</p>
+              </div>
+            </section>
+
+            <div class="next-start">
+              <div class="kicker">Builder Consulting</div>
+              <h3>Building shouldnt be the easy part</h3>
+              <p>A successful build is not only a construction problem, it is a business equation.</p>
+              <div class="equation-row" aria-hidden="true">
+                <span>Single family</span><span>Land</span><span>Build cost</span><span>Exit value</span><span>Profit</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="concept-meta">
+            <div class="note-card"><strong>Rationale</strong><p>Best if continuity matters. It borrows the overview's warm paper, hard rules, and the builder section's technical rhythm without stealing attention from the equation.</p></div>
+            <div class="note-card"><strong>Motion</strong><p>GSAP direction: cards reveal in a scrubbed stagger, then the differentiator rule draws left-to-right before the next section pins.</p></div>
+            <div class="note-card"><strong>Grid / Type / Color</strong><p>Two-column hero plus four-card dense grid. Serif headline, technical uppercase cards, warm paper, lime CTA, orange labels.</p></div>
+            <div class="note-card"><strong>Risk</strong><p>Safest direction, but less ownable. It solves the transition without creating a major brand moment.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="concept concept-b" id="concept-b">
+        <div class="shell">
+          <div class="kicker">Concept B / Elevated Bridge</div>
+          <h2>Make the bridge feel like a live project handoff.</h2>
+          <p class="intro-copy">
+            This direction uses horizontal accordion slices to show the project variables as a
+            coordinated operating layer. It is more interactive and more memorable than Concept A.
+          </p>
+          <div class="artboard">
+            <div class="context-tail">
+              <div class="tail-grid">
+                <div>
+                  <div class="kicker">What We Finance</div>
+                  <h3>Disciplined capital. Local insight. Aligned outcomes.</h3>
+                  <p>The overview ends with breadth. The bridge now narrows the visitor into build-specific work.</p>
+                </div>
+                <div class="tail-cards">
+                  <div class="mini-card"><strong>Construction</strong><p>Draws, permits, build strategy.</p></div>
+                  <div class="mini-card"><strong>MLI Select</strong><p>Readiness where applicable.</p></div>
+                </div>
+              </div>
+            </div>
+
+            <section class="build-section" aria-labelledby="b-title">
+              <div class="b-heading">
+                <div>
+                  <div class="kicker">Build with FairLend</div>
+                  <h2 id="b-title">
+                    Bring us the <span class="inline-img" aria-hidden="true"></span> property. We will help build the equation.
+                  </h2>
+                </div>
+                <p>
+                  From early intent to construction financing and takeout strategy, FairLend helps
+                  shape the land, scope, capital, draw plan, professional path, permit and MLI
+                  readiness, and exit around one financeable project.
+                </p>
+              </div>
+              <div class="accordion" aria-label="Build equation service areas">
+                <article class="accordion-panel">
+                  <img src="/assets/fairlend-route-selector/private-mortgage-house-engraving.webp" alt="" />
+                  <div><h3>Property + feasibility</h3><p>Site, land basis, zoning path, housing form, unit mix, and buildable area.</p></div>
+                </article>
+                <article class="accordion-panel">
+                  <img src="/assets/drawflow-intake/Milestone Blueprint Stack Trimmed.webp" alt="" />
+                  <div><h3>Capital + draw plan</h3><p>Construction budget, borrower capital, private financing, draw schedule, and working capital.</p></div>
+                </article>
+                <article class="accordion-panel">
+                  <img src="/assets/fairlend-route-selector/construction-building-engraving.webp" alt="" />
+                  <div><h3>Team + readiness</h3><p>Contractor, consultant, professional, supplier, permit, and CMHC MLI Select readiness path where applicable.</p></div>
+                </article>
+                <article class="accordion-panel">
+                  <img src="/assets/fairlend-route-selector/route-compass-engraving.webp" alt="" />
+                  <div><h3>Exit + takeout</h3><p>Sale, refinance, rental stabilization, insured takeout preparation, and long-term financing direction.</p></div>
+                </article>
+              </div>
+              <div class="b-footer">
+                <p>This planning layer is built into the way FairLend approaches construction financing. It is a reason to finance with us, not another consultant you have to stitch onto the project later.</p>
+                <a class="cta" href="#">Map my build financing</a>
+              </div>
+            </section>
+
+            <div class="next-start">
+              <div class="kicker">Builder Consulting</div>
+              <h3>Builders know how to build. We carry the changing business equation.</h3>
+              <p>For first-time garden suite or multiplex owners, the same equation explains how FairLend thinks before a shovel moves.</p>
+              <div class="equation-row" aria-hidden="true">
+                <span>2019</span><span>2023</span><span>2026</span><span>Density</span><span>Outcome</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="concept-meta">
+            <div class="note-card"><strong>Rationale</strong><p>Best if the section needs a controlled mental reset. The accordion makes every variable feel like part of one coordinated project path.</p></div>
+            <div class="note-card"><strong>Motion</strong><p>GSAP direction: ScrollTrigger pins the heading while accordion panels compress and expand with hover physics; reduced motion keeps all panels static.</p></div>
+            <div class="note-card"><strong>Grid / Type / Color</strong><p>Wide editorial headline with inline image, four equal accordion slices, warm paper, orange labels, lime CTA.</p></div>
+            <div class="note-card"><strong>Risk</strong><p>More interactive. Must make every panel readable without hover on touch devices.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="concept concept-c" id="concept-c">
+        <div class="shell">
+          <div class="kicker">Concept C / Signature Moment</div>
+          <h2>Turn the bridge into an illustrated FairLend thesis plate.</h2>
+          <p class="intro-copy">
+            This is the boldest direction: a large illustrated thesis plate that explicitly sets up
+            the builder equation as FairLend's worldview while staying inside the existing engraving system.
+          </p>
+          <div class="artboard">
+            <div class="context-tail">
+              <div class="tail-grid">
+                <div>
+                  <div class="kicker">What We Finance</div>
+                  <h3>From private mortgages to permit-heavy rental projects.</h3>
+                  <p>The page leaves the overview with service breadth, then drops into a sharper build thesis.</p>
+                </div>
+                <div class="tail-cards">
+                  <div class="mini-card"><strong>Build capital</strong><p>Financing path.</p></div>
+                  <div class="mini-card"><strong>Build strategy</strong><p>Business equation.</p></div>
+                </div>
+              </div>
+            </div>
+
+            <section class="build-section" aria-labelledby="c-title">
+              <div class="concept-c-grid">
+                <div class="c-hero">
+                  <div class="kicker">Build with FairLend</div>
+                  <h2 id="c-title">Bring us the <span class="c-image-pill" aria-hidden="true"></span> property. We will help build the equation.</h2>
+                  <p style="margin-top: 22px; font-size: 18px;">
+                    You do not need the whole team, a perfect plan, or prior build experience before
+                    you talk to us. If you already build, keep your focus on the site while we help
+                    carry the financing and business equation around it.
+                  </p>
+                  <p style="margin-top: 16px;">
+                    If you are exploring a garden suite, laneway suite, multiplex, or infill project
+                    for the first time, we can help make the path legible before expensive decisions harden.
+                  </p>
+                </div>
+                <div class="c-stack" aria-label="Stacked build equation cards">
+                  <article class="c-card"><h4>Property + feasibility</h4><p>Site, land basis, zoning path, housing form, unit mix, and buildable area.</p></article>
+                  <article class="c-card"><h4>Capital + draw plan</h4><p>Construction budget, borrower capital, private financing, draw schedule, and working capital.</p></article>
+                  <article class="c-card"><h4>Team + readiness</h4><p>Contractor, consultant, professional, supplier, permit, and CMHC MLI Select readiness path where applicable.</p></article>
+                  <article class="c-card"><h4>Exit + takeout</h4><p>Sale, refinance, rental stabilization, insured takeout preparation, and long-term financing direction.</p></article>
+                </div>
+                <div class="c-differentiator">
+                  <p>This planning layer is built into the way FairLend approaches construction financing. It is a reason to finance with us, not another consultant you have to stitch onto the project later.</p>
+                  <a class="cta" href="#">Map my build financing</a>
+                </div>
+              </div>
+            </section>
+
+            <div class="next-start">
+              <div class="kicker">Builder Consulting</div>
+              <h3>FairLend's thesis: profit lives in the variables.</h3>
+              <p>A profitable build is not only a construction problem. It is a business equation that changes with land, cost, capital, draws, policy, incentives, and takeout.</p>
+              <div class="equation-row" aria-hidden="true">
+                <span>Land</span><span>Cost</span><span>Policy</span><span>Takeout</span><span>Outcome</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="concept-meta">
+            <div class="note-card"><strong>Rationale</strong><p>Best if this needs to become a memorable brand moment. It reframes the next section as FairLend's thesis while using the same engraving and paper language as the previous sections.</p></div>
+            <div class="note-card"><strong>Motion</strong><p>GSAP direction: pin the thesis block while cards stack from the bottom; image pill scales from 0.8 to 1.0 and fades slightly on scroll exit.</p></div>
+            <div class="note-card"><strong>Grid / Type / Color</strong><p>12-column illustrated thesis plate, 7/5 split, stacked service cards, lime CTA, warm paper, forest ink, orange labels.</p></div>
+            <div class="note-card"><strong>Risk</strong><p>Most memorable and most illustrative. Needs restraint so the large plate does not overpower the following equation.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="framework-ledger shell">
+        <div class="kicker">Framework Application Ledger</div>
+        <h2>What changed because of the design frameworks.</h2>
+        <div class="framework-grid">
+          <div><strong>CRAP</strong><p>Contrast separates CTA and thesis moments; repetition preserves FairLend rails; alignment keeps service variables scannable; proximity groups the equation pieces.</p></div>
+          <div><strong>Gestalt</strong><p>Concepts group land, capital, readiness, and exit as one operating layer before the equation section.</p></div>
+          <div><strong>Visual Hierarchy</strong><p>Each concept keeps the headline first, CTA second, service map third, transition thesis last.</p></div>
+          <div><strong>Grid Systems</strong><p>Dense four-card, accordion, and 12-column layouts create distinct directions without empty grid cells.</p></div>
+          <div><strong>White Space</strong><p>Large vertical sections preserve the cinematic FairLend page rhythm and avoid crowding the builder equation.</p></div>
+          <div><strong>Fitts's Law</strong><p>The CTA remains a large, high-contrast target in every concept.</p></div>
+          <div><strong>Progressive Disclosure</strong><p>Mobile order prioritizes headline, CTA, four rows, differentiator, then transition thesis.</p></div>
+          <div><strong>Brand Personality</strong><p>All concepts preserve technical, local-market, expert-operator energy rather than generic one-stop-shop marketing.</p></div>
+        </div>
+      </section>
+
+      <section class="final-instructions">
+        <div class="shell">
+          <div class="kicker">Next Phase</div>
+          <p>
+            Choose Concept A, B, C, reject all three, or specify a blend. Phase 5 will turn the
+            selected direction into <code>SECTION-DESIGN.md</code>; Phase 6 is the first phase that
+            can touch production code.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const buttons = Array.from(document.querySelectorAll("[data-concept-target]"));
+      const concepts = Array.from(document.querySelectorAll(".concept"));
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const target = button.getAttribute("data-concept-target");
+          buttons.forEach((item) => item.setAttribute("aria-selected", String(item === button)));
+          concepts.forEach((concept) => {
+            concept.dataset.active = String(concept.id === target);
+          });
+        });
+      });
+    </script>
+
+    <script type="application/json" id="section-builder-state">
+      {
+        "workflow": "existing-landing-page-section-builder",
+        "checkpoint_id": "checkpoint-04-section-visual-concepts",
+        "phase_completed": 4,
+        "previous_checkpoint": "checkpoint-03-section-blueprint-copy-lock",
+        "next_phase": "section-design-spec",
+        "page_context": {
+          "page_name": "FairLend homepage",
+          "page_type": "multi-audience mortgage, construction financing, and investment landing page",
+          "primary_audience": "GTA borrowers, builders, property owners, investors, and referral partners",
+          "primary_conversion": "Build-specific FairLend request review for visitors with a property, plan, or early build intent",
+          "existing_section_order": [
+            "FairlendLandingHero",
+            "FairlendRouteSelector",
+            "FairlendLandingOverviewSection",
+            "FairlendBuilderConsultingSection",
+            "FairlendLeadershipSection",
+            "FairlendFaqSection"
+          ],
+          "insertion_point": {
+            "previous_section": "FairlendLandingOverviewSection",
+            "next_section": "FairlendBuilderConsultingSection"
+          }
+        },
+        "locked_decisions": {
+          "section_role": "Offer Explainer with secondary Bridge Section, Mechanism Section, Objection Handler, and CTA Preparation roles",
+          "target_belief": "I can come to FairLend with a property, a plan, or early build intent, and they can help me shape financing, project strategy, professional path, draw plan, permit/MLI readiness, and takeout direction in one place.",
+          "primary_objection": "I do not know whether I have the right property, plan, team, capital stack, draw logic, permit strategy, MLI path, or exit financing yet.",
+          "cta_strategy": "Build-specific primary CTA to build-intent intake.",
+          "locked_copy": {
+            "section_id": "fairlend-build-partner",
+            "section_name": "Build Partner Bridge",
+            "eyebrow": "Build with FairLend",
+            "headline": "Bring us the property. We will help build the equation.",
+            "subheadline": "From early intent to construction financing and takeout strategy, FairLend helps shape the land, scope, capital, draw plan, professional path, permit and MLI readiness, and exit around one financeable project.",
+            "body": "You do not need the whole team, a perfect plan, or prior build experience before you talk to us. If you already build, keep your focus on the site while we help carry the financing and business equation around it. If you are exploring a garden suite, laneway suite, multiplex, or infill project for the first time, we can help make the path legible before expensive decisions harden.",
+            "cta": {
+              "label": "Map my build financing",
+              "href_strategy": "buildFairlendIntakeHref({ intent: 'build', source: 'build-partner-bridge' })",
+              "microcopy": "Bring a property, plan, or early idea. We will help identify what has to be true before the numbers can work."
+            },
+            "transition_out": "FairLend's thesis is simple: a profitable build is not only a construction problem, it is a business equation. Builders already know how to build; we help track the changing variables around land, cost, capital, draws, policy, incentives, and takeout so they can stay focused on the site. For first-time garden suite or multiplex owners, the same equation explains how we think before a shovel moves."
+          }
+        },
+        "visual_system_extraction": {
+          "grid": "Full-viewport landing rails, constrained paper shells, two-column editorial grids, dense service cards, rule-based section labels, and connector lines.",
+          "typography": "Large serif editorial headlines mixed with compact uppercase technical labels and display/mono service language.",
+          "color": "Warm paper, black ink, forest green, electric lime, and orange accents.",
+          "spacing": "Generous full-section vertical rhythm with dense internal card grids and tight label systems.",
+          "component_style": "Paper sections, route cards, icon-led cards, ledger tabs, skyline/building imagery, scan lines, and structured linework.",
+          "motion_language": "Scroll choreography, staged reveals, animated connectors, and equation state transitions."
+        },
+        "concepts": [
+          {
+            "id": "concept-a",
+            "name": "Native Continuation",
+            "summary": "Warm paper, technical cards, and contained CTA panel that feels inevitable inside the existing page.",
+            "motion_direction": "Scrubbed card reveal, rule draw, simple handoff into next pinned equation.",
+            "risk": "Safest but less memorable."
+          },
+          {
+            "id": "concept-b",
+            "name": "Elevated Bridge",
+            "summary": "Interactive horizontal accordion showing build variables as a coordinated operating layer.",
+            "motion_direction": "Pinned heading, accordion hover physics, reduced-motion static fallback.",
+            "risk": "Must preserve readability on touch devices."
+          },
+          {
+            "id": "concept-c",
+            "name": "Signature Moment",
+            "summary": "Large illustrated thesis plate that reframes the builder equation as FairLend's profitability worldview while staying in the existing engraving system.",
+            "motion_direction": "Pinned thesis, stacking cards, illustration scale and fade.",
+            "risk": "Most visually memorable; needs restraint so the large plate does not overpower the following equation."
+          }
+        ],
+        "claims_ledger": [
+          {
+            "claim": "FairLend helps shape land, scope, capital, draw plan, professional path, permit/MLI readiness, and exit around one financeable project.",
+            "status": "supported",
+            "evidence": "Company Brief section 4.3",
+            "risk_level": "medium-high",
+            "allowed_usage": "Use helps shape and readiness language.",
+            "notes": "Avoid approval or qualification guarantees."
+          },
+          {
+            "claim": "The planning layer is built into the way FairLend approaches construction financing.",
+            "status": "supported",
+            "evidence": "User Comment 1 and Company Brief construction advisory layer.",
+            "risk_level": "medium",
+            "allowed_usage": "Use as differentiator copy.",
+            "notes": "Avoid saying unlimited services are free."
+          },
+          {
+            "claim": "Density can reopen the project equation.",
+            "status": "supported",
+            "evidence": "FairlendBuilderConsultingSection 2026 state and equation rows.",
+            "risk_level": "medium-high",
+            "allowed_usage": "Use as transition into existing illustrative math section.",
+            "notes": "Not a general profitability guarantee."
+          }
+        ],
+        "framework_application_ledger": [
+          {
+            "framework": "CRAP",
+            "phase": "Phase 4",
+            "used_for": "Creating contrast, repetition, alignment, and proximity across concept variants.",
+            "decision_influenced": "CTA, cards, and thesis blocks are visually distinct but still tied to FairLend rules and rails.",
+            "artifact_fields": ["concepts", "visual_system_extraction"]
+          },
+          {
+            "framework": "Gestalt Principles",
+            "phase": "Phase 4",
+            "used_for": "Grouping service variables into one operating layer.",
+            "decision_influenced": "All concepts visually group property, capital, readiness, and exit before the builder equation.",
+            "artifact_fields": ["concepts"]
+          },
+          {
+            "framework": "Visual Hierarchy",
+            "phase": "Phase 4",
+            "used_for": "Ordering attention within each artboard.",
+            "decision_influenced": "Headline first, CTA second, service map third, transition thesis last.",
+            "artifact_fields": ["concepts"]
+          },
+          {
+            "framework": "Grid Systems",
+            "phase": "Phase 4",
+            "used_for": "Creating three meaningfully different layouts without empty cells.",
+            "decision_influenced": "A uses dense four-card layout, B uses equal accordion slices, C uses a 12-column illustrated thesis plate.",
+            "artifact_fields": ["concepts"]
+          },
+          {
+            "framework": "White Space",
+            "phase": "Phase 4",
+            "used_for": "Preserving cinematic section pacing.",
+            "decision_influenced": "Large vertical padding and clear separation between overview tail, bridge, and builder start.",
+            "artifact_fields": ["concepts"]
+          },
+          {
+            "framework": "Fitts's Law",
+            "phase": "Phase 4",
+            "used_for": "CTA usability.",
+            "decision_influenced": "CTA remains large, high contrast, and directly scannable in every concept.",
+            "artifact_fields": ["concepts"]
+          },
+          {
+            "framework": "Progressive Disclosure",
+            "phase": "Phase 4",
+            "used_for": "Responsive priority.",
+            "decision_influenced": "Mobile order prioritizes headline, CTA, service rows, differentiator, transition thesis.",
+            "artifact_fields": ["concepts"]
+          },
+          {
+            "framework": "Brand Personality",
+            "phase": "Phase 4",
+            "used_for": "Avoiding generic one-stop-shop styling.",
+            "decision_influenced": "All concepts preserve technical, local-market, expert-operator energy.",
+            "artifact_fields": ["concepts"]
+          }
+        ],
+        "section_contract": {
+          "visual_concepts_ready": true,
+          "requires_user_selection": true,
+          "next_phase": "SECTION-DESIGN.md from selected concept or blend"
+        },
+        "open_questions": [
+          "Choose Concept A, B, C, reject all, or specify a blend.",
+          "Confirm whether the final section should be visually quiet, interactive, or a signature thesis moment."
+        ],
+        "next_phase_instructions": "After user selection, generate SECTION-DESIGN.md as the design delta for Phase 5."
+      }
+    </script>
+  </body>
+</html>

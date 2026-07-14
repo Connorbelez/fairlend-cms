@@ -1,0 +1,11 @@
+{
+  "input": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/faq-illustrations/generated/keyed/faq-toronto-landmark-engraving.png",
+  "output": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-faq-reference/toronto-landmark-engraving.webp",
+  "size": {
+    "width": 687,
+    "height": 1024
+  },
+  "transparent_background": "none",
+  "inferred_background": null,
+  "quality": 90
+}

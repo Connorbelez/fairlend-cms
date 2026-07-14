@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { type Deal } from '../types'
 
 interface DealCardProps {
@@ -77,7 +78,10 @@ const DealCard: React.FC<DealCardProps> = ({ deal }) => {
       <div className="space-y-2.5 border-t border-neutral-200 pt-3 dark:border-neutral-800">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src={deal.owner.avatar} className="h-5 w-5 rounded-full" alt={deal.owner.name} />
+            <Image src={deal.owner.avatar} className="h-5 w-5 rounded-full" alt={deal.owner.name} 
+          width={96}
+          height={96}
+          sizes="96px"/>
             <span className="text-[11px] font-medium text-neutral-600 dark:text-neutral-500">
               {deal.owner.name}
             </span>

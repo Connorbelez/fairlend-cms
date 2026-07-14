@@ -1,0 +1,65 @@
+{
+  "image_asset_count": 6,
+  "assets": [
+    {
+      "id": "topographic-paper-background",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/crops/topographic-paper-background.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/raw/topographic-paper-background.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/webp/topographic-paper-background.webp",
+      "public_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-route-selector/topographic-paper-background.webp",
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Subtle section background texture\nPrimary request: Generate a new standalone off-white topographic paper texture for a premium finance website background. Very subtle gray contour lines, tiny elevation numerals, soft paper grain, clean rounded-corner page feel, sparse edges, no UI cards, no headline text, no buttons, no logos, no people. Aspect ratio 4:3.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate as a clean standalone rectangular image asset.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "transparent": false,
+      "postprocess_notes": "Generated PNG was optimized with prepare_web_asset.py. Transparent engraving WebPs received a monochrome green-key decontamination pass after validation showed chroma halo residue."
+    },
+    {
+      "id": "investor-skyline-engraving",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/crops/investor-skyline-engraving.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/raw/investor-skyline-engraving.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/webp/investor-skyline-engraving.webp",
+      "public_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-route-selector/investor-skyline-engraving.webp",
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Card illustration for investor route\nPrimary request: Generate a new standalone transparent PNG-style black graphite pen-and-ink engraving of a modern Canadian city skyline with a bridge in front, centered, low horizontal composition, light stipple shading, premium mortgage/investment editorial style, no text, no UI, no border. Match the reference crop's monochrome etched line quality.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "transparent": true,
+      "postprocess_notes": "Generated PNG was optimized with prepare_web_asset.py. Transparent engraving WebPs received a monochrome green-key decontamination pass after validation showed chroma halo residue."
+    },
+    {
+      "id": "private-mortgage-house-engraving",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/crops/private-mortgage-house-engraving.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/raw/private-mortgage-house-engraving.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/webp/private-mortgage-house-engraving.webp",
+      "public_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-route-selector/private-mortgage-house-engraving.webp",
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Card illustration for private mortgage route\nPrimary request: Generate a new standalone transparent PNG-style black graphite pen-and-ink engraving of an elegant two-story suburban house with garage, pitched roof, shrubs, and light trees, front three-quarter view, centered low horizontal composition, fine etched shading, no text, no UI, no border.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "transparent": true,
+      "postprocess_notes": "Generated PNG was optimized with prepare_web_asset.py. Transparent engraving WebPs received a monochrome green-key decontamination pass after validation showed chroma halo residue."
+    },
+    {
+      "id": "construction-building-engraving",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/crops/construction-building-engraving.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/raw/construction-building-engraving.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/webp/construction-building-engraving.webp",
+      "public_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-route-selector/construction-building-engraving.webp",
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Card illustration for construction financing route\nPrimary request: Generate a new standalone transparent PNG-style black graphite pen-and-ink engraving of a mid-rise construction site: concrete building frame, tower crane, small ground details, centered low horizontal composition, fine architectural sketch lines and stipple shading, no text, no UI, no border.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "transparent": true,
+      "postprocess_notes": "Generated PNG was optimized with prepare_web_asset.py. Transparent engraving WebPs received a monochrome green-key decontamination pass after validation showed chroma halo residue."
+    },
+    {
+      "id": "partner-handshake-engraving",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/crops/partner-handshake-engraving.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/raw/partner-handshake-engraving.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/webp/partner-handshake-engraving.webp",
+      "public_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-route-selector/partner-handshake-engraving.webp",
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Card illustration for partner program route\nPrimary request: Generate a new standalone transparent PNG-style black graphite pen-and-ink engraving of two business people shaking hands, cropped at the wrists with suit sleeves, centered horizontal composition, detailed stipple and crosshatch shading, no text, no UI, no border.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "transparent": true,
+      "postprocess_notes": "Generated PNG was optimized with prepare_web_asset.py. Transparent engraving WebPs received a monochrome green-key decontamination pass after validation showed chroma halo residue."
+    },
+    {
+      "id": "route-compass-engraving",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/crops/route-compass-engraving.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/raw/route-compass-engraving.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-route-selector/generated/webp/route-compass-engraving.webp",
+      "public_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend-route-selector/route-compass-engraving.webp",
+      "imagegen_prompt": "Use case: ads-marketing\nAsset type: Compass illustration in lower helper CTA\nPrimary request: Generate a new standalone transparent PNG-style black graphite pen-and-ink engraving of an antique compass angled slightly clockwise, circular metal case, visible needle and dial markings, light drop shadow, fine stippled shading, no text labels, no UI, no border.\nInput images: the crop is a reference image only. Generate a brand-new standalone asset; do not copy crop pixels.\nComposition/framing: match the reference crop's subject, angle, aspect ratio, and visual weight.\nConstraints: remove neighboring-page contamination, occluding unrelated assets, webpage framing, and collage leftovers.\nTransparency/background: Generate on a perfectly flat solid #00ff00 chroma-key background for later alpha removal; do not use #00ff00 in the subject.\nAvoid: crop output, screenshot, full page mockup, browser frame, watermark, placeholder, unrelated typography.",
+      "transparent": true,
+      "postprocess_notes": "Generated PNG was optimized with prepare_web_asset.py. Transparent engraving WebPs received a monochrome green-key decontamination pass after validation showed chroma halo residue."
+    }
+  ]
+}

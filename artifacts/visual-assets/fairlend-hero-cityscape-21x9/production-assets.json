@@ -1,0 +1,22 @@
+{
+  "image_asset_count": 1,
+  "assets": [
+    {
+      "id": "fairlend-toronto-skyline-hero-21x9",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-hero-cityscape-21x9/crops/fairlend-toronto-skyline-hero-21x9.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-hero-cityscape-21x9/generated/raw/fairlend-toronto-skyline-hero-21x9.png",
+      "normalized_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-hero-cityscape-21x9/generated/normalized/fairlend-toronto-skyline-hero-21x9-2520x1080.png",
+      "artifact_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/fairlend-hero-cityscape-21x9/generated/webp/fairlend-toronto-skyline-hero-21x9.webp",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/fairlend/fairlend-toronto-skyline-hero-21x9.webp",
+      "dimensions": {
+        "width": 2520,
+        "height": 1080,
+        "aspect_ratio": "21:9"
+      },
+      "transparent": false,
+      "imagegen_mode": "built-in image_gen",
+      "imagegen_source": "/Users/connor/.codex/generated_images/019f294f-27cb-7b71-8d71-f2b983643135/ig_06262e95baed8555016a48044fa8408197a85475891dfb0a51.png",
+      "imagegen_prompt": "Use the visible crop as a reference image only. Generate a new standalone production website hero background asset, exact 21:9 aspect ratio. Subject: black-and-white engraved pen-and-ink Toronto waterfront skyline illustration centered around the CN Tower, with detailed high-rise buildings, subtle dotted/stipple clouds, Lake Ontario water reflections, and two small sailboats. Composition: panoramic 21:9. Skyline spans the lower half, CN Tower slightly right of center, soft off-white negative space in the upper half for live webpage typography, waterfront reflection fades naturally toward the bottom, left/right edges feather into the off-white background. Keep the asset clean and rectangular, not transparent. Style: premium editorial financial-services illustration, monochrome stipple/etching, crisp architectural linework, refined and restrained, high resolution, no blur. Remove all neighboring page contamination: no FairLend logo, no navigation, no buttons, no green accents, no statistics, no avatars, no UI cards, no browser frame, no captions, no labels, no readable text, no watermark."
+    }
+  ]
+}

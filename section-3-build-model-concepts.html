@@ -1,0 +1,1315 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FairLend Section 3 Concepts - Our Build Model</title>
+    <style>
+      :root {
+        --paper: #fbfaf7;
+        --paper-2: #fffdf7;
+        --warm: #fffaf1;
+        --ink: oklch(0.235 0.026 164);
+        --ink-deep: #050506;
+        --ink-soft: oklch(0.235 0.026 164 / 0.72);
+        --muted: oklch(0.235 0.026 164 / 0.56);
+        --line: oklch(0.235 0.026 164 / 0.16);
+        --line-strong: oklch(0.235 0.026 164 / 0.32);
+        --lime: #9dff00;
+        --lime-ink: #203500;
+        --coral: oklch(0.588 0.151 42.5);
+        --coral-deep: oklch(0.48 0.14 41);
+        --blueprint: oklch(0.464 0.091 243.7);
+        --blueprint-soft: oklch(0.464 0.091 243.7 / 0.24);
+        --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+        --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+        --mono: "Oxanium", ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+        line-height: 1.45;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background:
+          linear-gradient(90deg, transparent 0 6.9%, var(--line) 7%, transparent 7.1% 92.9%, var(--line) 93%, transparent 93.1%),
+          url("public/assets/fairlend-route-selector/topographic-paper-background.webp"),
+          var(--paper);
+        background-size: auto, min(960px, 100vw), auto;
+        background-position: center top;
+        opacity: 0.92;
+      }
+
+      .shell {
+        width: min(1400px, calc(100vw - 28px));
+        margin: 0 auto;
+        padding: 28px 0 80px;
+      }
+
+      .doc-head {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 24px;
+        align-items: end;
+        padding: 8px 22px 26px;
+      }
+      .doc-kicker,
+      .kicker,
+      .mini-kicker,
+      .tab b,
+      .label,
+      .station-num,
+      .chip,
+      .draw-label,
+      .thesis-label,
+      .concept-note b {
+        font-family: var(--mono);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+      .doc-kicker {
+        color: var(--coral);
+        font-size: 11px;
+        font-weight: 900;
+      }
+      h1, h2, h3 {
+        margin: 0;
+        color: var(--ink-deep);
+        font-family: var(--serif);
+        font-weight: 500;
+        letter-spacing: 0;
+      }
+      h1 {
+        max-width: 12ch;
+        margin-top: 10px;
+        font-size: clamp(44px, 6vw, 86px);
+        line-height: 0.9;
+      }
+      .doc-copy {
+        max-width: 58ch;
+        color: var(--ink-soft);
+        font-size: 15px;
+      }
+      .doc-meta {
+        min-width: 270px;
+        border: 1px solid var(--line-strong);
+        border-radius: 8px;
+        background: color-mix(in oklch, var(--paper-2) 92%, white);
+        padding: 16px;
+        box-shadow: 0 18px 42px oklch(0.235 0.026 164 / 0.07);
+      }
+      .doc-meta p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .tabs {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 8px;
+        padding: 12px 16px;
+        border-block: 1px solid var(--line);
+        background: color-mix(in oklch, var(--paper) 94%, white);
+        backdrop-filter: blur(12px);
+      }
+      .tab {
+        min-height: 64px;
+        border: 1px solid var(--line-strong);
+        border-radius: 8px;
+        background: var(--paper-2);
+        color: var(--ink-deep);
+        cursor: pointer;
+        padding: 12px 14px;
+        text-align: left;
+        transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+      }
+      .tab b {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--coral);
+        font-size: 10px;
+        font-weight: 900;
+      }
+      .tab span {
+        display: block;
+        font-size: 13px;
+        font-weight: 800;
+        line-height: 1.15;
+      }
+      .tab[aria-selected="true"] {
+        border-color: var(--ink-deep);
+        background: var(--lime);
+        color: var(--lime-ink);
+      }
+      .tab[aria-selected="true"] b { color: var(--lime-ink); }
+      .tab:hover { transform: translateY(-1px); }
+
+      .panel { display: none; padding-top: 26px; }
+      .panel[aria-hidden="false"] { display: block; }
+
+      .panel-head {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+        gap: 22px;
+        align-items: end;
+        margin: 0 22px 14px;
+      }
+      .panel-head h2 {
+        font-size: clamp(28px, 3.4vw, 46px);
+        line-height: 0.98;
+      }
+      .concept-note {
+        border-left: 3px solid var(--coral);
+        padding: 10px 0 10px 14px;
+        color: var(--ink-soft);
+        font-size: 13px;
+      }
+      .concept-note b {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--coral-deep);
+        font-size: 10px;
+        font-weight: 900;
+      }
+
+      .artboard {
+        overflow: hidden;
+        border: 1px solid var(--line-strong);
+        border-radius: 12px;
+        background: var(--paper);
+        box-shadow: 0 24px 80px oklch(0.235 0.026 164 / 0.09);
+      }
+      .context-overview,
+      .context-builder {
+        position: relative;
+        padding: 24px 32px;
+      }
+      .context-overview {
+        display: grid;
+        grid-template-columns: minmax(250px, 0.8fr) 1.2fr;
+        gap: 24px;
+        align-items: end;
+        min-height: 210px;
+        background: var(--paper-2);
+        border-bottom: 1px solid var(--line);
+      }
+      .context-overview::after {
+        content: "";
+        position: absolute;
+        right: 24px;
+        bottom: 0;
+        width: min(520px, 45%);
+        height: 132px;
+        background: url("public/assets/about-webp/webp/toronto-skyline-sketch.webp") bottom right / contain no-repeat;
+        opacity: 0.48;
+        pointer-events: none;
+      }
+      .mini-kicker {
+        color: var(--ink-deep);
+        font-size: 10px;
+        font-weight: 900;
+      }
+      .mini-kicker span { color: var(--coral); }
+      .context-overview h3 {
+        max-width: 12ch;
+        margin-top: 8px;
+        font-size: clamp(30px, 4vw, 52px);
+        line-height: 0.95;
+      }
+      .mini-products {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        position: relative;
+        z-index: 1;
+      }
+      .mini-products div {
+        min-height: 70px;
+        border: 1px solid var(--line);
+        background: color-mix(in oklch, white 54%, var(--paper-2));
+        padding: 10px;
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--ink-deep);
+      }
+      .mini-products span {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--coral);
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 900;
+      }
+      .context-builder {
+        display: grid;
+        grid-template-columns: 0.8fr 1.2fr;
+        gap: 26px;
+        background: linear-gradient(180deg, var(--warm), #fff7e7);
+        border-top: 1px solid var(--line);
+      }
+      .context-builder h3 {
+        max-width: 15ch;
+        font-size: clamp(30px, 4vw, 56px);
+        line-height: 0.92;
+      }
+      .builder-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      .builder-cards div {
+        min-height: 84px;
+        border: 1px solid var(--line);
+        background: color-mix(in oklch, white 38%, var(--warm));
+        padding: 10px;
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 900;
+        color: var(--ink-deep);
+        text-transform: uppercase;
+      }
+      .builder-cards span {
+        display: block;
+        margin-top: 9px;
+        color: var(--coral);
+      }
+
+      .mock-section {
+        position: relative;
+        min-height: 160vh;
+        padding: clamp(48px, 7vw, 82px) clamp(24px, 4vw, 64px);
+        background: var(--paper);
+      }
+      .mock-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent 0 6.8%, var(--line) 6.9%, transparent 7% 93%, var(--line) 93.1%, transparent 93.2%);
+        pointer-events: none;
+      }
+      .mock-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 1120px;
+        margin: 0 auto;
+      }
+
+      .kicker {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        color: var(--ink-deep);
+        font-size: 12px;
+        font-weight: 900;
+      }
+      .kicker span { color: var(--coral); }
+      .headline {
+        margin: 16px 0 16px;
+        font-size: clamp(38px, 5vw, 68px);
+        line-height: 0.94;
+      }
+      .lead {
+        max-width: 54ch;
+        margin: 0;
+        color: var(--ink);
+        font-family: var(--serif);
+        font-size: clamp(20px, 2vw, 27px);
+        font-style: italic;
+        line-height: 1.18;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin: 24px 0;
+      }
+      .chip {
+        border: 1px solid var(--coral);
+        border-radius: 999px;
+        background: color-mix(in oklch, var(--coral) 7%, transparent);
+        color: var(--coral-deep);
+        padding: 7px 12px;
+        font-size: 10px;
+        font-weight: 900;
+      }
+      .shared-lead {
+        max-width: 56ch;
+        color: var(--ink-soft);
+        font-size: 15px;
+      }
+      .audiences {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin: 20px 0;
+      }
+      .audience-card {
+        border: 1px solid var(--line);
+        border-left: 4px solid var(--coral);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 18px;
+      }
+      .audience-card.builder { border-left-color: var(--blueprint); }
+      .label {
+        display: block;
+        margin-bottom: 9px;
+        color: var(--coral);
+        font-size: 10px;
+        font-weight: 900;
+      }
+      .builder .label { color: var(--blueprint); }
+      .audience-card p {
+        margin: 0;
+        color: var(--ink-deep);
+        font-size: 14px;
+      }
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+        margin-top: 22px;
+      }
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        border: 1.5px solid var(--ink-deep);
+        border-radius: 8px;
+        background: var(--lime);
+        color: var(--lime-ink);
+        padding: 15px 20px;
+        font-size: 15px;
+        font-weight: 900;
+        text-decoration: none;
+        box-shadow: 0 14px 34px rgb(157 255 0 / 0.22);
+      }
+      .cta i {
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        border: 1px solid rgb(32 53 0 / 0.4);
+        border-radius: 50%;
+        font-style: normal;
+      }
+      .micro {
+        max-width: 38ch;
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .stations {
+        display: grid;
+        gap: 10px;
+      }
+      .station {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: color-mix(in oklch, var(--paper-2) 88%, white);
+        padding: 16px;
+      }
+      .station-head {
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+        margin-bottom: 10px;
+      }
+      .station-num {
+        color: var(--coral);
+        font-size: 11px;
+        font-weight: 900;
+      }
+      .station h4 {
+        margin: 0;
+        color: var(--ink-deep);
+        font-size: 16px;
+        line-height: 1.05;
+      }
+      .station ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+      .station li {
+        color: var(--ink-soft);
+        font-size: 13px;
+        margin: 4px 0;
+      }
+      .drawflow {
+        border: 1px solid var(--line-strong);
+        border-radius: 10px;
+        background: color-mix(in oklch, var(--paper-2) 92%, white);
+        padding: clamp(20px, 3vw, 30px);
+      }
+      .draw-label {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        color: var(--blueprint);
+        font-size: 11px;
+        font-weight: 900;
+      }
+      .draw-label::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--blueprint);
+      }
+      .drawflow h3 {
+        margin-top: 10px;
+        font-size: clamp(27px, 3vw, 40px);
+        line-height: 1;
+      }
+      .drawflow h3 em { color: var(--blueprint); }
+      .drawflow > p {
+        margin: 8px 0 22px;
+        color: var(--ink-soft);
+      }
+      .drawflow > p strong { color: var(--coral-deep); }
+      .milestones {
+        display: grid;
+        grid-template-columns: repeat(9, minmax(70px, 1fr));
+        gap: 0;
+        overflow-x: auto;
+        padding-bottom: 14px;
+      }
+      .milestone {
+        position: relative;
+        min-height: 56px;
+        padding-top: 30px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 9px;
+        font-weight: 900;
+        text-transform: uppercase;
+        text-align: center;
+      }
+      .milestone::before {
+        content: "";
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        width: 10px;
+        height: 10px;
+        transform: translateX(-50%);
+        border: 1.5px solid var(--blueprint);
+        border-radius: 50%;
+        background: var(--paper-2);
+      }
+      .milestone::after {
+        content: "";
+        position: absolute;
+        top: 17px;
+        left: calc(50% + 9px);
+        right: calc(-50% + 9px);
+        height: 1.5px;
+        background: var(--blueprint-soft);
+      }
+      .milestone:last-child::after { display: none; }
+      .milestone.done::before { background: var(--blueprint); }
+      .milestone.active {
+        color: var(--coral-deep);
+      }
+      .milestone.active::before {
+        width: 14px;
+        height: 14px;
+        top: 10px;
+        border-color: var(--coral);
+        background: var(--coral);
+        box-shadow: 0 0 0 6px color-mix(in oklch, var(--coral) 14%, transparent);
+      }
+      .compare {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        border: 1px solid var(--line);
+        margin-top: 18px;
+      }
+      .compare div {
+        padding: 16px;
+      }
+      .compare div + div {
+        border-left: 1px solid var(--line);
+        background: color-mix(in oklch, var(--lime) 8%, transparent);
+      }
+      .compare b {
+        display: block;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+      .compare strong {
+        display: block;
+        margin-top: 6px;
+        color: var(--ink-deep);
+        font-family: var(--serif);
+        font-size: 34px;
+        font-weight: 500;
+      }
+      .saved {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: center;
+        margin-top: 14px;
+        border-left: 4px solid var(--lime);
+        background: color-mix(in oklch, var(--lime) 8%, transparent);
+        padding: 14px;
+      }
+      .saved strong {
+        color: var(--ink-deep);
+        font-family: var(--serif);
+        font-size: 27px;
+        font-weight: 500;
+      }
+      .saved span,
+      .saved small {
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .tiles {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .tile,
+      .more {
+        border: 1px dashed var(--line-strong);
+        border-radius: 8px;
+        background: var(--paper);
+        padding: 14px;
+      }
+      .tile b {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--ink-deep);
+      }
+      .tile p,
+      .more p {
+        margin: 0;
+        color: var(--ink-soft);
+        font-size: 13px;
+      }
+      .more {
+        margin-top: 14px;
+        border-style: solid;
+        border-color: color-mix(in oklch, var(--lime) 42%, var(--line));
+      }
+      .more b { color: var(--ink-deep); }
+      .thesis-strip {
+        margin-top: 26px;
+        padding: clamp(26px, 5vw, 52px);
+        border-radius: 10px;
+        background:
+          linear-gradient(180deg, oklch(0.255 0.052 166), oklch(0.155 0.04 166));
+        color: #fffaf1;
+      }
+      .thesis-label {
+        display: block;
+        color: var(--coral);
+        font-size: 11px;
+        font-weight: 900;
+      }
+      .thesis-strip h3 {
+        max-width: 16ch;
+        margin: 10px 0;
+        color: #fffdf7;
+        font-size: clamp(30px, 4vw, 56px);
+        line-height: 0.95;
+      }
+      .thesis-strip h3 em { color: var(--coral); }
+      .thesis-strip p {
+        max-width: 64ch;
+        color: rgb(255 250 241 / 0.82);
+      }
+      .equation {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 18px;
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+      .equation span {
+        border: 1px solid rgb(255 250 241 / 0.2);
+        border-radius: 999px;
+        padding: 7px 10px;
+      }
+      .equation i {
+        align-self: center;
+        color: var(--coral);
+        font-style: normal;
+      }
+      .equation .outcome {
+        border-color: var(--coral);
+        color: var(--coral);
+      }
+
+      /* Concept 1 */
+      .ledger .mock-section { min-height: 150vh; }
+      .ledger-grid {
+        display: grid;
+        grid-template-columns: 0.82fr 1.18fr;
+        gap: clamp(28px, 5vw, 70px);
+        align-items: start;
+      }
+      .ledger-copy {
+        position: sticky;
+        top: 94px;
+      }
+      .ledger-book {
+        border-top: 1px solid var(--line-strong);
+        border-bottom: 1px solid var(--line-strong);
+      }
+      .ledger-book .station {
+        border-width: 0 0 1px;
+        border-radius: 0;
+        background: transparent;
+        padding: 20px 0;
+      }
+      .ledger-book .station:last-child { border-bottom: 0; }
+      .ledger .drawflow { margin-top: 24px; }
+
+      /* Concept 2 */
+      .spine .mock-section {
+        min-height: 200vh;
+        padding-bottom: 0;
+      }
+      .spine-layout {
+        display: grid;
+        grid-template-columns: minmax(290px, 0.82fr) minmax(0, 1.18fr);
+        gap: clamp(28px, 4vw, 62px);
+      }
+      .spine-intro {
+        position: sticky;
+        top: 92px;
+        align-self: start;
+      }
+      .spine-flow {
+        position: relative;
+        display: grid;
+        gap: 18px;
+        padding-left: 36px;
+      }
+      .spine-flow::before {
+        content: "";
+        position: absolute;
+        top: 8px;
+        bottom: 8px;
+        left: 10px;
+        width: 2px;
+        background: repeating-linear-gradient(180deg, var(--coral) 0 5px, transparent 5px 11px);
+      }
+      .spine-flow .station,
+      .spine-flow .drawflow,
+      .spine-flow .thesis-strip {
+        position: relative;
+      }
+      .spine-flow .station::before,
+      .spine-flow .drawflow::before,
+      .spine-flow .thesis-strip::before {
+        content: "";
+        position: absolute;
+        top: 22px;
+        left: -35px;
+        width: 12px;
+        height: 12px;
+        border: 2px solid var(--coral);
+        border-radius: 50%;
+        background: var(--paper);
+      }
+
+      /* Concept 3 */
+      .command .mock-section {
+        min-height: 172vh;
+        background:
+          linear-gradient(180deg, var(--paper), var(--paper-2) 44%, var(--paper));
+      }
+      .command-hero {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(300px, 1.1fr);
+        gap: clamp(24px, 4vw, 54px);
+        align-items: center;
+      }
+      .command-console {
+        border: 1px solid var(--line-strong);
+        border-radius: 10px;
+        background: var(--paper-2);
+        padding: 16px;
+        box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.5);
+      }
+      .console-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .console-grid div {
+        min-height: 78px;
+        border: 1px solid var(--line);
+        background: color-mix(in oklch, white 44%, var(--paper-2));
+        padding: 10px;
+        color: var(--ink-deep);
+        font-size: 12px;
+        font-weight: 800;
+      }
+      .command .stations {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        margin-top: 28px;
+      }
+      .command .drawflow {
+        margin-top: 18px;
+      }
+
+      /* Concept 4 */
+      .equation-theatre .mock-section {
+        min-height: 186vh;
+        padding-inline: clamp(20px, 3vw, 44px);
+      }
+      .theatre-stage {
+        min-height: 72vh;
+        border-bottom: 1px solid var(--line);
+        display: grid;
+        grid-template-columns: minmax(300px, 0.75fr) minmax(0, 1.25fr);
+        gap: clamp(26px, 5vw, 70px);
+        align-items: center;
+      }
+      .equation-wall {
+        position: relative;
+        min-height: 410px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background:
+          linear-gradient(120deg, transparent, color-mix(in oklch, var(--blueprint) 7%, transparent)),
+          var(--paper-2);
+        overflow: hidden;
+      }
+      .equation-wall::before {
+        content: "";
+        position: absolute;
+        inset: auto -20px -18px auto;
+        width: 440px;
+        height: 210px;
+        background: url("public/assets/fairlend-route-selector/construction-building-engraving.webp") bottom right / contain no-repeat;
+        opacity: 0.36;
+      }
+      .pin {
+        position: absolute;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        border: 1px solid var(--line-strong);
+        border-radius: 999px;
+        background: var(--paper);
+        padding: 8px 12px;
+        color: var(--ink-deep);
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+      .pin::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--coral);
+      }
+      .pin:nth-child(1) { left: 7%; top: 11%; }
+      .pin:nth-child(2) { left: 45%; top: 9%; }
+      .pin:nth-child(3) { right: 8%; top: 23%; }
+      .pin:nth-child(4) { left: 14%; top: 44%; }
+      .pin:nth-child(5) { right: 13%; top: 52%; }
+      .pin:nth-child(6) { left: 36%; bottom: 18%; }
+      .pin:nth-child(7) { right: 24%; bottom: 8%; }
+      .theatre-body {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(300px, 0.9fr);
+        gap: 18px;
+        margin-top: 28px;
+      }
+      .theatre-body .stations {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      @media (max-width: 980px) {
+        .doc-head,
+        .panel-head,
+        .context-overview,
+        .context-builder,
+        .ledger-grid,
+        .spine-layout,
+        .command-hero,
+        .theatre-stage,
+        .theatre-body {
+          grid-template-columns: 1fr;
+        }
+        .tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .ledger-copy,
+        .spine-intro {
+          position: static;
+        }
+        .command .stations,
+        .theatre-body .stations {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      @media (max-width: 680px) {
+        .tabs,
+        .audiences,
+        .compare,
+        .tiles,
+        .command .stations,
+        .theatre-body .stations,
+        .mini-products,
+        .builder-cards,
+        .console-grid {
+          grid-template-columns: 1fr;
+        }
+        .saved {
+          grid-template-columns: 1fr;
+        }
+        .mock-section {
+          min-height: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="doc-head">
+        <div>
+          <div class="doc-kicker">Section 3 / Our Build Model / Concept Sprint</div>
+          <h1>Four ways to rebuild the model.</h1>
+        </div>
+        <aside class="doc-meta">
+          <p>
+            Each tab preserves the locked section copy and tests a different presentation model against
+            the existing FairLend paper, serif, lime, coral, blueprint, and transition language.
+          </p>
+        </aside>
+      </header>
+
+      <nav class="tabs" role="tablist" aria-label="Our Build Model concepts">
+        <button class="tab" id="tab-ledger" role="tab" aria-selected="true" aria-controls="panel-ledger" data-target="ledger">
+          <b>Concept 01</b>
+          <span>Ledger Blueprint</span>
+        </button>
+        <button class="tab" id="tab-spine" role="tab" aria-selected="false" aria-controls="panel-spine" data-target="spine">
+          <b>Concept 02</b>
+          <span>Vertical Build Spine</span>
+        </button>
+        <button class="tab" id="tab-command" role="tab" aria-selected="false" aria-controls="panel-command" data-target="command">
+          <b>Concept 03</b>
+          <span>DrawFlow Command Center</span>
+        </button>
+        <button class="tab" id="tab-equation" role="tab" aria-selected="false" aria-controls="panel-equation" data-target="equation">
+          <b>Concept 04</b>
+          <span>Equation Theatre</span>
+        </button>
+      </nav>
+
+      <section class="panel ledger" id="panel-ledger" role="tabpanel" aria-labelledby="tab-ledger" aria-hidden="false"></section>
+      <section class="panel spine" id="panel-spine" role="tabpanel" aria-labelledby="tab-spine" aria-hidden="true"></section>
+      <section class="panel command" id="panel-command" role="tabpanel" aria-labelledby="tab-command" aria-hidden="true"></section>
+      <section class="panel equation-theatre" id="panel-equation" role="tabpanel" aria-labelledby="tab-equation" aria-hidden="true"></section>
+    </main>
+
+    <script>
+      const copy = {
+        kicker: "03 / Our Build Model",
+        headline: "Bring us the property. We'll help build the equation.",
+        lead: "From early intent to construction financing and takeout strategy, we shape one financeable project — end to end.",
+        variables: ["Land", "Scope", "Capital", "Draw plan", "Professional path", "Permit & MLI readiness", "Exit"],
+        sharedLead: "You don't need the whole team, a perfect plan, or prior build experience before you talk to us.",
+        audiences: [
+          {
+            type: "builder",
+            tag: "If you already build",
+            body: "Keep your focus on the site. We help carry the financing and business equation around it.",
+          },
+          {
+            type: "first",
+            tag: "First-time builder",
+            body: "Bring a property and a down payment. We craft the design and specs with you, assign an experienced builder or project manager, and handle the rest — permits, draws, takeout, everything.",
+          },
+        ],
+        cta: "Book a free consultation",
+        micro: "Bring a property, plan, or early idea — your first conversation is on us.",
+        stations: [
+          {
+            num: "01",
+            title: "Plan",
+            services: [
+              "Site search & feasibility review",
+              "Land basis & acquisition price the project can support",
+              "Zoning path, housing form, unit mix, buildable area",
+              "Construction budget pressure-testing",
+            ],
+          },
+          {
+            num: "02",
+            title: "Finance",
+            services: [
+              "Construction budget & borrower capital position",
+              "Private financing & capital structure",
+              "Draw schedule (milestone-based, DrawFlow)",
+              "Working-capital planning",
+            ],
+          },
+          {
+            num: "03",
+            title: "Build support",
+            services: [
+              "Contractor, consultant & professional network — introductions where appropriate",
+              "Permit strategy & documentation gap analysis",
+              "CMHC MLI Select readiness support (where applicable)",
+              "Milestone/draw administration & site monitoring",
+            ],
+          },
+          {
+            num: "04",
+            title: "Takeout",
+            services: [
+              "Sale, refinance, or rental stabilization",
+              "Insured (MLI Select) takeout preparation",
+              "Long-term financing direction",
+            ],
+          },
+        ],
+        drawflow: {
+          label: "Powered by DrawFlow",
+          headline: "A milestone line of credit for your build.",
+          sub: "More draws. Less interest. Fund the work, not the wait.",
+          nodes: ["Foundation", "Framing", "Roof", "Windows", "Mechanical", "Plumbing", "Electrical", "Drywall", "Flooring"],
+          traditional: "3 draws",
+          fairlend: "up to 15 draws",
+          saved: "≈ $12,000",
+          savedText: "— Illustrative interest saved over a typical build.",
+          caveat: "*Illustrative only. Every project differs.",
+          tiles: [
+            {
+              title: "Your schedule, not ours",
+              body: "Build your own draw schedule. Tie releases to the milestones that match how your project actually goes up.",
+            },
+            {
+              title: "Modify it mid-build",
+              body: "Builds don't always go as planned. Adjust the draw plan as the work shifts so capital is there when you need it, and not costing interest when you don't.",
+            },
+          ],
+          more: "More than capital. Complimentary access to our GTA build specialists and a deep supplier & trade network — your project manager comes with the financing.",
+        },
+        thesis: {
+          label: "Builder Consulting",
+          headline: "FairLend's thesis: profit lives in the variables.",
+          body: "A profitable build is not only a construction problem. It is a business equation that changes with land, cost, capital, draws, policy, incentives, and takeout.",
+          equation: ["Land", "Cost", "Capital", "Draws", "Policy", "Incentives", "Takeout"],
+          outcome: "Outcome",
+        },
+      };
+
+      const concepts = {
+        ledger: {
+          title: "Ledger Blueprint",
+          note: "Closest to the current page language: editorial left rail, operating ledger on the right, DrawFlow as the technical proof. This is the safest coherence move.",
+          render: renderLedger,
+        },
+        spine: {
+          title: "Vertical Build Spine",
+          note: "Uses the 2x viewport allowance. The visitor reads the model as a long guided spine, with the CTA pinned to the thesis while the pillars and DrawFlow stack underneath.",
+          render: renderSpine,
+        },
+        command: {
+          title: "DrawFlow Command Center",
+          note: "Leads with the financing mechanism instead of saving it for the middle. Best when the section needs to feel like a proprietary operating model, not a generic advisory promise.",
+          render: renderCommand,
+        },
+        equation: {
+          title: "Equation Theatre",
+          note: "Most dramatic bridge into Builder Consulting. The build variables become pinned objects on a blueprint wall, then resolve into the thesis strip and feasibility-board grammar.",
+          render: renderEquation,
+        },
+      };
+
+      function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, (char) => ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;",
+        })[char]);
+      }
+
+      function panelChrome(id, body) {
+        const concept = concepts[id];
+        return `
+          <div class="panel-head">
+            <h2>${concept.title}</h2>
+            <div class="concept-note"><b>Design thesis</b>${concept.note}</div>
+          </div>
+          <div class="artboard">
+            ${contextOverview()}
+            ${body}
+            ${contextBuilder()}
+          </div>
+        `;
+      }
+
+      function contextOverview() {
+        return `
+          <div class="context-overview">
+            <div>
+              <div class="mini-kicker"><span>02</span> / What We Finance</div>
+              <h3>Flexible capital for every project.</h3>
+            </div>
+            <div class="mini-products" aria-hidden="true">
+              <div><span>01</span>Residential private mortgages</div>
+              <div><span>02</span>Bridge loans</div>
+              <div><span>03</span>Renovation financing</div>
+              <div><span>04</span>Multi-plex financing</div>
+              <div><span>05</span>Garden & laneway suites</div>
+              <div><span>06</span>MLI-select insured housing</div>
+            </div>
+          </div>
+        `;
+      }
+
+      function contextBuilder() {
+        return `
+          <div class="context-builder">
+            <div>
+              <div class="mini-kicker"><span>04</span> / Builder Consulting</div>
+              <h3>The math only works when the variables are shaped early.</h3>
+            </div>
+            <div class="builder-cards" aria-hidden="true">
+              <div>Land + build cost <span>Model the basis</span></div>
+              <div>Draws + policy <span>Shape the capital</span></div>
+              <div>Exit + outcome <span>Protect the takeout</span></div>
+            </div>
+          </div>
+        `;
+      }
+
+      function heroBlock(alignment = "") {
+        return `
+          <div class="hero-block ${alignment}">
+            <div class="kicker"><span>03</span> / Our Build Model</div>
+            <h2 class="headline">${copy.headline}</h2>
+            <p class="lead">${copy.lead}</p>
+            ${chips()}
+            <p class="shared-lead">${copy.sharedLead}</p>
+            ${audiences()}
+            ${cta()}
+          </div>
+        `;
+      }
+
+      function chips() {
+        return `<div class="chips">${copy.variables.map((item) => `<span class="chip">${escapeHtml(item)}</span>`).join("")}</div>`;
+      }
+
+      function audiences() {
+        return `
+          <div class="audiences">
+            ${copy.audiences.map((item) => `
+              <article class="audience-card ${item.type === "builder" ? "builder" : ""}">
+                <span class="label">${item.tag}</span>
+                <p>${item.body}</p>
+              </article>
+            `).join("")}
+          </div>
+        `;
+      }
+
+      function cta() {
+        return `
+          <div class="cta-row">
+            <a class="cta" href="/intake?intent=consultation&source=build-model-consultation">${copy.cta}<i aria-hidden="true">→</i></a>
+            <p class="micro">${copy.micro}</p>
+          </div>
+        `;
+      }
+
+      function stations() {
+        return `
+          <div class="stations">
+            ${copy.stations.map((station) => `
+              <article class="station">
+                <div class="station-head">
+                  <span class="station-num">${station.num}</span>
+                  <h4>${station.title}</h4>
+                </div>
+                <ul>
+                  ${station.services.map((service) => `<li>${escapeHtml(service)}</li>`).join("")}
+                </ul>
+              </article>
+            `).join("")}
+          </div>
+        `;
+      }
+
+      function drawflow() {
+        return `
+          <section class="drawflow">
+            <span class="draw-label">${copy.drawflow.label}</span>
+            <h3>${copy.drawflow.headline.replace("line of credit", "<em>line of credit</em>")}</h3>
+            <p>${copy.drawflow.sub.replace("Fund the work, not the wait.", "<strong>Fund the work, not the wait.</strong>")}</p>
+            <div class="milestones" aria-label="DrawFlow milestone track">
+              ${copy.drawflow.nodes.map((node, index) => `<span class="milestone ${index < 5 ? "done" : ""} ${node === "Plumbing" ? "active" : ""}">${node}</span>`).join("")}
+            </div>
+            <div class="compare">
+              <div><b>Traditional</b><strong>${copy.drawflow.traditional}</strong></div>
+              <div><b>FairLend</b><strong>${copy.drawflow.fairlend}</strong></div>
+            </div>
+            <div class="saved">
+              <strong>${copy.drawflow.saved}</strong>
+              <span>${copy.drawflow.savedText}</span>
+              <small>${copy.drawflow.caveat}</small>
+            </div>
+            <div class="tiles">
+              ${copy.drawflow.tiles.map((tile) => `<article class="tile"><b>${tile.title}</b><p>${tile.body}</p></article>`).join("")}
+            </div>
+            <div class="more"><p><b>${copy.drawflow.more.split(". ")[0]}.</b> ${copy.drawflow.more.split(". ").slice(1).join(". ")}</p></div>
+          </section>
+        `;
+      }
+
+      function thesis() {
+        const eq = copy.thesis.equation.map((item, index) => `
+          <span>${item}</span>${index < copy.thesis.equation.length - 1 ? "<i>+</i>" : ""}
+        `).join("");
+        return `
+          <section class="thesis-strip">
+            <span class="thesis-label">${copy.thesis.label}</span>
+            <h3>${copy.thesis.headline.replace("variables", "<em>variables</em>")}</h3>
+            <p>${copy.thesis.body}</p>
+            <div class="equation">${eq}<i>→</i><span class="outcome">${copy.thesis.outcome}</span></div>
+          </section>
+        `;
+      }
+
+      function renderLedger() {
+        return panelChrome("ledger", `
+          <section class="mock-section">
+            <div class="mock-inner ledger-grid">
+              <div class="ledger-copy">${heroBlock()}</div>
+              <div>
+                <div class="ledger-book">${stations()}</div>
+                ${drawflow()}
+                ${thesis()}
+              </div>
+            </div>
+          </section>
+        `);
+      }
+
+      function renderSpine() {
+        return panelChrome("spine", `
+          <section class="mock-section">
+            <div class="mock-inner spine-layout">
+              <div class="spine-intro">${heroBlock()}</div>
+              <div class="spine-flow">
+                ${copy.stations.map((station) => `
+                  <article class="station">
+                    <div class="station-head"><span class="station-num">${station.num}</span><h4>${station.title}</h4></div>
+                    <ul>${station.services.map((service) => `<li>${escapeHtml(service)}</li>`).join("")}</ul>
+                  </article>
+                `).join("")}
+                ${drawflow()}
+                ${thesis()}
+              </div>
+            </div>
+          </section>
+        `);
+      }
+
+      function renderCommand() {
+        return panelChrome("command", `
+          <section class="mock-section">
+            <div class="mock-inner">
+              <div class="command-hero">
+                ${heroBlock()}
+                <aside class="command-console">
+                  <span class="draw-label">${copy.drawflow.label}</span>
+                  <h3>${copy.drawflow.headline.replace("line of credit", "<em>line of credit</em>")}</h3>
+                  <p>${copy.drawflow.sub.replace("Fund the work, not the wait.", "<strong>Fund the work, not the wait.</strong>")}</p>
+                  <div class="milestones" aria-label="DrawFlow milestone track">
+                    ${copy.drawflow.nodes.map((node, index) => `<span class="milestone ${index < 5 ? "done" : ""} ${node === "Plumbing" ? "active" : ""}">${node}</span>`).join("")}
+                  </div>
+                  <div class="console-grid" aria-hidden="true">
+                    ${copy.stations.map((station) => `<div><span class="station-num">${station.num}</span><br>${station.title}</div>`).join("")}
+                  </div>
+                </aside>
+              </div>
+              ${stations()}
+              ${drawflow()}
+              ${thesis()}
+            </div>
+          </section>
+        `);
+      }
+
+      function renderEquation() {
+        return panelChrome("equation", `
+          <section class="mock-section">
+            <div class="mock-inner">
+              <div class="theatre-stage">
+                ${heroBlock()}
+                <div class="equation-wall" aria-hidden="true">
+                  ${copy.variables.map((item) => `<span class="pin">${escapeHtml(item)}</span>`).join("")}
+                </div>
+              </div>
+              <div class="theatre-body">
+                ${stations()}
+                <div>
+                  ${drawflow()}
+                  ${thesis()}
+                </div>
+              </div>
+            </div>
+          </section>
+        `);
+      }
+
+      Object.entries(concepts).forEach(([id, concept]) => {
+        document.getElementById(`panel-${id === "equation" ? "equation" : id}`).innerHTML = concept.render();
+      });
+
+      const tabs = Array.from(document.querySelectorAll(".tab"));
+      const panels = Array.from(document.querySelectorAll(".panel"));
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const target = tab.dataset.target;
+          tabs.forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+          panels.forEach((panel) => {
+            const active = panel.id === `panel-${target === "equation" ? "equation" : target}`;
+            panel.setAttribute("aria-hidden", String(!active));
+          });
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      });
+    </script>
+  </body>
+</html>

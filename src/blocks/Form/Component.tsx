@@ -9,6 +9,10 @@ import { Button } from '@/components/ui/button'
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 import { fields } from './fields'
+import {
+  createFairlendCampaignJourneyEventId,
+  sendFairlendCampaignJourneyEvent,
+} from '@/lib/fairlend-campaign-journey.client'
 import { getClientSideURL } from '@/utilities/getURL'
 
 export type FormBlockType = {
@@ -91,6 +95,14 @@ export const FormBlock: React.FC<
 
           setIsLoading(false)
           setHasSubmitted(true)
+          sendFairlendCampaignJourneyEvent({
+            eventId: createFairlendCampaignJourneyEventId('form-submitted'),
+            eventType: 'form_submitted',
+            formId: String(formID),
+            formName: formFromProps.title,
+            intakeType: 'cms-form',
+            pagePath: window.location.pathname,
+          })
 
           if (confirmationType === 'redirect' && redirect) {
             const { url } = redirect
@@ -110,7 +122,7 @@ export const FormBlock: React.FC<
 
       void submitForm()
     },
-    [router, formID, redirect, confirmationType],
+    [router, formID, formFromProps.title, redirect, confirmationType],
   )
 
   return (

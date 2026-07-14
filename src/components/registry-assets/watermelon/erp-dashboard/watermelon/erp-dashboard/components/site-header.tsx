@@ -1,4 +1,6 @@
 'use client'
+
+import Image from 'next/image'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList } from '@/components/ui/breadcrumb'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
@@ -64,11 +66,14 @@ export default function SiteHeader() {
         <div className="flex items-center gap-2">
           <Select defaultValue="profile">
             <SelectTrigger className="h-9 w-fit bg-neutral-100/50 dark:bg-neutral-800/50 border-t border-x-0 border-b-0 border-t-neutral-200 dark:border-t-neutral-700/80 hover:bg-neutral-200/50 dark:hover:bg-neutral-800 px-2 gap-2 text-foreground data-[state=open]:bg-neutral-200 dark:data-[state=open]:bg-neutral-800 focus:ring-0 focus:ring-offset-0 focus-visible:border-neutral-400 dark:focus-visible:border-neutral-600 shadow-none transition-colors duration-300 cursor-pointer outline-none">
-              <img
+              <Image
                 src="https://github.com/shadcn.png"
                 alt="Avatar"
                 className="h-6 w-6 rounded-md object-cover"
-              />
+              
+          width={96}
+          height={96}
+          sizes="96px"/>
               <span className="sr-only">
                 <SelectValue placeholder="Profile" />
               </span>

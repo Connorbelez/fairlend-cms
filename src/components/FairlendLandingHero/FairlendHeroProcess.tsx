@@ -140,7 +140,7 @@ function MobileRouteProcessLayer({ steps }: { steps: readonly FairlendHeroProces
 
   return (
     <div
-      aria-label="Fairlend mobile project process"
+      aria-label="FairLend mobile project process"
       className="pointer-events-none absolute inset-0 z-[6] hidden hero-max-1279:block hero-portrait-wide:block"
       data-testid="hero-mobile-process-bar"
     >
@@ -325,7 +325,7 @@ export function FairlendHeroProcess({
     <>
       {!mobileOnly && !mobileRouteOnly ? (
         <div
-          aria-label="Fairlend project process"
+          aria-label="FairLend project process"
           className="pointer-events-none absolute inset-0 z-[6] hidden overflow-visible hero-landscape:block"
           data-testid="hero-process-bar"
         >

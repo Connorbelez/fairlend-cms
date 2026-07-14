@@ -7,6 +7,8 @@ import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { MoneyPageBlocks } from '../../blocks/MoneyPage/config'
+import { WatermelonLayoutBlocks } from '../../blocks/WatermelonLayouts/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -75,7 +77,15 @@ export const Pages: CollectionConfig = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+              blocks: [
+                ...MoneyPageBlocks,
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+                ...WatermelonLayoutBlocks,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,

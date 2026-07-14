@@ -1,384 +1,427 @@
 import type { CSSProperties } from 'react'
-import { Handshake, MapPin, ShieldCheck, UsersRound } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
+import Image from 'next/image'
 
-import { FairlendRegistrationDisclosure } from '@/components/FairlendRegistrationDisclosure'
-import { FairlendTalkToExpertCta } from '@/components/FairlendTalkToExpertCta'
-import { Card } from '@/components/ui/card'
-import { DiaTextReveal } from '@/components/ui/dia-text'
+import { FairlendConsultationBookingDialog } from '@/components/FairlendConsultationBooking/FairlendConsultationBookingDialog.client'
+import { FairlendBuildPropertyTypes } from '@/components/FairlendBuildPropertyTypes'
+import {
+  FAIRLEND_CONTACT_PHONE_HREF,
+  FAIRLEND_CONTACT_PHONE_LABEL,
+  FairlendTalkToExpertCta,
+} from '@/components/FairlendTalkToExpertCta'
 import { cn } from '@/utilities/ui'
 
+import { FairlendApplicationArrow } from './FairlendApplicationArrow.client'
 import { FairlendApplicationForm } from './FairlendApplicationForm.client'
-import { FairlendHeroProcess } from './FairlendHeroProcess'
-import { HeroHandwrittenInsertion } from './HeroHandwrittenInsertion.client'
+import { FairlendTorontoHeroParallax } from './FairlendTorontoHeroParallax.client'
+import { torontoCloudLayers, torontoHeroAssets } from './toronto-scene-assets'
 
-type MapLabelLocation =
-  | 'etobicoke'
-  | 'markham'
-  | 'mississauga'
-  | 'northYork'
-  | 'scarborough'
-  | 'vaughan'
-
-const mapLabels = [
-  { label: 'VAUGHAN', location: 'vaughan' },
-  { label: 'MARKHAM', location: 'markham' },
-  { label: 'NORTH\nYORK', location: 'northYork' },
-  { label: 'SCARBOROUGH', location: 'scarborough' },
-  { label: 'ETOBICOKE', location: 'etobicoke' },
-  { label: 'MISSISSAUGA', location: 'mississauga' },
-] satisfies Array<{ label: string; location: MapLabelLocation }>
-
-const processSteps = [
-  { label: 'Permit', number: '1', step: 'permit' },
-  { label: 'Acquisition', number: '2', step: 'acquisition' },
-  { label: 'Construction', number: '3', step: 'construction' },
-  { label: 'Completion', number: '4', step: 'completion' },
+const proofStats = [
+  {
+    disclaimer: '*Principal-broker lifetime volume; final figure to be verified.',
+    label: 'volume by\nprincipal\nbroker',
+    qualifier: '*',
+    value: '$1B+',
+  },
+  {
+    disclaimer: '*Available for complete files; timing varies by file.',
+    label: 'commitment\ntarget',
+    prefix: 'hrs',
+    qualifier: '*',
+    value: '24',
+  },
+  {
+    disclaimer: '*Principal-broker experience.',
+    label: 'years\nexperience',
+    qualifier: '*',
+    value: '28+',
+  },
 ] as const
 
-const stats = [
-  { icon: ShieldCheck, text: '25+ years\nof experience' },
-  { icon: Handshake, text: '$2B+ in\nfinancing closed' },
-  { icon: MapPin, text: 'Proudly based\nin Toronto' },
-  { icon: UsersRound, text: 'End-to-end\nlending partner' },
-]
-
-const mobileStats = [
-  { icon: ShieldCheck, text: '25+ years\nof experience' },
-  { icon: Handshake, text: '$2B+ in\nfinancing closed' },
-  { icon: MapPin, text: 'Proudly based\nin Toronto' },
-  { icon: UsersRound, text: 'End-to-end\nlending partner' },
-]
-
-const heroStageClassName =
-  'relative h-[var(--hero-stage-height)] min-h-[var(--hero-stage-height)] overflow-hidden [--hero-header-clearance:72px] [--hero-stage-height:min(100svh,56.35vw)] [--hero-stage-width:min(100%,177.47svh)] hero-tablet:block hero-tablet:h-[calc(100svh-116px)] hero-tablet:min-h-[720px] hero-tablet:max-h-[900px] hero-tablet:overflow-hidden hero-tablet-landscape:h-[calc(100svh-86px)] hero-tablet-landscape:min-h-[760px] hero-tablet-landscape:max-h-none hero-tablet-landscape:[--hero-stats-height:0px] hero-tablet-landscape-short:h-[calc(100svh-68px)] hero-tablet-landscape-short:min-h-0 hero-tablet-landscape-short:max-h-none hero-portrait-wide:h-[calc(100svh-104px)] hero-portrait-wide:min-h-[calc(100svh-104px)] hero-portrait-wide:max-h-none hero-mobile:block hero-mobile:!h-svh hero-mobile:!min-h-svh hero-mobile:overflow-hidden hero-mobile-short:!min-h-svh hero-landscape:box-border hero-landscape:grid hero-landscape:h-svh hero-landscape:min-h-svh hero-landscape:max-h-none hero-landscape:grid-cols-12 hero-landscape:grid-rows-1 hero-landscape:gap-x-0 hero-landscape:[--hero-grid-gap:0px] hero-landscape:[--hero-grid-pad-x:clamp(32px,3.2vw,64px)] hero-landscape:[--hero-stage-height:100svh] hero-landscape-mid:[--hero-grid-gap:0px] hero-landscape-mid:[--hero-grid-pad-x:clamp(24px,2.4vw,42px)] hero-landscape:[--hero-stats-height:clamp(64px,5.5vw,92px)]'
-
-const mapLayerClassName =
-  'pointer-events-none absolute top-0 left-1/2 z-[1] h-full w-[var(--hero-stage-width)] origin-bottom-right [transform:scale(0.94)_translate(-19.48%,14.4%)] hero-max-1279:absolute hero-max-1279:inset-0 hero-max-1279:m-0 hero-max-1279:h-full hero-max-1279:w-full hero-max-1279:translate-x-0 hero-max-1279:transform-none hero-max-1279:overflow-hidden hero-tablet-landscape:top-[clamp(12px,2svh,28px)] hero-tablet-landscape:right-[clamp(-36px,-2.2vw,-18px)] hero-tablet-landscape:bottom-auto hero-tablet-landscape:left-auto hero-tablet-landscape:h-[min(58svh,620px)] hero-tablet-landscape:w-[min(62vw,790px)] hero-tablet-landscape:overflow-visible hero-tablet-landscape-short:top-[4px] hero-tablet-landscape-short:h-[clamp(250px,44svh,360px)] hero-tablet-landscape-short:w-[min(58vw,700px)] hero-portrait-wide:absolute hero-portrait-wide:inset-0 hero-portrait-wide:m-0 hero-portrait-wide:h-full hero-portrait-wide:w-full hero-portrait-wide:translate-x-0 hero-portrait-wide:transform-none hero-portrait-wide:overflow-hidden hero-mobile:left-1/2 hero-mobile:w-screen hero-mobile:-translate-x-1/2 hero-landscape:inset-0 hero-landscape:left-0 hero-landscape:h-full hero-landscape:w-full hero-landscape:origin-center hero-landscape:translate-x-0 hero-landscape:transform-none'
-
-const mapFrameClassName =
-  'absolute top-0 left-[98px] z-[1] h-[766px] w-[1577px] max-w-none overflow-visible motion-safe:animate-[heroMapIn_760ms_var(--hero-ease-out)_20ms_both] hero-max-1279:inset-0 hero-max-1279:h-full hero-max-1279:w-full hero-max-1279:max-w-full hero-max-1279:translate-x-0 hero-max-1279:overflow-hidden hero-tablet-landscape:inset-0 hero-tablet-landscape:h-full hero-tablet-landscape:w-full hero-tablet-landscape:max-w-full hero-tablet-landscape:overflow-visible hero-portrait-wide:inset-0 hero-portrait-wide:h-full hero-portrait-wide:w-full hero-portrait-wide:max-w-full hero-portrait-wide:translate-x-0 hero-portrait-wide:overflow-hidden hero-landscape:inset-x-0 hero-landscape:top-[var(--hero-header-clearance)] hero-landscape:bottom-0 hero-landscape:h-auto hero-landscape:w-full hero-landscape:max-w-none hero-landscape:translate-x-0 hero-landscape:overflow-hidden'
-
-const heroCopyClassName =
-  'absolute top-[calc(var(--hero-header-clearance)+clamp(18px,3.8svh,54px))] left-[clamp(28px,4vw,76px)] z-[5] flex w-[min(43vw,700px)] max-w-[700px] flex-col items-start gap-0 [translate:0] motion-safe:animate-[heroCopyIn_780ms_var(--hero-ease-out)_180ms_both] hero-max-1120:w-fit hero-max-1279:relative hero-max-1279:top-auto hero-max-1279:left-auto hero-max-1279:z-[5] hero-max-1279:mt-0 hero-max-1279:h-auto hero-max-1279:w-[min(100%,590px)] hero-max-1279:[translate:0] hero-tablet:block hero-tablet:h-auto hero-tablet:w-full hero-tablet:max-w-[640px] hero-tablet-landscape:absolute hero-tablet-landscape:top-[clamp(168px,22svh,230px)] hero-tablet-landscape:left-0 hero-tablet-landscape:w-[min(45vw,560px)] hero-tablet-landscape:max-w-none hero-tablet-landscape:[translate:0] hero-tablet-landscape-short:top-[clamp(82px,14svh,110px)] hero-tablet-landscape-short:w-[min(46vw,500px)] hero-portrait-wide:absolute hero-portrait-wide:top-[calc(var(--hero-header-clearance)+clamp(18px,3svh,44px))] hero-portrait-wide:left-[clamp(28px,5vw,68px)] hero-portrait-wide:z-[5] hero-portrait-wide:mt-0 hero-portrait-wide:block hero-portrait-wide:h-auto hero-portrait-wide:w-[min(43vw,680px)] hero-portrait-wide:max-w-[680px] hero-portrait-wide:[translate:0] hero-mobile:block hero-mobile:h-auto hero-mobile:w-full hero-landscape:absolute hero-landscape:top-[calc(var(--hero-header-clearance)+clamp(18px,3.4svh,48px))] hero-landscape:left-[clamp(32px,4.2vw,80px)] hero-landscape:col-auto hero-landscape:row-auto hero-landscape:self-auto hero-landscape:w-[min(43vw,700px)] hero-landscape:max-w-[700px] hero-landscape:[translate:0]'
-
-const heroTitleClassName =
-  'm-0 flex h-auto w-full min-w-0 max-w-full flex-col p-0 text-balance font-serif text-[clamp(58px,5.2vw,96px)] leading-[0.98] font-black tracking-normal text-[var(--fairlend-ink)] [text-shadow:0_1px_0_rgb(255_255_255/62%),0_14px_34px_rgb(42_24_11/5%)] hero-max-1279:h-auto hero-max-1279:w-auto hero-max-1279:min-w-0 hero-max-1279:text-[clamp(46px,6.6vw,64px)] hero-tablet:block hero-tablet:h-auto hero-tablet:w-auto hero-tablet:min-w-0 hero-tablet:leading-none hero-tablet-landscape:text-[clamp(62px,6.7vw,82px)] hero-tablet-landscape:leading-[0.97] hero-tablet-landscape-short:text-[clamp(44px,5.2vw,58px)] hero-tablet-landscape-short:leading-[0.96] hero-portrait-wide:block hero-portrait-wide:h-auto hero-portrait-wide:w-auto hero-portrait-wide:min-w-0 hero-portrait-wide:text-[clamp(52px,5vw,76px)] hero-portrait-wide:leading-none hero-mobile:block hero-mobile:h-auto hero-mobile:w-auto hero-mobile:min-w-0 hero-mobile:text-[clamp(42px,12.5vw,58px)] hero-mobile:leading-none hero-mobile-short:text-[clamp(36px,11.5vw,46px)] hero-landscape:min-w-0 hero-landscape:text-[clamp(58px,4.8vw,92px)] hero-landscape:leading-[0.98]'
-
-const heroDiaColors = [
-  'oklch(58% 0.23 31)',
-  'oklch(72% 0.23 38)',
-  'oklch(86% 0.16 70)',
-  'oklch(98% 0.035 88)',
-  'oklch(64% 0.22 24)',
-]
-
-function heroDelayToSeconds(delay: string) {
-  const value = Number.parseFloat(delay)
-
-  if (!Number.isFinite(value)) return 0
-
-  return delay.trim().endsWith('ms') ? value / 1000 : value
+type TorontoCloudLayerProps = {
+  className: string
+  cloudKey: string
+  delay: string
+  driftDuration: string
+  driftX: string
+  driftY: string
+  enterX: string
+  enterY: string
+  height: number
+  src: string
+  width: number
+  zIndex: number
 }
 
-function MapLabel({ label, location }: { label: string; location: MapLabelLocation }) {
+function BookConsultationButton({ mobileDocked = false }: { mobileDocked?: boolean }) {
   return (
-    <span
+    <FairlendConsultationBookingDialog
+      ariaLabel="Book a free FairLend consultation"
       className={cn(
-        'absolute z-[4] hidden flex-col text-[clamp(10px,0.78vw,14px)] leading-[1.08] font-extrabold text-[#6a7478] uppercase [text-shadow:0_1px_0_rgb(255_255_255/76%),0_7px_12px_rgb(69_54_38/9%)] motion-safe:animate-[heroLabelIn_560ms_var(--hero-ease-out)_680ms_both] hero-tablet:z-[4] hero-tablet:flex hero-tablet:text-[clamp(9px,1.45vw,11px)] hero-tablet:tracking-normal hero-tablet:opacity-90 hero-mobile:z-0 hero-mobile:flex hero-mobile:text-[clamp(8px,2.3vw,9.5px)] hero-mobile:tracking-normal hero-mobile:opacity-90',
-        location === 'vaughan' && 'top-[17.45%] left-[45.1%] hero-tablet:hidden hero-mobile:hidden',
-        location === 'markham' && 'top-[17.35%] left-[76.7%] hero-tablet:hidden hero-mobile:hidden',
-        location === 'northYork' &&
-          'top-[16.15%] left-[64.6%] hero-mobile:top-[31.7%] hero-mobile:left-[46.6%]',
-        location === 'scarborough' &&
-          'top-[17.55%] left-[87.1%] hero-mobile:top-[33.9%] hero-mobile:left-[69.6%]',
-        location === 'etobicoke' &&
-          'top-[55.8%] left-[36.8%] hero-mobile:top-[59.6%] hero-mobile:left-[5.4%]',
-        location === 'mississauga' &&
-          'top-[73.8%] left-[37.9%] hero-mobile:top-[68.1%] hero-mobile:left-[30.2%]',
+        'fairlend-toronto-copy group h-[55px] items-center gap-[12px] rounded-[9px] bg-[#96ec18] py-0 pr-5 pl-[18px] text-[17px] leading-none font-normal text-[#101010] shadow-[0_10px_24px_rgb(118_205_0/12%)] outline-none transition-[background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-[#a4fb20] hover:shadow-[0_14px_32px_rgb(118_205_0/18%)] focus-visible:ring-2 focus-visible:ring-[#111] focus-visible:ring-offset-4 focus-visible:ring-offset-[#f8f7f5] max-md:h-12 max-md:w-[min(100%,455px)] max-md:justify-between max-md:px-4 max-md:text-[15px]',
+        mobileDocked
+          ? 'hidden hero-mobile:relative hero-mobile:z-10 hero-mobile:mt-0 hero-mobile:inline-flex hero-mobile:h-[46px] hero-mobile:w-full hero-mobile:min-w-0 hero-mobile:gap-1.5 hero-mobile:rounded-[8px] hero-mobile:px-2.5 hero-mobile:text-[11px] hero-mobile:leading-none'
+          : 'inline-flex hero-mobile:hidden',
       )}
+      leadershipCta={false}
+      source={
+        mobileDocked ? 'homepage-hero-mobile-book-consultation' : 'homepage-hero-book-consultation'
+      }
+      style={{ '--toronto-delay': '320ms' } as CSSProperties}
     >
-      {label.split('\n').map((line) => (
-        <span key={line}>{line}</span>
-      ))}
-    </span>
+      <span className={cn(mobileDocked && 'min-w-0 text-left')}>
+        {mobileDocked ? 'Book Consultation' : 'Book a Free Consultation'}
+      </span>
+      <span className="grid size-[30px] shrink-0 place-items-center rounded-[8px] bg-[#111] text-[#aaff00] transition-transform duration-200 group-hover:rotate-6 max-md:size-8 hero-mobile:size-[24px]">
+        <ArrowUpRight
+          aria-hidden="true"
+          className="size-[20px] hero-mobile:size-[15px]"
+          strokeWidth={2.25}
+        />
+      </span>
+    </FairlendConsultationBookingDialog>
   )
 }
 
-function StatItem({
-  icon: Icon,
-  isLast,
-  text,
-}: {
-  icon: typeof ShieldCheck
-  isLast: boolean
-  text: string
-}) {
+function HeroTalkToExpertButton({ mobileDocked = false }: { mobileDocked?: boolean }) {
   return (
-    <div className="relative grid grid-cols-[clamp(28px,2.15vw,36px)_1fr] items-center gap-[clamp(8px,0.72vw,12px)] text-[#0d2732] [&>span:not(.stat-divider)]:whitespace-pre-line [&>span:not(.stat-divider)]:text-[clamp(10px,0.78vw,14px)] [&>span:not(.stat-divider)]:leading-[1.36] [&>span:not(.stat-divider)]:font-bold hero-tablet:min-w-0 hero-tablet:grid-cols-[minmax(0,1fr)] hero-tablet:content-center hero-tablet:justify-items-center hero-tablet:gap-x-0 hero-tablet:gap-y-[3px] hero-tablet:text-center hero-tablet:[&>span:not(.stat-divider)]:max-w-[92px] hero-tablet:[&>span:not(.stat-divider)]:text-[clamp(8.8px,1.45vw,10.5px)] hero-tablet:[&>span:not(.stat-divider)]:leading-[1.12] hero-tablet:[&>span:not(.stat-divider)]:font-extrabold hero-mobile:min-w-0 hero-mobile:grid-cols-[minmax(0,1fr)] hero-mobile:content-center hero-mobile:justify-items-center hero-mobile:gap-x-1.5 hero-mobile:gap-y-0.5 hero-mobile:text-center hero-mobile:[&>span:not(.stat-divider)]:max-w-[72px] hero-mobile:[&>span:not(.stat-divider)]:text-[clamp(8px,2.35vw,9.6px)] hero-mobile:[&>span:not(.stat-divider)]:leading-[1.12] hero-mobile:[&>span:not(.stat-divider)]:font-extrabold hero-landscape-narrow:grid-cols-[28px_minmax(0,1fr)] hero-landscape-narrow:gap-2 hero-landscape-narrow:[&>span:not(.stat-divider)]:text-[clamp(10px,0.95vw,12px)] hero-landscape-narrow:[&>span:not(.stat-divider)]:leading-[1.22]">
-      <Icon
-        aria-hidden="true"
-        className="size-[clamp(26px,1.98vw,33px)] hero-tablet:size-[clamp(18px,3vw,24px)] hero-mobile:size-[clamp(14px,5.2vw,22px)]"
-        strokeWidth={1.85}
-      />
-      <span>{text}</span>
-      {!isLast ? (
-        <span
-          aria-hidden="true"
-          className="stat-divider absolute top-1/2 right-[clamp(7px,0.72vw,12px)] h-[clamp(34px,2.64vw,44px)] w-px -translate-y-1/2 bg-[#ddd2c8] hero-landscape-narrow:hidden hero-tablet:right-0 hero-tablet:block hero-tablet:h-[34px] hero-mobile:right-0 hero-mobile:block hero-mobile:h-8"
-        />
-      ) : null}
+    <FairlendTalkToExpertCta
+      aria-label={`Call FairLend at ${FAIRLEND_CONTACT_PHONE_LABEL}`}
+      className={cn(
+        'fairlend-toronto-copy h-[55px] rounded-[9px] bg-[#111] px-[18px] py-0 text-[#f8f7f5] shadow-[0_10px_24px_rgb(17_17_17/12%)] hover:bg-[#050607] hover:shadow-[0_14px_32px_rgb(17_17_17/18%)] focus-visible:outline-[#111] focus-visible:outline-offset-4 [&>span:first-child]:bg-[#96ec18] [&>span:first-child]:text-[#111] [&>span:first-child]:shadow-none [&>span:last-child>span:first-child]:text-[#b8c6cc] [&>span:last-child>span:last-child]:text-[15px]',
+        mobileDocked
+          ? 'hidden hero-mobile:relative hero-mobile:z-10 hero-mobile:flex hero-mobile:h-[46px] hero-mobile:w-full hero-mobile:min-w-0 hero-mobile:justify-start hero-mobile:gap-1.5 hero-mobile:rounded-[8px] hero-mobile:px-2.5 hero-mobile:[&>span:first-child]:size-[24px] hero-mobile:[&>span:first-child>svg]:size-[14px] hero-mobile:[&>span:last-child]:min-w-0 hero-mobile:[&>span:last-child>span:first-child]:hidden hero-mobile:[&>span:last-child>span:last-child]:text-[11px] hero-mobile:[&>span:last-child>span:last-child]:leading-none'
+          : 'max-md:w-[min(100%,455px)] max-md:justify-start hero-mobile:hidden',
+      )}
+      eyebrow="Talk to an expert"
+      href={FAIRLEND_CONTACT_PHONE_HREF}
+      label={FAIRLEND_CONTACT_PHONE_LABEL}
+      style={{ '--toronto-delay': mobileDocked ? '380ms' : '360ms' } as CSSProperties}
+    />
+  )
+}
+
+function HeroDesktopActions() {
+  return (
+    <div className="mt-0 flex flex-wrap items-center gap-3 hero-mobile:hidden">
+      <BookConsultationButton />
+      <HeroTalkToExpertButton />
     </div>
   )
 }
 
-function HeroTitleLine({
-  children,
-  className,
-  delay,
-}: {
-  children: string
-  className?: string
-  delay: string
-}) {
-  const diaDelay = heroDelayToSeconds(delay) + 0.08
-
+function ProofStats() {
   return (
-    <span
-      className={cn(
-        'block whitespace-nowrap motion-safe:animate-[heroTitleLineIn_680ms_var(--hero-ease-out)_var(--hero-title-delay)_both]',
-        className,
-      )}
-      style={{ '--hero-title-delay': delay } as CSSProperties}
-    >
-      <DiaTextReveal
-        className="block"
-        colors={heroDiaColors}
-        delay={diaDelay}
-        duration={0.96}
-        text={children}
-        textColor="var(--fairlend-ink)"
-      />
-    </span>
+    <aside aria-label="FairLend proof points" className="animate-authority-variant-two delight-proof absolute top-[18%] right-[4.4%] z-10 hidden w-[294px] border border-[#08090a] bg-[#f8f7f5]/96 p-4 shadow-[8px_8px_0_#96ec18] xl:block"><span aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.34] mix-blend-multiply" style={{ backgroundImage: "url('/textures/grid-noise.png')" }} /><div className="relative flex items-center justify-between pb-3"><span aria-hidden="true" className="authority-rule absolute inset-x-0 bottom-0 h-px bg-[#08090a]" /><p className="m-0 text-[10px] font-extrabold tracking-[0.16em] uppercase">Authority file</p><span className="delight-stamp border border-[#72b900] px-2 py-1 text-[8px] font-extrabold tracking-[0.12em] text-[#72b900] opacity-60 transition-[transform,opacity] duration-300">VERIFIED</span></div><div className="relative divide-y divide-[#08090a]/25">{proofStats.map((stat) => <div className="delight-row grid grid-cols-[112px_minmax(0,1fr)] items-center gap-3 py-4 transition-transform duration-300 ease-out" key={stat.value}><strong className="text-[54px] leading-[0.82] font-normal tracking-[-0.04em] [font-family:var(--font-dm-serif-display),Georgia,serif]">{stat.value}{'prefix' in stat ? <span className="ml-1 font-sans text-[12px] font-extrabold tracking-[0.08em] uppercase">{stat.prefix}</span> : null}<sup className="text-[10px]">{stat.qualifier}</sup></strong><span className="text-[14px] leading-[1.08] font-bold uppercase whitespace-pre-line">{stat.label}</span></div>)}</div></aside>
   )
 }
 
-function HeroFinancingLine({ className, delay }: { className: string; delay: string }) {
-  const diaDelay = heroDelayToSeconds(delay) + 0.08
+function MobileAuthorityBar() {
+  const statValueClassName =
+    'whitespace-nowrap text-[clamp(22px,7.4vw,30px)] leading-[0.82] font-normal tracking-[-0.04em] text-[#050506] [font-family:var(--font-dm-serif-display),Georgia,serif]'
+  const statLabelClassName =
+    'min-h-[30px] text-[8px] leading-[1.06] font-bold tracking-[0.08em] text-[#141414]/72 uppercase hero-compact:text-[7px]'
 
   return (
-    <span
-      className={cn(
-        'whitespace-nowrap motion-safe:animate-[heroTitleLineIn_680ms_var(--hero-ease-out)_var(--hero-title-delay)_both]',
-        className,
-      )}
-      style={{ '--hero-title-delay': delay } as CSSProperties}
+    <aside
+      aria-label="FairLend authority points"
+      className="fairlend-toronto-copy relative isolate hidden w-full overflow-hidden rounded-[9px] border border-[#08090a] bg-[#f8f7f5]/96 p-3 shadow-[6px_6px_0_#96ec18] hero-compact:p-2.5 hero-mobile:block"
+      style={{ '--toronto-delay': '420ms' } as CSSProperties}
     >
-      <span className="text-[var(--fairlend-orange)] [text-shadow:0_1px_0_rgb(255_237_226/70%),0_12px_28px_rgb(255_58_25/10%)]">
-        <DiaTextReveal
-          className="inline-block"
-          colors={heroDiaColors}
-          delay={diaDelay}
-          duration={0.96}
-          text="Financing"
-          textColor="var(--fairlend-orange)"
-        />
-        <span
-          aria-hidden="true"
-          className="relative inline-block h-[1em] w-[0.18em] align-baseline"
-          data-testid="hero-financing-caret-anchor"
-        >
-          {' '}
-          <HeroHandwrittenInsertion />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.34] mix-blend-multiply"
+        style={{ backgroundImage: "url('/textures/grid-noise.png')" }}
+      />
+      <div className="relative">
+        <div className="flex items-center justify-between border-b border-[#08090a] pb-2">
+          <p className="m-0 text-[9px] font-extrabold tracking-[0.16em] uppercase hero-compact:text-[8px]">
+            Authority file
+          </p>
+          <span className="border border-[#72b900] px-1.5 py-1 text-[7px] leading-none font-extrabold tracking-[0.12em] text-[#5e9800] uppercase">
+            Verified
+          </span>
+        </div>
+        <dl className="grid grid-cols-3 divide-x divide-[#08090a]/25 pt-2.5">
+          {proofStats.map((stat) => (
+            <div className="flex min-w-0 flex-col justify-between px-2 first:pl-0 last:pr-0" key={stat.value}>
+              <dt className={cn(statLabelClassName, 'order-2 mt-2 whitespace-pre-line')}>
+                {stat.label}
+              </dt>
+              <dd className="order-1 flex items-baseline gap-1">
+                <strong className={statValueClassName}>
+                  {stat.value}
+                  <sup className="align-top text-[8px] tracking-normal">{stat.qualifier}</sup>
+                </strong>
+                {'prefix' in stat ? (
+                  <span className="text-[11px] leading-none font-bold tracking-[-0.02em] text-[#050506]">
+                    {stat.prefix}
+                  </span>
+                ) : null}
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <p className="mt-2.5 border-t border-[#08090a]/25 pt-2 text-[8px] leading-[1.15] font-medium tracking-[0.01em] text-[#141414]/65">
+          *Principal-broker lifetime volume. Commitment timing varies by complete file.
+        </p>
+      </div>
+    </aside>
+  )
+}
+
+function CloudLayer({
+  className,
+  cloudKey,
+  delay,
+  driftDuration,
+  driftX,
+  driftY,
+  enterX,
+  enterY,
+  height,
+  src,
+  width,
+  zIndex,
+}: TorontoCloudLayerProps) {
+  return (
+    <span
+      aria-hidden="true"
+      className={cn('fairlend-toronto-cloud absolute block max-md:hidden', className)}
+      data-toronto-cloud={cloudKey}
+      style={
+        {
+          '--cloud-delay': delay,
+          '--cloud-drift-duration': driftDuration,
+          '--cloud-drift-x': driftX,
+          '--cloud-drift-y': driftY,
+          '--cloud-enter-x': enterX,
+          '--cloud-enter-y': enterY,
+          zIndex,
+        } as CSSProperties
+      }
+    >
+      <span
+        className="block"
+        data-toronto-cloud-depth={zIndex >= 4 ? '28' : '16'}
+        data-toronto-cloud-scroll
+      >
+        <span className="fairlend-toronto-cloud-drift block">
+          <Image
+            alt=""
+            className="block h-auto w-full select-none object-contain opacity-[0.82] [filter:contrast(0.76)_brightness(1.16)] [-webkit-user-drag:none]"
+            decoding="async"
+            fetchPriority="low"
+            height={height}
+            loading="lazy"
+            sizes="(max-width: 768px) 35vw, 28vw"
+            src={src}
+            width={width}
+          />
         </span>
-        <DiaTextReveal
-          className="inline-block"
-          colors={heroDiaColors}
-          delay={diaDelay + 0.12}
-          duration={0.72}
-          text="for:"
-          textColor="var(--fairlend-orange)"
-        />
       </span>
     </span>
   )
 }
 
-function StatsStrip() {
+function TorontoScene() {
   return (
-    <>
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute right-0 bottom-0 left-0 z-[14] hidden h-[clamp(190px,16vw,260px)] bg-[linear-gradient(to_bottom,rgb(255_253_247/0%)_0%,rgb(235_245_244/18%)_20%,rgb(245_249_247/42%)_43%,rgb(255_253_247/82%)_78%,rgb(255_253_247)_100%)] hero-landscape:block"
-      />
-      <div
-        className="absolute right-0 bottom-0 left-0 z-[15] flex h-[clamp(64px,5.5vw,92px)] items-center justify-center overflow-visible bg-transparent motion-safe:animate-[heroPanelIn_680ms_var(--hero-ease-out)_460ms_both] hero-tablet:hidden hero-portrait-wide:hidden hero-mobile:hidden"
-        data-testid="hero-desktop-stats-strip"
-      >
-        <span
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 z-[2] overflow-hidden"
+      data-testid="toronto-hero-scene"
+    >
+      <div className="absolute inset-0 mx-auto h-full w-full max-w-full overflow-hidden">
+        <Image
+          alt=""
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-[-54px] bottom-0 z-0 bg-[linear-gradient(to_bottom,rgb(246_251_250/0%)_0%,rgb(246_251_250/20%)_28%,rgb(255_253_247/62%)_62%,rgb(255_253_247/94%)_100%)] shadow-[0_-12px_36px_rgb(27_48_49/4%)] backdrop-blur-[10px] backdrop-saturate-[0.94] [-webkit-mask-image:linear-gradient(to_bottom,rgb(0_0_0/0%)_0%,rgb(0_0_0/46%)_34%,rgb(0_0_0)_58%,rgb(0_0_0)_100%)] [mask-image:linear-gradient(to_bottom,rgb(0_0_0/0%)_0%,rgb(0_0_0/46%)_34%,rgb(0_0_0)_58%,rgb(0_0_0)_100%)]"
+          className="absolute inset-0 block h-full w-full object-cover opacity-[0.42] mix-blend-multiply max-md:hidden"
+          decoding="async"
+          height={941}
+          preload
+          sizes="100vw"
+          src="/assets/fairlend-toronto-contour-map.webp"
+          width={1672}
         />
-        <div className="relative z-10 grid w-full max-w-[min(1280px,88vw)] grid-cols-[minmax(300px,0.85fr)_minmax(520px,1.45fr)] items-center gap-[clamp(24px,2.8vw,48px)] px-[clamp(24px,2.8vw,48px)]">
-          <FairlendRegistrationDisclosure className="m-0 min-w-0 border-[rgb(255_250_244/62%)] bg-[rgb(255_250_244/46%)] shadow-none backdrop-blur-sm" />
-          <div className="grid grid-cols-4 items-center gap-4">
-            {stats.map(({ icon: Icon, text }, index) => (
-              <StatItem icon={Icon} isLast={index === stats.length - 1} key={text} text={text} />
-            ))}
+
+        {torontoCloudLayers
+          .filter((layer) => layer.zIndex < 4)
+          .map((layer) => (
+            <CloudLayer {...layer} cloudKey={layer.key} key={layer.key} />
+          ))}
+
+        <div
+          className="fairlend-toronto-skyline absolute top-[8.2%] left-0 z-[3] w-full max-w-full -translate-y-[60px] max-lg:top-[16%] max-lg:left-1/2 max-lg:w-[118%] max-lg:-translate-x-1/2 max-lg:translate-y-0 max-md:top-[27%] max-md:w-[156%]"
+          data-toronto-skyline
+        >
+          <div data-toronto-skyline-scroll>
+            <Image
+              alt=""
+              className="block h-auto w-full select-none object-contain opacity-[0.88] [filter:contrast(0.86)_brightness(1.13)] [-webkit-user-drag:none]"
+              decoding="async"
+              fetchPriority="high"
+              height={1000}
+              priority
+              sizes="(max-width: 576px) 260vw, (max-width: 768px) 178vw, (max-width: 1024px) 122vw, (min-width: 1536px) 83vw, 1280px"
+              src={torontoHeroAssets.skyline}
+              width={1600}
+            />
           </div>
         </div>
+
+        {torontoCloudLayers
+          .filter((layer) => layer.zIndex >= 4)
+          .map((layer) => (
+            <CloudLayer {...layer} cloudKey={layer.key} key={layer.key} />
+          ))}
       </div>
-      <Card
-        className="hidden items-center border border-[rgb(241_229_217/88%)] bg-[rgb(255_250_244/90%)] shadow-[0_18px_36px_rgb(56_35_20/8%)] motion-safe:animate-[heroPanelIn_680ms_var(--hero-ease-out)_460ms_both] hero-tablet:relative hero-tablet:bottom-auto hero-tablet:left-auto hero-tablet:mt-1 hero-tablet:grid hero-tablet:min-h-[clamp(54px,8vw,66px)] hero-tablet:w-full hero-tablet:min-w-0 hero-tablet:grid-cols-4 hero-tablet:gap-0 hero-tablet:rounded-none hero-tablet:border-0 hero-tablet:bg-transparent hero-tablet:p-0 hero-tablet:shadow-none hero-tablet-landscape:hidden hero-portrait-wide:relative hero-portrait-wide:bottom-auto hero-portrait-wide:left-auto hero-portrait-wide:mt-2 hero-portrait-wide:grid hero-portrait-wide:min-h-[clamp(58px,5.2vw,74px)] hero-portrait-wide:w-full hero-portrait-wide:min-w-0 hero-portrait-wide:grid-cols-4 hero-portrait-wide:gap-0 hero-portrait-wide:rounded-none hero-portrait-wide:border-0 hero-portrait-wide:bg-transparent hero-portrait-wide:p-0 hero-portrait-wide:shadow-none hero-mobile:relative hero-mobile:bottom-auto hero-mobile:left-auto hero-mobile:mt-0.5 hero-mobile:grid hero-mobile:min-h-[clamp(52px,15vw,62px)] hero-mobile:w-full hero-mobile:min-w-0 hero-mobile:grid-cols-4 hero-mobile:gap-0 hero-mobile:rounded-none hero-mobile:border-0 hero-mobile:bg-transparent hero-mobile:p-0 hero-mobile:shadow-none"
-        data-testid="hero-compact-stats-strip"
-      >
-        {mobileStats.map(({ icon: Icon, text }, index) => (
-          <StatItem icon={Icon} isLast={index === mobileStats.length - 1} key={text} text={text} />
-        ))}
-      </Card>
-    </>
+    </div>
   )
 }
 
 export function FairlendLandingHero() {
   return (
-    <main
-      className="min-h-svh overflow-hidden bg-[rgb(255_253_247)] hero-mobile:!h-svh hero-mobile:!min-h-svh font-sans text-[var(--fairlend-ink)] antialiased [--fairlend-hero-warm-cream:#fffdf7] [--fairlend-hero-warm-cream-soft:#f8fbf8] [--fairlend-navy:#0d2746] [--hero-ease-out:cubic-bezier(0.16,1,0.3,1)] [--hero-ease-quint:cubic-bezier(0.22,1,0.36,1)] [font-family:var(--font-inter),Arial,sans-serif] [font-kerning:normal] [font-optical-sizing:auto] [text-rendering:geometricPrecision] hero-max-1279:overflow-visible"
-    >
+    <main className="w-full max-w-full overflow-hidden bg-[var(--landing-hero-paper,#f8f7f5)] text-[#08090a]">
       <section
         aria-labelledby="fairlend-hero-title"
-        className="relative isolate overflow-hidden bg-[rgb(255_253_247)] hero-max-1279:min-h-svh hero-max-1279:overflow-hidden hero-mobile:!h-svh hero-mobile:!min-h-svh hero-max-1279:pt-[92px] hero-max-1279:pb-5 hero-tablet:pt-[96px] hero-tablet:pb-5 hero-tablet-landscape:pt-[86px] hero-tablet-landscape:pb-0 hero-tablet-landscape-short:pt-[68px] hero-portrait-wide:min-h-svh hero-portrait-wide:pt-[96px] hero-portrait-wide:pb-0 hero-mobile:pt-0 hero-mobile:!pb-0"
+        className="relative isolate w-full max-w-full overflow-hidden rounded-b-[28px] bg-[var(--landing-hero-paper,#f8f7f5)] [font-family:var(--font-inter),Arial,sans-serif]"
+        data-fairlend-motion="toronto-hero"
+        data-testid="fairlend-toronto-hero"
       >
-        <div className={heroStageClassName}>
-          <div className={mapLayerClassName}>
-            <div className={mapFrameClassName} data-testid="hero-map-frame">
-              <div
-                className="absolute inset-0 overflow-hidden hero-max-1279:top-0 hero-max-1279:right-0 hero-max-1279:bottom-auto hero-max-1279:left-0 hero-max-1279:h-full hero-tablet-landscape:overflow-visible"
-                data-testid="hero-mobile-route-frame"
-              >
-                <picture>
-                  <source
-                    height={1672}
-                    media="(max-width: 1023px), (orientation: portrait)"
-                    sizes="100vw"
-                    srcSet="/assets/mobileHero-640.webp 640w, /assets/mobileHero.webp 941w"
-                    type="image/webp"
-                    width={941}
-                  />
-                  <img
-                    alt=""
-                    className="block size-full max-w-none border-none object-cover object-center hero-tablet:object-[50%_35%] hero-tablet-landscape:object-contain hero-tablet-landscape:object-center hero-tablet-landscape:drop-shadow-[0_26px_42px_rgb(64_44_28/12%)] hero-tablet-landscape:[-webkit-mask-image:radial-gradient(ellipse_70%_52%_at_61%_43%,black_0%,black_50%,rgb(0_0_0/78%)_61%,rgb(0_0_0/34%)_74%,transparent_94%)] hero-tablet-landscape:[mask-image:radial-gradient(ellipse_70%_52%_at_61%_43%,black_0%,black_50%,rgb(0_0_0/78%)_61%,rgb(0_0_0/34%)_74%,transparent_94%)] hero-mobile:object-center hero-mobile:-translate-y-[50px]"
-                    decoding="async"
-                    fetchPriority="high"
-                    height={821}
-                    sizes="100vw"
-                    src="/assets/fairlend-hero-jun-26-2026.webp"
-                    srcSet="/assets/fairlend-hero-jun-26-2026-1200.webp 1200w, /assets/fairlend-hero-jun-26-2026.webp 1916w"
-                    width={1916}
-                  />
-                </picture>
+        <style>{`
+          @keyframes fairlendTorontoTitleLineIn {
+            from {
+              opacity: 0.68;
+              transform: translate3d(0, 0.12em, 0);
+            }
+            to {
+              opacity: 1;
+              transform: translate3d(0, 0, 0);
+            }
+          }
+          @keyframes fairlendTorontoCopySettle {
+            from {
+              opacity: 0.72;
+              filter: blur(2px);
+              transform: translate3d(0, 6px, 0);
+            }
+            to {
+              opacity: 1;
+              filter: blur(0);
+              transform: translate3d(0, 0, 0);
+            }
+          }
+          .fairlend-toronto-title-line {
+            display: block;
+            padding-bottom: 0.02em;
+          }
+          .fairlend-toronto-title-highlight {
+            position: relative;
+            display: inline-block;
+            isolation: isolate;
+          }
+          .fairlend-toronto-title-highlight::after {
+            position: absolute;
+            right: -0.035em;
+            bottom: 0.035em;
+            left: -0.035em;
+            z-index: -1;
+            height: 0.09em;
+            border-radius: 999px 72% 999px 64%;
+            background: #96ec18;
+            box-shadow: 0 0.045em 0 -0.018em rgb(150 236 24 / 78%);
+            content: '';
+            transform: rotate(-1.2deg);
+          }
+          .fairlend-toronto-title[data-title-cascade] {
+            animation: none;
+            opacity: 1;
+          }
+          @media (prefers-reduced-motion: no-preference) {
+            [data-fairlend-motion='toronto-hero'] .fairlend-toronto-title-line {
+              animation: fairlendTorontoTitleLineIn 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+              animation-delay: calc(var(--toronto-delay, 20ms) + (var(--line-index, 0) * 55ms));
+              backface-visibility: hidden;
+              will-change: opacity, transform;
+            }
+            [data-fairlend-motion='toronto-hero'] .fairlend-toronto-copy {
+              animation: fairlendTorontoCopySettle 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+              animation-delay: var(--toronto-delay, 240ms);
+            }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .fairlend-toronto-title-line {
+              animation: none !important;
+              clip-path: none !important;
+              opacity: 1 !important;
+              transform: none !important;
+            }
+          }
+        `}</style>
+        <FairlendTorontoHeroParallax />
+        <div
+          className="fairlend-toronto-hero-canvas relative mx-auto h-[min(100svh,972px)] min-h-[760px] w-full max-w-full overflow-hidden bg-[var(--landing-hero-paper,#f8f7f5)] px-[clamp(24px,4.55vw,60px)] pt-[clamp(28px,4vw,40px)] max-lg:h-svh max-lg:min-h-[860px] max-md:!h-auto max-md:min-h-[calc(100svh+clamp(36px,6svh,64px))] max-md:px-5 max-md:pt-5 max-md:pb-[clamp(40px,7svh,64px)] hero-mobile:flex hero-mobile:flex-col"
+          data-toronto-hero-canvas
+        >
+          <TorontoScene />
+
+          <div
+            className="relative z-10 mt-[64px] w-[min(43vw,466px)] max-w-[466px] max-lg:mt-[80px] max-lg:w-[min(62vw,560px)] max-md:mt-[54px] max-md:w-full max-md:max-w-[455px] hero-mobile:pointer-events-none"
+            data-toronto-hero-copy
+          >
+            <h1
+              className="fairlend-toronto-title m-0 font-serif text-[clamp(64px,5.35vw,82px)] leading-[0.98] font-semibold tracking-[-0.04em] text-[#030405] max-lg:text-[clamp(58px,7vw,72px)] max-md:text-[58px] max-md:leading-[1.03] max-md:font-bold max-[390px]:text-[51px]"
+              data-title-cascade
+              id="fairlend-hero-title"
+              style={{ '--toronto-delay': '20ms' } as CSSProperties}
+            >
+              {(['Fast', 'Flexible', 'Fair', 'Financing for:'] as const).map((line, index) => (
                 <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 z-[2] hidden"
-                />
-                <FairlendHeroProcess mobileRouteOnly steps={processSteps} />
-              </div>
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute top-[-38px] bottom-[-38px] left-[-198px] z-[3] hidden w-[430px]"
+                  className="fairlend-toronto-title-line"
+                  key={line}
+                  style={{ '--line-index': index } as CSSProperties}
+                >
+                  {line === 'Fair' ? (
+                    <span className="fairlend-toronto-title-highlight">{line}</span>
+                  ) : (
+                    line
+                  )}
+                </span>
+              ))}
+              <span className="sr-only">
+                {' '}
+                multi-plex, single family, land, and private mortgage
+              </span>
+            </h1>
+
+            <div
+              className="fairlend-toronto-copy mt-[18px] w-full max-w-[466px] max-md:mt-3 hero-mobile:mt-3"
+              style={{ '--toronto-delay': '240ms' } as CSSProperties}
+            >
+              <FairlendBuildPropertyTypes
+                className="w-full shadow-none"
+                sectionLabel="Multi-plex, single family, land, and private mortgage"
+                variant="hero"
               />
-              <div className="hero-landscape:hidden">
-                <FairlendHeroProcess desktopOnly steps={processSteps} />
-              </div>
             </div>
 
-            {mapLabels.map(({ label, location }) => (
-              <MapLabel key={label} label={label} location={location} />
-            ))}
-            <FairlendHeroProcess mobileOnly steps={processSteps} />
+            <HeroDesktopActions />
           </div>
 
-          <span aria-hidden="true" className="hidden" />
+          <ProofStats />
+
+          <FairlendApplicationArrow />
+
           <div
-            className="contents hero-mobile:absolute hero-mobile:inset-x-0 hero-mobile:bottom-0 hero-mobile:z-10 hero-mobile:mx-3 hero-mobile:flex hero-mobile:!h-[50svh] hero-mobile:max-h-[50svh] hero-mobile:flex-col hero-mobile:overflow-y-auto hero-mobile:rounded-[22px] hero-mobile:border hero-mobile:border-[rgb(255_255_255/92%)] hero-mobile:bg-[radial-gradient(ellipse_110%_170%_at_15%_140%,oklch(99%_0.014_82/0.82)_72%,oklch(98.5%_0.022_80/0.74)_82%,oklch(97.2%_0.031_78/0.38)_90%,oklch(97.2%_0.031_78/0.1)_95%,oklch(97.2%_0.031_78/0.08)_100%),linear-gradient(to_bottom,oklch(98.8%_0.018_82/0.34)_0%,var(--fairlend-hero-warm-cream)_100%)] hero-mobile:px-[clamp(18px,5vw,24px)] hero-mobile:pt-[clamp(12px,3.2vw,18px)] hero-mobile:pb-[clamp(14px,4vw,22px)] hero-mobile:shadow-[0_24px_40px_rgb(62_40_23/14%),0_4px_12px_rgb(62_40_23/10%),inset_0_1px_0_rgb(255_255_255/78%)] hero-tablet:absolute hero-tablet:right-[clamp(18px,3.6vw,34px)] hero-tablet:bottom-[clamp(14px,2.4vw,24px)] hero-tablet:left-[clamp(18px,3.6vw,34px)] hero-tablet:z-10 hero-tablet:mx-auto hero-tablet:flex hero-tablet:max-w-[760px] hero-tablet:flex-col hero-tablet:rounded-[22px] hero-tablet:border hero-tablet:border-[rgb(255_255_255/92%)] hero-tablet:bg-[radial-gradient(ellipse_110%_170%_at_15%_140%,oklch(99%_0.014_82/0.82)_72%,oklch(98.5%_0.022_80/0.74)_82%,oklch(97.2%_0.031_78/0.38)_90%,oklch(97.2%_0.031_78/0.1)_95%,oklch(97.2%_0.031_78/0.08)_100%),linear-gradient(to_bottom,oklch(98.8%_0.018_82/0.34)_0%,var(--fairlend-hero-warm-cream)_100%)] hero-tablet:px-[clamp(16px,2.8vw,24px)] hero-tablet:pt-[clamp(14px,2.2vw,20px)] hero-tablet:pb-[clamp(8px,1.4vw,12px)] hero-tablet:shadow-[0_24px_40px_rgb(62_40_23/14%),0_4px_12px_rgb(62_40_23/10%),inset_0_1px_0_rgb(255_255_255/78%)] hero-tablet-landscape:contents hero-tablet-landscape:border-0 hero-tablet-landscape:bg-transparent hero-tablet-landscape:p-0 hero-tablet-landscape:shadow-none hero-portrait-wide:absolute hero-portrait-wide:right-[clamp(28px,5vw,68px)] hero-portrait-wide:bottom-[clamp(28px,3svh,54px)] hero-portrait-wide:left-[clamp(28px,5vw,68px)] hero-portrait-wide:z-10 hero-portrait-wide:mx-auto hero-portrait-wide:flex hero-portrait-wide:max-w-[800px] hero-portrait-wide:flex-col hero-portrait-wide:rounded-[24px] hero-portrait-wide:border hero-portrait-wide:border-[rgb(255_255_255/92%)] hero-portrait-wide:bg-[radial-gradient(ellipse_110%_170%_at_15%_140%,oklch(99%_0.014_82/0.82)_72%,oklch(98.5%_0.022_80/0.74)_82%,oklch(97.2%_0.031_78/0.38)_90%,oklch(97.2%_0.031_78/0.1)_95%,oklch(97.2%_0.031_78/0.08)_100%),linear-gradient(to_bottom,oklch(98.8%_0.018_82/0.34)_0%,var(--fairlend-hero-warm-cream)_100%)] hero-portrait-wide:px-[clamp(20px,3vw,30px)] hero-portrait-wide:pt-[clamp(18px,2.4vw,26px)] hero-portrait-wide:pb-[clamp(10px,1.6vw,16px)] hero-portrait-wide:shadow-[0_24px_40px_rgb(62_40_23/14%),0_4px_12px_rgb(62_40_23/10%),inset_0_1px_0_rgb(255_255_255/78%)] hero-mobile:absolute hero-mobile:right-0 hero-mobile:bottom-0 hero-mobile:left-0 hero-mobile:z-10 hero-mobile:-mx-2.5 hero-mobile:flex hero-mobile:w-auto hero-mobile:flex-col hero-mobile:rounded-t-[20px] hero-mobile:border hero-mobile:border-white hero-mobile:bg-[radial-gradient(ellipse_110%_170%_at_15%_140%,oklch(99%_0.014_82/0.82)_72%,oklch(98.5%_0.022_80/0.74)_82%,oklch(97.2%_0.031_78/0.38)_90%,oklch(97.2%_0.031_78/0.1)_95%,oklch(97.2%_0.031_78/0.08)_100%),linear-gradient(to_bottom,oklch(98.8%_0.018_82/0.34)_0%,var(--fairlend-hero-warm-cream)_100%)] hero-mobile:px-3 hero-mobile:pt-3 hero-mobile:pb-2.5 hero-mobile:shadow-[0_24px_40px_rgb(62_40_23/16%),0_4px_12px_rgb(62_40_23/12%),inset_0_1px_0_rgb(255_255_255/78%)] hero-mobile-short:pt-2.5"
-            data-testid="hero-compact-panel"
+            className="contents hero-mobile:relative hero-mobile:z-10 hero-mobile:mt-1 hero-mobile:grid hero-mobile:w-full hero-mobile:max-w-[455px] hero-mobile:grid-cols-2 hero-mobile:gap-2"
+            data-toronto-mobile-application
           >
-            <div className={heroCopyClassName} data-fairlend-hero-copy>
-              <span
-                aria-hidden="true"
-                className="mt-[22px] block h-0.5 w-[43px] bg-[var(--fairlend-orange)] hero-tablet:hidden hero-tablet-landscape:block hero-tablet-landscape-short:hidden hero-mobile:hidden"
-              />
-              <h1 id="fairlend-hero-title" className={heroTitleClassName}>
-                <HeroFinancingLine
-                  className="block hero-tablet:hidden hero-portrait-wide:hidden hero-mobile:hidden"
-                  delay="220ms"
-                />
-                <HeroTitleLine
-                  className="hero-tablet:hidden hero-portrait-wide:hidden hero-mobile:hidden"
-                  delay="320ms"
-                >
-                  Multiplex
-                </HeroTitleLine>
-                <HeroTitleLine
-                  className="hero-tablet:hidden hero-portrait-wide:hidden hero-mobile:hidden"
-                  delay="420ms"
-                >
-                  Single Family
-                </HeroTitleLine>
-                <HeroTitleLine
-                  className="hero-tablet:hidden hero-portrait-wide:hidden hero-mobile:hidden"
-                  delay="520ms"
-                >
-                  Land Purchase
-                </HeroTitleLine>
-                <HeroFinancingLine
-                  className="hidden hero-tablet:block hero-portrait-wide:block hero-mobile:block"
-                  delay="220ms"
-                />
-                <HeroTitleLine
-                  className="hidden hero-tablet:block hero-portrait-wide:block hero-mobile:block"
-                  delay="320ms"
-                >
-                  Multiplex
-                </HeroTitleLine>
-                <HeroTitleLine
-                  className="hidden hero-tablet:block hero-portrait-wide:block hero-mobile:block"
-                  delay="420ms"
-                >
-                  Single Family
-                </HeroTitleLine>
-                <HeroTitleLine
-                  className="hidden hero-tablet:block hero-portrait-wide:block hero-mobile:block"
-                  delay="520ms"
-                >
-                  Land Purchase
-                </HeroTitleLine>
-              </h1>
-              <p className="block w-[511px] pt-5 pb-0 hero-tablet:hidden hero-portrait-wide:hidden hero-mobile:hidden hero-landscape:w-full hero-landscape:pt-4">
-                <span className="block">
-                  We guide you from permit or planning through acquisition, construction,
-                </span>
-                <span className="block">
-                  completion,{' '}
-                  <strong className="font-semibold text-[var(--fairlend-orange)] hero-tablet:font-bold hero-mobile:font-bold">
-                    (and beyond)
-                  </strong>
-                </span>
-              </p>
-              <p className="hidden max-w-[520px] pb-2 hero-tablet:block hero-tablet-landscape-short:max-w-[430px] hero-tablet-landscape-short:pb-0 hero-tablet-landscape-short:text-[15px] hero-tablet-landscape-short:leading-[1.3] hero-portrait-wide:block hero-mobile:block">
-                <span className="block">Fairlend is more than a lender.</span>
-                <span className="block">
-                  We&apos;re with you from planning to completion{' '}
-                  <strong className="font-semibold text-[var(--fairlend-orange)] hero-tablet:font-bold hero-mobile:font-bold">
-                    (and beyond)
-                  </strong>
-                </span>
-              </p>
-              <FairlendTalkToExpertCta className="mt-3 hero-tablet:hidden hero-tablet-landscape:flex hero-tablet-landscape-short:hidden hero-mobile:hidden" />
+            <FairlendApplicationForm />
+            <BookConsultationButton mobileDocked />
+            <HeroTalkToExpertButton mobileDocked />
+            <div className="hidden hero-mobile:col-span-2 hero-mobile:block">
+              <MobileAuthorityBar />
             </div>
-            <div className="contents" data-fairlend-hero-application>
-              <FairlendApplicationForm />
-            </div>
-            <StatsStrip />
           </div>
         </div>
       </section>

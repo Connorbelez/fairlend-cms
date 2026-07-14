@@ -1,0 +1,1280 @@
+.fairlend-build-property-types {
+  --fbpt-ink: var(--landing-hero-ink, #08090a);
+  --fbpt-muted: var(--landing-hero-muted, rgb(47 48 45 / 86%));
+  --fbpt-lime: #a5f229;
+  --fbpt-paper: #fbfaf6;
+  --fbpt-art-wash: rgb(8 9 10 / 6%);
+  position: relative;
+  isolation: isolate;
+  container-type: inline-size;
+  width: min(100%, 915px);
+  aspect-ratio: 915 / 840;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 56% 44% at 63% 18%, rgb(255 255 255 / 76%), transparent 70%),
+    radial-gradient(ellipse 74% 58% at 42% 58%, rgb(255 255 255 / 62%), transparent 72%),
+    linear-gradient(180deg, #fcfbf8 0%, var(--fbpt-paper) 100%);
+  color: var(--fbpt-ink);
+}
+
+.fairlend-build-property-types__paper {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 20%, rgb(8 9 10 / 5%), transparent 1px),
+    radial-gradient(circle at 72% 56%, rgb(8 9 10 / 4%), transparent 1px);
+  background-size:
+    4px 4px,
+    5px 5px;
+  opacity: 0.09;
+  mix-blend-mode: multiply;
+}
+
+.fairlend-build-property-types--hero {
+  aspect-ratio: 466 / 424;
+  background: transparent;
+}
+
+.fairlend-build-property-types--board {
+  aspect-ratio: 466 / 392;
+  background: transparent;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__paper,
+.fairlend-build-property-types--board .fairlend-build-property-types__paper {
+  display: none;
+}
+
+.fairlend-build-property-types__list {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fairlend-build-property-types__mobile-image {
+  display: none;
+}
+
+.fairlend-build-property-types__row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 20.5%;
+}
+
+.fairlend-build-property-types__link {
+  position: absolute;
+  inset: 0;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+
+.fairlend-build-property-types__link:focus-visible {
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 2px rgb(8 9 10 / 72%),
+    0 0 0 5px rgb(165 242 41 / 72%);
+}
+
+.fairlend-build-property-types__link:hover .fairlend-build-property-types__image,
+.fairlend-build-property-types__link:focus-visible .fairlend-build-property-types__image {
+  opacity: 0.76;
+}
+
+.fairlend-build-property-types__link:hover .fairlend-build-property-types__title,
+.fairlend-build-property-types__link:focus-visible .fairlend-build-property-types__title {
+  text-decoration: underline;
+  text-decoration-thickness: 0.04em;
+  text-underline-offset: 0.08em;
+}
+
+.fairlend-build-property-types__row:nth-child(1) {
+  top: 5.5%;
+}
+
+.fairlend-build-property-types__row:nth-child(2) {
+  top: 29.35%;
+}
+
+.fairlend-build-property-types__row:nth-child(3) {
+  top: 53.2%;
+}
+
+.fairlend-build-property-types__row:nth-child(4) {
+  top: 77.05%;
+}
+
+.fairlend-build-property-types__art {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 5.7%;
+  width: 31.3%;
+  height: 100%;
+}
+
+.fairlend-build-property-types__row:nth-child(1) .fairlend-build-property-types__art {
+  left: 6.45%;
+  top: 0;
+  width: 28.2%;
+}
+
+.fairlend-build-property-types__row:nth-child(2) .fairlend-build-property-types__art {
+  left: 6.25%;
+  top: -2%;
+  width: 29.7%;
+}
+
+.fairlend-build-property-types__row:nth-child(3) .fairlend-build-property-types__art {
+  left: 5.65%;
+  top: 9%;
+  width: 31.25%;
+  height: 66%;
+}
+
+.fairlend-build-property-types__row:nth-child(4) .fairlend-build-property-types__art {
+  left: 6.25%;
+  top: -2%;
+  width: 29.7%;
+}
+
+.fairlend-build-property-types__image {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  filter: grayscale(1) contrast(0.9) brightness(1.1) drop-shadow(0 8px 7px var(--fbpt-art-wash));
+  opacity: 0.68;
+}
+
+.fairlend-build-property-types__row:nth-child(1) .fairlend-build-property-types__image {
+  width: 84%;
+}
+
+.fairlend-build-property-types__row:nth-child(2) .fairlend-build-property-types__image {
+  width: 91%;
+}
+
+.fairlend-build-property-types__row:nth-child(3) .fairlend-build-property-types__image {
+  width: 100%;
+  transform: translateY(2%);
+}
+
+.fairlend-build-property-types__row:nth-child(4) .fairlend-build-property-types__image {
+  width: 91%;
+}
+
+.fairlend-build-property-types__divider {
+  position: absolute;
+  left: 40.55%;
+  top: 0;
+  width: max(1px, 0.33cqw);
+  height: 89.5%;
+  border-radius: 999px;
+  background: var(--fbpt-lime);
+  box-shadow: 0 0 10px rgb(165 242 41 / 14%);
+  opacity: 0.72;
+}
+
+.fairlend-build-property-types__row:nth-child(2) .fairlend-build-property-types__divider {
+  top: 5.7%;
+  height: 85.8%;
+}
+
+.fairlend-build-property-types__row:nth-child(3) .fairlend-build-property-types__divider {
+  top: 0;
+  height: 86.8%;
+}
+
+.fairlend-build-property-types__row:nth-child(4) .fairlend-build-property-types__divider {
+  top: 5.7%;
+  height: 85.8%;
+}
+
+.fairlend-build-property-types__copy {
+  position: absolute;
+  left: 47.85%;
+  top: 9.5%;
+  width: 45%;
+  min-width: 0;
+}
+
+.fairlend-build-property-types__row:nth-child(2) .fairlend-build-property-types__copy {
+  top: 21.5%;
+}
+
+.fairlend-build-property-types__row:nth-child(3) .fairlend-build-property-types__copy {
+  top: 13.8%;
+}
+
+.fairlend-build-property-types__row:nth-child(4) .fairlend-build-property-types__copy {
+  top: 13.8%;
+}
+
+.fairlend-build-property-types__title {
+  margin: 0;
+  color: var(--fbpt-ink);
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 7.43cqw;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 0.96;
+  text-wrap: balance;
+}
+
+.fairlend-build-property-types__tagline {
+  margin: 4.04cqw 0 0;
+  color: var(--fbpt-muted);
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 3.06cqw;
+  font-weight: 430;
+  letter-spacing: 0.225em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.fairlend-build-property-types__foliage {
+  position: absolute;
+  right: -1.6%;
+  bottom: 4.2%;
+  z-index: 0;
+  width: 17.4%;
+  height: auto;
+  pointer-events: none;
+  filter: grayscale(1) contrast(0.84) brightness(1.12);
+  opacity: 0.16;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__row,
+.fairlend-build-property-types--board .fairlend-build-property-types__row {
+  height: 21%;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__row:nth-child(1),
+.fairlend-build-property-types--board .fairlend-build-property-types__row:nth-child(1) {
+  top: 0;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__row:nth-child(2),
+.fairlend-build-property-types--board .fairlend-build-property-types__row:nth-child(2) {
+  top: 26.2%;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__row:nth-child(3),
+.fairlend-build-property-types--board .fairlend-build-property-types__row:nth-child(3) {
+  top: 52.4%;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__row:nth-child(4),
+.fairlend-build-property-types--board .fairlend-build-property-types__row:nth-child(4) {
+  top: 78.6%;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__art,
+.fairlend-build-property-types--board .fairlend-build-property-types__art {
+  left: 0;
+  width: 35%;
+}
+
+.fairlend-build-property-types--hero
+  .fairlend-build-property-types__row:nth-child(1)
+  .fairlend-build-property-types__art,
+.fairlend-build-property-types--board
+  .fairlend-build-property-types__row:nth-child(1)
+  .fairlend-build-property-types__art {
+  left: 0;
+  width: 33%;
+}
+
+.fairlend-build-property-types--hero
+  .fairlend-build-property-types__row:nth-child(2)
+  .fairlend-build-property-types__art,
+.fairlend-build-property-types--board
+  .fairlend-build-property-types__row:nth-child(2)
+  .fairlend-build-property-types__art {
+  left: 0;
+  top: -4%;
+  width: 34%;
+}
+
+.fairlend-build-property-types--hero
+  .fairlend-build-property-types__row:nth-child(3)
+  .fairlend-build-property-types__art,
+.fairlend-build-property-types--board
+  .fairlend-build-property-types__row:nth-child(3)
+  .fairlend-build-property-types__art {
+  left: 0;
+  top: 6%;
+  width: 34%;
+  height: 74%;
+}
+
+.fairlend-build-property-types--hero
+  .fairlend-build-property-types__row:nth-child(4)
+  .fairlend-build-property-types__art,
+.fairlend-build-property-types--board
+  .fairlend-build-property-types__row:nth-child(4)
+  .fairlend-build-property-types__art {
+  left: 0;
+  top: -4%;
+  width: 34%;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__image,
+.fairlend-build-property-types--board .fairlend-build-property-types__image {
+  filter: grayscale(1) contrast(0.84) brightness(1.14) drop-shadow(0 6px 5px var(--fbpt-art-wash));
+  opacity: 0.58;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__divider,
+.fairlend-build-property-types--board .fairlend-build-property-types__divider {
+  left: 37.2%;
+  width: max(1px, 0.24cqw);
+  height: 82%;
+  opacity: 0.58;
+}
+
+.fairlend-build-property-types--hero
+  .fairlend-build-property-types__row:nth-child(2)
+  .fairlend-build-property-types__divider,
+.fairlend-build-property-types--board
+  .fairlend-build-property-types__row:nth-child(2)
+  .fairlend-build-property-types__divider {
+  top: 4%;
+  height: 80%;
+}
+
+.fairlend-build-property-types--hero
+  .fairlend-build-property-types__row:nth-child(3)
+  .fairlend-build-property-types__divider,
+.fairlend-build-property-types--board
+  .fairlend-build-property-types__row:nth-child(3)
+  .fairlend-build-property-types__divider {
+  height: 78%;
+}
+
+.fairlend-build-property-types--hero
+  .fairlend-build-property-types__row:nth-child(4)
+  .fairlend-build-property-types__divider,
+.fairlend-build-property-types--board
+  .fairlend-build-property-types__row:nth-child(4)
+  .fairlend-build-property-types__divider {
+  top: 4%;
+  height: 80%;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__copy,
+.fairlend-build-property-types--board .fairlend-build-property-types__copy {
+  left: 44%;
+  top: 8%;
+  width: 56%;
+}
+
+.fairlend-build-property-types--hero
+  .fairlend-build-property-types__row:nth-child(2)
+  .fairlend-build-property-types__copy,
+.fairlend-build-property-types--hero
+  .fairlend-build-property-types__row:nth-child(3)
+  .fairlend-build-property-types__copy,
+.fairlend-build-property-types--hero
+  .fairlend-build-property-types__row:nth-child(4)
+  .fairlend-build-property-types__copy,
+.fairlend-build-property-types--board
+  .fairlend-build-property-types__row:nth-child(2)
+  .fairlend-build-property-types__copy,
+.fairlend-build-property-types--board
+  .fairlend-build-property-types__row:nth-child(3)
+  .fairlend-build-property-types__copy,
+.fairlend-build-property-types--board
+  .fairlend-build-property-types__row:nth-child(4)
+  .fairlend-build-property-types__copy {
+  top: 13%;
+}
+
+.fairlend-build-property-types--hero
+  .fairlend-build-property-types__row:nth-child(4)
+  .fairlend-build-property-types__title,
+.fairlend-build-property-types--board
+  .fairlend-build-property-types__row:nth-child(4)
+  .fairlend-build-property-types__title {
+  font-size: clamp(33px, 8.7cqw, 40px);
+  line-height: 0.96;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__title,
+.fairlend-build-property-types--board .fairlend-build-property-types__title {
+  font-size: clamp(36px, 10.1cqw, 48px);
+  line-height: 0.92;
+}
+
+.fairlend-build-property-types--hero .fairlend-build-property-types__tagline,
+.fairlend-build-property-types--board .fairlend-build-property-types__tagline {
+  margin-top: clamp(9px, 2cqw, 12px);
+  font-size: clamp(10px, 2.78cqw, 13px);
+  font-weight: 560;
+  letter-spacing: 0.29em;
+  line-height: 1.22;
+}
+
+.fairlend-build-property-types--board {
+  opacity: 0.78;
+}
+
+.fairlend-build-property-types--board .fairlend-build-property-types__title {
+  font-size: clamp(28px, 8.2cqw, 40px);
+}
+
+.fairlend-build-property-types--board .fairlend-build-property-types__tagline {
+  font-size: clamp(8px, 2.2cqw, 11px);
+}
+
+.fairlend-hero-offerings-morph {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.fairlend-hero-offerings-morph .fairlend-build-property-types__list {
+  position: absolute;
+  inset: 0;
+}
+
+.fairlend-hero-offerings-morph__surface {
+  position: absolute;
+  inset: 0;
+}
+
+.fairlend-hero-offerings-morph__title-link {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  border-radius: 4px;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  touch-action: manipulation;
+}
+
+.fairlend-hero-offerings-morph__title-link:focus-visible {
+  box-shadow:
+    0 0 0 2px rgb(248 247 245),
+    0 0 0 4px rgb(8 9 10 / 82%);
+}
+
+.fairlend-hero-offerings-morph__controls {
+  --hero-offerings-stack-card-height: 20.5%;
+  --hero-offerings-stack-depth: 21px;
+  --hero-offerings-stack-gap: clamp(4px, 1.4vw, 10px);
+  position: absolute;
+  top: calc(
+    var(--hero-offerings-stack-card-height) + var(--hero-offerings-stack-depth) +
+      var(--hero-offerings-stack-gap)
+  );
+  left: 4px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  color: rgb(8 9 10 / 76%);
+}
+
+.fairlend-hero-offerings-morph__count {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+}
+
+.fairlend-hero-offerings-morph__dots {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.fairlend-hero-offerings-morph__dot {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgb(120 201 0 / 82%);
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  outline: none;
+  transition:
+    background-color 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fairlend-hero-offerings-morph__dot[data-active='true'] {
+  color: #96ec18;
+  filter: drop-shadow(0 0 1px rgb(56 98 0 / 72%));
+}
+
+.fairlend-hero-offerings-morph__dot:focus-visible {
+  box-shadow: 0 0 0 2px rgb(8 9 10 / 76%);
+}
+
+.fairlend-hero-offerings-morph__dot:active {
+  transform: scale(0.92);
+}
+
+@media (hover: hover) {
+  .fairlend-hero-offerings-morph__title-link:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 0.04em;
+    text-underline-offset: 0.08em;
+  }
+
+  .fairlend-hero-offerings-morph__dot:hover {
+    background: rgb(150 236 24 / 20%);
+    color: #78c900;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fairlend-hero-offerings-morph__dot {
+    transition: none;
+  }
+}
+
+@media (min-width: 577px) {
+  .fairlend-build-property-types--hero {
+    width: min(100%, 466px);
+    height: clamp(292px, 34vh, 324px);
+    aspect-ratio: auto;
+  }
+
+  .fairlend-hero-offerings-morph__controls {
+    --hero-offerings-stack-card-height: clamp(112px, 13vh, 124px);
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list'] .fairlend-build-property-types__row {
+    height: 23%;
+    overflow: hidden;
+    border-radius: 12px;
+    background: rgb(248 247 245 / 86%);
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 72%) inset,
+      0 6px 14px rgb(8 9 10 / 7%);
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(1) {
+    top: 1%;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(2) {
+    top: 25.5%;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(3) {
+    top: 50%;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(4) {
+    top: 74.5%;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list'] .fairlend-build-property-types__art,
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(n)
+    .fairlend-build-property-types__art {
+    left: 2%;
+    top: 0;
+    width: 30%;
+    height: 100%;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__image,
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(n)
+    .fairlend-build-property-types__image {
+    width: 88%;
+    max-height: 100%;
+    object-fit: contain;
+    transform: none;
+    opacity: 0.74;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__divider,
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(n)
+    .fairlend-build-property-types__divider {
+    left: 34%;
+    top: 13%;
+    width: 2px;
+    height: 74%;
+    background: #96ec18;
+    opacity: 0.82;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list'] .fairlend-build-property-types__copy,
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(n)
+    .fairlend-build-property-types__copy {
+    left: 39%;
+    top: 12%;
+    width: 57%;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__title,
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(4)
+    .fairlend-build-property-types__title {
+    font-size: clamp(27px, 2.35vw, 34px);
+    line-height: 0.96;
+    letter-spacing: -0.025em;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__tagline {
+    margin-top: clamp(4px, 0.6vh, 7px);
+    font-size: clamp(7px, 0.66vw, 9px);
+    letter-spacing: 0.2em;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='stack']
+    .fairlend-hero-offerings-morph__stack {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    padding: 4px 20px 0 2px;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='stack']
+    .fairlend-build-property-types__row:nth-child(n) {
+    top: auto;
+    height: auto;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='stack']
+    .fairlend-hero-offerings-morph__card {
+    position: absolute !important;
+    right: auto;
+    width: calc(100% - 20px);
+    height: clamp(112px, 13vh, 124px);
+    max-height: 124px;
+    min-height: 112px;
+    overflow: hidden;
+    border: 0;
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgb(255 253 249 / 98%), rgb(248 247 245 / 96%));
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 72%) inset,
+      0 8px 18px rgb(8 9 10 / 7%);
+    touch-action: pan-y;
+    will-change: transform;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='stack']
+    .fairlend-hero-offerings-morph__card:not(.fairlend-hero-offerings-morph__card--top) {
+    box-shadow: 0 6px 14px rgb(8 9 10 / 5%);
+    pointer-events: none;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='stack']
+    .fairlend-hero-offerings-morph__card--top {
+    cursor: grab;
+    background: linear-gradient(180deg, #fffdfa, #f8f7f5);
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 78%) inset,
+      0 10px 22px rgb(8 9 10 / 9%);
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='stack']
+    .fairlend-hero-offerings-morph__card--top:active {
+    cursor: grabbing;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='stack'] .fairlend-build-property-types__art,
+  .fairlend-hero-offerings-morph[data-offerings-layout='stack']
+    .fairlend-build-property-types__row:nth-child(n)
+    .fairlend-build-property-types__art {
+    left: 3%;
+    top: 8%;
+    width: 30%;
+    height: 84%;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='stack']
+    .fairlend-build-property-types__image,
+  .fairlend-hero-offerings-morph[data-offerings-layout='stack']
+    .fairlend-build-property-types__row:nth-child(n)
+    .fairlend-build-property-types__image {
+    width: 88%;
+    max-height: 100%;
+    object-fit: contain;
+    transform: none;
+    filter: grayscale(1) contrast(0.9) brightness(1.08) drop-shadow(0 4px 4px rgb(8 9 10 / 5%));
+    opacity: 0.74;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='stack']
+    .fairlend-build-property-types__divider,
+  .fairlend-hero-offerings-morph[data-offerings-layout='stack']
+    .fairlend-build-property-types__row:nth-child(n)
+    .fairlend-build-property-types__divider {
+    left: 35%;
+    top: 14%;
+    width: 2px;
+    height: 72%;
+    background: #96ec18;
+    box-shadow: 0 0 8px rgb(150 236 24 / 22%);
+    opacity: 0.92;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='stack']
+    .fairlend-build-property-types__copy,
+  .fairlend-hero-offerings-morph[data-offerings-layout='stack']
+    .fairlend-build-property-types__row:nth-child(n)
+    .fairlend-build-property-types__copy {
+    left: 41%;
+    top: 21%;
+    width: 55%;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='stack']
+    .fairlend-build-property-types__title,
+  .fairlend-hero-offerings-morph[data-offerings-layout='stack']
+    .fairlend-build-property-types__row:nth-child(4)
+    .fairlend-build-property-types__title {
+    font-size: clamp(32px, 2.8vw, 39px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='stack']
+    .fairlend-build-property-types__tagline {
+    margin-top: 8px;
+    font-size: clamp(8px, 0.72vw, 10px);
+    letter-spacing: 0.18em;
+    color: rgb(47 48 45 / 78%);
+  }
+}
+
+@media (max-width: 576px) {
+  /* The list must stay above the pulled-up application block during the morph. */
+  .fairlend-hero-offerings-morph {
+    z-index: 20;
+  }
+
+  .fairlend-hero-offerings-morph__controls {
+    --hero-offerings-stack-card-height: 20.5%;
+    --hero-offerings-stack-depth: 21px;
+    --hero-offerings-stack-gap: 6px;
+  }
+
+  .fairlend-hero-offerings-morph__dot {
+    width: 44px;
+    height: 44px;
+  }
+
+  .fairlend-build-property-types--hero {
+    /* Keep list height through stack morph so form/CTAs/authority bar don't shift */
+    aspect-ratio: 390 / 400;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .fairlend-build-property-types--board {
+    aspect-ratio: 350 / 372;
+    width: 100%;
+  }
+
+  .fairlend-build-property-types--hero .fairlend-build-property-types__mobile-image {
+    display: none;
+  }
+
+  .fairlend-build-property-types--hero .fairlend-build-property-types__row:nth-child(2) {
+    top: 24.6%;
+  }
+
+  .fairlend-build-property-types--hero .fairlend-build-property-types__row:nth-child(3) {
+    top: 49.2%;
+  }
+
+  .fairlend-build-property-types--hero .fairlend-build-property-types__row:nth-child(4) {
+    top: 76%;
+  }
+
+  .fairlend-build-property-types--hero .fairlend-build-property-types__art {
+    display: flex;
+  }
+
+  .fairlend-build-property-types--hero .fairlend-build-property-types__divider {
+    display: block;
+  }
+
+  .fairlend-build-property-types--board .fairlend-build-property-types__art {
+    width: 29%;
+  }
+
+  .fairlend-build-property-types--board .fairlend-build-property-types__divider {
+    left: 33%;
+  }
+
+  .fairlend-build-property-types--hero .fairlend-build-property-types__copy,
+  .fairlend-build-property-types--board .fairlend-build-property-types__copy {
+    left: 37.5%;
+    width: 60%;
+  }
+
+  .fairlend-build-property-types--hero .fairlend-build-property-types__copy {
+    left: 39%;
+    width: 58%;
+    top: 14%;
+  }
+
+  .fairlend-build-property-types--hero
+    .fairlend-build-property-types__row:nth-child(2)
+    .fairlend-build-property-types__copy {
+    top: 18%;
+  }
+
+  .fairlend-build-property-types--hero
+    .fairlend-build-property-types__row:nth-child(3)
+    .fairlend-build-property-types__copy {
+    top: 11%;
+  }
+
+  .fairlend-build-property-types--hero
+    .fairlend-build-property-types__row:nth-child(4)
+    .fairlend-build-property-types__copy {
+    top: 9%;
+  }
+
+  .fairlend-build-property-types--hero .fairlend-build-property-types__title {
+    font-size: clamp(25px, 7.2cqw, 28px);
+    line-height: 1;
+    text-wrap: balance;
+  }
+
+  .fairlend-build-property-types--hero
+    .fairlend-build-property-types__row:nth-child(4)
+    .fairlend-build-property-types__title {
+    font-size: clamp(22px, 6.2cqw, 25px);
+    line-height: 1.02;
+  }
+
+  .fairlend-build-property-types--hero .fairlend-build-property-types__tagline {
+    margin-top: clamp(7px, 1.8cqw, 10px);
+    font-size: clamp(7px, 2cqw, 8.5px);
+    letter-spacing: 0.15em;
+    line-height: 1.18;
+    text-wrap: balance;
+  }
+
+  .fairlend-build-property-types--hero .fairlend-build-property-types__copy::before {
+    position: absolute;
+    inset: -9px -3px -7px -10px;
+    z-index: -1;
+    background: linear-gradient(90deg, rgb(248 247 245 / 78%), rgb(248 247 245 / 42%));
+    border-radius: 3px;
+    content: '';
+    filter: blur(0.2px);
+  }
+
+  .fairlend-build-property-types--hero
+    .fairlend-build-property-types__row:nth-child(3)
+    .fairlend-build-property-types__copy::before {
+    inset: -12px -8px -9px -12px;
+    background: linear-gradient(90deg, rgb(248 247 245 / 92%), rgb(248 247 245 / 68%));
+  }
+
+  .fairlend-build-property-types--hero
+    .fairlend-build-property-types__row:nth-child(4)
+    .fairlend-build-property-types__copy::before {
+    inset: -11px -7px -8px -12px;
+    background: linear-gradient(90deg, rgb(248 247 245 / 90%), rgb(248 247 245 / 64%));
+  }
+
+  /*
+   * Morph list: one shared column grid. The desktop collage uses per-row
+   * nth-child offsets that stair-step Land/Mortgage on mobile.
+   */
+  .fairlend-hero-offerings-morph[data-offerings-layout='list'] .fairlend-build-property-types__row {
+    height: 22%;
+    overflow: hidden;
+    border-radius: 12px;
+    background: rgb(248 247 245 / 92%);
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 78%) inset,
+      0 8px 18px rgb(8 9 10 / 9%);
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(1) {
+    top: 2%;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(2) {
+    top: 26.5%;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(3) {
+    top: 51%;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(4) {
+    top: 75.5%;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list'] .fairlend-build-property-types__art,
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(1)
+    .fairlend-build-property-types__art,
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(2)
+    .fairlend-build-property-types__art,
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(3)
+    .fairlend-build-property-types__art,
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(4)
+    .fairlend-build-property-types__art {
+    left: 2%;
+    top: 0;
+    width: 29%;
+    height: 100%;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__image,
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(n)
+    .fairlend-build-property-types__image {
+    width: 92%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+    transform: none;
+    opacity: 0.84;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__divider,
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(n)
+    .fairlend-build-property-types__divider {
+    left: 33%;
+    top: 12%;
+    width: 2px;
+    height: 76%;
+    opacity: 0.88;
+    background: #96ec18;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list'] .fairlend-build-property-types__copy,
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(n)
+    .fairlend-build-property-types__copy {
+    left: 37.5%;
+    top: 16%;
+    width: 59%;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__title,
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(4)
+    .fairlend-build-property-types__title {
+    font-size: clamp(22px, 6.4cqw, 27px);
+    line-height: 1;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__tagline {
+    margin-top: clamp(5px, 1.5cqw, 7px);
+    font-size: clamp(6.5px, 1.8cqw, 8px);
+    letter-spacing: 0.14em;
+  }
+
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__copy::before,
+  .fairlend-hero-offerings-morph[data-offerings-layout='list']
+    .fairlend-build-property-types__row:nth-child(n)
+    .fairlend-build-property-types__copy::before {
+    inset: -8px -4px -6px -8px;
+    background: linear-gradient(90deg, rgb(248 247 245 / 96%), rgb(248 247 245 / 88%));
+  }
+
+  /* Stack mode: paper deck — soft shadow only, lime rule, restrained peek. */
+  .fairlend-hero-offerings-morph:is(
+      [data-offerings-layout='stack'],
+      [data-viewport-mode='unresolved']
+    )
+    .fairlend-hero-offerings-morph__stack {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    padding: 4px 18px 0 2px;
+  }
+
+  .fairlend-hero-offerings-morph:is(
+      [data-offerings-layout='stack'],
+      [data-viewport-mode='unresolved']
+    )
+    .fairlend-build-property-types__row:nth-child(n) {
+    /* Kill collage row tops — stack positions come from motion or static first-paint rules. */
+    top: auto;
+    height: auto;
+  }
+
+  .fairlend-hero-offerings-morph:is(
+      [data-offerings-layout='stack'],
+      [data-viewport-mode='unresolved']
+    )
+    .fairlend-hero-offerings-morph__card {
+    position: absolute !important;
+    left: 0;
+    right: auto;
+    width: calc(100% - 18px);
+    height: 112px;
+    min-height: 100px;
+    max-height: 112px;
+    overflow: hidden;
+    border: 0;
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgb(255 253 249 / 98%) 0%, rgb(248 247 245 / 96%) 100%);
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 70%) inset,
+      0 8px 18px rgb(8 9 10 / 7%);
+    touch-action: pan-y;
+    will-change: transform;
+  }
+
+  /* The responsive server markup is list-ordered; CSS decks it before hydration on mobile. */
+  .fairlend-hero-offerings-morph[data-viewport-mode='unresolved']
+    .fairlend-hero-offerings-morph__card:nth-child(1) {
+    left: 0 !important;
+    top: 0 !important;
+    z-index: 4 !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .fairlend-hero-offerings-morph[data-viewport-mode='unresolved']
+    .fairlend-hero-offerings-morph__card:nth-child(2) {
+    left: 5px !important;
+    top: 7px !important;
+    z-index: 3 !important;
+    opacity: 0.86 !important;
+    transform: rotate(0.6deg) scale(0.988) !important;
+  }
+
+  .fairlend-hero-offerings-morph[data-viewport-mode='unresolved']
+    .fairlend-hero-offerings-morph__card:nth-child(3) {
+    left: 10px !important;
+    top: 14px !important;
+    z-index: 2 !important;
+    opacity: 0.72 !important;
+    transform: rotate(1.2deg) scale(0.976) !important;
+  }
+
+  .fairlend-hero-offerings-morph[data-viewport-mode='unresolved']
+    .fairlend-hero-offerings-morph__card:nth-child(4) {
+    left: 15px !important;
+    top: 21px !important;
+    z-index: 1 !important;
+    opacity: 0.58 !important;
+    transform: rotate(1.8deg) scale(0.964) !important;
+  }
+
+  .fairlend-hero-offerings-morph:is(
+      [data-offerings-layout='stack'],
+      [data-viewport-mode='unresolved']
+    )
+    .fairlend-hero-offerings-morph__card:not(.fairlend-hero-offerings-morph__card--top) {
+    box-shadow: 0 6px 14px rgb(8 9 10 / 5%);
+    pointer-events: none;
+  }
+
+  .fairlend-hero-offerings-morph:is(
+      [data-offerings-layout='stack'],
+      [data-viewport-mode='unresolved']
+    )
+    .fairlend-hero-offerings-morph__card--top {
+    cursor: grab;
+    touch-action: none;
+    background: linear-gradient(180deg, #fffdfa, #f8f7f5);
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 78%) inset,
+      0 10px 22px rgb(8 9 10 / 9%);
+  }
+
+  .fairlend-hero-offerings-morph:is(
+      [data-offerings-layout='stack'],
+      [data-viewport-mode='unresolved']
+    )
+    .fairlend-hero-offerings-morph__card--top:active {
+    cursor: grabbing;
+  }
+
+  .fairlend-hero-offerings-morph:is(
+      [data-offerings-layout='stack'],
+      [data-viewport-mode='unresolved']
+    )
+    .fairlend-build-property-types__art,
+  .fairlend-hero-offerings-morph:is(
+      [data-offerings-layout='stack'],
+      [data-viewport-mode='unresolved']
+    )
+    .fairlend-build-property-types__row:nth-child(n)
+    .fairlend-build-property-types__art {
+    left: 3.5%;
+    top: 8%;
+    width: 32%;
+    height: 84%;
+  }
+
+  .fairlend-hero-offerings-morph:is(
+      [data-offerings-layout='stack'],
+      [data-viewport-mode='unresolved']
+    )
+    .fairlend-build-property-types__image,
+  .fairlend-hero-offerings-morph:is(
+      [data-offerings-layout='stack'],
+      [data-viewport-mode='unresolved']
+    )
+    .fairlend-build-property-types__row:nth-child(n)
+    .fairlend-build-property-types__image {
+    width: 92%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+    transform: none;
+    filter: grayscale(1) contrast(0.9) brightness(1.08) drop-shadow(0 4px 4px rgb(8 9 10 / 5%));
+    opacity: 0.72;
+  }
+
+  .fairlend-hero-offerings-morph:is(
+      [data-offerings-layout='stack'],
+      [data-viewport-mode='unresolved']
+    )
+    .fairlend-build-property-types__divider,
+  .fairlend-hero-offerings-morph:is(
+      [data-offerings-layout='stack'],
+      [data-viewport-mode='unresolved']
+    )
+    .fairlend-build-property-types__row:nth-child(n)
+    .fairlend-build-property-types__divider {
+    left: 37%;
+    top: 14%;
+    width: 2px;
+    height: 72%;
+    background: #96ec18;
+    box-shadow: 0 0 8px rgb(150 236 24 / 22%);
+    opacity: 0.92;
+  }
+
+  .fairlend-hero-offerings-morph:is(
+      [data-offerings-layout='stack'],
+      [data-viewport-mode='unresolved']
+    )
+    .fairlend-build-property-types__copy,
+  .fairlend-hero-offerings-morph:is(
+      [data-offerings-layout='stack'],
+      [data-viewport-mode='unresolved']
+    )
+    .fairlend-build-property-types__row:nth-child(n)
+    .fairlend-build-property-types__copy {
+    left: 43%;
+    top: 22%;
+    width: 52%;
+  }
+
+  .fairlend-hero-offerings-morph:is(
+      [data-offerings-layout='stack'],
+      [data-viewport-mode='unresolved']
+    )
+    .fairlend-build-property-types__copy::before,
+  .fairlend-hero-offerings-morph:is(
+      [data-offerings-layout='stack'],
+      [data-viewport-mode='unresolved']
+    )
+    .fairlend-build-property-types__row:nth-child(n)
+    .fairlend-build-property-types__copy::before {
+    display: none;
+  }
+
+  .fairlend-hero-offerings-morph:is(
+      [data-offerings-layout='stack'],
+      [data-viewport-mode='unresolved']
+    )
+    .fairlend-build-property-types__title,
+  .fairlend-hero-offerings-morph:is(
+      [data-offerings-layout='stack'],
+      [data-viewport-mode='unresolved']
+    )
+    .fairlend-build-property-types__row:nth-child(4)
+    .fairlend-build-property-types__title {
+    font-size: clamp(28px, 8cqw, 34px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+
+  .fairlend-hero-offerings-morph:is(
+      [data-offerings-layout='stack'],
+      [data-viewport-mode='unresolved']
+    )
+    .fairlend-build-property-types__tagline {
+    margin-top: 8px;
+    color: rgb(47 48 45 / 78%);
+    font-size: clamp(8px, 2.2cqw, 10px);
+    letter-spacing: 0.18em;
+  }
+
+  .fairlend-build-property-types--board .fairlend-build-property-types__title {
+    font-size: clamp(22px, 6.7cqw, 28px);
+    line-height: 0.98;
+  }
+
+  .fairlend-build-property-types--board .fairlend-build-property-types__tagline {
+    margin-top: 5px;
+    font-size: clamp(6.5px, 1.75cqw, 8px);
+    letter-spacing: 0.12em;
+    line-height: 1.12;
+  }
+}
+
+@media (max-width: 350px) {
+  .fairlend-build-property-types--hero .fairlend-build-property-types__title {
+    font-size: 24px;
+  }
+
+  .fairlend-build-property-types--hero .fairlend-build-property-types__tagline {
+    font-size: 7px;
+    letter-spacing: 0.14em;
+  }
+}

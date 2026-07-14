@@ -44,7 +44,7 @@ export const Card: React.FC<{
         {!metaImage && (
           <div className="flex size-full items-end bg-[radial-gradient(circle_at_20%_0%,rgb(255_250_244/80%),transparent_42%),linear-gradient(135deg,#f5e8db_0%,#dfcbb9_100%)] p-5">
             <span className="text-[12px] font-extrabold tracking-[0.2em] text-[#486572] uppercase">
-              Fairlend
+              FairLend
             </span>
           </div>
         )}

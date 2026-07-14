@@ -1,12 +1,14 @@
 import type { Metadata } from 'next/types'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
+import { buildFairlendMetadata } from '@/utilities/seo'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
 import { Search } from '@/search/Component'
 import PageClient from './page.client'
 import { CardPostData } from '@/components/Card'
+import { FAIRLEND_DEMO_POST_SLUGS } from '@/lib/fairlend-posts'
 
 type Args = {
   searchParams: Promise<{
@@ -29,34 +31,43 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
     },
     // pagination: false reduces overhead if you don't need totalDocs
     pagination: false,
-    ...(query
-      ? {
-          where: {
-            or: [
-              {
-                title: {
-                  like: query,
-                },
-              },
-              {
-                'meta.description': {
-                  like: query,
-                },
-              },
-              {
-                'meta.title': {
-                  like: query,
-                },
-              },
-              {
-                slug: {
-                  like: query,
-                },
-              },
-            ],
+    where: {
+      and: [
+        {
+          slug: {
+            not_in: [...FAIRLEND_DEMO_POST_SLUGS],
           },
-        }
-      : {}),
+        },
+        ...(query
+          ? [
+              {
+                or: [
+                  {
+                    title: {
+                      like: query,
+                    },
+                  },
+                  {
+                    'meta.description': {
+                      like: query,
+                    },
+                  },
+                  {
+                    'meta.title': {
+                      like: query,
+                    },
+                  },
+                  {
+                    slug: {
+                      like: query,
+                    },
+                  },
+                ],
+              },
+            ]
+          : []),
+      ],
+    },
   })
 
   return (
@@ -70,7 +81,7 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
           Find the right financing signal.
         </h1>
         <p className="mx-auto mt-6 max-w-[620px] text-[clamp(18px,2.3vw,22px)] leading-[1.35] font-semibold text-[#33545e]">
-          Search Fairlend resources by property path, lending structure, or investment topic.
+          Search FairLend resources by property path, lending structure, or investment topic.
         </p>
         <div className="fairlend-reveal mx-auto mt-9 max-w-[50rem] [--fairlend-delay:140ms]">
           <Search />
@@ -94,7 +105,11 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
 }
 
 export function generateMetadata(): Metadata {
-  return {
-    title: 'Search Fairlend Resources',
-  }
+  return buildFairlendMetadata({
+    description:
+      'Search FairLend resources by property path, lending structure, or investment topic.',
+    index: false,
+    path: '/search',
+    title: 'Search FairLend Resources',
+  })
 }

@@ -1,9 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&family=League+Gothic&family=Oxanium:wght@400;500;600;700;800&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import '../../components/directional-hover-header/header.css';
-@import '../../components/DrawflowIntake/buildpath.css';
-@import '../../components/FairlendAboutStorySection/styles.css';
 
 @config '../../../tailwind.config.mjs';
 
@@ -88,6 +85,12 @@
       --right-mask-width: 0px;
     }
   }
+  .maplibregl-popup-content {
+    @apply bg-transparent! shadow-none! p-0! rounded-none!;
+  }
+  .maplibregl-popup-tip {
+    @apply hidden!;
+  }
 }
 
 @plugin "@tailwindcss/typography";
@@ -120,8 +123,8 @@
   @keyframes heroChromeIn {
     from {
       opacity: 0;
-      filter: blur(8px);
-      transform: translateY(-12px);
+      filter: blur(6px);
+      transform: translateY(-10px);
     }
 
     to {
@@ -134,38 +137,36 @@
   @keyframes heroMapIn {
     from {
       opacity: 0;
-      clip-path: inset(3% 0 0 7% round 28px);
-      filter: blur(7px) saturate(0.88);
-      transform: translate3d(18px, 14px, 0) scale(0.992);
+      filter: blur(15px) saturate(0.94);
+      transform: scale(1.15);
     }
 
     to {
       opacity: 1;
-      clip-path: inset(0 0 0 0 round 0);
       filter: blur(0) saturate(1);
-      transform: translate3d(0, 0, 0) scale(1);
+      transform: scale(1);
     }
   }
 
   @keyframes heroCopyIn {
     from {
       opacity: 0;
-      filter: blur(6px);
-      transform: translate3d(0, 20px, 0) scale(0.992);
+      filter: blur(8px);
+      transform: translate3d(0, 20px, 0);
     }
 
     to {
       opacity: 1;
       filter: blur(0);
-      transform: translate3d(0, 0, 0) scale(1);
+      transform: translate3d(0, 0, 0);
     }
   }
 
   @keyframes heroTitleLineIn {
     from {
       opacity: 0;
-      filter: blur(4px);
-      transform: translate3d(0, 0.28em, 0);
+      filter: blur(8px);
+      transform: translate3d(0, 20px, 0);
     }
 
     to {
@@ -178,14 +179,29 @@
   @keyframes heroPanelIn {
     from {
       opacity: 0;
-      filter: blur(5px);
-      transform: translateY(16px) scale(0.985);
+      filter: blur(8px);
+      transform: translateY(20px);
     }
 
     to {
       opacity: 1;
       filter: blur(0);
-      transform: translateY(0) scale(1);
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes heroFoliageGrowIn {
+    from {
+      opacity: 0;
+      filter: blur(12px) saturate(0.88) contrast(1.08) brightness(0.96);
+      transform: translate3d(var(--hero-foliage-x, 0), var(--hero-foliage-y, 0), 0)
+        scale(var(--hero-foliage-scale, 0.84));
+    }
+
+    to {
+      opacity: var(--hero-foliage-opacity, 0.28);
+      filter: blur(0) saturate(1.08) contrast(1.18) brightness(0.9);
+      transform: translate3d(0, 0, 0) scale(1);
     }
   }
 
@@ -518,6 +534,140 @@
     transform: scale(1.025);
   }
 
+  @keyframes fairlendTorontoChromeIn {
+    from {
+      opacity: 0;
+      filter: blur(7px);
+      transform: translate3d(0, -14px, 0);
+    }
+
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes fairlendTorontoTitleIn {
+    from {
+      opacity: 0;
+      filter: blur(12px);
+      transform: translate3d(-28px, 22px, 0) scale(0.985);
+    }
+
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes fairlendTorontoCopyIn {
+    from {
+      opacity: 0;
+      filter: blur(9px);
+      transform: translate3d(0, 18px, 0);
+    }
+
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes fairlendTorontoSkylineIn {
+    from {
+      opacity: 0.62;
+      filter: blur(2px) contrast(0.96);
+      transform: translate3d(0, 12px, 0) scale(1.01);
+    }
+
+    to {
+      opacity: 1;
+      filter: blur(0) contrast(1);
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes fairlendTorontoCloudIn {
+    from {
+      opacity: 0.55;
+      filter: blur(2px) contrast(0.96);
+      transform: translate3d(var(--cloud-enter-x, 0), var(--cloud-enter-y, 0), 0) scale(1.012);
+    }
+
+    to {
+      opacity: 1;
+      filter: blur(0) contrast(1);
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes fairlendTorontoCloudDrift {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+
+    50% {
+      transform: translate3d(var(--cloud-drift-x, 14px), var(--cloud-drift-y, -4px), 0);
+    }
+  }
+
+  .fairlend-toronto-chrome,
+  .fairlend-toronto-title,
+  .fairlend-toronto-copy,
+  .fairlend-toronto-skyline,
+  .fairlend-toronto-cloud {
+    backface-visibility: hidden;
+    will-change: opacity, filter, transform;
+  }
+
+  .fairlend-toronto-chrome {
+    animation: fairlendTorontoChromeIn 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--toronto-delay, 0ms);
+  }
+
+  .fairlend-toronto-title {
+    animation: fairlendTorontoTitleIn 980ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--toronto-delay, 0ms);
+  }
+
+  .fairlend-toronto-copy {
+    animation: fairlendTorontoCopyIn 780ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--toronto-delay, 0ms);
+  }
+
+  .fairlend-toronto-skyline {
+    animation: fairlendTorontoSkylineIn 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .fairlend-toronto-cloud {
+    animation: fairlendTorontoCloudIn 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--cloud-delay, 0ms);
+  }
+
+  .fairlend-toronto-cloud-drift {
+    animation: fairlendTorontoCloudDrift var(--cloud-drift-duration, 22s) ease-in-out infinite;
+    animation-delay: calc(var(--cloud-delay, 0ms) + 900ms);
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fairlend-toronto-chrome,
+    .fairlend-toronto-title,
+    .fairlend-toronto-copy,
+    .fairlend-toronto-skyline,
+    .fairlend-toronto-cloud,
+    .fairlend-toronto-cloud-drift {
+      animation: none !important;
+      opacity: 1 !important;
+      filter: none !important;
+      transform: none !important;
+    }
+  }
+
   .fairlend-search-motion form::after {
     position: absolute;
     inset: -3px;
@@ -795,8 +945,23 @@
   * {
     @apply border-border outline-ring/50;
   }
+
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
   body {
     @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+  }
+}
+
+@supports not (overflow: clip) {
+  html,
+  body {
+    overflow-x: hidden;
   }
 }
 
@@ -1006,25 +1171,24 @@
 
 @media (min-width: 1280px) and (orientation: landscape) {
   .fairlend-hero-application-card {
-    position: fixed;
     top: auto;
-    right: clamp(18px, 1.9vw, 34px);
-    bottom: clamp(18px, 1.8vw, 32px);
-    left: auto;
+    bottom: calc(clamp(128px, 16svh, 210px) + var(--hero-stats-height, 0px));
   }
 
   .fairlend-hero-application-card[data-autocomplete-open='true'] {
-    bottom: calc(clamp(18px, 1.8vw, 32px) + clamp(78px, 7vw, 124px));
+    bottom: calc(
+      clamp(128px, 16svh, 210px) + var(--hero-stats-height, 0px) + clamp(78px, 7vw, 124px)
+    );
   }
 }
 
 @media (min-width: 1280px) and (orientation: landscape) and (max-height: 760px) {
   .fairlend-hero-application-card {
-    bottom: clamp(14px, 1.7vw, 24px);
+    bottom: calc(clamp(36px, 6svh, 64px) + var(--hero-stats-height, 0px));
   }
 
   .fairlend-hero-application-card[data-autocomplete-open='true'] {
-    bottom: calc(clamp(14px, 1.7vw, 24px) + clamp(72px, 7vw, 112px));
+    bottom: calc(clamp(36px, 6svh, 64px) + var(--hero-stats-height, 0px) + clamp(72px, 7vw, 112px));
   }
 }
 
@@ -1089,5 +1253,956 @@
     filter: none;
     opacity: 1;
     scale: 1;
+  }
+}
+
+.fairlend-landing-page {
+  --landing-frame-max: 1848px;
+  --landing-gutter-width: clamp(72px, 5.9vw, 112px);
+  --landing-content-max: calc(var(--landing-frame-max) - (var(--landing-gutter-width) * 2));
+  --landing-gutter-line: rgb(8 9 10 / 10%);
+  --landing-gutter-line-soft: rgb(8 9 10 / 6%);
+  --landing-gutter-material-image: url('/textures/fabric-of-squares.png');
+  --landing-gutter-material-opacity: 0.34;
+  --landing-gutter-material-size: auto;
+  --landing-rail-dot: rgb(8 9 10 / 18%);
+  --landing-hero-paper: #f8f7f5;
+  --landing-hero-white: #ffffff;
+  --landing-hero-ink: #08090a;
+  --landing-hero-muted: rgb(73 73 68);
+  --landing-hero-muted-soft: rgb(108 108 100);
+  --landing-hero-line: rgb(8 9 10 / 14%);
+  --landing-hero-line-strong: rgb(8 9 10 / 22%);
+  --landing-hero-lime: #96ec18;
+  --landing-hero-lime-bright: #8dff00;
+  --landing-hero-lime-soft: rgb(150 236 24 / 14%);
+  --landing-hero-lime-ink: #203500;
+  --landing-section-shadow: 0 22px 58px rgb(8 9 10 / 7%);
+  --background: var(--landing-hero-white);
+  --foreground: var(--landing-hero-ink);
+  --card: var(--landing-hero-white);
+  --card-foreground: var(--landing-hero-ink);
+  --muted: rgb(242 242 239);
+  --muted-foreground: var(--landing-hero-muted);
+  --border: var(--landing-hero-line);
+  --input: var(--landing-hero-line);
+  --ring: var(--landing-hero-lime);
+  --primary: var(--landing-hero-lime);
+  --primary-foreground: var(--landing-hero-lime-ink);
+  --accent: var(--landing-hero-lime-soft);
+  --accent-foreground: var(--landing-hero-ink);
+  isolation: isolate;
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: clip;
+  background: var(--landing-hero-paper);
+  color: var(--landing-hero-ink);
+}
+
+.fairlend-landing-rail {
+  --landing-rail-content-width: min(
+    var(--landing-content-max),
+    calc(100% - (var(--landing-gutter-width) * 2))
+  );
+  position: relative;
+  display: grid;
+  grid-template-columns:
+    minmax(var(--landing-gutter-width), 1fr) minmax(0, var(--landing-rail-content-width))
+    minmax(var(--landing-gutter-width), 1fr);
+  width: 100%;
+  max-width: none;
+  margin-inline: auto;
+  overflow-x: clip;
+}
+
+.fairlend-landing-rail[data-gutter-texture='fabric-of-squares'] {
+  --landing-gutter-material-image: url('/textures/fabric-of-squares.png');
+  --landing-gutter-material-opacity: 0.36;
+}
+
+.fairlend-landing-rail[data-gutter-texture='grid-noise'] {
+  --landing-gutter-material-image: url('/textures/grid-noise.png');
+  --landing-gutter-material-opacity: 0.42;
+}
+
+.fairlend-landing-rail[data-gutter-texture='inflicted'] {
+  --landing-gutter-material-image: url('/textures/inflicted.png');
+  --landing-gutter-material-opacity: 0.28;
+}
+
+.fairlend-landing-rail[data-gutter-texture='debut-light'] {
+  --landing-gutter-material-image: url('/textures/debut-light.png');
+  --landing-gutter-material-opacity: 0.3;
+}
+
+.fairlend-landing-rail[data-gutter-texture='groovepaper'] {
+  --landing-gutter-material-image: url('/textures/groovepaper.png');
+  --landing-gutter-material-opacity: 0.4;
+}
+
+.fairlend-landing-rail-dots {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  display: none;
+}
+
+.fairlend-landing-rail-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  margin-left: -4px;
+  background: var(--landing-rail-dot);
+  will-change: transform, border-radius, background-color, box-shadow;
+}
+
+.fairlend-landing-rail-dot.is-active {
+  background-color: var(--landing-hero-lime);
+  border-radius: 999px;
+  box-shadow:
+    0 0 18px rgb(150 236 24 / 72%),
+    0 0 34px rgb(150 236 24 / 34%);
+  transform: scale(1.55);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fairlend-landing-rail-dot {
+    transition:
+      background-color 280ms ease-out,
+      border-radius 280ms ease-out,
+      box-shadow 280ms ease-out,
+      transform 280ms ease-out;
+  }
+}
+
+.fairlend-landing-rail-dot--top {
+  top: 0;
+}
+
+.fairlend-landing-rail-dot--bottom {
+  top: 100%;
+}
+
+.fairlend-landing-rail-dot--left {
+  left: calc((100% - var(--landing-rail-content-width)) / 2);
+}
+
+.fairlend-landing-rail-dot--right {
+  left: calc((100% + var(--landing-rail-content-width)) / 2);
+}
+
+.fairlend-landing-rail-dot--top,
+.fairlend-landing-rail:last-child .fairlend-landing-rail-dot--bottom {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .fairlend-landing-rail-dots {
+    display: block;
+  }
+}
+
+.fairlend-landing-rail + .fairlend-landing-rail {
+  border-top: 1px solid var(--landing-gutter-line);
+}
+
+.fairlend-landing-rail__content {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+@media (min-width: 1280px) {
+  .fairlend-landing-rail:has([data-fairlend-route-selector]),
+  .fairlend-landing-rail__content:has([data-fairlend-route-selector]) {
+    overflow-x: visible;
+  }
+
+  .fairlend-landing-rail__content:has([data-fairlend-route-selector]) {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.fairlend-landing-rail__content > main {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.fairlend-landing-rail__content [data-toronto-hero-canvas] {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+@media (min-width: 1280px) and (orientation: landscape) and (min-aspect-ratio: 16 / 9) {
+  .fairlend-landing-rail__content .fairlend-toronto-hero-canvas {
+    height: calc(100svh + clamp(210px, 13vw, 280px)) !important;
+    min-height: 960px !important;
+  }
+
+  .fairlend-landing-rail__content [data-toronto-lower-copy] {
+    bottom: clamp(82px, 6.2vw, 128px) !important;
+  }
+
+  .fairlend-landing-rail__content [data-toronto-trust] {
+    bottom: clamp(94px, 6.8vw, 140px) !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-toronto-cloud='low-west'] {
+    top: 43.5% !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-toronto-cloud='far-east'] {
+    top: 43% !important;
+  }
+}
+
+.fairlend-landing-gutter {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 0%, rgb(255 255 255 / 42%), transparent 16rem),
+    linear-gradient(180deg, rgb(255 255 255 / 30%) 0%, transparent 42%, rgb(8 9 10 / 2%) 100%),
+    var(--landing-hero-paper);
+  pointer-events: none;
+}
+
+.fairlend-landing-gutter::before {
+  position: absolute;
+  inset: 0;
+  background-image: var(--landing-gutter-material-image);
+  background-size: var(--landing-gutter-material-size);
+  content: '';
+  filter: grayscale(1) contrast(1.08);
+  mix-blend-mode: multiply;
+  opacity: var(--landing-gutter-material-opacity);
+}
+
+.fairlend-landing-gutter--left::before {
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    #000 0%,
+    #000 46%,
+    rgb(0 0 0 / 58%) 76%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(90deg, #000 0%, #000 46%, rgb(0 0 0 / 58%) 76%, transparent 100%);
+}
+
+.fairlend-landing-gutter--right::before {
+  -webkit-mask-image: linear-gradient(
+    270deg,
+    #000 0%,
+    #000 46%,
+    rgb(0 0 0 / 58%) 76%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(270deg, #000 0%, #000 46%, rgb(0 0 0 / 58%) 76%, transparent 100%);
+}
+
+.fairlend-landing-gutter::after {
+  position: absolute;
+  inset-block: 0;
+  width: 1px;
+  background: var(--landing-gutter-line);
+  content: '';
+}
+
+.fairlend-landing-gutter--left::after {
+  right: 0;
+}
+
+.fairlend-landing-gutter--right::after {
+  left: 0;
+}
+
+@media (max-width: 767px) {
+  .fairlend-landing-rail {
+    display: block;
+    width: 100%;
+  }
+
+  .fairlend-landing-gutter {
+    display: none;
+  }
+
+  [data-fairlend-motion='landing-overview'] {
+    padding-block: 42px !important;
+  }
+
+  [data-fairlend-motion='landing-overview'] > div {
+    gap: 34px !important;
+  }
+
+  [data-fairlend-motion='landing-overview'] [data-overview-who-panel],
+  [data-fairlend-motion='landing-overview'] [data-overview-finance-panel] {
+    min-height: 0 !important;
+  }
+
+  [data-fairlend-motion='landing-overview'] [data-overview-mobile-skyline] {
+    height: 168px !important;
+    margin-top: 28px !important;
+  }
+
+  [data-testid='fairlend-faq-section'] {
+    min-height: 0 !important;
+  }
+
+  [data-testid='fairlend-faq-section'] [data-faq-route-plate] {
+    min-height: 0 !important;
+  }
+}
+
+.fairlend-landing-page
+  :where(
+    .services-model-section,
+    .about-page,
+    .builder-consulting,
+    .leadership-model-section,
+    [data-fairlend-canvas='opportunity'],
+    [data-testid='judgment-section']
+  ) {
+  --about-paper: var(--landing-hero-paper) !important;
+  --about-paper-soft: var(--landing-hero-white) !important;
+  --about-paper-warm: var(--landing-hero-white) !important;
+  --about-ink: var(--landing-hero-ink) !important;
+  --about-orange: var(--landing-hero-lime) !important;
+  --about-blueprint: var(--landing-hero-lime-ink) !important;
+  --services-paper: var(--landing-hero-paper) !important;
+  --services-paper-soft: var(--landing-hero-white) !important;
+  --services-forest: var(--landing-hero-ink) !important;
+  --services-forest-soft: var(--landing-hero-muted) !important;
+  --services-line: var(--landing-hero-line-strong) !important;
+  --services-line-soft: var(--landing-hero-line) !important;
+  --services-orange: var(--landing-hero-lime) !important;
+  --builder-cream: var(--landing-hero-paper) !important;
+  --builder-paper: var(--landing-hero-white) !important;
+  --builder-forest: var(--landing-hero-ink) !important;
+  --builder-forest-soft: var(--landing-hero-muted) !important;
+  --builder-coral: var(--landing-hero-lime) !important;
+  --builder-coral-deep: var(--landing-hero-lime-ink) !important;
+  --builder-green: var(--landing-hero-ink) !important;
+  --builder-blue: var(--landing-hero-muted) !important;
+  --builder-line: var(--landing-hero-line-strong) !important;
+  --builder-line-soft: var(--landing-hero-line) !important;
+  --leadership-paper: var(--landing-hero-paper) !important;
+  --leadership-paper-soft: var(--landing-hero-white) !important;
+  --leadership-panel: var(--landing-hero-white) !important;
+  --leadership-ink: var(--landing-hero-ink) !important;
+  --leadership-muted: var(--landing-hero-muted) !important;
+  --leadership-line: var(--landing-hero-line-strong) !important;
+  --leadership-line-soft: var(--landing-hero-line) !important;
+  --leadership-signal: var(--landing-hero-lime) !important;
+  --leadership-signal-muted: var(--landing-hero-lime-soft) !important;
+  --leadership-orange: var(--landing-hero-lime) !important;
+  --leadership-blueprint: var(--landing-hero-lime-ink) !important;
+  color: var(--landing-hero-ink) !important;
+}
+
+.fairlend-landing-page
+  :where(
+    .services-model-section,
+    .about-story,
+    .builder-consulting,
+    .leadership-model-section,
+    [data-fairlend-canvas='opportunity'],
+    [data-testid='judgment-section']
+  ) {
+  background:
+    radial-gradient(circle at 78% 8%, rgb(150 236 24 / 9%), transparent 27rem),
+    radial-gradient(circle at 18% 16%, rgb(255 255 255 / 88%), transparent 25rem),
+    linear-gradient(180deg, var(--landing-hero-white) 0%, var(--landing-hero-paper) 100%) !important;
+}
+
+.fairlend-landing-page
+  :where(
+    .services-model-section,
+    .about-story,
+    .builder-consulting,
+    .leadership-model-section
+  )::before {
+  filter: grayscale(1) contrast(1.04) !important;
+  mix-blend-mode: multiply !important;
+  opacity: 0.16 !important;
+}
+
+.fairlend-landing-page
+  :where(
+    .services-model-section,
+    .about-story,
+    .builder-consulting,
+    .leadership-model-section
+  )::after {
+  background:
+    linear-gradient(135deg, rgb(8 9 10 / 3.5%) 0 1px, transparent 1px 19px),
+    radial-gradient(circle at 82% 18%, rgb(150 236 24 / 8%), transparent 27rem) !important;
+  mix-blend-mode: multiply !important;
+  opacity: 0.36 !important;
+}
+
+.fairlend-landing-page
+  :where(
+    .services-model-copy,
+    .services-card-bullets,
+    .about-who-copy,
+    .about-expertise-item p,
+    .about-finance-card p,
+    .builder-section-header__copy > p,
+    .builder-model-label,
+    .leadership-intro,
+    .leadership-proof-detail,
+    .leadership-capability p,
+    [data-fairlend-about-summary]
+  ) {
+  color: var(--landing-hero-muted) !important;
+}
+
+.fairlend-landing-page :where(.about-expertise-item p, .about-finance-card p) {
+  color: #263732 !important;
+}
+
+.fairlend-landing-page
+  :where(
+    .services-model-brand,
+    .services-model-brand__count,
+    .services-card-stamp,
+    .services-card-code,
+    .about-section-kicker span,
+    .about-kicker-slash,
+    .about-finance-tag,
+    .about-finance-card > svg,
+    .about-expertise-icon,
+    .builder-model-label em,
+    .builder-section-kicker .about-kicker-slash,
+    .builder-section-kicker span,
+    .leadership-kicker span,
+    .leadership-kicker [data-leadership-kicker-slash],
+    .leadership-proof-value,
+    .leadership-commitment,
+    [data-fairlend-about-rule]
+  ) {
+  color: var(--landing-hero-lime-ink) !important;
+}
+
+.fairlend-landing-page .services-model-brand::before,
+.fairlend-landing-page
+  :where(
+    .services-model-stamp-line,
+    .builder-model-label span,
+    .leadership-proof-pulse,
+    [data-fairlend-about-rule]
+  ) {
+  background: var(--landing-hero-lime) !important;
+}
+
+.fairlend-landing-page
+  :where(
+    .services-model-panel,
+    .about-expertise-panel,
+    .about-finance-card,
+    .builder-main,
+    .builder-equation,
+    .builder-scorecard,
+    .builder-outcome,
+    .leadership-frame,
+    .leadership-proof-card,
+    [data-fairlend-about-image],
+    [data-fairlend-about-panel]
+  ) {
+  border-color: var(--landing-hero-line) !important;
+  background: linear-gradient(180deg, rgb(255 255 255 / 98%), rgb(248 247 245 / 94%)) !important;
+  box-shadow: var(--landing-section-shadow) !important;
+}
+
+.fairlend-landing-page .services-card-corner::before,
+.fairlend-landing-page .services-card-corner::after,
+.fairlend-landing-page .about-expertise-corner::before,
+.fairlend-landing-page .about-expertise-corner::after {
+  background: var(--landing-hero-line-strong) !important;
+}
+
+.fairlend-landing-page .about-expertise-item::after,
+.fairlend-landing-page :where(.services-line-x, .services-line-y, .leadership-section-rule) {
+  background: var(--landing-hero-line) !important;
+}
+
+.fairlend-landing-page
+  :where(
+    .services-card-icon-box,
+    .about-expertise-icon,
+    .about-finance-card > svg,
+    .leadership-capability-icon,
+    .leadership-proof-icon
+  ) {
+  border-color: rgb(150 236 24 / 46%) !important;
+  background: rgb(150 236 24 / 14%) !important;
+  color: var(--landing-hero-lime-ink) !important;
+}
+
+.fairlend-landing-page
+  :where(
+    .services-card-bullet svg,
+    .about-expertise-icon svg,
+    .leadership-capability-icon svg,
+    .leadership-proof-icon svg
+  ) {
+  color: var(--landing-hero-lime-ink) !important;
+  stroke: currentColor !important;
+}
+
+.fairlend-landing-page
+  :where(.services-card-number-plate, .leadership-header-meta, .services-header-ledger__tabs) {
+  border-color: var(--landing-hero-line) !important;
+  background: rgb(255 255 255 / 74%) !important;
+  color: var(--landing-hero-muted) !important;
+}
+
+.fairlend-landing-page :where(.services-card-media-shell, .about-skyline) {
+  border-color: var(--landing-hero-line) !important;
+  background: rgb(255 255 255 / 68%) !important;
+}
+
+.fairlend-landing-page :where(.services-model-skyline img, .about-skyline img) {
+  filter: grayscale(1) contrast(1.08) brightness(0.98) !important;
+  opacity: 0.78 !important;
+}
+
+.fairlend-landing-page :where(.about-finance-card:nth-child(even) .about-finance-tag) {
+  color: var(--landing-hero-lime-ink) !important;
+}
+
+.fairlend-landing-page :where(.about-finance-card:hover, .about-finance-card:focus-visible) {
+  border-color: rgb(150 236 24 / 58%) !important;
+  box-shadow: 0 24px 66px rgb(8 9 10 / 9%) !important;
+}
+
+.fairlend-landing-page [data-fairlend-canvas='opportunity']::before {
+  background:
+    linear-gradient(to right, rgb(8 9 10 / 3.5%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(8 9 10 / 3%) 1px, transparent 1px) !important;
+  opacity: 0.54 !important;
+}
+
+.fairlend-landing-page :where([data-testid='judgment-section'] > .pointer-events-none) {
+  background:
+    linear-gradient(to right, rgb(8 9 10 / 3.5%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(8 9 10 / 3%) 1px, transparent 1px) !important;
+  opacity: 0.54 !important;
+}
+
+.fairlend-landing-page
+  :where(
+    [data-fairlend-canvas='opportunity'] .rounded-2xl,
+    [data-fairlend-canvas='opportunity'] .rounded-xl,
+    [data-testid='judgment-section'] .rounded-2xl,
+    [data-testid='judgment-section'] .rounded-xl
+  ) {
+  border-color: var(--landing-hero-line) !important;
+  background-color: rgb(255 255 255 / 82%) !important;
+  box-shadow: 0 18px 46px rgb(8 9 10 / 6%) !important;
+}
+
+.fairlend-landing-page :where([data-fairlend-about-panel] button) {
+  background: var(--landing-hero-lime) !important;
+  color: var(--landing-hero-lime-ink) !important;
+}
+
+.fairlend-landing-page :where([data-fairlend-about-panel] button:hover) {
+  background: var(--landing-hero-lime-bright) !important;
+}
+
+.fairlend-landing-page
+  :where([data-services-card-motion], .services-model-panel, .services-header-ledger) {
+  --services-card-glow: rgb(150 236 24 / 14%) !important;
+  --services-card-stamp-bg: rgb(150 236 24 / 14%) !important;
+  --services-card-stamp-ink: var(--landing-hero-lime-ink) !important;
+  --services-card-plate: rgb(255 255 255 / 78%) !important;
+  --services-card-plate-ink: var(--landing-hero-muted) !important;
+  --services-card-number-ink: var(--landing-hero-lime-ink) !important;
+}
+
+.fairlend-landing-page
+  :where(
+    .services-card-title,
+    .services-card-cta,
+    .services-header-ledger__title,
+    .services-model-footer strong
+  ) {
+  color: var(--landing-hero-ink) !important;
+}
+
+.fairlend-landing-page
+  :where(
+    .services-header-ledger__word--orange,
+    .services-header-ledger__note,
+    [data-services-number],
+    [data-services-established],
+    [data-services-bottom] .text-\[oklch\(0\.645_0\.221_35\)\]
+  ) {
+  color: var(--landing-hero-lime-ink) !important;
+}
+
+.fairlend-landing-page .services-header-ledger__note::after {
+  background: var(--landing-hero-lime) !important;
+}
+
+.fairlend-landing-page
+  :where(.services-header-ledger__tab, [data-services-card], [data-services-bottom]) {
+  border-color: var(--landing-hero-line) !important;
+}
+
+.fairlend-landing-page [data-services-card] {
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 88%), rgb(248 247 245 / 78%)),
+    radial-gradient(circle at 82% 8%, rgb(150 236 24 / 12%), transparent 42%) !important;
+}
+
+.fairlend-landing-page [data-services-card]::before {
+  background:
+    linear-gradient(135deg, rgb(8 9 10 / 3.5%) 0 1px, transparent 1px 18px),
+    radial-gradient(circle at 14% 18%, rgb(255 255 255 / 72%), transparent 30%) !important;
+}
+
+.fairlend-landing-page :where(.about-who-section, .about-finance-section) {
+  border-color: var(--landing-hero-line-strong) !important;
+}
+
+.fairlend-landing-page
+  :where(
+    .builder-subheadline,
+    .builder-note,
+    .builder-state-label span,
+    .builder-equation-card [data-slot='card-title'],
+    .builder-semi-gauge em,
+    .builder-metric-line-caption,
+    .builder-risk-labels,
+    .builder-footnote,
+    .builder-strip-proof__item span,
+    .leadership-license
+  ) {
+  color: var(--landing-hero-muted) !important;
+}
+
+.fairlend-landing-page
+  :where(
+    .builder-headline,
+    .builder-equation-card strong,
+    .builder-equation-card p,
+    .builder-strip-proof__item,
+    .builder-strip-proof__item svg,
+    .builder-strip-statement h3,
+    .builder-strip-statement p,
+    .leadership-proof-label,
+    .leadership-quote,
+    .leadership-capability h3
+  ) {
+  color: var(--landing-hero-ink) !important;
+}
+
+.fairlend-landing-page
+  :where(
+    .builder-headline span:last-child,
+    .builder-eyebrow,
+    .builder-state-label strong,
+    .builder-action-icon,
+    .builder-strip-statement strong,
+    .builder-outcome-card__label,
+    .builder-outcome-card__body > p:not(.builder-outcome-card__label) span:first-child,
+    .leadership-quote [data-leadership-quote-mark],
+    .leadership-proof-card:nth-child(even) .leadership-proof-label,
+    .leadership-proof-card:nth-child(even) .leadership-proof-icon
+  ) {
+  color: var(--landing-hero-lime-ink) !important;
+}
+
+.fairlend-landing-page
+  :where(
+    .builder-mobile-state,
+    .builder-action-card,
+    .builder-dashboard__panel,
+    .builder-equation-card,
+    .builder-outcome-card,
+    .builder-bottom-strip
+  ) {
+  border-color: var(--landing-hero-line) !important;
+  background:
+    radial-gradient(circle at 78% 14%, rgb(150 236 24 / 7%), transparent 22rem),
+    linear-gradient(180deg, rgb(255 255 255 / 86%), rgb(248 247 245 / 72%)) !important;
+}
+
+.fairlend-landing-page
+  :where(
+    .builder-action-connector,
+    .builder-dashboard__panel,
+    .builder-equation-card,
+    .builder-outcome-card,
+    .builder-bottom-strip,
+    .builder-strip-proof__item:not(:last-child)
+  ) {
+  border-color: var(--landing-hero-line-strong) !important;
+}
+
+.fairlend-landing-page .builder-action-connector::after {
+  border-color: var(--landing-hero-line-strong) !important;
+}
+
+.fairlend-landing-page :where(.builder-section-rule, .builder-section-ledger span) {
+  border-color: var(--landing-hero-line) !important;
+  background: var(--landing-hero-line-strong) !important;
+}
+
+.fairlend-landing-page :where(.builder-blueprint-field) {
+  border-color: rgb(8 9 10 / 12%) !important;
+  background:
+    linear-gradient(30deg, rgb(8 9 10 / 5%) 1px, transparent 1px 34px),
+    linear-gradient(120deg, rgb(150 236 24 / 8%) 1px, transparent 1px 42px) !important;
+}
+
+.fairlend-landing-page .builder-equation-card::before {
+  background: var(--landing-hero-line) !important;
+}
+
+.fairlend-landing-page :where(.builder-semi-gauge__rail, .builder-route-line__shadow) {
+  stroke: rgb(8 9 10 / 14%) !important;
+}
+
+.fairlend-landing-page :where(.builder-cta, .leadership-cta) {
+  border-color: rgb(150 236 24 / 58%) !important;
+  background: var(--landing-hero-lime) !important;
+  color: var(--landing-hero-lime-ink) !important;
+  box-shadow: 0 14px 32px rgb(8 9 10 / 10%) !important;
+}
+
+.fairlend-landing-page :where(.builder-cta:hover, .leadership-cta:hover) {
+  background: var(--landing-hero-lime-bright) !important;
+  color: var(--landing-hero-lime-ink) !important;
+}
+
+.fairlend-landing-page :where(.builder-cta:focus-visible, .leadership-cta:focus-visible) {
+  outline-color: var(--landing-hero-lime) !important;
+}
+
+.fairlend-landing-page .leadership-capability-flash {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(150 236 24 / 8%) 18%,
+    rgb(150 236 24 / 32%) 44%,
+    rgb(255 255 255 / 58%) 52%,
+    rgb(150 236 24 / 22%) 64%,
+    transparent 100%
+  ) !important;
+}
+
+.fairlend-landing-page .leadership-visual-grid {
+  background-image:
+    linear-gradient(90deg, rgb(8 9 10 / 10%) 1px, transparent 1px),
+    linear-gradient(180deg, rgb(8 9 10 / 10%) 1px, transparent 1px),
+    radial-gradient(circle, rgb(8 9 10 / 14%) 1px, transparent 1.5px) !important;
+}
+
+.fairlend-landing-page .leadership-visual-sweep {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(255 255 255 / 72%) 42%,
+    rgb(255 255 255 / 42%) 56%,
+    transparent 100%
+  ) !important;
+}
+
+@media (max-width: 576px) {
+  [data-fairlend-motion='toronto-hero'] .fairlend-toronto-hero-canvas {
+    height: auto !important;
+    min-height: calc(100svh + clamp(36px, 6svh, 64px)) !important;
+    padding-bottom: clamp(20px, 3.2svh, 28px) !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-toronto-hero-copy] {
+    margin-top: clamp(36px, 5svh, 48px) !important;
+    /* Let the offering deck cross the application block before it morphs. */
+    z-index: 30 !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] .fairlend-toronto-title {
+    font-size: clamp(50px, 14.9vw, 56px) !important;
+    line-height: 0.99 !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] .fairlend-toronto-cloud {
+    display: none !important;
+  }
+
+  [data-fairlend-motion='toronto-hero']
+    .fairlend-toronto-cloud:is(
+      [data-toronto-cloud='upper-west'],
+      [data-toronto-cloud='upper-east'],
+      [data-toronto-cloud='mid-west'],
+      [data-toronto-cloud='low-east']
+    ) {
+    display: block !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    opacity: 0.76 !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-toronto-cloud='upper-west'] {
+    top: 38% !important;
+    left: -8% !important;
+    width: 54vw !important;
+    --cloud-drift-duration: 184s !important;
+    --cloud-drift-x: 200vw !important;
+    z-index: 5 !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-toronto-cloud='upper-east'] {
+    top: 27% !important;
+    left: 62% !important;
+    width: 46vw !important;
+    --cloud-drift-duration: 256s !important;
+    --cloud-drift-x: -200vw !important;
+    z-index: 2 !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-toronto-cloud='mid-west'] {
+    top: 43.5% !important;
+    left: 12% !important;
+    width: 68vw !important;
+    --cloud-drift-duration: 192s !important;
+    --cloud-drift-x: 200vw !important;
+    z-index: 5 !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-toronto-cloud='low-east'] {
+    top: clamp(76px, 12svh, 104px) !important;
+    left: 62% !important;
+    width: 52vw !important;
+    --cloud-drift-duration: 264s !important;
+    --cloud-drift-x: -200vw !important;
+    z-index: 5 !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] .fairlend-toronto-skyline {
+    top: clamp(18px, 5svh, 44px) !important;
+    left: -40vw !important;
+    width: 260vw !important;
+    max-width: none !important;
+    --tw-translate-x: 0px !important;
+    --tw-translate-y: 0px !important;
+    transform: translate3d(0, 0, 0) !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-toronto-mobile-application] {
+    position: relative !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    max-width: 455px !important;
+    /* Pull the lead capture controls into the first mobile viewport. */
+    margin-top: clamp(-128px, -15svh, -88px) !important;
+    padding-top: 0 !important;
+    transform: none !important;
+    z-index: 20 !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-toronto-mobile-application] .fairlend-toronto-copy {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-testid='fairlend-application-form'] {
+    max-width: calc(100vw - 40px) !important;
+    overflow: hidden !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-testid='fairlend-application-form'] [role='tablist'] {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-testid='fairlend-application-form'] [data-form-tab] {
+    gap: 4px !important;
+    min-width: 0 !important;
+    padding-inline: 0 !important;
+    overflow: hidden !important;
+    font-size: 11px !important;
+  }
+
+  [data-fairlend-motion='toronto-hero']
+    [data-testid='fairlend-application-form']
+    [data-form-tab]
+    svg {
+    width: 16px !important;
+    height: 16px !important;
+    flex: 0 0 16px !important;
+  }
+
+  [data-fairlend-motion='toronto-hero']
+    [data-testid='fairlend-application-form']
+    [data-form-tab]
+    span {
+    min-width: 0 !important;
+    max-width: calc(100% - 22px) !important;
+    overflow: visible !important;
+    white-space: nowrap !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-toronto-lower-copy] {
+    display: none !important;
+  }
+}
+.delight-proof:hover .delight-row {
+  transform: translateX(4px);
+}
+
+.delight-proof:hover .delight-stamp {
+  opacity: 1;
+  transform: rotate(-8deg) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .delight-row,
+  .delight-stamp {
+    transition-duration: 0.01ms !important;
+    transform: none !important;
+  }
+}
+.animate-authority-variant-two {
+  animation: authority-focus-in 460ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-authority-variant-two .authority-rule {
+  animation: authority-rule-in 420ms 80ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: left;
+}
+
+.animate-authority-variant-two .delight-stamp {
+  animation: authority-stamp-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes authority-focus-in {
+  from { opacity: 0; transform: scale(0.96); filter: contrast(0.7) blur(6px); }
+  to { opacity: 1; transform: scale(1); filter: contrast(1) blur(0); }
+}
+
+@keyframes authority-rule-in {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes authority-stamp-in {
+  0%, 55% { opacity: 0; transform: scale(1.25) rotate(-14deg); }
+  100% { opacity: 0.6; transform: scale(1) rotate(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-authority-variant-two,
+  .animate-authority-variant-two .authority-rule,
+  .animate-authority-variant-two .delight-stamp {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
   }
 }

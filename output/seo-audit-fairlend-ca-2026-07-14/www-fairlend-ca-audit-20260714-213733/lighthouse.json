@@ -1,0 +1,41 @@
+{
+  "evidence_type": "fresh Lighthouse lab run",
+  "profile": "mobile simulated throttling",
+  "analyzed_at": "2026-07-14",
+  "categories": {
+    "performance": {
+      "score": 0.33
+    }
+  },
+  "audits": {
+    "first-contentful-paint": {
+      "numericValue": 3220
+    },
+    "largest-contentful-paint": {
+      "numericValue": 10890
+    },
+    "cumulative-layout-shift": {
+      "numericValue": 0.0
+    },
+    "total-blocking-time": {
+      "numericValue": 3100
+    },
+    "speed-index": {
+      "numericValue": 7000
+    }
+  },
+  "desktop": {
+    "performance_score": 0.56,
+    "first_contentful_paint_ms": 1130,
+    "largest_contentful_paint_ms": 2950,
+    "cumulative_layout_shift": 0.004,
+    "total_blocking_time_ms": 425,
+    "speed_index_ms": 2960
+  },
+  "field_data": null,
+  "limitations": [
+    "No CrUX field data was available.",
+    "INP is unknown and is not inferred from TBT.",
+    "Lighthouse results are controlled lab evidence and vary between runs."
+  ]
+}

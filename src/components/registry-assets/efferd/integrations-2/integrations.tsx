@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { cn } from '@/utilities/ui'
 import { DecorIcon } from './decor-icon'
 
@@ -81,7 +82,7 @@ function IntegrationCard({
       )}
       {...props}
     >
-      <img
+      <Image
         alt={integration.name}
         className={cn(
           'pointer-events-none size-8 shrink-0 select-none object-contain',
@@ -90,7 +91,8 @@ function IntegrationCard({
         height={32}
         src={integration.src}
         width={32}
-      />
+      
+          sizes="96px"/>
       <div className="space-y-1">
         <h3 className="font-semibold">{integration.name}</h3>
         <p className="text-muted-foreground text-xs md:text-sm">{integration.description}</p>

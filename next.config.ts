@@ -37,7 +37,16 @@ const nextConfig: NextConfig = {
           protocol: url.protocol.replace(':', '') as 'http' | 'https',
         }
       }),
+      { hostname: 'assets.chanhdai.com', protocol: 'https' },
+      { hostname: 'assets.watermelon.sh', protocol: 'https' },
+      { hostname: 'github.com', protocol: 'https' },
+      { hostname: 'i.pravatar.cc', protocol: 'https' },
+      { hostname: 'images.unsplash.com', protocol: 'https' },
+      { hostname: 'storage.efferd.com', protocol: 'https' },
     ],
+  },
+  typescript: {
+    tsconfigPath: './tsconfig.next.json',
   },
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {

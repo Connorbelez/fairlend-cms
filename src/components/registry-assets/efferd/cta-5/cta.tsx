@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group'
 import { FullWidthDivider } from './full-width-divider'
@@ -33,30 +34,34 @@ export function CallToAction() {
           Written by <span className="font-medium text-foreground">real humans</span> (we swear).
         </p>
         <div className="flex -space-x-[0.45rem] *:rounded-full *:ring-2 *:ring-background">
-          <img
+          <Image
             alt="Avatar 01"
             height={24}
             src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=72"
             width={24}
-          />
-          <img
+          
+          sizes="96px"/>
+          <Image
             alt="Avatar 02"
             height={24}
             src="https://images.unsplash.com/photo-1485206412256-701ccc5b93ca?q=80&w=72"
             width={24}
-          />
-          <img
+          
+          sizes="96px"/>
+          <Image
             alt="Avatar 03"
             height={24}
             src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=72"
             width={24}
-          />
-          <img
+          
+          sizes="96px"/>
+          <Image
             alt="Avatar 04"
             height={24}
             src="https://images.unsplash.com/photo-1610216705422-caa3fcb6d158?q=80&w=72"
             width={24}
-          />
+          
+          sizes="96px"/>
         </div>
       </div>
 

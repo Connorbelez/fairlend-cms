@@ -1,9 +1,17 @@
-/* eslint-disable @next/next/no-img-element */
-import { ArrowRight, type LucideIcon, ShieldCheck, TrendingUp, Users } from 'lucide-react'
+import Image from 'next/image'
+import { type LucideIcon, ShieldCheck, TrendingUp, Users } from 'lucide-react'
 import type { ReactElement } from 'react'
 
-import { FairlendSectionKicker } from '@/components/FairlendSectionKicker'
-import { Card } from '@/components/ui/card'
+import './styles.css'
+
+import {
+  FairlendExpertisePanel,
+  FairlendFinanceCard,
+  FairlendPaperSection,
+  FairlendPaperShell,
+} from '@/components/FairlendMarketingPrimitives'
+import { FairlendSectionKicker, FairlendSectionRule } from '@/components/FairlendSectionKicker'
+import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 
 const aboutAssetBase = '/assets/about-webp/webp'
 
@@ -43,18 +51,21 @@ const financeItems = [
   {
     copy: (
       <>
-        1st, 2nds, 3rd+. Fully
+        1st, 2nd, and 3rd mortgages.
         <br />
-        automated digital servicing.
+        Automated digital servicing.
       </>
     ),
-    href: '/contact',
+    href: buildFairlendIntakeHref({
+      intent: 'mortgage',
+      source: 'about-story-residential-mortgages',
+    }),
     icon: aboutAssets.residentialMortgagesIcon,
-    label: 'Residential Private Mortgages',
-    tag: 'Private lending',
+    label: 'Residential Mortgages',
+    tag: 'Institutional + private',
     title: (
       <>
-        Residential Private
+        Residential
         <br />
         Mortgages
       </>
@@ -67,10 +78,13 @@ const financeItems = [
         <br />
         gaps and close fast with our
         <br />
-        72-hour commitment SLA.
+        24-hour target for commitment.
       </>
     ),
-    href: '/construction-draw-financing',
+    href: buildFairlendIntakeHref({
+      intent: 'mortgage',
+      source: 'about-story-bridge-loans',
+    }),
     icon: aboutAssets.bridgeLoansIcon,
     label: 'Bridge Loans',
     tag: 'Time-sensitive capital',
@@ -87,12 +101,16 @@ const financeItems = [
       <>
         Permit-smart capital backed
         <br />
-        by GTA contractors and
+        by Southern Ontario contractors and
         <br />
         suppliers to finish on budget.
       </>
     ),
-    href: '/construction-draw-financing',
+    href: buildFairlendIntakeHref({
+      intent: 'build',
+      projectScope: 'renovation-financing',
+      source: 'about-story-renovation-financing',
+    }),
     icon: aboutAssets.mortgageInvestmentsIcon,
     label: 'Renovation Financing',
     tag: 'Construction capital',
@@ -107,14 +125,18 @@ const financeItems = [
   {
     copy: (
       <>
-        Local GTA expertise for 3-20
+        Southern Ontario expertise for 3-20
         <br />
         unit properties, from permits
         <br />
         to digital deal-room funding.
       </>
     ),
-    href: '/multiplex-financing-gta',
+    href: buildFairlendIntakeHref({
+      intent: 'build',
+      projectScope: 'multiplex-financing',
+      source: 'about-story-multiplex-financing',
+    }),
     icon: aboutAssets.multiplexFinancingIcon,
     label: 'Multi-plex Financing',
     tag: 'Housing supply',
@@ -136,7 +158,11 @@ const financeItems = [
         permits, budgets and timelines.
       </>
     ),
-    href: '/garden-suite-financing-gta',
+    href: buildFairlendIntakeHref({
+      intent: 'build',
+      projectScope: 'garden-laneway-suites',
+      source: 'about-story-garden-laneway-suites',
+    }),
     icon: aboutAssets.gardenSuitesIcon,
     label: 'Garden & Laneway Suites',
     tag: 'Infill housing',
@@ -158,7 +184,11 @@ const financeItems = [
         and phone-ready closing.
       </>
     ),
-    href: '/affordable-sustainable-rental-housing',
+    href: buildFairlendIntakeHref({
+      intent: 'build',
+      projectScope: 'mli-select-insured-housing',
+      source: 'about-story-mli-select-insured-housing',
+    }),
     icon: aboutAssets.purposeBuiltRentalsIcon,
     label: 'MLI-Select Insured Housing',
     tag: 'Insured rental',
@@ -174,8 +204,8 @@ const financeItems = [
 
 export function FairlendAboutStorySection(): ReactElement {
   return (
-    <section className="about-page about-page--embedded" aria-label="About Fairlend">
-      <div className="about-story" data-about-motion="story">
+    <FairlendPaperSection className="about-page about-page--embedded" aria-label="About FairLend">
+      <FairlendPaperShell className="about-story" data-about-motion="story">
         <section
           aria-labelledby="about-who-title"
           className="about-who-section"
@@ -193,7 +223,12 @@ export function FairlendAboutStorySection(): ReactElement {
             slashProps={{ 'data-about-kicker-slash': 'who' }}
           />
 
-          <div className="about-who-layout" data-about-who-layout>
+          <FairlendSectionRule
+            className="mt-[clamp(12px,1.4vw,20px)] mb-[clamp(16px,1.8vw,28px)]"
+            data-about-section-rule="who"
+          />
+
+          <div className="about-who-layout [margin-top:0]" data-about-who-layout>
             <div className="about-who-main" data-about-reveal>
               <div className="about-who-copy">
                 <p data-about-who-copy-line>
@@ -211,57 +246,10 @@ export function FairlendAboutStorySection(): ReactElement {
               </div>
             </div>
 
-            <Card
-              className="about-expertise-panel"
-              data-about-expertise-panel
-              data-about-reveal
-              render={<aside aria-label="Fairlend operating principles" />}
-            >
-              <span
-                aria-hidden="true"
-                className="about-expertise-corner is-top-left"
-                data-about-expertise-corner
-              />
-              <span
-                aria-hidden="true"
-                className="about-expertise-corner is-top-right"
-                data-about-expertise-corner
-              />
-              <span
-                aria-hidden="true"
-                className="about-expertise-corner is-bottom-left"
-                data-about-expertise-corner
-              />
-              <span
-                aria-hidden="true"
-                className="about-expertise-corner is-bottom-right"
-                data-about-expertise-corner
-              />
-              {expertiseItems.map((item, index) => (
-                <div
-                  className="about-expertise-item"
-                  data-about-expertise-item
-                  data-about-reveal="child"
-                  data-feature-index={String(index + 1).padStart(2, '0')}
-                  key={item.title}
-                >
-                  <span
-                    aria-hidden="true"
-                    className="about-expertise-icon"
-                    data-about-expertise-icon
-                  >
-                    <item.Icon />
-                  </span>
-                  <div>
-                    <h3 className="about-text-textured">{item.title}</h3>
-                    <p>{item.copy}</p>
-                  </div>
-                </div>
-              ))}
-            </Card>
+            <FairlendExpertisePanel items={expertiseItems} />
           </div>
 
-          <img
+          <Image
             alt=""
             className="about-skyline"
             data-about-skyline
@@ -270,7 +258,8 @@ export function FairlendAboutStorySection(): ReactElement {
             height={847}
             src={aboutAssets.torontoSkyline}
             width={1681}
-          />
+          
+          sizes="100vw"/>
         </section>
 
         <section
@@ -290,40 +279,27 @@ export function FairlendAboutStorySection(): ReactElement {
             slashProps={{ 'data-about-kicker-slash': 'finance' }}
           />
 
-          <div className="about-finance" data-about-finance-grid>
+          <FairlendSectionRule
+            className="mt-[clamp(12px,1.4vw,20px)] mb-[clamp(16px,1.8vw,28px)]"
+            data-about-section-rule="finance"
+          />
+
+          <div className="about-finance [margin-top:0]" data-about-finance-grid>
             {financeItems.map((item, index) => (
-              <Card
-                className="about-finance-card"
-                data-about-finance-card
-                data-about-reveal
-                data-finance-index={String(index + 1).padStart(2, '0')}
+              <FairlendFinanceCard
+                copy={item.copy}
+                href={item.href}
+                icon={item.icon}
+                index={index}
                 key={item.label}
-                render={<a aria-label={`${item.label} - learn more`} href={item.href} />}
-              >
-                <img
-                  alt=""
-                  data-about-finance-icon
-                  decoding="async"
-                  draggable={false}
-                  height={512}
-                  src={item.icon}
-                  width={512}
-                />
-                <div data-about-finance-copy>
-                  <span className="about-finance-tag" data-about-finance-tag>
-                    {item.tag}
-                  </span>
-                  <h3 className="about-text-textured" data-about-finance-title>
-                    {item.title}
-                  </h3>
-                  <p data-about-finance-description>{item.copy}</p>
-                </div>
-                <ArrowRight aria-hidden="true" data-about-finance-arrow />
-              </Card>
+                label={item.label}
+                tag={item.tag}
+                title={item.title}
+              />
             ))}
           </div>
         </section>
-      </div>
-    </section>
+      </FairlendPaperShell>
+    </FairlendPaperSection>
   )
 }

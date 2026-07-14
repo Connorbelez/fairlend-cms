@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 
-const fairlendLandingPath = '/fairlend-landing-hero'
+const fairlendLandingPath = '/'
 
 type Viewport = {
   height: number
@@ -33,7 +33,7 @@ test.describe('Frontend', () => {
     const judgmentSection = page.getByTestId('judgment-section')
     const testimonials = page.getByTestId('testimonials-marquee-section')
 
-    await expect(page.locator('h1').first()).toContainText(/Multiplex\s*Single Family\s*Land Purchase/)
+    await expect(page.locator('h1').first()).toContainText(/multi-plex,?\s*single family,?\s*land/i)
     await expect(page.getByRole('link', { name: /Get in touch/i })).toBeVisible()
     await expect(page.getByRole('heading', { name: /Start your application/i })).toBeVisible()
     await expect(processBar).toBeVisible()
@@ -64,9 +64,7 @@ test.describe('Frontend', () => {
     )
     await expect(page.getByRole('contentinfo')).toContainText('FairLend Mortgage')
     await expect(page.getByRole('contentinfo')).toContainText(/FSRA brokerage licence\s*#13827/)
-    await expect(page.getByRole('contentinfo')).toContainText(
-      /FSRA administrator licence\s*#13828/,
-    )
+    await expect(page.getByRole('contentinfo')).toContainText(/FSRA administrator licence\s*#13828/)
     await expect
       .poll(() =>
         page.evaluate(() => {
@@ -90,7 +88,9 @@ test.describe('Frontend', () => {
     await expect
       .poll(() =>
         page.evaluate(() => {
-          return [...document.querySelectorAll('[data-testid="hero-process-bar"] > [data-process-step]')]
+          return [
+            ...document.querySelectorAll('[data-testid="hero-process-bar"] > [data-process-step]'),
+          ]
             .map((stepRoot) => {
               const leader = stepRoot.children.item(0)
               const marker = stepRoot.querySelector('[data-testid="hero-route-marker"]')
@@ -258,7 +258,9 @@ test.describe('Frontend', () => {
       const title = await page.locator('#fairlend-hero-title').boundingBox()
       const subtitle = await page.getByText(/Fairlend is more than a lender/i).boundingBox()
       const copy = await page.locator('[data-fairlend-hero-copy]').boundingBox()
-      const handwrittenNote = page.locator('[data-testid="hero-handwritten-insertion"]:visible').first()
+      const handwrittenNote = page
+        .locator('[data-testid="hero-handwritten-insertion"]:visible')
+        .first()
       const applicationForm = await page.getByTestId('fairlend-application-form').boundingBox()
       const mapFrame = await page.getByTestId('hero-map-frame').boundingBox()
       const processCards = page.getByTestId('hero-mobile-process-segment')

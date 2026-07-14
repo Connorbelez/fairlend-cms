@@ -1,0 +1,344 @@
+/* ------------------------------------------------------------------
+   Borrower Trust / Proof - accountable practice band.
+   ------------------------------------------------------------------ */
+
+.borrower-trust {
+  position: relative;
+  padding: clamp(72px, 8vw, 124px) clamp(24px, 4vw, 56px);
+  background: var(--landing-hero-paper, #f8f7f5);
+  color: var(--landing-hero-ink, #08090a);
+  font-kerning: normal;
+}
+
+.borrower-trust__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.borrower-trust__statement {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.58fr) minmax(0, 1.42fr);
+  column-gap: clamp(34px, 6.4vw, 98px);
+  row-gap: clamp(20px, 2.4vw, 30px);
+  align-items: start;
+  padding-bottom: clamp(34px, 4vw, 58px);
+  border-bottom: 1px solid var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
+}
+
+.borrower-trust__label {
+  align-self: start;
+  max-width: 24ch;
+  margin: 9px 0 0;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--landing-hero-muted, rgb(73 73 68));
+}
+
+.borrower-trust__title {
+  max-width: 18ch;
+  margin: 0;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(3.15rem, 5.45vw, 5.95rem);
+  font-weight: 500;
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.borrower-trust__body {
+  grid-column: 2;
+  max-width: 58ch;
+  margin: clamp(14px, 1.45vw, 22px) 0 0;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: clamp(1.0625rem, 1rem + 0.18vw, 1.1875rem);
+  font-weight: 400;
+  line-height: 1.62;
+  color: var(--landing-hero-muted, rgb(49 49 45));
+  text-wrap: pretty;
+}
+
+.borrower-trust__proof-band {
+  display: grid;
+  grid-template-columns: minmax(290px, 0.9fr) minmax(0, 1.25fr);
+  margin-top: clamp(32px, 4.6vw, 58px);
+  background: var(--landing-hero-ink, #08090a);
+  border: 1px solid var(--landing-hero-ink, #08090a);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.borrower-trust__proof-lead {
+  display: grid;
+  align-content: space-between;
+  min-height: clamp(330px, 27vw, 398px);
+  padding: clamp(26px, 3.2vw, 44px);
+  color: var(--landing-hero-paper, #f8f7f5);
+}
+
+.borrower-trust__proof-kicker {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: fit-content;
+  max-width: 32ch;
+  font-family: 'Oxanium', var(--font-inter), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: 0.095em;
+  text-transform: uppercase;
+  color: var(--landing-hero-lime, #96ec18);
+}
+
+.borrower-trust__proof-kicker svg {
+  flex: 0 0 auto;
+}
+
+.borrower-trust__proof-lead h3 {
+  max-width: 13ch;
+  margin: auto 0 0;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(2.75rem, 4.15vw, 4.85rem);
+  font-weight: 500;
+  line-height: 0.96;
+  letter-spacing: -0.028em;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.borrower-trust__proof-lead p {
+  max-width: 42ch;
+  margin: clamp(22px, 2.35vw, 32px) 0 0;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: clamp(1rem, 0.96rem + 0.14vw, 1.09375rem);
+  line-height: 1.68;
+  color: rgb(248 247 245 / 88%);
+  text-wrap: pretty;
+}
+
+.borrower-trust__proof-ledger {
+  display: grid;
+  border-left: 1px solid rgb(248 247 245 / 22%);
+  background: #fbfaf5;
+}
+
+.borrower-trust__proof-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(16px, 2vw, 24px);
+  align-items: start;
+  padding: clamp(24px, 3vw, 40px);
+  border-top: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+  font-family: var(--font-inter), Arial, sans-serif;
+  color: var(--landing-hero-muted, rgb(49 49 45));
+}
+
+.borrower-trust__proof-row:first-child {
+  border-top: 0;
+}
+
+.borrower-trust__proof-row svg {
+  width: 23px;
+  height: 23px;
+  color: var(--landing-hero-lime-ink, #203500);
+}
+
+.borrower-trust__proof-row strong {
+  display: block;
+  font-family: 'Oxanium', var(--font-inter), Arial, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--landing-hero-ink, #08090a);
+  overflow-wrap: anywhere;
+}
+
+.borrower-trust__proof-row p {
+  max-width: 58ch;
+  margin: 12px 0 0;
+  font-size: clamp(1rem, 0.96rem + 0.11vw, 1.0625rem);
+  line-height: 1.58;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+.borrower-trust__capabilities {
+  display: grid;
+  grid-template-columns: minmax(0, 1.42fr) repeat(2, minmax(0, 0.8fr));
+  gap: clamp(24px, 3.7vw, 52px);
+  margin-top: clamp(40px, 5.8vw, 78px);
+}
+
+.borrower-trust__capability {
+  display: grid;
+  align-content: start;
+  gap: 0;
+  min-width: 0;
+  padding-top: clamp(22px, 2.6vw, 32px);
+  border-top: 1px solid var(--landing-hero-line-strong, rgb(8 9 10 / 22%));
+}
+
+.borrower-trust__capability:first-child {
+  border-top-width: 4px;
+  border-top-color: var(--landing-hero-ink, #08090a);
+  padding-top: clamp(24px, 2.9vw, 36px);
+}
+
+.borrower-trust__capability-head {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
+}
+
+.borrower-trust__capability-head svg {
+  width: 23px;
+  height: 23px;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.borrower-trust__capability-head span {
+  font-family: 'Oxanium', var(--font-inter), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  line-height: 1.16;
+  letter-spacing: 0.085em;
+  text-transform: uppercase;
+  color: var(--landing-hero-muted, rgb(73 73 68));
+  overflow-wrap: anywhere;
+}
+
+.borrower-trust__capability h3 {
+  max-width: 15ch;
+  margin: 20px 0 0;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(1.875rem, 2.3vw, 2.55rem);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.018em;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.borrower-trust__capability:first-child h3 {
+  max-width: 11.5ch;
+  font-size: clamp(2.75rem, 3.9vw, 4.25rem);
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+}
+
+.borrower-trust__capability p {
+  max-width: 54ch;
+  margin: 1.0625rem 0 0;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.96875rem;
+  line-height: 1.62;
+  color: var(--landing-hero-muted, rgb(49 49 45));
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+.borrower-trust__capability:first-child p {
+  max-width: 46ch;
+  font-size: clamp(1.03125rem, 0.98rem + 0.12vw, 1.125rem);
+  line-height: 1.58;
+}
+
+@media (max-width: 900px) {
+  .borrower-trust__statement {
+    grid-template-columns: 1fr;
+    row-gap: 22px;
+  }
+
+  .borrower-trust__body {
+    grid-column: auto;
+    max-width: 68ch;
+  }
+
+  .borrower-trust__proof-band,
+  .borrower-trust__capabilities {
+    grid-template-columns: 1fr;
+  }
+
+  .borrower-trust__proof-lead {
+    min-height: auto;
+  }
+
+  .borrower-trust__proof-lead h3 {
+    max-width: 16ch;
+    margin-top: clamp(44px, 8vw, 72px);
+  }
+
+  .borrower-trust__proof-ledger {
+    border-top: 1px solid rgb(248 247 245 / 22%);
+    border-left: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .borrower-trust {
+    padding-inline: clamp(18px, 5vw, 24px);
+  }
+
+  .borrower-trust__label {
+    letter-spacing: 0.16em;
+  }
+
+  .borrower-trust__title {
+    max-width: 100%;
+    font-size: clamp(2.55rem, 12vw, 3.4rem);
+    line-height: 1.03;
+    letter-spacing: -0.025em;
+  }
+
+  .borrower-trust__body {
+    font-size: 1rem;
+    line-height: 1.64;
+  }
+
+  .borrower-trust__proof-band {
+    border-radius: 14px;
+  }
+
+  .borrower-trust__proof-lead,
+  .borrower-trust__proof-row {
+    padding: clamp(20px, 5.5vw, 26px);
+  }
+
+  .borrower-trust__proof-lead h3 {
+    font-size: clamp(2.32rem, 10vw, 3.12rem);
+    line-height: 1;
+    letter-spacing: -0.024em;
+  }
+
+  .borrower-trust__proof-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .borrower-trust__proof-row strong,
+  .borrower-trust__capability-head span {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+
+  .borrower-trust__capability h3 {
+    font-size: clamp(1.75rem, 8vw, 2.25rem);
+  }
+
+  .borrower-trust__capability:first-child h3 {
+    max-width: 13ch;
+    font-size: clamp(2.35rem, 10vw, 3.1rem);
+    line-height: 0.99;
+    letter-spacing: -0.026em;
+  }
+}

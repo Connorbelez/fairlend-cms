@@ -1,34 +1,17 @@
 'use client'
 
 import { Header as DirectionalHoverHeader } from '@/components/directional-hover-header/header'
-import { usePathname } from 'next/navigation'
 import type { ReactNode } from 'react'
 
 interface FrontendChromeProps {
   children: ReactNode
   footer: ReactNode
-  header: ReactNode
 }
 
-const STANDALONE_LANDING_PATHS = ['/', '/fairlend-landing-hero']
-
-export function FrontendChrome({ children, footer, header }: FrontendChromeProps) {
-  const pathname = usePathname()
-  const isStandaloneLanding = STANDALONE_LANDING_PATHS.includes(pathname)
-
-  if (isStandaloneLanding) {
-    return (
-      <>
-        <DirectionalHoverHeader />
-        {children}
-        {footer}
-      </>
-    )
-  }
-
+export function FrontendChrome({ children, footer }: FrontendChromeProps) {
   return (
     <>
-      {header}
+      <DirectionalHoverHeader />
       {children}
       {footer}
     </>

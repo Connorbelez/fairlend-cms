@@ -1,27 +1,30 @@
-import type { Metadata } from 'next'
-
-import { FairlendAboutStorySection } from '@/components/FairlendAboutStorySection'
-import { FairlendBuilderConsultingSection } from '@/components/FairlendBuilderConsultingSection'
 import { FairlendLandingHero } from '@/components/FairlendLandingHero'
-import { FairlendLeadershipSection } from '@/components/FairlendLeadershipSection'
-import { FairlendScrollChoreography } from '@/components/FairlendScrollChoreography.client'
-import { FairlendServicesSection } from '@/components/FairlendServicesSection'
+import { FairlendLandingRail } from '@/components/FairlendLandingRail'
+import { FairlendLandingSections } from '@/components/FairlendLandingSections'
+import { FairlendLazyScrollChoreography } from '@/components/FairlendLazyScrollChoreography.client'
+import { FairlendRouteSelector } from '@/components/FairlendRouteSelector'
+import { buildFairlendMetadata } from '@/utilities/seo'
 
-export const metadata: Metadata = {
-  title: 'Fairlend | Multiplex, Single Family, and Land Financing',
+export const dynamic = 'force-static'
+
+export const metadata = buildFairlendMetadata({
   description:
-    'Fairlend guides Toronto builders and investors through permit, acquisition, construction, and completion financing.',
-}
+    'FairLend guides Southern Ontario builders, borrowers, and investors through private mortgage, acquisition, construction, and completion financing.',
+  path: '/',
+  title: 'FairLend Mortgage | Private Real Estate Financing Ontario',
+})
 
 export default function Page() {
   return (
-    <div className="min-h-svh bg-[rgb(255_253_247)]">
-      <FairlendScrollChoreography />
-      <FairlendLandingHero />
-      <FairlendServicesSection />
-      <FairlendAboutStorySection />
-      <FairlendBuilderConsultingSection />
-      <FairlendLeadershipSection />
+    <div className="fairlend-landing-page min-h-svh bg-[#f8f7f5]">
+      <FairlendLazyScrollChoreography />
+      <FairlendLandingRail gutterTexture="fabric-of-squares">
+        <FairlendLandingHero />
+      </FairlendLandingRail>
+      <FairlendLandingRail gutterTexture="grid-noise">
+        <FairlendRouteSelector id="services" />
+      </FairlendLandingRail>
+      <FairlendLandingSections />
     </div>
   )
 }

@@ -1,0 +1,278 @@
+/* ------------------------------------------------------------------
+   Borrower Problem / Foil — paired ledger.
+   Two-column hairline rows: "A rushed yes" vs "A structured answer".
+   Lime marker only on structured cells. Calm, not alarmist.
+   ------------------------------------------------------------------ */
+
+.borrower-problem {
+  padding: clamp(72px, 7.5vw, 126px) clamp(24px, 4vw, 56px);
+  background: #f7f6f1;
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.borrower-problem__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ---- Header ---- */
+.borrower-problem__header {
+  display: grid;
+  grid-template-columns: minmax(0, 0.88fr) minmax(340px, 1fr);
+  gap: clamp(30px, 5.4vw, 98px);
+  align-items: end;
+  max-width: none;
+  margin-bottom: clamp(46px, 5.4vw, 82px);
+}
+
+.borrower-problem__title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(3rem, 4.72vw, 5.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.028em;
+  margin: 0;
+  max-width: 13.4ch;
+  color: var(--landing-hero-ink, #08090a);
+  text-wrap: balance;
+}
+
+.borrower-problem__intro {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: clamp(1rem, 0.95rem + 0.18vw, 1.125rem);
+  line-height: 1.72;
+  font-weight: 400;
+  color: rgb(35 35 31);
+  margin: 0;
+  max-width: 60ch;
+  text-wrap: pretty;
+}
+
+/* ---- Ledger ---- */
+.borrower-problem__ledger {
+  border-top: 2px solid var(--landing-hero-ink, #08090a);
+  border-bottom: 1px solid var(--landing-hero-line, rgb(8 9 10 / 14%));
+}
+
+.borrower-problem__ledger-head {
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+  gap: clamp(24px, 4vw, 64px);
+  padding: 19px 0 18px;
+  border-bottom: 1px solid rgb(8 9 10 / 20%);
+}
+
+.borrower-problem__col-label {
+  font-family: 'Oxanium', var(--font-inter), Arial, sans-serif;
+  font-size: 0.765625rem;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.105em;
+  text-transform: uppercase;
+  overflow-wrap: break-word;
+}
+
+.borrower-problem__col-label--rushed {
+  color: rgb(70 70 63);
+}
+
+.borrower-problem__col-label--structured {
+  color: var(--landing-hero-ink, #08090a);
+  position: relative;
+  padding-left: 18px;
+}
+
+.borrower-problem__col-label--structured::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.44em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--landing-hero-lime, #96ec18);
+  box-shadow: 0 0 0 3px rgb(150 236 24 / 16%);
+}
+
+.borrower-problem__rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.borrower-problem__row {
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+  column-gap: clamp(24px, 4vw, 64px);
+  row-gap: clamp(12px, 1.3vw, 16px);
+  padding: clamp(25px, 2.7vw, 36px) 0;
+  border-bottom: 1px solid var(--landing-hero-line-soft, rgb(8 9 10 / 8%));
+  align-items: start;
+}
+
+.borrower-problem__row:last-child {
+  border-bottom: none;
+}
+
+.borrower-problem__row-axis {
+  grid-column: 1 / -1;
+  font-family: 'Oxanium', var(--font-inter), Arial, sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: 0.105em;
+  text-transform: uppercase;
+  color: rgb(39 39 35);
+  overflow-wrap: break-word;
+}
+
+.borrower-problem__cell {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.borrower-problem__cell--structured {
+  margin-top: -5px;
+  padding: clamp(15px, 1.5vw, 19px) clamp(16px, 1.75vw, 23px);
+  border: 1px solid rgb(8 9 10 / 13%);
+  border-radius: 12px;
+  background: rgb(255 253 247 / 64%);
+}
+
+.borrower-problem__cell-label {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Oxanium', var(--font-inter), Arial, sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: 0.095em;
+  text-transform: uppercase;
+  color: rgb(63 63 56);
+  overflow-wrap: break-word;
+}
+
+.borrower-problem__cell--structured .borrower-problem__cell-label {
+  color: var(--landing-hero-ink, #08090a);
+}
+
+.borrower-problem__marker {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--landing-hero-lime, #96ec18);
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgb(150 236 24 / 16%);
+}
+
+.borrower-problem__cell-body {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: clamp(1rem, 0.985rem + 0.08vw, 1.046875rem);
+  line-height: 1.55;
+  font-weight: 500;
+  max-width: 46ch;
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+
+.borrower-problem__cell--rushed .borrower-problem__cell-body {
+  color: rgb(74 74 67);
+  font-weight: 450;
+}
+
+.borrower-problem__cell--structured .borrower-problem__cell-body {
+  color: var(--landing-hero-ink, #08090a);
+  font-weight: 650;
+}
+
+/* ---- Support line ---- */
+.borrower-problem__support {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: normal;
+  font-size: clamp(1.6rem, 2.35vw, 2.625rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  color: var(--landing-hero-ink, #08090a);
+  margin: clamp(38px, 4vw, 58px) 0 0;
+  padding-top: clamp(18px, 2vw, 26px);
+  border-top: 1px solid rgb(8 9 10 / 20%);
+  max-width: 28ch;
+  text-wrap: balance;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1040px) {
+  .borrower-problem__header {
+    grid-template-columns: 1fr;
+    gap: clamp(22px, 3vw, 30px);
+    max-width: 780px;
+    align-items: start;
+  }
+
+  .borrower-problem__title {
+    max-width: 15ch;
+  }
+
+  .borrower-problem__intro {
+    margin-top: 0;
+    max-width: 64ch;
+  }
+}
+
+@media (max-width: 900px) {
+  .borrower-problem__header {
+    max-width: 760px;
+  }
+
+  .borrower-problem__title {
+    max-width: 16ch;
+  }
+}
+
+@media (max-width: 760px) {
+  /* Stack each row into a paired comparison; repeat column labels per row. */
+  .borrower-problem__ledger-head {
+    display: none;
+  }
+
+  .borrower-problem__row {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 27px 0;
+  }
+
+  .borrower-problem__cell-label {
+    /* Mobile: visible labels above each cell, since the column header is hidden. */
+    display: flex;
+  }
+
+  .borrower-problem__cell--structured {
+    margin-top: 0;
+  }
+
+  .borrower-problem__cell-body {
+    max-width: 58ch;
+  }
+}
+
+@media (max-width: 520px) {
+  .borrower-problem {
+    padding-inline: clamp(18px, 5vw, 24px);
+  }
+
+  .borrower-problem__title {
+    font-size: clamp(2.45rem, 10.8vw, 3.125rem);
+    line-height: 1.03;
+    max-width: 14ch;
+    letter-spacing: -0.024em;
+  }
+
+  .borrower-problem__intro {
+    line-height: 1.66;
+  }
+}

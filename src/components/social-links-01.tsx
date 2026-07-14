@@ -1,5 +1,6 @@
 import { cn } from '@/utilities/ui'
 import { ArrowUpRightIcon } from 'lucide-react'
+import Image from 'next/image'
 
 export function SocialLinks01() {
   return (
@@ -44,10 +45,12 @@ function SocialLinkItem({ icon, title, href }: SocialLink) {
   return (
     <div className="relative flex cursor-pointer items-center gap-4 p-4 pr-2 transition-[background-color] ease-out hover:bg-accent/50 dark:hover:bg-accent/20">
       <div className="relative shrink-0 [--image-radius:var(--radius-lg)]">
-        <img
+        <Image
           className="size-8 rounded-(--image-radius) select-none"
           src={icon}
           alt={`${title} logo`}
+          height={32}
+          width={32}
         />
         <div className="pointer-events-none absolute inset-0 rounded-(--image-radius) inset-ring-1 inset-ring-black/10 dark:inset-ring-white/15" />
       </div>

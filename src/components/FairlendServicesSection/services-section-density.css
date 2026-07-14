@@ -1,0 +1,80 @@
+/* Compact services header + larger card grid — overrides inline section styles */
+.services-model-shell {
+  padding: clamp(0.75rem, 1.4vw, 1.35rem) !important;
+}
+
+.services-model-header {
+  min-height: auto !important;
+  align-items: start !important;
+  gap: clamp(1.25rem, 3vw, 4rem) !important;
+  padding: clamp(0.65rem, 1.2vw, 1.1rem) clamp(0.75rem, 1vw, 1.25rem)
+    clamp(0.85rem, 1.4vw, 1.25rem) !important;
+}
+
+.services-model-header-content {
+  min-height: 0 !important;
+  grid-template-rows: auto auto auto !important;
+  align-content: start !important;
+  gap: clamp(0.35rem, 0.8vw, 0.65rem) !important;
+}
+
+.services-model-copy {
+  align-self: start !important;
+  margin-top: clamp(0.35rem, 0.8vw, 0.55rem) !important;
+  padding-top: 0.85rem !important;
+}
+
+@media (max-width: 1023px) {
+  .services-model-header {
+    padding-bottom: clamp(7rem, 14vw, 11rem) !important;
+  }
+}
+
+@media (max-width: 860px) {
+  .services-model-shell {
+    padding: 0.75rem !important;
+  }
+
+  .services-model-header {
+    padding: 0.85rem 0.5rem clamp(7rem, 32vw, 10rem) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .services-model-shell {
+    grid-template-rows: auto 2px minmax(0, 1fr) auto !important;
+    padding: clamp(0.55rem, 1.1vh, 0.85rem) clamp(0.75rem, 1.4vw, 1.35rem) !important;
+  }
+
+  .services-model-header {
+    padding: clamp(0.35rem, 0.8vh, 0.65rem) clamp(0.5rem, 0.9vw, 0.85rem)
+      clamp(0.55rem, 0.9vh, 0.75rem) !important;
+  }
+
+  .services-model-header-content {
+    gap: clamp(0.25rem, 0.55vh, 0.45rem) !important;
+  }
+
+  .services-model-copy {
+    margin-top: clamp(0.25rem, 0.55vh, 0.4rem) !important;
+    padding-top: clamp(0.5rem, 0.8vh, 0.65rem) !important;
+  }
+
+  .services-model-panel {
+    grid-template-columns: minmax(0, 1fr) minmax(9.5rem, 0.72fr) !important;
+    gap: clamp(0.65rem, min(1.2vw, 1.6vh), 1.35rem) !important;
+    padding: clamp(0.85rem, min(1.35vw, 1.7vh), 1.45rem) !important;
+  }
+
+  .services-card-title {
+    margin-bottom: clamp(0.55rem, 0.9vh, 0.85rem) !important;
+    font-size: clamp(1.62rem, min(2.65vw, 4.8vh), 3.2rem) !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 760px) {
+  .services-model-shell {
+    grid-template-rows: auto 2px minmax(0, 1fr) auto !important;
+    padding-block: 0.45rem !important;
+  }
+}

@@ -1,6 +1,9 @@
+import Image from 'next/image'
 import React from 'react'
 
 import { cn } from '@/utilities/ui'
+
+export const FAIRLEND_LOGO_SRC = '/assets/fairlend/fairlend-logo.svg'
 
 interface Props {
   className?: string
@@ -15,14 +18,22 @@ export const Logo = (props: Props) => {
     <span
       aria-label="FairLend Mortgage"
       className={cn(
-        'inline-flex min-h-11 min-w-[168px] flex-col justify-center leading-none text-[#062c2f]',
+        'inline-flex min-h-11 shrink-0 items-center gap-3 leading-none text-[#062c2f]',
         className,
       )}
     >
+      <Image
+        alt=""
+        aria-hidden="true"
+        className="size-11 shrink-0 object-contain"
+        fetchPriority={props.priority}
+        height={240}
+        loading={props.loading}
+        src={FAIRLEND_LOGO_SRC}
+        unoptimized
+        width={244}
+      />
       <span className="font-serif text-[31px] font-bold tracking-normal">FairLend</span>
-      <span className="-mt-0.5 text-[10px] font-extrabold tracking-[0.24em] uppercase">
-        Mortgage
-      </span>
     </span>
   )
 }

@@ -1,0 +1,162 @@
+{
+  "project": "fairlend-cms",
+  "source": "/tmp/codex-remote-attachments/019f2a1b-31e5-7ee0-9529-eb731493d4ea/40A19199-412E-4289-BF68-B47C76FD8BA6/1-Photo-1.jpg",
+  "notes": "Reference decomposition for the FairLend choose-your-route section. Crops are references only and must not be shipped as final assets.",
+  "assets": [
+    {
+      "id": "route-selector-section",
+      "label": "FairLend route selector section",
+      "classification": "component",
+      "role": "Full responsive route-choice section with intro, route cards, and helper CTA",
+      "bbox": { "x": 0, "y": 0, "width": 1280, "height": 960 },
+      "rationale": "The section is composed of editable typography, reusable cards, buttons, badges, and generated image assets.",
+      "implementation": {
+        "component_name": "FairlendRouteSelector",
+        "suggested_shadcn_search": "card button badge separator",
+        "acceptance": "Responsive section preserves the centered editorial heading, four-card desktop grid, selected-card state, route progress rows, lower helper banner, and subtle topo-paper background."
+      }
+    },
+    {
+      "id": "route-choice-card",
+      "label": "Route choice card",
+      "classification": "component",
+      "role": "Reusable card for one route option",
+      "bbox": { "x": 362, "y": 326, "width": 269, "height": 501 },
+      "rationale": "Mostly live text, badge state, icon, list, CTA, and progress UI with one raster illustration slot.",
+      "implementation": {
+        "component_name": "FairlendRouteCard",
+        "suggested_shadcn_search": "card button badge",
+        "acceptance": "Card supports selected/default variants, optional status badge, icon slot, bullet list, four progress steps, illustration asset, and CTA."
+      }
+    },
+    {
+      "id": "route-step-track",
+      "label": "Route step progress track",
+      "classification": "component",
+      "role": "Reusable four-step route progress row",
+      "bbox": { "x": 386, "y": 715, "width": 230, "height": 33 },
+      "rationale": "Simple dots, rules, arrows, and editable labels are better as React than raster.",
+      "implementation": {
+        "component_name": "FairlendRouteStepTrack",
+        "suggested_shadcn_search": "separator progress",
+        "acceptance": "Track keeps fixed dot spacing, active lime first step, dark inactive steps, arrows between labels, and no layout shift."
+      }
+    },
+    {
+      "id": "route-icon-badge",
+      "label": "Route icon badge",
+      "classification": "component",
+      "role": "Reusable lime-highlight icon badge used at the top of each route card",
+      "bbox": { "x": 388, "y": 350, "width": 43, "height": 48 },
+      "rationale": "The badge glow and black line icon are simple vector/CSS elements and should remain themeable.",
+      "implementation": {
+        "component_name": "FairlendRouteIconBadge",
+        "suggested_shadcn_search": "badge icon",
+        "acceptance": "Badge renders a soft lime circular wash with a black lucide icon and consistent sizing."
+      }
+    },
+    {
+      "id": "route-help-banner",
+      "label": "Route helper CTA banner",
+      "classification": "component",
+      "role": "Lower recommendation prompt with compass asset and CTA",
+      "bbox": { "x": 258, "y": 846, "width": 750, "height": 87 },
+      "rationale": "Editable heading, body copy, divider, and CTA should be React, while the compass is a generated raster asset.",
+      "implementation": {
+        "component_name": "FairlendRouteHelpBanner",
+        "suggested_shadcn_search": "button separator card",
+        "acceptance": "Banner supports image slot, live text, vertical divider, and compact lime CTA button with black arrow box."
+      }
+    },
+    {
+      "id": "topographic-paper-background",
+      "label": "Topographic paper background",
+      "classification": "image",
+      "role": "Subtle section background texture",
+      "bbox": { "x": 0, "y": 0, "width": 336, "height": 320 },
+      "rationale": "Faint contour-line paper texture is a raster-heavy background treatment.",
+      "generation": {
+        "asset_type": "texture",
+        "output_basename": "topographic-paper-background",
+        "transparent": false,
+        "prompt": "Generate a new standalone off-white topographic paper texture for a premium finance website background. Very subtle gray contour lines, tiny elevation numerals, soft paper grain, clean rounded-corner page feel, sparse edges, no UI cards, no headline text, no buttons, no logos, no people. Aspect ratio 4:3.",
+        "negative_prompt": "interface, cards, readable headline, logo, dark colors, high contrast, map labels, stains, folds"
+      }
+    },
+    {
+      "id": "investor-skyline-engraving",
+      "label": "Investor skyline engraving",
+      "classification": "image",
+      "role": "Card illustration for investor route",
+      "bbox": { "x": 88, "y": 581, "width": 237, "height": 112 },
+      "rationale": "Dense pen-and-ink city skyline with bridge detail is a complex illustration asset.",
+      "generation": {
+        "asset_type": "transparent-illustration",
+        "output_basename": "investor-skyline-engraving",
+        "transparent": true,
+        "prompt": "Generate a new standalone transparent PNG-style black graphite pen-and-ink engraving of a modern Canadian city skyline with a bridge in front, centered, low horizontal composition, light stipple shading, premium mortgage/investment editorial style, no text, no UI, no border. Match the reference crop's monochrome etched line quality.",
+        "negative_prompt": "color fill, photorealism, watercolor, thick cartoon outlines, readable text, logo, people, rectangular background"
+      }
+    },
+    {
+      "id": "private-mortgage-house-engraving",
+      "label": "Private mortgage house engraving",
+      "classification": "image",
+      "role": "Card illustration for private mortgage route",
+      "bbox": { "x": 381, "y": 589, "width": 229, "height": 103 },
+      "rationale": "Detailed residential house drawing is best as a generated image asset.",
+      "generation": {
+        "asset_type": "transparent-illustration",
+        "output_basename": "private-mortgage-house-engraving",
+        "transparent": true,
+        "prompt": "Generate a new standalone transparent PNG-style black graphite pen-and-ink engraving of an elegant two-story suburban house with garage, pitched roof, shrubs, and light trees, front three-quarter view, centered low horizontal composition, fine etched shading, no text, no UI, no border.",
+        "negative_prompt": "color fill, photorealism, cartoon, heavy background, readable text, logo, rectangular canvas"
+      }
+    },
+    {
+      "id": "construction-building-engraving",
+      "label": "Construction building engraving",
+      "classification": "image",
+      "role": "Card illustration for construction financing route",
+      "bbox": { "x": 669, "y": 586, "width": 213, "height": 107 },
+      "rationale": "Detailed building frame and crane engraving is a complex raster illustration.",
+      "generation": {
+        "asset_type": "transparent-illustration",
+        "output_basename": "construction-building-engraving",
+        "transparent": true,
+        "prompt": "Generate a new standalone transparent PNG-style black graphite pen-and-ink engraving of a mid-rise construction site: concrete building frame, tower crane, small ground details, centered low horizontal composition, fine architectural sketch lines and stipple shading, no text, no UI, no border.",
+        "negative_prompt": "color fill, photorealism, cartoon, workers closeup, readable text, logo, rectangular background"
+      }
+    },
+    {
+      "id": "partner-handshake-engraving",
+      "label": "Partner handshake engraving",
+      "classification": "image",
+      "role": "Card illustration for partner program route",
+      "bbox": { "x": 953, "y": 587, "width": 225, "height": 98 },
+      "rationale": "The handshake uses dense engraved cloth, hands, and stipple texture better handled as image generation.",
+      "generation": {
+        "asset_type": "transparent-illustration",
+        "output_basename": "partner-handshake-engraving",
+        "transparent": true,
+        "prompt": "Generate a new standalone transparent PNG-style black graphite pen-and-ink engraving of two business people shaking hands, cropped at the wrists with suit sleeves, centered horizontal composition, detailed stipple and crosshatch shading, no text, no UI, no border.",
+        "negative_prompt": "color fill, photorealism, cartoon, extra hands, readable text, logo, rectangular background"
+      }
+    },
+    {
+      "id": "route-compass-engraving",
+      "label": "Route compass engraving",
+      "classification": "image",
+      "role": "Compass illustration in lower helper CTA",
+      "bbox": { "x": 280, "y": 853, "width": 91, "height": 66 },
+      "rationale": "The angled compass includes dense sketch shading and transparency/shadow requirements.",
+      "generation": {
+        "asset_type": "transparent-illustration",
+        "output_basename": "route-compass-engraving",
+        "transparent": true,
+        "prompt": "Generate a new standalone transparent PNG-style black graphite pen-and-ink engraving of an antique compass angled slightly clockwise, circular metal case, visible needle and dial markings, light drop shadow, fine stippled shading, no text labels, no UI, no border.",
+        "negative_prompt": "color fill, photorealism, cartoon, readable brand text, logo, rectangular background"
+      }
+    }
+  ]
+}

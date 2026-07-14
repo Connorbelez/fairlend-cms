@@ -43,6 +43,13 @@ describe('address autocomplete API', () => {
       jsonRequest({ input: '123 Main', sessionToken: 'session-1' }) as never,
     )
 
+    expect(vi.mocked(globalThis.fetch)).toHaveBeenCalledWith(
+      'https://places.googleapis.com/v1/places:autocomplete',
+      expect.objectContaining({
+        body: expect.stringContaining('"includedRegionCodes":["ca"]'),
+      }),
+    )
+
     await expect(response.json()).resolves.toEqual({
       suggestions: [
         {
@@ -106,6 +113,7 @@ describe('address autocomplete API', () => {
         formattedAddress: '123 Main Street, Toronto, ON, Canada',
         id: 'ChIJ-test',
         location: { latitude: 43.65, longitude: -79.38 },
+        postalAddress: { regionCode: 'CA' },
       }),
     )
 
@@ -119,6 +127,26 @@ describe('address autocomplete API', () => {
       id: 'ChIJ-test',
       location: { latitude: 43.65, longitude: -79.38 },
       placeId: 'ChIJ-test',
+      regionCode: 'CA',
+    })
+  })
+
+  it('rejects a selected provider result outside Canada', async () => {
+    process.env.GOOGLE_MAPS_API_KEY = 'test-key'
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      Response.json({
+        formattedAddress: 'Bogotá, Colombia',
+        id: 'ChIJ-colombia',
+        postalAddress: { regionCode: 'CO' },
+      }),
+    )
+
+    const response = await detailsPost(jsonRequest({ placeId: 'ChIJ-colombia' }) as never)
+
+    expect(response.status).toBe(422)
+    await expect(response.json()).resolves.toEqual({
+      code: 'NON_CANADIAN_ADDRESS',
+      error: 'Select a Canadian address.',
     })
   })
 })

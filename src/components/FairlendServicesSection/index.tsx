@@ -3,7 +3,13 @@ import type { CSSProperties, ElementType, ReactNode } from 'react'
 import { ArrowRight, Check, Building2, Home, Shield, Users } from 'lucide-react'
 import { cva, type VariantProps } from 'class-variance-authority'
 
-import { FairlendSectionKicker } from '@/components/FairlendSectionKicker'
+import {
+  FairlendPaperSection,
+  FairlendPaperShell,
+  FairlendServiceModelCard,
+  FairlendServicesModelHeader,
+} from '@/components/FairlendMarketingPrimitives'
+import { fairlendRouteSelectorAssets } from '@/components/FairlendRouteSelector/assets'
 import { cn } from '@/utilities/ui'
 
 const assetBase = '/assets/service-concepts'
@@ -31,9 +37,9 @@ const services: Service[] = [
     code: 'INVEST',
     kicker: 'Capital Desk',
     title: 'Private Mortgage Investments',
-    image: `${assetBase}/private-mortgage-investments-icon.webp`,
-    width: 1097,
-    height: 929,
+    image: fairlendRouteSelectorAssets.investorSkyline.src,
+    width: fairlendRouteSelectorAssets.investorSkyline.width,
+    height: fairlendRouteSelectorAssets.investorSkyline.height,
     icon: Shield,
     bullets: [
       'End-to-end digital servicing',
@@ -48,14 +54,14 @@ const services: Service[] = [
     code: 'LEND',
     kicker: 'Borrower Desk',
     title: 'Mortgage Financing',
-    image: `${assetBase}/multi-mortgage-house-shield-icon.webp`,
-    width: 1133,
-    height: 896,
+    image: fairlendRouteSelectorAssets.privateMortgageHouse.src,
+    width: fairlendRouteSelectorAssets.privateMortgageHouse.width,
+    height: fairlendRouteSelectorAssets.privateMortgageHouse.height,
     icon: Home,
     bullets: [
-      '1st, 2nd, and 3rd+ mortgages for borrowers',
-      'Loan commitment within 72 hours',
-      '$0 payout fee',
+      '1st, 2nd, and 3rd mortgages for borrowers',
+      'Loan commitment within 24 hours',
+      'Low payout fees where applicable',
       '$50 missed payment fee',
       'Flexible workout plans',
     ],
@@ -67,9 +73,9 @@ const services: Service[] = [
     code: 'BUILD',
     kicker: 'Construction Desk',
     title: 'Construction Financing',
-    image: `${assetBase}/construction-project-crane-icon.webp`,
-    width: 981,
-    height: 889,
+    image: fairlendRouteSelectorAssets.constructionBuilding.src,
+    width: fairlendRouteSelectorAssets.constructionBuilding.width,
+    height: fairlendRouteSelectorAssets.constructionBuilding.height,
     icon: Building2,
     bullets: [
       'Invest in or finance a construction project',
@@ -87,9 +93,9 @@ const services: Service[] = [
     code: 'ALLY',
     kicker: 'Partner Desk',
     title: 'Partners',
-    image: `${assetBase}/partners-handshake-puzzle-icon.webp`,
-    width: 1050,
-    height: 793,
+    image: fairlendRouteSelectorAssets.partnerHandshake.src,
+    width: fairlendRouteSelectorAssets.partnerHandshake.width,
+    height: fairlendRouteSelectorAssets.partnerHandshake.height,
     icon: Users,
     bullets: [
       'For architects, real estate agents, contractors, and other professionals joining our partner program',
@@ -910,7 +916,7 @@ function getServicesModelBullets(service: Service) {
 
 export function FairlendServicesSection() {
   return (
-    <section
+    <FairlendPaperSection
       id="fairlend-services"
       aria-labelledby="fairlend-services-title"
       className={cn(
@@ -1310,16 +1316,20 @@ export function FairlendServicesSection() {
         }
         .services-card-media-shell [data-services-media] {
           object-fit: contain;
-          filter: drop-shadow(0 18px 26px rgb(8 45 35 / 12%)) saturate(0.9);
+          object-position: center bottom;
+          filter: drop-shadow(0 18px 26px rgb(8 45 35 / 12%));
         }
         [data-services-card-motion="investment"] .services-card-media-shell {
-          transform: translateX(-0.15rem) scale(1.04);
+          transform: translateX(-0.15rem) scale(1.1);
+        }
+        [data-services-card-motion="mortgage"] .services-card-media-shell {
+          transform: translateX(-0.2rem) scale(1.12);
         }
         [data-services-card-motion="construction"] .services-card-media-shell {
-          transform: translateX(-0.35rem) scale(1.08);
+          transform: translateX(-0.35rem) scale(1.12);
         }
         [data-services-card-motion="partners"] .services-card-media-shell {
-          transform: translateX(-0.1rem) scale(1.05);
+          transform: translateX(-0.1rem) scale(1.16);
         }
         .services-card-corner {
           position: absolute;
@@ -1539,8 +1549,8 @@ export function FairlendServicesSection() {
           }
           .services-card-title {
             max-width: 13ch;
-            margin-bottom: clamp(0.72rem, 1.15vh, 1.1rem);
-            font-size: clamp(1.48rem, min(2.45vw, 4.5vh), 3rem);
+            margin-bottom: clamp(0.55rem, 0.9vh, 0.85rem);
+            font-size: clamp(1.62rem, min(2.65vw, 4.8vh), 3.2rem);
             line-height: 0.96;
           }
           .services-card-bullets {
@@ -1556,7 +1566,7 @@ export function FairlendServicesSection() {
             height: 0.88rem;
           }
           .services-card-media-shell {
-            height: clamp(7.2rem, 18.5vh, 14rem);
+            height: clamp(8.5rem, 22vh, 16.5rem);
             min-height: 0;
           }
           .services-card-corner {
@@ -1590,15 +1600,15 @@ export function FairlendServicesSection() {
             font-size: 0.48rem;
           }
           .services-model-footer {
-            min-height: 2rem;
-            padding: clamp(0.45rem, 0.85vh, 0.7rem) clamp(0.8rem, 1.4vw, 1.3rem);
+            min-height: 1.65rem;
+            padding: clamp(0.35rem, 0.65vh, 0.55rem) clamp(0.75rem, 1.2vw, 1.1rem);
             font-size: clamp(0.5rem, 0.62vw, 0.58rem);
           }
         }
         @media (min-width: 1024px) and (max-height: 760px) {
           .services-model-shell {
-            grid-template-rows: minmax(10rem, 23dvh) 2px minmax(0, 1fr) auto;
-            padding-block: 0.7rem;
+            grid-template-rows: auto 2px minmax(0, 1fr) auto;
+            padding-block: 0.45rem;
           }
           .services-model-brand {
             display: none;
@@ -1619,14 +1629,14 @@ export function FairlendServicesSection() {
             max-width: 34rem;
           }
           .services-card-media-shell {
-            height: clamp(6.3rem, 16.4vh, 10.5rem);
+            height: clamp(7.5rem, 19vh, 12.5rem);
           }
         }
         @media (max-width: 1023px) {
           .services-model-header {
             grid-template-columns: 1fr;
             min-height: auto;
-            padding-bottom: clamp(12rem, 22vw, 18rem);
+            padding-bottom: clamp(7rem, 14vw, 11rem);
           }
           .services-model-header-content {
             min-height: 0;
@@ -1656,10 +1666,10 @@ export function FairlendServicesSection() {
         }
         @media (max-width: 860px) {
           .services-model-shell {
-            padding: 1rem;
+            padding: 0.75rem;
           }
           .services-model-header {
-            padding: 1.25rem 0.75rem clamp(10rem, 44vw, 15rem);
+            padding: 0.85rem 0.5rem clamp(7rem, 32vw, 10rem);
           }
           .services-model-kicker {
             display: grid;
@@ -1705,58 +1715,8 @@ export function FairlendServicesSection() {
         }
       `}</style>
 
-      <div className="services-model-shell">
-        <header className="services-model-header">
-          <div className="services-model-header-content">
-            <div
-              className="services-model-brand services-reveal"
-              data-services-brand
-              style={step(0)}
-            >
-              <span data-services-logo>The FairLend Model</span>
-              <span className="services-model-brand__count" data-services-established>
-                01 of 03
-              </span>
-            </div>
-            <FairlendSectionKicker
-              className="services-model-kicker about-kicker-who"
-              label="Our Services"
-              labelId="fairlend-services-title"
-              labelProps={{
-                'data-services-title-label': true,
-                'data-services-title-word': true,
-              }}
-              number="01"
-              numberProps={{
-                'data-services-title-number': true,
-                'data-services-title-word': true,
-              }}
-              slashProps={{ 'data-services-title-slash': true }}
-            />
-            <p className="services-model-copy" data-services-copy-line>
-              Four specialized desks. One integrated model. Flexible capital solutions for every
-              stage of real estate.
-            </p>
-          </div>
-
-          <div className="services-header-ledger__tabs" aria-hidden="true">
-            <span className="services-header-ledger__tab" data-services-tab />
-            <span className="services-header-ledger__tab" data-services-tab />
-            <span className="services-header-ledger__tab" data-services-tab />
-          </div>
-
-          <div className="services-model-skyline" data-services-map aria-hidden="true">
-            <Image
-              alt=""
-              className="h-full w-full object-contain object-right-bottom"
-              decoding="async"
-              fill
-              loading="lazy"
-              sizes="(max-width: 1180px) 90vw, 58vw"
-              src="/assets/about-webp/webp/toronto-skyline-sketch-optimized.webp"
-            />
-          </div>
-        </header>
+      <FairlendPaperShell className="services-model-shell">
+        <FairlendServicesModelHeader stepStyle={step(0)} />
 
         <span
           className="services-line-x services-model-main-rule relative z-10 block h-px w-full"
@@ -1786,123 +1746,21 @@ export function FairlendServicesSection() {
             data-services-grid-edge="left"
           />
           {services.map((service, index) => {
-            const Icon = service.icon
             const colDelay = 420 + index * 100
             const bulletBase = 9 + index * 6
             const bullets = getServicesModelBullets(service)
 
             return (
-              <article
+              <FairlendServiceModelCard
+                bulletBase={bulletBase}
+                bullets={bullets}
+                colDelay={colDelay}
+                index={index}
                 key={service.number}
-                className="services-model-panel services-reveal"
-                data-services-card
-                data-services-card-motion={service.motion}
-                style={step(5 + index)}
-              >
-                {index > 0 && (
-                  <span
-                    className="services-line-x services-model-panel-rule--mobile"
-                    data-services-line-x
-                    style={lineDelay(colDelay)}
-                  />
-                )}
-                {index % 2 === 1 && (
-                  <span
-                    className="services-line-y services-model-panel-rule--desktop-y"
-                    data-services-line-y
-                    style={lineDelay(colDelay)}
-                  />
-                )}
-                {index >= 2 && (
-                  <span
-                    className="services-line-x services-model-panel-rule--desktop-x"
-                    data-services-line-x
-                    style={lineDelay(colDelay)}
-                  />
-                )}
-
-                <span
-                  aria-hidden="true"
-                  className="services-card-corner services-card-corner--tl"
-                  data-services-corner="tl"
-                />
-                <span
-                  aria-hidden="true"
-                  className="services-card-corner services-card-corner--tr"
-                  data-services-corner="tr"
-                />
-                <span
-                  aria-hidden="true"
-                  className="services-card-corner services-card-corner--br"
-                  data-services-corner="br"
-                />
-                <span
-                  aria-hidden="true"
-                  className="services-card-corner services-card-corner--bl"
-                  data-services-corner="bl"
-                />
-
-                <div className="services-model-panel-copy">
-                  <div className="services-card-topline">
-                    <span className="services-card-icon-box" data-services-icon-box>
-                      <Icon
-                        aria-hidden="true"
-                        className="size-[58%]"
-                        data-services-icon
-                        strokeWidth={1.7}
-                      />
-                    </span>
-                    <span>
-                      <span className="services-card-stamp" data-services-kicker>
-                        {service.kicker}
-                      </span>
-                      <span className="services-model-stamp-line" aria-hidden="true" />
-                    </span>
-                  </div>
-
-                  <h3 className="services-card-title" data-services-card-title>
-                    {service.title}
-                  </h3>
-
-                  <ul className="services-card-bullets">
-                    {bullets.map((bullet, bulletIndex) => (
-                      <li
-                        key={bullet}
-                        className="services-card-bullet services-reveal flex"
-                        data-services-bullet
-                        style={step(bulletBase + bulletIndex)}
-                      >
-                        <Check aria-hidden="true" className="shrink-0" strokeWidth={2} />
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="services-card-media-shell" data-services-media-shell>
-                  <Image
-                    alt=""
-                    decoding="async"
-                    fill
-                    loading="lazy"
-                    sizes="(max-width: 860px) 82vw, (max-width: 1180px) 42vw, 22vw"
-                    src={service.image}
-                    data-services-media
-                  />
-                </div>
-
-                <div className="services-card-number-plate" data-services-number-plate>
-                  <span data-services-number>{service.number}</span>
-                  <span className="services-card-code" data-services-code>
-                    {service.code}
-                  </span>
-                </div>
-
-                <span className="sr-only" data-services-cta-label>
-                  {service.footer}
-                </span>
-                <ArrowRight aria-hidden="true" className="sr-only" data-services-arrow />
-              </article>
+                lineDelayStyle={lineDelay}
+                service={service}
+                stepStyle={step(5 + index)}
+              />
             )
           })}
         </div>
@@ -1915,8 +1773,8 @@ export function FairlendServicesSection() {
           <strong>The FairLend Model</strong>
           <span>Capital desk / borrower desk / construction desk / partner desk</span>
         </div>
-      </div>
-    </section>
+      </FairlendPaperShell>
+    </FairlendPaperSection>
   )
 }
 
@@ -1945,7 +1803,7 @@ export function FairlendServicesSectionLegacy() {
             <FairlendLogoMark />
             <div className="text-[10px] font-semibold leading-tight tracking-[0.18em] uppercase">
               <div>FairLend</div>
-              <div>Capital</div>
+              <div>Mortgage</div>
             </div>
           </div>
           <div
@@ -2373,7 +2231,6 @@ export function FairlendServicesSectionLegacy() {
                   </div>
                 </div>
 
-                {/* TODO: Partners card should eventually use a building + FairLend Partner sign asset */}
                 <div className="services-card-media-shell" data-services-media-shell>
                   <Image
                     alt=""

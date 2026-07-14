@@ -1,0 +1,1057 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Checkpoint 03 - Section Blueprint + Copy Lock</title>
+    <style>
+      :root {
+        --paper: #fffdf7;
+        --paper-soft: #faf4eb;
+        --ink: #082d23;
+        --ink-soft: rgba(8, 45, 35, 0.72);
+        --line: rgba(8, 45, 35, 0.18);
+        --line-strong: rgba(8, 45, 35, 0.34);
+        --lime: #9dff00;
+        --orange: #e85b2f;
+        --black: #050506;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at 75% 10%, rgba(157, 255, 0, 0.13), transparent 24rem),
+          radial-gradient(circle at 19% 28%, rgba(232, 91, 47, 0.1), transparent 25rem),
+          linear-gradient(180deg, var(--paper) 0%, var(--paper-soft) 100%);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      main {
+        width: min(100%, 1180px);
+        margin: 0 auto;
+        padding: 48px 22px 72px;
+      }
+
+      header,
+      section,
+      .panel,
+      .wire-card,
+      .claim,
+      .framework {
+        border: 1px solid var(--line);
+        background: rgba(255, 253, 247, 0.74);
+      }
+
+      header {
+        padding: 30px;
+      }
+
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 22px;
+        color: var(--orange);
+        font-size: 12px;
+        font-weight: 850;
+        letter-spacing: 0.22em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::after {
+        display: block;
+        width: 92px;
+        height: 2px;
+        background: currentColor;
+        content: "";
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        margin: 0;
+        color: var(--black);
+      }
+
+      h1 {
+        max-width: 940px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(42px, 6.4vw, 82px);
+        font-weight: 500;
+        letter-spacing: -0.045em;
+        line-height: 0.95;
+      }
+
+      h2 {
+        margin-bottom: 16px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(32px, 4vw, 54px);
+        font-weight: 500;
+        letter-spacing: -0.036em;
+        line-height: 0.96;
+      }
+
+      h3 {
+        margin-bottom: 9px;
+        font-size: 13px;
+        font-weight: 850;
+        letter-spacing: 0.13em;
+        line-height: 1.1;
+        text-transform: uppercase;
+      }
+
+      h4 {
+        margin-bottom: 8px;
+        font-size: 17px;
+        line-height: 1.12;
+      }
+
+      p {
+        margin: 0;
+        color: var(--ink-soft);
+        font-size: 15px;
+        line-height: 1.55;
+      }
+
+      code {
+        color: var(--black);
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        font-size: 0.92em;
+      }
+
+      .summary {
+        max-width: 770px;
+        margin-top: 18px;
+        font-size: 18px;
+        line-height: 1.45;
+      }
+
+      section {
+        margin-top: 18px;
+        padding: 26px;
+      }
+
+      .grid,
+      .two,
+      .three,
+      .four,
+      .ledger {
+        display: grid;
+        gap: 16px;
+      }
+
+      .two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .three {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .four {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .ledger {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .panel,
+      .wire-card,
+      .claim,
+      .framework {
+        padding: 16px;
+      }
+
+      .panel strong {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--orange);
+        font-size: 11px;
+        font-weight: 850;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .wireframe {
+        display: grid;
+        gap: 18px;
+        border: 1px solid var(--line-strong);
+        background:
+          linear-gradient(90deg, rgba(8, 45, 35, 0.04) 1px, transparent 1px),
+          linear-gradient(180deg, rgba(8, 45, 35, 0.035) 1px, transparent 1px),
+          rgba(255, 253, 247, 0.82);
+        background-size: 34px 34px;
+        padding: 22px;
+      }
+
+      .wire-hero {
+        display: grid;
+        grid-template-columns: minmax(0, 0.86fr) minmax(260px, 0.54fr);
+        gap: 18px;
+      }
+
+      .wire-title {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(34px, 4.8vw, 64px);
+        font-weight: 500;
+        letter-spacing: -0.042em;
+        line-height: 0.96;
+      }
+
+      .wire-kicker {
+        display: inline-flex;
+        width: fit-content;
+        margin-bottom: 18px;
+        color: var(--orange);
+        font-size: 12px;
+        font-weight: 850;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .wire-subhead {
+        margin-top: 16px;
+        max-width: 720px;
+        color: var(--ink);
+        font-size: 18px;
+        line-height: 1.42;
+      }
+
+      .wire-body {
+        margin-top: 18px;
+        max-width: 660px;
+      }
+
+      .differentiator {
+        border-color: rgba(157, 255, 0, 0.92);
+        background: rgba(157, 255, 0, 0.12);
+      }
+
+      .cta-box {
+        display: grid;
+        align-content: center;
+        gap: 14px;
+        border: 1px solid var(--line-strong);
+        background: rgba(8, 45, 35, 0.05);
+        padding: 18px;
+      }
+
+      .cta {
+        display: inline-flex;
+        width: fit-content;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 18px;
+        border: 1px solid #111;
+        background: var(--lime);
+        color: #101010;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      ul,
+      ol {
+        display: grid;
+        gap: 8px;
+        margin: 0;
+        padding-left: 19px;
+        color: var(--ink-soft);
+        font-size: 15px;
+        line-height: 1.48;
+      }
+
+      .transition {
+        border-left: 4px solid var(--lime);
+        background: rgba(157, 255, 0, 0.1);
+        padding: 18px;
+      }
+
+      dl {
+        display: grid;
+        gap: 7px;
+        margin: 0;
+      }
+
+      dt {
+        color: var(--black);
+        font-size: 11px;
+        font-weight: 850;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      dd {
+        margin: 0 0 6px;
+        color: var(--ink-soft);
+        font-size: 14px;
+        line-height: 1.42;
+      }
+
+      .status {
+        display: inline-flex;
+        width: fit-content;
+        padding: 5px 8px;
+        border: 1px solid var(--line);
+        color: var(--black);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .footer-note {
+        margin-top: 22px;
+        padding: 18px;
+        border: 1px solid var(--line-strong);
+        color: var(--black);
+        background: rgba(255, 253, 247, 0.9);
+      }
+
+      @media (max-width: 940px) {
+        .two,
+        .three,
+        .four,
+        .ledger,
+        .wire-hero {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="eyebrow">Checkpoint 03 / Section Blueprint + Copy Lock</div>
+        <h1>Blueprint and copy are locked for the build-partner bridge.</h1>
+        <p class="summary">
+          This artifact defines the plain-text section, its scan order, CTA, transitions, mobile
+          priority, claims boundaries, and accessibility requirements. Visual design is intentionally
+          not locked yet.
+        </p>
+      </header>
+
+      <section>
+        <h2>Page Context Summary</h2>
+        <div class="three">
+          <div class="panel">
+            <strong>Previous Section</strong>
+            <p><code>FairlendLandingOverviewSection</code>: "Who We Are" plus "What We Finance."</p>
+          </div>
+          <div class="panel">
+            <strong>New Section</strong>
+            <p><code>fairlend-build-partner</code>: build-planning and financing operating layer.</p>
+          </div>
+          <div class="panel">
+            <strong>Next Section</strong>
+            <p><code>FairlendBuilderConsultingSection</code>: 2019/2023/2026 builder equation.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>New Section Wireframe</h2>
+        <div class="wireframe" aria-label="Low fidelity wireframe of locked section copy">
+          <div class="wire-hero">
+            <div>
+              <span class="wire-kicker">Build with FairLend</span>
+              <div class="wire-title">Bring us the property. We will help build the equation.</div>
+              <p class="wire-subhead">
+                From early intent to construction financing and takeout strategy, FairLend helps
+                shape the land, scope, capital, draw plan, professional path, permit and MLI
+                readiness, and exit around one financeable project.
+              </p>
+              <p class="wire-body">
+                You do not need the whole team, a perfect plan, or prior build experience before you
+                talk to us. If you already build, keep your focus on the site while we help carry the
+                financing and business equation around it. If you are exploring a garden suite,
+                laneway suite, multiplex, or infill project for the first time, we can help make the
+                path legible before expensive decisions harden.
+              </p>
+            </div>
+            <div class="cta-box">
+              <h3>Primary CTA</h3>
+              <a class="cta" href="#">Map my build financing</a>
+              <p>
+                Bring a property, plan, or early idea. We will help identify what has to be true
+                before the numbers can work.
+              </p>
+            </div>
+          </div>
+
+          <div class="four">
+            <article class="wire-card">
+              <h4>01 / Property + feasibility</h4>
+              <p>Site, land basis, zoning path, housing form, unit mix, and buildable area.</p>
+            </article>
+            <article class="wire-card">
+              <h4>02 / Capital + draw plan</h4>
+              <p>Construction budget, borrower capital, private financing, draw schedule, and working capital.</p>
+            </article>
+            <article class="wire-card">
+              <h4>03 / Team + readiness</h4>
+              <p>Contractor, consultant, professional, supplier, permit, and CMHC MLI Select readiness path where applicable.</p>
+            </article>
+            <article class="wire-card">
+              <h4>04 / Exit + takeout</h4>
+              <p>Sale, refinance, rental stabilization, insured takeout preparation, and long-term financing direction.</p>
+            </article>
+          </div>
+
+          <div class="wire-card differentiator">
+            <h4>Included operating advantage</h4>
+            <p>
+              This planning layer is built into the way FairLend approaches construction financing.
+              It is a reason to finance with us, not another consultant you have to stitch onto the
+              project later.
+            </p>
+          </div>
+
+          <div class="transition">
+            <h3>Transition Into Next Section</h3>
+            <p>
+              FairLend's thesis is simple: a profitable build is not only a construction problem, it
+              is a business equation. Builders already know how to build; we help track the changing
+              variables around land, cost, capital, draws, policy, incentives, and takeout so they
+              can stay focused on the site. For first-time garden suite or multiplex owners, the same
+              equation explains how we think before a shovel moves.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Locked Copy</h2>
+        <div class="two">
+          <div class="panel">
+            <strong>Eyebrow</strong>
+            <p>Build with FairLend</p>
+          </div>
+          <div class="panel">
+            <strong>Headline</strong>
+            <p>Bring us the property. We will help build the equation.</p>
+          </div>
+          <div class="panel">
+            <strong>Subheadline</strong>
+            <p>
+              From early intent to construction financing and takeout strategy, FairLend helps shape
+              the land, scope, capital, draw plan, professional path, permit and MLI readiness, and
+              exit around one financeable project.
+            </p>
+          </div>
+          <div class="panel">
+            <strong>Body</strong>
+            <p>
+              You do not need the whole team, a perfect plan, or prior build experience before you
+              talk to us. If you already build, keep your focus on the site while we help carry the
+              financing and business equation around it. If you are exploring a garden suite, laneway
+              suite, multiplex, or infill project for the first time, we can help make the path
+              legible before expensive decisions harden.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Cards / Rows</h2>
+        <div class="four">
+          <div class="panel">
+            <strong>01 / Property + feasibility</strong>
+            <p>Site, land basis, zoning path, housing form, unit mix, and buildable area.</p>
+          </div>
+          <div class="panel">
+            <strong>02 / Capital + draw plan</strong>
+            <p>Construction budget, borrower capital, private financing, draw schedule, and working capital.</p>
+          </div>
+          <div class="panel">
+            <strong>03 / Team + readiness</strong>
+            <p>Contractor, consultant, professional, supplier, permit, and CMHC MLI Select readiness path where applicable.</p>
+          </div>
+          <div class="panel">
+            <strong>04 / Exit + takeout</strong>
+            <p>Sale, refinance, rental stabilization, insured takeout preparation, and long-term financing direction.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Differentiator + CTA Map</h2>
+        <div class="two">
+          <div class="panel">
+            <strong>Differentiator Copy</strong>
+            <p>
+              This planning layer is built into the way FairLend approaches construction financing.
+              It is a reason to finance with us, not another consultant you have to stitch onto the
+              project later.
+            </p>
+          </div>
+          <div class="panel">
+            <strong>Primary CTA</strong>
+            <p>Map my build financing</p>
+          </div>
+          <div class="panel">
+            <strong>CTA Destination</strong>
+            <p>
+              Build-intent intake using <code>buildFairlendIntakeHref({ intent: 'build', source: 'build-partner-bridge' })</code>.
+            </p>
+          </div>
+          <div class="panel">
+            <strong>CTA Microcopy</strong>
+            <p>
+              Bring a property, plan, or early idea. We will help identify what has to be true before
+              the numbers can work.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Transition Copy</h2>
+        <div class="two">
+          <div class="panel">
+            <strong>Transition In From Overview</strong>
+            <p>
+              The overview section lists what FairLend finances. This section narrows the frame:
+              for build projects, the financing is only one variable in the larger equation.
+            </p>
+          </div>
+          <div class="panel">
+            <strong>Transition Out To Builder Equation</strong>
+            <p>
+              FairLend's thesis is simple: a profitable build is not only a construction problem, it
+              is a business equation. Builders already know how to build; we help track the changing
+              variables around land, cost, capital, draws, policy, incentives, and takeout so they
+              can stay focused on the site. For first-time garden suite or multiplex owners, the same
+              equation explains how we think before a shovel moves.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Mobile Priority</h2>
+        <ol>
+          <li>Eyebrow, headline, and subheadline.</li>
+          <li>Primary CTA and microcopy.</li>
+          <li>Four service rows in the order: Property, Capital, Team, Exit.</li>
+          <li>Differentiator copy.</li>
+          <li>Transition sentence into the builder equation.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Accessibility Notes</h2>
+        <ul>
+          <li>Use a semantic <code>section</code> with <code>aria-labelledby</code> tied to the headline.</li>
+          <li>Cards should be real text content, not image-only labels.</li>
+          <li>The CTA must be a normal link with a clear accessible name: "Map my build financing."</li>
+          <li>If visual concepts introduce animated connectors or equation-like lines, they must be decorative with <code>aria-hidden="true"</code>.</li>
+          <li>Maintain text contrast for lime accents by using lime as background/accent, not small body text on paper.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Claims Ledger</h2>
+        <div class="ledger">
+          <div class="claim">
+            <dl>
+              <dt>Claim</dt>
+              <dd>FairLend helps shape land, scope, capital, draw plan, professional path, permit/MLI readiness, and exit around one financeable project.</dd>
+              <dt>Status</dt>
+              <dd><span class="status">Supported</span></dd>
+              <dt>Evidence</dt>
+              <dd>Company Brief section 4.3.</dd>
+              <dt>Risk Level</dt>
+              <dd>Medium-high. Keep "helps shape" and "readiness" language.</dd>
+            </dl>
+          </div>
+          <div class="claim">
+            <dl>
+              <dt>Claim</dt>
+              <dd>Visitors can talk to FairLend with a property, acquisition target, rough concept, or build already taking shape.</dd>
+              <dt>Status</dt>
+              <dd><span class="status">User-provided / supported</span></dd>
+              <dt>Evidence</dt>
+              <dd>User Comment 1 and Company Brief early-stage advisory positioning.</dd>
+              <dt>Risk Level</dt>
+              <dd>Low-medium. Does not promise financeability.</dd>
+            </dl>
+          </div>
+          <div class="claim">
+            <dl>
+              <dt>Claim</dt>
+              <dd>FairLend can help structure the business side of the project before expensive decisions harden.</dd>
+              <dt>Status</dt>
+              <dd><span class="status">Supported</span></dd>
+              <dt>Evidence</dt>
+              <dd>Company Brief sections 4.2 and 4.3.</dd>
+              <dt>Risk Level</dt>
+              <dd>Medium. Use as strategic support, not legal/project-management guarantee.</dd>
+            </dl>
+          </div>
+          <div class="claim">
+            <dl>
+              <dt>Claim</dt>
+              <dd>FairLend supports contractor, consultant, professional, supplier, permit, and CMHC MLI Select readiness paths where applicable.</dd>
+              <dt>Status</dt>
+              <dd><span class="status">Supported</span></dd>
+              <dt>Evidence</dt>
+              <dd>Company Brief section 4.3 and existing construction service bullets.</dd>
+              <dt>Risk Level</dt>
+              <dd>High. Use "where applicable"; avoid guaranteed qualification or availability.</dd>
+            </dl>
+          </div>
+          <div class="claim">
+            <dl>
+              <dt>Claim</dt>
+              <dd>The planning layer is built into the way FairLend approaches construction financing.</dd>
+              <dt>Status</dt>
+              <dd><span class="status">User-provided / supported</span></dd>
+              <dt>Evidence</dt>
+              <dd>User Comment 1 and Company Brief's construction advisory layer.</dd>
+              <dt>Risk Level</dt>
+              <dd>Medium. Avoid saying unlimited services are free.</dd>
+            </dl>
+          </div>
+          <div class="claim">
+            <dl>
+              <dt>Claim</dt>
+              <dd>Density can reopen the project equation.</dd>
+              <dt>Status</dt>
+              <dd><span class="status">Supported in page code</span></dd>
+              <dt>Evidence</dt>
+              <dd>FairlendBuilderConsultingSection 2026 state and equation rows.</dd>
+              <dt>Risk Level</dt>
+              <dd>Medium-high. This is transition copy into an illustrative section, not a general guarantee.</dd>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Claims Avoided</h2>
+        <ul>
+          <li>No guaranteed financing approval.</li>
+          <li>No guaranteed permits, zoning approvals, CMHC MLI Select qualification, or takeout approval.</li>
+          <li>No guaranteed project profitability, completion, timeline, contractor availability, or investor return.</li>
+          <li>No "free unlimited consulting" or broad professional-services promise.</li>
+          <li>No repetition of the existing "8-14% returns" claim.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Section Contract</h2>
+        <div class="two">
+          <div class="panel">
+            <strong>Section ID</strong>
+            <p>fairlend-build-partner</p>
+          </div>
+          <div class="panel">
+            <strong>Section Name</strong>
+            <p>Build Partner Bridge</p>
+          </div>
+          <div class="panel">
+            <strong>Insertion Point</strong>
+            <p>Between overview and builder consulting equation.</p>
+          </div>
+          <div class="panel">
+            <strong>Section Role</strong>
+            <p>Offer Explainer with Bridge, Mechanism, Objection Handler, and CTA Preparation support.</p>
+          </div>
+          <div class="panel">
+            <strong>Section Goal</strong>
+            <p>Show that FairLend helps structure the project equation around financing before the builder math appears.</p>
+          </div>
+          <div class="panel">
+            <strong>Target Belief</strong>
+            <p>FairLend can help from property, plan, or early build intent through project strategy and financing direction.</p>
+          </div>
+          <div class="panel">
+            <strong>Visual Role</strong>
+            <p>Bridge band that turns broad service categories into a project-equation map.</p>
+          </div>
+          <div class="panel">
+            <strong>Interaction Role</strong>
+            <p>One build-specific CTA; cards may be static or lightly revealed, but should not require interaction to understand.</p>
+          </div>
+          <div class="panel">
+            <strong>Motion Role</strong>
+            <p>Subtle connector/reveal motion that hands into the animated builder equation.</p>
+          </div>
+          <div class="panel">
+            <strong>Desktop Behavior</strong>
+            <p>Editorial hero copy plus CTA panel and four compact service rows/cards.</p>
+          </div>
+          <div class="panel">
+            <strong>Tablet Behavior</strong>
+            <p>Two-column cards under a stacked headline and CTA block.</p>
+          </div>
+          <div class="panel">
+            <strong>Mobile Behavior</strong>
+            <p>Headline, CTA, four rows, differentiator, transition sentence.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Acceptance Criteria</h2>
+        <ul>
+          <li>The section is understandable as plain text before visual design.</li>
+          <li>The section has one job: explain FairLend's build-financing operating layer.</li>
+          <li>The CTA captures visitors from property, plan, and early-intent stages.</li>
+          <li>The differentiator is stronger than "complimentary" without promising unlimited services.</li>
+          <li>The transition into the builder equation is explicit and natural.</li>
+          <li>Unsupported claims and compliance-sensitive guarantees are absent.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Framework Application Ledger</h2>
+        <div class="ledger">
+          <div class="framework">
+            <dl>
+              <dt>Framework</dt>
+              <dd>AIDA</dd>
+              <dt>Decision Influenced</dt>
+              <dd>Headline earns attention, subhead builds interest, four cards develop desire, CTA drives action.</dd>
+            </dl>
+          </div>
+          <div class="framework">
+            <dl>
+              <dt>Framework</dt>
+              <dd>PAS</dd>
+              <dt>Decision Influenced</dt>
+              <dd>Body copy names the pain of not having the whole team, perfect plan, or prior build experience before expensive decisions harden.</dd>
+            </dl>
+          </div>
+          <div class="framework">
+            <dl>
+              <dt>Framework</dt>
+              <dd>BAB</dd>
+              <dt>Decision Influenced</dt>
+              <dd>The section moves from early uncertainty or builder focus into FairLend's thesis that a profitable build is also a business equation.</dd>
+            </dl>
+          </div>
+          <div class="framework">
+            <dl>
+              <dt>Framework</dt>
+              <dd>FAB</dd>
+              <dt>Decision Influenced</dt>
+              <dd>Cards are organized as capability areas tied to benefits: feasibility, capital, readiness, exit.</dd>
+            </dl>
+          </div>
+          <div class="framework">
+            <dl>
+              <dt>Framework</dt>
+              <dd>Progressive Disclosure</dd>
+              <dt>Decision Influenced</dt>
+              <dd>Mobile priority puts headline and CTA before deeper service detail.</dd>
+            </dl>
+          </div>
+          <div class="framework">
+            <dl>
+              <dt>Framework</dt>
+              <dd>Miller's Law</dd>
+              <dt>Decision Influenced</dt>
+              <dd>Service detail is grouped into four memorable rows instead of listing every build variable.</dd>
+            </dl>
+          </div>
+          <div class="framework">
+            <dl>
+              <dt>Framework</dt>
+              <dd>Hick's Law</dd>
+              <dt>Decision Influenced</dt>
+              <dd>CTA map locks one action, not multiple route options.</dd>
+            </dl>
+          </div>
+          <div class="framework">
+            <dl>
+              <dt>Framework</dt>
+              <dd>Voice of Customer Research</dd>
+              <dt>Decision Influenced</dt>
+              <dd>Copy explicitly includes property, plan, and early intent based on user feedback.</dd>
+            </dl>
+          </div>
+          <div class="framework">
+            <dl>
+              <dt>Framework</dt>
+              <dd>Awareness Levels</dd>
+              <dt>Decision Influenced</dt>
+              <dd>The section is written for both experienced builders and first-time property owners who may not yet know the full solution path.</dd>
+            </dl>
+          </div>
+          <div class="framework">
+            <dl>
+              <dt>Framework</dt>
+              <dd>Market Sophistication</dd>
+              <dt>Decision Influenced</dt>
+              <dd>Copy avoids generic "one-stop shop" wording and uses a sharper project-equation frame.</dd>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Next Phase Visual Brief</h2>
+        <ul>
+          <li>Show previous overview tail, this new section, and the beginning of the builder equation in context.</li>
+          <li>Preserve FairLend paper, rail, lime/orange accent, serif/editorial, and technical-card language.</li>
+          <li>Explore how to visualize the four rows as an equation map without making the section as visually dominant as the builder equation.</li>
+          <li>CTA should be visible but not a second hero-level conversion block.</li>
+          <li>Use connector lines or ledger-like structure to create a natural handoff into the 2019/2023/2026 section.</li>
+        </ul>
+      </section>
+
+      <p class="footer-note">
+        Next phase: generate checkpoint-04-section-visual-concepts.html with integrated visual
+        concepts showing the previous section tail, the new section, and the start of the builder
+        equation.
+      </p>
+    </main>
+
+    <script type="application/json" id="section-builder-state">
+      {
+        "workflow": "existing-landing-page-section-builder",
+        "checkpoint_id": "checkpoint-03-section-blueprint-copy-lock",
+        "phase_completed": 3,
+        "previous_checkpoint": "checkpoint-02-section-strategy-lock",
+        "next_phase": "integrated-visual-concepts",
+        "page_context": {
+          "page_name": "FairLend homepage",
+          "page_type": "multi-audience mortgage, construction financing, and investment landing page",
+          "primary_audience": "GTA borrowers, builders, property owners, investors, and referral partners",
+          "primary_conversion": "Build-specific FairLend request review for visitors with a property, plan, or early build intent",
+          "existing_section_order": [
+            "FairlendLandingHero",
+            "FairlendRouteSelector",
+            "FairlendLandingOverviewSection",
+            "FairlendBuilderConsultingSection",
+            "FairlendLeadershipSection",
+            "FairlendFaqSection"
+          ],
+          "insertion_point": {
+            "previous_section": "FairlendLandingOverviewSection",
+            "next_section": "FairlendBuilderConsultingSection"
+          }
+        },
+        "locked_decisions": {
+          "section_role": "Offer Explainer with secondary Bridge Section, Mechanism Section, Objection Handler, and CTA Preparation roles",
+          "target_belief": "I can come to FairLend with a property, a plan, or early build intent, and they can help me shape financing, project strategy, professional path, draw plan, permit/MLI readiness, and takeout direction in one place.",
+          "primary_objection": "I do not know whether I have the right property, plan, team, capital stack, draw logic, permit strategy, MLI path, or exit financing yet.",
+          "cta_strategy": "Build-specific primary CTA to build-intent intake.",
+          "locked_copy": {
+            "section_id": "fairlend-build-partner",
+            "section_name": "Build Partner Bridge",
+            "eyebrow": "Build with FairLend",
+            "headline": "Bring us the property. We will help build the equation.",
+            "subheadline": "From early intent to construction financing and takeout strategy, FairLend helps shape the land, scope, capital, draw plan, professional path, permit and MLI readiness, and exit around one financeable project.",
+            "body": "You do not need the whole team, a perfect plan, or prior build experience before you talk to us. If you already build, keep your focus on the site while we help carry the financing and business equation around it. If you are exploring a garden suite, laneway suite, multiplex, or infill project for the first time, we can help make the path legible before expensive decisions harden.",
+            "cards": [
+              {
+                "label": "01 / Property + feasibility",
+                "copy": "Site, land basis, zoning path, housing form, unit mix, and buildable area."
+              },
+              {
+                "label": "02 / Capital + draw plan",
+                "copy": "Construction budget, borrower capital, private financing, draw schedule, and working capital."
+              },
+              {
+                "label": "03 / Team + readiness",
+                "copy": "Contractor, consultant, professional, supplier, permit, and CMHC MLI Select readiness path where applicable."
+              },
+              {
+                "label": "04 / Exit + takeout",
+                "copy": "Sale, refinance, rental stabilization, insured takeout preparation, and long-term financing direction."
+              }
+            ],
+            "differentiator": "This planning layer is built into the way FairLend approaches construction financing. It is a reason to finance with us, not another consultant you have to stitch onto the project later.",
+            "cta": {
+              "label": "Map my build financing",
+              "href_strategy": "buildFairlendIntakeHref({ intent: 'build', source: 'build-partner-bridge' })",
+              "microcopy": "Bring a property, plan, or early idea. We will help identify what has to be true before the numbers can work."
+            },
+            "transition_in": "The overview section lists what FairLend finances. This section narrows the frame: for build projects, the financing is only one variable in the larger equation.",
+            "transition_out": "FairLend's thesis is simple: a profitable build is not only a construction problem, it is a business equation. Builders already know how to build; we help track the changing variables around land, cost, capital, draws, policy, incentives, and takeout so they can stay focused on the site. For first-time garden suite or multiplex owners, the same equation explains how we think before a shovel moves."
+          }
+        },
+        "visual_system_extraction": {
+          "grid": "Full-viewport landing rails, constrained paper shells, two-column editorial grids, dense service cards, rule-based section labels, and connector lines.",
+          "typography": "Large serif editorial headlines mixed with compact uppercase technical labels and display/mono service language.",
+          "color": "Warm paper, black ink, forest green, electric lime, and orange accents.",
+          "spacing": "Generous full-section vertical rhythm with dense internal card grids and tight label systems.",
+          "component_style": "Paper sections, route cards, icon-led cards, ledger tabs, skyline/building imagery, scan lines, and structured linework.",
+          "motion_language": "Scroll choreography, staged reveals, animated connectors, and equation state transitions."
+        },
+        "claims_ledger": [
+          {
+            "claim": "FairLend helps shape land, scope, capital, draw plan, professional path, permit/MLI readiness, and exit around one financeable project.",
+            "status": "supported",
+            "evidence": "Company Brief section 4.3",
+            "risk_level": "medium-high",
+            "allowed_usage": "Use helps shape and readiness language.",
+            "notes": "Avoid approval or qualification guarantees."
+          },
+          {
+            "claim": "Visitors can talk to FairLend with a property, acquisition target, rough concept, or build already taking shape.",
+            "status": "supported",
+            "evidence": "User Comment 1 and Company Brief early-stage advisory positioning.",
+            "risk_level": "low-medium",
+            "allowed_usage": "Use as audience capture frame.",
+            "notes": "Does not promise financeability."
+          },
+          {
+            "claim": "FairLend can help structure the business side of the project before expensive decisions harden.",
+            "status": "supported",
+            "evidence": "Company Brief sections 4.2 and 4.3",
+            "risk_level": "medium",
+            "allowed_usage": "Use as strategic support.",
+            "notes": "Not a legal/project-management guarantee."
+          },
+          {
+            "claim": "FairLend supports contractor, consultant, professional, supplier, permit, and CMHC MLI Select readiness paths where applicable.",
+            "status": "supported",
+            "evidence": "Company Brief section 4.3 and existing construction service bullets.",
+            "risk_level": "high",
+            "allowed_usage": "Use where applicable and readiness language.",
+            "notes": "No guaranteed qualification or availability."
+          },
+          {
+            "claim": "The planning layer is built into the way FairLend approaches construction financing.",
+            "status": "supported",
+            "evidence": "User Comment 1 and Company Brief construction advisory layer.",
+            "risk_level": "medium",
+            "allowed_usage": "Use as differentiator copy.",
+            "notes": "Avoid saying unlimited services are free."
+          },
+          {
+            "claim": "Density can reopen the project equation.",
+            "status": "supported",
+            "evidence": "FairlendBuilderConsultingSection 2026 state and equation rows.",
+            "risk_level": "medium-high",
+            "allowed_usage": "Use as transition into existing illustrative math section.",
+            "notes": "Not a general profitability guarantee."
+          }
+        ],
+        "framework_application_ledger": [
+          {
+            "framework": "AIDA",
+            "phase": "Phase 3",
+            "used_for": "Ordering copy from attention to action.",
+            "decision_influenced": "Headline, subheadline, four cards, and CTA sequence.",
+            "artifact_fields": ["locked_copy.headline", "locked_copy.cards", "locked_copy.cta"]
+          },
+          {
+            "framework": "PAS",
+            "phase": "Phase 3",
+            "used_for": "Naming the practical problem.",
+            "decision_influenced": "Body copy says visitors do not need the whole team, perfect plan, or prior build experience before talking to FairLend.",
+            "artifact_fields": ["locked_copy.body"]
+          },
+          {
+            "framework": "BAB",
+            "phase": "Phase 3",
+            "used_for": "Creating the before/after bridge.",
+            "decision_influenced": "The section moves from early uncertainty or builder focus into FairLend's thesis that a profitable build is also a business equation.",
+            "artifact_fields": ["locked_copy.transition_out"]
+          },
+          {
+            "framework": "FAB",
+            "phase": "Phase 3",
+            "used_for": "Converting capabilities into clear benefit groups.",
+            "decision_influenced": "Cards are grouped as feasibility, capital, readiness, and exit.",
+            "artifact_fields": ["locked_copy.cards"]
+          },
+          {
+            "framework": "Progressive Disclosure",
+            "phase": "Phase 3",
+            "used_for": "Mobile order.",
+            "decision_influenced": "Mobile priority puts headline and CTA before deeper card detail.",
+            "artifact_fields": ["mobile_priority"]
+          },
+          {
+            "framework": "Miller's Law",
+            "phase": "Phase 3",
+            "used_for": "Information grouping.",
+            "decision_influenced": "Four rows instead of every build variable.",
+            "artifact_fields": ["locked_copy.cards"]
+          },
+          {
+            "framework": "Hick's Law",
+            "phase": "Phase 3",
+            "used_for": "CTA map.",
+            "decision_influenced": "One build-specific CTA only.",
+            "artifact_fields": ["locked_copy.cta"]
+          },
+          {
+            "framework": "Voice of Customer Research",
+            "phase": "Phase 3",
+            "used_for": "Adapting user feedback into copy.",
+            "decision_influenced": "Copy explicitly includes property, plan, and early intent.",
+            "artifact_fields": ["locked_copy.headline", "locked_copy.cta.microcopy"]
+          },
+          {
+            "framework": "Awareness Levels",
+            "phase": "Phase 3",
+            "used_for": "Writing for early-stage visitors.",
+            "decision_influenced": "The copy welcomes rough concepts, early intent, and first-time garden suite or multiplex owners while respecting experienced builders.",
+            "artifact_fields": ["locked_copy.body"]
+          },
+          {
+            "framework": "Market Sophistication",
+            "phase": "Phase 3",
+            "used_for": "Avoiding generic one-stop shop language.",
+            "decision_influenced": "Used project-equation and operating-layer language instead of generic service claims.",
+            "artifact_fields": ["locked_copy.differentiator"]
+          }
+        ],
+        "section_contract": {
+          "section_id": "fairlend-build-partner",
+          "section_name": "Build Partner Bridge",
+          "insertion_point": "Between FairlendLandingOverviewSection and FairlendBuilderConsultingSection",
+          "previous_section": "FairlendLandingOverviewSection",
+          "next_section": "FairlendBuilderConsultingSection",
+          "section_role": "Offer Explainer with Bridge, Mechanism, Objection Handler, and CTA Preparation support.",
+          "section_goal": "Show that FairLend helps structure the project equation around financing before the builder math appears.",
+          "target_belief": "FairLend can help from property, plan, or early build intent through project strategy and financing direction.",
+          "primary_objection_addressed": "The visitor does not yet have the right property, plan, team, capital stack, draw logic, permit strategy, MLI path, or exit financing.",
+          "primary_visitor_question_answered": "Does FairLend only provide the loan, or can they help me figure out the whole build path?",
+          "visual_role": "Bridge band that turns broad service categories into a project-equation map.",
+          "interaction_role": "One build-specific CTA; cards should not require interaction to understand.",
+          "motion_role": "Subtle connector/reveal motion that hands into the animated builder equation.",
+          "desktop_behavior": "Editorial hero copy plus CTA panel and four compact service rows/cards.",
+          "tablet_behavior": "Two-column cards under stacked headline and CTA block.",
+          "mobile_behavior": "Headline, CTA, four rows, differentiator, transition sentence.",
+          "accessibility_notes": [
+            "Use semantic section with aria-labelledby tied to the headline.",
+            "Cards should be text content.",
+            "CTA accessible name is Map my build financing.",
+            "Decorative animated connectors should be aria-hidden.",
+            "Maintain contrast for lime accents."
+          ],
+          "acceptance_criteria": [
+            "Section is understandable as plain text before visual design.",
+            "Section has one job: explain FairLend's build-financing operating layer.",
+            "CTA captures property, plan, and early-intent stages.",
+            "Differentiator is stronger than complimentary without promising unlimited services.",
+            "Transition into builder equation is explicit and natural.",
+            "Unsupported claims and compliance-sensitive guarantees are absent."
+          ]
+        },
+        "open_questions": [
+          "Approve, revise, or replace the locked CTA label: Map my build financing.",
+          "Approve, revise, or replace the differentiator phrase: It is a reason to finance with us, not another consultant you have to stitch onto the project later."
+        ],
+        "next_phase_instructions": "Generate checkpoint-04-section-visual-concepts.html. Show integrated visual concepts with previous overview tail, the new section, and the start of the builder equation."
+      }
+    </script>
+  </body>
+</html>

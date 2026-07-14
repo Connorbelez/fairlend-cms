@@ -1,21 +1,29 @@
 import type { Metadata } from 'next'
 
 import { cn } from '@/utilities/ui'
-import { Cormorant_Garamond, Inter } from 'next/font/google'
-import React from 'react'
+import {
+  Architects_Daughter,
+  Cormorant_Garamond,
+  DM_Serif_Display,
+  Inter,
+  League_Gothic,
+  Oxanium,
+} from 'next/font/google'
+import React, { Suspense } from 'react'
 
-import { AdminBar } from '@/components/AdminBar'
+import { AnalyticsProvider } from '@/components/Analytics'
+import { FairlendConsultationBookingModalInterceptor } from '@/components/FairlendConsultationBooking/FairlendConsultationBookingModalInterceptor.client'
+import { FAIRLEND_LOGO_SRC } from '@/components/Logo/Logo'
+import { JsonLd } from '@/components/SEO/JsonLd'
 import { Footer } from '@/Footer/Component'
-import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
-import { defaultTheme, themeCookieName } from '@/providers/Theme/shared'
-import { themeIsValid } from '@/providers/Theme/types'
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import { cookies, draftMode } from 'next/headers'
+import { defaultTheme } from '@/providers/Theme/shared'
+import { Toaster } from '@/components/ui/sonner'
 
 import './globals.css'
-import { getServerSideURL } from '@/utilities/getURL'
 import { FrontendChrome } from './FrontendChrome.client'
+import { buildFairlendMetadata, getCanonicalOrigin } from '@/utilities/seo'
+import { fairlendOrganizationJsonLd, fairlendWebsiteJsonLd } from '@/utilities/structuredData'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -29,43 +37,76 @@ const cormorantGaramond = Cormorant_Garamond({
   weight: ['400', '500', '600', '700'],
 })
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [{ isEnabled }, cookieStore] = await Promise.all([draftMode(), cookies()])
-  const themePreference = cookieStore.get(themeCookieName)?.value ?? null
-  const initialTheme = themeIsValid(themePreference) ? themePreference : defaultTheme
+// These display faces previously came from a render-blocking Google Fonts @import.
+// Keep them self-hosted and out of the critical preload queue; the browser fetches
+// each face only on routes that actually render it.
+const architectsDaughter = Architects_Daughter({
+  display: 'swap',
+  preload: false,
+  subsets: ['latin'],
+  variable: '--font-architects-daughter',
+  weight: '400',
+})
 
+const dmSerifDisplay = DM_Serif_Display({
+  display: 'swap',
+  preload: false,
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  variable: '--font-dm-serif-display',
+  weight: '400',
+})
+
+const leagueGothic = League_Gothic({
+  display: 'swap',
+  preload: false,
+  subsets: ['latin'],
+  variable: '--font-league-gothic',
+  weight: '400',
+})
+
+const oxanium = Oxanium({
+  display: 'swap',
+  preload: false,
+  subsets: ['latin'],
+  variable: '--font-oxanium',
+  weight: ['400', '500', '600', '700', '800'],
+})
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      className={cn(inter.variable, cormorantGaramond.variable)}
-      data-theme={initialTheme}
+      className={cn(
+        inter.variable,
+        cormorantGaramond.variable,
+        architectsDaughter.variable,
+        dmSerifDisplay.variable,
+        leagueGothic.variable,
+        oxanium.variable,
+      )}
+      data-theme={defaultTheme}
       lang="en"
       suppressHydrationWarning
     >
       <head>
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        <link href={FAIRLEND_LOGO_SRC} rel="icon" type="image/svg+xml" />
       </head>
       <body>
-        <Providers initialTheme={initialTheme}>
-          <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          />
-          <FrontendChrome footer={<Footer />} header={<Header />}>
-            {children}
-          </FrontendChrome>
+        <JsonLd data={[fairlendOrganizationJsonLd(), fairlendWebsiteJsonLd()]} />
+        <Providers initialTheme={defaultTheme}>
+          <FrontendChrome footer={<Footer />}>{children}</FrontendChrome>
+          <FairlendConsultationBookingModalInterceptor />
+          <Suspense fallback={null}>
+            <AnalyticsProvider />
+          </Suspense>
+          <Toaster richColors />
         </Providers>
-</body>
+      </body>
     </html>
   )
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(getServerSideURL()),
-  openGraph: mergeOpenGraph(),
-  twitter: {
-    card: 'summary_large_image',
-    creator: '@payloadcms',
-  },
+  ...buildFairlendMetadata({ path: '/' }),
+  metadataBase: new URL(getCanonicalOrigin()),
 }

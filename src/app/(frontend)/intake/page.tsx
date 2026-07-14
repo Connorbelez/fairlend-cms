@@ -1,13 +1,19 @@
-import type { Metadata } from 'next'
+import { FairlendIntakeRouter } from '@/components/FairlendLeadIntake/FairlendIntakeRouter.client'
+import { buildFairlendMetadata } from '@/utilities/seo'
+import { Suspense } from 'react'
 
-import { DrawflowIntake } from '@/components/DrawflowIntake/DrawflowIntake.client'
-
-export const metadata: Metadata = {
-  title: 'DrawFlow Intake | Fairlend',
+export const metadata = buildFairlendMetadata({
   description:
-    'Start a DrawFlow build financing review with property, stage, capital, team, and contact details.',
-}
+    'Send the context behind a mortgage, build, investor, partner, or consultation request.',
+  index: false,
+  path: '/intake',
+  title: 'FairLend Request Desk',
+})
 
 export default function IntakePage() {
-  return <DrawflowIntake />
+  return (
+    <Suspense fallback={null}>
+      <FairlendIntakeRouter />
+    </Suspense>
+  )
 }

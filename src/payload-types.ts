@@ -71,6 +71,10 @@ export interface Config {
     posts: Post;
     media: Media;
     categories: Category;
+    'fairlend-leads': FairlendLead;
+    'fairlend-campaign-scans': FairlendCampaignScan;
+    'fairlend-campaign-events': FairlendCampaignEvent;
+    'fairlend-consultation-bookings': FairlendConsultationBooking;
     users: User;
     redirects: Redirect;
     forms: Form;
@@ -93,6 +97,10 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    'fairlend-leads': FairlendLeadsSelect<false> | FairlendLeadsSelect<true>;
+    'fairlend-campaign-scans': FairlendCampaignScansSelect<false> | FairlendCampaignScansSelect<true>;
+    'fairlend-campaign-events': FairlendCampaignEventsSelect<false> | FairlendCampaignEventsSelect<true>;
+    'fairlend-consultation-bookings': FairlendConsultationBookingsSelect<false> | FairlendConsultationBookingsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
@@ -112,10 +120,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    'fairlend-consultation-settings': FairlendConsultationSetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'fairlend-consultation-settings': FairlendConsultationSettingsSelect<false> | FairlendConsultationSettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -159,7 +169,51 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
+    type:
+      | 'none'
+      | 'highImpact'
+      | 'mediumImpact'
+      | 'lowImpact'
+      | 'watermelonHero1'
+      | 'watermelonHeroSection1'
+      | 'watermelonHeroSection2'
+      | 'watermelonHeroSection3'
+      | 'watermelonHeroSection4'
+      | 'watermelonHeroSection5'
+      | 'watermelonHeroSection6'
+      | 'watermelonHeroSection7'
+      | 'watermelonHeroSection8'
+      | 'watermelonHeroSection9'
+      | 'watermelonHeroSection10'
+      | 'watermelonHeroSection11'
+      | 'watermelonHeroSection12'
+      | 'watermelonHeroSection13'
+      | 'watermelonHeroSection14'
+      | 'watermelonHeroSection15'
+      | 'watermelonHeroSection16'
+      | 'watermelonHeroSection17'
+      | 'watermelonHeroSection18'
+      | 'watermelonHeroSection19'
+      | 'watermelonHeroSection20'
+      | 'watermelonHeroSection21'
+      | 'watermelonHeroSection22'
+      | 'watermelonHeroSection23'
+      | 'watermelonHeroSection24'
+      | 'watermelonHeroSection25'
+      | 'watermelonHeroSection26'
+      | 'watermelonHeroSection27'
+      | 'watermelonHeroSection28'
+      | 'watermelonHeroSection29'
+      | 'watermelonHeroSection30'
+      | 'watermelonHeroSection31'
+      | 'watermelonHeroSection32'
+      | 'watermelonHeroSection33'
+      | 'watermelonHeroSection34'
+      | 'watermelonHeroSection35'
+      | 'watermelonHeroSection36'
+      | 'watermelonHeroSection37'
+      | 'watermelonHeroSection38'
+      | 'watermelonHeroSection39';
     richText?: {
       root: {
         type: string;
@@ -200,8 +254,84 @@ export interface Page {
         }[]
       | null;
     media?: (number | null) | Media;
+    watermelonHero1?: {
+      promptPlaceholder?: string | null;
+      modeLabel?: string | null;
+      depthLabel?: string | null;
+      voiceLabel?: string | null;
+      submitLabel?: string | null;
+    };
+    watermelonHeroSection?: {
+      eyebrow?: string | null;
+      brandLabel?: string | null;
+      headline: string;
+      accentText?: string | null;
+      description?: string | null;
+      primaryActionLabel?: string | null;
+      primaryActionUrl?: string | null;
+      secondaryActionLabel?: string | null;
+      secondaryActionUrl?: string | null;
+      backgroundMedia?: (number | null) | Media;
+      foregroundMedia?: (number | null) | Media;
+      logoMedia?: (number | null) | Media;
+      navItems?:
+        | {
+            label: string;
+            url?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      proofPoints?:
+        | {
+            value: string;
+            label: string;
+            id?: string | null;
+          }[]
+        | null;
+      featureCards?:
+        | {
+            title: string;
+            description?: string | null;
+            media?: (number | null) | Media;
+            id?: string | null;
+          }[]
+        | null;
+    };
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (
+    | MoneyPageHeroBlock
+    | MoneyPageNarrativeBlock
+    | MoneyPageMediaSplitBlock
+    | MoneyPageFeaturesBlock
+    | MoneyPageProcessBlock
+    | MoneyPageProofBlock
+    | MoneyPageComparisonBlock
+    | MoneyPageDisclosureBlock
+    | MoneyPageFAQBlock
+    | MoneyPageCTABlock
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | WatermelonBusinessManagementBlock
+    | WatermelonBusinessOperationsDashboardBlock
+    | WatermelonECommerceDashboardBlock
+    | WatermelonErpDashboardBlock
+    | WatermelonHrmBlock
+    | WatermelonIncidentManagementBlock
+    | WatermelonInvoiceGeneratorDashboardBlock
+    | WatermelonInvoiceManagerDashboardBlock
+    | WatermelonIssueTrackingBlock
+    | WatermelonLeadDashboardBlock
+    | WatermelonMailDashboardBlock
+    | WatermelonMeetingsDashboardBlock
+    | WatermelonPaymentOperationsDashboardBlock
+    | WatermelonProjectManagementDashboardBlock
+    | WatermelonSalesDashboardBlock
+    | WatermelonTaskManagementDashboardBlock
+    | WatermelonWorkflowManagementDashboardBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -227,8 +357,12 @@ export interface Page {
 export interface Post {
   id: number;
   title: string;
+  /**
+   * Article uses the standard blog template. SEO money page is a commercial-intent, rank-and-convert layout using full-width sections.
+   */
+  contentMode?: ('article' | 'moneyPage') | null;
   heroImage?: (number | null) | Media;
-  content: {
+  content?: {
     root: {
       type: string;
       children: {
@@ -242,7 +376,24 @@ export interface Post {
       version: number;
     };
     [k: string]: unknown;
-  };
+  } | null;
+  /**
+   * Build the commercial-intent page in search-intent and persuasion order. Each section owns its material, spacing, responsive layout, and assets.
+   */
+  moneyPageLayout?:
+    | (
+        | MoneyPageHeroBlock
+        | MoneyPageNarrativeBlock
+        | MoneyPageMediaSplitBlock
+        | MoneyPageFeaturesBlock
+        | MoneyPageProcessBlock
+        | MoneyPageProofBlock
+        | MoneyPageComparisonBlock
+        | MoneyPageDisclosureBlock
+        | MoneyPageFAQBlock
+        | MoneyPageCTABlock
+      )[]
+    | null;
   relatedPosts?: (number | Post)[] | null;
   categories?: (number | Category)[] | null;
   meta?: {
@@ -388,6 +539,849 @@ export interface FolderInterface {
   folderType?: 'media'[] | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageHeroBlock".
+ */
+export interface MoneyPageHeroBlock {
+  variant: 'routeField' | 'splitDossier' | 'mediaStatement';
+  /**
+   * Use H1 only when the generic Page/Post hero is disabled. A page should have one H1.
+   */
+  headingLevel?: ('h1' | 'h2') | null;
+  routeLabel?: string | null;
+  heading: string;
+  summary?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  proofPoints?:
+    | {
+        label: string;
+        detail: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The first link is the primary conversion action; the second is supporting.
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  media: number | Media;
+  mobileMedia?: (number | null) | Media;
+  /**
+   * Visible evidence caption. The asset alt text remains the accessibility description.
+   */
+  mediaCaption?: string | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageHero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageNarrativeBlock".
+ */
+export interface MoneyPageNarrativeBlock {
+  variant: 'fieldNote' | 'splitBrief' | 'pullQuote';
+  /**
+   * Optional factual label such as “Construction route” or “Borrower fit”. Do not use as decorative section grammar.
+   */
+  systemLabel?: string | null;
+  heading: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  asideTitle?: string | null;
+  aside?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * The first link is the primary conversion action; the second is supporting.
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageNarrative';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageMediaSplitBlock".
+ */
+export interface MoneyPageMediaSplitBlock {
+  variant: 'imageLeft' | 'imageRight' | 'imageTop' | 'videoLeft' | 'videoRight';
+  /**
+   * Optional factual label such as “Construction route” or “Borrower fit”. Do not use as decorative section grammar.
+   */
+  systemLabel?: string | null;
+  heading: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  points?:
+    | {
+        title: string;
+        detail?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The first link is the primary conversion action; the second is supporting.
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  media: number | Media;
+  poster?: (number | null) | Media;
+  videoPlayback?: ('controls' | 'ambient') | null;
+  caption?: string | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageMediaSplit';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageFeaturesBlock".
+ */
+export interface MoneyPageFeaturesBlock {
+  variant: 'alternatingEvidence' | 'routeLedger' | 'underwritingIndex';
+  /**
+   * Optional factual label such as “Construction route” or “Borrower fit”. Do not use as decorative section grammar.
+   */
+  systemLabel?: string | null;
+  heading: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  items?:
+    | {
+        routeCode?: string | null;
+        title: string;
+        body?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        media?: (number | null) | Media;
+        proof?: string | null;
+        /**
+         * The first link is the primary conversion action; the second is supporting.
+         */
+        links?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: number | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: number | Post;
+                    } | null);
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageFeatures';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageProcessBlock".
+ */
+export interface MoneyPageProcessBlock {
+  variant: 'topographicRoute' | 'zPattern' | 'dealFile';
+  /**
+   * Optional factual label such as “Construction route” or “Borrower fit”. Do not use as decorative section grammar.
+   */
+  systemLabel?: string | null;
+  heading: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Only use this block when order is meaningful. Step numbers are generated from this sequence.
+   */
+  steps?:
+    | {
+        title: string;
+        body?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        proof?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The first link is the primary conversion action; the second is supporting.
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageProcess';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageProofBlock".
+ */
+export interface MoneyPageProofBlock {
+  variant: 'caseFile' | 'testimonyDossier' | 'verifiedOutcomes';
+  /**
+   * Optional factual label such as “Construction route” or “Borrower fit”. Do not use as decorative section grammar.
+   */
+  systemLabel?: string | null;
+  heading: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  quote?: string | null;
+  source?: {
+    name?: string | null;
+    role?: string | null;
+    organization?: string | null;
+    portrait?: (number | null) | Media;
+  };
+  /**
+   * Use verifiable facts. Avoid vanity metrics without context.
+   */
+  outcomes?:
+    | {
+        value: string;
+        label: string;
+        context?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The first link is the primary conversion action; the second is supporting.
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageProof';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageComparisonBlock".
+ */
+export interface MoneyPageComparisonBlock {
+  variant: 'fitCheck' | 'routeComparison' | 'decisionMatrix';
+  /**
+   * Optional factual label such as “Construction route” or “Borrower fit”. Do not use as decorative section grammar.
+   */
+  systemLabel?: string | null;
+  heading: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  columns?:
+    | {
+        title: string;
+        summary?: string | null;
+        recommended?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  criteria?:
+    | {
+        label: string;
+        /**
+         * Enter one value for each column, in the same order.
+         */
+        values?:
+          | {
+              value: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The first link is the primary conversion action; the second is supporting.
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageComparison';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageDisclosureBlock".
+ */
+export interface MoneyPageDisclosureBlock {
+  variant: 'accordion' | 'tabs' | 'decisionPath';
+  /**
+   * Optional factual label such as “Construction route” or “Borrower fit”. Do not use as decorative section grammar.
+   */
+  systemLabel?: string | null;
+  heading: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  items?:
+    | {
+        label: string;
+        title: string;
+        body?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        signal?: string | null;
+        media?: (number | null) | Media;
+        /**
+         * The first link is the primary conversion action; the second is supporting.
+         */
+        links?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: number | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: number | Post;
+                    } | null);
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  openFirst?: boolean | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageDisclosure';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageFAQBlock".
+ */
+export interface MoneyPageFAQBlock {
+  variant: 'routeMap' | 'compactLedger';
+  /**
+   * Optional factual label such as “Construction route” or “Borrower fit”. Do not use as decorative section grammar.
+   */
+  systemLabel?: string | null;
+  heading: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  items?:
+    | {
+        question: string;
+        answer?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Emits FAQPage JSON-LD from visible questions and answers. Disable if this FAQ duplicates another schema source on the page.
+   */
+  enableStructuredData?: boolean | null;
+  openFirst?: boolean | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageFAQ';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageCTABlock".
+ */
+export interface MoneyPageCTABlock {
+  variant: 'applicationDesk' | 'expertRoute' | 'splitContact';
+  /**
+   * Optional factual label such as “Construction route” or “Borrower fit”. Do not use as decorative section grammar.
+   */
+  systemLabel?: string | null;
+  heading: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  body?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * The first link is the primary conversion action; the second is supporting.
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  media?: (number | null) | Media;
+  trustNotes?:
+    | {
+        note: string;
+        id?: string | null;
+      }[]
+    | null;
+  disclosure?: string | null;
+  /**
+   * Optional URL anchor, for example “rates” creates #rates. Use lowercase words and hyphens.
+   */
+  anchor?: string | null;
+  /**
+   * Material and pacing. Paper continuity is intentional; lime remains a signal, never a section fill.
+   */
+  presentationSurface?: ('paper' | 'white' | 'ink') | null;
+  presentationTexture?: ('fabric-of-squares' | 'grid-noise' | 'inflicted' | 'debut-light' | 'groovepaper') | null;
+  presentationSpacing?: ('compact' | 'standard' | 'immersive') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'moneyPageCTA';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -783,6 +1777,831 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonBusinessManagementBlock".
+ */
+export interface WatermelonBusinessManagementBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonBusinessManagement';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonBusinessOperationsDashboardBlock".
+ */
+export interface WatermelonBusinessOperationsDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonBusinessOperationsDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonECommerceDashboardBlock".
+ */
+export interface WatermelonECommerceDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonECommerceDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonErpDashboardBlock".
+ */
+export interface WatermelonErpDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonErpDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonHrmBlock".
+ */
+export interface WatermelonHrmBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonHrm';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonIncidentManagementBlock".
+ */
+export interface WatermelonIncidentManagementBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonIncidentManagement';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonInvoiceGeneratorDashboardBlock".
+ */
+export interface WatermelonInvoiceGeneratorDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonInvoiceGeneratorDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonInvoiceManagerDashboardBlock".
+ */
+export interface WatermelonInvoiceManagerDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonInvoiceManagerDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonIssueTrackingBlock".
+ */
+export interface WatermelonIssueTrackingBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonIssueTracking';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonLeadDashboardBlock".
+ */
+export interface WatermelonLeadDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonLeadDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonMailDashboardBlock".
+ */
+export interface WatermelonMailDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonMailDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonMeetingsDashboardBlock".
+ */
+export interface WatermelonMeetingsDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonMeetingsDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonPaymentOperationsDashboardBlock".
+ */
+export interface WatermelonPaymentOperationsDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonPaymentOperationsDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonProjectManagementDashboardBlock".
+ */
+export interface WatermelonProjectManagementDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonProjectManagementDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonSalesDashboardBlock".
+ */
+export interface WatermelonSalesDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonSalesDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonTaskManagementDashboardBlock".
+ */
+export interface WatermelonTaskManagementDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonTaskManagementDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonWorkflowManagementDashboardBlock".
+ */
+export interface WatermelonWorkflowManagementDashboardBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  theme?: ('light' | 'dark' | 'muted') | null;
+  primaryActionLabel?: string | null;
+  primaryActionUrl?: string | null;
+  secondaryActionLabel?: string | null;
+  secondaryActionUrl?: string | null;
+  media?: (number | null) | Media;
+  secondaryMedia?: (number | null) | Media;
+  metrics?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'watermelonWorkflowManagementDashboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-leads".
+ */
+export interface FairlendLead {
+  id: number;
+  /**
+   * Stable UUID shared by the public homepage form and intake wizard.
+   */
+  leadId: string;
+  status: 'draft' | 'started' | 'submitted';
+  capturedAt?: string | null;
+  submittedAt?: string | null;
+  submittedAtSource?: ('source_supplied' | 'inferred_created_at' | 'not_submitted') | null;
+  /**
+   * Editable admin pipeline stage for follow-up.
+   */
+  workflowStatus:
+    | 'new'
+    | 'contact_attempted'
+    | 'contacted'
+    | 'qualified'
+    | 'consultation_booked'
+    | 'working_file'
+    | 'closed_won'
+    | 'closed_lost';
+  priority: 'high' | 'normal' | 'low';
+  /**
+   * Optional follow-up date/time for the admin workflow.
+   */
+  nextActionAt?: string | null;
+  intent?: string | null;
+  source: string;
+  /**
+   * QR campaign that first attributed this lead, when available.
+   */
+  campaign?: string | null;
+  /**
+   * QR scan id linked to this lead, when available.
+   */
+  campaignScanId?: string | null;
+  name?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  address?: string | null;
+  formattedAddress?: string | null;
+  /**
+   * Google Places ID captured from autocomplete when available.
+   */
+  placeId?: string | null;
+  /**
+   * Full intake wizard payload.
+   */
+  intake?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  intakeType?: string | null;
+  intakeAmount?: string | null;
+  intakeTimeline?: string | null;
+  intakeProjectStage?: string | null;
+  /**
+   * Residential mortgage lane selected by the intake flow.
+   */
+  intakeMortgageProduct?: ('institutional' | 'private') | null;
+  /**
+   * Mortgage product, goal, or borrowing situation selected by the lead.
+   */
+  intakeMortgageGoal?: string | null;
+  intakeFinancingNeeds?: string | null;
+  intakePropertyValue?: string | null;
+  intakeMortgageBalance?: string | null;
+  intakeAdditionalLiens?: string | null;
+  intakeInvestmentFocus?: string | null;
+  /**
+   * Compact one-line summary of the submitted intake details.
+   */
+  intakeSummary?: string | null;
+  /**
+   * Submitted notes, context, message, or document status.
+   */
+  intakeDetail?: string | null;
+  /**
+   * Full Google address-details payload, when available.
+   */
+  addressDetails?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Campaign attribution payload captured from QR redirects.
+   */
+  attribution?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  analyticsEligible?: boolean | null;
+  analyticsConsentedAt?: string | null;
+  analyticsRevokedAt?: string | null;
+  /**
+   * Internal notes for admin follow-up. Not shown to visitors.
+   */
+  adminNotes?: string | null;
+  twentySyncStatus: 'disabled' | 'pending' | 'synced' | 'failed';
+  twentyRecordId?: string | null;
+  twentyObjectKind?: string | null;
+  twentyLastSyncedAt?: string | null;
+  twentyRelatedRecordIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  twentySyncError?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-campaign-scans".
+ */
+export interface FairlendCampaignScan {
+  id: number;
+  /**
+   * Stable UUID for this QR scan event.
+   */
+  scanId: string;
+  campaign: string;
+  source: string;
+  destination: string;
+  /**
+   * Lead id attached when this scan becomes a submitted lead.
+   */
+  convertedLeadId?: string | null;
+  convertedAt?: string | null;
+  capturedAt: string;
+  referrer?: string | null;
+  userAgent?: string | null;
+  /**
+   * SHA-256 hash of the client IP. Raw IP addresses are not stored.
+   */
+  hashedIp?: string | null;
+  queryParams?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Privacy-limited page and intake events associated with signed QR campaign sessions. Form values are never stored here.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-campaign-events".
+ */
+export interface FairlendCampaignEvent {
+  id: number;
+  eventId: string;
+  scanId: string;
+  campaign: string;
+  eventType:
+    | 'page_view'
+    | 'page_exit'
+    | 'intake_started'
+    | 'intake_submitted'
+    | 'consultation_booked'
+    | 'form_started'
+    | 'form_submitted';
+  pagePath?: string | null;
+  visitId?: string | null;
+  /**
+   * Time on page in milliseconds, capped at twelve hours.
+   */
+  durationMs?: number | null;
+  formId?: string | null;
+  formName?: string | null;
+  intakeType?: string | null;
+  leadId?: string | null;
+  occurredAt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-consultation-bookings".
+ */
+export interface FairlendConsultationBooking {
+  id: number;
+  bookingId: string;
+  status: 'syncing' | 'confirmed' | 'cancelled' | 'sync_failed';
+  scheduledStart: string;
+  scheduledEnd: string;
+  timezone: string;
+  name: string;
+  email: string;
+  phone?: string | null;
+  notes?: string | null;
+  source: string;
+  googleEventId?: string | null;
+  /**
+   * Google Calendar event URL returned after sync.
+   */
+  googleEventLink?: string | null;
+  syncError?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -988,6 +2807,22 @@ export interface PayloadLockedDocument {
         value: number | Category;
       } | null)
     | ({
+        relationTo: 'fairlend-leads';
+        value: number | FairlendLead;
+      } | null)
+    | ({
+        relationTo: 'fairlend-campaign-scans';
+        value: number | FairlendCampaignScan;
+      } | null)
+    | ({
+        relationTo: 'fairlend-campaign-events';
+        value: number | FairlendCampaignEvent;
+      } | null)
+    | ({
+        relationTo: 'fairlend-consultation-bookings';
+        value: number | FairlendConsultationBooking;
+      } | null)
+    | ({
         relationTo: 'users';
         value: number | User;
       } | null)
@@ -1080,15 +2915,89 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
             };
         media?: T;
+        watermelonHero1?:
+          | T
+          | {
+              promptPlaceholder?: T;
+              modeLabel?: T;
+              depthLabel?: T;
+              voiceLabel?: T;
+              submitLabel?: T;
+            };
+        watermelonHeroSection?:
+          | T
+          | {
+              eyebrow?: T;
+              brandLabel?: T;
+              headline?: T;
+              accentText?: T;
+              description?: T;
+              primaryActionLabel?: T;
+              primaryActionUrl?: T;
+              secondaryActionLabel?: T;
+              secondaryActionUrl?: T;
+              backgroundMedia?: T;
+              foregroundMedia?: T;
+              logoMedia?: T;
+              navItems?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    id?: T;
+                  };
+              proofPoints?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              featureCards?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    media?: T;
+                    id?: T;
+                  };
+            };
       };
   layout?:
     | T
     | {
+        moneyPageHero?: T | MoneyPageHeroBlockSelect<T>;
+        moneyPageNarrative?: T | MoneyPageNarrativeBlockSelect<T>;
+        moneyPageMediaSplit?: T | MoneyPageMediaSplitBlockSelect<T>;
+        moneyPageFeatures?: T | MoneyPageFeaturesBlockSelect<T>;
+        moneyPageProcess?: T | MoneyPageProcessBlockSelect<T>;
+        moneyPageProof?: T | MoneyPageProofBlockSelect<T>;
+        moneyPageComparison?: T | MoneyPageComparisonBlockSelect<T>;
+        moneyPageDisclosure?: T | MoneyPageDisclosureBlockSelect<T>;
+        moneyPageFAQ?: T | MoneyPageFAQBlockSelect<T>;
+        moneyPageCTA?: T | MoneyPageCTABlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        watermelonBusinessManagement?: T | WatermelonBusinessManagementBlockSelect<T>;
+        watermelonBusinessOperationsDashboard?: T | WatermelonBusinessOperationsDashboardBlockSelect<T>;
+        watermelonECommerceDashboard?: T | WatermelonECommerceDashboardBlockSelect<T>;
+        watermelonErpDashboard?: T | WatermelonErpDashboardBlockSelect<T>;
+        watermelonHrm?: T | WatermelonHrmBlockSelect<T>;
+        watermelonIncidentManagement?: T | WatermelonIncidentManagementBlockSelect<T>;
+        watermelonInvoiceGeneratorDashboard?: T | WatermelonInvoiceGeneratorDashboardBlockSelect<T>;
+        watermelonInvoiceManagerDashboard?: T | WatermelonInvoiceManagerDashboardBlockSelect<T>;
+        watermelonIssueTracking?: T | WatermelonIssueTrackingBlockSelect<T>;
+        watermelonLeadDashboard?: T | WatermelonLeadDashboardBlockSelect<T>;
+        watermelonMailDashboard?: T | WatermelonMailDashboardBlockSelect<T>;
+        watermelonMeetingsDashboard?: T | WatermelonMeetingsDashboardBlockSelect<T>;
+        watermelonPaymentOperationsDashboard?: T | WatermelonPaymentOperationsDashboardBlockSelect<T>;
+        watermelonProjectManagementDashboard?: T | WatermelonProjectManagementDashboardBlockSelect<T>;
+        watermelonSalesDashboard?: T | WatermelonSalesDashboardBlockSelect<T>;
+        watermelonTaskManagementDashboard?: T | WatermelonTaskManagementDashboardBlockSelect<T>;
+        watermelonWorkflowManagementDashboard?: T | WatermelonWorkflowManagementDashboardBlockSelect<T>;
       };
   meta?:
     | T
@@ -1103,6 +3012,403 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageHeroBlock_select".
+ */
+export interface MoneyPageHeroBlockSelect<T extends boolean = true> {
+  variant?: T;
+  headingLevel?: T;
+  routeLabel?: T;
+  heading?: T;
+  summary?: T;
+  proofPoints?:
+    | T
+    | {
+        label?: T;
+        detail?: T;
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  media?: T;
+  mobileMedia?: T;
+  mediaCaption?: T;
+  anchor?: T;
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageNarrativeBlock_select".
+ */
+export interface MoneyPageNarrativeBlockSelect<T extends boolean = true> {
+  variant?: T;
+  systemLabel?: T;
+  heading?: T;
+  intro?: T;
+  content?: T;
+  asideTitle?: T;
+  aside?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  anchor?: T;
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageMediaSplitBlock_select".
+ */
+export interface MoneyPageMediaSplitBlockSelect<T extends boolean = true> {
+  variant?: T;
+  systemLabel?: T;
+  heading?: T;
+  intro?: T;
+  content?: T;
+  points?:
+    | T
+    | {
+        title?: T;
+        detail?: T;
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  media?: T;
+  poster?: T;
+  videoPlayback?: T;
+  caption?: T;
+  anchor?: T;
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageFeaturesBlock_select".
+ */
+export interface MoneyPageFeaturesBlockSelect<T extends boolean = true> {
+  variant?: T;
+  systemLabel?: T;
+  heading?: T;
+  intro?: T;
+  items?:
+    | T
+    | {
+        routeCode?: T;
+        title?: T;
+        body?: T;
+        media?: T;
+        proof?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  anchor?: T;
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageProcessBlock_select".
+ */
+export interface MoneyPageProcessBlockSelect<T extends boolean = true> {
+  variant?: T;
+  systemLabel?: T;
+  heading?: T;
+  intro?: T;
+  steps?:
+    | T
+    | {
+        title?: T;
+        body?: T;
+        proof?: T;
+        media?: T;
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  anchor?: T;
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageProofBlock_select".
+ */
+export interface MoneyPageProofBlockSelect<T extends boolean = true> {
+  variant?: T;
+  systemLabel?: T;
+  heading?: T;
+  intro?: T;
+  quote?: T;
+  source?:
+    | T
+    | {
+        name?: T;
+        role?: T;
+        organization?: T;
+        portrait?: T;
+      };
+  outcomes?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        context?: T;
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  anchor?: T;
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageComparisonBlock_select".
+ */
+export interface MoneyPageComparisonBlockSelect<T extends boolean = true> {
+  variant?: T;
+  systemLabel?: T;
+  heading?: T;
+  intro?: T;
+  columns?:
+    | T
+    | {
+        title?: T;
+        summary?: T;
+        recommended?: T;
+        id?: T;
+      };
+  criteria?:
+    | T
+    | {
+        label?: T;
+        values?:
+          | T
+          | {
+              value?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  anchor?: T;
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageDisclosureBlock_select".
+ */
+export interface MoneyPageDisclosureBlockSelect<T extends boolean = true> {
+  variant?: T;
+  systemLabel?: T;
+  heading?: T;
+  intro?: T;
+  items?:
+    | T
+    | {
+        label?: T;
+        title?: T;
+        body?: T;
+        signal?: T;
+        media?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  openFirst?: T;
+  anchor?: T;
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageFAQBlock_select".
+ */
+export interface MoneyPageFAQBlockSelect<T extends boolean = true> {
+  variant?: T;
+  systemLabel?: T;
+  heading?: T;
+  intro?: T;
+  items?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  enableStructuredData?: T;
+  openFirst?: T;
+  anchor?: T;
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MoneyPageCTABlock_select".
+ */
+export interface MoneyPageCTABlockSelect<T extends boolean = true> {
+  variant?: T;
+  systemLabel?: T;
+  heading?: T;
+  intro?: T;
+  body?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  media?: T;
+  trustNotes?:
+    | T
+    | {
+        note?: T;
+        id?: T;
+      };
+  disclosure?: T;
+  anchor?: T;
+  presentationSurface?: T;
+  presentationTexture?: T;
+  presentationSpacing?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1190,12 +3496,605 @@ export interface FormBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonBusinessManagementBlock_select".
+ */
+export interface WatermelonBusinessManagementBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonBusinessOperationsDashboardBlock_select".
+ */
+export interface WatermelonBusinessOperationsDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonECommerceDashboardBlock_select".
+ */
+export interface WatermelonECommerceDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonErpDashboardBlock_select".
+ */
+export interface WatermelonErpDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonHrmBlock_select".
+ */
+export interface WatermelonHrmBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonIncidentManagementBlock_select".
+ */
+export interface WatermelonIncidentManagementBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonInvoiceGeneratorDashboardBlock_select".
+ */
+export interface WatermelonInvoiceGeneratorDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonInvoiceManagerDashboardBlock_select".
+ */
+export interface WatermelonInvoiceManagerDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonIssueTrackingBlock_select".
+ */
+export interface WatermelonIssueTrackingBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonLeadDashboardBlock_select".
+ */
+export interface WatermelonLeadDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonMailDashboardBlock_select".
+ */
+export interface WatermelonMailDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonMeetingsDashboardBlock_select".
+ */
+export interface WatermelonMeetingsDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonPaymentOperationsDashboardBlock_select".
+ */
+export interface WatermelonPaymentOperationsDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonProjectManagementDashboardBlock_select".
+ */
+export interface WatermelonProjectManagementDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonSalesDashboardBlock_select".
+ */
+export interface WatermelonSalesDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonTaskManagementDashboardBlock_select".
+ */
+export interface WatermelonTaskManagementDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WatermelonWorkflowManagementDashboardBlock_select".
+ */
+export interface WatermelonWorkflowManagementDashboardBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  theme?: T;
+  primaryActionLabel?: T;
+  primaryActionUrl?: T;
+  secondaryActionLabel?: T;
+  secondaryActionUrl?: T;
+  media?: T;
+  secondaryMedia?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
+  contentMode?: T;
   heroImage?: T;
   content?: T;
+  moneyPageLayout?:
+    | T
+    | {
+        moneyPageHero?: T | MoneyPageHeroBlockSelect<T>;
+        moneyPageNarrative?: T | MoneyPageNarrativeBlockSelect<T>;
+        moneyPageMediaSplit?: T | MoneyPageMediaSplitBlockSelect<T>;
+        moneyPageFeatures?: T | MoneyPageFeaturesBlockSelect<T>;
+        moneyPageProcess?: T | MoneyPageProcessBlockSelect<T>;
+        moneyPageProof?: T | MoneyPageProofBlockSelect<T>;
+        moneyPageComparison?: T | MoneyPageComparisonBlockSelect<T>;
+        moneyPageDisclosure?: T | MoneyPageDisclosureBlockSelect<T>;
+        moneyPageFAQ?: T | MoneyPageFAQBlockSelect<T>;
+        moneyPageCTA?: T | MoneyPageCTABlockSelect<T>;
+      };
   relatedPosts?: T;
   categories?: T;
   meta?:
@@ -1330,6 +4229,118 @@ export interface CategoriesSelect<T extends boolean = true> {
         label?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-leads_select".
+ */
+export interface FairlendLeadsSelect<T extends boolean = true> {
+  leadId?: T;
+  status?: T;
+  capturedAt?: T;
+  submittedAt?: T;
+  submittedAtSource?: T;
+  workflowStatus?: T;
+  priority?: T;
+  nextActionAt?: T;
+  intent?: T;
+  source?: T;
+  campaign?: T;
+  campaignScanId?: T;
+  name?: T;
+  email?: T;
+  phone?: T;
+  address?: T;
+  formattedAddress?: T;
+  placeId?: T;
+  intake?: T;
+  intakeType?: T;
+  intakeAmount?: T;
+  intakeTimeline?: T;
+  intakeProjectStage?: T;
+  intakeMortgageProduct?: T;
+  intakeMortgageGoal?: T;
+  intakeFinancingNeeds?: T;
+  intakePropertyValue?: T;
+  intakeMortgageBalance?: T;
+  intakeAdditionalLiens?: T;
+  intakeInvestmentFocus?: T;
+  intakeSummary?: T;
+  intakeDetail?: T;
+  addressDetails?: T;
+  attribution?: T;
+  analyticsEligible?: T;
+  analyticsConsentedAt?: T;
+  analyticsRevokedAt?: T;
+  adminNotes?: T;
+  twentySyncStatus?: T;
+  twentyRecordId?: T;
+  twentyObjectKind?: T;
+  twentyLastSyncedAt?: T;
+  twentyRelatedRecordIds?: T;
+  twentySyncError?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-campaign-scans_select".
+ */
+export interface FairlendCampaignScansSelect<T extends boolean = true> {
+  scanId?: T;
+  campaign?: T;
+  source?: T;
+  destination?: T;
+  convertedLeadId?: T;
+  convertedAt?: T;
+  capturedAt?: T;
+  referrer?: T;
+  userAgent?: T;
+  hashedIp?: T;
+  queryParams?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-campaign-events_select".
+ */
+export interface FairlendCampaignEventsSelect<T extends boolean = true> {
+  eventId?: T;
+  scanId?: T;
+  campaign?: T;
+  eventType?: T;
+  pagePath?: T;
+  visitId?: T;
+  durationMs?: T;
+  formId?: T;
+  formName?: T;
+  intakeType?: T;
+  leadId?: T;
+  occurredAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-consultation-bookings_select".
+ */
+export interface FairlendConsultationBookingsSelect<T extends boolean = true> {
+  bookingId?: T;
+  status?: T;
+  scheduledStart?: T;
+  scheduledEnd?: T;
+  timezone?: T;
+  name?: T;
+  email?: T;
+  phone?: T;
+  notes?: T;
+  source?: T;
+  googleEventId?: T;
+  googleEventLink?: T;
+  syncError?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1691,6 +4702,71 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-consultation-settings".
+ */
+export interface FairlendConsultationSetting {
+  id: number;
+  /**
+   * IANA timezone used to interpret all schedule rules.
+   */
+  timezone: string;
+  /**
+   * Length of each consultation slot.
+   */
+  slotDurationMinutes: number;
+  /**
+   * Blocked recovery time after each slot.
+   */
+  bufferMinutes: number;
+  /**
+   * How far ahead visitors must book.
+   */
+  minimumNoticeHours: number;
+  /**
+   * Maximum number of days visitors can book into the future.
+   */
+  bookingWindowDays: number;
+  /**
+   * Array of weekday rules: { "weekday": "monday", "enabled": true, "startTime": "09:00", "endTime": "17:00" }.
+   */
+  weeklyAvailability:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Array of blackout rules: { "date": "2026-07-20", "allDay": true } or with startTime/endTime for partial blocks.
+   */
+  blackoutDates:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Array of one-off openings: { "date": "2026-07-25", "enabled": true, "startTime": "10:00", "endTime": "14:00" }.
+   */
+  extraAvailability:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1731,6 +4807,23 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-consultation-settings_select".
+ */
+export interface FairlendConsultationSettingsSelect<T extends boolean = true> {
+  timezone?: T;
+  slotDurationMinutes?: T;
+  bufferMinutes?: T;
+  minimumNoticeHours?: T;
+  bookingWindowDays?: T;
+  weeklyAvailability?: T;
+  blackoutDates?: T;
+  extraAvailability?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

@@ -1,0 +1,14 @@
+{
+  "image_asset_count": 1,
+  "assets": [
+    {
+      "id": "pre-facade-residential-construction",
+      "reference_crop": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/pre-facade-construction/crops/pre-facade-residential-construction.png",
+      "raw_generated_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/pre-facade-construction/generated/raw/pre-facade-residential-construction.png",
+      "final_webp_path": "/Users/connor/Dev/fairlend-cms/artifacts/visual-assets/pre-facade-construction/generated/webp/pre-facade-residential-construction.webp",
+      "public_webp_path": "/Users/connor/Dev/fairlend-cms/public/assets/visual-assets/pre-facade-construction/pre-facade-residential-construction.webp",
+      "imagegen_prompt": "Use case: style-transfer\nAsset type: construction financing website illustration\nInput image: reference crop only; generate a new standalone production asset from it, not a crop conversion.\nPrimary request: Generate a polished standalone monochrome architectural construction illustration for Fairlend construction draw financing. Preserve the reference composition and subject: compact narrow residential infill build, roughly three storeys plus lower level, at rough framing and sheathing stage before exterior facade installation.\nScene/backdrop: warm off-white paper field, clean website-ready asset, no UI chrome.\nSubject: small residential build with raw sheathing, exposed framing visible through open window/door bays, roof guardrails, temporary stairs, modest lumber stacks, small site footprint.\nStyle/medium: refined black ink linework and graphite wash, premium architectural sketch, crisp technical detail with airy negative space.\nComposition/framing: horizontal web asset, building centered, full structure visible, modest neighboring mass outlines acceptable only if faint and secondary.\nConstruction sequencing constraints: facades come last; this asset must show pre-facade rough construction. No finished facade materials, no brick cladding, no stone cladding, no siding, no final glazing/window system, no completed entry door, no polished landscaping.\nAvoid: high-rise scale, tower cranes, heavy equipment, workers, cars, text, logos, labels, progress timeline elements, watermarks, collage layout.",
+      "transparent": false
+    }
+  ]
+}

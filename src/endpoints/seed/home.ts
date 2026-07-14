@@ -1,6 +1,8 @@
 import type { RequiredDataFromCollectionSlug } from 'payload'
 import type { Media } from '@/payload-types'
 
+import { buildFairlendConsultationHref, buildFairlendIntakeHref } from '@/lib/fairlend-intake'
+
 type HomeArgs = {
   heroImage: Media
   metaImage: Media
@@ -20,8 +22,8 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
           link: {
             type: 'custom',
             appearance: 'default',
-            label: 'All posts',
-            url: '/posts',
+            label: 'Book consultation',
+            url: buildFairlendConsultationHref('seed-home-hero-consultation'),
           },
         },
         {
@@ -29,7 +31,10 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
             type: 'custom',
             appearance: 'outline',
             label: 'Contact',
-            url: '/contact',
+            url: buildFairlendIntakeHref({
+              intent: 'contact',
+              source: 'seed-home-hero-contact',
+            }),
           },
         },
       ],
@@ -47,7 +52,7 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
                   format: 0,
                   mode: 'normal',
                   style: '',
-                  text: 'Payload Website Template',
+                  text: 'FairLend Mortgage',
                   version: 1,
                 },
               ],
@@ -577,8 +582,11 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
             link: {
               type: 'custom',
               appearance: 'default',
-              label: 'All posts',
-              url: '/posts',
+              label: 'Start intake',
+              url: buildFairlendIntakeHref({
+                intent: 'contact',
+                source: 'seed-home-cta',
+              }),
             },
           },
         ],
@@ -668,7 +676,7 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
     meta: {
       description: 'An open-source website built with Payload and Next.js.',
       image: heroImage.id,
-      title: 'Payload Website Template',
+      title: 'FairLend Mortgage',
     },
     title: 'Home',
   }

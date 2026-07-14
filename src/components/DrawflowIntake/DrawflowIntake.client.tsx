@@ -16,7 +16,6 @@ import {
   FileClock,
   FilePenLine,
   FileText,
-  HardHat,
   House,
   Landmark,
   Layers3,
@@ -35,16 +34,19 @@ import {
 import Link from 'next/link'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
-import type { CSSProperties, ReactElement } from 'react'
+import type { ReactElement } from 'react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
 
+import './buildpath.css'
+
 import { GoogleAddressAutocomplete } from '@/components/address/GoogleAddressAutocomplete'
-import { Header as DirectionalHoverHeader } from '@/components/directional-hover-header/header'
-import { KokonutBentoCard, KokonutBentoGridShell } from '@/components/kokonutui/bento-grid'
-import { AnimatedBeam } from '@/components/ui/animated-beam'
+import { BrutalistCtaButton } from '@/components/ui/brutalist-cta-button'
 import { Card } from '@/components/ui/card'
+import { Checkbox } from '@/components/ui/checkbox'
 import { Frame } from '@/components/ui/frame'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { SelectableChip } from '@/components/ui/selectable-chip'
 import {
   Timeline,
   TimelineConnector,
@@ -53,9 +55,22 @@ import {
   TimelineDot,
   TimelineHeader,
   TimelineItem,
-  TimelineTime,
   TimelineTitle,
 } from '@/components/ui/timeline'
+import {
+  buildFairlendConsultationHref,
+  buildFairlendIntakeHref,
+  fairlendProjectScopeOptions,
+  getFairlendProjectScopeLabel,
+  type FairlendBuildIntakeVariant,
+} from '@/lib/fairlend-intake'
+import {
+  completeLeadAnalytics,
+  getAnalyticsContext,
+  trackFairlendEvent,
+  trackLeadFailed,
+  type LeadSubmissionResponse,
+} from '@/lib/analytics/events'
 
 const intakeAssetBase = '/assets/drawflow-intake'
 const buildProgressFinishedImage = `${intakeAssetBase}/Build Progress Finished-optimized.webp`
@@ -82,47 +97,6 @@ const trustItems = [
   {
     icon: Clock3,
     label: 'Takes about 2 minutes',
-  },
-] as const
-
-const testimonials: Array<{
-  icon: LucideIcon
-  label: string
-  name: string
-  quote: string
-  role: string
-}> = [
-  {
-    icon: Building2,
-    label: 'Developer',
-    name: 'Rachel Torres,',
-    role: 'Development Manager',
-    quote:
-      'The draw plan finally matched the reality of our construction schedule. DrawFlow helped our lender see the sequence, the evidence, and the funding need in one place.',
-  },
-  {
-    icon: Landmark,
-    label: 'Lender',
-    name: 'Marcus Lee,',
-    role: 'Lending Officer',
-    quote:
-      'I did not have to reconstruct the project from email threads. The milestone context was clear enough for our team to review faster and ask better questions.',
-  },
-  {
-    icon: HardHat,
-    label: 'Builder',
-    name: 'Nina Patel,',
-    role: 'Builder',
-    quote:
-      'We knew which work unlocked the next draw before crews started. That clarity kept our cash planning honest and reduced the last-minute scramble.',
-  },
-  {
-    icon: Building2,
-    label: 'Owner-builder',
-    name: 'Olivia Grant,',
-    role: 'Owner-Builder',
-    quote:
-      'We stopped guessing between draws and started planning around real milestones. DrawFlow made the money side feel connected to the jobsite.',
   },
 ] as const
 
@@ -321,8 +295,22 @@ const propertyStatusOptions: Array<{
 ] as const
 
 const TOTAL_STEPS = 7
+const HOMEOWNER_TOTAL_STEPS = 3
+const builderStepKeys = [
+  'route',
+  'project_site',
+  'build_profile',
+  'financing_path',
+  'capital_snapshot',
+  'execution_readiness',
+  'contact',
+] as const
+const homeownerStepKeys = ['property_suite', 'financing_readiness', 'contact'] as const
+const gardenSuiteProjectScopeLabel =
+  getFairlendProjectScopeLabel('garden-laneway-suites') || 'Garden & laneway suites'
 
 type WizardStep = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+type HomeownerStep = 1 | 2 | 3 | 4
 
 interface IntakeAnswers {
   address: string
@@ -337,12 +325,31 @@ interface IntakeAnswers {
   name: string
   notes: string
   phone: string
+  projectScope: string
   projectCost: string
   projectStage: string
   projectTeam: string[]
   requestedLoan: string
   siteControl: string
+  termsAccepted: boolean
   unitCount: string
+}
+
+interface HomeownerIntakeAnswers {
+  address: string
+  approximateEquity: string
+  email: string
+  financingNeeds: string[]
+  name: string
+  notes: string
+  occupancy: string
+  phone: string
+  projectScope: string
+  projectStage: string
+  siteControl: string
+  suiteType: string
+  termsAccepted: boolean
+  timeline: string
 }
 
 interface StepVisual {
@@ -398,14 +405,41 @@ const defaultAnswers: IntakeAnswers = {
   projectTeam: ['Builder / general contractor', 'Architect / designer'],
   borrowerExperience: 'Owns/manages rental properties',
   contactRole: 'Developer',
+  termsAccepted: false,
   name: '',
   email: '',
   phone: '',
+  projectScope: '',
   notes: '',
+}
+
+const defaultHomeownerAnswers: HomeownerIntakeAnswers = {
+  address: '',
+  approximateEquity: '',
+  email: '',
+  financingNeeds: [],
+  name: '',
+  notes: '',
+  occupancy: '',
+  phone: '',
+  projectScope: gardenSuiteProjectScopeLabel,
+  projectStage: '',
+  siteControl: '',
+  suiteType: '',
+  termsAccepted: false,
+  timeline: '',
 }
 
 const intakeStorageKey = 'build-financing-intake'
 const leadIdStorageKey = 'fairlend-lead-id'
+const homeownerIntakeStorageKey = 'fairlend-garden-suite-intake-v1'
+const homeownerLeadIdStorageKey = 'fairlend-garden-suite-lead-id-v1'
+
+const projectScopeIcons = [House, Wrench, Layers3, House, Landmark] as const
+const projectScopeOptions = fairlendProjectScopeOptions.map((option, index) => ({
+  ...option,
+  icon: projectScopeIcons[index] ?? Landmark,
+}))
 
 const buildTypeOptions = [
   { icon: Building, label: 'New residential construction' },
@@ -526,6 +560,63 @@ const contactRoleOptions = [
   'Other advisor',
 ]
 
+const homeownerOwnershipOptions = [
+  { icon: House, label: 'I/we own the property' },
+  { icon: Users, label: 'A family member or related entity owns it' },
+  { icon: FilePenLine, label: 'I/we are buying the property' },
+  { icon: Search, label: "I don't have a property yet" },
+] as const
+
+const homeownerOccupancyOptions = [
+  { icon: House, label: 'I/we live there' },
+  { icon: Users, label: 'A close relative lives there' },
+  { icon: Building2, label: 'It is tenant occupied' },
+  { icon: MapPin, label: 'It is vacant' },
+  { icon: Search, label: 'Other / not sure' },
+] as const
+
+const homeownerSuiteTypeOptions = [
+  { icon: House, label: 'Backyard garden suite' },
+  { icon: MapPin, label: 'Laneway suite' },
+  { icon: Search, label: 'Not sure which fits' },
+] as const
+
+const homeownerProjectStageOptions = [
+  'Just exploring',
+  'Feasibility research started',
+  'Designs or plans underway',
+  'Permit in progress',
+  'Permit issued / ready to build',
+  'Construction started',
+] as const
+
+const homeownerFinancingNeedOptions = [
+  'Check if my property is suitable',
+  'Design and permit coordination',
+  'Find and coordinate a builder',
+  'Construction financing',
+  'Mortgage or refinance after the build',
+  'Coordinate the whole process',
+  'Not sure',
+] as const
+
+const homeownerContributionOptions = [
+  'Under $50K',
+  '$50K-$100K',
+  '$100K-$200K',
+  '$200K+',
+  'Primarily home equity',
+  'Not sure',
+] as const
+
+const homeownerTimelineOptions = [
+  'Ready now',
+  'Within 3 months',
+  '3-6 months',
+  '6-12 months',
+  'Later / exploring',
+] as const
+
 const stepVisuals: Record<2 | 3 | 4 | 5 | 6 | 7 | 8, StepVisual> = {
   2: {
     image: buildProgressFoundationImage,
@@ -571,19 +662,58 @@ const stepVisuals: Record<2 | 3 | 4 | 5 | 6 | 7 | 8, StepVisual> = {
   },
 }
 
-export function DrawflowIntake(): ReactElement {
+const homeownerStepVisuals: Record<2 | 3 | 4, StepVisual> = {
+  2: {
+    image: buildProgressFoundationImage,
+    label: 'Property direction',
+    title: 'A practical starting point',
+    summary: ['Property context', 'Support priorities', 'Timing'],
+  },
+  3: {
+    image: buildProgressPolishedImage,
+    label: 'Review contact',
+    title: 'Ready for human review',
+    summary: ['Property check', 'Financing context', 'Next step'],
+  },
+  4: {
+    image: buildProgressFinishedImage,
+    label: 'Property check received',
+    title: 'FairLend review queued',
+    summary: ['Context received', 'Eligibility reviewed', 'Follow-up next'],
+  },
+}
+
+export function DrawflowIntake({
+  variant = 'builder',
+}: {
+  variant?: FairlendBuildIntakeVariant
+}): ReactElement {
+  return variant === 'garden-suite-homeowner' ? (
+    <GardenSuiteHomeownerIntake />
+  ) : (
+    <BuilderDrawflowIntake />
+  )
+}
+
+function BuilderDrawflowIntake(): ReactElement {
   const searchParams = useSearchParams()
   const initialAddress = searchParams.get('address')?.trim() ?? ''
   const initialLeadId = searchParams.get('leadId')?.trim() ?? null
-  const [step, setStep] = useState<WizardStep>(1)
+  const initialProjectScope = getFairlendProjectScopeLabel(searchParams.get('projectScope'))
+  const source = searchParams.get('source')?.trim() || 'drawflow-intake'
+  const [step, setStep] = useState<WizardStep>(() =>
+    initialAddress || initialProjectScope ? 2 : 1,
+  )
   const [answers, setAnswers] = useState<IntakeAnswers>(() => ({
     ...defaultAnswers,
     address: initialAddress,
+    projectScope: initialProjectScope,
   }))
   const [leadId, setLeadId] = useState<string | null>(initialLeadId)
   const [submitError, setSubmitError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const hasHydratedFromEntryRef = useRef(false)
+  const didTrackJourneyStartRef = useRef(false)
   const isFormStep = step > 1
   const isSuccessStep = step === 8
 
@@ -604,6 +734,7 @@ export function DrawflowIntake(): ReactElement {
 
     const incomingAddress = searchParams.get('address')?.trim()
     const incomingLeadId = searchParams.get('leadId')?.trim()
+    const incomingProjectScope = getFairlendProjectScopeLabel(searchParams.get('projectScope'))
 
     const timeout = window.setTimeout(() => {
       try {
@@ -614,9 +745,15 @@ export function DrawflowIntake(): ReactElement {
             ...current,
             ...parsedAnswers,
             address: incomingAddress || current.address || parsedAnswers.address || '',
+            projectScope:
+              incomingProjectScope || current.projectScope || parsedAnswers.projectScope || '',
           }))
-        } else if (incomingAddress) {
-          setAnswers((current) => ({ ...current, address: incomingAddress }))
+        } else if (incomingAddress || incomingProjectScope) {
+          setAnswers((current) => ({
+            ...current,
+            address: incomingAddress || current.address,
+            projectScope: incomingProjectScope || current.projectScope,
+          }))
         }
 
         const savedLeadId = window.localStorage.getItem(leadIdStorageKey)
@@ -626,8 +763,12 @@ export function DrawflowIntake(): ReactElement {
           window.localStorage.setItem(leadIdStorageKey, nextLeadId)
         }
       } catch {
-        if (incomingAddress) {
-          setAnswers((current) => ({ ...current, address: incomingAddress }))
+        if (incomingAddress || incomingProjectScope) {
+          setAnswers((current) => ({
+            ...current,
+            address: incomingAddress || current.address,
+            projectScope: incomingProjectScope || current.projectScope,
+          }))
         }
         if (incomingLeadId) {
           setLeadId(incomingLeadId)
@@ -639,16 +780,40 @@ export function DrawflowIntake(): ReactElement {
   }, [searchParams])
 
   useEffect(() => {
+    if (didTrackJourneyStartRef.current) return
+    let hasSavedDraft = false
+    try {
+      hasSavedDraft = Boolean(window.localStorage.getItem(intakeStorageKey))
+    } catch {
+      // Storage is optional.
+    }
+    if (step === 1 && !hasSavedDraft) return
+    didTrackJourneyStartRef.current = true
+    const properties = {
+      form_id: 'fairlend_builder',
+      journey_type: 'builder' as const,
+      source,
+      step_key: builderStepKeys[Math.min(step, TOTAL_STEPS) - 1],
+      step_number: Math.min(step, TOTAL_STEPS),
+      total_steps: TOTAL_STEPS,
+    }
+    trackFairlendEvent(
+      hasSavedDraft ? 'fairlend_intake_resumed' : 'fairlend_intake_started',
+      properties,
+    )
+  }, [source, step])
+
+  useEffect(() => {
     if (!leadId || isSuccessStep || !hasHydratedFromEntryRef.current) {
       return
     }
 
     const timeout = window.setTimeout(() => {
-      void persistLeadDraft({ answers, leadId, status: 'draft' }).then((nextLeadId) => {
-        if (nextLeadId && nextLeadId !== leadId) {
-          setLeadId(nextLeadId)
+      void persistLeadDraft({ answers, leadId, source, status: 'draft' }).then((result) => {
+        if (result?.id && result.id !== leadId) {
+          setLeadId(result.id)
           try {
-            window.localStorage.setItem(leadIdStorageKey, nextLeadId)
+            window.localStorage.setItem(leadIdStorageKey, result.id)
           } catch {
             // Storage can be unavailable in private browsing or locked-down embedded contexts.
           }
@@ -657,13 +822,23 @@ export function DrawflowIntake(): ReactElement {
     }, 900)
 
     return () => window.clearTimeout(timeout)
-  }, [answers, isSuccessStep, leadId])
+  }, [answers, isSuccessStep, leadId, source])
 
   useEffect(() => {
     if (step) {
       window.scrollTo({ behavior: 'auto', top: 0 })
     }
-  }, [step])
+    if (step <= TOTAL_STEPS && didTrackJourneyStartRef.current) {
+      trackFairlendEvent('fairlend_intake_step_viewed', {
+        form_id: 'fairlend_builder',
+        journey_type: 'builder',
+        source,
+        step_key: builderStepKeys[step - 1],
+        step_number: step,
+        total_steps: TOTAL_STEPS,
+      })
+    }
+  }, [source, step])
 
   const summaryItems = useMemo(() => buildProjectSummary(answers), [answers])
 
@@ -676,31 +851,63 @@ export function DrawflowIntake(): ReactElement {
   }
 
   const submitProjectLead = useCallback(async (): Promise<void> => {
+    if (!answers.name.trim() || !isValidIntakeEmail(answers.email)) {
+      setSubmitError('Add your name and a valid email before submitting the project.')
+      trackBuilderValidationFailure(step, source)
+      return
+    }
+
+    if (!answers.termsAccepted) {
+      setSubmitError('Confirm the acknowledgement before submitting the project.')
+      trackBuilderValidationFailure(step, source)
+      return
+    }
+
     setIsSubmitting(true)
     setSubmitError('')
 
-    const nextLeadId = await persistLeadDraft({ answers, leadId, status: 'submitted' })
+    const result = await persistLeadDraft({
+      answers,
+      leadId,
+      source,
+      status: 'submitted',
+    })
 
-    if (!nextLeadId) {
+    if (!result?.id) {
       setIsSubmitting(false)
       setSubmitError(
         'We could not save the project yet. Check the required contact fields and try again.',
       )
+      trackLeadFailed({ form_id: 'fairlend_builder', journey_type: 'builder', source })
       return
     }
 
-    setLeadId(nextLeadId)
+    setLeadId(result.id)
     try {
-      window.localStorage.setItem(leadIdStorageKey, nextLeadId)
+      window.localStorage.setItem(leadIdStorageKey, result.id)
     } catch {
       // Storage can be unavailable in private browsing or locked-down embedded contexts.
     }
 
     setIsSubmitting(false)
+    completeLeadAnalytics(result, {
+      completion_status: 'complete',
+      form_id: 'fairlend_builder',
+      journey_type: 'builder',
+      source,
+    })
     runIntakeStepTransition(() => setStep(8))
-  }, [answers, leadId])
+  }, [answers, leadId, source, step])
 
   const goBack = (): void => {
+    trackFairlendEvent('fairlend_intake_back_clicked', {
+      form_id: 'fairlend_builder',
+      journey_type: 'builder',
+      source,
+      step_key: builderStepKeys[Math.min(step, TOTAL_STEPS) - 1],
+      step_number: Math.min(step, TOTAL_STEPS),
+      total_steps: TOTAL_STEPS,
+    })
     runIntakeStepTransition(() => {
       setStep((current) => {
         if (current <= 2) {
@@ -712,106 +919,424 @@ export function DrawflowIntake(): ReactElement {
   }
 
   const goForward = (): void => {
+    if (!didTrackJourneyStartRef.current) {
+      didTrackJourneyStartRef.current = true
+      trackFairlendEvent('fairlend_intake_started', {
+        form_id: 'fairlend_builder',
+        journey_type: 'builder',
+        source,
+      })
+    }
+    trackFairlendEvent('fairlend_intake_step_completed', {
+      form_id: 'fairlend_builder',
+      journey_type: 'builder',
+      source,
+      step_key: builderStepKeys[Math.min(step, TOTAL_STEPS) - 1],
+      step_number: Math.min(step, TOTAL_STEPS),
+      total_steps: TOTAL_STEPS,
+    })
     runIntakeStepTransition(() => {
       setStep((current) => Math.min(current + 1, 8) as WizardStep)
     })
   }
 
   return (
-    <>
-      <DirectionalHoverHeader />
-      <main className="bp-page bp-page--with-public-header">
-        <Frame className="bp-shell">
-          <section
-            aria-labelledby={isFormStep ? 'bp-form-title' : 'bp-hero-title'}
-            className={
-              isFormStep
-                ? isSuccessStep
-                  ? `bp-canvas bp-canvas-form bp-canvas-success bp-intake-step-${step}`
-                  : `bp-canvas bp-canvas-form bp-intake-step-${step}`
-                : 'bp-canvas'
-            }
-          >
-            <Image
-              alt=""
-              aria-hidden="true"
-              className="bp-background"
-              decoding="async"
-              draggable={false}
-              fetchPriority="high"
-              height={936}
-              loading="eager"
-              src={backgroundImage}
-              width={1681}
-            />
+    <main className="bp-page bp-page--with-public-header">
+      <Frame className="bp-shell">
+        <section
+          aria-labelledby={isFormStep ? 'bp-form-title' : 'bp-hero-title'}
+          className={
+            isFormStep
+              ? isSuccessStep
+                ? `bp-canvas bp-canvas-form bp-canvas-success bp-intake-step-${step}`
+                : `bp-canvas bp-canvas-form bp-intake-step-${step}`
+              : 'bp-canvas'
+          }
+        >
+          <Image
+            alt=""
+            aria-hidden="true"
+            className="bp-background"
+            decoding="async"
+            draggable={false}
+            fetchPriority="high"
+            height={936}
+            loading="eager"
+            src={backgroundImage}
+            width={1681}
+          />
 
-            {isSuccessStep ? (
-              <BuildPathSuccessStep
+          {isSuccessStep ? (
+            <BuildPathSuccessStep
+              answers={answers}
+              onAddAnother={() => {
+                runIntakeStepTransition(() => {
+                  setAnswers(defaultAnswers)
+                  setLeadId(null)
+                  try {
+                    window.localStorage.removeItem(leadIdStorageKey)
+                  } catch {
+                    // Storage can be unavailable in private browsing or locked-down embedded contexts.
+                  }
+                  setStep(1)
+                })
+              }}
+              onBack={() => {
+                runIntakeStepTransition(() => setStep(7))
+              }}
+              leadId={leadId}
+              summaryItems={summaryItems}
+            />
+          ) : isFormStep ? (
+            step === 2 ? (
+              <BuildPathPropertyStep
                 answers={answers}
-                onAddAnother={() => {
-                  runIntakeStepTransition(() => {
-                    setAnswers(defaultAnswers)
-                    setStep(1)
-                  })
+                onBack={goBack}
+                onContinue={() => {
+                  if (answers.buildPermitFileName) {
+                    runIntakeStepTransition(() => setStep(7))
+                    return
+                  }
+                  goForward()
                 }}
-                onBack={() => {
-                  runIntakeStepTransition(() => setStep(7))
-                }}
-                summaryItems={summaryItems}
+                updateAnswer={updateAnswer}
               />
-            ) : isFormStep ? (
-              step === 2 ? (
-                <BuildPathPropertyStep
-                  answers={answers}
-                  onBack={goBack}
-                  onContinue={() => {
-                    if (answers.buildPermitFileName) {
-                      runIntakeStepTransition(() => setStep(7))
-                      return
-                    }
-                    goForward()
-                  }}
-                  updateAnswer={updateAnswer}
-                />
-              ) : (
-                <BuildPathWizardStep
-                  answers={answers}
-                  onBack={goBack}
-                  onContinue={step === 7 ? submitProjectLead : goForward}
-                  isSubmitting={isSubmitting}
-                  submitError={submitError}
-                  step={step}
-                  summaryItems={summaryItems}
-                  updateAnswer={updateAnswer}
-                />
-              )
             ) : (
-              <BuildPathHeroStart
-                onExplore={() => scrollToBuildPathSection('features')}
-                onStart={() => {
-                  runIntakeStepTransition(() => setStep(2))
-                }}
+              <BuildPathWizardStep
+                answers={answers}
+                onBack={goBack}
+                onContinue={step === 7 ? () => void submitProjectLead() : goForward}
+                isSubmitting={isSubmitting}
+                submitError={submitError}
+                step={step}
+                summaryItems={summaryItems}
+                updateAnswer={updateAnswer}
               />
-            )}
-          </section>
-          {!isFormStep && (
-            <>
-              <BuildPathTestimonials />
-              <CapitalFeatureSection
-                onStart={() => {
-                  runIntakeStepTransition(() => setStep(2))
-                }}
-              />
-              <BuildPathLandingSections
-                onStart={() => {
-                  runIntakeStepTransition(() => setStep(2))
-                }}
-              />
-            </>
+            )
+          ) : (
+            <BuildPathHeroStart
+              onExplore={() => scrollToBuildPathSection('features')}
+              onStart={() => {
+                runIntakeStepTransition(() => setStep(2))
+              }}
+            />
           )}
-        </Frame>
-      </main>
-    </>
+        </section>
+        {!isFormStep && (
+          <>
+            <CapitalFeatureSection
+              onStart={() => {
+                runIntakeStepTransition(() => setStep(2))
+              }}
+            />
+            <BuildPathLandingSections
+              onStart={() => {
+                runIntakeStepTransition(() => setStep(2))
+              }}
+            />
+          </>
+        )}
+      </Frame>
+    </main>
+  )
+}
+
+function GardenSuiteHomeownerIntake(): ReactElement {
+  const searchParams = useSearchParams()
+  const initialAddress = searchParams.get('address')?.trim() ?? ''
+  const initialLeadId = searchParams.get('leadId')?.trim() ?? null
+  const source = searchParams.get('source')?.trim() || 'garden-suite-homeowner-intake'
+  const [step, setStep] = useState<HomeownerStep>(1)
+  const [answers, setAnswers] = useState<HomeownerIntakeAnswers>(() => ({
+    ...defaultHomeownerAnswers,
+    address: initialAddress,
+  }))
+  const [leadId, setLeadId] = useState<string | null>(initialLeadId)
+  const [hasHydratedDraft, setHasHydratedDraft] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const didTrackJourneyStartRef = useRef(false)
+  const resumedDraftRef = useRef(false)
+  const isSuccessStep = step === 4
+
+  useEffect(() => {
+    const incomingAddress = searchParams.get('address')?.trim() ?? ''
+    const incomingLeadId = searchParams.get('leadId')?.trim() ?? null
+
+    const timeout = window.setTimeout(() => {
+      try {
+        const savedAnswers = window.localStorage.getItem(homeownerIntakeStorageKey)
+        if (savedAnswers) {
+          resumedDraftRef.current = true
+          const parsedAnswers = JSON.parse(savedAnswers) as Partial<HomeownerIntakeAnswers>
+          setAnswers((current) => ({
+            ...current,
+            ...parsedAnswers,
+            address: incomingAddress || parsedAnswers.address || current.address,
+            projectScope: gardenSuiteProjectScopeLabel,
+          }))
+        }
+
+        const savedLeadId = window.localStorage.getItem(homeownerLeadIdStorageKey)
+        const nextLeadId = incomingLeadId || savedLeadId
+        if (nextLeadId) {
+          setLeadId(nextLeadId)
+          window.localStorage.setItem(homeownerLeadIdStorageKey, nextLeadId)
+        }
+      } catch {
+        if (incomingAddress) {
+          setAnswers((current) => ({ ...current, address: incomingAddress }))
+        }
+        if (incomingLeadId) {
+          setLeadId(incomingLeadId)
+        }
+      } finally {
+        setHasHydratedDraft(true)
+      }
+    }, 0)
+
+    return () => window.clearTimeout(timeout)
+  }, [searchParams])
+
+  useEffect(() => {
+    if (!hasHydratedDraft || didTrackJourneyStartRef.current) return
+    didTrackJourneyStartRef.current = true
+    const properties = {
+      form_id: 'fairlend_homeowner_garden_suite',
+      journey_type: 'homeowner_garden_suite' as const,
+      source,
+      step_key: homeownerStepKeys[step - 1],
+      step_number: step,
+      total_steps: HOMEOWNER_TOTAL_STEPS,
+    }
+    trackFairlendEvent(
+      resumedDraftRef.current ? 'fairlend_intake_resumed' : 'fairlend_intake_started',
+      properties,
+    )
+    trackFairlendEvent('fairlend_intake_step_viewed', properties)
+  }, [hasHydratedDraft, source, step])
+
+  useEffect(() => {
+    if (!hasHydratedDraft || isSuccessStep) return
+
+    try {
+      window.localStorage.setItem(homeownerIntakeStorageKey, JSON.stringify(answers))
+    } catch {
+      // Storage can be unavailable in private browsing or locked-down embedded contexts.
+    }
+  }, [answers, hasHydratedDraft, isSuccessStep])
+
+  useEffect(() => {
+    if (!hasHydratedDraft || !leadId || isSuccessStep) return
+
+    const timeout = window.setTimeout(() => {
+      void persistHomeownerLead({ answers, leadId, source, status: 'draft' }).then((result) => {
+        if (result?.id && result.id !== leadId) {
+          setLeadId(result.id)
+          try {
+            window.localStorage.setItem(homeownerLeadIdStorageKey, result.id)
+          } catch {
+            // Storage can be unavailable in private browsing or locked-down embedded contexts.
+          }
+        }
+      })
+    }, 900)
+
+    return () => window.clearTimeout(timeout)
+  }, [answers, hasHydratedDraft, isSuccessStep, leadId, source])
+
+  useEffect(() => {
+    window.scrollTo({ behavior: 'auto', top: 0 })
+    window.requestAnimationFrame(() => {
+      document.getElementById('bp-form-title')?.focus({ preventScroll: true })
+    })
+    if (step <= HOMEOWNER_TOTAL_STEPS && didTrackJourneyStartRef.current) {
+      trackFairlendEvent('fairlend_intake_step_viewed', {
+        form_id: 'fairlend_homeowner_garden_suite',
+        journey_type: 'homeowner_garden_suite',
+        source,
+        step_key: homeownerStepKeys[step - 1],
+        step_number: step,
+        total_steps: HOMEOWNER_TOTAL_STEPS,
+      })
+    }
+  }, [source, step])
+
+  const summaryItems = useMemo(() => buildHomeownerSummary(answers), [answers])
+
+  const updateAnswer = <Key extends keyof HomeownerIntakeAnswers>(
+    key: Key,
+    value: HomeownerIntakeAnswers[Key],
+  ): void => {
+    setSubmitError('')
+    setAnswers((current) => ({ ...current, [key]: value }))
+  }
+
+  const updateOwnership = (siteControl: string): void => {
+    setSubmitError('')
+    setAnswers((current) => ({
+      ...current,
+      occupancy:
+        siteControl === "I don't have a property yet"
+          ? 'Not applicable'
+          : current.occupancy === 'Not applicable'
+            ? ''
+            : current.occupancy,
+      siteControl,
+    }))
+  }
+
+  const moveForward = (): void => {
+    const error = validateHomeownerStep(step, answers)
+    if (error) {
+      setSubmitError(error)
+      trackHomeownerValidationFailure(step, source)
+      return
+    }
+
+    setSubmitError('')
+    trackFairlendEvent('fairlend_intake_step_completed', {
+      form_id: 'fairlend_homeowner_garden_suite',
+      journey_type: 'homeowner_garden_suite',
+      source,
+      step_key: homeownerStepKeys[step - 1],
+      step_number: step,
+      total_steps: HOMEOWNER_TOTAL_STEPS,
+    })
+    runIntakeStepTransition(() => {
+      setStep((current) => Math.min(current + 1, HOMEOWNER_TOTAL_STEPS) as HomeownerStep)
+    })
+  }
+
+  const moveBack = (): void => {
+    setSubmitError('')
+    trackFairlendEvent('fairlend_intake_back_clicked', {
+      form_id: 'fairlend_homeowner_garden_suite',
+      journey_type: 'homeowner_garden_suite',
+      source,
+      step_key: homeownerStepKeys[step - 1],
+      step_number: step,
+      total_steps: HOMEOWNER_TOTAL_STEPS,
+    })
+    runIntakeStepTransition(() => {
+      setStep((current) => Math.max(current - 1, 1) as HomeownerStep)
+    })
+  }
+
+  const submitHomeownerLead = useCallback(async (): Promise<void> => {
+    const error = validateHomeownerStep(3, answers)
+    if (error) {
+      setSubmitError(error)
+      trackHomeownerValidationFailure(3, source)
+      return
+    }
+
+    setIsSubmitting(true)
+    setSubmitError('')
+
+    const result = await persistHomeownerLead({
+      answers,
+      leadId,
+      source,
+      status: 'submitted',
+    })
+
+    if (!result?.id) {
+      setIsSubmitting(false)
+      setSubmitError('We could not save your property check. Please try again.')
+      trackLeadFailed({
+        form_id: 'fairlend_homeowner_garden_suite',
+        journey_type: 'homeowner_garden_suite',
+        source,
+      })
+      return
+    }
+
+    setLeadId(result.id)
+    try {
+      window.localStorage.setItem(homeownerLeadIdStorageKey, result.id)
+    } catch {
+      // Storage can be unavailable in private browsing or locked-down embedded contexts.
+    }
+
+    setIsSubmitting(false)
+    completeLeadAnalytics(result, {
+      completion_status: 'complete',
+      form_id: 'fairlend_homeowner_garden_suite',
+      journey_type: 'homeowner_garden_suite',
+      source,
+    })
+    runIntakeStepTransition(() => setStep(4))
+  }, [answers, leadId, source])
+
+  const resetHomeownerIntake = (): void => {
+    setAnswers(defaultHomeownerAnswers)
+    setLeadId(null)
+    setSubmitError('')
+    try {
+      window.localStorage.removeItem(homeownerIntakeStorageKey)
+      window.localStorage.removeItem(homeownerLeadIdStorageKey)
+    } catch {
+      // Storage can be unavailable in private browsing or locked-down embedded contexts.
+    }
+    runIntakeStepTransition(() => setStep(1))
+  }
+
+  return (
+    <main className="bp-page bp-page--with-public-header">
+      <Frame className="bp-shell">
+        <section
+          aria-labelledby="bp-form-title"
+          className={`bp-canvas bp-canvas-form bp-homeowner-intake bp-intake-step-${step}${
+            isSuccessStep ? ' bp-canvas-success' : ''
+          }`}
+          data-intake-variant="garden-suite-homeowner"
+        >
+          <Image
+            alt=""
+            aria-hidden="true"
+            className="bp-background"
+            decoding="async"
+            draggable={false}
+            fetchPriority="high"
+            height={936}
+            loading="eager"
+            src={backgroundImage}
+            width={1681}
+          />
+
+          {isSuccessStep ? (
+            <HomeownerSuccessStep
+              answers={answers}
+              leadId={leadId}
+              onBack={() => runIntakeStepTransition(() => setStep(3))}
+              onReset={resetHomeownerIntake}
+              source={source}
+              summaryItems={summaryItems}
+            />
+          ) : step === 1 ? (
+            <HomeownerPropertyStep
+              answers={answers}
+              onContinue={moveForward}
+              submitError={submitError}
+              updateAnswer={updateAnswer}
+              updateOwnership={updateOwnership}
+            />
+          ) : (
+            <HomeownerWizardStep
+              answers={answers}
+              isSubmitting={isSubmitting}
+              onBack={moveBack}
+              onContinue={step === 3 ? () => void submitHomeownerLead() : moveForward}
+              step={step}
+              submitError={submitError}
+              summaryItems={summaryItems}
+              updateAnswer={updateAnswer}
+            />
+          )}
+        </section>
+      </Frame>
+    </main>
   )
 }
 
@@ -861,7 +1386,9 @@ function BuildPathHeroStart({
         <BuildPathStepProgress step={1} />
 
         <h1 id="bp-hero-title">
-          <span>Build financing that </span>
+          <span className="bp-title-line">
+            <span className="bp-title-lockup">Build financing</span> that
+          </span>
           <span>moves with the work</span>
         </h1>
 
@@ -920,19 +1447,462 @@ function BuildPathHeroStart({
       </button>
 
       <div className="bp-cta-stack">
-        <button className="bp-primary-cta" onClick={onStart} type="button">
-          <span>Start project review</span>
-          <ArrowRight aria-hidden="true" strokeWidth={1.8} />
-        </button>
+        <BrutalistCtaButton onClick={onStart} size="hero" type="button">
+          Start project review
+        </BrutalistCtaButton>
         <button className="bp-secondary-cta" onClick={onExplore} type="button">
           I&apos;m just exploring
         </button>
         <p className="bp-secure-note">
           <LockKeyhole aria-hidden="true" strokeWidth={1.9} />
-          <span>Your information is secure and never shared.</span>
+          <span>
+            Your information is protected and used only to review your request, respond, and take
+            permitted next steps under our Privacy Policy.
+          </span>
         </p>
       </div>
     </>
+  )
+}
+
+function BuildPathSitePlanPanel(): ReactElement {
+  return (
+    <div className="bp-site-plan-panel">
+      <Image
+        alt=""
+        aria-hidden="true"
+        className="bp-site-plan-field"
+        decoding="async"
+        draggable={false}
+        height={1024}
+        loading="eager"
+        src={sitePlanBlueprintFieldImage}
+        width={1536}
+      />
+      <Image
+        alt=""
+        aria-hidden="true"
+        className="bp-site-plan-foreground"
+        decoding="async"
+        draggable={false}
+        height={1024}
+        loading="eager"
+        src={sitePlanForegroundImage}
+        width={1536}
+      />
+
+      <div className="bp-site-plan-notes bp-site-plan-notes-top">
+        <p>Property site plan</p>
+        <span>Lot area</span>
+        <strong>14,200 sq ft</strong>
+        <span>Zoning</span>
+        <strong>R-3</strong>
+        <span>Topography</span>
+        <strong>Level</strong>
+      </div>
+
+      <div className="bp-buildable-note">
+        <span>Buildable area</span>
+        <strong>8,560 sq ft</strong>
+      </div>
+
+      <div aria-hidden="true" className="bp-site-dimension bp-site-dimension-depth">
+        142&apos;-0&quot;
+      </div>
+      <div aria-hidden="true" className="bp-site-dimension bp-site-dimension-width">
+        100&apos;-0&quot;
+      </div>
+      <div aria-hidden="true" className="bp-site-dimension bp-site-dimension-front">
+        <span>Front setback</span>
+        <strong>20&apos;-0&quot;</strong>
+      </div>
+
+      <div className="bp-site-legend">
+        <p>Legend</p>
+        <span>
+          <i />
+          Property line
+        </span>
+        <span>
+          <i />
+          Setback line
+        </span>
+        <span>
+          <i />
+          Building footprint
+        </span>
+      </div>
+
+      <div className="bp-site-summary">
+        <p>Site summary</p>
+        <span>
+          <i />
+          14,200 sq ft
+        </span>
+        <span>
+          <i />
+          0.33 acres
+        </span>
+        <span>
+          <i />
+          Level topography
+        </span>
+      </div>
+    </div>
+  )
+}
+
+function HomeownerPropertyStep({
+  answers,
+  onContinue,
+  submitError,
+  updateAnswer,
+  updateOwnership,
+}: {
+  answers: HomeownerIntakeAnswers
+  onContinue: () => void
+  submitError: string
+  updateAnswer: <Key extends keyof HomeownerIntakeAnswers>(
+    key: Key,
+    value: HomeownerIntakeAnswers[Key],
+  ) => void
+  updateOwnership: (siteControl: string) => void
+}): ReactElement {
+  const hasNoProperty = answers.siteControl === "I don't have a property yet"
+
+  return (
+    <div className="bp-form-stage bp-homeowner-property-stage">
+      <div className="bp-form-progress">
+        <BuildPathStepProgress step={1} total={HOMEOWNER_TOTAL_STEPS} />
+      </div>
+      <BuildPathSitePlanPanel />
+
+      <Card className="bp-form-panel bp-homeowner-panel">
+        <div className="bp-form-content">
+          <p className="bp-form-kicker">Garden + laneway property check</p>
+          <h1 id="bp-form-title" tabIndex={-1}>
+            Let&apos;s start with the property.
+          </h1>
+          <p className="bp-form-subtitle">
+            You do not need plans or building experience. Give us the basics and FairLend will
+            review what may fit.
+          </p>
+
+          <GoogleAddressAutocomplete
+            className="bp-address-field bp-address-autocomplete"
+            id="garden-suite-property-address"
+            label={hasNoProperty ? 'Property address (optional)' : 'Property address'}
+            onChange={(nextAddress) => updateAnswer('address', nextAddress)}
+            onPlaceSelect={(_suggestion, details) => {
+              if (details?.formattedAddress) {
+                updateAnswer('address', details.formattedAddress)
+              }
+            }}
+            placeholder="Start typing the property address"
+            testId="garden-suite-property-address-input"
+            value={answers.address}
+          />
+
+          <fieldset className="bp-status-fieldset bp-homeowner-fieldset">
+            <legend>What is your connection to the property?</legend>
+            <div className="bp-status-grid bp-homeowner-choice-grid">
+              {homeownerOwnershipOptions.map((option) => {
+                const Icon = option.icon
+                const active = answers.siteControl === option.label
+                return (
+                  <Card
+                    className={active ? 'bp-status-option is-selected' : 'bp-status-option'}
+                    key={option.label}
+                    render={
+                      <button
+                        aria-pressed={active}
+                        onClick={() => updateOwnership(option.label)}
+                        type="button"
+                      />
+                    }
+                  >
+                    <OptionCardIcon icon={Icon} />
+                    <span>{option.label}</span>
+                    {active ? (
+                      <Check aria-hidden="true" className="bp-status-check" strokeWidth={2} />
+                    ) : null}
+                  </Card>
+                )
+              })}
+            </div>
+          </fieldset>
+
+          {!hasNoProperty ? (
+            <fieldset className="bp-status-fieldset bp-homeowner-fieldset">
+              <legend>Who lives at the property?</legend>
+              <div className="bp-status-grid bp-homeowner-choice-grid">
+                {homeownerOccupancyOptions.map((option) => {
+                  const Icon = option.icon
+                  const active = answers.occupancy === option.label
+                  return (
+                    <Card
+                      className={active ? 'bp-status-option is-selected' : 'bp-status-option'}
+                      key={option.label}
+                      render={
+                        <button
+                          aria-pressed={active}
+                          onClick={() => updateAnswer('occupancy', option.label)}
+                          type="button"
+                        />
+                      }
+                    >
+                      <OptionCardIcon icon={Icon} />
+                      <span>{option.label}</span>
+                      {active ? (
+                        <Check aria-hidden="true" className="bp-status-check" strokeWidth={2} />
+                      ) : null}
+                    </Card>
+                  )
+                })}
+              </div>
+            </fieldset>
+          ) : null}
+
+          <fieldset className="bp-status-fieldset bp-homeowner-fieldset">
+            <legend>What would you like to add?</legend>
+            <div className="bp-option-grid bp-homeowner-suite-grid">
+              {homeownerSuiteTypeOptions.map((option) => (
+                <SelectableCard
+                  active={answers.suiteType === option.label}
+                  icon={option.icon}
+                  key={option.label}
+                  onClick={() => updateAnswer('suiteType', option.label)}
+                >
+                  {option.label}
+                </SelectableCard>
+              ))}
+            </div>
+          </fieldset>
+
+          {submitError ? (
+            <p className="bp-submit-error" role="alert">
+              {submitError}
+            </p>
+          ) : null}
+
+          <BrutalistCtaButton className="mt-[14px]" onClick={onContinue} size="compact" type="button">
+            Continue
+          </BrutalistCtaButton>
+
+          <Link className="bp-form-back" href="/">
+            <ArrowLeft aria-hidden="true" strokeWidth={1.8} />
+            Back to FairLend
+          </Link>
+        </div>
+      </Card>
+    </div>
+  )
+}
+
+function HomeownerWizardStep({
+  answers,
+  isSubmitting,
+  onBack,
+  onContinue,
+  step,
+  submitError,
+  summaryItems,
+  updateAnswer,
+}: {
+  answers: HomeownerIntakeAnswers
+  isSubmitting: boolean
+  onBack: () => void
+  onContinue: () => void
+  step: 2 | 3
+  submitError: string
+  summaryItems: string[]
+  updateAnswer: <Key extends keyof HomeownerIntakeAnswers>(
+    key: Key,
+    value: HomeownerIntakeAnswers[Key],
+  ) => void
+}): ReactElement {
+  const isContactStep = step === 3
+
+  return (
+    <div className="bp-form-stage bp-wizard-stage bp-homeowner-wizard-stage">
+      <div className="bp-form-progress">
+        <BuildPathStepProgress step={step} total={HOMEOWNER_TOTAL_STEPS} />
+      </div>
+      <BuildPathVisualPanel
+        answers={answers}
+        step={step}
+        summaryItems={summaryItems}
+        variant="garden-suite-homeowner"
+      />
+
+      <Card className="bp-form-panel bp-wizard-panel bp-homeowner-panel">
+        <div className="bp-form-content" key={step}>
+          <p className="bp-form-kicker">
+            {isContactStep ? 'Your property review' : 'Your starting point'}
+          </p>
+          <h1 id="bp-form-title" tabIndex={-1}>
+            {isContactStep ? 'Where should we send the next step?' : 'Where are you starting from?'}
+          </h1>
+          <p className="bp-form-subtitle">
+            {isContactStep
+              ? 'A FairLend specialist will review the property and explain the practical next step.'
+              : 'Rough answers are enough. You do not need a finished budget, permit, or builder.'}
+          </p>
+
+          <div className="bp-wizard-fields">
+            {isContactStep ? (
+              <>
+                <div className="bp-contact-grid">
+                  <TextField
+                    icon={User}
+                    label="Name"
+                    name="garden-suite-name"
+                    onChange={(value) => updateAnswer('name', value)}
+                    placeholder="Your full name"
+                    required
+                    value={answers.name}
+                  />
+                  <TextField
+                    icon={Mail}
+                    label="Email"
+                    name="garden-suite-email"
+                    onChange={(value) => updateAnswer('email', value)}
+                    placeholder="you@example.com"
+                    required
+                    type="email"
+                    value={answers.email}
+                  />
+                  <TextField
+                    icon={Phone}
+                    label="Phone (optional)"
+                    name="garden-suite-phone"
+                    onChange={(value) => updateAnswer('phone', value)}
+                    placeholder="Best phone number"
+                    type="tel"
+                    value={answers.phone}
+                  />
+                  <label className="bp-text-field bp-notes-field">
+                    <span>Anything else we should know? (optional)</span>
+                    <textarea
+                      name="garden-suite-notes"
+                      onChange={(event) => updateAnswer('notes', event.target.value)}
+                      placeholder="Questions, property details, or timing constraints"
+                      value={answers.notes}
+                    />
+                  </label>
+                  <label className="bp-acknowledgement">
+                    <Checkbox
+                      checked={answers.termsAccepted}
+                      className="bp-acknowledgement-box"
+                      onCheckedChange={(checked) => updateAnswer('termsAccepted', checked === true)}
+                    />
+                    <span>
+                      I understand FairLend will use this information to review the property and
+                      financing context and respond with relevant next steps. Submission is not an
+                      approval, eligibility decision, or financing commitment.
+                    </span>
+                  </label>
+                </div>
+                <p className="bp-final-note">
+                  <LockKeyhole aria-hidden="true" strokeWidth={1.8} />
+                  No credit check and no documents required to start.
+                </p>
+              </>
+            ) : (
+              <>
+                <FieldGroup label="How far along are you?">
+                  <div className="bp-stage-timeline">
+                    {homeownerProjectStageOptions.map((option) => (
+                      <SelectableChip
+                        active={answers.projectStage === option}
+                        key={option}
+                        onClick={() => updateAnswer('projectStage', option)}
+                      >
+                        {option}
+                      </SelectableChip>
+                    ))}
+                  </div>
+                </FieldGroup>
+
+                <FieldGroup label="What would you like help with? Select all that apply.">
+                  <div className="bp-chip-grid bp-chip-grid-dense">
+                    {homeownerFinancingNeedOptions.map((option) => (
+                      <SelectableChip
+                        active={answers.financingNeeds.includes(option)}
+                        key={option}
+                        onClick={() =>
+                          updateAnswer(
+                            'financingNeeds',
+                            toggleMultiValue(answers.financingNeeds, option),
+                          )
+                        }
+                      >
+                        {option}
+                      </SelectableChip>
+                    ))}
+                  </div>
+                </FieldGroup>
+
+                <FieldGroup label="About how much cash or home equity could you contribute?">
+                  <div className="bp-chip-grid">
+                    {homeownerContributionOptions.map((option) => (
+                      <SelectableChip
+                        active={answers.approximateEquity === option}
+                        key={option}
+                        onClick={() => updateAnswer('approximateEquity', option)}
+                      >
+                        {option}
+                      </SelectableChip>
+                    ))}
+                  </div>
+                </FieldGroup>
+
+                <FieldGroup label="When would you like to get started?">
+                  <div className="bp-option-grid bp-homeowner-timeline-grid">
+                    {homeownerTimelineOptions.map((option) => (
+                      <SelectableCard
+                        active={answers.timeline === option}
+                        icon={CalendarClock}
+                        key={option}
+                        onClick={() => updateAnswer('timeline', option)}
+                      >
+                        {option}
+                      </SelectableCard>
+                    ))}
+                  </div>
+                </FieldGroup>
+              </>
+            )}
+          </div>
+
+          {submitError ? (
+            <p className="bp-submit-error" role="alert">
+              {submitError}
+            </p>
+          ) : null}
+
+          <div className="bp-wizard-actions">
+            <BrutalistCtaButton
+              disabled={isSubmitting}
+              onClick={onContinue}
+              size="compact"
+              type="button"
+            >
+              {isContactStep
+                ? isSubmitting
+                  ? 'Sending property check...'
+                  : 'Send property check'
+                : 'Continue'}
+            </BrutalistCtaButton>
+
+            <button className="bp-form-back" onClick={onBack} type="button">
+              <ArrowLeft aria-hidden="true" strokeWidth={1.8} />
+              Back
+            </button>
+          </div>
+        </div>
+      </Card>
+    </div>
   )
 }
 
@@ -949,91 +1919,9 @@ function BuildPathPropertyStep({
 }): ReactElement {
   return (
     <div className="bp-form-stage">
-      <div className="bp-site-plan-panel">
-        <Image
-          alt=""
-          aria-hidden="true"
-          className="bp-site-plan-field"
-          decoding="async"
-          draggable={false}
-          height={1024}
-          loading="eager"
-          src={sitePlanBlueprintFieldImage}
-          width={1536}
-        />
-        <Image
-          alt=""
-          aria-hidden="true"
-          className="bp-site-plan-foreground"
-          decoding="async"
-          draggable={false}
-          height={1024}
-          loading="eager"
-          src={sitePlanForegroundImage}
-          width={1536}
-        />
-
-        <div className="bp-site-plan-notes bp-site-plan-notes-top">
-          <p>Property site plan</p>
-          <span>Lot area</span>
-          <strong>14,200 sq ft</strong>
-          <span>Zoning</span>
-          <strong>R-3</strong>
-          <span>Topography</span>
-          <strong>Level</strong>
-        </div>
-
-        <div className="bp-buildable-note">
-          <span>Buildable area</span>
-          <strong>8,560 sq ft</strong>
-        </div>
-
-        <div aria-hidden="true" className="bp-site-dimension bp-site-dimension-depth">
-          142&apos;-0&quot;
-        </div>
-        <div aria-hidden="true" className="bp-site-dimension bp-site-dimension-width">
-          100&apos;-0&quot;
-        </div>
-        <div aria-hidden="true" className="bp-site-dimension bp-site-dimension-front">
-          <span>Front setback</span>
-          <strong>20&apos;-0&quot;</strong>
-        </div>
-
-        <div className="bp-site-legend">
-          <p>Legend</p>
-          <span>
-            <i />
-            Property line
-          </span>
-          <span>
-            <i />
-            Setback line
-          </span>
-          <span>
-            <i />
-            Building footprint
-          </span>
-        </div>
-
-        <div className="bp-site-summary">
-          <p>Site summary</p>
-          <span>
-            <i />
-            14,200 sq ft
-          </span>
-          <span>
-            <i />
-            0.33 acres
-          </span>
-          <span>
-            <i />
-            Level topography
-          </span>
-        </div>
-      </div>
+      <BuildPathSitePlanPanel />
 
       <Card className="bp-form-panel">
-        <div aria-hidden="true" className="bp-form-panel-glow" />
         <div className="bp-form-content">
           <p className="bp-form-kicker">Property / site details</p>
           <h1 id="bp-form-title">Where is the build?</h1>
@@ -1056,6 +1944,38 @@ function BuildPathPropertyStep({
             testId="intake-property-address-input"
             value={answers.address}
           />
+
+          <fieldset className="bp-project-scope-fieldset">
+            <legend>What are you looking to finance?</legend>
+            <p id="intake-project-scope-description">
+              Choose the option that best matches the scope of your project.
+            </p>
+            <RadioGroup
+              aria-describedby="intake-project-scope-description"
+              aria-label="Project financing scope"
+              className="bp-project-scope-grid"
+              name="projectScope"
+              onValueChange={(value) => updateAnswer('projectScope', value)}
+              required
+              value={answers.projectScope}
+            >
+              {projectScopeOptions.map((option) => {
+                const Icon = option.icon
+
+                return (
+                  <label className="bp-project-scope-option" key={option.value}>
+                    <RadioGroupItem
+                      className="bp-project-scope-radio"
+                      id={`intake-project-scope-${option.value}`}
+                      value={option.label}
+                    />
+                    <Icon aria-hidden="true" className="bp-project-scope-icon" strokeWidth={1.8} />
+                    <span>{option.label}</span>
+                  </label>
+                )
+              })}
+            </RadioGroup>
+          </fieldset>
 
           <fieldset className="bp-status-fieldset">
             <legend>Current property status</legend>
@@ -1095,10 +2015,15 @@ function BuildPathPropertyStep({
             onFileSelected={(fileName) => updateAnswer('buildPermitFileName', fileName)}
           />
 
-          <button className="bp-form-continue" onClick={onContinue} type="button">
-            <span>Continue</span>
-            <ArrowRight aria-hidden="true" strokeWidth={1.8} />
-          </button>
+          <BrutalistCtaButton
+            className="mt-[14px]"
+            disabled={!answers.projectScope || !answers.siteControl}
+            onClick={onContinue}
+            size="compact"
+            type="button"
+          >
+            Continue
+          </BrutalistCtaButton>
 
           <button className="bp-form-back" onClick={onBack} type="button">
             <ArrowLeft aria-hidden="true" strokeWidth={1.8} />
@@ -1136,7 +2061,6 @@ function BuildPathWizardStep({
       <BuildPathVisualPanel answers={answers} step={step} summaryItems={summaryItems} />
 
       <Card className="bp-form-panel bp-wizard-panel">
-        <div aria-hidden="true" className="bp-form-panel-glow" />
         <div className="bp-form-content" key={step}>
           <p className="bp-form-kicker">{content.kicker}</p>
           <h1 id="bp-form-title">{content.title}</h1>
@@ -1145,17 +2069,14 @@ function BuildPathWizardStep({
           <div className="bp-wizard-fields">{content.fields}</div>
 
           <div className="bp-wizard-actions">
-            <button
-              className="bp-form-continue"
+            <BrutalistCtaButton
               disabled={isSubmitting}
               onClick={onContinue}
+              size="compact"
               type="button"
             >
-              <span>
-                {step === 7 ? (isSubmitting ? 'Submitting...' : 'Submit project') : 'Continue'}
-              </span>
-              <ArrowRight aria-hidden="true" strokeWidth={1.8} />
-            </button>
+              {step === 7 ? (isSubmitting ? 'Submitting...' : 'Submit project') : 'Continue'}
+            </BrutalistCtaButton>
 
             <button className="bp-form-back" onClick={onBack} type="button">
               <ArrowLeft aria-hidden="true" strokeWidth={1.8} />
@@ -1396,21 +2317,26 @@ function getWizardStepContent(
               <TextField
                 icon={User}
                 label="Name"
+                name="name"
                 onChange={(value) => updateAnswer('name', value)}
                 placeholder="Your full name"
+                required
                 value={answers.name}
               />
               <TextField
                 icon={Mail}
                 label="Email"
+                name="email"
                 onChange={(value) => updateAnswer('email', value)}
                 placeholder="you@example.com"
+                required
                 type="email"
                 value={answers.email}
               />
               <TextField
                 icon={Phone}
-                label="Phone"
+                label="Phone (optional)"
+                name="phone"
                 onChange={(value) => updateAnswer('phone', value)}
                 placeholder="Best phone number"
                 type="tel"
@@ -1419,10 +2345,23 @@ function getWizardStepContent(
               <label className="bp-text-field bp-notes-field">
                 <span>Anything else we should know?</span>
                 <textarea
+                  name="notes"
                   onChange={(event) => updateAnswer('notes', event.target.value)}
                   placeholder="Optional notes about timing, lender conversations, or project constraints"
                   value={answers.notes}
                 />
+              </label>
+              <label className="bp-acknowledgement">
+                <Checkbox
+                  checked={answers.termsAccepted}
+                  className="bp-acknowledgement-box"
+                  onCheckedChange={(checked) => updateAnswer('termsAccepted', checked === true)}
+                />
+                <span>
+                  I understand FairLend will timestamp this intake and use the information provided
+                  to review the project, request follow-up documents, and respond with the next
+                  financing step. This is not a funding approval or commitment.
+                </span>
               </label>
             </div>
 
@@ -1447,15 +2386,22 @@ function BuildPathVisualPanel({
   answers,
   step,
   summaryItems,
+  variant = 'builder',
 }: {
-  answers: IntakeAnswers
-  step: WizardStep
+  answers: HomeownerIntakeAnswers | IntakeAnswers
+  step: HomeownerStep | WizardStep
   summaryItems: string[]
+  variant?: FairlendBuildIntakeVariant
 }): ReactElement {
-  const visual = stepVisuals[(step > 1 ? step : 2) as keyof typeof stepVisuals]
-  const splitSummary = step >= 4 && step <= 7
+  const isHomeowner = variant === 'garden-suite-homeowner'
+  const visual = isHomeowner
+    ? homeownerStepVisuals[step as keyof typeof homeownerStepVisuals]
+    : stepVisuals[(step > 1 ? step : 2) as keyof typeof stepVisuals]
+  const splitSummary = !isHomeowner && step >= 4 && step <= 7
   const bottomSummaryItems = summaryItems.slice(0, 5)
-  const topSummaryItems = getVisualTopSummaryItems(step, summaryItems)
+  const topSummaryItems = isHomeowner
+    ? summaryItems.slice(5, 9)
+    : getVisualTopSummaryItems(step as WizardStep, summaryItems)
 
   return (
     <div className="bp-wizard-visual">
@@ -1478,9 +2424,19 @@ function BuildPathVisualPanel({
       </div>
 
       <div className="bp-visual-card">
-        <p>{answers.buildType}</p>
-        <strong>{answers.unitCount} units</strong>
-        <span>{answers.projectStage}</span>
+        {isHomeowner ? (
+          <>
+            <p>Garden + laneway</p>
+            <strong>{(answers as HomeownerIntakeAnswers).suiteType || 'Property check'}</strong>
+            <span>{answers.projectStage || 'Starting point'}</span>
+          </>
+        ) : (
+          <>
+            <p>{(answers as IntakeAnswers).buildType}</p>
+            <strong>{(answers as IntakeAnswers).unitCount} units</strong>
+            <span>{answers.projectStage}</span>
+          </>
+        )}
       </div>
 
       {topSummaryItems.length > 0 ? (
@@ -1521,21 +2477,41 @@ function getVisualTopSummaryItems(step: WizardStep, summaryItems: string[]): str
 
 function BuildPathSuccessStep({
   answers,
+  leadId,
   onAddAnother,
   onBack,
   summaryItems,
 }: {
   answers: IntakeAnswers
+  leadId: string | null
   onAddAnother: () => void
   onBack: () => void
   summaryItems: string[]
 }): ReactElement {
+  const bookReviewHref = buildFairlendIntakeHref({
+    address: answers.address,
+    email: answers.email,
+    intent: 'consultation',
+    leadId,
+    name: answers.name,
+    phone: answers.phone,
+    source: 'drawflow-success-book-review',
+  })
+  const documentHref = buildFairlendIntakeHref({
+    address: answers.address,
+    email: answers.email,
+    intent: 'document-upload',
+    leadId,
+    name: answers.name,
+    phone: answers.phone,
+    source: 'drawflow-success-documents',
+  })
+
   return (
     <div className="bp-form-stage bp-wizard-stage">
       <BuildPathVisualPanel answers={answers} step={8} summaryItems={summaryItems} />
 
       <Card className="bp-form-panel bp-wizard-panel bp-success-panel">
-        <div aria-hidden="true" className="bp-form-panel-glow" />
         <p className="bp-form-kicker">Project received</p>
         <h1 id="bp-form-title">Your build profile is ready.</h1>
         <p className="bp-form-subtitle">
@@ -1555,19 +2531,100 @@ function BuildPathSuccessStep({
         </div>
 
         <div className="bp-success-actions">
-          <Link className="bp-form-continue" href="/contact">
+          <Link className="bp-form-continue" href={bookReviewHref}>
             <span>Book review call</span>
             <CalendarDays aria-hidden="true" strokeWidth={1.8} />
           </Link>
-          <Link className="bp-upload-button" href="/contact">
+          <Link className="bp-upload-button" href={documentHref}>
             <Upload aria-hidden="true" strokeWidth={1.8} />
-            Upload documents
+            Send document status
           </Link>
         </div>
 
         <button className="bp-add-another" onClick={onAddAnother} type="button">
           <Plus aria-hidden="true" strokeWidth={1.8} />
           Start another project
+        </button>
+
+        <button className="bp-form-back" onClick={onBack} type="button">
+          <ArrowLeft aria-hidden="true" strokeWidth={1.8} />
+          Back
+        </button>
+      </Card>
+    </div>
+  )
+}
+
+function HomeownerSuccessStep({
+  answers,
+  leadId,
+  onBack,
+  onReset,
+  source,
+  summaryItems,
+}: {
+  answers: HomeownerIntakeAnswers
+  leadId: string | null
+  onBack: () => void
+  onReset: () => void
+  source: string
+  summaryItems: string[]
+}): ReactElement {
+  const bookReviewHref = buildFairlendIntakeHref({
+    address: answers.address,
+    email: answers.email,
+    intent: 'consultation',
+    leadId,
+    name: answers.name,
+    phone: answers.phone,
+    source: `${source}-success-book-review`,
+  })
+
+  return (
+    <div className="bp-form-stage bp-wizard-stage bp-homeowner-wizard-stage">
+      <BuildPathVisualPanel
+        answers={answers}
+        step={4}
+        summaryItems={summaryItems}
+        variant="garden-suite-homeowner"
+      />
+
+      <Card className="bp-form-panel bp-wizard-panel bp-success-panel bp-homeowner-panel">
+        <p className="bp-form-kicker">Property check received</p>
+        <h1 id="bp-form-title" tabIndex={-1}>
+          Your property check is in.
+        </h1>
+        <p className="bp-form-subtitle">
+          FairLend will review the address, ownership and occupancy context, starting point, and
+          financing needs before confirming what may fit. This is a human review, not an automatic
+          eligibility decision.
+        </p>
+
+        <div className="bp-success-seal">
+          <Check aria-hidden="true" strokeWidth={2} />
+          Ready for review
+        </div>
+
+        <div className="bp-success-summary">
+          {summaryItems.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </div>
+
+        <div className="bp-success-actions">
+          <Link className="bp-form-continue" href={bookReviewHref}>
+            <span>Book a property review</span>
+            <CalendarDays aria-hidden="true" strokeWidth={1.8} />
+          </Link>
+          <Link className="bp-upload-button" href="/">
+            <ArrowLeft aria-hidden="true" strokeWidth={1.8} />
+            Return to FairLend
+          </Link>
+        </div>
+
+        <button className="bp-add-another" onClick={onReset} type="button">
+          <Plus aria-hidden="true" strokeWidth={1.8} />
+          Check another property
         </button>
 
         <button className="bp-form-back" onClick={onBack} type="button">
@@ -1686,50 +2743,40 @@ function OptionCardIcon({ icon: Icon }: { icon: LucideIcon }): ReactElement {
   )
 }
 
-function SelectableChip({
-  active,
-  children,
-  onClick,
-}: {
-  active: boolean
-  children: string
-  onClick: () => void
-}): ReactElement {
-  return (
-    <button
-      aria-pressed={active}
-      className={active ? 'bp-chip-option is-selected' : 'bp-chip-option'}
-      onClick={onClick}
-      type="button"
-    >
-      {children}
-    </button>
-  )
-}
-
 function TextField({
+  autoComplete,
   icon: Icon,
   label,
+  name,
   onChange,
   placeholder,
+  required = false,
   type = 'text',
   value,
 }: {
+  autoComplete?: string
   icon: LucideIcon
   label: string
+  name?: string
   onChange: (value: string) => void
   placeholder: string
+  required?: boolean
   type?: 'email' | 'tel' | 'text'
   value: string
 }): ReactElement {
+  const resolvedAutoComplete =
+    autoComplete ?? (type === 'email' ? 'email' : type === 'tel' ? 'tel' : 'name')
   return (
     <label className="bp-text-field">
       <span>{label}</span>
       <div className="bp-address-input">
         <Icon aria-hidden="true" strokeWidth={1.8} />
         <input
+          autoComplete={resolvedAutoComplete}
+          name={name}
           onChange={(event) => onChange(event.target.value)}
           placeholder={placeholder}
+          required={required}
           type={type}
           value={value}
         />
@@ -1748,26 +2795,155 @@ function toggleMultiValue(values: string[], value: string): string[] {
   return [...values.filter((item) => item !== 'None yet' && item !== 'Not sure'), value]
 }
 
+function validateHomeownerStep(
+  step: HomeownerStep,
+  answers: HomeownerIntakeAnswers,
+): string {
+  if (step === 1) {
+    if (!answers.siteControl) {
+      return 'Choose your connection to the property.'
+    }
+    if (answers.siteControl !== "I don't have a property yet" && !answers.address.trim()) {
+      return 'Add the property address so FairLend can review the site.'
+    }
+    if (answers.siteControl !== "I don't have a property yet" && !answers.occupancy) {
+      return 'Choose who currently lives at the property.'
+    }
+    if (!answers.suiteType) {
+      return 'Choose the type of suite you have in mind, or select “Not sure which fits.”'
+    }
+  }
+
+  if (step === 2) {
+    if (!answers.projectStage) {
+      return 'Choose the option that best describes where you are starting.'
+    }
+    if (answers.financingNeeds.length === 0) {
+      return 'Choose at least one area where you would like help.'
+    }
+    if (!answers.approximateEquity) {
+      return 'Choose a rough cash or home equity contribution, or select “Not sure.”'
+    }
+    if (!answers.timeline) {
+      return 'Choose when you would like to get started.'
+    }
+  }
+
+  if (step === 3) {
+    if (!answers.name.trim() || !isValidIntakeEmail(answers.email)) {
+      return 'Add your name and a valid email before sending the property check.'
+    }
+    if (!answers.termsAccepted) {
+      return 'Confirm the acknowledgement before sending the property check.'
+    }
+  }
+
+  return ''
+}
+
+function trackBuilderValidationFailure(step: WizardStep, source: string): void {
+  const safeStep = Math.min(step, TOTAL_STEPS)
+  trackFairlendEvent('fairlend_intake_validation_failed', {
+    form_id: 'fairlend_builder',
+    journey_type: 'builder',
+    source,
+    step_key: builderStepKeys[safeStep - 1],
+    step_number: safeStep,
+    total_steps: TOTAL_STEPS,
+  })
+}
+
+function trackHomeownerValidationFailure(step: HomeownerStep, source: string): void {
+  const safeStep = Math.min(step, HOMEOWNER_TOTAL_STEPS)
+  trackFairlendEvent('fairlend_intake_validation_failed', {
+    form_id: 'fairlend_homeowner_garden_suite',
+    journey_type: 'homeowner_garden_suite',
+    source,
+    step_key: homeownerStepKeys[safeStep - 1],
+    step_number: safeStep,
+    total_steps: HOMEOWNER_TOTAL_STEPS,
+  })
+}
+
+async function persistHomeownerLead({
+  answers,
+  leadId,
+  source,
+  status,
+}: {
+  answers: HomeownerIntakeAnswers
+  leadId: string | null
+  source: string
+  status: 'draft' | 'submitted'
+}): Promise<LeadSubmissionResponse | null> {
+  try {
+    const response = await fetch('/api/leads', {
+      body: JSON.stringify({
+        analyticsContext: status === 'submitted' ? getAnalyticsContext() : undefined,
+        address: answers.address,
+        email: answers.email,
+        id: leadId ?? undefined,
+        intake: {
+          approximateEquity: answers.approximateEquity,
+          completionStatus: status === 'submitted' ? 'complete' : 'partial',
+          financingNeeds: answers.financingNeeds,
+          intakeVariant: 'garden-suite-homeowner',
+          notes: answers.notes,
+          occupancy: answers.occupancy,
+          projectScope: gardenSuiteProjectScopeLabel,
+          projectStage: answers.projectStage,
+          siteControl: answers.siteControl,
+          suiteType: answers.suiteType,
+          termsAccepted: answers.termsAccepted,
+          timeline: answers.timeline,
+        },
+        intent: 'build',
+        name: answers.name,
+        phone: answers.phone,
+        source,
+        status,
+      }),
+      headers: {
+        'content-type': 'application/json',
+      },
+      method: 'POST',
+    })
+
+    if (!response.ok) return null
+
+    return (await response.json()) as LeadSubmissionResponse
+  } catch {
+    return null
+  }
+}
+
 async function persistLeadDraft({
   answers,
   leadId,
+  source,
   status,
 }: {
   answers: IntakeAnswers
   leadId: string | null
+  source: string
   status: 'draft' | 'submitted'
-}): Promise<string | null> {
+}): Promise<LeadSubmissionResponse | null> {
   try {
     const response = await fetch('/api/leads', {
       body: JSON.stringify({
+        analyticsContext: status === 'submitted' ? getAnalyticsContext() : undefined,
         address: answers.address,
         email: answers.email,
         id: leadId ?? undefined,
-        intake: answers,
+        intake: {
+          ...answers,
+          completionStatus: 'complete',
+          notes: answers.notes,
+        },
         intent: 'build',
         name: answers.name,
         phone: answers.phone,
-        source: 'drawflow-intake',
+        source,
         status,
       }),
       headers: {
@@ -1780,11 +2956,14 @@ async function persistLeadDraft({
       return null
     }
 
-    const payload = (await response.json()) as { id?: string }
-    return payload.id ?? leadId
+    return (await response.json()) as LeadSubmissionResponse
   } catch {
     return null
   }
+}
+
+function isValidIntakeEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())
 }
 
 function buildProjectSummary(answers: IntakeAnswers): string[] {
@@ -1798,6 +2977,7 @@ function buildProjectSummary(answers: IntakeAnswers): string[] {
       : 'Team pending'
   return [
     answers.address || 'Property details pending',
+    answers.projectScope || 'Project scope pending',
     answers.siteControl,
     answers.buildType,
     `${answers.unitCount} units`,
@@ -1814,11 +2994,29 @@ function buildProjectSummary(answers: IntakeAnswers): string[] {
   ].filter(Boolean)
 }
 
+function buildHomeownerSummary(answers: HomeownerIntakeAnswers): string[] {
+  const supportSummary = answers.financingNeeds.length
+    ? `${answers.financingNeeds[0]}${
+        answers.financingNeeds.length > 1 ? ` + ${answers.financingNeeds.length - 1} more` : ''
+      }`
+    : 'Support needs pending'
+
+  return [
+    answers.address || 'No specific property yet',
+    answers.suiteType || 'Suite type pending',
+    answers.siteControl || 'Ownership pending',
+    answers.occupancy === 'Not applicable' ? '' : answers.occupancy,
+    answers.projectStage || 'Starting point pending',
+    supportSummary,
+    answers.approximateEquity || 'Contribution pending',
+    answers.timeline || 'Timing pending',
+  ].filter(Boolean)
+}
+
 function BuildPathLandingSections({ onStart }: { onStart: () => void }): ReactElement {
   return (
     <div className="bp-landing" id="features">
       <BuilderSqueezeSection />
-      <PlanBeforeBorrowSection />
       <FairLendOperatingSystemSection />
       <StartWithPropertySection onStart={onStart} />
     </div>
@@ -1828,46 +3026,43 @@ function BuildPathLandingSections({ onStart }: { onStart: () => void }): ReactEl
 function CapitalFeatureSection({ onStart }: { onStart: () => void }): ReactElement {
   const milestoneUnlocks = [
     {
-      amount: '$2,150,000',
-      bar: '100%',
-      dateTime: '2026-08-20',
-      id: 'completion',
-      percent: '100%',
-      title: 'Completion',
-    },
-    {
-      amount: '$1,620,000',
-      bar: '75%',
-      dateTime: '2026-07-18',
-      id: 'interior',
-      percent: '75%',
-      title: 'Interior',
-    },
-    {
-      amount: '$1,050,000',
-      bar: '50%',
-      dateTime: '2026-06-12',
-      id: 'roof',
-      percent: '50%',
-      title: 'Roof',
+      amount: '$0',
+      id: 'foundation',
+      percent: 0,
+      status: 'Starting point',
+      title: 'Foundation',
     },
     {
       amount: '$520,000',
-      bar: '25%',
-      dateTime: '2026-05-10',
       id: 'framing',
-      percent: '25%',
+      percent: 25,
+      status: 'After approval',
       title: 'Framing',
     },
     {
-      amount: '$0',
-      bar: '0%',
-      dateTime: '2026-04-15',
-      id: 'foundation',
-      percent: '0%',
-      title: 'Foundation',
+      amount: '$1,050,000',
+      id: 'roof',
+      percent: 50,
+      status: 'After approval',
+      title: 'Roof',
+    },
+    {
+      amount: '$1,620,000',
+      id: 'interior',
+      percent: 75,
+      status: 'After approval',
+      title: 'Interior',
+    },
+    {
+      amount: '$2,150,000',
+      id: 'completion',
+      percent: 100,
+      status: 'After approval',
+      title: 'Completion',
     },
   ] as const
+
+  const advisorHref = buildFairlendConsultationHref('builder-capital-feature-advisor')
 
   return (
     <section aria-labelledby="bp-workflow-title" className="bp-capital-feature">
@@ -1879,46 +3074,65 @@ function CapitalFeatureSection({ onStart }: { onStart: () => void }): ReactEleme
           milestone expands the amount you can draw, without forcing interest on idle funds.
         </p>
         <div className="bp-capital-feature-actions">
-          <button className="bp-primary-cta" onClick={onStart} type="button">
-            <span>Check financeability</span>
+          <BrutalistCtaButton onClick={onStart} type="button">
+            Check my project&apos;s financeability
+          </BrutalistCtaButton>
+          <p className="bp-capital-action-note">
+            Answer a few project questions and receive a clear review path.
+          </p>
+          <Link className="bp-capital-advisor-link" href={advisorHref}>
+            Talk to a DrawFlow advisor
             <ArrowRight aria-hidden="true" strokeWidth={1.8} />
-          </button>
-          <a className="bp-secondary-cta" href="#resources">
-            <span>View milestone flow</span>
-            <ArrowRight aria-hidden="true" strokeWidth={1.8} />
-          </a>
+          </Link>
         </div>
+        <p className="bp-capital-feature-note">
+          These amounts illustrate how availability can expand as work is completed and approved.
+          Every release still requires milestone evidence, lender review, and administrator
+          approval.
+        </p>
       </div>
 
-      <Timeline
-        activeIndex={4}
-        aria-label="Milestone draw flow"
-        className="bp-capital-milestone-timeline"
-      >
-        {milestoneUnlocks.map((milestone) => (
-          <TimelineItem className="bp-capital-milestone-item" key={milestone.id}>
-            <TimelineDot className="bp-capital-milestone-dot">
-              {milestone.id === 'foundation' ? null : <Check aria-hidden="true" strokeWidth={2} />}
-            </TimelineDot>
-            <TimelineConnector className="bp-capital-milestone-connector" />
-            <TimelineContent className="bp-capital-milestone-content">
-              <TimelineHeader className="bp-capital-milestone-header">
-                <TimelineTime dateTime={milestone.dateTime}>{milestone.percent}</TimelineTime>
-                <TimelineTitle>{milestone.title}</TimelineTitle>
-              </TimelineHeader>
-              <TimelineDescription asChild>
-                <Card className="bp-capital-milestone-card">
-                  <strong>{milestone.amount}</strong>
-                  <span>Available</span>
-                  <i aria-hidden="true" className="bp-capital-unlock-bar">
-                    <em style={{ width: milestone.bar }} />
-                  </i>
-                </Card>
-              </TimelineDescription>
-            </TimelineContent>
-          </TimelineItem>
-        ))}
-      </Timeline>
+      <div className="bp-capital-scale">
+        <p className="bp-capital-scale-label">Capital unlocks as approved work rises ↑</p>
+        <Timeline asChild className="bp-capital-milestone-timeline">
+          <ol aria-label="Illustrative capital unlocks from foundation through completion">
+            {milestoneUnlocks.map((milestone) => (
+              <TimelineItem
+                asChild
+                className="bp-capital-milestone-item"
+                data-status={milestone.id === 'foundation' ? 'starting' : 'projected'}
+                key={milestone.id}
+              >
+                <li>
+                  <TimelineDot aria-hidden="true" className="bp-capital-milestone-dot">
+                    <span />
+                  </TimelineDot>
+                  <TimelineConnector
+                    aria-hidden="true"
+                    className="bp-capital-milestone-connector"
+                  />
+                  <TimelineContent className="bp-capital-milestone-content">
+                    <TimelineHeader className="bp-capital-milestone-header">
+                      <TimelineTitle>{milestone.title}</TimelineTitle>
+                      <data value={milestone.percent / 100}>{milestone.percent}%</data>
+                      <span className="bp-capital-milestone-status">{milestone.status}</span>
+                    </TimelineHeader>
+                    <TimelineDescription asChild>
+                      <Card className="bp-capital-milestone-card">
+                        <strong>{milestone.amount}</strong>
+                        <span>Illustrative availability</span>
+                        <i aria-hidden="true" className="bp-capital-unlock-bar">
+                          <em style={{ width: `${milestone.percent}%` }} />
+                        </i>
+                      </Card>
+                    </TimelineDescription>
+                  </TimelineContent>
+                </li>
+              </TimelineItem>
+            ))}
+          </ol>
+        </Timeline>
+      </div>
 
       <div aria-hidden="true" className="bp-capital-feature-art">
         <Image
@@ -1935,18 +3149,30 @@ function CapitalFeatureSection({ onStart }: { onStart: () => void }): ReactEleme
         <span className="bp-capital-dimension bp-capital-dimension-width">120&apos;-0&quot;</span>
       </div>
 
-      <div aria-label="Draw plan benefits" className="bp-capital-feature-stats">
+      <ul aria-label="Draw plan benefits" className="bp-capital-feature-stats">
         {[
-          ['0', 'forced draw schedule'],
-          ['3-day', 'draw SLA target'],
-          ['1', 'advisor-built plan'],
-        ].map(([value, label]) => (
-          <div key={label}>
-            <strong>{value}</strong>
-            <span>{label}</span>
-          </div>
+          [
+            'No forced draw calendar',
+            'Request capital when approved work and project timing call for it.',
+          ],
+          [
+            'One-business-day review target',
+            'Complete draw requests are targeted for review within one business day.',
+          ],
+          [
+            'Advisor-built evidence plan',
+            'Know what proof each milestone needs before the next draw.',
+          ],
+        ].map(([title, detail]) => (
+          <li key={title}>
+            <Check aria-hidden="true" strokeWidth={2} />
+            <span>
+              <strong>{title}</strong>
+              <small>{detail}</small>
+            </span>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   )
 }
@@ -2013,7 +3239,7 @@ function BuilderSqueezeSection(): ReactElement {
           <Image
             alt=""
             aria-hidden="true"
-            className="bp-cash-stress-curve"
+            className="bp-cash-stress-curve-mobile"
             height={105}
             src={`${extractedSqueezeAssetBase}/cash-stress-dashed-curve.svg`}
             unoptimized
@@ -2075,6 +3301,10 @@ function BuilderSqueezeSection(): ReactElement {
           focusable="false"
           viewBox="0 0 1672 941"
         >
+          <path
+            className="bp-capital-continuum-risk-line"
+            d="M126.5 598.4 C231.9 602.3 274.9 611.1 356.8 599.4 S475.9 583.8 583.2 598.4 C690.5 613 780 590 831 590"
+          />
           <path
             className="bp-capital-continuum-line"
             d="M831 590 C852 590 862 587 875 576 C894 560 898 529 921 510 C939 496 956 487 962 481 C987 477 1007 474 1028 471 C1074 466 1103 455 1151 449 C1198 444 1248 444 1275 446 C1338 449 1379 448 1390 449 C1441 451 1483 454 1511 457 C1534 459 1556 461 1582 461"
@@ -2234,25 +3464,6 @@ function BlueprintDraftingGrid(): ReactElement {
       preserveAspectRatio="none"
       viewBox="0 0 1672 941"
     >
-      <defs>
-        <filter id="bp-squeeze-rough-line">
-          <feTurbulence
-            baseFrequency="0.018 0.09"
-            numOctaves="2"
-            result="noise"
-            seed="19"
-            type="fractalNoise"
-          />
-          <feDisplacementMap
-            in="SourceGraphic"
-            in2="noise"
-            scale="1.35"
-            xChannelSelector="R"
-            yChannelSelector="G"
-          />
-        </filter>
-      </defs>
-
       <g className="bp-squeeze-minor-grid">
         {minorVerticalLines.map((percent) => (
           <path d={`M ${percent * 16.72} 24 V 918`} key={`v-${percent}`} />
@@ -2297,393 +3508,6 @@ function BlueprintDraftingGrid(): ReactElement {
         26&apos;-0&quot;
       </text>
     </svg>
-  )
-}
-
-function PlanBeforeBorrowSection(): ReactElement {
-  return (
-    <section
-      aria-labelledby="bp-plan-title"
-      className="bp-landing-section bp-plan bp-persona bp-handoff"
-      id="resources"
-    >
-      <BlueprintSectionHeading
-        id="bp-plan-title"
-        subtitle="FairLend pairs multiplex build financing with senior build advisors, CMHC readiness work, contractor access, and field support that stays with the project."
-        title="Financing is stronger when the build plan is stronger"
-      />
-
-      <KokonutBentoGridShell animate={false} className="bp-handoff-bento">
-        <div className="bp-handoff-cell bp-handoff-cell-map">
-          <KokonutBentoCard
-            item={{
-              description:
-                'You get advisors with 30+ years of build and financing experience from planning through closing. The builder, broker, architect, and consultant stop carrying disconnected fragments.',
-              eyebrow: 'Handoff map',
-              id: 'handoff-map',
-              title: 'Senior build advisors align the plan before it hardens.',
-              className: 'bp-handoff-card is-map',
-            }}
-          >
-            <HandoffMapGraphic />
-          </KokonutBentoCard>
-        </div>
-
-        <div className="bp-handoff-cell bp-handoff-cell-checklist">
-          <KokonutBentoCard
-            item={{
-              description:
-                'We run the CMHC requirement list with underwriting context, then help fill the gaps through direct consulting and a vetted professional network.',
-              eyebrow: 'Readiness',
-              id: 'cmhc-readiness',
-              title: 'Checklist gaps get surfaced while they are still fixable.',
-              className: 'bp-handoff-card is-checklist',
-            }}
-          >
-            <CmhcChecklistGraphic />
-          </KokonutBentoCard>
-        </div>
-
-        <div className="bp-handoff-cell bp-handoff-cell-draws">
-          <KokonutBentoCard
-            item={{
-              description:
-                'Completed milestones unlock availability. Draw only what you need, when you need it, with a 3 day SLA on draw requests and no interest on capital still sitting unused.',
-              eyebrow: 'Draw control',
-              id: 'draw-availability',
-              title: 'On-demand draws keep capital available, not expensive.',
-              className: 'bp-handoff-card is-draws',
-            }}
-          >
-            <DrawAvailabilityMockup />
-          </KokonutBentoCard>
-        </div>
-
-        <div className="bp-handoff-cell bp-handoff-cell-network">
-          <KokonutBentoCard
-            item={{
-              description:
-                'Dedicated site visits, progress checks, reliable contractors, supplier access, and investor relationships are available when the build needs to get unstuck.',
-              eyebrow: 'Unstuck support',
-              id: 'field-support',
-              title: 'When the site drifts, a real team helps get it unstuck.',
-              className: 'bp-handoff-card is-field',
-            }}
-          >
-            <FieldSupportGraphic />
-          </KokonutBentoCard>
-        </div>
-
-        <div className="bp-handoff-cell bp-handoff-cell-field">
-          <KokonutBentoCard
-            item={{
-              description:
-                'FairLend gives builders access to build advisors, financing advisors, energy simulation and certification pros, project managers, architects, designers, lawyers, contractors, suppliers, investors, and consultants.',
-              eyebrow: 'Network plan',
-              id: 'professional-network',
-              title: 'Unlock a growing network of professionals who keep multiplex builds moving.',
-              className: 'bp-handoff-card is-network',
-            }}
-          >
-            <ProfessionalNetworkBeamGraphic />
-          </KokonutBentoCard>
-        </div>
-      </KokonutBentoGridShell>
-    </section>
-  )
-}
-
-function HandoffMapGraphic(): ReactElement {
-  return (
-    <div aria-hidden="true" className="bp-handoff-graphic bp-handoff-map">
-      <svg role="img" viewBox="0 0 720 330">
-        <defs>
-          <filter id="bp-handoff-rough">
-            <feTurbulence baseFrequency="0.9" numOctaves="2" seed="8" type="fractalNoise" />
-            <feDisplacementMap in="SourceGraphic" scale="1.4" />
-          </filter>
-        </defs>
-        <path
-          className="bp-handoff-map-grid"
-          d="M40 44 H682 M40 104 H682 M40 164 H682 M40 224 H682 M40 284 H682 M88 26 V300 M208 26 V300 M328 26 V300 M448 26 V300 M568 26 V300"
-        />
-        <path
-          className="bp-handoff-map-stall"
-          d="M104 82 C176 90 174 166 244 158 C320 150 302 238 384 224 C470 210 464 108 548 116"
-        />
-        <path
-          className="bp-handoff-map-flow"
-          d="M112 248 C178 232 224 210 274 190 C326 170 358 150 414 126 C472 98 528 82 614 76"
-        />
-        <g className="bp-handoff-map-nodes">
-          <circle cx="112" cy="248" r="16" />
-          <circle cx="274" cy="190" r="16" />
-          <circle cx="414" cy="126" r="16" />
-          <circle cx="614" cy="76" r="16" />
-        </g>
-        <g className="bp-handoff-map-ticks">
-          <path d="m104 248 9 9 19-24" />
-          <path d="m266 190 9 9 19-24" />
-          <path d="m406 126 9 9 19-24" />
-          <path d="m606 76 9 9 19-24" />
-        </g>
-        <g className="bp-handoff-map-labels">
-          <text x="82" y="292">
-            Builder
-          </text>
-          <text x="238" y="222">
-            Broker
-          </text>
-          <text x="372" y="92">
-            Architect
-          </text>
-          <text x="564" y="118">
-            Consultant
-          </text>
-        </g>
-        <g className="bp-handoff-map-center">
-          <rect height="70" rx="14" width="172" x="344" y="174" />
-          <text x="370" y="207">
-            FairLend
-          </text>
-          <text x="370" y="228">
-            30+ yr build desk
-          </text>
-        </g>
-      </svg>
-      <div className="bp-handoff-map-legend">
-        <span>Build order</span>
-        <span>Budget logic</span>
-        <span>Draw plan</span>
-      </div>
-    </div>
-  )
-}
-
-function CmhcChecklistGraphic(): ReactElement {
-  return (
-    <div aria-hidden="true" className="bp-handoff-graphic bp-cmhc-checklist">
-      {['CMHC evidence', 'Underwriting story', 'Advisor fix', 'Network handoff'].map(
-        (item, index) => (
-          <div className="bp-cmhc-row" key={item} style={{ '--row-index': index } as CSSProperties}>
-            <span>
-              <Check aria-hidden="true" strokeWidth={2.3} />
-            </span>
-            <strong>{item}</strong>
-            <i />
-          </div>
-        ),
-      )}
-    </div>
-  )
-}
-
-function DrawAvailabilityMockup(): ReactElement {
-  return (
-    <div aria-hidden="true" className="bp-handoff-graphic bp-draw-mockup">
-      <div className="bp-draw-phone">
-        <div className="bp-draw-phone-top">
-          <span>Available now</span>
-          <strong>$250k</strong>
-        </div>
-        <div className="bp-draw-progress">
-          <span />
-          <span />
-          <span />
-        </div>
-        <span>3 day SLA</span>
-      </div>
-      <svg className="bp-draw-orbit" viewBox="0 0 320 150">
-        <path d="M22 112 C76 74 116 96 158 58 C198 22 246 42 298 18" />
-        <circle cx="158" cy="58" r="9" />
-        <circle cx="298" cy="18" r="9" />
-      </svg>
-    </div>
-  )
-}
-
-function ProfessionalNetworkBeamGraphic(): ReactElement {
-  const containerRef = useRef<HTMLDivElement | null>(null)
-  const centerRef = useRef<HTMLDivElement | null>(null)
-  const buildersRef = useRef<HTMLDivElement | null>(null)
-  const financingRef = useRef<HTMLDivElement | null>(null)
-  const energyRef = useRef<HTMLDivElement | null>(null)
-  const designRef = useRef<HTMLDivElement | null>(null)
-  const pmRef = useRef<HTMLDivElement | null>(null)
-  const legalRef = useRef<HTMLDivElement | null>(null)
-  const tradesRef = useRef<HTMLDivElement | null>(null)
-  const suppliersRef = useRef<HTMLDivElement | null>(null)
-
-  const nodes = [
-    {
-      className: 'is-builders',
-      Icon: HardHat,
-      label: 'Builders',
-      nodeRef: buildersRef,
-      tag: 'Sponsor',
-    },
-    {
-      className: 'is-financing',
-      Icon: Landmark,
-      label: 'Financing advisors',
-      nodeRef: financingRef,
-      tag: 'Capital',
-    },
-    {
-      className: 'is-energy',
-      Icon: ShieldCheck,
-      label: 'Energy + CMHC',
-      nodeRef: energyRef,
-      tag: 'Proof',
-    },
-    {
-      className: 'is-design',
-      Icon: Building2,
-      label: 'Architects + designers',
-      nodeRef: designRef,
-      tag: 'Plan',
-    },
-    {
-      className: 'is-pm',
-      Icon: CalendarDays,
-      label: 'Project managers',
-      nodeRef: pmRef,
-      tag: 'Schedule',
-    },
-    {
-      className: 'is-legal',
-      Icon: FileText,
-      label: 'Lawyers',
-      nodeRef: legalRef,
-      tag: 'Close',
-    },
-    {
-      className: 'is-trades',
-      Icon: Wrench,
-      label: 'Contractors',
-      nodeRef: tradesRef,
-      tag: 'Work',
-    },
-    {
-      className: 'is-suppliers',
-      Icon: Layers3,
-      label: 'Suppliers',
-      nodeRef: suppliersRef,
-      tag: 'Materials',
-    },
-  ]
-
-  return (
-    <div
-      aria-hidden="true"
-      className="bp-handoff-graphic bp-professional-network"
-      ref={containerRef}
-    >
-      <div className="bp-network-drafting-note">
-        <span>Network plan</span>
-        <strong>60&apos; x 100&apos;</strong>
-      </div>
-      <svg
-        className="bp-network-static-beams is-desktop"
-        preserveAspectRatio="none"
-        viewBox="0 0 596 430"
-      >
-        <path d="M298 190 Q320 112 327 77" />
-        <path d="M298 190 Q232 126 121 129" />
-        <path d="M298 190 Q370 126 475 129" />
-        <path d="M298 190 Q214 184 119 184" />
-        <path d="M298 190 Q380 184 477 184" />
-        <path d="M298 190 Q232 275 149 311" />
-        <path d="M298 190 Q372 275 411 311" />
-        <path d="M298 190 Q302 292 298 344" />
-      </svg>
-      <svg
-        className="bp-network-static-beams is-mobile"
-        preserveAspectRatio="none"
-        viewBox="0 0 320 806"
-      >
-        <path d="M160 350 Q158 220 160 103" />
-        <path d="M160 350 Q124 256 145 179" />
-        <path d="M160 350 Q206 288 175 255" />
-        <path d="M160 350 Q118 392 145 455" />
-        <path d="M160 350 Q212 418 175 529" />
-        <path d="M160 350 Q118 500 145 603" />
-        <path d="M160 350 Q216 554 175 677" />
-        <path d="M160 350 Q160 640 160 751" />
-      </svg>
-      <div className="bp-network-center" ref={centerRef}>
-        <span>FairLend</span>
-        <strong>Build desk</strong>
-        <small>planning to closing</small>
-      </div>
-      {/* eslint-disable-next-line react-hooks/refs */}
-      {nodes.map(({ className, Icon, label, nodeRef, tag }) => (
-        <div className={`bp-network-node ${className}`} key={label} ref={nodeRef}>
-          <span>
-            <Icon aria-hidden="true" strokeWidth={1.65} />
-          </span>
-          <div>
-            <small>{tag}</small>
-            <strong>{label}</strong>
-          </div>
-        </div>
-      ))}
-      {/* eslint-disable-next-line react-hooks/refs */}
-      {nodes.map(({ className, nodeRef }, index) => (
-        <AnimatedBeam
-          basePathClassName="bp-network-beam-base"
-          beamClassName="bp-network-beam-active"
-          className={`bp-network-beam ${className}`}
-          containerRef={containerRef}
-          curvature={index % 2 === 0 ? 38 : -34}
-          delay={index * 0.18}
-          duration={3.2}
-          fromRef={centerRef}
-          gradientStartColor="oklch(0.45 0.2 145)"
-          gradientStopColor="oklch(0.58 0.16 178)"
-          key={className}
-          pathColor="oklch(0.4 0.12 240 / 0.34)"
-          pathDasharray="7 8"
-          pathOpacity={0.62}
-          pathWidth={2}
-          repeatDelay={0.7}
-          toRef={nodeRef}
-          variant="blueprint"
-        />
-      ))}
-      <div className="bp-network-spec-table">
-        <span>Advisors</span>
-        <strong>30+ yr field desk</strong>
-        <span>Trades</span>
-        <strong>priced below market</strong>
-        <span>Draws</span>
-        <strong>3 day SLA</strong>
-      </div>
-    </div>
-  )
-}
-
-function FieldSupportGraphic(): ReactElement {
-  return (
-    <div aria-hidden="true" className="bp-handoff-graphic bp-field-support">
-      <svg viewBox="0 0 360 260">
-        <path className="bp-field-lot" d="M42 198 L182 128 L318 188 L178 236 Z" />
-        <path className="bp-field-house" d="M132 132 L190 96 L258 132 L258 196 L132 196 Z" />
-        <path className="bp-field-roof" d="M118 134 L190 88 L272 134" />
-        <path
-          className="bp-field-route"
-          d="M58 210 C82 178 118 184 144 162 C170 140 188 122 224 118"
-        />
-        <circle className="bp-field-pin" cx="224" cy="118" r="15" />
-        <path className="bp-field-check" d="m217 117 6 7 13-16" />
-      </svg>
-      <div className="bp-field-tags">
-        <span>Site visit</span>
-        <span>Supplier price</span>
-        <span>Trade fix</span>
-        <span>Investor help</span>
-      </div>
-    </div>
   )
 }
 
@@ -2769,10 +3593,14 @@ function StartWithPropertySection({ onStart }: { onStart: () => void }): ReactEl
           ))}
         </ul>
         <div className="bp-start-actions">
-          <button className="bp-primary-cta" onClick={onStart} type="button">
-            <span>Start a build review</span>
-            <ArrowRight aria-hidden="true" strokeWidth={1.8} />
-          </button>
+          <BrutalistCtaButton
+            className="w-[250px] max-[560px]:w-full"
+            onClick={onStart}
+            size="referral"
+            type="button"
+          >
+            Start a build review
+          </BrutalistCtaButton>
           <button className="bp-start-call" onClick={onStart} type="button">
             Refer a builder
             <ArrowRight aria-hidden="true" strokeWidth={1.7} />
@@ -2789,104 +3617,5 @@ function StartWithPropertySection({ onStart }: { onStart: () => void }): ReactEl
         <strong>Multiplex</strong>
       </div>
     </section>
-  )
-}
-
-function BlueprintSectionHeading({
-  id,
-  subtitle,
-  title,
-}: {
-  id: string
-  subtitle: string
-  title: string
-}): ReactElement {
-  return (
-    <div className="bp-section-heading">
-      <h2 id={id}>{title}</h2>
-      <p>{subtitle}</p>
-    </div>
-  )
-}
-
-function BuildPathTestimonials(): ReactElement {
-  const marqueeRef = useRef<HTMLDivElement | null>(null)
-  const scrollTestimonials = (direction: -1 | 1): void => {
-    marqueeRef.current?.scrollBy({
-      behavior: 'smooth',
-      left: direction * 460,
-    })
-  }
-
-  return (
-    <section aria-labelledby="bp-testimonials-title" className="bp-testimonials">
-      <div aria-hidden="true" className="bp-proof-rail">
-        <span className="bp-rail-clamp bp-rail-clamp-a" />
-        <span className="bp-rail-clamp bp-rail-clamp-b" />
-        <span className="bp-rail-clamp bp-rail-clamp-c" />
-      </div>
-
-      <div className="bp-proof-copy">
-        <p>Built on trust</p>
-        <h2 id="bp-testimonials-title">Proof from the field</h2>
-        <span>
-          Real builders and lenders. Real outcomes. Shared to help your project move forward with
-          confidence.
-        </span>
-      </div>
-
-      <div className="bp-marquee" ref={marqueeRef}>
-        <div className="bp-marquee-track">
-          <TestimonialCards />
-          <TestimonialCards ariaHidden />
-        </div>
-      </div>
-
-      <button
-        aria-label="Previous testimonials"
-        className="bp-marquee-control bp-marquee-control-prev"
-        onClick={() => scrollTestimonials(-1)}
-        type="button"
-      >
-        <ArrowRight aria-hidden="true" strokeWidth={1.8} />
-      </button>
-      <button
-        aria-label="Next testimonials"
-        className="bp-marquee-control bp-marquee-control-next"
-        onClick={() => scrollTestimonials(1)}
-        type="button"
-      >
-        <ArrowRight aria-hidden="true" strokeWidth={1.8} />
-      </button>
-    </section>
-  )
-}
-
-function TestimonialCards({ ariaHidden = false }: { ariaHidden?: boolean }): ReactElement {
-  return (
-    <div aria-hidden={ariaHidden || undefined} className="bp-testimonial-set">
-      {testimonials.map((testimonial) => {
-        const Icon = testimonial.icon
-        return (
-          <Card className="bp-testimonial-card" key={testimonial.name}>
-            <span aria-hidden="true" className="bp-card-pin" />
-            <span aria-hidden="true" className="bp-card-tape" />
-            <div className="bp-card-head">
-              <Icon aria-hidden="true" strokeWidth={1.55} />
-              <div className="bp-reviewer">
-                <strong>{testimonial.name}</strong>
-                <span>{testimonial.role}</span>
-              </div>
-              <span className="bp-card-label">{testimonial.label}</span>
-            </div>
-            <blockquote>{testimonial.quote}</blockquote>
-            <div aria-hidden="true" className="bp-approved-stamp">
-              <Check strokeWidth={1.6} />
-              <span>Approved</span>
-            </div>
-          </Card>
-        )
-      })}
-    </div>
   )
 }
