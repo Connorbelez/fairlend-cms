@@ -177,16 +177,6 @@ export function WatermelonFooter() {
         <span className="sr-only">
           Toronto waterfront at night, rendered in monochrome halftone
         </span>
-        <svg
-          aria-hidden="true"
-          className={styles.route}
-          preserveAspectRatio="none"
-          viewBox="0 0 1672 558"
-        >
-          <path d="M 303 558 L 695 452 L 1216 440 L 1344 417" />
-          <circle className={styles.routeHalo} cx="1344" cy="417" r="14" />
-          <circle className={styles.routeDot} cx="1344" cy="417" r="8" />
-        </svg>
       </section>
 
       <div className={styles.content}>

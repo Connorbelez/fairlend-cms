@@ -37,6 +37,17 @@ export async function POST(request: NextRequest): Promise<Response> {
   }
 
   const details = await googleResponse.json()
+  const regionCode =
+    typeof details?.postalAddress?.regionCode === 'string'
+      ? details.postalAddress.regionCode.trim().toUpperCase()
+      : ''
+
+  if (regionCode && regionCode !== 'CA') {
+    return Response.json(
+      { code: 'NON_CANADIAN_ADDRESS', error: 'Select a Canadian address.' },
+      { status: 422 },
+    )
+  }
 
   return Response.json({
     addressComponents: details.addressComponents,
@@ -45,5 +56,6 @@ export async function POST(request: NextRequest): Promise<Response> {
     location: details.location,
     placeId,
     postalAddress: details.postalAddress,
+    regionCode: regionCode || 'CA',
   })
 }

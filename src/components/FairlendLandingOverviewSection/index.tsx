@@ -8,6 +8,7 @@ import {
   torontoCloudLayers,
   torontoHeroAssets,
 } from '@/components/FairlendLandingHero/toronto-scene-assets'
+import { GardenSuiteOpportunityBadge } from '@/components/GardenSuiteOpportunityBadge'
 import { Highlighter } from '@/components/ui/highlighter'
 import {
   buildFairlendIntakeHref,
@@ -16,7 +17,10 @@ import {
 } from '@/lib/fairlend-intake'
 import { cn } from '@/utilities/ui'
 
-import { DrawFlowInterestBadge } from './DrawFlowInterestBadge'
+import {
+  DrawFlowInterestBadge,
+  MliSelectReadinessBadge,
+} from './DrawFlowInterestBadge'
 import styles from './overview-section.module.css'
 
 const assetBase = '/assets/about-webp/webp'
@@ -53,6 +57,11 @@ type OverviewCloudLayerProps = {
   width: number
 }
 
+type FinanceCopyEmphasis = {
+  action: 'highlight' | 'underline'
+  phrase: string
+}
+
 const expertiseItems = [
   {
     copy: 'Grounded in communities across Canada.',
@@ -80,7 +89,8 @@ const expertiseItems = [
 export const financeItems = [
   {
     code: '01',
-    copy: 'Institutional and private residential mortgage options, including purchases, first homes, refinances, and equity access.',
+    copy: 'Institutional and private residential mortgage options, including purchases, first homes, and equity access.',
+    emphasis: { action: 'highlight', phrase: 'Institutional and private' },
     href: buildFairlendIntakeHref({
       intent: 'mortgage',
       source: 'landing-overview-residential-mortgages',
@@ -90,7 +100,19 @@ export const financeItems = [
   },
   {
     code: '02',
+    copy: 'Flexible revolving credit secured against available home equity, reviewed around property value, mortgage position, and repayment capacity.',
+    emphasis: { action: 'underline', phrase: 'Flexible revolving credit' },
+    href: buildFairlendIntakeHref({
+      intent: 'mortgage',
+      source: 'landing-overview-heloc',
+    }),
+    image: overviewAssets.residentialMortgagesIcon,
+    title: 'Home Equity Line of Credit (HELOC)',
+  },
+  {
+    code: '03',
     copy: 'Short-term capital to bridge gaps and close fast with our 24-hour target for commitment.',
+    emphasis: { action: 'highlight', phrase: '24-hour target for commitment' },
     href: buildFairlendIntakeHref({
       intent: 'mortgage',
       source: 'landing-overview-bridge-loans',
@@ -99,8 +121,20 @@ export const financeItems = [
     title: 'Bridge Loans',
   },
   {
-    code: '03',
-    copy: 'Financing and hands-on guidance for renovations, with local contractor and supplier connections to keep the project on track.',
+    code: '04',
+    copy: 'Residential home refinancing to renew a mortgage, consolidate obligations, or unlock equity with terms reviewed around the property and exit plan.',
+    emphasis: { action: 'underline', phrase: 'Residential home refinancing' },
+    href: buildFairlendIntakeHref({
+      intent: 'mortgage',
+      source: 'landing-overview-residential-refinancing',
+    }),
+    image: overviewAssets.residentialMortgagesIcon,
+    title: 'Residential Refinancing',
+  },
+  {
+    code: '05',
+    copy: 'Financing and guidance for renovations, with local contractor and supplier connections to keep the project on track.',
+    emphasis: { action: 'highlight', phrase: 'Financing and guidance' },
     href: buildFairlendIntakeHref({
       intent: 'build',
       projectScope: 'renovation-financing',
@@ -110,8 +144,9 @@ export const financeItems = [
     title: 'Renovation Financing',
   },
   {
-    code: '04',
-    copy: 'Financing & Guidance with Local Expertise for 5 unit to multi-tower complexes. From permits to completion to CMHC takeout we handle it all.',
+    code: '06',
+    copy: 'Financing and guidance with local expertise for five-unit to multi-tower complexes. From permits through completion and CMHC takeout, FairLend coordinates the financing path.',
+    emphasis: { action: 'underline', phrase: 'five-unit to multi-tower complexes' },
     href: buildFairlendIntakeHref({
       intent: 'build',
       projectScope: 'multiplex-financing',
@@ -121,8 +156,10 @@ export const financeItems = [
     title: 'Multi-plex Financing',
   },
   {
-    code: '05',
-    copy: 'Backyard and laneway homes financed by a team that knows permits, budgets and timelines.',
+    callout: 'garden-suite-opportunity',
+    code: '07',
+    copy: 'Backyard and laneway homes financed by a team that knows permits, budgets, and timelines.',
+    emphasis: { action: 'highlight', phrase: 'knows permits, budgets, and timelines' },
     href: buildFairlendIntakeHref({
       intent: 'build',
       projectScope: 'garden-laneway-suites',
@@ -132,8 +169,13 @@ export const financeItems = [
     title: 'Garden & Laneway Suites',
   },
   {
-    code: '06',
-    copy: 'One-stop financing, planning, and MLI Select guidance—plus access to the partner consultants and professionals needed to prepare for qualification.',
+    callout: 'mli-select-readiness',
+    code: '08',
+    copy: 'One-stop financing, planning, and MLI\u00a0Select\u00a0guidance—plus access to the partner consultants and professionals needed to prepare for qualification.',
+    emphasis: {
+      action: 'underline',
+      phrase: 'One-stop financing, planning, and MLI\u00a0Select\u00a0guidance',
+    },
     href: buildFairlendIntakeHref({
       intent: 'build',
       projectScope: 'mli-select-insured-housing',
@@ -143,8 +185,9 @@ export const financeItems = [
     title: 'MLI-Select Insured Housing',
   },
   {
-    code: '07',
+    code: '09',
     copy: 'Flexible acquisition financing for stabilized rental properties, underwritten around income, asset quality, and closing timelines.',
+    emphasis: { action: 'highlight', phrase: 'Flexible acquisition financing' },
     href: buildFairlendIntakeHref({
       intent: 'mortgage',
       source: fairlendRentalPropertyAcquisitionSource,
@@ -153,8 +196,9 @@ export const financeItems = [
     title: 'Acquisition of Existing Rental Properties',
   },
   {
-    code: '08',
+    code: '10',
     copy: 'Refinance existing rental properties to renew debt, unlock equity, or improve the capital stack without disrupting operations.',
+    emphasis: { action: 'underline', phrase: 'Refinance existing rental properties' },
     href: buildFairlendIntakeHref({
       intent: 'mortgage',
       source: fairlendRentalPropertyRefinanceSource,
@@ -166,17 +210,17 @@ export const financeItems = [
 
 const financeGroups = [
   {
-    items: financeItems.slice(0, 2),
+    items: financeItems.slice(0, 4),
     label: 'Core lending',
     withDrawFlowInterestBadge: false,
   },
   {
-    items: financeItems.slice(2, 6),
+    items: financeItems.slice(4, 8),
     label: 'Project and rental programs',
     withDrawFlowInterestBadge: true,
   },
   {
-    items: financeItems.slice(6),
+    items: financeItems.slice(8),
     label: 'Refinancing & Acquisitions',
     withDrawFlowInterestBadge: false,
   },
@@ -259,15 +303,50 @@ function ExpertiseCard({
   )
 }
 
+function FinanceCopy({ copy, emphasis }: { copy: string; emphasis: FinanceCopyEmphasis }) {
+  const phraseStart = copy.indexOf(emphasis.phrase)
+
+  if (phraseStart === -1) return copy
+
+  const before = copy.slice(0, phraseStart)
+  const phrase = copy.slice(phraseStart, phraseStart + emphasis.phrase.length)
+  const after = copy.slice(phraseStart + emphasis.phrase.length)
+  const isHighlight = emphasis.action === 'highlight'
+
+  return (
+    <>
+      {before}
+      <strong className="font-semibold text-[#08090a]">
+        <Highlighter
+          action={emphasis.action}
+          animationDuration={isHighlight ? 720 : 860}
+          color={isHighlight ? 'rgba(150, 236, 24, 0.52)' : '#96ec18'}
+          isView
+          iterations={isHighlight ? 1 : 2}
+          padding={isHighlight ? 2 : 1}
+          strokeWidth={isHighlight ? 2.2 : 2.6}
+        >
+          {phrase}
+        </Highlighter>
+      </strong>
+      {after}
+    </>
+  )
+}
+
 function FinanceCard({
+  callout,
   code,
   copy,
+  emphasis,
   href,
   image,
   title,
 }: {
+  callout?: 'garden-suite-opportunity' | 'mli-select-readiness'
   code: string
   copy: string
+  emphasis: FinanceCopyEmphasis
   href: string
   image: string
   title: string
@@ -310,8 +389,12 @@ function FinanceCard({
             />
           </div>
           <p className="my-4 w-full text-[13px] leading-[1.42] text-[#08090a]/78 text-pretty">
-            {copy}
+            <FinanceCopy copy={copy} emphasis={emphasis} />
           </p>
+          {callout === 'garden-suite-opportunity' ? (
+            <GardenSuiteOpportunityBadge className="mb-4" />
+          ) : null}
+          {callout === 'mli-select-readiness' ? <MliSelectReadinessBadge className="mb-4" /> : null}
           <span className="mt-auto flex items-center justify-between border-t border-[#08090a]/25 pt-3 text-[10px] font-extrabold tracking-[0.09em] uppercase">
             Open deal file{' '}
             <ArrowRight className="size-5 text-[#72b900] transition-transform group-hover:translate-x-1" />
@@ -439,19 +522,14 @@ export function FairlendLandingOverviewSection() {
               className="mx-auto mt-[29px] mb-0 max-w-[600px] text-wrap font-serif text-[clamp(58px,5.28vw,82px)] leading-[1.06] font-medium tracking-[-0.055em] text-[#050506] md:mx-0 md:leading-[0.95]"
               data-overview-title
             >
-              <span className="block overflow-hidden">
+              <span className="-mb-[0.12em] block overflow-hidden pb-[0.12em]">
                 <span className="block" data-overview-title-line>
-                  Local insight.
+                  Building the future
                 </span>
               </span>
-              <span className="block overflow-hidden">
+              <span className="-mb-[0.12em] block overflow-hidden pb-[0.12em]">
                 <span className="block" data-overview-title-line>
-                  Disciplined underwriting.
-                </span>
-              </span>
-              <span className="block overflow-hidden">
-                <span className="block" data-overview-title-line>
-                  Fairer lending.
+                  of Fair Lending
                 </span>
               </span>
             </h2>
@@ -476,6 +554,20 @@ export function FairlendLandingOverviewSection() {
                   </Highlighter>
                 </strong>{' '}
                 mortgage brokerage and administrator specializing in{' '}
+                <strong className="font-extrabold">
+                  <Highlighter
+                    action="highlight"
+                    animationDuration={760}
+                    color="rgba(150, 236, 24, 0.52)"
+                    isView
+                    iterations={2}
+                    padding={4}
+                    strokeWidth={2.4}
+                  >
+                    residential mortgages
+                  </Highlighter>
+                </strong>
+                {', '}
                 <strong className="font-extrabold">
                   <Highlighter
                     action="highlight"
@@ -509,6 +601,24 @@ export function FairlendLandingOverviewSection() {
                 We combine seasoned mortgage judgment with modern technology and clear processes,
                 helping borrowers, builders, and investors move faster without losing the human
                 diligence private lending depends on.
+              </p>
+              <p className="m-0">
+                With borrower consent, open banking lets us{' '}
+                <strong className="font-extrabold">
+                  <Highlighter
+                    action="underline"
+                    animationDuration={900}
+                    color="#96ec18"
+                    isView
+                    iterations={2}
+                    padding={2}
+                    strokeWidth={2.8}
+                  >
+                    analyze up to 4,500 financial data points
+                  </Highlighter>
+                </strong>{' '}
+                to assess creditworthiness using cash-flow patterns and other signals conventional
+                bank underwriting can miss.
               </p>
               <p className="m-0">
                 Private lending should be{' '}
@@ -563,14 +673,14 @@ export function FairlendLandingOverviewSection() {
               className="mx-auto mt-[42px] mb-0 max-w-[520px] text-wrap font-serif text-[clamp(48px,4.05vw,63px)] leading-[0.96] font-medium tracking-[-0.052em] text-[#050506] lg:mx-0"
               data-overview-title
             >
-              <span className="block overflow-hidden">
+              <span className="-mb-[0.12em] block overflow-hidden pb-[0.12em]">
                 <span className="block" data-overview-title-line>
                   Flexible capital for
                 </span>
               </span>
-              <span className="block overflow-hidden">
+              <span className="-mb-[0.12em] block overflow-hidden pb-[0.12em]">
                 <span className="block" data-overview-title-line>
-                  every project.
+                  every situation.
                 </span>
               </span>
             </h2>
@@ -579,13 +689,17 @@ export function FairlendLandingOverviewSection() {
               data-overview-summary
             >
               From private mortgages to permit-heavy rental projects, these are the financing paths
-              FairLend supports across the GTA.
+              FairLend supports across Southern Ontario.
             </p>
           </div>
 
           <div className="mt-[22px] grid gap-[15px]">
             {financeGroups.map((group) => (
-              <div className="grid gap-[8px]" key={group.label}>
+              <div
+                className="grid gap-[8px] rounded-sm border border-transparent data-[finance-group='Core-lending']:border-[#08090a]/12 data-[finance-group='Core-lending']:bg-white/45 data-[finance-group='Core-lending']:p-3 data-[finance-group='Core-lending']:shadow-[3px_3px_0_rgba(8,9,10,0.08)]"
+                data-finance-group={group.label.replaceAll(' ', '-')}
+                key={group.label}
+              >
                 <div className="flex min-w-0 items-center gap-3">
                   <p
                     className="m-0 grid min-w-0 flex-1 grid-cols-[auto_minmax(0,1fr)] items-center gap-[12px] text-[11px] leading-none font-extrabold tracking-[0.14em] text-[#08090a]/68 uppercase"

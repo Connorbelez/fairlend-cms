@@ -54,7 +54,7 @@ const proofPoints = [
   ['Options compared', 'First, second, bridge, renewal, and equity-based structures reviewed.'],
   ['Payout terms', 'Low payout fees where applicable.'],
   ['Costs upfront', 'Material mortgage economics discussed before signing.'],
-  ['Local review', 'Led by experienced GTA mortgage professionals.'],
+  ['Local review', 'Led by experienced Southern Ontario mortgage professionals.'],
 ] as const
 
 const scenarios = [
@@ -557,7 +557,7 @@ function JudgmentDesk(): ReactElement {
       <div className="pm-judgment__standards">
         <div className="pm-judgment__local">
           <MapPinned aria-hidden="true" />
-          <p className="pm-micro">Ontario and GTA mortgage context</p>
+          <p className="pm-micro">Southern Ontario mortgage context</p>
           <h3>Local mortgage judgment, explained in borrower language.</h3>
           <p>
             Understand the property, avoid weak structures, explain the tradeoffs, and make the exit

@@ -1157,6 +1157,25 @@
   color: var(--ethos-ink);
 }
 
+.fairlend-ethos__manifesto::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: url('/textures/groovepaper.png'), url('/textures/debut-light.png');
+  background-position:
+    0 0,
+    47px 71px;
+  background-repeat: repeat;
+  background-size:
+    250px 250px,
+    165px 165px;
+  content: '';
+  filter: contrast(1.55);
+  mix-blend-mode: multiply;
+  opacity: 0.82;
+  pointer-events: none;
+}
+
 .fairlend-ethos__manifesto-press {
   position: absolute;
   top: 0;

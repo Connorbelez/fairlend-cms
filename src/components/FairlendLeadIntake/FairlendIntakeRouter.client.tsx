@@ -6,6 +6,7 @@ import { DrawflowIntake } from '@/components/DrawflowIntake/DrawflowIntake.clien
 import { FairlendLeadIntake } from '@/components/FairlendLeadIntake/FairlendLeadIntake.client'
 import {
   fairlendBuildIntent,
+  resolveFairlendBuildIntakeVariant,
   resolveFairlendIntakeIntent,
   resolveFairlendRentalPropertyTransaction,
 } from '@/lib/fairlend-intake'
@@ -18,7 +19,9 @@ export function FairlendIntakeRouter() {
   )
 
   if (intent === fairlendBuildIntent) {
-    return <DrawflowIntake />
+    return (
+      <DrawflowIntake variant={resolveFairlendBuildIntakeVariant(searchParams.get('projectScope'))} />
+    )
   }
 
   return (

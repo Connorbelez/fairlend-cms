@@ -65,6 +65,7 @@ export type DynamicArrowCanvasProps = {
   maxCurveOffset?: number
   maxOpacity?: number
   minOpacity?: number
+  onTargetChange?: (element: HTMLElement | null) => void
   opacityDistance?: number
   origin: DynamicArrowOrigin
   position?: 'absolute' | 'fixed'
@@ -265,6 +266,7 @@ export function DynamicArrowCanvas({
   maxCurveOffset = 200,
   maxOpacity = 1,
   minOpacity = 0,
+  onTargetChange,
   opacityDistance = 500,
   origin,
   position = 'fixed',
@@ -286,6 +288,18 @@ export function DynamicArrowCanvas({
   const smoothedTargetRef = useRef<Point | null>(null)
   const strokeColorRef = useRef<RgbColor>(fallbackStrokeColor)
   const [mediaEnabled, setMediaEnabled] = useState(false)
+
+  const setActiveTarget = useCallback(
+    (element: HTMLElement | null) => {
+      if (activeTargetRef.current === element) {
+        return
+      }
+
+      activeTargetRef.current = element
+      onTargetChange?.(element)
+    },
+    [onTargetChange],
+  )
 
   const getCanvasBounds = useCallback(() => {
     const scopeElement = getScopeElement?.() ?? scopeRef?.current ?? null
@@ -343,7 +357,7 @@ export function DynamicArrowCanvas({
         : scopeBounds
 
       if (!pointInsideRect(pointer, activationRect)) {
-        activeTargetRef.current = null
+        setActiveTarget(null)
         smoothedOriginRef.current = null
         smoothedTargetRef.current = null
         return false
@@ -359,7 +373,7 @@ export function DynamicArrowCanvas({
           : null
 
     if (!originPoint) {
-      activeTargetRef.current = null
+      setActiveTarget(null)
       smoothedOriginRef.current = null
       smoothedTargetRef.current = null
       return false
@@ -373,13 +387,13 @@ export function DynamicArrowCanvas({
     )
 
     if (!resolvedTarget) {
-      activeTargetRef.current = null
+      setActiveTarget(null)
       smoothedOriginRef.current = null
       smoothedTargetRef.current = null
       return false
     }
 
-    activeTargetRef.current = resolvedTarget.element
+    setActiveTarget(resolvedTarget.element)
 
     const targetPoint = pointOnTarget(resolvedTarget.rect, originPoint, edgeOffset, targetAnchor)
     const smoothingAmount = clamp(smoothing, 0.01, 1)
@@ -459,6 +473,7 @@ export function DynamicArrowCanvas({
     minOpacity,
     opacityDistance,
     origin,
+    setActiveTarget,
     smoothing,
     target,
     targetAnchor,
@@ -523,6 +538,7 @@ export function DynamicArrowCanvas({
       }
 
       clearCanvas()
+      setActiveTarget(null)
       return
     }
 
@@ -551,7 +567,7 @@ export function DynamicArrowCanvas({
     }
 
     const resetArrow = () => {
-      activeTargetRef.current = null
+      setActiveTarget(null)
       pointerRef.current = null
       smoothedOriginRef.current = null
       smoothedTargetRef.current = null
@@ -622,7 +638,7 @@ export function DynamicArrowCanvas({
       }
 
       pointerRef.current = null
-      activeTargetRef.current = null
+      setActiveTarget(null)
       smoothedOriginRef.current = null
       smoothedTargetRef.current = null
       clearCanvas()
@@ -635,6 +651,7 @@ export function DynamicArrowCanvas({
     getScopeElement,
     mediaEnabled,
     resizeCanvas,
+    setActiveTarget,
     scopeRef,
   ])
 

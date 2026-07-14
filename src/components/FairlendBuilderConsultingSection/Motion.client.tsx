@@ -12,7 +12,7 @@ const primaryRowStates = [
   {
     cta: 'SEE THE TIMELINE',
     ctaNote: 'Scroll through the build math',
-    note: 'Illustrative Toronto luxury infill model',
+    note: 'Illustrative Southern Ontario luxury infill model',
     riskLeft: 'EST. PROFIT',
     riskRight: 'POSITIVE RETURN',
     year: '2019',
@@ -20,7 +20,7 @@ const primaryRowStates = [
   {
     cta: 'RUN MY NUMBERS',
     ctaNote: 'Find the break-even point',
-    note: 'Published GTA market benchmarks',
+    note: 'Illustrative Southern Ontario assumptions',
     riskLeft: 'EST. LOSS',
     riskRight: 'MIDPOINT COST',
     year: '2023',
@@ -28,7 +28,7 @@ const primaryRowStates = [
   {
     cta: 'RUN MY NUMBERS',
     ctaNote: "Let's run your version",
-    note: 'Published GTA market benchmarks',
+    note: 'Illustrative Southern Ontario assumptions',
     riskLeft: 'EST. LOSS',
     riskRight: 'MIDPOINT COST',
     year: '2026',
@@ -36,11 +36,12 @@ const primaryRowStates = [
 ] as const
 
 const counterStates = {
-  'single-build': [torontoLuxury2019Model.build, '$205–280/ft²', '$150–275/ft²'],
+  'single-build': [torontoLuxury2019Model.build, '$450/ft²', '$400/ft²'],
   'single-land': [torontoLuxury2019Model.land, '$1.46M', '$1.36M'],
-  'single-margin': [torontoLuxury2019Model.margin, '-48.6%*', '-52.1%*'],
-  'single-profit': [torontoLuxury2019Model.profit, '-$780K*', '-$744K*'],
-  'single-sale': [torontoLuxury2019Model.sale, '$1.60M', '$1.43M'],
+  'single-margin': [torontoLuxury2019Model.margin, '-9.6%*', '-9.1%*'],
+  'single-profit': [torontoLuxury2019Model.profit, '-$298K*', '-$258K*'],
+  'single-sale': [torontoLuxury2019Model.sale, '$3.10M', '$2.85M'],
+  'single-soft': [torontoLuxury2019Model.soft, '$60/ft²', '$60/ft²'],
 } as const satisfies Record<string, readonly [string, string, string]>
 
 function setText(targets: HTMLElement[], value: string) {
@@ -84,6 +85,15 @@ export function FairlendBuilderConsultingMotion() {
         select('[data-builder-equation-line="single-family"]'),
       )
       const emergingRows = gsap.utils.toArray<HTMLElement>(select('[data-builder-emerging-row]'))
+      const equationNarratives = gsap.utils.toArray<HTMLElement>(
+        select('[data-builder-equation-narrative]'),
+      )
+      const compactEquationNarratives = gsap.utils.toArray<HTMLElement>(
+        select('[data-builder-equation-narrative-compact]'),
+      )
+      const equationNarrativeTracks = gsap.utils.toArray<HTMLElement>(
+        select('[data-builder-equation-track]'),
+      )
       const primaryYearLabels = gsap.utils.toArray<HTMLElement>(
         select('[data-builder-primary-year]'),
       )
@@ -230,6 +240,13 @@ export function FairlendBuilderConsultingMotion() {
         transformOrigin: 'top center',
         y: 10,
       })
+      gsap.set(equationNarratives, {
+        autoAlpha: 1,
+        clipPath: 'inset(0% 0% 0% 0%)',
+        y: 0,
+      })
+      gsap.set(compactEquationNarratives, { height: 'auto' })
+      gsap.set(equationNarrativeTracks, { yPercent: 0 })
       gsap.set(connectorLines, { scaleX: 0.72, transformOrigin: 'left center' })
       if (leftTrack) gsap.set(leftTrack, { yPercent: 0 })
       if (bottomTrack) gsap.set(bottomTrack, { yPercent: 0 })
@@ -243,23 +260,53 @@ export function FairlendBuilderConsultingMotion() {
 
       timeline
         .to(connectorLines, { duration: 0.12, scaleX: 1 }, 0)
+        .to(
+          equationNarrativeTracks,
+          {
+            duration: 0.18,
+            ease: 'power3.inOut',
+            yPercent: -50,
+          },
+          0.2,
+        )
         .to(section, { '--builder-progress': 0, duration: 0.26 }, 0.18)
         .to(primaryRows, { '--row-tone': 0, duration: 0.26 }, 0.2)
+        .to(
+          equationNarratives,
+          {
+            autoAlpha: 0,
+            clipPath: 'inset(0% 0% 100% 0%)',
+            duration: 0.14,
+            y: -18,
+          },
+          0.56,
+        )
+        .to(
+          compactEquationNarratives,
+          {
+            duration: 0.14,
+            height: 0,
+            minHeight: 0,
+            paddingBottom: 0,
+            paddingTop: 0,
+          },
+          0.56,
+        )
         .to(section, { '--builder-progress': 1, duration: 0.28 }, 0.58)
         .to(
           emergingRows,
           {
             autoAlpha: 1,
             clipPath: 'inset(0% 0% 0% 0%)',
-            duration: 0.28,
+            duration: 0.24,
             height: 'auto',
-            stagger: 0.045,
+            stagger: 0.035,
             y: 0,
           },
-          0.66,
+          0.7,
         )
-        .call(replayEquationIcons, [], 0.66)
-        .call(replayEquationIcons, [], 0.74)
+        .call(replayEquationIcons, [], 0.7)
+        .call(replayEquationIcons, [], 0.78)
         .to({}, { duration: 0.18 }, 1)
 
       if (house) timeline.to(house, { duration: 0.2, scale: 1 }, 0)

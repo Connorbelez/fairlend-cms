@@ -12,6 +12,7 @@ export const fairlendRentalPropertyRefinanceHeaderSource =
 export type FairlendRentalPropertyTransaction = 'acquisition' | 'refinance'
 
 export const fairlendProjectScopeOptions = [
+  { label: 'Single-Family Residence', value: 'single-family-residence' },
   { label: 'Renovation financing', value: 'renovation-financing' },
   { label: 'Multi-plex financing', value: 'multiplex-financing' },
   { label: 'Garden & laneway suites', value: 'garden-laneway-suites' },
@@ -20,7 +21,11 @@ export const fairlendProjectScopeOptions = [
 
 export type FairlendProjectScope = (typeof fairlendProjectScopeOptions)[number]['value']
 
+export type FairlendBuildIntakeVariant = 'builder' | 'garden-suite-homeowner'
+
 const projectScopeAliases = new Map<string, FairlendProjectScope>([
+  ['single-family', 'single-family-residence'],
+  ['single-family-home', 'single-family-residence'],
   ['renovation', 'renovation-financing'],
   ['multi-plex-financing', 'multiplex-financing'],
   ['multiplex', 'multiplex-financing'],
@@ -137,6 +142,14 @@ export function getFairlendProjectScopeLabel(scope?: string | null): string {
   const normalized = normalizeFairlendProjectScope(scope)
 
   return fairlendProjectScopeOptions.find(({ value }) => value === normalized)?.label ?? ''
+}
+
+export function resolveFairlendBuildIntakeVariant(
+  projectScope?: string | null,
+): FairlendBuildIntakeVariant {
+  return normalizeFairlendProjectScope(projectScope) === 'garden-laneway-suites'
+    ? 'garden-suite-homeowner'
+    : 'builder'
 }
 
 export function buildFairlendIntakeHref({

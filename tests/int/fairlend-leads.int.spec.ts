@@ -99,7 +99,7 @@ describe('Fairlend lead normalization', () => {
       intakeProjectStage: null,
       intakePropertyValue: null,
       intakeSummary:
-        'Type: mortgage | Amount: $250K-$500K | Timeline: Closing in 2 weeks | Additional liens: No additional liens | Notes: Bank declined the file, closing in two weeks.',
+        'Type: mortgage | Amount: $250K-$500K | Timeline: Closing in 2 weeks | Additional debt: No additional liens | Notes: Bank declined the file, closing in two weeks.',
       intakeTimeline: 'Closing in 2 weeks',
       intakeType: 'mortgage',
     })
@@ -166,6 +166,50 @@ describe('Fairlend lead normalization', () => {
     expect(details.intakeSummary).toBe('Type: Garden & laneway suites | Stage: Permit submitted')
   })
 
+  it('normalizes the homeowner Garden and Laneway review for admin and export summaries', () => {
+    const details = deriveFairlendLeadIntakeDetails(
+      {
+        approximateEquity: '$50K-$100K',
+        financingNeeds: ['Property suitability', 'Construction financing'],
+        intakeVariant: 'garden-suite-homeowner',
+        notes: 'Needs help with permits.',
+        projectScope: 'Garden & laneway suites',
+        projectStage: 'Just exploring',
+        timeline: 'Within 3 months',
+      },
+      'build',
+    )
+
+    expect(details).toMatchObject({
+      intakeAmount: '$50K-$100K',
+      intakeDetail: 'Needs help with permits.',
+      intakeFinancingNeeds: 'Property suitability, Construction financing',
+      intakeProjectStage: 'Just exploring',
+      intakeTimeline: 'Within 3 months',
+      intakeType: 'Garden & laneway suites',
+    })
+    expect(details.intakeSummary).toContain('Amount: $50K-$100K')
+    expect(details.intakeSummary).toContain('Timeline: Within 3 months')
+    expect(details.intakeSummary).toContain('Stage: Just exploring')
+  })
+
+  it('retains the partial label in normalized admin and export-facing detail', () => {
+    const lead = normalizeLeadPayload({
+      email: 'partial@example.com',
+      intake: {
+        completionStatus: 'partial',
+        detail: '[Partial intake]',
+        requestedIntent: 'mortgage',
+      },
+      intent: 'mortgage',
+      status: 'submitted',
+    })
+
+    expect(lead.intake).toMatchObject({ completionStatus: 'partial' })
+    expect(lead.intakeDetail).toBe('[Partial intake]')
+    expect(lead.intakeSummary).toContain('Notes: [Partial intake]')
+  })
+
   it('maps normalized leads to the Payload admin collection shape', () => {
     const lead = normalizeLeadPayload({
       address: '88 Build Lane',
@@ -221,7 +265,7 @@ describe('Fairlend lead normalization', () => {
     })
   })
 
-  it('exposes mortgage routing fields and additional liens in the Payload admin table columns', () => {
+  it('exposes mortgage routing fields and additional debt in the Payload admin table columns', () => {
     expect(FairlendLeads.admin?.defaultColumns).toContain('intakeAdditionalLiens')
     expect(FairlendLeads.admin?.defaultColumns).toContain('intakeMortgageGoal')
     expect(FairlendLeads.admin?.defaultColumns).toContain('intakeMortgageProduct')
@@ -370,7 +414,7 @@ dbBackedDescribe('Fairlend lead admin visibility', () => {
       intakeFinancingNeeds: 'Construction financing',
       intakeProjectStage: 'Permit ready',
       intakeSummary:
-        'Type: build | Stage: Permit ready | Financing: Construction financing | Additional liens: No additional liens',
+        'Type: build | Stage: Permit ready | Financing: Construction financing | Additional debt: No additional liens',
       intakeType: 'build',
       intent: 'build',
       leadId,

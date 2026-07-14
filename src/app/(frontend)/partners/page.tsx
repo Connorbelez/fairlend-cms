@@ -21,17 +21,17 @@ import { buildFairlendMetadata } from '@/utilities/seo'
 export const dynamic = 'force-static'
 
 const pageDescription =
-  'The FairLend Partner Program helps GTA brokers, agents, architects, planners, engineers, and builders bring financing structure into complex build projects earlier.'
+  'The FairLend Partner Program helps Southern Ontario brokers, agents, architects, planners, engineers, and builders bring financing structure into complex build projects earlier.'
 
 export const metadata = buildFairlendMetadata({
   description: pageDescription,
   path: '/partners',
-  title: 'FairLend Partner Program | GTA Build Financing',
+  title: 'FairLend Partner Program | Southern Ontario Build Financing',
 })
 
 const serviceSeo = {
   description:
-    'Partner program for GTA real estate, mortgage, design, planning, and construction professionals who need financing structure for build projects.',
+    'Partner program for Southern Ontario real estate, mortgage, design, planning, and construction professionals who need financing structure for build projects.',
   name: 'FairLend Partner Program',
   path: '/partners',
   serviceType: 'Build financing partner program',

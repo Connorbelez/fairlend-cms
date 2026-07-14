@@ -308,7 +308,9 @@
   top: 24px;
   width: 100%;
   min-width: 0;
-  min-height: calc(100vh - 48px);
+  height: calc(100vh - 48px);
+  height: calc(100dvh - 48px);
+  min-height: 0;
   display: grid;
   place-items: center;
   padding-bottom: 24px;
@@ -319,9 +321,14 @@
 }
 
 .bm-board {
+  --bm-board-gap: clamp(10px, 1.7dvh, 20px);
+  --bm-board-inset: clamp(20px, min(3.4vw, 3dvh), 38px);
+
   position: relative;
   width: 100%;
-  min-height: min(760px, calc(100vh - 64px));
+  height: min(860px, calc(100vh - 72px));
+  height: min(860px, calc(100dvh - 72px));
+  min-height: 0;
   border: 1px solid var(--bm-line-strong);
   border-radius: 12px;
   background-color: var(--bm-paper);
@@ -333,9 +340,29 @@
   content: '';
   position: absolute;
   inset: 16px;
+  z-index: 2;
   border: 1px solid var(--bm-line);
   border-radius: 8px;
   pointer-events: none;
+}
+
+.bm-board-texture {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.build-model[data-palette-theme='electric-lime'] .bm-board-texture,
+.build-model[data-palette-theme='electric-lime'] .bm-dossier-tab-texture {
+  mix-blend-mode: multiply;
+}
+
+.build-model[data-palette-theme='electric-lime'] .bm-board-texture {
+  --background-image-texture-opacity: 0.34;
+}
+
+.build-model[data-palette-theme='electric-lime'] .bm-dossier-tab-texture {
+  --background-image-texture-opacity: 0.46;
 }
 
 .bm-board-inner {
@@ -343,17 +370,19 @@
   z-index: 1;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
-  min-height: inherit;
-  gap: 20px;
-  padding: clamp(22px, 3.4vw, 38px);
+  height: 100%;
+  min-height: 0;
+  gap: var(--bm-board-gap);
+  padding: var(--bm-board-inset);
 }
 
 .bm-board-visual {
   display: grid;
-  align-content: start;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   min-height: 0;
-  gap: 16px;
-  padding-bottom: 82px;
+  gap: clamp(8px, 1.3dvh, 16px);
+  padding-bottom: clamp(62px, 8dvh, 82px);
+  overflow: hidden;
 }
 
 .bm-board-header {
@@ -404,9 +433,10 @@
 .bm-board-count {
   display: inline-block;
   color: var(--bm-signal);
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(54px, 7vw, 94px);
+  font-family: 'Oxanium', ui-monospace, monospace;
+  font-size: clamp(48px, min(7vw, 8dvh), 94px);
   font-weight: 500;
+  font-variant-numeric: tabular-nums;
   line-height: 0.78;
 }
 
@@ -435,7 +465,7 @@
   margin-top: 10px;
   color: var(--bm-ink-deep);
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(34px, 4.6vw, 58px);
+  font-size: clamp(34px, min(4.6vw, 5.2dvh), 58px);
   font-style: italic;
   font-weight: 500;
   letter-spacing: -0.015em;
@@ -477,8 +507,8 @@
   position: relative;
   align-self: stretch;
   /* Keep the intentional card fan visible, then clear its staggered tail. */
-  min-height: clamp(284px, 35vh, 328px);
-  margin-bottom: clamp(16px, 2vw, 24px);
+  min-height: 0;
+  margin-bottom: clamp(10px, 1.8dvh, 24px);
   isolation: isolate;
 }
 
@@ -540,6 +570,18 @@
   );
   opacity: 1;
   transform: translate(0, 0) rotate(0deg) scale(1);
+}
+
+.bm-dossier-tab-texture {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.bm-dossier-tab-top,
+.bm-dossier-tab-body {
+  position: relative;
+  z-index: 1;
 }
 
 .bm-dossier-tab-top {
@@ -968,9 +1010,9 @@
 
 .bm-board-cta {
   position: absolute;
-  left: clamp(22px, 3.4vw, 38px);
-  right: clamp(22px, 3.4vw, 38px);
-  bottom: clamp(22px, 3.4vw, 38px);
+  left: var(--bm-board-inset);
+  right: var(--bm-board-inset);
+  bottom: var(--bm-board-inset);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1362,16 +1404,19 @@
 
 .bm-station-comparison {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
   margin: 28px 0 0 58px;
-  border: 1px solid var(--bm-line-strong);
 }
 
 .bm-station-comparison-panel {
   position: relative;
-  min-height: 174px;
+  min-height: 148px;
+  border: 1px solid rgb(255 255 255 / 0.14);
   padding: 20px;
   overflow: hidden;
+  background: #101512;
+  box-shadow: 5px 5px 0 rgb(8 9 10 / 0.22);
 }
 
 .bm-station-comparison-panel::after {
@@ -1393,23 +1438,25 @@
 }
 
 .bm-station-comparison-panel + .bm-station-comparison-panel {
-  border-left: 1px solid var(--bm-line-strong);
+  border-color: rgb(150 236 24 / 0.58);
 }
 
 .bm-station-comparison-panel--without {
-  background-color: color-mix(in oklch, var(--bm-card-surface) 92%, transparent);
+  background-color: #101512;
 }
 
 .bm-station-comparison-panel--with {
-  background: var(--bm-card-surface);
-  box-shadow: inset 0 4px 0 var(--bm-signal);
+  background: #172019;
+  box-shadow:
+    inset 4px 0 0 #96ec18,
+    5px 5px 0 rgb(8 9 10 / 0.22);
 }
 
 .bm-station-comparison-label {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--bm-muted);
+  color: rgb(251 250 247 / 0.7);
 }
 
 .bm-station-comparison-label::before {
@@ -1422,7 +1469,7 @@
 }
 
 .bm-station-comparison-panel--with .bm-station-comparison-label {
-  color: var(--bm-signal-deep);
+  color: #b6ff33;
 }
 
 .bm-station-comparison-panel--with .bm-station-comparison-label::before {
@@ -1434,14 +1481,14 @@
 
 .bm-station-comparison-panel p {
   margin: 18px 0 0;
-  color: var(--bm-ink-soft);
+  color: rgb(251 250 247 / 0.78);
   font-size: 13.5px;
   line-height: 1.55;
   text-wrap: pretty;
 }
 
 .bm-station-comparison-panel--with p {
-  color: var(--bm-ink-deep);
+  color: #fbfaf7;
 }
 
 .bm-station-note {
@@ -1651,6 +1698,22 @@
   overflow-x: auto;
   margin: 26px 0 18px;
   padding-bottom: 16px;
+  scrollbar-color: var(--bm-signal) rgb(226 239 252 / 0.12);
+  scrollbar-width: thin;
+}
+
+.bm-milestones::-webkit-scrollbar {
+  height: 8px;
+}
+
+.bm-milestones::-webkit-scrollbar-track {
+  border: 1px solid rgb(226 239 252 / 0.16);
+  background: rgb(226 239 252 / 0.08);
+}
+
+.bm-milestones::-webkit-scrollbar-thumb {
+  border: 2px solid var(--bm-drawflow-base);
+  background: var(--bm-signal);
 }
 
 .bm-milestone {
@@ -1745,7 +1808,8 @@
 
 .bm-df-cmp-num {
   color: var(--bm-drawflow-ink);
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: 'Oxanium', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
   font-size: 34px;
   font-weight: 500;
   line-height: 1;
@@ -1764,7 +1828,8 @@
 
 .bm-df-saved .amt {
   color: var(--bm-drawflow-ink);
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: 'Oxanium', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
   font-size: 28px;
   font-weight: 500;
   line-height: 1;

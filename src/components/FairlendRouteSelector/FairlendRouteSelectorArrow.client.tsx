@@ -13,6 +13,44 @@ import { fairlendRouteSelectorTokens } from './styles'
 const routeSelectorAttribute = '[data-fairlend-route-selector]'
 const routeOriginAttribute = '[data-fairlend-route-arrow-origin]'
 const routeCardAttribute = '[data-fairlend-route-card]'
+const routePreviewSignalAttribute = 'data-fairlend-route-preview-signal'
+const routePreviewSignalAnimationName = 'routePreviewStepSignal'
+const routeStepDotAttribute = '[data-fairlend-route-motion="step-dot"]'
+
+function lockRoutePreviewSignal(routeCard: HTMLElement) {
+  routeCard.querySelectorAll<HTMLElement>(routeStepDotAttribute).forEach((stepDot) => {
+    stepDot.style.animation = 'none'
+  })
+}
+
+function armRoutePreviewSignal(routeCard: HTMLElement) {
+  routeCard.setAttribute(routePreviewSignalAttribute, '')
+
+  const stepDots = Array.from(routeCard.querySelectorAll<HTMLElement>(routeStepDotAttribute))
+  const finalStepDot = stepDots.at(-1)
+
+  if (!finalStepDot) {
+    return
+  }
+
+  window.requestAnimationFrame(() => {
+    const signalAnimation = finalStepDot
+      .getAnimations()
+      .find(
+        (animation) =>
+          (animation as CSSAnimation).animationName === routePreviewSignalAnimationName,
+      )
+
+    if (!signalAnimation) {
+      return
+    }
+
+    void signalAnimation.finished.then(
+      () => lockRoutePreviewSignal(routeCard),
+      () => lockRoutePreviewSignal(routeCard),
+    )
+  })
+}
 
 export function FairlendRouteSelectorArrow() {
   const layerRef = useRef<HTMLDivElement>(null)
@@ -28,6 +66,36 @@ export function FairlendRouteSelectorArrow() {
   )
   const getTargetElements = useCallback(
     () => Array.from(getRouteSelector()?.querySelectorAll<HTMLElement>(routeCardAttribute) ?? []),
+    [getRouteSelector],
+  )
+  const handleTargetChange = useCallback(
+    (activeTarget: HTMLElement | null) => {
+      const routeSelector = getRouteSelector()
+
+      if (!routeSelector) {
+        return
+      }
+
+      const routeCards = routeSelector.querySelectorAll<HTMLElement>(routeCardAttribute)
+
+      routeCards.forEach((routeCard) => {
+        const isActiveTarget = routeCard === activeTarget
+
+        if (isActiveTarget && !routeCard.hasAttribute(routePreviewSignalAttribute)) {
+          armRoutePreviewSignal(routeCard)
+        } else if (!isActiveTarget && routeCard.hasAttribute(routePreviewSignalAttribute)) {
+          lockRoutePreviewSignal(routeCard)
+        }
+
+        routeCard.toggleAttribute('data-fairlend-route-preview', isActiveTarget)
+      })
+
+      if (activeTarget) {
+        routeSelector.dataset.routePreview = 'active'
+      } else {
+        delete routeSelector.dataset.routePreview
+      }
+    },
     [getRouteSelector],
   )
   const origin = useMemo<DynamicArrowOrigin>(
@@ -60,6 +128,7 @@ export function FairlendRouteSelectorArrow() {
         maxCurveOffset={180}
         maxOpacity={0.86}
         minOpacity={0.24}
+        onTargetChange={handleTargetChange}
         opacityDistance={480}
         origin={origin}
         position="absolute"

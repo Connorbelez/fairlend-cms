@@ -32,6 +32,7 @@ export async function POST(request: NextRequest): Promise<Response> {
 
   const googleResponse = await fetch('https://places.googleapis.com/v1/places:autocomplete', {
     body: JSON.stringify({
+      includedRegionCodes: ['ca'],
       input: input.slice(0, 240),
       languageCode: 'en',
       sessionToken,

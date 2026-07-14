@@ -15,7 +15,10 @@ export function FairlendLandingSections(): ReactElement {
       <FairlendLandingRail gutterTexture="inflicted">
         <FairlendLandingOverviewSection />
       </FairlendLandingRail>
-      <FairlendLandingRail gutterTexture="fabric-of-squares">
+      <FairlendLandingRail
+        contentClassName="overflow-visible!"
+        gutterTexture="fabric-of-squares"
+      >
         <FairlendBuildModelSection />
       </FairlendLandingRail>
       <FairlendLandingRail gutterTexture="debut-light">

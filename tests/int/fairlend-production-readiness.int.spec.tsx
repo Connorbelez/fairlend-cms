@@ -81,7 +81,9 @@ describe('FairLend production readiness guards', () => {
   })
 
   it('links rental-property cards and header items to their branch-specific intake sources', () => {
-    const rentalCards = financeItems.slice(6)
+    const rentalCards = financeItems.filter(({ title }) =>
+      title.endsWith('Existing Rental Properties'),
+    )
     const financingMenu = NAV_LINKS.find(({ label }) => label === 'Financing')?.menu
     const rentalHeaderColumn = financingMenu?.columns.find(
       ({ heading }) => heading === 'Refinancing & acquisitions',

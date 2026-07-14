@@ -5,8 +5,8 @@ import './investor-leadership.css'
 
 const stats = [
   {
-    detail: 'Across lending, private mortgages, construction, appraisal, and recovery in the GTA.',
-    label: 'GTA-focused',
+    detail: 'Across lending, private mortgages, construction, appraisal, and recovery in Southern Ontario.',
+    label: 'Southern Ontario-focused',
     value: '~30 yrs',
   },
   {
@@ -17,7 +17,7 @@ const stats = [
   {
     detail: 'Permitting, appraisal dynamics, land values, neighbourhoods, and borrower profiles.',
     label: 'Local edge',
-    value: 'GTA',
+    value: 'LOCAL',
   },
 ] as const
 
@@ -26,7 +26,7 @@ const bench = [
     name: 'Elie Soberano',
     role: 'Principal Broker · Founder',
     summary:
-      'Nearly 30 years in mortgage brokerage and more than $2B funded, with deep GTA experience across lending, private mortgages, construction, appraisal, and recovery. Has built custom homes, managed major rental properties, and advised at the product-strategy level.',
+      'Nearly 30 years in mortgage brokerage and more than $2B funded, with deep Southern Ontario experience across lending, private mortgages, construction, appraisal, and recovery. Has built custom homes, managed major rental properties, and advised at the product-strategy level.',
   },
   {
     name: 'Connor Beleznay',
@@ -36,9 +36,9 @@ const bench = [
   },
   {
     name: 'Bogdan Krystek',
-    role: 'CFO',
+    role: 'Operations & Finance',
     summary:
-      'Adds operational and advisory depth across the firm’s underwriting and recovery work.',
+      'Former President of Barton Engineering, adding precision-manufacturing, high-volume production, and just-in-time operating discipline to underwriting and recovery work.',
   },
 ] as const
 

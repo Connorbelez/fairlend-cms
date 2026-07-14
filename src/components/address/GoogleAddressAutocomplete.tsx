@@ -164,11 +164,19 @@ export function GoogleAddressAutocomplete({
         method: 'POST',
       })
 
+      const responsePayload = (await response.json().catch(() => null)) as
+        | (AddressDetails & { code?: string; error?: string })
+        | null
+
       if (!response.ok) {
+        if (responsePayload?.code === 'NON_CANADIAN_ADDRESS') {
+          setError(responsePayload.error ?? 'Select a Canadian address.')
+          return
+        }
         throw new Error('Address details failed')
       }
 
-      const details = (await response.json()) as AddressDetails
+      const details = responsePayload as AddressDetails
       const nextValue = details.formattedAddress || suggestion.text
       onChange(nextValue, { source: 'selection' })
       onPlaceSelect?.(suggestion, details)

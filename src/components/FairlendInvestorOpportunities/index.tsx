@@ -65,7 +65,7 @@ export function FairlendInvestorOpportunities(): ReactElement {
               <div>
                 <span className="investor-opportunities__deal-tag">Illustrative example</span>
                 <h3 className="investor-opportunities__deal-title">
-                  Refinance · first mortgage · GTA
+                  Refinance · first mortgage · Southern Ontario
                 </h3>
               </div>
               <span className="investor-opportunities__deal-status">
@@ -126,7 +126,7 @@ export function FairlendInvestorOpportunities(): ReactElement {
         </div>
 
         <p className="investor-opportunities__tail">
-          We do the vetting so you can do the deciding. Decades of GTA pattern recognition go into
+          We do the vetting so you can do the deciding. Decades of Southern Ontario pattern recognition go into
           rejecting weak files and structuring the strong ones. What reaches you is curated,
           pre-vetted, and fully documented.
         </p>

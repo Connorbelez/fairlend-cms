@@ -36,6 +36,14 @@ export function FairlendRouteStepTrack({
   steps,
   ...props
 }: FairlendRouteStepTrackProps) {
+  const compactTrackStyle: CSSProperties = {
+    gridTemplateColumns: steps
+      .map((_, index) =>
+        index < steps.length - 1 ? 'minmax(max-content, 1fr) auto' : 'minmax(max-content, 1fr)',
+      )
+      .join(' '),
+  }
+
   return (
     <div
       className={cn(fairlendRouteStepTrackVariants({ density }), className)}
@@ -47,7 +55,10 @@ export function FairlendRouteStepTrack({
         className={fairlendRouteStepLineVariants()}
         data-fairlend-route-motion="step-line"
       />
-      <ol className="relative z-10 grid grid-cols-4 gap-0">
+      <ol
+        className={cn('relative z-10 grid gap-0', detailed && 'grid-cols-4')}
+        style={detailed ? undefined : compactTrackStyle}
+      >
         {steps.map((step, index) => {
           const isActive = index === activeIndex
           const StepIcon = detailedStepIcons[index] ?? ClipboardList
@@ -56,37 +67,50 @@ export function FairlendRouteStepTrack({
             <li
               key={`${step}-${index}`}
               className={cn(
-                'relative flex flex-col items-center gap-2',
-                detailed && 'gap-1.5 px-2 text-center',
+                detailed
+                  ? 'relative flex flex-col items-center gap-1.5 px-2 text-center'
+                  : 'contents',
               )}
-              style={{ '--route-step-index': index } as FairlendRouteStepStyle}
+              style={
+                detailed ? ({ '--route-step-index': index } as FairlendRouteStepStyle) : undefined
+              }
             >
-              <span
-                aria-hidden="true"
-                className={fairlendRouteStepDotVariants({ active: isActive })}
-                data-fairlend-route-motion="step-dot"
-              />
               {detailed ? (
                 <>
+                  <span
+                    aria-hidden="true"
+                    className={fairlendRouteStepDotVariants({ active: isActive })}
+                    data-fairlend-route-motion="step-dot"
+                  />
                   <StepIcon aria-hidden="true" className="mt-1 size-5" strokeWidth={1.8} />
                   <span className="text-[12px] leading-none font-bold">{step}</span>
-                  <span className="max-w-[15ch] text-[9px] leading-[1.2] font-medium text-[color:var(--fl-route-card-copy-ink)]">
+                  <span className="max-w-[15ch] text-[12px] leading-[1.25] font-medium text-[color:var(--fl-route-card-copy-ink)]">
                     {descriptions?.[index]}
                   </span>
                 </>
               ) : (
                 <span
-                  className={fairlendRouteStepLabelVariants()}
-                  data-fairlend-route-motion="step-label"
+                  className="relative flex flex-col items-center gap-2"
+                  style={{ '--route-step-index': index } as FairlendRouteStepStyle}
                 >
-                  {step}
-                  {index < steps.length - 1 ? (
-                    <span aria-hidden="true" className={fairlendRouteStepArrowVariants()}>
-                      -&gt;
-                    </span>
-                  ) : null}
+                  <span
+                    aria-hidden="true"
+                    className={fairlendRouteStepDotVariants({ active: isActive })}
+                    data-fairlend-route-motion="step-dot"
+                  />
+                  <span
+                    className={fairlendRouteStepLabelVariants()}
+                    data-fairlend-route-motion="step-label"
+                  >
+                    {step}
+                  </span>
                 </span>
               )}
+              {!detailed && index < steps.length - 1 ? (
+                <span aria-hidden="true" className={fairlendRouteStepArrowVariants()}>
+                  -&gt;
+                </span>
+              ) : null}
             </li>
           )
         })}

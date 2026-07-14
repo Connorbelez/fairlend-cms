@@ -16,7 +16,7 @@ const faqGroups: readonly FaqGroup[] = [
       },
       {
         answer:
-          'The six-layer framework: deal rejection, double valuation, conservative LTVs, AI-assisted and human-led verification, mortgage security with a power-of-sale path, and a dedicated legal recovery team. These reduce and manage risk; they do not eliminate it.',
+          'Deal rejection, valuation review, conservative LTVs, human-led verification, mortgage security, administration, and a legal recovery path can reduce and manage risk; they do not eliminate it. Principal and payments can be delayed, impaired, or lost. FairLend does not guarantee capital preservation, payment, recovery, or valuation accuracy. You remain responsible for your diligence and for independent legal, financial, tax, and appraisal advice.',
         id: 'risk-protected',
         question: 'What protects my capital?',
       },
@@ -70,7 +70,7 @@ const faqGroups: readonly FaqGroup[] = [
     items: [
       {
         answer:
-          'Appraisal review plus a double-valuation process where appropriate, with local GTA comparables — so the LTV is grounded in market reality, not optimistic assumptions.',
+          'FairLend reviews available appraisals, valuation support, and relevant Southern Ontario comparables where appropriate. Valuation is an estimate, can change, and is not guaranteed. Investors remain responsible for assessing value and obtaining any independent appraisal advice they require.',
         id: 'process-value',
         question: 'How do you know the value is real?',
       },

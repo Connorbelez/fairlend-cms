@@ -15,11 +15,31 @@ import {
   isFairlendGenericLeadIntent,
   normalizeFairlendIntakeIntent,
   normalizeFairlendProjectScope,
+  resolveFairlendBuildIntakeVariant,
   resolveFairlendIntakeIntent,
   resolveFairlendRentalPropertyTransaction,
 } from '@/lib/fairlend-intake'
+import {
+  privateMortgageSituationOptions,
+  resolveResidentialMortgageProduct,
+} from '@/lib/fairlend-mortgage'
 
 describe('Fairlend intake routing helpers', () => {
+  it('covers every reviewed private-loan purpose and keeps each one on the private path', () => {
+    expect(privateMortgageSituationOptions).toEqual(
+      expect.arrayContaining([
+        'Refinance my mortgage',
+        'Get a bridge loan',
+        'Home Equity Line of Credit (HELOC)',
+        'Mortgage-backed financing for my business',
+      ]),
+    )
+
+    for (const purpose of privateMortgageSituationOptions) {
+      expect(resolveResidentialMortgageProduct(purpose)).toBe('private')
+    }
+  })
+
   it('normalizes build aliases to DrawFlow build intake', () => {
     expect(normalizeFairlendIntakeIntent(null)).toBe('build')
     expect(normalizeFairlendIntakeIntent('construction')).toBe('build')
@@ -89,6 +109,22 @@ describe('Fairlend intake routing helpers', () => {
     ).toBe(
       '/intake?intent=build&projectScope=garden-laneway-suites&source=landing-overview-garden-laneway-suites',
     )
+  })
+
+  it('routes every Garden and Laneway scope alias to the homeowner build variant', () => {
+    for (const scope of [
+      'garden-laneway-suites',
+      'garden-suites',
+      'laneway-suites',
+      ' GARDEN-LANEWAY-SUITES ',
+      'GARDEN-SUITES',
+    ]) {
+      expect(resolveFairlendBuildIntakeVariant(scope)).toBe('garden-suite-homeowner')
+    }
+
+    expect(resolveFairlendBuildIntakeVariant('multiplex-financing')).toBe('builder')
+    expect(resolveFairlendBuildIntakeVariant('unknown-scope')).toBe('builder')
+    expect(resolveFairlendBuildIntakeVariant(null)).toBe('builder')
   })
 
   it('builds named action CTA hrefs with intent and unique source', () => {

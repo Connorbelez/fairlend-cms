@@ -1,9 +1,9 @@
 'use client'
 
-import { ArrowRight, ChartNoAxesCombined, House, HousePlus, MapPin } from 'lucide-react'
+import { ArrowRight, MapPin } from 'lucide-react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useRouter } from 'next/navigation'
-import { FormEvent, memo, useCallback, useLayoutEffect, useRef, useState } from 'react'
+import { FormEvent, useCallback, useRef, useState } from 'react'
 
 import { GoogleAddressAutocomplete } from '@/components/address/GoogleAddressAutocomplete'
 import { Button } from '@/components/ui/button'
@@ -25,13 +25,13 @@ import {
 } from '@/lib/analytics/events'
 import { cn } from '@/utilities/ui'
 
-const formTabs = [
-  { icon: HousePlus, label: 'Build', mobileLabel: 'Build', value: 'build' },
-  { icon: ChartNoAxesCombined, label: 'Invest', mobileLabel: 'Invest', value: 'invest' },
-  { icon: House, label: 'Get a mortgage', mobileLabel: 'Mortgage', value: 'mortgage' },
-] as const
+import {
+  FairlendApplicationIntentTabs,
+  fairlendApplicationIntents,
+  type FairlendApplicationIntent,
+} from './FairlendApplicationIntentTabs.client'
 
-type FormTab = (typeof formTabs)[number]['value']
+type FormTab = FairlendApplicationIntent
 
 const applicationPanelVariants = {
   center: { filter: 'blur(0px)', opacity: 1, x: 0 },
@@ -100,45 +100,6 @@ const fieldRowClassName = 'flex flex-col gap-[6px]'
 const currencyAdornmentClassName =
   'pointer-events-none absolute top-1/2 left-[clamp(14px,1vw,16px)] -translate-y-1/2 text-[clamp(14px,0.95vw,15px)] font-bold text-[#586562]'
 
-type ApplicationTabButtonProps = {
-  icon: (typeof formTabs)[number]['icon']
-  isActive: boolean
-  label: string
-  mobileLabel: string
-  onSelect: (value: FormTab) => void
-  value: FormTab
-}
-
-const ApplicationTabButton = memo(function ApplicationTabButton({
-  icon: Icon,
-  isActive,
-  label,
-  mobileLabel,
-  onSelect,
-  value,
-}: ApplicationTabButtonProps) {
-  return (
-    <button
-      aria-controls={`fairlend-${value}-panel`}
-      aria-selected={isActive}
-      className="t-tab relative z-[1] inline-flex h-[clamp(50px,3.35vw,56px)] min-w-0 touch-manipulation cursor-pointer select-none items-center justify-center gap-[clamp(6px,0.52vw,9px)] whitespace-nowrap rounded-none border-0 bg-transparent px-2.5 py-0 text-[clamp(12px,0.82vw,14px)] font-extrabold text-[var(--tabs-text-muted)] shadow-none transition-colors duration-[var(--tabs-dur)] ease-[var(--tabs-ease)] hover:bg-transparent hover:text-[var(--tabs-text-active)] data-[state=active]:bg-transparent data-[state=active]:text-[var(--tabs-text-active)] data-[state=active]:shadow-none focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[#96ec18] [&_svg]:size-[21px] hero-tablet:h-[clamp(46px,6vw,52px)] hero-tablet:gap-[7px] hero-tablet:text-[clamp(12px,1.8vw,14px)] hero-tablet:[&_svg]:size-[18px] hero-tablet-landscape-short:h-10 hero-tablet-landscape-short:gap-1.5 hero-tablet-landscape-short:text-[12px] hero-tablet-landscape-short:[&_svg]:size-[17px] hero-mobile:h-11 hero-mobile:gap-1.5 hero-mobile:text-[clamp(11px,3.1vw,12.5px)] hero-mobile:[&_svg]:size-[17px] hero-landscape:h-full hero-landscape:gap-[8px] hero-landscape:border-r hero-landscape:border-[var(--landing-gutter-line)] hero-landscape:bg-transparent hero-landscape:text-[14px] hero-landscape:font-extrabold hero-landscape:text-[#101010] hero-landscape:shadow-none hero-landscape:last:border-r-0 hero-landscape:data-[state=active]:z-[3] hero-landscape:data-[state=active]:bg-[rgb(255_255_255/46%)] hero-landscape:data-[state=active]:text-[#101010] hero-landscape:data-[state=active]:shadow-[inset_0_-2px_0_rgb(150_236_24/100%)] hero-landscape:[&_svg]:size-[20px] hero-landscape:[&_svg]:stroke-[2.1]"
-      data-form-tab={value}
-      data-state={isActive ? 'active' : 'inactive'}
-      id={`fairlend-${value}-tab`}
-      onClick={() => onSelect(value)}
-      role="tab"
-      type="button"
-    >
-      <Icon
-        aria-hidden="true"
-        className="size-[23px] hero-tablet:size-[18px] hero-mobile:size-[17px] hero-landscape:size-[20px]"
-      />
-      <span className="hero-mobile:hidden">{label}</span>
-      <span className="hidden hero-mobile:inline">{mobileLabel}</span>
-    </button>
-  )
-})
-
 export function FairlendApplicationForm() {
   const router = useRouter()
   const shouldReduceMotion = useReducedMotion()
@@ -150,17 +111,14 @@ export function FairlendApplicationForm() {
   const [submittedTab, setSubmittedTab] = useState<FormTab | null>(null)
   const [isAddressAutocompleteOpen, setIsAddressAutocompleteOpen] = useState(false)
   const activeInputRef = useRef<HTMLInputElement>(null)
-  const tabListRef = useRef<HTMLDivElement>(null)
-  const tabPillRef = useRef<HTMLSpanElement>(null)
-  const hasPositionedTabPillRef = useRef(false)
 
   const activeMeta = TAB_META[activeTab]
   const shouldLiftForAutocomplete = activeTab !== 'invest' && isAddressAutocompleteOpen
 
   const handleSelectTab = useCallback(
     (value: FormTab) => {
-      const currentIndex = formTabs.findIndex((tab) => tab.value === activeTab)
-      const nextIndex = formTabs.findIndex((tab) => tab.value === value)
+      const currentIndex = fairlendApplicationIntents.findIndex((tab) => tab.value === activeTab)
+      const nextIndex = fairlendApplicationIntents.findIndex((tab) => tab.value === value)
 
       setSubmitError('')
       setSubmittedTab(null)
@@ -178,37 +136,6 @@ export function FairlendApplicationForm() {
   const handleAddressAutocompleteOpenChange = useCallback((open: boolean) => {
     setIsAddressAutocompleteOpen(open)
   }, [])
-
-  useLayoutEffect(() => {
-    const tabList = tabListRef.current
-    const tabPill = tabPillRef.current
-    if (!tabList || !tabPill) return
-
-    const positionPill = (animate: boolean) => {
-      const selectedTab = tabList.querySelector<HTMLElement>(`[data-form-tab="${activeTab}"]`)
-      if (!selectedTab) return
-
-      const previousTransition = tabPill.style.transition
-      if (!animate) tabPill.style.transition = 'none'
-
-      tabPill.style.transform = `translateX(${selectedTab.offsetLeft}px)`
-      tabPill.style.width = `${selectedTab.offsetWidth}px`
-      tabPill.style.opacity = '1'
-
-      if (!animate) {
-        void tabPill.offsetWidth
-        tabPill.style.transition = previousTransition
-      }
-    }
-
-    positionPill(hasPositionedTabPillRef.current && !shouldReduceMotion)
-    hasPositionedTabPillRef.current = true
-
-    const resizeObserver = new ResizeObserver(() => positionPill(false))
-    resizeObserver.observe(tabList)
-
-    return () => resizeObserver.disconnect()
-  }, [activeTab, shouldReduceMotion])
 
   function setField<Tab extends FormTab>(tab: Tab, update: Partial<FormValues[Tab]>): void {
     setValues((prev) => {
@@ -361,43 +288,22 @@ export function FairlendApplicationForm() {
   return (
     <Card
       className={cn(
-        'fairlend-hero-application-card pointer-events-auto absolute right-[2.35%] bottom-[calc(5.45%+var(--hero-stats-height,0px))] z-[12] w-[min(30.8%,512px)] min-w-[400px] overflow-visible rounded-[22px] border border-[#dededb] bg-[rgb(251_250_248/94%)] shadow-[0_18px_34px_rgb(5_5_6/10%)] transition-[top,bottom] duration-300 ease-[var(--hero-ease-quint)] [--card-spacing:0px] [--tabs-bar-bg:transparent] [--tabs-dur:250ms] [--tabs-ease:cubic-bezier(0.22,1,0.36,1)] [--tabs-pill-bg:#96ec18] [--tabs-text-active:#101010] [--tabs-text-muted:#10201b] motion-safe:animate-[heroPanelIn_420ms_var(--hero-ease-out)_120ms_both] hero-max-1120:min-w-[400px] hero-max-1279:right-4 hero-max-1279:bottom-[18px] hero-max-1279:left-4 hero-max-1279:w-auto hero-max-1279:min-w-0 hero-mobile:relative hero-mobile:col-span-2 hero-mobile:right-auto hero-mobile:bottom-auto hero-mobile:left-auto hero-mobile:mt-0 hero-mobile:w-full hero-mobile:min-w-0 hero-tablet:relative hero-tablet:right-auto hero-tablet:bottom-auto hero-tablet:left-auto hero-tablet:mt-[clamp(12px,2vw,16px)] hero-tablet:w-full hero-tablet:min-w-0 hero-tablet:overflow-visible hero-tablet:rounded-[14px] hero-tablet:border hero-tablet:border-[#dededb] hero-tablet:bg-[rgb(255_253_249/86%)] hero-tablet:shadow-[0_10px_22px_rgb(5_5_6/7%)] hero-tablet-landscape:absolute hero-tablet-landscape:right-0 hero-tablet-landscape:bottom-[clamp(34px,5svh,64px)] hero-tablet-landscape:left-auto hero-tablet-landscape:mt-0 hero-tablet-landscape:w-[min(43vw,520px)] hero-tablet-landscape:min-w-[430px] hero-tablet-landscape:max-w-[calc(100vw-48px)] hero-tablet-landscape:rounded-[22px] hero-tablet-landscape:border-[rgb(255_255_255/76%)] hero-tablet-landscape:bg-[rgb(251_250_248/94%)] hero-tablet-landscape:shadow-[0_18px_28px_rgb(8_22_27/12%),0_4px_10px_rgb(5_5_6/6%)] hero-tablet-landscape-short:right-0 hero-tablet-landscape-short:bottom-[18px] hero-tablet-landscape-short:w-[min(42vw,500px)] hero-tablet-landscape-short:min-w-[410px] hero-tablet-landscape-short:rounded-[18px] hero-portrait-wide:relative hero-portrait-wide:right-auto hero-portrait-wide:bottom-auto hero-portrait-wide:left-auto hero-portrait-wide:mt-[clamp(14px,2vw,20px)] hero-portrait-wide:w-full hero-portrait-wide:min-w-0 hero-portrait-wide:overflow-visible hero-portrait-wide:rounded-[16px] hero-portrait-wide:border hero-portrait-wide:border-[#dededb] hero-portrait-wide:bg-[rgb(255_253_249/86%)] hero-portrait-wide:shadow-[0_10px_22px_rgb(5_5_6/7%)] hero-mobile:relative hero-mobile:right-auto hero-mobile:bottom-auto hero-mobile:left-auto hero-mobile:w-full hero-mobile:min-w-0 hero-mobile:rounded-[16px] hero-mobile:shadow-[0_16px_30px_rgb(5_5_6/9%)] hero-landscape:fixed hero-landscape:right-[calc((100vw-var(--landing-rail-content-width))/2)] hero-landscape:bottom-[clamp(18px,1.8vw,32px)] hero-landscape:left-auto hero-landscape:z-[40] hero-landscape:w-[min(30vw,500px)] hero-landscape:min-w-[420px] hero-landscape:max-w-[var(--landing-rail-content-width)] hero-landscape:rounded-none hero-landscape:border-[var(--landing-gutter-line)] hero-landscape:bg-[rgb(248_247_245/82%)] hero-landscape:shadow-none hero-landscape:backdrop-blur-[3px]',
+        'fairlend-hero-application-card pointer-events-auto absolute right-[2.35%] bottom-[calc(5.45%+var(--hero-stats-height,0px))] z-[12] w-[min(30.8%,512px)] min-w-[400px] overflow-visible rounded-[22px] border border-[#dededb] bg-[rgb(251_250_248/94%)] shadow-[0_18px_34px_rgb(5_5_6/10%)] transition-[top,bottom] duration-300 ease-[var(--hero-ease-quint)] [--card-spacing:0px] motion-safe:animate-[heroPanelIn_420ms_var(--hero-ease-out)_120ms_both] hero-max-1120:min-w-[400px] hero-max-1279:right-4 hero-max-1279:bottom-[18px] hero-max-1279:left-4 hero-max-1279:w-auto hero-max-1279:min-w-0 hero-mobile:relative hero-mobile:col-span-2 hero-mobile:right-auto hero-mobile:bottom-auto hero-mobile:left-auto hero-mobile:mt-0 hero-mobile:w-full hero-mobile:min-w-0 hero-tablet:relative hero-tablet:right-auto hero-tablet:bottom-auto hero-tablet:left-auto hero-tablet:mt-[clamp(12px,2vw,16px)] hero-tablet:w-full hero-tablet:min-w-0 hero-tablet:overflow-visible hero-tablet:rounded-[14px] hero-tablet:border hero-tablet:border-[#dededb] hero-tablet:bg-[rgb(255_253_249/86%)] hero-tablet:shadow-[0_10px_22px_rgb(5_5_6/7%)] hero-tablet-landscape:absolute hero-tablet-landscape:right-0 hero-tablet-landscape:bottom-[clamp(34px,5svh,64px)] hero-tablet-landscape:left-auto hero-tablet-landscape:mt-0 hero-tablet-landscape:w-[min(43vw,520px)] hero-tablet-landscape:min-w-[430px] hero-tablet-landscape:max-w-[calc(100vw-48px)] hero-tablet-landscape:rounded-[22px] hero-tablet-landscape:border-[rgb(255_255_255/76%)] hero-tablet-landscape:bg-[rgb(251_250_248/94%)] hero-tablet-landscape:shadow-[0_18px_28px_rgb(8_22_27/12%),0_4px_10px_rgb(5_5_6/6%)] hero-tablet-landscape-short:right-0 hero-tablet-landscape-short:bottom-[18px] hero-tablet-landscape-short:w-[min(42vw,500px)] hero-tablet-landscape-short:min-w-[410px] hero-tablet-landscape-short:rounded-[18px] hero-portrait-wide:relative hero-portrait-wide:right-auto hero-portrait-wide:bottom-auto hero-portrait-wide:left-auto hero-portrait-wide:mt-[clamp(14px,2vw,20px)] hero-portrait-wide:w-full hero-portrait-wide:min-w-0 hero-portrait-wide:overflow-visible hero-portrait-wide:rounded-[16px] hero-portrait-wide:border hero-portrait-wide:border-[#dededb] hero-portrait-wide:bg-[rgb(255_253_249/86%)] hero-portrait-wide:shadow-[0_10px_22px_rgb(5_5_6/7%)] hero-mobile:relative hero-mobile:right-auto hero-mobile:bottom-auto hero-mobile:left-auto hero-mobile:w-full hero-mobile:min-w-0 hero-mobile:rounded-[16px] hero-mobile:shadow-[0_16px_30px_rgb(5_5_6/9%)] hero-landscape:fixed hero-landscape:right-[calc((100vw-var(--landing-rail-content-width))/2)] hero-landscape:bottom-[clamp(18px,1.8vw,32px)] hero-landscape:left-auto hero-landscape:z-[40] hero-landscape:w-[min(30vw,500px)] hero-landscape:min-w-[420px] hero-landscape:max-w-[var(--landing-rail-content-width)] hero-landscape:rounded-none hero-landscape:border-[var(--landing-gutter-line)] hero-landscape:bg-[rgb(248_247_245/82%)] hero-landscape:shadow-none hero-landscape:backdrop-blur-[3px]',
         shouldLiftForAutocomplete &&
           'bottom-[calc(5.45%+var(--hero-stats-height,0px)+clamp(78px,7vw,124px))] hero-tablet-landscape:bottom-[calc(clamp(34px,5svh,64px)+clamp(78px,7vw,124px))] hero-tablet-landscape-short:bottom-[calc(18px+clamp(60px,9vw,96px))] hero-landscape:bottom-[calc(clamp(18px,1.8vw,32px)+clamp(78px,7vw,124px))] hero-tablet:bottom-auto hero-portrait-wide:bottom-auto hero-mobile:bottom-auto',
       )}
       data-autocomplete-open={shouldLiftForAutocomplete ? 'true' : 'false'}
       data-testid="fairlend-application-form"
     >
-      <div
+      <FairlendApplicationIntentTabs
         className={cn(
-          'gap-0 rounded-[inherit] hero-landscape:bg-transparent',
+          'rounded-[inherit] hero-landscape:bg-transparent',
           shouldLiftForAutocomplete ? 'overflow-visible' : 'overflow-hidden',
         )}
+        onValueChange={handleSelectTab}
+        reduceMotion={shouldReduceMotion ?? false}
+        value={activeTab}
       >
-        <div
-          aria-label="Application type"
-          className="t-tabs relative grid h-[clamp(50px,3.35vw,56px)] w-full grid-cols-[1fr_1.1fr_1.34fr] items-stretch gap-0 rounded-none border-b border-[#dededb] bg-transparent p-0 hero-tablet:h-[clamp(46px,6vw,52px)] hero-tablet:grid-cols-[1fr_1fr_1.22fr] hero-tablet-landscape-short:h-10 hero-mobile:h-11 hero-mobile:grid-cols-3 hero-landscape:m-0 hero-landscape:h-[58px] hero-landscape:w-full hero-landscape:grid-cols-[0.95fr_0.95fr_1.36fr] hero-landscape:gap-0 hero-landscape:rounded-none hero-landscape:border-0 hero-landscape:border-b hero-landscape:border-[var(--landing-gutter-line)] hero-landscape:bg-transparent hero-landscape:p-0 hero-landscape:shadow-none"
-          ref={tabListRef}
-          role="tablist"
-        >
-          <span
-            aria-hidden="true"
-            className="t-tabs-pill pointer-events-none absolute top-1 bottom-1 left-0 z-0 w-0 rounded-[10px] bg-[var(--tabs-pill-bg)] opacity-0 transition-[transform,width] duration-[var(--tabs-dur)] ease-[var(--tabs-ease)] will-change-transform motion-reduce:transition-none hero-landscape:hidden"
-            ref={tabPillRef}
-          />
-          {formTabs.map(({ icon: Icon, label, mobileLabel, value }) => (
-            <ApplicationTabButton
-              icon={Icon}
-              isActive={activeTab === value}
-              key={value}
-              label={label}
-              mobileLabel={mobileLabel}
-              onSelect={handleSelectTab}
-              value={value}
-            />
-          ))}
-        </div>
-
         <motion.div
           className="relative isolate min-h-[clamp(106px,7.4vw,124px)] px-[clamp(18px,1.45vw,24px)] py-[clamp(14px,1vw,17px)] [&_h2]:m-0 [&_h2]:mb-[12px] [&_h2]:text-balance [&_h2]:text-[clamp(20px,1.28vw,25px)] [&_h2]:leading-[1.1] [&_h2]:font-extrabold [&_h2]:text-[#071d25] hero-tablet:min-h-0 hero-tablet:px-[clamp(18px,2.6vw,22px)] hero-tablet:pt-[clamp(13px,2vw,17px)] hero-tablet:pb-[clamp(11px,1.8vw,15px)] hero-tablet:[&_h2]:mb-[clamp(10px,1.6vw,12px)] hero-tablet:[&_h2]:text-[clamp(21px,3vw,26px)] hero-tablet-landscape-short:px-[16px] hero-tablet-landscape-short:pt-[10px] hero-tablet-landscape-short:pb-[10px] hero-tablet-landscape-short:[&_h2]:mb-[8px] hero-tablet-landscape-short:[&_h2]:text-[22px] hero-mobile:min-h-0 hero-mobile:px-[clamp(16px,4.6vw,20px)] hero-mobile:pt-[clamp(10px,3vw,13px)] hero-mobile:pb-[clamp(7px,2.2vw,10px)] hero-mobile:[&_h2]:mb-[clamp(8px,2.4vw,10px)] hero-mobile:[&_h2]:text-[clamp(18px,5vw,21px)] hero-landscape:m-0 hero-landscape:min-h-[128px] hero-landscape:border-0 hero-landscape:bg-[linear-gradient(to_right,rgb(8_9_10/4%)_1px,transparent_1px),linear-gradient(to_bottom,rgb(8_9_10/3%)_1px,transparent_1px)] hero-landscape:px-[20px] hero-landscape:pt-[16px] hero-landscape:pb-[18px] hero-landscape:shadow-none hero-landscape:[background-size:72px_72px] hero-landscape:[&_h2]:ml-0 hero-landscape:[&_h2]:mb-[13px] hero-landscape:[&_h2]:font-serif hero-landscape:[&_h2]:text-[24px] hero-landscape:[&_h2]:leading-[1.02] hero-landscape:[&_h2]:tracking-[0] hero-landscape:[&_h2]:text-[oklch(0.182_0.045_166)]"
           layout="size"
@@ -740,7 +646,7 @@ export function FairlendApplicationForm() {
             </motion.div>
           </AnimatePresence>
         </motion.div>
-      </div>
+      </FairlendApplicationIntentTabs>
     </Card>
   )
 }
