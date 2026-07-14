@@ -1,0 +1,32 @@
+{
+  "screenshots": [
+    {
+      "url": "https://www.fairlend.ca/",
+      "output": "/Users/connor/Dev/fairlend-cms/output/seo-audit-fairlend-ca-2026-07-14/www-fairlend-ca-audit-20260714-213733/screenshots/www-fairlend-ca-desktop.png",
+      "viewport": "desktop",
+      "success": true,
+      "error": null
+    },
+    {
+      "url": "https://www.fairlend.ca/",
+      "output": "/Users/connor/Dev/fairlend-cms/output/seo-audit-fairlend-ca-2026-07-14/www-fairlend-ca-audit-20260714-213733/screenshots/www-fairlend-ca-laptop.png",
+      "viewport": "laptop",
+      "success": true,
+      "error": null
+    },
+    {
+      "url": "https://www.fairlend.ca/",
+      "output": "/Users/connor/Dev/fairlend-cms/output/seo-audit-fairlend-ca-2026-07-14/www-fairlend-ca-audit-20260714-213733/screenshots/www-fairlend-ca-tablet.png",
+      "viewport": "tablet",
+      "success": true,
+      "error": null
+    },
+    {
+      "url": "https://www.fairlend.ca/",
+      "output": "/Users/connor/Dev/fairlend-cms/output/seo-audit-fairlend-ca-2026-07-14/www-fairlend-ca-audit-20260714-213733/screenshots/www-fairlend-ca-mobile.png",
+      "viewport": "mobile",
+      "success": true,
+      "error": null
+    }
+  ]
+}

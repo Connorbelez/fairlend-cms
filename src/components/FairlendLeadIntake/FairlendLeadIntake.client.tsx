@@ -47,7 +47,15 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { trackFairlendEvent, trackLeadFailed, trackLeadSubmitted } from '@/lib/analytics/events'
+import {
+  completeLeadAnalytics,
+  getAnalyticsContext,
+  resolveJourneyType,
+  trackFairlendEvent,
+  trackLeadFailed,
+  type JourneyType,
+  type LeadSubmissionResponse,
+} from '@/lib/analytics/events'
 import { getFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
 import {
   buildFairlendIntakeHref,
@@ -561,6 +569,14 @@ const mortgageTotalSteps = 5
 const investorDraftStorageKey = 'fairlend-private-mortgage-investor-intake-v1'
 const investorTotalSteps = 4
 
+const mortgageStepKeys = ['objective', 'property', 'financing', 'qualification', 'contact'] as const
+const investorStepKeys = ['investor_fit', 'capital_timing', 'deal_criteria', 'contact'] as const
+
+function getLeadIntakeStepKey(journeyType: JourneyType, step: number): string {
+  const keys = journeyType === 'investor' ? investorStepKeys : mortgageStepKeys
+  return keys[step - 1] ?? `step_${step}`
+}
+
 const emptyValues: LeadCaptureValues = {
   address: '',
   additionalDebtAmount: '',
@@ -645,6 +661,15 @@ export function FairlendLeadIntake({
     mortgageProduct === 'residential'
       ? resolveResidentialMortgageProduct(values.situation)
       : mortgageProduct
+  const journeyType = resolveJourneyType({
+    intent,
+    mortgageProduct,
+    rentalTransaction: initialRentalPropertyTransaction ?? undefined,
+    source,
+  })
+  const formId = `fairlend_${journeyType}`
+  const didTrackStart = useRef(false)
+  const resumedDraft = useRef(false)
 
   useEffect(() => {
     if (!isDraftedWizard) return
@@ -653,6 +678,7 @@ export function FairlendLeadIntake({
       try {
         const savedDraft = window.localStorage.getItem(wizardDraftStorageKey)
         if (savedDraft) {
+          resumedDraft.current = true
           const parsedDraft = JSON.parse(savedDraft) as {
             step?: number
             values?: Partial<LeadCaptureValues>
@@ -682,6 +708,39 @@ export function FairlendLeadIntake({
 
     return () => window.cancelAnimationFrame(hydrateFrame)
   }, [isDraftedWizard, wizardDraftStorageKey, wizardTotalSteps])
+
+  useEffect(() => {
+    if (didTrackStart.current || (isDraftedWizard && !mortgageDraftHydrated)) return
+    didTrackStart.current = true
+    const stepNumber = isDraftedWizard ? mortgageStep : 1
+    const properties = {
+      form_id: formId,
+      form_variant: isDraftedWizard ? (isInvestorHero ? investorVariant : mortgageVariant) : 'single',
+      journey_type: journeyType,
+      source,
+      step_key: getLeadIntakeStepKey(journeyType, stepNumber),
+      step_number: stepNumber,
+      total_steps: isDraftedWizard ? wizardTotalSteps : 1,
+    }
+    if (resumedDraft.current) {
+      trackFairlendEvent('fairlend_intake_resumed', properties)
+    } else {
+      trackFairlendEvent('fairlend_intake_started', properties)
+    }
+    trackFairlendEvent('fairlend_intake_step_viewed', properties)
+  }, [
+    formId,
+    intent,
+    investorVariant,
+    isDraftedWizard,
+    isInvestorHero,
+    journeyType,
+    mortgageDraftHydrated,
+    mortgageStep,
+    mortgageVariant,
+    source,
+    wizardTotalSteps,
+  ])
 
   useEffect(() => {
     if (!isDraftedWizard || !mortgageDraftHydrated || state === 'success') return
@@ -767,6 +826,14 @@ export function FairlendLeadIntake({
     })
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors)
+      trackFairlendEvent('fairlend_intake_validation_failed', {
+        form_id: formId,
+        journey_type: journeyType,
+        source,
+        step_key: getLeadIntakeStepKey(journeyType, isDraftedWizard ? mortgageStep : 1),
+        step_number: isDraftedWizard ? mortgageStep : 1,
+        total_steps: isDraftedWizard ? wizardTotalSteps : 1,
+      })
       return
     }
 
@@ -776,6 +843,7 @@ export function FairlendLeadIntake({
     try {
       const response = await fetch('/api/leads', {
         body: JSON.stringify({
+          analyticsContext: getAnalyticsContext(),
           address: values.address,
           email: values.email,
           id: leadId ?? undefined,
@@ -818,19 +886,26 @@ export function FairlendLeadIntake({
         method: 'POST',
       })
 
-      const payload = (await response.json().catch(() => null)) as { id?: string } | null
+      const payload = (await response.json().catch(() => null)) as LeadSubmissionResponse | null
 
       if (!response.ok) {
         throw new Error('Lead capture failed')
       }
 
       setLeadId(payload?.id ?? leadId)
-      trackLeadSubmitted({
-        has_existing_lead: Boolean(leadId),
-        intent,
-        completion: completionStatus,
+      if (completionStatus === 'partial') {
+        trackFairlendEvent('fairlend_intake_partial_submitted', {
+          completion_status: 'partial',
+          form_id: formId,
+          journey_type: journeyType,
+          source,
+        })
+      }
+      completeLeadAnalytics(payload, {
+        completion_status: completionStatus,
+        form_id: formId,
+        journey_type: journeyType,
         source,
-        step: 'intake_submit',
       })
       setState('success')
       if (isDraftedWizard) {
@@ -843,9 +918,9 @@ export function FairlendLeadIntake({
     } catch (error) {
       console.error('FairLend lead intake failed', error)
       trackLeadFailed({
-        intent,
+        form_id: formId,
+        journey_type: journeyType,
         source,
-        step: 'intake_submit',
       })
       setState('error')
     }
@@ -941,8 +1016,7 @@ export function FairlendLeadIntake({
                     data-consultation-booking-source={`${source}-scheduler`}
                     href={bookingsUrl}
                     onClick={() =>
-                      trackFairlendEvent('fairlend_scheduler_opened', {
-                        intent,
+                      trackFairlendEvent('fairlend_consultation_scheduler_opened', {
                         source: `${source}-scheduler`,
                       })
                     }
@@ -973,6 +1047,8 @@ export function FairlendLeadIntake({
     return (
       <MortgageIntakeWizard
         errors={errors}
+        formId={formId}
+        journeyType={journeyType}
         onReset={resetMortgageDraft}
         onSubmit={handleSubmit}
         setStep={setMortgageStep}
@@ -998,6 +1074,8 @@ export function FairlendLeadIntake({
     return (
       <MortgageIntakeWizard
         errors={errors}
+        formId={formId}
+        journeyType={journeyType}
         onReset={resetMortgageDraft}
         onSubmit={handleSubmit}
         setStep={setMortgageStep}
@@ -1495,6 +1573,8 @@ function InvestorIntakeSuccess({ consultationFollowUpHref }: { consultationFollo
 
 function MortgageIntakeWizard({
   errors,
+  formId,
+  journeyType,
   mode,
   onReset,
   onSubmit,
@@ -1506,6 +1586,8 @@ function MortgageIntakeWizard({
   variant,
 }: {
   errors: LeadCaptureErrors
+  formId: string
+  journeyType: JourneyType
   mode: 'institutional' | 'investor' | 'mortgage' | 'rental-property' | 'residential'
   onReset: () => void
   onSubmit: (
@@ -1555,6 +1637,14 @@ function MortgageIntakeWizard({
     if (previousStep.current === step) return
     previousStep.current = step
 
+    trackFairlendEvent('fairlend_intake_step_viewed', {
+      form_id: formId,
+      journey_type: journeyType,
+      step_key: getLeadIntakeStepKey(journeyType, step),
+      step_number: step,
+      total_steps: totalSteps,
+    })
+
     const focusFrame = window.requestAnimationFrame(() => {
       const wizardPage = document.querySelector(
         variant === 'hero' ? '.fl-mortgage-hero-embed' : '.fl-mortgage-wizard-page',
@@ -1570,7 +1660,7 @@ function MortgageIntakeWizard({
     })
 
     return () => window.cancelAnimationFrame(focusFrame)
-  }, [step, variant])
+  }, [formId, journeyType, step, totalSteps, variant])
 
   function choose<Key extends keyof LeadCaptureValues>(
     field: Key,
@@ -1635,9 +1725,23 @@ function MortgageIntakeWizard({
           : validateMortgageStep(step, values)
     if (nextError) {
       setStepError(nextError)
+      trackFairlendEvent('fairlend_intake_validation_failed', {
+        form_id: formId,
+        journey_type: journeyType,
+        step_key: getLeadIntakeStepKey(journeyType, step),
+        step_number: step,
+        total_steps: totalSteps,
+      })
       return
     }
 
+    trackFairlendEvent('fairlend_intake_step_completed', {
+      form_id: formId,
+      journey_type: journeyType,
+      step_key: getLeadIntakeStepKey(journeyType, step),
+      step_number: step,
+      total_steps: totalSteps,
+    })
     setStep(Math.min(step + 1, totalSteps))
     setStepError('')
   }
@@ -2359,6 +2463,13 @@ function MortgageIntakeWizard({
                   <Button
                     className="fl-mortgage-back"
                     onClick={() => {
+                      trackFairlendEvent('fairlend_intake_back_clicked', {
+                        form_id: formId,
+                        journey_type: journeyType,
+                        step_key: getLeadIntakeStepKey(journeyType, step),
+                        step_number: step,
+                        total_steps: totalSteps,
+                      })
                       setStep(Math.max(step - 1, 1))
                       setStepError('')
                     }}

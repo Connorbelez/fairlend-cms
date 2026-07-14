@@ -81,7 +81,7 @@ export function FairlendConsultationBookingDialog({
             data-leadership-cta={leadershipCta ? '' : undefined}
             onClick={() => {
               onTriggerClick?.()
-              trackFairlendEvent('fairlend_consultation_cta_clicked', {
+              trackFairlendEvent('fairlend_consultation_scheduler_opened', {
                 source,
               })
             }}

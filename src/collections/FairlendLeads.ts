@@ -413,6 +413,38 @@ export const FairlendLeads: CollectionConfig = {
       },
     },
     {
+      type: 'collapsible',
+      admin: {
+        description: 'Consent state for privacy-safe PostHog identity and CRM lifecycle events.',
+        initCollapsed: true,
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'analyticsEligible',
+              type: 'checkbox',
+              admin: { readOnly: true, width: '33.333%' },
+              defaultValue: false,
+              index: true,
+            },
+            {
+              name: 'analyticsConsentedAt',
+              type: 'date',
+              admin: { date: { pickerAppearance: 'dayAndTime' }, readOnly: true, width: '33.333%' },
+            },
+            {
+              name: 'analyticsRevokedAt',
+              type: 'date',
+              admin: { date: { pickerAppearance: 'dayAndTime' }, readOnly: true, width: '33.333%' },
+            },
+          ],
+        },
+      ],
+      label: 'Analytics Consent',
+    },
+    {
       name: 'adminNotes',
       type: 'textarea',
       admin: {

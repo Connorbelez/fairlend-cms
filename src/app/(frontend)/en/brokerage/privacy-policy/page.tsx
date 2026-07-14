@@ -336,7 +336,7 @@ const policyBlocks = [
   },
   {
     type: 'list',
-    text: '**PostHog:** We may use PostHog, a product analytics platform, to collect information about how visitors use and interact with our website, including page views, clicks, session information, and feature usage. Where used, PostHog may place cookies or use similar technologies on your browser. We use this information to understand user behaviour, diagnose issues, and improve our website and services. You can limit this collection through your browser cookie settings as described below.',
+    text: '**PostHog:** With your analytics consent, we use PostHog to understand page visits, navigation paths, clicks, form-step progress, website performance, errors, and where visitors leave an intake journey. PostHog may use cookies or similar browser storage and may create a session replay of approved public website surfaces. We mask all form inputs and other elements that may display information you provide, exclude request and response bodies and sensitive headers, and do not send form answers, contact details, financial values, property values, uploaded document details, or FairLend database identifiers to PostHog. We do not initialize PostHog or begin a replay before analytics consent. You can withdraw analytics consent at any time through Cookie Settings; withdrawal stops future browser capture, resets the analytics identity, and prevents future PostHog CRM lifecycle updates for leads submitted from that browser.',
     level: 1,
   },
   {

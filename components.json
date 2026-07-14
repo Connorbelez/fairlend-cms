@@ -34,6 +34,7 @@
         "Authorization": "Bearer aceternity_49dcf4d7596d64939ded6563083c44e27df8bd665b6cefb334e6eabac5eb0488"
       }
     },
-    "@lucide-animated": "https://lucide-animated.com/r/{name}.json"
+    "@lucide-animated": "https://lucide-animated.com/r/{name}.json",
+    "@mapcn": "https://mapcn.dev/r/{name}.json"
   }
 }

@@ -6,19 +6,25 @@ import {
 } from '@/lib/fairlend-campaign-attribution'
 import { recordFairlendCampaignJourneyEvent } from '@/lib/fairlend-campaign-journey'
 import { upsertFairlendLead, type LeadPayload } from '@/lib/fairlend-leads'
+import { registerLeadAnalyticsConsent } from '@/lib/analytics/server'
 
 export const runtime = 'nodejs'
 
 export async function POST(request: NextRequest): Promise<Response> {
-  const payload = (await request.json().catch(() => null)) as LeadPayload | null
+  const payload = (await request.json().catch(() => null)) as
+    | (LeadPayload & {
+        analyticsContext?: { consentGranted?: unknown; schemaVersion?: unknown }
+      })
+    | null
 
   if (!payload || typeof payload !== 'object') {
     return Response.json({ error: 'Lead payload is required' }, { status: 400 })
   }
 
   try {
+    const { analyticsContext, ...leadPayload } = payload
     const attribution = getFairlendCampaignAttributionFromRequest(request)
-    const attributedPayload = withCampaignAttribution(payload, attribution)
+    const attributedPayload = withCampaignAttribution(leadPayload, attribution)
     const lead = await upsertFairlendLead(attributedPayload)
 
     if (attribution) {
@@ -39,7 +45,14 @@ export async function POST(request: NextRequest): Promise<Response> {
       })
     }
 
-    return Response.json({ id: lead.id })
+    const analytics =
+      analyticsContext?.consentGranted === true &&
+      analyticsContext.schemaVersion === 1 &&
+      attributedPayload.status === 'submitted'
+        ? await registerLeadAnalyticsConsent(lead.id)
+        : undefined
+
+    return Response.json({ id: lead.id, analytics })
   } catch (error) {
     console.error('Failed to persist FairLend lead', error)
     return Response.json({ error: 'Failed to persist lead' }, { status: 500 })

@@ -1,108 +1,70 @@
-# FairLend Analytics Setup
+# FairLend Production Analytics
 
-This site has a consent-gated analytics layer for PostHog, GA4/GTM, Google Ads, Meta, LinkedIn, and Microsoft Ads.
+FairLend uses PostHog only for consented production traffic. Preview and development deployments must not receive `NEXT_PUBLIC_POSTHOG_KEY`, so they cannot initialize PostHog or send traffic into the production project.
 
-## What Is Implemented
+## Data contract
 
-- PostHog product analytics, autocapture, heatmaps, funnels, and session replay.
-- GA4 pageview and custom event tracking.
-- Google Tag Manager loading with Google Consent Mode v2.
-- Google Ads, Meta Pixel, LinkedIn Insight Tag, and Microsoft UET retargeting tags.
-- Sanitized lead events for the key FairLend flows:
-  - `fairlend_lead_started`
-  - `fairlend_lead_submitted`
-  - `fairlend_lead_failed`
-  - `fairlend_application_tab_selected`
-  - `fairlend_scheduler_opened`
-  - `fairlend_consultation_cta_clicked`
-- Consent banner with separate Analytics and Advertising switches.
+The canonical schema lives in `src/lib/analytics/events.ts`. All client events use `trackFairlendEvent()`, which adds schema, deployment, and route classifications and accepts only the declared properties for that event. The shared sanitizer removes query strings, URL fragments, PII-shaped values, raw UUIDs, nested objects, financial fields, form answers, free-text fields, and database identifiers before capture. Development builds warn when a property is removed.
 
-The implementation intentionally does not send names, emails, phone numbers, addresses, notes, balances, property values, or requested amounts as analytics event properties.
+Canonical custom events:
 
-## Environment Variables
+- `fairlend_cta_clicked`, `fairlend_route_selected`
+- `fairlend_intake_started`, `fairlend_intake_resumed`
+- `fairlend_intake_step_viewed`, `fairlend_intake_step_completed`
+- `fairlend_intake_validation_failed`, `fairlend_intake_back_clicked`
+- `fairlend_intake_partial_submitted`
+- `fairlend_lead_submitted`, `fairlend_lead_submission_failed`
+- `fairlend_consultation_scheduler_opened`
+- `fairlend_phone_clicked`, `fairlend_email_clicked`
+- `fairlend_search_performed`, `fairlend_resource_clicked`
+- `fairlend_build_model_started`, `fairlend_build_model_changed`, `fairlend_build_model_cta_clicked`
+- `fairlend_lead_qualified`, `fairlend_lead_working_file`, `fairlend_lead_closed_won`, `fairlend_lead_closed_lost`
+- `fairlend_consent_updated`
 
-Set these in Vercel or the deployment environment:
+Abandonment is a funnel calculation: an intake start or step view with no lead submission inside the selected conversion window. No client-side abandonment event is emitted.
+
+## Production environment
+
+Configure these for Production only and redeploy because `NEXT_PUBLIC_*` values are compiled into the client bundle:
 
 ```bash
-NEXT_PUBLIC_ANALYTICS_DISABLED=false
-NEXT_PUBLIC_ANALYTICS_REQUIRE_CONSENT=true
-NEXT_PUBLIC_ANALYTICS_DEBUG=false
-
 NEXT_PUBLIC_POSTHOG_KEY=
 NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
-
-NEXT_PUBLIC_GTM_ID=
-NEXT_PUBLIC_GA_MEASUREMENT_ID=
-NEXT_PUBLIC_GOOGLE_ADS_ID=
-NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL=
-
-NEXT_PUBLIC_META_PIXEL_ID=
-NEXT_PUBLIC_LINKEDIN_PARTNER_ID=
-NEXT_PUBLIC_LINKEDIN_LEAD_CONVERSION_ID=
-NEXT_PUBLIC_MICROSOFT_UET_TAG_ID=
+POSTHOG_PROJECT_KEY=
+POSTHOG_HOST=https://us.i.posthog.com
+POSTHOG_PERSON_ID_SALT=
+CRON_SECRET=
 ```
 
-## Account Setup Checklist
+`POSTHOG_PERSON_ID_SALT` must be stable, high entropy, server-only, and at least 32 characters. Preview and Development must not have the PostHog key or host variables.
 
-### PostHog
+## Consent, identity, and lifecycle
 
-1. Create a PostHog project for the production domain.
-2. Copy the project API key into `NEXT_PUBLIC_POSTHOG_KEY`.
-3. Use `https://us.i.posthog.com` unless the account is created in the EU region.
-4. Enable session replay and heatmaps in PostHog.
-5. Create funnels:
-   - Landing page view -> `fairlend_lead_started` -> `/intake` page view -> `fairlend_lead_submitted`.
-   - Borrower page view -> `fairlend_lead_submitted`.
-   - Consultation intake success -> `fairlend_scheduler_opened`.
+PostHog is not initialized and no replay starts until analytics consent is affirmative. Lead submission accepts an optional `{ consentGranted: true, schemaVersion: 1 }` analytics context. For a consented submitted lead, the server returns a PostHog identity derived by HMAC from the internal lead ID; the raw lead ID is never exposed. The browser identifies before emitting `fairlend_lead_submitted`, which joins the anonymous acquisition journey to later consented lifecycle outcomes.
 
-### Google
+The browser stores a signed, narrowly scoped revocation capability. Withdrawing analytics consent opts out, stops recording, resets PostHog, and revokes future server lifecycle eligibility. Historical leads are not backfilled without an affirmative analytics-consent record.
 
-1. Create a GA4 property.
-2. Create a Web data stream and copy the measurement ID into `NEXT_PUBLIC_GA_MEASUREMENT_ID`.
-3. Create a Google Tag Manager web container and copy the container ID into `NEXT_PUBLIC_GTM_ID`.
-4. Link GA4 and Google Ads.
-5. Create a Google Ads lead conversion action and copy:
-   - Google Ads ID into `NEXT_PUBLIC_GOOGLE_ADS_ID`.
-   - Lead conversion label into `NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL`.
-6. Verify Consent Mode v2 in Google Tag Assistant.
+`/api/cron/posthog-lifecycle` runs daily at 01:00 UTC, authenticates with `CRON_SECRET`, and translates Twenty CRM state into qualified, working-file, won, or lost events. Events use deterministic non-reversible insert IDs so retries are idempotent. Twenty remains authoritative and lifecycle freshness is up to 24 hours.
 
-### Meta
+## Replay privacy
 
-1. Create a Meta Business portfolio and Dataset/Pixel.
-2. Copy the Pixel ID into `NEXT_PUBLIC_META_PIXEL_ID`.
-3. Create website custom audiences for eligible pages only.
-4. Mark campaigns under the correct financial products/services special category if applicable.
+Replay uses balanced masking: public marketing copy and controls remain visible, while inputs, textareas, contenteditable nodes, validation/answer regions, intake summaries, uploads, account surfaces, and anything marked `data-analytics-sensitive` are masked or blocked. Network bodies and sensitive headers are disabled. Replay is stopped on admin, API, preview, account/dashboard, document, and upload routes.
 
-### LinkedIn
+Calibration is 100% of consented sessions for 30 days or 500 sessions, then 25% general sampling. Intake starts, validation/submission failures, exceptions, and frustration diagnostics should retain full recording through explicit starts or PostHog triggers.
 
-1. Create a Campaign Manager ad account.
-2. Create an Insight Tag and copy the partner ID into `NEXT_PUBLIC_LINKEDIN_PARTNER_ID`.
-3. Create a lead conversion action if needed and copy its ID into `NEXT_PUBLIC_LINKEDIN_LEAD_CONVERSION_ID`.
-4. Do not install the tag on pages that collect or display sensitive financial account data.
+## QA and verification
 
-### Microsoft Ads
+Use `?analytics_internal=1` on a production URL to persist `is_internal_user=true`; use `?analytics_internal=0` to clear it. Saved production insights exclude internal users by default.
 
-1. Create a UET tag.
-2. Copy the tag ID into `NEXT_PUBLIC_MICROSOFT_UET_TAG_ID`.
-3. Create remarketing lists and conversion goals in Microsoft Advertising.
+For every release:
 
-## Privacy And Compliance Notes
+1. With fresh storage, verify no PostHog request, cookie, identity, or replay exists before consent.
+2. Accept analytics and verify sanitized `$pageview`, `$pageleave`, Web Vitals, autocapture, and replay.
+3. Complete each journey with synthetic non-sensitive data and verify exact-once start, step, validation/back, submission, and failure semantics.
+4. Inspect raw event properties and replay for form values, query strings, financial values, document details, and raw lead IDs.
+5. Withdraw consent and verify capture stops, identity resets, and the lead revocation endpoint succeeds.
+6. Verify the daily cron rejects missing/invalid authorization and emits only eligible lifecycle events.
 
-FairLend is in a financial-services-adjacent category. Treat retargeting as restricted until legal/compliance confirms the exact ad category rules for each platform.
+The privacy-policy PostHog wording is an implementation-accurate draft and must receive legal review before being treated as legal advice.
 
-- Keep optional analytics and advertising consent-gated.
-- Do not send form values or financial details to analytics vendors.
-- Keep PostHog replay private by default: all text, element attributes, and inputs are masked.
-- Do not place ad pixels on authenticated account, transaction, document-upload, or other sensitive financial pages without legal review.
-- For Google and Meta campaigns, expect targeting restrictions for housing, credit, or financial products/services.
-
-## Verification
-
-In production or preview:
-
-1. Load the site with an empty consent state and confirm no optional vendor scripts load before consent.
-2. Accept Analytics only and confirm PostHog/GA4 pageviews flow, while ad pixels remain absent.
-3. Accept Advertising and confirm configured retargeting pixels load.
-4. Submit a test lead and confirm `fairlend_lead_submitted` appears in PostHog and `generate_lead` appears in GA4.
-5. Confirm no PII appears in PostHog event properties or session replay.
-
+`scripts/seed-posthog-schema.mjs` can emit one idempotent, internal-only example of every canonical event so PostHog assets can be configured before rare lifecycle outcomes occur. Run it only with Production environment variables; all seed events use `is_internal_user=true` and deterministic insert IDs.

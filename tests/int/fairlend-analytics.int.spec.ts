@@ -49,6 +49,7 @@ function installLocalStorage(): void {
 
 function installVendorGlobals() {
   const posthogCapture = vi.fn()
+  const posthogIdentify = vi.fn()
   const gtag = vi.fn()
   const fbq = vi.fn()
   const lintrk = vi.fn()
@@ -59,7 +60,7 @@ function installVendorGlobals() {
   window.fbq = fbq
   window.gtag = gtag
   window.lintrk = lintrk
-  window.posthog = { capture: posthogCapture }
+  window.posthog = { capture: posthogCapture, identify: posthogIdentify }
   window.uetq = uetq as Array<Record<string, unknown> | unknown[]>
 
   return {
@@ -68,6 +69,7 @@ function installVendorGlobals() {
     gtag,
     lintrk,
     posthogCapture,
+    posthogIdentify,
     uetq,
   }
 }
@@ -95,9 +97,9 @@ describe('FairLend analytics events', () => {
     const vendors = installVendorGlobals()
 
     trackLeadSubmitted({
-      email: 'borrower@example.com',
+      form_id: 'fairlend_test',
       intent: 'mortgage',
-      phone: '555-555-5555',
+      journey_type: 'mortgage_private',
       source: 'homepage',
     })
 
@@ -115,27 +117,37 @@ describe('FairLend analytics events', () => {
     const vendors = installVendorGlobals()
 
     trackLeadSubmitted({
-      email: 'borrower@example.com',
+      form_id: 'fairlend_test',
       intent: 'mortgage',
-      phone: '555-555-5555',
+      journey_type: 'mortgage_private',
       source: 'intake',
     })
 
     expect(vendors.dataLayer).toEqual([
-      {
+      expect.objectContaining({
+        content_group: 'marketing',
         event: 'fairlend_lead_submitted',
+        form_id: 'fairlend_test',
         intent: 'mortgage',
+        journey_type: 'mortgage_private',
+        page_path: '/',
         source: 'intake',
-      },
+      }),
     ])
-    expect(vendors.posthogCapture).toHaveBeenCalledWith('fairlend_lead_submitted', {
-      intent: 'mortgage',
-      source: 'intake',
-    })
-    expect(vendors.gtag).toHaveBeenCalledWith('event', 'generate_lead', {
-      intent: 'mortgage',
-      source: 'intake',
-    })
+    expect(vendors.posthogCapture).toHaveBeenCalledWith(
+      'fairlend_lead_submitted',
+      expect.objectContaining({
+        form_id: 'fairlend_test',
+        intent: 'mortgage',
+        journey_type: 'mortgage_private',
+        source: 'intake',
+      }),
+    )
+    expect(vendors.gtag).toHaveBeenCalledWith(
+      'event',
+      'generate_lead',
+      expect.objectContaining({ source: 'intake' }),
+    )
     expect(vendors.fbq).not.toHaveBeenCalled()
     expect(vendors.lintrk).not.toHaveBeenCalled()
     expect(vendors.uetq).toHaveLength(0)
@@ -150,20 +162,24 @@ describe('FairLend analytics events', () => {
       address: '123 Main Street',
       amountNeeded: '500000',
       email: 'borrower@example.com',
+      form_id: 'fairlend_test',
       intent: 'consultation',
+      journey_type: 'consultation',
       message: 'Private file details',
       name: 'Borrower Name',
       phone: '555-555-5555',
       propertyValue: '1000000',
       source: 'borrowers-page',
-      step: 'borrower_consultation_submit',
-    })
+      step_key: 'borrower_consultation_submit',
+    } as never)
 
-    const safeProperties = {
+    const safeProperties = expect.objectContaining({
+      form_id: 'fairlend_test',
       intent: 'consultation',
+      journey_type: 'consultation',
       source: 'borrowers-page',
-      step: 'borrower_consultation_submit',
-    }
+      step_key: 'borrower_consultation_submit',
+    })
 
     expect(vendors.posthogCapture).toHaveBeenCalledWith(
       'fairlend_lead_submitted',
@@ -179,13 +195,44 @@ describe('FairLend analytics events', () => {
       {
         ea: 'fairlend_lead_submitted',
         ec: 'lead',
-        el: 'consultation',
+        el: 'borrowers-page',
         event: 'fairlend_lead_submitted',
       },
     ])
-    expect(vendors.dataLayer[0]).toEqual({
-      event: 'fairlend_lead_submitted',
-      ...safeProperties,
+    expect(vendors.dataLayer[0]).toEqual(
+      expect.objectContaining({
+        event: 'fairlend_lead_submitted',
+        form_id: 'fairlend_test',
+        journey_type: 'consultation',
+      }),
+    )
+    const capturedProperties = vendors.posthogCapture.mock.calls[0]?.[1]
+    expect(capturedProperties).not.toHaveProperty('address')
+    expect(capturedProperties).not.toHaveProperty('email')
+    expect(capturedProperties).not.toHaveProperty('phone')
+    expect(capturedProperties).not.toHaveProperty('propertyValue')
+  })
+
+  it('identifies the consented lead before emitting the submission event', async () => {
+    setConsent({ analytics: true, marketing: false })
+    const { completeLeadAnalytics } = await importAnalytics()
+    const vendors = installVendorGlobals()
+
+    completeLeadAnalytics(
+      { analytics: { distinctId: 'fl_pseudonymous', revocationToken: 'signed-token' } },
+      {
+        form_id: 'fairlend_test',
+        journey_type: 'mortgage_private',
+        source: 'intake',
+      },
+    )
+
+    expect(vendors.posthogIdentify).toHaveBeenCalledWith('fl_pseudonymous', {
+      journey_type: 'mortgage_private',
+      schema_version: 1,
     })
+    expect(vendors.posthogIdentify.mock.invocationCallOrder[0]).toBeLessThan(
+      vendors.posthogCapture.mock.invocationCallOrder[0] ?? Number.MAX_SAFE_INTEGER,
+    )
   })
 })

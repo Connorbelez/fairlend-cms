@@ -6,6 +6,14 @@ type GsapContext = { revert: () => void }
 
 export function FairlendTorontoHeroParallax() {
   useEffect(() => {
+    const desktopViewport = window.matchMedia('(min-width: 768px)')
+    const motionAllowed = window.matchMedia('(prefers-reduced-motion: no-preference)')
+
+    // Keep the hero-to-routing handoff on the browser's native scroll path on phones.
+    // Loading ScrollTrigger here would otherwise reintroduce the same main-thread work that the
+    // homepage choreography intentionally avoids on mobile.
+    if (!desktopViewport.matches || !motionAllowed.matches) return
+
     const hero = document.querySelector<HTMLElement>('[data-fairlend-motion="toronto-hero"]')
     if (!hero) return
 

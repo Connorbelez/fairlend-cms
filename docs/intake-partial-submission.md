@@ -20,7 +20,7 @@ The rental flow necessarily validates the transaction/ownership fields before st
 - Mortgage/rental records prefix `intake.detail` with `[Partial intake]`.
 - Construction records prefix `intake.notes` with `[Partial intake]`.
 - The normalized admin record and CSV export retain that partial label through `intakeDetail`, while the raw intake JSON retains `completionStatus`.
-- Lead analytics include `completion: "partial"` on submit/failure events.
+- Lead analytics include `completion_status: "partial"` on partial-submit and lead-submit events.
 - Partial submissions use the normal `submitted` lead status and API validation; they are not abandoned drafts.
 
 ## Product behavior

@@ -2481,6 +2481,9 @@ export interface FairlendLead {
     | number
     | boolean
     | null;
+  analyticsEligible?: boolean | null;
+  analyticsConsentedAt?: string | null;
+  analyticsRevokedAt?: string | null;
   /**
    * Internal notes for admin follow-up. Not shown to visitors.
    */
@@ -4268,6 +4271,9 @@ export interface FairlendLeadsSelect<T extends boolean = true> {
   intakeDetail?: T;
   addressDetails?: T;
   attribution?: T;
+  analyticsEligible?: T;
+  analyticsConsentedAt?: T;
+  analyticsRevokedAt?: T;
   adminNotes?: T;
   twentySyncStatus?: T;
   twentyRecordId?: T;

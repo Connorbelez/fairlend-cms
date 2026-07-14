@@ -61,6 +61,7 @@ export function FairlendRouteSelector({
         'py-10 lg:py-10 xl:min-h-[720px] xl:overflow-visible xl:px-[clamp(18px,2vw,34px)] xl:py-8',
         className,
       )}
+      data-fairlend-route-selector
       style={
         {
           ...fairlendRouteSelectorTokenStyles,

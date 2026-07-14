@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, type FormEvent, type ReactElement } from 'react'
+import { useRef, useState, type FormEvent, type ReactElement } from 'react'
 import { CheckCircle2, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -15,7 +15,13 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { trackLeadFailed, trackLeadSubmitted } from '@/lib/analytics/events'
+import {
+  completeLeadAnalytics,
+  getAnalyticsContext,
+  trackFairlendEvent,
+  trackLeadFailed,
+  type LeadSubmissionResponse,
+} from '@/lib/analytics/events'
 import { cn } from '@/utilities/ui'
 
 type SubmitState = 'idle' | 'submitting' | 'success' | 'error'
@@ -104,6 +110,17 @@ export function ConsultationForm(): ReactElement {
   const [values, setValues] = useState<ConsultationFormValues>(EMPTY_VALUES)
   const [errors, setErrors] = useState<FormErrors>({})
   const [submitState, setSubmitState] = useState<SubmitState>('idle')
+  const hasTrackedStartRef = useRef(false)
+
+  function trackStart(): void {
+    if (hasTrackedStartRef.current) return
+    hasTrackedStartRef.current = true
+    trackFairlendEvent('fairlend_intake_started', {
+      form_id: 'fairlend_borrower_consultation',
+      journey_type: 'consultation',
+      source: 'borrowers-page',
+    })
+  }
 
   function updateField<K extends keyof ConsultationFormValues>(
     field: K,
@@ -120,6 +137,14 @@ export function ConsultationForm(): ReactElement {
     const validationErrors = validate(values)
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors)
+      trackFairlendEvent('fairlend_intake_validation_failed', {
+        form_id: 'fairlend_borrower_consultation',
+        journey_type: 'consultation',
+        source: 'borrowers-page',
+        step_key: 'contact',
+        step_number: 1,
+        total_steps: 1,
+      })
       return
     }
 
@@ -133,6 +158,7 @@ export function ConsultationForm(): ReactElement {
     try {
       const response = await fetch('/api/leads', {
         body: JSON.stringify({
+          analyticsContext: getAnalyticsContext(),
           address: values.propertyCity,
           email: values.email,
           id: leadId,
@@ -160,19 +186,22 @@ export function ConsultationForm(): ReactElement {
         throw new Error(`Lead POST failed: ${response.status}`)
       }
 
+      const payload = (await response.json()) as LeadSubmissionResponse
+
       setSubmitState('success')
-      trackLeadSubmitted({
-        intent: values.situationType,
+      completeLeadAnalytics(payload, {
+        completion_status: 'complete',
+        form_id: 'fairlend_borrower_consultation',
+        journey_type: 'consultation',
         source: 'borrowers-page',
-        step: 'borrower_consultation_submit',
       })
       setValues(EMPTY_VALUES)
     } catch (error) {
       console.error('Borrower consultation form submission failed', error)
       trackLeadFailed({
-        intent: values.situationType || 'borrower-consultation',
+        form_id: 'fairlend_borrower_consultation',
+        journey_type: 'consultation',
         source: 'borrowers-page',
-        step: 'borrower_consultation_submit',
       })
       setSubmitState('error')
     }
@@ -212,6 +241,7 @@ export function ConsultationForm(): ReactElement {
       }
       className="consultation-form"
       data-consultation-form
+      onFocusCapture={trackStart}
       onSubmit={handleSubmit}
       noValidate
     >

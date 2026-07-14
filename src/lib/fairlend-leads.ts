@@ -815,6 +815,9 @@ async function ensureFairlendLeadAdminSchema(sql: NeonQueryFunction<false, false
       twenty_sync_error varchar,
       twenty_object_kind varchar,
       twenty_related_record_ids jsonb NOT NULL DEFAULT '[]'::jsonb,
+      analytics_eligible boolean NOT NULL DEFAULT false,
+      analytics_consented_at timestamp(3) with time zone,
+      analytics_revoked_at timestamp(3) with time zone,
       captured_at timestamp(3) with time zone,
       submitted_at timestamp(3) with time zone,
       submitted_at_source varchar,
@@ -851,6 +854,9 @@ async function ensureFairlendLeadAdminSchema(sql: NeonQueryFunction<false, false
       ADD COLUMN IF NOT EXISTS twenty_sync_error varchar
       ,ADD COLUMN IF NOT EXISTS twenty_object_kind varchar
       ,ADD COLUMN IF NOT EXISTS twenty_related_record_ids jsonb NOT NULL DEFAULT '[]'::jsonb
+      ,ADD COLUMN IF NOT EXISTS analytics_eligible boolean NOT NULL DEFAULT false
+      ,ADD COLUMN IF NOT EXISTS analytics_consented_at timestamp(3) with time zone
+      ,ADD COLUMN IF NOT EXISTS analytics_revoked_at timestamp(3) with time zone
       ,ADD COLUMN IF NOT EXISTS captured_at timestamp(3) with time zone
       ,ADD COLUMN IF NOT EXISTS submitted_at timestamp(3) with time zone
       ,ADD COLUMN IF NOT EXISTS submitted_at_source varchar
@@ -874,6 +880,7 @@ async function ensureFairlendLeadAdminSchema(sql: NeonQueryFunction<false, false
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_campaign_scan_id_idx ON fairlend_leads USING btree (campaign_scan_id)`
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_twenty_sync_status_idx ON fairlend_leads USING btree (twenty_sync_status)`
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_twenty_record_id_idx ON fairlend_leads USING btree (twenty_record_id)`
+  await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_analytics_eligible_idx ON fairlend_leads USING btree (analytics_eligible)`
   await ensureCampaignScanLockedDocumentRelation(sql)
 
   adminSchemaReady = true

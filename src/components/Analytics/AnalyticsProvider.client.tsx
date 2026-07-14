@@ -25,7 +25,15 @@ import {
   type AnalyticsConsent,
   type StoredAnalyticsConsent,
 } from '@/lib/analytics/config'
-import { trackFairlendEvent } from '@/lib/analytics/events'
+import {
+  revokeStoredAnalyticsIdentities,
+  trackFairlendEvent,
+} from '@/lib/analytics/events'
+import { classifyFairlendRoute } from '@/lib/analytics/routes'
+import {
+  readAllowlistedCampaignProperties,
+  sanitizePostHogEvent,
+} from '@/lib/analytics/sanitize'
 import { cn } from '@/utilities/ui'
 
 import { FairlendCampaignJourneyTracker } from './FairlendCampaignJourneyTracker.client'
@@ -40,6 +48,7 @@ declare global {
 }
 
 let posthogInitialized = false
+const internalAnalyticsStorageKey = 'fairlend.analytics-internal.v1'
 
 const deniedConsent: AnalyticsConsent = {
   analytics: false,
@@ -105,11 +114,18 @@ function getGoogleConsentPayload(consent: AnalyticsConsent) {
 }
 
 function getCurrentPageProperties(pathname: string) {
+  const route = classifyFairlendRoute(pathname)
   return {
-    page_location: window.location.href,
-    page_path: pathname,
+    ...route,
+    ...readAllowlistedCampaignProperties(window.location.search),
+    page_location: `${window.location.origin}${route.page_path}`,
     page_title: document.title,
   }
+}
+
+function isReplayBlockedPath(pathname: string): boolean {
+  return /^\/(admin|api|account|dashboard|preview)(\/|$)/.test(pathname) ||
+    /\/(documents?|uploads?)(\/|$)/.test(pathname)
 }
 
 export function AnalyticsProvider(): React.ReactElement | null {
@@ -171,6 +187,7 @@ export function AnalyticsProvider(): React.ReactElement | null {
       if (posthogInitialized) {
         posthog.opt_out_capturing()
         posthog.stopSessionRecording()
+        posthog.reset()
       }
       return
     }
@@ -179,15 +196,30 @@ export function AnalyticsProvider(): React.ReactElement | null {
       posthog.init(analyticsConfig.posthogKey, {
         api_host: analyticsConfig.posthogHost,
         autocapture: true,
+        before_send: (event) => sanitizePostHogEvent(event),
+        capture_exceptions: true,
         capture_pageleave: true,
         capture_pageview: false,
+        capture_performance: {
+          web_vitals: true,
+          web_vitals_allowed_metrics: ['LCP', 'CLS', 'INP', 'FCP'],
+        },
         defaults: '2026-05-30',
+        disable_session_recording: isReplayBlockedPath(window.location.pathname),
         loaded: (client) => {
           window.posthog = client
+          const isInternalUser =
+            window.localStorage.getItem(internalAnalyticsStorageKey) === 'true'
+          client.register({
+            $internal_or_test_user: isInternalUser,
+            deployment_environment: 'production',
+            is_internal_user: isInternalUser,
+            schema_version: 1,
+          })
           if (analyticsConfig.debug) client.debug()
         },
-        mask_all_element_attributes: true,
-        mask_all_text: true,
+        mask_all_element_attributes: false,
+        mask_all_text: false,
         mask_personal_data_properties: true,
         person_profiles: 'identified_only',
         property_denylist: [
@@ -203,10 +235,17 @@ export function AnalyticsProvider(): React.ReactElement | null {
         ],
         session_recording: {
           maskAllInputs: true,
-          maskTextFn: (text) => (text.trim().length === 0 ? text : '****'),
-          maskTextSelector: '*',
+          maskTextSelector:
+            'input, textarea, [contenteditable="true"], [data-analytics-sensitive], .fl-mortgage-fields, .bp-form-content, .contact-form__message',
+          blockSelector:
+            '[data-analytics-replay-block], [data-document-upload], [data-account-surface]',
+          recordBody: false,
+          recordHeaders: false,
         },
       })
+      // posthog-js queues captures before its remote configuration finishes loading. Expose the
+      // initialized client immediately so first-render journey effects cannot race `loaded`.
+      window.posthog = posthog
       posthogInitialized = true
     } else {
       posthog.opt_in_capturing()
@@ -215,10 +254,20 @@ export function AnalyticsProvider(): React.ReactElement | null {
   }, [effectiveConsent.analytics, hasLoadedPreference])
 
   useEffect(() => {
+    if (!effectiveConsent.analytics || !posthogInitialized) return
+    if (isReplayBlockedPath(pathname)) posthog.stopSessionRecording()
+    else posthog.startSessionRecording()
+  }, [effectiveConsent.analytics, pathname])
+
+  useEffect(() => {
     if (!hasLoadedPreference || !hasConfiguredAnalytics) return
 
-    const pagePath = searchParamsString ? `${pathname}?${searchParamsString}` : pathname
-    const pageProperties = getCurrentPageProperties(pagePath)
+    const pageProperties = getCurrentPageProperties(pathname)
+    const internalFlag = new URLSearchParams(searchParamsString).get('analytics_internal')
+    const isInternalUser =
+      internalFlag === '1' ||
+      (internalFlag !== '0' &&
+        window.localStorage.getItem(internalAnalyticsStorageKey) === 'true')
 
     window.dataLayer?.push({
       event: 'page_view',
@@ -230,6 +279,10 @@ export function AnalyticsProvider(): React.ReactElement | null {
         posthog.capture('$pageview', {
           $current_url: pageProperties.page_location,
           page_path: pageProperties.page_path,
+          page_type: pageProperties.page_type,
+          content_group: pageProperties.content_group,
+          $internal_or_test_user: isInternalUser,
+          is_internal_user: isInternalUser,
         })
       }
 
@@ -248,7 +301,59 @@ export function AnalyticsProvider(): React.ReactElement | null {
     searchParamsString,
   ])
 
+  useEffect(() => {
+    if (!hasLoadedPreference) return
+    const internalFlag = searchParams.get('analytics_internal')
+    if (internalFlag === '1') {
+      window.localStorage.setItem(internalAnalyticsStorageKey, 'true')
+      if (posthogInitialized) {
+        posthog.register({ $internal_or_test_user: true, is_internal_user: true })
+      }
+    } else if (internalFlag === '0') {
+      window.localStorage.removeItem(internalAnalyticsStorageKey)
+      if (posthogInitialized) {
+        posthog.register({ $internal_or_test_user: false, is_internal_user: false })
+      }
+    }
+  }, [hasLoadedPreference, searchParams])
+
+  useEffect(() => {
+    if (!effectiveConsent.analytics) return
+
+    function handleDelegatedClick(event: MouseEvent): void {
+      const element = (event.target as Element | null)?.closest<HTMLElement>(
+        'a, button, [data-analytics-cta-id]',
+      )
+      if (!element) return
+      const anchor = element instanceof HTMLAnchorElement ? element : element.closest('a')
+      const href = anchor?.getAttribute('href') ?? ''
+      const source = element.dataset.analyticsSource ?? 'site'
+      const ctaId = element.dataset.analyticsCtaId
+
+      if (element.hasAttribute('data-analytics-build-model-cta')) {
+        trackFairlendEvent('fairlend_build_model_cta_clicked', { source })
+      }
+      if (href.startsWith('tel:')) {
+        trackFairlendEvent('fairlend_phone_clicked', { source })
+      } else if (href.startsWith('mailto:')) {
+        trackFairlendEvent('fairlend_email_clicked', { source })
+      } else if (/^\/(posts|resources)(\/|$)/.test(href)) {
+        trackFairlendEvent('fairlend_resource_clicked', { source })
+      } else if (ctaId) {
+        trackFairlendEvent('fairlend_cta_clicked', {
+          cta_id: ctaId,
+          cta_location: element.dataset.analyticsCtaLocation ?? source,
+          source,
+        })
+      }
+    }
+
+    document.addEventListener('click', handleDelegatedClick)
+    return () => document.removeEventListener('click', handleDelegatedClick)
+  }, [effectiveConsent.analytics])
+
   function setAndPersistConsent(nextConsent: AnalyticsConsent): void {
+    const wasAnalyticsGranted = effectiveConsent.analytics
     persistConsent(nextConsent)
     setConsent(nextConsent)
     setDraftConsent(nextConsent)
@@ -258,6 +363,9 @@ export function AnalyticsProvider(): React.ReactElement | null {
       analytics: nextConsent.analytics,
       marketing: nextConsent.marketing,
     })
+    if (wasAnalyticsGranted && !nextConsent.analytics) {
+      void revokeStoredAnalyticsIdentities()
+    }
   }
 
   if (!analyticsConfig.enabled || !hasConfiguredAnalytics || !hasLoadedPreference) {
