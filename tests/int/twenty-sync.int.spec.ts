@@ -37,6 +37,8 @@ const lead = normalizeLeadPayload({
   phone: '+14165550123',
   placeId: 'ChIJ123',
   priority: 'high',
+  adminNotes: 'Borrower requested an afternoon call.',
+  nextActionAt: '2026-07-15T18:00:00.000Z',
   source: 'multiplex-financing-gta',
   status: 'submitted',
   workflowStatus: 'qualified',
@@ -54,6 +56,8 @@ describe('Twenty mortgage lead mapping', () => {
       captureStatus: 'SUBMITTED',
       workflowStatus: 'QUALIFIED',
       priority: 'HIGH',
+      adminNotes: 'Borrower requested an afternoon call.',
+      nextActionAt: '2026-07-15T18:00:00.000Z',
       mortgageProduct: 'PRIVATE',
       requestedAmount: '$1,200,000',
       additionalLiens: '$50,000',
@@ -126,6 +130,8 @@ describe('Twenty mortgage lead sync', () => {
       id: lead.id,
       workflowStatus: 'QUALIFIED',
       priority: 'HIGH',
+      adminNotes: 'Borrower requested an afternoon call.',
+      nextActionAt: '2026-07-15T18:00:00.000Z',
     })
   })
 

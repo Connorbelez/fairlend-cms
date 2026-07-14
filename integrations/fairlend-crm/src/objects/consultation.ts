@@ -26,7 +26,7 @@ export default defineObject({
       type: FieldType.TEXT,
       name: 'name',
       label: 'Consultation',
-      defaultValue: 'New consultation',
+      defaultValue: "'New consultation'",
       isNullable: false,
     },
     {
@@ -44,7 +44,7 @@ export default defineObject({
       type: FieldType.SELECT,
       name: 'status',
       label: 'Status',
-      defaultValue: 'SYNCING',
+      defaultValue: "'SYNCING'",
       isNullable: false,
       options: [
         { value: 'SYNCING', label: 'Syncing', position: 0, color: 'yellow' },
@@ -72,7 +72,7 @@ export default defineObject({
       type: FieldType.TEXT,
       name: 'timezone',
       label: 'Timezone',
-      defaultValue: 'America/Toronto',
+      defaultValue: "'America/Toronto'",
       isNullable: false,
     },
     ...[
@@ -98,7 +98,10 @@ export default defineObject({
       isNullable: true,
       relationTargetObjectMetadataUniversalIdentifier: MORTGAGE_LEAD_OBJECT_ID,
       relationTargetFieldMetadataUniversalIdentifier: MORTGAGE_LEAD_FIELD_IDS.consultations,
-      universalSettings: { relationType: RelationType.MANY_TO_ONE },
+      universalSettings: {
+        relationType: RelationType.MANY_TO_ONE,
+        joinColumnName: 'mortgageLeadId',
+      },
     },
     {
       universalIdentifier: CONSULTATION_FIELD_IDS.person,
@@ -110,7 +113,10 @@ export default defineObject({
         STANDARD_OBJECT_UNIVERSAL_IDENTIFIERS.person.universalIdentifier,
       relationTargetFieldMetadataUniversalIdentifier:
         STANDARD_OBJECT_RELATION_FIELD_IDS.personConsultations,
-      universalSettings: { relationType: RelationType.MANY_TO_ONE },
+      universalSettings: {
+        relationType: RelationType.MANY_TO_ONE,
+        joinColumnName: 'personId',
+      },
     },
   ],
 });

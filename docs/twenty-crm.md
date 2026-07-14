@@ -14,6 +14,14 @@ Mortgage Leads relate to Twenty's standard **Person**, **Company**, and **Opport
 
 The website owns capture fields such as contact details, requested amount, mortgage lane, intake payload, and attribution. Twenty owns workflow stage, priority, next action, Person/Company/Opportunity relations, and internal notes after initial creation. Website resubmissions deliberately do not overwrite those CRM-owned fields.
 
+## Automatic lead capture and autofill
+
+Every website intake that calls `upsertFairlendLead`—including `/api/leads`, autosaved Drawflow applications, contact/newsletter forms, mortgage applications, and consultation booking mirrors—immediately upserts the corresponding Twenty **Mortgage Lead** using the FairLend UUID as the stable record ID.
+
+The first create autofills contact name, email, phone, structured and formatted address, source, intent, campaign attribution, capture state, workflow state, priority, next action, internal notes, mortgage classification, amount, timeline, project and financing details, normalized intake summary, and the complete raw intake/address/attribution payloads. Later autosaves refresh website-owned intake fields while preserving workflow state, priority, next action, internal notes, and CRM relations edited by the sales team.
+
+Lead capture remains fail-open: the website database commits first, Twenty sync status and the remote ID are recorded in Payload, and a Twenty outage does not discard the submission. Run reconciliation for any `pending` or `failed` records.
+
 ## Credentials and roles
 
 Create two role-scoped keys under **Twenty → Settings → APIs & Webhooks**:
@@ -66,6 +74,18 @@ Apply the Payload migration before enabling sync:
 ```bash
 pnpm payload:migrate
 ```
+
+If Payload reports that the target database was previously pushed in dev mode and warns that migration data loss will occur, answer **no**. Do not force the migration. First inspect `fairlend_leads` for the four `twenty_*` columns and the two `fairlend_leads_twenty_*_idx` indexes; the runtime schema guard may already have applied this idempotent structure. Reconcile only after all six schema objects are present.
+
+For Vercel production, configure the following variables in the project environment and leave them disabled in Preview so branch traffic cannot write into the live CRM:
+
+```dotenv
+TWENTY_SYNC_ENABLED=true
+TWENTY_API_URL=https://api.twenty.com
+TWENTY_API_KEY=<role-scoped website sync key>
+```
+
+Environment-variable changes take effect on the next production deployment.
 
 Every new lead is persisted locally first. Twenty failures are recorded in the Payload **Twenty CRM Sync** panel and returned as a successful website submission, preventing a CRM outage from dropping a lead.
 
