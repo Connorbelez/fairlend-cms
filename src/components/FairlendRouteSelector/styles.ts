@@ -6,7 +6,7 @@ export const fairlendRouteSelectorTokens = {
     sectionPaper: '#f7f6f1',
     paperOverlay: 'rgb(251 250 245 / 28%)',
     cardPaper: '#fbfaf5',
-    cardPaperTranslucent: 'rgb(251 250 245 / 92%)',
+    cardPaperTranslucent: 'rgb(251 250 245 / 98%)',
     helperPaperTranslucent: 'rgb(251 250 245 / 90%)',
     whitePaper: '#fffdf9',
     ink: '#11110f',
@@ -162,7 +162,7 @@ export const fairlendRouteSelectorVariants = cva(
 )
 
 export const fairlendRouteSelectorLayerVariants = cva(
-  'pointer-events-none absolute inset-0 -z-10',
+  'pointer-events-none absolute inset-0 -z-10 rounded-[var(--fl-route-radius-section)]',
   {
     variants: {
       layer: {
@@ -177,9 +177,9 @@ export const fairlendRouteHeaderTextVariants = cva('text-center', {
   variants: {
     role: {
       kicker:
-        'm-0 text-[12px] leading-none font-black tracking-[0.28em] text-[color:var(--fl-route-kicker-ink)] uppercase',
+        'm-0 text-[12px] leading-none font-extrabold tracking-[0.28em] text-[color:var(--fl-route-kicker-ink)] uppercase',
       title:
-        'mt-4 max-w-[720px] font-serif text-[52px] leading-[0.89] font-semibold tracking-normal text-[color:var(--fl-route-heading-ink)] sm:text-[60px] lg:text-[72px]',
+        'mt-4 max-w-[720px] text-balance font-serif text-[clamp(3.25rem,4vw,4rem)] leading-[0.89] font-semibold tracking-normal text-[color:var(--fl-route-heading-ink)]',
       description:
         'mt-6 max-w-[560px] text-[16px] leading-[1.45] font-medium text-[color:var(--fl-route-body-ink)]',
     },
@@ -191,18 +191,19 @@ export const fairlendRouteOriginDotVariants = cva(
 )
 
 export const fairlendRouteCardVariants = cva(
-  'group relative flex flex-col overflow-hidden rounded-[var(--fl-route-radius-card)] border bg-[color:var(--fl-route-card-bg-translucent)] p-[18px] shadow-[var(--fl-route-shadow-card)] backdrop-blur-sm transition-[border-color,box-shadow,transform] duration-300 ease-[var(--route-motion-ease)] max-md:min-h-0 max-md:rounded-2xl max-md:p-4',
+  'group relative flex flex-col overflow-hidden rounded-[var(--fl-route-radius-card)] border border-[color:var(--fl-route-ink)] bg-[color:var(--fl-route-card-bg-translucent)] p-[18px] [filter:drop-shadow(9px_10px_0_var(--fl-route-lime))] backdrop-blur-sm transition-[filter,transform] duration-300 ease-[var(--route-motion-ease)] max-md:min-h-0 max-md:rounded-2xl max-md:p-4',
   {
     variants: {
       layout: {
         default: 'min-h-[520px]',
-        featured: 'min-h-[620px] xl:h-full xl:min-h-0 xl:p-6',
-        supporting: 'min-h-[340px] xl:h-full xl:min-h-0 xl:p-4',
+        featured: 'min-h-[620px] xl:p-6',
+        supporting: 'min-h-[340px] xl:p-4',
+        compact:
+          'min-h-[240px] xl:grid xl:grid-cols-[minmax(0,1.05fr)_minmax(0,1.2fr)_minmax(190px,0.7fr)] xl:grid-rows-[auto_1fr] xl:gap-x-6 xl:p-5',
       },
       selected: {
-        true: 'border-[color:var(--fl-route-lime)] shadow-[var(--fl-route-shadow-card-selected)]',
-        false:
-          'border-[color:var(--fl-route-rule)] motion-safe:hover:-translate-y-1 hover:border-[color:var(--fl-route-rule-hover)] hover:shadow-[var(--fl-route-shadow-card-hover)]',
+        true: 'bg-[color:var(--fl-route-white-paper)]',
+        false: 'motion-safe:hover:-translate-y-1',
       },
     },
     defaultVariants: {
@@ -232,17 +233,17 @@ export const fairlendRouteCardTextVariants = cva('', {
   variants: {
     role: {
       title:
-        'max-w-[150px] text-balance font-serif text-[27px] leading-[0.94] font-semibold tracking-normal text-[color:var(--fl-route-ink)] max-md:max-w-none max-md:text-[32px] max-md:leading-[0.9]',
+        'max-w-[150px] text-balance font-serif text-[27px] leading-[0.94] font-semibold tracking-normal text-[color:var(--fl-route-ink)] max-md:max-w-none max-md:text-[32px] max-md:leading-[0.94]',
       description:
-        'mt-5 min-h-[52px] text-pretty text-[13px] leading-[1.32] font-semibold text-[color:var(--fl-route-card-copy-ink)] max-md:mt-3 max-md:min-h-0 max-md:text-[16px] max-md:leading-[1.24]',
+        'mt-5 min-h-[52px] max-w-[65ch] text-pretty text-[15px] leading-[1.4] font-medium text-[color:var(--fl-route-card-copy-ink)] max-md:mt-3 max-md:min-h-0 max-md:text-[16px] max-md:leading-[1.45]',
       bullet:
-        'flex items-start gap-2 text-[11px] leading-[1.28] font-semibold text-[color:var(--fl-route-card-bullet-ink)] max-md:gap-2.5 max-md:text-[14px] max-md:leading-[1.18]',
+        'flex items-start gap-2 text-[13px] leading-[1.35] font-medium text-[color:var(--fl-route-card-bullet-ink)] max-md:gap-2.5 max-md:text-[14px] max-md:leading-[1.35]',
     },
   },
 })
 
 export const fairlendRouteBadgeVariants = cva(
-  'absolute top-[11px] right-[11px] z-20 rounded-[var(--fl-route-radius-badge)] border-0 bg-[color:var(--fl-route-lime)] px-2 py-1 text-[9px] leading-none font-black tracking-[0.04em] text-[color:var(--fl-route-badge-ink)] uppercase shadow-none max-md:top-2 max-md:right-2 max-md:text-[10px]',
+  'absolute top-[11px] right-[11px] z-20 rounded-[var(--fl-route-radius-badge)] border border-[color:var(--fl-route-lime-check-border)] bg-[color:var(--fl-route-white-paper)] px-2 py-1 text-[10px] leading-none font-extrabold tracking-[0.06em] text-[color:var(--fl-route-lime-check)] uppercase shadow-none max-md:top-2 max-md:right-2',
 )
 
 export const fairlendRouteBenefitIconVariants = cva(
@@ -277,7 +278,7 @@ export const fairlendRouteHelpTextVariants = cva('', {
     role: {
       title:
         'font-serif text-[22px] leading-none font-semibold tracking-normal text-[color:var(--fl-route-helper-title-ink)] max-md:text-[20px]',
-      body: 'mt-2 text-pretty text-[12px] leading-[1.16] font-semibold text-[color:var(--fl-route-helper-copy-ink)] max-md:leading-[1.25]',
+      body: 'mt-2 max-w-[65ch] text-pretty text-[16px] leading-[1.45] font-medium text-[color:var(--fl-route-helper-copy-ink)]',
     },
   },
 })
@@ -287,7 +288,7 @@ export const fairlendRouteHelpDividerVariants = cva(
 )
 
 export const fairlendRouteHelpButtonVariants = cva(
-  'h-10 justify-between rounded-[var(--fl-route-radius-button)] border border-[color:var(--fl-route-lime)] bg-[color:var(--fl-route-lime)] px-3 text-[13px] leading-none font-semibold text-[color:var(--fl-route-button-ink)] shadow-none transition-[background-color,transform] duration-200 ease-[var(--route-motion-ease)] hover:bg-[color:var(--fl-route-lime-hover)] active:scale-[0.985] focus-visible:ring-[3px] focus-visible:ring-[color:var(--fl-route-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--fl-route-card-bg)] focus-visible:outline-[color:var(--fl-route-ink)] max-md:col-span-2 max-md:ml-0 max-md:w-full',
+  'h-11 justify-between rounded-[var(--fl-route-radius-button)] border border-[color:var(--fl-route-lime)] bg-[color:var(--fl-route-lime)] px-3 text-[13px] leading-none font-semibold text-[color:var(--fl-route-button-ink)] shadow-none transition-[background-color,transform] duration-200 ease-[var(--route-motion-ease)] hover:bg-[color:var(--fl-route-lime-hover)] active:scale-[0.985] focus-visible:ring-[3px] focus-visible:ring-[color:var(--fl-route-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--fl-route-card-bg)] focus-visible:outline-[color:var(--fl-route-ink)] max-md:col-span-2 max-md:ml-0 max-md:w-full',
 )
 
 export const fairlendRouteStepTrackVariants = cva(
@@ -325,11 +326,11 @@ export const fairlendRouteStepDotVariants = cva(
 )
 
 export const fairlendRouteStepLabelVariants = cva(
-  'relative max-w-full text-center text-[11px] leading-none font-semibold whitespace-nowrap max-md:text-[10px]',
+  'relative max-w-full text-center text-[12px] leading-none font-semibold whitespace-nowrap max-md:text-[10px]',
 )
 
 export const fairlendRouteStepArrowVariants = cva(
-  'absolute top-1/2 -right-[17px] -translate-y-1/2 text-[13px] leading-none font-medium text-[color:var(--fl-route-step-arrow)] max-md:-right-[13px] max-md:text-[11px]',
+  'flex self-end items-center justify-center px-1 text-[13px] leading-none font-medium text-[color:var(--fl-route-step-arrow)] max-md:text-[11px]',
 )
 
 export const fairlendRouteIconBadgeVariants = cva(

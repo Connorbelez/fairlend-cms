@@ -23,7 +23,7 @@ const variables = [
   'Land',
   'Scope',
   'Capital',
-  'Draw plan',
+  'Draw schedule',
   'Professional path',
   'Permit & MLI readiness',
   'Exit',
@@ -120,7 +120,7 @@ const stations = [
     theme: 'electric-lime',
     num: '01',
     name: 'Plan',
-    headline: 'Test whether the site and project economics support a financeable build.',
+    headline: 'Work with FairLend to test whether the site and project economics support a financeable build.',
     body: 'Before you commit more capital to land or design, FairLend works with you to review the acquisition basis, zoning and housing form, unit mix, buildable area, hard and soft costs, contingency, timeline, expected value, and intended exit.',
     comparison: {
       selfManaged:
@@ -128,13 +128,14 @@ const stations = [
       fairlendLed:
         'Bring us the site or early idea. FairLend helps assemble the required specialists and turns their inputs into one financeable project plan.',
     },
+    note: 'Complimentary project review and consulting are available on approved credit (OAC) and file acceptance.',
   },
   {
     id: 'finance',
     status: '02 / Finance',
     count: '02',
     title: 'Capital + interest control',
-    variables: ['Capital', 'Draw plan'],
+    variables: ['Capital', 'Draw schedule'],
     dossierTab: 'budget',
     theme: 'forest',
     num: '02',
@@ -153,17 +154,17 @@ const stations = [
     id: 'support',
     status: '03 / Build support',
     count: '03',
-    title: 'Draw plan that moves with the build',
-    variables: ['Capital', 'Draw plan', 'Professional path'],
+    title: 'Draw schedule that moves with the build',
+    variables: ['Capital', 'Draw schedule', 'Professional path'],
     dossierTab: 'draw',
     theme: 'ink',
     num: '03',
     name: 'Build support',
-    headline: 'Adjust the draw plan mid-build as the work and capital requirements change.',
+    headline: 'Adjust the draw schedule mid-build as the work and capital requirements change.',
     body: 'Builds do not always follow the original sequence. FairLend works with you to revise the draw schedule as the work shifts, subject to the financing terms, so capital is available when the project needs it without being advanced earlier than necessary and adding avoidable interest carry.',
     comparison: {
       selfManaged:
-        'Find and manage a builder or project manager, organize trades and suppliers, coordinate consultants and inspections, prepare each draw package, and relay every change to the lender.',
+        'Carry more capital than the current work requires or pause the build while a rigid draw schedule catches up—adding avoidable interest, idle cash, and coordination pressure.',
       fairlendLed:
         'FairLend helps put the right project team around the build, then keeps the draw process, project milestones, and capital plan working from one coordinated file.',
     },
@@ -180,26 +181,26 @@ const stations = [
     name: 'Takeout',
     headline:
       'FairLend helps you qualify for CMHC-insured takeout and provides the takeout financing itself.',
-    body: 'FairLend works with you early to shape the project, documentation, and operating plan toward CMHC-insured takeout eligibility. As completion approaches, we prepare the application together and FairLend provides the takeout financing for eligible projects. MLI Select is one possible CMHC-insured program, not the whole takeout offering.',
+    body: 'FairLend works with you early to shape the project, documentation, and operating plan toward CMHC-insured takeout eligibility. As completion approaches, we prepare the application together and FairLend provides the takeout financing for eligible projects. MLI Select is one of multiple available CMHC-insured program options.',
     comparison: {
       selfManaged:
-        'Start a second lender search, confirm CMHC eligibility, assemble valuation, completion, occupancy, income, and operating documents, and coordinate the refinance before maturity.',
+        'Leave takeout planning until late in the build and risk discovering eligibility, valuation, occupancy, income, or documentation gaps when the construction loan is nearing maturity.',
       fairlendLed:
-        'FairLend sets the takeout requirements early, prepares the application with you, and provides CMHC-insured takeout financing for eligible projects.',
+        'Plan the takeout requirements early with FairLend, prepare the application together, and pursue eligible CMHC-insured financing with fewer late-stage surprises.',
     },
   },
   {
     id: 'contingency',
-    status: '05 / Unf*ck contingency',
+    status: '05 / Build recovery',
     count: '05',
     title: 'Recovery path',
-    variables: ['Capital', 'Draw plan', 'Professional path'],
+    variables: ['Capital', 'Draw schedule', 'Professional path'],
     dossierTab: 'recovery',
     theme: 'builder-blueprint',
     num: '05',
-    name: 'Unf*ck Contingency Program',
+    name: 'Build Recovery Program',
     headline:
-      'The Unf*ck Contingency Program helps you diagnose what stalled the build and coordinate a recovery plan.',
+      'The Build Recovery Program helps you diagnose what stalled the build and coordinate a recovery plan.',
     body: 'The program reviews schedule, budget, trades, working capital, draw requirements, and documentation with you to identify the root constraints. FairLend then helps coordinate an appropriate recovery path and the resources required to pursue it.',
     comparison: {
       selfManaged:
@@ -211,19 +212,12 @@ const stations = [
   },
 ] as const satisfies readonly Station[]
 
-const drawFlowTestimonial = {
-  quote:
-    'The draw schedule matched the way the job actually progressed. We were not paying for idle capital between milestones.',
-  author: 'GTA residential builder',
-  context: 'Milestone draw borrower',
-} as const
-
 const drawFlowState = {
   id: 'drawflow',
   status: 'Powered by DrawFlow',
   count: '15',
   title: 'Fund work, not wait',
-  variables: ['Capital', 'Draw plan', 'Professional path'],
+  variables: ['Capital', 'Draw schedule', 'Professional path'],
   dossierTab: 'draw',
   theme: 'builder-blueprint',
 } as const satisfies BoardState
@@ -422,6 +416,11 @@ function DossierTabCard({ tab }: { tab: (typeof dossierTabs)[number] }) {
       data-bm-dossier-tab={tab.id}
       data-bm-dossier-code={tab.code}
     >
+      <BackgroundImageTexture
+        className="bm-dossier-tab-texture"
+        opacity={0.3}
+        variant="groovepaper"
+      />
       <div className="bm-dossier-tab-top">
         <span className="bm-dossier-tab-code">{tab.code}</span>
         <span className="bm-dossier-tab-label">{tab.label}</span>
@@ -447,6 +446,11 @@ function BuildModelBoard({ className }: { className?: string }) {
       aria-label="Build model status and consultation shortcut"
     >
       <div className="bm-board">
+        <BackgroundImageTexture
+          className="bm-board-texture"
+          opacity={0.18}
+          variant="groovepaper"
+        />
         <div className="bm-board-inner">
           <div className="bm-board-header">
             <span aria-hidden="true" className="bm-board-status" data-bm-board-status>
@@ -540,7 +544,7 @@ function AudiencePaths() {
 
         <div className="bm-audience-scope">
           <span className="bm-audience-scope-label">Capital path</span>
-          <p>We carry the financing and business equation around it.</p>
+          <p>We offer the financing and help model the business equation around it.</p>
         </div>
       </article>
 
@@ -560,8 +564,8 @@ function AudiencePaths() {
         <div className="bm-audience-scope">
           <span className="bm-audience-scope-label">Full project team</span>
           <p>
-            We shape the design and specs, assign an experienced builder or project manager, then
-            carry permits, draws and takeout through closing.
+            We can refer an experienced builder or project manager and help plan the financing path
+            across permits, draw schedules and takeout.
           </p>
         </div>
       </article>
@@ -617,36 +621,12 @@ function StationStep({ station }: { station: Station }) {
           <p>{station.comparison.selfManaged}</p>
         </article>
         <article className="bm-station-comparison-panel bm-station-comparison-panel--with">
-          <span className="bm-station-comparison-label">One FairLend team</span>
+          <span className="bm-station-comparison-label">With FairLend</span>
           <p>{station.comparison.fairlendLed}</p>
         </article>
       </div>
       {station.note ? <p className="bm-station-note">{station.note}</p> : null}
     </ScrollStep>
-  )
-}
-
-function BuildModelTestimonial({
-  testimonial,
-}: {
-  testimonial: {
-    quote: string
-    author: string
-    context: string
-  }
-}) {
-  return (
-    <figure className="bm-proof">
-      <span className="bm-proof-label">
-        <span aria-hidden="true" />
-        Client signal
-      </span>
-      <blockquote>&ldquo;{testimonial.quote}&rdquo;</blockquote>
-      <figcaption>
-        <strong>{testimonial.author}</strong>
-        <span>{testimonial.context}</span>
-      </figcaption>
-    </figure>
   )
 }
 
@@ -714,7 +694,7 @@ function DrawFlowStep() {
           <article className="bm-tile">
             <span className="tile-title">Modify it mid-build</span>
             <p>
-              Builds don&apos;t always go as planned. Adjust the draw plan as the work shifts so
+              Builds don&apos;t always go as planned. Adjust the draw schedule as the work shifts so
               capital is there when you need it, and not costing interest when you don&apos;t.
             </p>
           </article>
@@ -722,12 +702,12 @@ function DrawFlowStep() {
 
         <div className="bm-df-more">
           <p>
-            <b>More than capital.</b> Complimentary access to our GTA build specialists and a deep
-            supplier &amp; trade network — your project manager comes with the financing.
+            <b>More than capital.</b> Complimentary access to our Southern Ontario build specialists and a deep
+            supplier &amp; trade network. When a project needs one, we can refer an experienced
+            building project manager to work alongside the financing team.
           </p>
         </div>
 
-        <BuildModelTestimonial testimonial={drawFlowTestimonial} />
       </section>
     </ScrollStep>
   )
@@ -743,9 +723,10 @@ function ThesisStrip() {
             <span className="bm-ts-rule" aria-hidden="true" />
           </div>
           <div className="bm-thesis-copy">
-            <h3 className="bm-ts-head">Building shouldnt be the easy part</h3>
+            <h3 className="bm-ts-head">You focus on building. We help model the deal.</h3>
             <p className="bm-ts-body">
-              A successful build is not only a construction problem, it is a business equation.
+              You manage the build, budget, and execution. FairLend helps model and structure the
+              financing and business equation around it.
             </p>
           </div>
           <BuildSensitivityConsole />

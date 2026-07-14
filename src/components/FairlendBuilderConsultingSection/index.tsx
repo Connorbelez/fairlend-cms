@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import {
   ArrowRight,
@@ -28,6 +27,7 @@ import {
 } from 'react'
 
 import { FairlendPaperSection, FairlendPaperShell } from '@/components/FairlendMarketingPrimitives'
+import { BackgroundImageTexture } from '@/components/ui/bg-image-texture'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   CircleDollarSignIcon,
@@ -45,7 +45,7 @@ import { torontoLuxury2019Model } from './model'
 type IconComponent = ComponentType<SVGProps<SVGSVGElement>>
 type BuilderYear = '2019' | '2023' | '2026'
 type EquationVariant = 'full' | 'compact'
-type EquationVariableKey = 'land' | 'build' | 'home' | 'sale'
+type EquationVariableKey = 'land' | 'build' | 'soft' | 'home' | 'sale'
 type EquationRowKey = 'single-family' | 'multiplex' | 'garden-suite'
 type ProfitTone = 'profit' | 'loss' | 'neutral'
 
@@ -85,20 +85,20 @@ const states = {
   '2019': {
     year: '2019',
     eyebrow: 'Builder Consulting',
-    headlineTop: 'Building shouldnt be',
-    headlineBottom: 'the easy part',
+    headlineTop: 'You focus on',
+    headlineBottom: 'building.',
     subheadline:
-      'A successful build is not only a construction problem, it is a business equation.',
+      'FairLend helps model the financing and business equation around your build. You remain in control of cost and execution.',
     label: '2019',
     note: '(Toronto luxury home. positive estimated return)',
     panelNote: '(illustrative 3,800 ft² luxury infill model)',
     cta: 'SEE THE TIMELINE',
     ctaNote: 'Scroll through the build math',
     cards: [
-      { icon: CircleHelp, text: 'Illustrative land basis: $1.45M' },
-      { icon: CircleHelp, text: 'Builder hard cost: $285/ft²' },
+      { icon: CircleHelp, text: 'Illustrative land basis: $1.00M' },
+      { icon: CircleHelp, text: 'Luxury hard cost: $400/ft²' },
+      { icon: CircleHelp, text: 'Soft costs: $50/ft² incl. financing' },
       { icon: CircleHelp, text: 'Luxury-home exit: $3.65M' },
-      { icon: CircleHelp, text: 'Estimated return remained positive' },
     ],
     stripItems: [
       { icon: Scale, text: 'Luxury infill land basis' },
@@ -115,10 +115,10 @@ const states = {
     headlineTop: '2023: COSTS',
     headlineBottom: 'REPRICE THE DEAL.',
     subheadline:
-      'GTA acquisition, construction, and financing benchmarks moved sharply. The estimated return shows how quickly the equation changed.',
+      'Southern Ontario acquisition, construction, and financing assumptions moved sharply. The estimated return shows how quickly the equation changed.',
     label: '2023',
     note: '(higher inputs. estimated return)',
-    panelNote: '(GTA market benchmarks)',
+    panelNote: '(Southern Ontario assumptions)',
     cta: 'RUN MY NUMBERS',
     ctaNote: 'Find the break-even point',
     cards: [
@@ -143,7 +143,7 @@ const states = {
     headlineTop: '2026: DENSITY',
     headlineBottom: 'CHANGES THE MODEL.',
     subheadline:
-      'Toronto permits more low-rise housing options. The same assumptions show how four units can change the estimated return.',
+      'Southern Ontario permits more low-rise housing options. The same assumptions show how 5 or more units can change the estimated return.',
     label: '2026',
     note: '(more housing options. estimated returns)',
     panelNote: '(multiplex + garden-suite benchmarks)',
@@ -152,12 +152,12 @@ const states = {
     cards: [
       { icon: MapPinned, text: 'Detached proxy averaged $1.36M' },
       { icon: Landmark, text: 'Single-home hard costs: $150-$275/ft²' },
-      { icon: ClipboardPenLine, text: 'Up to four units permitted in Toronto' },
-      { icon: Crosshair, text: 'Garden suites often cost $300K-$400K+' },
+      { icon: ClipboardPenLine, text: 'Multiplex models start at 5 or more units' },
+      { icon: Crosshair, text: 'Garden suites often total $400K–$600K' },
     ],
     stripItems: [
       { icon: ClipboardPenLine, text: 'Single-family estimate remains negative' },
-      { icon: Home, text: 'Multiplex can create four units' },
+      { icon: Home, text: 'Multiplex can create 5 or more units' },
       { icon: SlidersHorizontal, text: 'Garden suite adds rental capacity' },
     ],
     stripTitle: 'Land. Build. Add Density. Model.',
@@ -199,14 +199,20 @@ const equationVariables = [
     hint: 'construction input',
   },
   {
+    key: 'soft',
+    label: 'SOFT COSTS',
+    sublabel: 'PROJECT COSTS',
+    hint: 'consulting + financing input',
+  },
+  {
     key: 'home',
-    label: 'HOME PROGRAM',
+    label: 'HOMES',
     sublabel: 'OUTPUT',
     hint: 'housing form',
   },
   {
     key: 'sale',
-    label: 'EXPECTED SALE',
+    label: 'EXIT VALUE',
     sublabel: 'EXIT VALUE',
     hint: 'resale input',
   },
@@ -222,6 +228,7 @@ const singleFamilyTimelineRows = [
     values: {
       land: torontoLuxury2019Model.land,
       build: torontoLuxury2019Model.build,
+      soft: torontoLuxury2019Model.soft,
       home: '1 HOME',
       sale: torontoLuxury2019Model.sale,
     },
@@ -232,6 +239,7 @@ const singleFamilyTimelineRows = [
     hints: {
       land: 'illustrative infill basis',
       build: `${torontoLuxury2019Model.buildArea} builder model`,
+      soft: 'includes financing allowance',
       home: torontoLuxury2019Model.buildArea,
       sale: 'illustrative luxury exit',
     },
@@ -242,23 +250,25 @@ const singleFamilyTimelineRows = [
   {
     key: 'single-family',
     label: 'Single family',
-    note: 'Published GTA market benchmarks',
+    note: 'Illustrative Southern Ontario assumptions',
     year: '2023',
     tone: 'neutral',
     values: {
       land: '$1.46M',
-      build: '$205–280/ft²',
+      build: '$450/ft²',
+      soft: '$60/ft²',
       home: '1 HOME',
-      sale: '$1.60M',
+      sale: '$3.10M',
     },
-    profit: '-$780K*',
-    margin: '-48.6%*',
+    profit: '-$298K*',
+    margin: '-9.6%*',
     riskLeft: 'EST. LOSS',
     riskRight: 'MIDPOINT COST',
     hints: {
       land: 'detached resale proxy',
-      build: 'standard hard-cost range',
-      sale: 'new-home benchmark',
+      build: 'luxury hard-cost estimate',
+      soft: 'consulting + financing allowance',
+      sale: 'lower illustrative end value',
     },
     outcomeHeading: 'RETURN',
     outcomeLabel: 'EST. RETURN*',
@@ -267,23 +277,25 @@ const singleFamilyTimelineRows = [
   {
     key: 'single-family',
     label: 'Single family',
-    note: 'Published GTA market benchmarks',
+    note: 'Illustrative Southern Ontario assumptions',
     year: '2026',
     tone: 'neutral',
     values: {
       land: '$1.36M',
-      build: '$150–275/ft²',
+      build: '$400/ft²',
+      soft: '$60/ft²',
       home: '1 HOME',
-      sale: '$1.43M',
+      sale: '$2.85M',
     },
-    profit: '-$744K*',
-    margin: '-52.1%*',
+    profit: '-$258K*',
+    margin: '-9.1%*',
     riskLeft: 'EST. LOSS',
     riskRight: 'MIDPOINT COST',
     hints: {
       land: 'detached resale proxy',
-      build: 'standard hard-cost range',
-      sale: 'new-home benchmark',
+      build: 'single-family hard-cost estimate',
+      soft: 'consulting + financing allowance',
+      sale: 'illustrative end value',
     },
     outcomeHeading: 'RETURN',
     outcomeLabel: 'EST. RETURN*',
@@ -295,13 +307,14 @@ const finalOpportunityRows = [
   {
     key: 'multiplex',
     label: 'Multiplex',
-    note: 'Toronto six-unit option',
+    note: 'Southern Ontario 5+ unit option',
     year: '2026',
     tone: 'profit',
     values: {
       land: '$1.36M',
       build: '$210–330/ft²',
-      home: '6 UNITS',
+      soft: '$450–650K',
+      home: '5+ UNITS',
       sale: '$6.18M*',
     },
     profit: '+$972K*',
@@ -311,7 +324,8 @@ const finalOpportunityRows = [
     hints: {
       land: 'detached resale proxy',
       build: 'closest low-rise benchmark',
-      sale: '6-unit benchmark exit',
+      soft: 'illustrative project allowance',
+      sale: '5+ unit benchmark exit',
     },
     outcomeHeading: 'RETURN',
     outcomeLabel: 'EST. RETURN*',
@@ -319,18 +333,19 @@ const finalOpportunityRows = [
   },
   {
     key: 'garden-suite',
-    label: 'GardenSuite',
-    note: 'Toronto two-unit garden suite',
+    label: 'Garden suite',
+    note: 'Southern Ontario garden suite',
     year: '2026',
     tone: 'profit',
     values: {
       land: 'EXISTING LOT',
-      build: '$600–800K+',
-      home: '2 UNITS',
+      build: '$400–600K',
+      soft: 'INCLUDED',
+      home: '1 HOME',
       sale: '$4.50K/MO',
     },
     profit: '+$54K/YR*',
-    margin: '7.7%*',
+    margin: '10.8%*',
     riskLeft: 'GROSS RENT',
     riskRight: 'EST. YIELD',
     labels: {
@@ -343,6 +358,7 @@ const finalOpportunityRows = [
     hints: {
       land: 'incremental analysis',
       build: 'industry-reported actuals',
+      soft: 'included once in total build cost',
       sale: '1-bedroom GTA average per unit',
     },
     outcomeHeading: 'RETURN',
@@ -447,37 +463,6 @@ function ActionCard({
   )
 }
 
-function HouseVisual() {
-  return (
-    <div className="builder-house-visual" data-builder-house>
-      <span className="builder-blueprint-field" aria-hidden="true" />
-      <div className="builder-house-crop">
-        <Image
-          alt=""
-          aria-hidden="true"
-          className="builder-house-image"
-          fill
-          loading="eager"
-          sizes="(min-width: 1024px) 43vw, 100vw"
-          src="/assets/right-house-estate.webp"
-        />
-      </div>
-      <svg className="builder-route-line" aria-hidden="true" viewBox="0 0 520 260">
-        <path
-          className="builder-route-line__shadow"
-          d="M57 180 C95 217 178 237 274 230 C374 224 470 188 487 132"
-        />
-        <path
-          className="builder-route-line__glow"
-          d="M57 180 C95 217 178 237 274 230 C374 224 470 188 487 132"
-        />
-        <circle className="builder-route-line__pin" cx="487" cy="132" r="13" />
-        <circle className="builder-route-line__pin-core" cx="487" cy="132" r="5" />
-      </svg>
-    </div>
-  )
-}
-
 type AnimatedEquationIconHandle =
   | CircleDollarSignIconHandle
   | HammerIconHandle
@@ -562,6 +547,8 @@ function EquationVariableIcon({ variableKey }: { variableKey: EquationVariableKe
         <MapPinHouseIcon {...iconProps} ref={iconRef} />
       ) : variableKey === 'build' ? (
         <HammerIcon {...iconProps} ref={iconRef} />
+      ) : variableKey === 'soft' ? (
+        <PencilRuler className={iconProps.className} size={iconProps.size} />
       ) : variableKey === 'home' ? (
         <HomeIcon {...iconProps} ref={iconRef} />
       ) : (
@@ -591,7 +578,8 @@ function EquationCard({
     'builder-equation-card builder-equation-card--timeline',
     variant === 'compact' && 'builder-equation-card--compact',
     dynamic && 'builder-equation-card--scroll',
-    value.length > 10 && 'builder-equation-card--dense-value',
+    value.length >= 9 && 'builder-equation-card--dense-value',
+    value.length >= 10 && 'builder-equation-card--extra-dense-value',
   )
   const label = row.labels?.[variable.key] ?? variable.label
   const sublabel = row.sublabels?.[variable.key] ?? variable.sublabel
@@ -666,6 +654,7 @@ function OutcomeCard({
     'builder-outcome-card',
     variant === 'compact' && 'builder-outcome-card--compact',
     dynamic && 'builder-outcome-card--scroll',
+    row.profit.length >= 9 && 'builder-outcome-card--dense-value',
     !row.profit.includes('$') && 'builder-outcome-card--textual',
   )
   const outcomeHeading = row.outcomeHeading ?? 'PROFIT'
@@ -766,7 +755,14 @@ function BuilderEquationLine({
         } as CSSProperties
       }
     >
-      <div className="builder-equation-label">
+      <div
+        className={cn(
+          'builder-equation-label',
+          row.label.length >= 11 && 'builder-equation-label--dense',
+        )}
+        aria-atomic={dynamic ? 'true' : undefined}
+        aria-live={dynamic ? 'polite' : undefined}
+      >
         <span data-builder-primary-year={dynamic ? '' : undefined}>{row.year}</span>
         <strong>{row.label}</strong>
         <em data-builder-primary-note={dynamic ? '' : undefined}>{row.note}</em>
@@ -800,6 +796,57 @@ function EquationRows({ variant = 'full' }: { variant?: EquationVariant }) {
   )
 }
 
+function EquationNarrative({ compact = false }: { compact?: boolean }) {
+  return (
+    <div
+      className={cn('builder-equation-narrative', compact && 'builder-equation-narrative--compact')}
+      data-builder-equation-narrative
+      data-builder-equation-narrative-compact={compact ? '' : undefined}
+    >
+      <Card className="builder-equation-narrative__card">
+        <BackgroundImageTexture
+          className="builder-equation-narrative__texture"
+          opacity={0.88}
+          variant="groovepaper"
+        />
+        <span aria-hidden="true" className="builder-equation-narrative__notch" />
+        <div className="builder-equation-narrative__viewport">
+          <div className="builder-equation-narrative__track" data-builder-equation-track>
+            <div
+              aria-hidden="true"
+              className="builder-equation-narrative__message builder-equation-narrative__message--premise"
+            >
+              <p>
+                <span className="builder-equation-narrative__lead">the equation:</span>
+                <strong>value − land − soft cost − build cost = profit.</strong>
+                <span className="builder-equation-narrative__coda">
+                  Used to be <em>reliably positive.</em>
+                </span>
+              </p>
+            </div>
+            <div
+              aria-hidden="true"
+              className="builder-equation-narrative__message builder-equation-narrative__message--loss"
+            >
+              <p>
+                <strong>
+                  <span>By 2023,</span> higher land, construction, and soft costs—plus lower end
+                  values—turned modeled profit into a loss.
+                </strong>
+              </p>
+            </div>
+          </div>
+        </div>
+      </Card>
+      <p className="sr-only">
+        The equation: value minus land minus soft cost minus build cost equals profit. It used to be
+        reliably positive. By 2023, higher land, construction, and soft costs, plus lower end
+        values, turned modeled profit into a loss.
+      </p>
+    </div>
+  )
+}
+
 function MobileScrollEquationBoard() {
   return (
     <div className="builder-mobile-equation-board builder-mobile-equation-board--scroll">
@@ -810,10 +857,11 @@ function MobileScrollEquationBoard() {
         <TimelineYearSwap field="panelNote" />
       </div>
       <EquationRows variant="compact" />
+      <EquationNarrative compact />
       <p className="builder-footnote builder-footnote--mobile">
-        *The 2019 luxury-infill estimate uses the displayed illustrative inputs and a 3,800 ft²
-        build. Later single-family estimates use midpoint benchmark hard costs. Multiplex exit uses
-        four GTA condo benchmarks; garden yield uses $350K cost and Q1 2026 one-bedroom rent.
+        *Entirely illustrative, not guaranteed, and provided only to explain the concept—not as an
+        appraisal, investment forecast, profit projection, or financing commitment. Southern Ontario
+        assumptions snapshot: July 13, 2026. Rental valuation uses a 5% capitalization rate.
       </p>
     </div>
   )
@@ -832,11 +880,12 @@ function EquationDashboard() {
       </div>
       <div className="builder-dashboard__panel">
         <EquationRows />
+        <EquationNarrative />
       </div>
       <p className="builder-footnote">
-        *The 2019 luxury-infill estimate uses the displayed illustrative inputs and a 3,800 ft²
-        build. Later single-family estimates use midpoint benchmark hard costs. Multiplex exit uses
-        four GTA condo benchmarks; garden yield uses $350K cost and Q1 2026 one-bedroom rent.
+        *Entirely illustrative, not guaranteed, and provided only to explain the concept—not as an
+        appraisal, investment forecast, profit projection, or financing commitment. Southern Ontario
+        assumptions snapshot: July 13, 2026. Rental valuation uses a 5% capitalization rate.
       </p>
     </div>
   )
@@ -3941,11 +3990,11 @@ function BuilderConsultingStyles() {
       }
 
       .builder-equation-line {
-        --builder-equation-gap: clamp(1.85rem, 1.55vw, 2.25rem);
+        --builder-equation-gap: clamp(0.64rem, 0.82vw, 0.92rem);
         --row-tone: 1;
         position: relative;
         display: grid;
-        grid-template-columns: minmax(7.6rem, 0.64fr) repeat(5, minmax(0, 1fr));
+        grid-template-columns: minmax(8.8rem, 0.72fr) repeat(6, minmax(0, 1fr));
         align-items: stretch;
         gap: var(--builder-equation-gap);
         min-width: 0;
@@ -4019,6 +4068,206 @@ function BuilderConsultingStyles() {
         line-height: 1;
       }
 
+      .builder-equation-label--dense strong {
+        font-size: clamp(0.72rem, 0.78vw, 0.9rem);
+        letter-spacing: -0.02em;
+      }
+
+      .builder-copy .builder-eyebrow,
+      .builder-mobile-copy-panel .builder-eyebrow {
+        border-width: 2px;
+        padding: 0.58rem 1rem;
+        font-size: clamp(0.82rem, 0.92vw, 1rem);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .builder-dashboard__panel {
+        display: block;
+      }
+
+      .builder-equation-narrative {
+        position: absolute;
+        inset: clamp(7rem, 7.4vw, 8.2rem) clamp(1.1rem, 2.8vw, 3rem) clamp(1rem, 1.4vw, 1.35rem);
+        z-index: 4;
+        display: grid;
+        place-items: center;
+        pointer-events: none;
+        will-change: clip-path, opacity, transform;
+      }
+
+      .builder-equation-narrative__card {
+        position: relative;
+        isolation: isolate;
+        display: block;
+        width: min(88%, 52rem);
+        height: clamp(8rem, 9.2vw, 10rem);
+        overflow: visible;
+        border: 2px solid var(--builder-forest);
+        border-radius: 0;
+        background: var(--landing-hero-lime, #96ec18);
+        padding: 0;
+        box-shadow: clamp(0.42rem, 0.6vw, 0.62rem) clamp(0.42rem, 0.6vw, 0.62rem) 0
+          var(--builder-forest);
+        color: var(--builder-forest);
+      }
+
+      .builder-equation-narrative__texture {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        overflow: hidden;
+        pointer-events: none;
+        mix-blend-mode: multiply;
+      }
+
+      .builder-equation-narrative__texture > [aria-hidden='true'] {
+        background-size: 18.75rem 18.75rem;
+        filter: contrast(2.1) brightness(0.86);
+      }
+
+      .builder-equation-narrative__notch {
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        width: clamp(1.2rem, 1.6vw, 1.65rem);
+        height: clamp(0.8rem, 1vw, 1rem);
+        z-index: 4;
+        background: var(--builder-forest);
+        clip-path: polygon(0 0, 62% 0, 62% 42%, 100% 42%, 100% 100%, 0 100%);
+      }
+
+      .builder-equation-narrative__viewport {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .builder-equation-narrative__track {
+        display: grid;
+        width: 100%;
+        height: 200%;
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+        will-change: transform;
+      }
+
+      .builder-equation-narrative__message {
+        display: grid;
+        width: 100%;
+        min-height: 0;
+        align-content: center;
+        padding: clamp(1.15rem, 1.8vw, 1.75rem) clamp(1.35rem, 2.4vw, 2.5rem);
+      }
+
+      .builder-equation-narrative__message--loss {
+        background: var(--builder-loss);
+      }
+
+      .builder-equation-narrative__message p {
+        display: grid;
+        justify-items: start;
+        gap: clamp(0.28rem, 0.48vw, 0.5rem);
+        margin: 0;
+        text-align: left;
+      }
+
+      .builder-equation-narrative__lead,
+      .builder-equation-narrative__coda {
+        display: block;
+        color: var(--builder-forest);
+        font-family: var(--font-inter), ui-sans-serif, sans-serif;
+        text-wrap: balance;
+      }
+
+      .builder-equation-narrative__lead {
+        font-size: clamp(0.78rem, 0.9vw, 0.98rem);
+        font-weight: 850;
+        letter-spacing: -0.015em;
+        line-height: 1;
+      }
+
+      .builder-equation-narrative__message--premise strong {
+        display: block;
+        color: var(--builder-forest);
+        font-size: clamp(1.18rem, 1.65vw, 1.9rem);
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        line-height: 1.05;
+        text-wrap: balance;
+      }
+
+      .builder-equation-narrative__coda {
+        font-size: clamp(0.98rem, 1.3vw, 1.42rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+
+      .builder-equation-narrative__coda em {
+        font-style: normal;
+        font-size: 1.45em;
+        font-weight: 950;
+        letter-spacing: -0.045em;
+      }
+
+      .builder-equation-narrative__message--loss strong {
+        display: block;
+        max-width: 57ch;
+        color: var(--builder-forest);
+        font-size: clamp(1.08rem, 1.55vw, 1.72rem);
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        line-height: 1.08;
+        text-wrap: balance;
+      }
+
+      .builder-equation-narrative__message--loss strong > span {
+        font-size: 1.32em;
+        font-weight: 950;
+      }
+
+      .builder-equation-narrative--compact {
+        position: relative;
+        inset: auto;
+        z-index: 3;
+        min-height: clamp(7rem, 23vw, 10rem);
+        overflow: hidden;
+        padding: clamp(0.8rem, 3vw, 1.2rem) clamp(0.55rem, 2.8vw, 0.85rem)
+          clamp(1rem, 3.8vw, 1.35rem);
+      }
+
+      .builder-equation-narrative--compact .builder-equation-narrative__card {
+        width: calc(100% - 0.45rem);
+        height: clamp(7rem, 24vw, 8.6rem);
+        box-shadow: 0.34rem 0.34rem 0 var(--builder-forest);
+      }
+
+      .builder-equation-narrative--compact .builder-equation-narrative__message {
+        padding: clamp(0.78rem, 3.2vw, 1.05rem) clamp(0.85rem, 3.6vw, 1.25rem);
+      }
+
+      .builder-equation-narrative--compact .builder-equation-narrative__lead {
+        font-size: clamp(0.66rem, 2.5vw, 0.78rem);
+      }
+
+      .builder-equation-narrative--compact .builder-equation-narrative__message--premise strong {
+        font-size: clamp(0.88rem, 3.55vw, 1.12rem);
+        line-height: 1.08;
+      }
+
+      .builder-equation-narrative--compact .builder-equation-narrative__coda {
+        font-size: clamp(0.78rem, 3.1vw, 0.98rem);
+      }
+
+      .builder-equation-narrative--compact .builder-equation-narrative__message--loss strong {
+        font-size: clamp(0.84rem, 3.35vw, 1.04rem);
+        line-height: 1.1;
+      }
+
+      .builder-equation-line .builder-equation-label > span {
+        padding: 0.28rem 0.62rem;
+        font-size: clamp(0.72rem, 0.82vw, 0.9rem);
+      }
+
       .builder-equation-label em {
         overflow: hidden;
         color: rgb(8 45 35 / 62%);
@@ -4077,10 +4326,15 @@ function BuilderConsultingStyles() {
 
       .builder-equation-card--timeline strong {
         min-width: 0;
-        overflow-wrap: anywhere;
+        overflow-wrap: normal;
         color: var(--builder-forest);
-        font-size: clamp(1.16rem, 1.52vw, 1.82rem);
+        font-size: clamp(0.78rem, 18cqw, 1.82rem);
         letter-spacing: 0;
+        white-space: nowrap;
+      }
+
+      .builder-equation-card--timeline {
+        container-type: inline-size;
       }
 
       .builder-equation-line .builder-equation-card--dense-value strong {
@@ -4150,6 +4404,18 @@ function BuilderConsultingStyles() {
       }
 
       @media (min-width: 1024px) and (max-height: 760px) {
+        .builder-equation-narrative {
+          inset-block: 6.35rem 0.75rem;
+        }
+
+        .builder-equation-narrative__card {
+          height: 6.35rem;
+        }
+
+        .builder-equation-narrative__message {
+          padding-block: 0.8rem;
+        }
+
         .builder-equation-line .builder-equation-card,
         .builder-equation-line .builder-outcome-card {
           min-height: 4.85rem;
@@ -4385,10 +4651,19 @@ function BuilderConsultingStyles() {
 
       .builder-outcome-card:not(.builder-outcome-card--compact) strong {
         width: 100%;
-        overflow-wrap: anywhere;
-        white-space: normal;
-        font-size: clamp(1.5rem, 20cqw, 3.85rem);
+        overflow-wrap: normal;
+        white-space: nowrap;
+        font-size: clamp(0.85rem, 16cqw, 3.85rem);
         letter-spacing: -0.065em;
+      }
+
+      .builder-outcome-card--dense-value strong {
+        overflow-wrap: normal;
+        white-space: nowrap;
+      }
+
+      .builder-outcome-card--dense-value:not(.builder-outcome-card--compact) strong {
+        font-size: clamp(0.5rem, 14cqw, 2.9rem);
       }
 
       .builder-outcome-card--textual:not(.builder-outcome-card--compact) strong {
@@ -4408,6 +4683,21 @@ function BuilderConsultingStyles() {
         line-height: 1;
       }
 
+      .builder-equation-card--dense-value {
+        container-type: inline-size;
+      }
+
+      .builder-equation-card--timeline.builder-equation-card--dense-value strong {
+        overflow-wrap: normal;
+        white-space: nowrap;
+        font-size: clamp(0.55rem, 13cqw, 1.28rem);
+        letter-spacing: -0.02em;
+      }
+
+      .builder-equation-card--timeline.builder-equation-card--extra-dense-value strong {
+        font-size: clamp(0.5rem, 9cqw, 1rem);
+      }
+
       .builder-outcome-card__body > p:not(.builder-outcome-card__label) {
         display: flex;
         flex-wrap: wrap;
@@ -4420,6 +4710,7 @@ function BuilderConsultingStyles() {
       .builder-risk-labels {
         min-width: 0;
         gap: 0.5rem;
+        font-size: clamp(0.32rem, 5.3cqw, 0.58rem);
       }
 
       .builder-risk-labels > span {
@@ -4434,9 +4725,26 @@ function BuilderConsultingStyles() {
         text-align: right;
       }
 
+      @media (min-width: 1024px) and (max-width: 1370px) {
+        .builder-outcome-card--dense-value:not(.builder-outcome-card--compact) strong {
+          font-size: clamp(0.5rem, 12.5cqw, 2.9rem);
+        }
+
+        .builder-risk-labels > span {
+          overflow: visible;
+          text-overflow: clip;
+          white-space: normal;
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .builder-cta {
           transition: none;
+        }
+
+        .builder-equation-narrative,
+        .builder-equation-narrative__track {
+          will-change: auto;
         }
       }
     `}</style>

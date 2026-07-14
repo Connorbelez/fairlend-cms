@@ -22,6 +22,12 @@ export const fairlendRouteSelectorAssets = {
     width: 512,
     height: 512,
   },
+  gardenSuite: {
+    src: '/assets/about-webp/webp/finance-icon-garden-suites.webp',
+    alt: 'Pen and ink garden suite home',
+    width: 512,
+    height: 512,
+  },
   constructionBuilding: {
     src: `${routeAssetBase}/construction-building-engraving.webp`,
     alt: 'Pen and ink construction site with crane',

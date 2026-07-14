@@ -845,12 +845,68 @@ body:has(.fl-mortgage-wizard-page) {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.fl-mortgage-options.is-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.fl-mortgage-chip-option {
+  display: inline-flex;
+  min-width: 44px;
+  min-height: 44px;
+  flex: 0 1 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 7px 12px;
+  border: 1px solid var(--fl-mortgage-rule-strong);
+  border-radius: 9999px;
+  background: var(--fl-mortgage-panel);
+  color: var(--fl-mortgage-ink);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-wrap: balance;
+  transition:
+    border-color 160ms var(--fl-mortgage-ease),
+    background-color 160ms var(--fl-mortgage-ease),
+    color 160ms var(--fl-mortgage-ease),
+    transform 120ms var(--fl-mortgage-ease);
+}
+
+.fl-mortgage-chip-option__icon {
+  display: grid;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  place-items: center;
+}
+
+.fl-mortgage-chip-option__icon > div {
+  display: grid;
+  place-items: center;
+}
+
+.fl-mortgage-chip-option.is-selected {
+  border-color: var(--fl-mortgage-lime);
+  background: var(--fl-mortgage-lime-wash);
+}
+
+.fl-mortgage-chip-option:active {
+  transform: scale(0.98);
+}
+
 .fl-mortgage-option {
   position: relative;
   display: grid;
   min-width: 0;
-  min-height: 50px;
-  grid-template-columns: 24px minmax(0, 1fr) 20px;
+  min-height: 56px;
+  grid-template-columns: 22px 32px minmax(0, 1fr) 20px;
   gap: 11px;
   align-items: center;
   width: 100%;
@@ -871,7 +927,7 @@ body:has(.fl-mortgage-wizard-page) {
     transform 120ms var(--fl-mortgage-ease);
 }
 
-.fl-mortgage-option > span:nth-child(2) {
+.fl-mortgage-option__label {
   min-width: 0;
   overflow-wrap: normal;
 }
@@ -903,6 +959,27 @@ body:has(.fl-mortgage-wizard-page) {
   background: var(--fl-mortgage-ink);
 }
 
+.fl-mortgage-option__icon {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 1px solid var(--fl-mortgage-rule);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--fl-mortgage-panel) 86%, var(--fl-mortgage-lime));
+  color: var(--fl-mortgage-ink);
+}
+
+.fl-mortgage-option__icon > div {
+  display: grid;
+  place-items: center;
+}
+
+.fl-mortgage-option[data-selected='true'] .fl-mortgage-option__icon {
+  border-color: color-mix(in srgb, var(--fl-mortgage-lime) 70%, var(--fl-mortgage-ink));
+  background: var(--fl-mortgage-lime);
+}
+
 .fl-mortgage-option__check {
   width: 18px;
   height: 18px;
@@ -913,7 +990,7 @@ body:has(.fl-mortgage-wizard-page) {
 }
 
 .fl-mortgage-option:not([data-selected='true']) .fl-mortgage-option__check {
-  visibility: hidden;
+  opacity: 0;
 }
 
 .fl-mortgage-input,
@@ -1000,11 +1077,19 @@ body:has(.fl-mortgage-wizard-page) {
 }
 
 .fl-mortgage-back,
-.fl-mortgage-continue {
+.fl-mortgage-continue,
+.fl-mortgage-skip-submit {
   min-height: 50px;
   border-radius: 10px;
   font-size: 0.86rem;
   font-weight: 800;
+}
+
+.fl-mortgage-skip-submit {
+  grid-column: 2;
+  border-color: color-mix(in srgb, var(--fl-mortgage-ink) 32%, transparent);
+  background: transparent;
+  color: var(--fl-mortgage-ink);
 }
 
 .fl-mortgage-back {
@@ -1070,10 +1155,12 @@ body:has(.fl-mortgage-wizard-page) {
 }
 
 .fl-mortgage-option:focus-visible,
+.fl-mortgage-chip-option:focus-visible,
 .fl-mortgage-input:focus-visible,
 .fl-mortgage-textarea:focus-visible,
 .fl-mortgage-back:focus-visible,
 .fl-mortgage-continue:focus-visible,
+.fl-mortgage-skip-submit:focus-visible,
 .fl-mortgage-contact-grid .fl-intake-input:focus-visible {
   outline: 3px solid var(--fl-mortgage-lime);
   outline-offset: 2px;
@@ -1086,6 +1173,10 @@ body:has(.fl-mortgage-wizard-page) {
 
 @media (hover: hover) {
   .fl-mortgage-option:hover {
+    border-color: var(--fl-mortgage-ink);
+  }
+
+  .fl-mortgage-chip-option:hover {
     border-color: var(--fl-mortgage-ink);
   }
 }
@@ -1498,7 +1589,8 @@ body:has(.fl-mortgage-wizard-page) {
 
   .fl-mortgage-progress__track i,
   .fl-mortgage-file-property-art,
-  .fl-mortgage-option {
+  .fl-mortgage-option,
+  .fl-mortgage-chip-option {
     transition: none;
   }
 }

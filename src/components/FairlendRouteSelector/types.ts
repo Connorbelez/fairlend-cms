@@ -10,6 +10,17 @@ export type FairlendRouteImage = {
   height: number
 }
 
+export type FairlendRouteService = {
+  title: string
+  description: string
+  href: string
+}
+
+export type FairlendRouteHighlight = {
+  label: string
+  value: string
+}
+
 export type FairlendRouteChoice = {
   id: string
   title: string
@@ -22,6 +33,12 @@ export type FairlendRouteChoice = {
   icon: FairlendRouteIcon
   illustration: FairlendRouteImage
   badge?: string
+  callout?: 'garden-suite-rental-income'
+  density?: 'standard' | 'compact'
+  disclaimer?: string
+  highlights?: FairlendRouteHighlight[]
+  services?: FairlendRouteService[]
+  span?: 'standard' | 'wide'
 }
 
 export type FairlendRouteHelpBannerContent = {

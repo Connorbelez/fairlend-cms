@@ -330,7 +330,7 @@ export const FairlendLeads: CollectionConfig = {
                 readOnly: true,
                 width: '25%',
               },
-              label: 'Additional Liens',
+              label: 'Additional Debt',
             },
           ],
         },

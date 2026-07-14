@@ -101,7 +101,7 @@ const financeItems = [
       <>
         Permit-smart capital backed
         <br />
-        by GTA contractors and
+        by Southern Ontario contractors and
         <br />
         suppliers to finish on budget.
       </>
@@ -125,7 +125,7 @@ const financeItems = [
   {
     copy: (
       <>
-        Local GTA expertise for 3-20
+        Southern Ontario expertise for 3-20
         <br />
         unit properties, from permits
         <br />

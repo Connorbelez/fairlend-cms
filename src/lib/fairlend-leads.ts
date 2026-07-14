@@ -376,6 +376,7 @@ export function deriveFairlendLeadIntakeDetails(
     intake.detail,
     intake.notes,
     intake.message,
+    intake.additionalDebtAmount,
     intake.additionalLienDetails,
     intake.documentStatus,
     intake.googleEventLink,
@@ -834,7 +835,7 @@ function buildIntakeSummary(details: FairlendLeadIntakeSummaryParts): string | n
     labelValue('Balance', details.intakeMortgageBalance),
     labelValue('Mortgage lane', details.intakeMortgageProduct),
     labelValue('Mortgage goal', details.intakeMortgageGoal),
-    labelValue('Additional liens', details.intakeAdditionalLiens),
+    labelValue('Additional debt', details.intakeAdditionalLiens),
     labelValue('Focus', details.intakeInvestmentFocus),
     labelValue('Notes', details.intakeDetail),
   ].filter(Boolean)

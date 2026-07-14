@@ -1,6 +1,6 @@
-import { Handshake, HardHat, House, Landmark, UsersRound } from 'lucide-react'
+import { Handshake, HardHat, House, HousePlus, UsersRound } from 'lucide-react'
 
-import { buildFairlendMortgageHref } from '@/lib/fairlend-intake'
+import { buildFairlendIntakeHref, buildFairlendMortgageHref } from '@/lib/fairlend-intake'
 
 import { fairlendRouteSelectorAssets } from './assets'
 import type {
@@ -14,8 +14,7 @@ export const fairlendRouteSelectorCopy = {
   title: (
     <>
       Where would you like
-      <br className="xl:hidden" />
-      to go with FairLend?
+      <br className="xl:hidden" /> to go with FairLend?
     </>
   ),
   description: (
@@ -37,6 +36,7 @@ export const fairlendRouteChoices = [
       'Build your own draw schedule.',
       'Save up to 50% interest',
       'Construction guidance from planning to completion',
+      'Structured for single homes through large multi-unit projects',
     ],
     steps: ['Plan', 'Build', 'Draw', 'Complete'],
     stepDescriptions: [
@@ -52,40 +52,67 @@ export const fairlendRouteChoices = [
     badge: 'Priority',
   },
   {
-    id: 'private-mortgage',
-    title: 'Get a private mortgage',
+    id: 'residential-mortgages',
+    title: 'Residential mortgages',
     description:
-      "Access private mortgage financing when traditional lending doesn't fit your timing, property, or exit.",
+      'Private, institutional, and home-equity financing—all structured by one experienced FairLend team.',
     bullets: [
-      '1st, 2nd, and 3rd mortgages',
-      'Fast review and commitment options',
-      'Fair fees and clear exit terms',
-      'Local expertise, direct access',
+      'Options when the banks say no',
+      '24-hour commitment target for eligible private-mortgage files',
+      'No hidden or predatory fees—pricing and exit terms disclosed upfront',
     ],
-    steps: ['Apply', 'Review', 'Approve', 'Fund'],
-    ctaLabel: 'Get Approved',
-    href: buildFairlendMortgageHref('route-selector-private-mortgage'),
+    steps: ['Apply', 'Compare', 'Structure', 'Fund'],
+    ctaLabel: 'Start My Mortgage Review',
+    href: buildFairlendMortgageHref('route-selector-residential-mortgages'),
     icon: House,
     illustration: fairlendRouteSelectorAssets.privateMortgageHouse,
     badge: 'Popular',
+    services: [
+      {
+        title: 'Private mortgage',
+        description: 'Flexible financing when a traditional lender is not the right fit.',
+        href: buildFairlendMortgageHref('route-selector-private-mortgage'),
+      },
+      {
+        title: 'Institutional mortgage',
+        description: 'Competitive options across banks, credit unions, and monoline lenders.',
+        href: '/borrowers/institutional-mortgage',
+      },
+      {
+        title: 'HELOC',
+        description: 'Revolving credit secured against the available equity in your home.',
+        href: buildFairlendMortgageHref('route-selector-heloc'),
+      },
+    ],
   },
   {
-    id: 'institutional-mortgage',
-    title: 'Institutional mortgages',
+    id: 'garden-laneway-suites',
+    title: 'Build a backyard rental',
     description:
-      "Access competitive mortgage financing when the banks say no, backed by FairLend's nationwide lender network.",
+      'Bring us your property and down payment. FairLend coordinates the feasibility, permits, builder, construction financing, draws, and takeout—so your first build can become steady rental income.',
     bullets: [
-      'Competitive rates when the banks say no',
-      'Flexible options',
-      'Series A & B lenders',
-      'Access to thousands of institutional lenders across Canada',
-      'Fast commitment—get the money when you need it',
+      'Turn home equity into a new rental asset—not a one-time cash withdrawal',
+      'One coordinated team from property review through a tenant-ready suite',
+      'Structure the takeout so projected rent may exceed the monthly financing payment',
     ],
-    steps: ['Apply', 'Match', 'Commit', 'Fund'],
-    ctaLabel: 'Get Approved',
-    href: '/borrowers/institutional-mortgage',
-    icon: Landmark,
-    illustration: fairlendRouteSelectorAssets.institutionalMortgage,
+    steps: ['Assess', 'Plan', 'Build', 'Rent'],
+    ctaLabel: 'Check My Property',
+    href: buildFairlendIntakeHref({
+      intent: 'build',
+      projectScope: 'garden-laneway-suites',
+      source: 'route-selector-garden-laneway-suites',
+    }),
+    icon: HousePlus,
+    illustration: fairlendRouteSelectorAssets.gardenSuite,
+    badge: 'Garden + laneway',
+    callout: 'garden-suite-rental-income',
+    highlights: [
+      { label: 'of as-improved value', value: 'Up to 95%' },
+      { label: 'amortization', value: 'Up to 30 years' },
+      { label: 'from first review to takeout', value: 'One FairLend team' },
+    ],
+    disclaimer:
+      'CMHC maximums shown across eligible Improvement and Refinance paths; 95% LTV and 30-year amortization are product-specific and may not be available together. Approval, rent, and positive cash flow are not guaranteed.',
   },
   {
     id: 'invest',
@@ -119,6 +146,7 @@ export const fairlendRouteChoices = [
     href: '/partners',
     icon: Handshake,
     illustration: fairlendRouteSelectorAssets.partnerHandshake,
+    density: 'compact',
   },
 ] satisfies FairlendRouteChoice[]
 

@@ -34,7 +34,7 @@ export function FairlendInvestorHero(): ReactElement {
           <div className="investor-hero__copy">
             <p className="investor-hero__kicker">
               <span aria-hidden="true" />
-              Toronto. Real property. Documented process.
+              Southern Ontario. Real property. Documented process.
             </p>
             <h1 className="investor-hero__title" id="investor-hero-title">
               Put your capital to work. <em>Backed by real property.</em>

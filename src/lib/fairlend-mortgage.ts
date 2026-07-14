@@ -8,6 +8,10 @@ export const institutionalResidentialMortgageGoals = [
 export const privateMortgageSituationOptions = [
   'Close a property quickly',
   'A bank or lender said no',
+  'Refinance my mortgage',
+  'Get a bridge loan',
+  'Home Equity Line of Credit (HELOC)',
+  'Mortgage-backed financing for my business',
   'Use equity in my property',
   'Pay out an existing mortgage',
   'Something else',

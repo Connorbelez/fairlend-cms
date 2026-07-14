@@ -73,7 +73,7 @@ export function FairlendBorrowerTrustProof(): ReactElement {
           <div className="borrower-trust__proof-lead">
             <div className="borrower-trust__proof-kicker">
               <MapPinned aria-hidden="true" size={18} strokeWidth={1.7} />
-              <span>Ontario and GTA mortgage context</span>
+              <span>Southern Ontario mortgage context</span>
             </div>
             <h3>Local mortgage judgment, explained in borrower language.</h3>
             <p>

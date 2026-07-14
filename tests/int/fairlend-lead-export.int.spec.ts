@@ -120,7 +120,12 @@ describe('FairLend lead export endpoint', () => {
 
   it('exports every access-controlled lead without pagination', async () => {
     const docs = [
-      { id: 1, intake: { projectStage: 'Permit submitted' }, leadId: 'lead-1' },
+      {
+        id: 1,
+        intake: { completionStatus: 'partial', projectStage: 'Permit submitted' },
+        intakeDetail: '[Partial intake]',
+        leadId: 'lead-1',
+      },
       { id: 2, intake: { investmentFocus: 'Income' }, leadId: 'lead-2' },
     ]
     const find = vi.fn().mockResolvedValue({ docs })
@@ -146,8 +151,17 @@ describe('FairLend lead export endpoint', () => {
     const rows = parseCsv(await response.text())
     expect(rows).toHaveLength(3)
     expect(rows[0]).toEqual(
-      expect.arrayContaining(['intake.projectStage', 'intake.investmentFocus']),
+      expect.arrayContaining([
+        'intake.completionStatus',
+        'intake.projectStage',
+        'intake.investmentFocus',
+        'intakeDetail',
+      ]),
     )
+    expect(rowAsRecord(rows[0] ?? [], rows[1] ?? [])).toMatchObject({
+      'intake.completionStatus': 'partial',
+      intakeDetail: '[Partial intake]',
+    })
   })
 
   it('returns a controlled server error when the export query fails', async () => {

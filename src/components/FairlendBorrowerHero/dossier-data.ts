@@ -88,7 +88,7 @@ export const borrowerHeroProofPoints: readonly BorrowerHeroProofPoint[] = [
     label: 'Costs upfront',
   },
   {
-    detail: 'Led by experienced GTA mortgage professionals.',
+    detail: 'Led by experienced Southern Ontario mortgage professionals.',
     // Exact principal-broker years / volume claims require approved attribution before publishing.
     label: 'Local review',
   },

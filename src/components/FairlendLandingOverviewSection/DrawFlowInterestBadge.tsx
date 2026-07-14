@@ -2,17 +2,14 @@
 
 import { Info } from 'lucide-react'
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+
+const offsetCalloutClassName = 'relative inline-flex border text-left'
+
+function OffsetCalloutCorner() {
+  return <span aria-hidden="true" className="absolute top-0 right-0 size-1.5 bg-[#08090a]" />
+}
 
 function DrawFlowInterestExplanation() {
   return (
@@ -22,8 +19,8 @@ function DrawFlowInterestExplanation() {
       </p>
       <p className="m-0 text-[13px] leading-[1.4] font-medium text-[#fbfaf7]">
         DrawFlow aligns available capital with verified construction milestones, so you can draw
-        funds when the work needs them instead of paying interest on unused capital. Savings vary
-        by project, draw structure, and timing.
+        funds when the work needs them instead of paying interest on unused capital. Savings vary by
+        project, draw structure, and timing.
       </p>
     </div>
   )
@@ -39,10 +36,16 @@ function BadgeLabel({ compact }: { compact: boolean }) {
       }
     >
       Save up to{' '}
-      <strong className={compact ? 'text-[14px] leading-none sm:text-[16px]' : 'text-[17px] leading-none sm:text-[19px]'}>
+      <strong
+        className={
+          compact
+            ? 'text-[14px] leading-none sm:text-[16px]'
+            : 'text-[17px] leading-none sm:text-[19px]'
+        }
+      >
         50%
       </strong>{' '}
-      interest{' with '}DrawFlow<sup className="ml-px text-[7px] align-top">TM</sup>
+      interest{' with '}DrawFlow
     </span>
   )
 }
@@ -62,10 +65,10 @@ export function DrawFlowInterestBadge({
             <TooltipTrigger asChild>
               <button
                 aria-label="Save up to 50% interest with DrawFlow. Learn how DrawFlow works."
-                className="relative inline-flex min-h-9 items-center border border-[#08090a] bg-[#9DFF00] px-2.5 py-1.5 text-left shadow-[3px_3px_0_#08090a] transition-transform duration-200 hover:-translate-y-0.5 focus-visible:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#08090a]"
+                className={`${offsetCalloutClassName} min-h-9 items-center border-[#08090a] bg-[#9DFF00] px-2.5 py-1.5 shadow-[3px_3px_0_#08090a] transition-transform duration-200 hover:-translate-y-0.5 focus-visible:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#08090a]`}
                 type="button"
               >
-                <span aria-hidden="true" className="absolute top-0 right-0 size-1.5 bg-[#08090a]" />
+                <OffsetCalloutCorner />
                 <BadgeLabel compact={compact} />
               </button>
             </TooltipTrigger>
@@ -107,5 +110,54 @@ export function DrawFlowInterestBadge({
         </div>
       </div>
     </>
+  )
+}
+
+const mliSelectReadinessCriteria = ['Affordability', 'Energy', 'Accessibility'] as const
+
+export function MliSelectReadinessBadge({ className }: { className?: string }) {
+  return (
+    <div
+      aria-label="MLI Select readiness criteria: affordability, energy, and accessibility"
+      className={[
+        offsetCalloutClassName,
+        'w-full flex-col border-[#08090a] bg-[#08090a] px-3 py-2.5 text-[#fbfaf7] shadow-[3px_3px_0_#9DFF00]',
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
+      role="note"
+    >
+      <span aria-hidden="true" className="absolute top-0 right-0 size-1.5 bg-[#9DFF00]" />
+      <div className="flex items-center justify-between gap-3">
+        <p className="m-0 text-[10px] leading-none font-extrabold tracking-[0.1em] text-[#9DFF00] uppercase">
+          Prepare the file early
+        </p>
+        <span className="shrink-0 text-[10px] leading-none font-bold tracking-[0.08em] text-[#fbfaf7]/55 uppercase">
+          Readiness 01—03
+        </span>
+      </div>
+      <p className="mt-1.5 mb-0 text-[12px] leading-[1.25] font-bold">
+        Build the qualification path around three core criteria.
+      </p>
+      <ol className="mt-2 grid list-none grid-cols-3 border-y border-[#fbfaf7]/25 p-0">
+        {mliSelectReadinessCriteria.map((criterion, index) => (
+          <li
+            className="min-w-0 border-l border-[#fbfaf7]/25 px-1.5 py-2 first:border-l-0 first:pl-0 last:pr-0"
+            key={criterion}
+          >
+            <span className="block text-[10px] leading-none font-extrabold text-[#9DFF00]">
+              0{index + 1}
+            </span>
+            <span className="mt-1 block text-[10px] leading-[1.1] font-extrabold tracking-[-0.01em] uppercase">
+              {criterion}
+            </span>
+          </li>
+        ))}
+      </ol>
+      <p className="mt-1.5 mb-0 text-[10px] leading-[1.25] font-medium text-[#fbfaf7]/62">
+        Eligibility and approval remain subject to CMHC underwriting.
+      </p>
+    </div>
   )
 }

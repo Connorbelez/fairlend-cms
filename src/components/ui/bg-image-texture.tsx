@@ -42,7 +42,7 @@ export function BackgroundImageTexture({
           style={{
             backgroundImage: `url(${textureUrl})`,
             backgroundRepeat: 'repeat',
-            opacity,
+            opacity: `var(--background-image-texture-opacity, ${opacity})`,
           }}
         />
       )}

@@ -42,7 +42,7 @@ export const fairlendFaqGroups = [
         id: 'borrowers-fees-and-payout',
         question: 'Will I get trapped in payout or renewal fees?',
         answer:
-          'The structure should make the cost and exit visible before you commit. FairLend discusses rate, broker or lender fees, renewal considerations, payout terms, missed-payment administration, closing costs, and material conditions in plain language. Payout fees are $0 where applicable, and third-party closing costs may still apply.',
+          'The structure should make cost and exit visible before you commit. FairLend discusses the rate, broker fees, lender fees, renewal considerations, reasonable and predefined payout terms where supportable, administration and default fees, closing costs, and all material conditions in plain language. Independent legal, registration, and discharge costs may still apply.',
       },
       {
         id: 'borrowers-approval-guarantee',
@@ -72,7 +72,7 @@ export const fairlendFaqGroups = [
         id: 'investors-capital-protection',
         question: 'How is my investment protected?',
         answer:
-          'Protection starts before a file is placed. FairLend reviews the borrower, property, mortgage position, valuation support, real LTV, payment capacity, documentation quality, legal structure, and exit path. Where a file proceeds, the investment is supported by mortgage security, conservative collateral discipline, professional closing, ongoing administration, payment tracking, investor coordination, and default escalation where required. These controls are designed to manage risk; they do not eliminate it or guarantee repayment.',
+          'Private mortgage investing always involves risk. Principal and payments can be delayed, impaired, or lost. FairLend reviews the borrower, property, mortgage position, valuation support, LTV, payment capacity, documentation, legal structure, and exit path, but does not guarantee capital preservation, payment, recovery, or valuation accuracy. Investors remain responsible for their own diligence and for obtaining independent legal, financial, tax, and appraisal advice.',
       },
       {
         id: 'investors-review-before-funding',

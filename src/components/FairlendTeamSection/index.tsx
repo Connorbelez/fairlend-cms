@@ -24,8 +24,8 @@ const teamMembers = [
     name: 'Bogdan Krystek',
     plate: 'operations',
     responsibility:
-      'Operational discipline and financial oversight across the complete file lifecycle.',
-    role: 'COO / CFO',
+      'Former President of Barton Engineering, bringing precision-manufacturing, high-volume production, and just-in-time supply-chain discipline to the complete file lifecycle.',
+    role: 'Operations & Finance',
   },
   {
     discipline: 'Legal & risk',
@@ -33,7 +33,7 @@ const teamMembers = [
     name: 'Joel Brenner',
     plate: 'legal',
     responsibility:
-      '20 years in private equity and real estate law, with previous cybersecurity consulting for the Canadian government.',
+      'Over 10 years in private equity and real estate law, with previous cybersecurity consulting for the Canadian government.',
     role: 'CLO',
   },
 ] satisfies ReadonlyArray<{

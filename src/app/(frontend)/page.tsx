@@ -9,7 +9,7 @@ export const dynamic = 'force-static'
 
 export const metadata = buildFairlendMetadata({
   description:
-    'FairLend guides Toronto builders, borrowers, and investors through private mortgage, acquisition, construction, and completion financing.',
+    'FairLend guides Southern Ontario builders, borrowers, and investors through private mortgage, acquisition, construction, and completion financing.',
   path: '/',
   title: 'FairLend Mortgage | Private Real Estate Financing Ontario',
 })

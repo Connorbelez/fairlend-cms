@@ -87,7 +87,7 @@ describe('FairlendLeadIntake component', () => {
     )
   })
 
-  it('collects additional liens from the mortgage wizard and includes them in the persisted lead payload', async () => {
+  it('collects additional debt from the mortgage wizard and includes it in the persisted lead payload', async () => {
     currentSearchParams = new URLSearchParams({ intent: 'mortgage' })
     vi.stubGlobal('cancelAnimationFrame', () => {})
     vi.stubGlobal('requestAnimationFrame', () => 0)
@@ -119,8 +119,20 @@ describe('FairlendLeadIntake component', () => {
     fireEvent.click(screen.getByRole('button', { name: /continue to mortgage amount/i }))
 
     await waitFor(() => {
-      expect(screen.getByRole('group', { name: 'Additional liens' })).toBeTruthy()
+      expect(screen.getByRole('group', { name: 'Additional debt' })).toBeTruthy()
     })
+    const additionalDebtGroup = within(screen.getByRole('group', { name: 'Additional debt' }))
+    expect(
+      additionalDebtGroup.getAllByRole('button').map((button) => button.textContent),
+    ).toEqual([
+      'No additional debt',
+      'Under $50K',
+      '$50K-$100K',
+      '$100K-$250K',
+      '$250K-$500K',
+      '$500K-$750K',
+      '$750K+ / not sure',
+    ])
     fireEvent.click(
       within(screen.getByRole('group', { name: 'How much financing do you need?' })).getByRole(
         'button',
@@ -133,8 +145,8 @@ describe('FairlendLeadIntake component', () => {
       }),
     )
     fireEvent.click(
-      within(screen.getByRole('group', { name: 'Additional liens' })).getByRole('button', {
-        name: 'No additional liens',
+      additionalDebtGroup.getByRole('button', {
+        name: '$50K-$100K',
       }),
     )
     fireEvent.click(screen.getByRole('button', { name: /continue to timing/i }))
@@ -148,11 +160,9 @@ describe('FairlendLeadIntake component', () => {
         { name: 'Closing in 2 weeks' },
       ),
     )
-    fireEvent.click(
-      within(
-        screen.getByRole('group', { name: 'How do you expect to repay the mortgage?' }),
-      ).getByRole('button', { name: 'Refinance with a bank' }),
-    )
+    expect(
+      screen.queryByRole('group', { name: 'How do you expect to repay the mortgage?' }),
+    ).toBeNull()
     fireEvent.click(screen.getByRole('button', { name: /continue to contact/i }))
 
     await waitFor(() => {
@@ -173,12 +183,54 @@ describe('FairlendLeadIntake component', () => {
 
     expect(JSON.parse(String(fetchMock.mock.calls[0]?.[1]?.body))).toMatchObject({
       intake: {
-        additionalLiens: 'No additional liens',
+        additionalLiens: '$50K-$100K',
         amount: '$250K-$500K',
         currentMortgage: 'Under $250K',
         mortgageProduct: 'private',
       },
       intent: 'mortgage',
+      status: 'submitted',
+    })
+  })
+
+  it('defers contact capture while preserving partial submission for prefilled leads', async () => {
+    currentSearchParams = new URLSearchParams({
+      email: 'heloc@example.com',
+      intent: 'mortgage',
+      name: 'HELOC Lead',
+      source: 'route-selector-heloc',
+    })
+    vi.stubGlobal('cancelAnimationFrame', () => {})
+    vi.stubGlobal('requestAnimationFrame', () => 0)
+    const fetchMock = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify({ id: '258fd5df-aa05-4b6d-973b-d74be23e8fbc' }), {
+        headers: { 'content-type': 'application/json' },
+        status: 200,
+      }),
+    )
+
+    render(<FairlendLeadIntake />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Home Equity Line of Credit (HELOC)' }))
+    expect(document.getElementById('mortgage-early-name')).toBeNull()
+    expect(document.getElementById('mortgage-early-email')).toBeNull()
+    expect(document.getElementById('mortgage-early-phone')).toBeNull()
+    fireEvent.click(screen.getByRole('button', { name: /continue to property/i }))
+
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Skip and submit' })).toBeTruthy())
+    fireEvent.click(screen.getByRole('button', { name: 'Skip and submit' }))
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1))
+    expect(JSON.parse(String(fetchMock.mock.calls[0]?.[1]?.body))).toMatchObject({
+      email: 'heloc@example.com',
+      intake: {
+        completionStatus: 'partial',
+        detail: '[Partial intake]',
+        mortgageProduct: 'private',
+        situation: 'Home Equity Line of Credit (HELOC)',
+      },
+      name: 'HELOC Lead',
+      source: 'route-selector-heloc',
       status: 'submitted',
     })
   })
@@ -199,7 +251,9 @@ describe('FairlendLeadIntake component', () => {
 
     render(<FairlendLeadIntake mortgageProduct="residential" />)
 
-    expect(screen.getByRole('button', { name: 'Purchase a house or property' })).toBeTruthy()
+    const purchaseGoal = screen.getByRole('button', { name: 'Purchase a house or property' })
+    expect(purchaseGoal.classList.contains('fl-mortgage-chip-option')).toBe(true)
+    expect(purchaseGoal.parentElement?.classList.contains('is-chip-grid')).toBe(true)
     fireEvent.click(screen.getByRole('button', { name: 'First-time home buyer' }))
 
     const applicationStatus = screen.getByRole('group', {
@@ -246,7 +300,7 @@ describe('FairlendLeadIntake component', () => {
     fireEvent.click(
       within(
         screen.getByRole('group', { name: 'Other registered debt on the property' }),
-      ).getByRole('button', { name: 'No additional liens' }),
+      ).getByRole('button', { name: 'No additional debt' }),
     )
     fireEvent.click(screen.getByRole('button', { name: /continue to qualification/i }))
 
@@ -333,19 +387,23 @@ describe('FairlendLeadIntake component', () => {
       target: { value: '125 Rental Street, Toronto' },
     })
     fireEvent.click(screen.getByRole('button', { name: '5+ unit apartment' }))
-    fireEvent.change(document.getElementById('rental-number-of-units')!, {
-      target: { value: '12' },
-    })
+    expect(document.getElementById('rental-number-of-units')).toBeNull()
     fireEvent.click(screen.getByRole('button', { name: 'Fully occupied' }))
     fireEvent.click(screen.getByRole('button', { name: /continue to financing/i }))
 
-    await waitFor(() => expect(document.getElementById('rental-amount-required')).toBeTruthy())
-    fireEvent.change(document.getElementById('rental-amount-required')!, {
-      target: { value: '$1,250,000' },
-    })
-    fireEvent.change(document.getElementById('rental-property-value')!, {
-      target: { value: '$2,000,000' },
-    })
+    await waitFor(() =>
+      expect(screen.getByRole('group', { name: 'Amount required (CAD)' })).toBeTruthy(),
+    )
+    fireEvent.click(
+      within(screen.getByRole('group', { name: 'Amount required (CAD)' })).getByRole('button', {
+        name: '$1M-$2.5M',
+      }),
+    )
+    fireEvent.click(
+      within(screen.getByRole('group', { name: 'Purchase price (CAD)' })).getByRole('button', {
+        name: '$1.5M-$3M',
+      }),
+    )
     fireEvent.click(screen.getByRole('button', { name: 'Bank / institutional lender reviewing' }))
     fireEvent.change(document.getElementById('rental-encumbrance-details')!, {
       target: { value: 'Bank term sheet requested; no secondary financing.' },
@@ -379,15 +437,15 @@ describe('FairlendLeadIntake component', () => {
       intake: {
         additionalLienDetails: 'Bank term sheet requested; no secondary financing.',
         additionalLiens: 'Bank / institutional lender reviewing',
-        amount: '$1,250,000',
+        amount: '$1M-$2.5M',
         grossRentalIncome: '$18,500',
         mortgageProduct: 'rental-property',
-        numberOfUnits: '12',
+        numberOfUnits: '',
         occupancyStatus: 'Fully occupied',
         ownershipStatus: 'Conditional offer / due diligence',
         ownershipStructure: 'Corporation',
         propertyUse: '5+ unit apartment',
-        propertyValue: '$2,000,000',
+        propertyValue: '$1.5M-$3M',
         situation: 'Acquisition / purchase',
         timeline: '31–60 days',
       },
@@ -438,21 +496,35 @@ describe('FairlendLeadIntake component', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Partially occupied' }))
     fireEvent.click(screen.getByRole('button', { name: /continue to financing/i }))
 
-    await waitFor(() => expect(document.getElementById('rental-current-mortgage')).toBeTruthy())
-    fireEvent.change(document.getElementById('rental-amount-required')!, {
-      target: { value: '$900,000' },
-    })
-    fireEvent.change(document.getElementById('rental-property-value')!, {
-      target: { value: '$1,600,000' },
-    })
-    fireEvent.change(document.getElementById('rental-current-mortgage')!, {
-      target: { value: '$700,000' },
-    })
+    await waitFor(() =>
+      expect(screen.getByRole('group', { name: 'Current mortgage balance (CAD)' })).toBeTruthy(),
+    )
     fireEvent.click(
-      screen.getByRole('button', { name: 'First mortgage plus other liens / encumbrances' }),
+      within(screen.getByRole('group', { name: 'Amount required (CAD)' })).getByRole('button', {
+        name: '$500K-$1M',
+      }),
+    )
+    fireEvent.click(
+      within(screen.getByRole('group', { name: 'Estimated current value (CAD)' })).getByRole(
+        'button',
+        { name: '$1.5M-$3M' },
+      ),
+    )
+    fireEvent.click(
+      within(screen.getByRole('group', { name: 'Current mortgage balance (CAD)' })).getByRole(
+        'button',
+        { name: '$500K-$1M' },
+      ),
+    )
+    fireEvent.click(screen.getByRole('button', { name: 'Other debt (unsecured or non-property debt)' }))
+    fireEvent.click(
+      within(screen.getByRole('group', { name: 'Approximate other debt amount' })).getByRole(
+        'button',
+        { name: '$250K-$500K' },
+      ),
     )
     fireEvent.change(document.getElementById('rental-encumbrance-details')!, {
-      target: { value: 'Second mortgage balance is approximately $95,000.' },
+      target: { value: 'Shareholder loan used for property improvements.' },
     })
     fireEvent.click(screen.getByRole('button', { name: /continue to income and timing/i }))
 
@@ -480,16 +552,17 @@ describe('FairlendLeadIntake component', () => {
     await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1))
     expect(JSON.parse(String(fetchMock.mock.calls[0]?.[1]?.body))).toMatchObject({
       intake: {
-        additionalLienDetails: 'Second mortgage balance is approximately $95,000.',
-        additionalLiens: 'First mortgage plus other liens / encumbrances',
-        amount: '$900,000',
-        currentMortgage: '$700,000',
+        additionalDebtAmount: '$250K-$500K',
+        additionalLienDetails: 'Shareholder loan used for property improvements.',
+        additionalLiens: 'Other debt (unsecured or non-property debt)',
+        amount: '$500K-$1M',
+        currentMortgage: '$500K-$1M',
         grossRentalIncome: '$12,000',
         mortgageProduct: 'rental-property',
         numberOfUnits: '8',
         ownershipStatus: 'My corporation or partnership is on title',
         ownershipStructure: 'Partnership / joint venture',
-        propertyValue: '$1,600,000',
+        propertyValue: '$1.5M-$3M',
         situation: 'Refinance',
       },
       source: 'landing-overview-refinancing-existing-rental-properties',

@@ -22,6 +22,8 @@ import { type FormEvent, useEffect, useRef, useState } from 'react'
 
 import './lead-intake.css'
 
+import { MortgageChoiceOption } from './MortgageChoiceOption.client'
+
 import { Button } from '@/components/ui/button'
 import { GoogleAddressAutocomplete } from '@/components/address/GoogleAddressAutocomplete'
 import {
@@ -79,6 +81,7 @@ type FairlendLeadIntakeProps = {
 
 type LeadCaptureValues = {
   address: string
+  additionalDebtAmount: string
   additionalLiens: string
   additionalLienDetails: string
   amount: string
@@ -313,7 +316,7 @@ const investorPreviewRows = [
   { label: 'Position', detail: 'First mortgage · registered' },
   { label: 'Loan-to-value', detail: '68% · double valuation' },
   { label: 'Term', detail: '12 months · interest only' },
-  { label: 'Borrower', detail: 'Equity-based file · GTA' },
+  { label: 'Borrower', detail: 'Equity-based file · Southern Ontario' },
 ] as const
 
 const investorRoute = ['Review fit', 'Discuss criteria', 'Confirm next step'] as const
@@ -386,17 +389,13 @@ const mortgageCurrentBalanceOptions = [
 ] as const
 
 const mortgageAdditionalLiensOptions = [
-  'No additional liens',
-  'Under $250K',
-  '$250K-$750K',
+  'No additional debt',
+  'Under $50K',
+  '$50K-$100K',
+  '$100K-$250K',
+  '$250K-$500K',
+  '$500K-$750K',
   '$750K+ / not sure',
-] as const
-
-const mortgageExitPlanOptions = [
-  'Refinance with a bank',
-  'Sell the property',
-  'Repay from other funds',
-  'Not sure yet',
 ] as const
 
 const institutionalMortgageGoalOptions = [
@@ -493,6 +492,35 @@ const rentalPropertyTypeOptions = [
   'Other existing rental',
 ] as const
 
+const rentalPropertyTypesWithUnitCount = new Set<string>([
+  'Mixed-use with residential units',
+  'Student / rooming house',
+  'Other existing rental',
+])
+
+const rentalAmountRangeOptions = [
+  'Under $250K',
+  '$250K-$500K',
+  '$500K-$1M',
+  '$1M-$2.5M',
+  '$2.5M-$5M',
+  '$5M+ / not sure',
+] as const
+
+const rentalPropertyValueRangeOptions = [
+  'Under $750K',
+  '$750K-$1.5M',
+  '$1.5M-$3M',
+  '$3M-$5M',
+  '$5M-$10M',
+  '$10M+ / not sure',
+] as const
+
+const rentalMortgageBalanceRangeOptions = [
+  'No current mortgage',
+  ...rentalAmountRangeOptions,
+] as const
+
 const rentalOccupancyOptions = [
   'Fully occupied',
   'Partially occupied',
@@ -512,6 +540,7 @@ const rentalRefinanceEncumbranceOptions = [
   'Existing first mortgage only',
   'First mortgage plus other liens / encumbrances',
   'Tax, construction, or judgment lien',
+  'Other debt (unsecured or non-property debt)',
   'Another lender is reviewing this refinance',
   'Not sure',
 ] as const
@@ -534,6 +563,7 @@ const investorTotalSteps = 4
 
 const emptyValues: LeadCaptureValues = {
   address: '',
+  additionalDebtAmount: '',
   additionalLienDetails: '',
   additionalLiens: '',
   amount: '',
@@ -725,8 +755,11 @@ export function FairlendLeadIntake({
     }
   }
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
-    event.preventDefault()
+  async function handleSubmit(
+    event: FormEvent<HTMLFormElement> | null,
+    completionStatus: 'complete' | 'partial' = 'complete',
+  ): Promise<void> {
+    event?.preventDefault()
 
     const validationErrors = validateLeadCapture(values, {
       requiresName,
@@ -748,11 +781,16 @@ export function FairlendLeadIntake({
           id: leadId ?? undefined,
           intent,
           intake: {
+            additionalDebtAmount: values.additionalDebtAmount,
             additionalLiens: values.additionalLiens,
             additionalLienDetails: values.additionalLienDetails,
             amount: values.amount,
             currentMortgage: values.currentMortgage,
-            detail: values.message,
+            completionStatus,
+            detail:
+              completionStatus === 'partial'
+                ? ['[Partial intake]', values.message].filter(Boolean).join(' ')
+                : values.message,
             documentStatus: values.documentStatus,
             exitPlan: values.exitPlan,
             grossRentalIncome: values.grossRentalIncome,
@@ -790,6 +828,7 @@ export function FairlendLeadIntake({
       trackLeadSubmitted({
         has_existing_lead: Boolean(leadId),
         intent,
+        completion: completionStatus,
         source,
         step: 'intake_submit',
       })
@@ -1469,7 +1508,10 @@ function MortgageIntakeWizard({
   errors: LeadCaptureErrors
   mode: 'institutional' | 'investor' | 'mortgage' | 'rental-property' | 'residential'
   onReset: () => void
-  onSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>
+  onSubmit: (
+    event: FormEvent<HTMLFormElement> | null,
+    completionStatus?: 'complete' | 'partial',
+  ) => Promise<void>
   setStep: (step: number) => void
   state: LeadCaptureState
   step: number
@@ -1492,6 +1534,12 @@ function MortgageIntakeWizard({
   const isInstitutional = mode === 'institutional' || residentialProduct === 'institutional'
   const isPrivateMortgage = mode === 'mortgage' || residentialProduct === 'private'
   const totalSteps = isInvestor ? investorTotalSteps : mortgageTotalSteps
+  const canSkipAndSubmit =
+    !isInvestor &&
+    step > 1 &&
+    step < totalSteps &&
+    Boolean(values.situation && values.name.trim() && isValidEmail(values.email)) &&
+    (!isRentalProperty || Boolean(values.phone.trim()))
 
   const stepContent = isInvestor
     ? getInvestorStepContent(step)
@@ -1552,6 +1600,7 @@ function MortgageIntakeWizard({
 
   function chooseRentalPropertyTransaction(value: string): void {
     if (values.situation && values.situation !== value) {
+      choose('additionalDebtAmount', '')
       choose('additionalLienDetails', '')
       choose('additionalLiens', '')
       choose('currentMortgage', '')
@@ -1559,6 +1608,21 @@ function MortgageIntakeWizard({
       choose('propertyValue', '')
     }
     choose('situation', value)
+  }
+
+  function chooseRentalPropertyUse(value: string): void {
+    if (!rentalPropertyTypesWithUnitCount.has(value)) {
+      choose('numberOfUnits', '')
+    }
+    choose('propertyUse', value)
+  }
+
+  function chooseRentalEncumbrance(value: string): void {
+    if (values.additionalLiens !== value) {
+      choose('additionalDebtAmount', '')
+      choose('additionalLienDetails', '')
+    }
+    choose('additionalLiens', value)
   }
 
   function moveForward(): void {
@@ -1585,7 +1649,7 @@ function MortgageIntakeWizard({
       return
     }
 
-    void onSubmit(event)
+    void onSubmit(event, 'complete')
   }
 
   const RootElement = variant === 'hero' ? 'div' : 'main'
@@ -1701,22 +1765,24 @@ function MortgageIntakeWizard({
                     />
                     <MortgageChoiceGroup
                       label="What type of rental property is it?"
-                      onSelect={(value) => choose('propertyUse', value)}
+                      onSelect={chooseRentalPropertyUse}
                       options={rentalPropertyTypeOptions}
                       selectedValue={values.propertyUse}
                     />
-                    <div className="fl-mortgage-contact-grid">
-                      <TextField
-                        appearance="mortgage"
-                        id="rental-number-of-units"
-                        inputMode="numeric"
-                        label="Number of residential units"
-                        onChange={(value) => choose('numberOfUnits', value)}
-                        placeholder="e.g. 12"
-                        required
-                        value={values.numberOfUnits}
-                      />
-                    </div>
+                    {rentalPropertyTypesWithUnitCount.has(values.propertyUse) ? (
+                      <div className="fl-mortgage-contact-grid">
+                        <TextField
+                          appearance="mortgage"
+                          id="rental-number-of-units"
+                          inputMode="numeric"
+                          label="Number of residential units"
+                          onChange={(value) => choose('numberOfUnits', value)}
+                          placeholder="e.g. 12"
+                          required
+                          value={values.numberOfUnits}
+                        />
+                      </div>
+                    ) : null}
                     <MortgageChoiceGroup
                       compact
                       label="What is the current occupancy?"
@@ -1729,51 +1795,36 @@ function MortgageIntakeWizard({
 
                 {isRentalProperty && step === 3 ? (
                   <>
-                    <div className="fl-mortgage-contact-grid">
-                      <TextField
-                        appearance="mortgage"
-                        id="rental-amount-required"
-                        inputMode="decimal"
-                        label="Amount required (CAD)"
-                        onChange={(value) => choose('amount', value)}
-                        placeholder="e.g. $1,250,000"
-                        required
-                        value={values.amount}
+                    <MortgageChoiceGroup
+                      compact
+                      label="Amount required (CAD)"
+                      onSelect={(value) => choose('amount', value)}
+                      options={rentalAmountRangeOptions}
+                      selectedValue={values.amount}
+                    />
+                    <MortgageChoiceGroup
+                      compact
+                      label={isRentalRefinance ? 'Estimated current value (CAD)' : 'Purchase price (CAD)'}
+                      onSelect={(value) => choose('propertyValue', value)}
+                      options={rentalPropertyValueRangeOptions}
+                      selectedValue={values.propertyValue}
+                    />
+                    {isRentalRefinance ? (
+                      <MortgageChoiceGroup
+                        compact
+                        label="Current mortgage balance (CAD)"
+                        onSelect={(value) => choose('currentMortgage', value)}
+                        options={rentalMortgageBalanceRangeOptions}
+                        selectedValue={values.currentMortgage}
                       />
-                      <TextField
-                        appearance="mortgage"
-                        id="rental-property-value"
-                        inputMode="decimal"
-                        label={
-                          isRentalRefinance
-                            ? 'Estimated current value (CAD)'
-                            : 'Purchase price (CAD)'
-                        }
-                        onChange={(value) => choose('propertyValue', value)}
-                        placeholder="e.g. $2,000,000"
-                        required
-                        value={values.propertyValue}
-                      />
-                      {isRentalRefinance ? (
-                        <TextField
-                          appearance="mortgage"
-                          id="rental-current-mortgage"
-                          inputMode="decimal"
-                          label="Current mortgage balance (CAD)"
-                          onChange={(value) => choose('currentMortgage', value)}
-                          placeholder="e.g. $875,000"
-                          required
-                          value={values.currentMortgage}
-                        />
-                      ) : null}
-                    </div>
+                    ) : null}
                     <MortgageChoiceGroup
                       label={
                         isRentalRefinance
                           ? 'Other lenders, liens, or encumbrances'
                           : 'What other financing is involved?'
                       }
-                      onSelect={(value) => choose('additionalLiens', value)}
+                      onSelect={chooseRentalEncumbrance}
                       options={
                         isRentalRefinance
                           ? rentalRefinanceEncumbranceOptions
@@ -1781,6 +1832,15 @@ function MortgageIntakeWizard({
                       }
                       selectedValue={values.additionalLiens}
                     />
+                    {values.additionalLiens === 'Other debt (unsecured or non-property debt)' ? (
+                      <MortgageChoiceGroup
+                        compact
+                        label="Approximate other debt amount"
+                        onSelect={(value) => choose('additionalDebtAmount', value)}
+                        options={rentalAmountRangeOptions}
+                        selectedValue={values.additionalDebtAmount}
+                      />
+                    ) : null}
                     <Field className="fl-mortgage-field">
                       <FieldLabel htmlFor="rental-encumbrance-details">
                         Lender, lien, or financing details <span>Optional</span>
@@ -1882,6 +1942,7 @@ function MortgageIntakeWizard({
                   <>
                     <MortgageChoiceGroup
                       label="What would you like this mortgage to solve?"
+                      layout="chips"
                       onSelect={(value) =>
                         isResidential
                           ? chooseResidentialSituation(value)
@@ -1957,7 +2018,7 @@ function MortgageIntakeWizard({
                     />
                     <MortgageChoiceGroup
                       compact
-                      label="Additional liens"
+                      label="Additional debt"
                       onSelect={(value) => choose('additionalLiens', value)}
                       options={mortgageAdditionalLiensOptions}
                       selectedValue={values.additionalLiens}
@@ -1973,13 +2034,6 @@ function MortgageIntakeWizard({
                       onSelect={(value) => choose('timeline', value)}
                       options={mortgageTimelineOptions}
                       selectedValue={values.timeline}
-                    />
-                    <MortgageChoiceGroup
-                      compact
-                      label="How do you expect to repay the mortgage?"
-                      onSelect={(value) => choose('exitPlan', value)}
-                      options={mortgageExitPlanOptions}
-                      selectedValue={values.exitPlan}
                     />
                   </>
                 ) : null}
@@ -2334,6 +2388,17 @@ function MortgageIntakeWizard({
                     : stepContent.action}
                   {state !== 'submitting' ? <ArrowRight aria-hidden="true" /> : null}
                 </Button>
+                {canSkipAndSubmit ? (
+                  <Button
+                    className="fl-mortgage-skip-submit"
+                    disabled={state === 'submitting'}
+                    onClick={() => void onSubmit(null, 'partial')}
+                    type="button"
+                    variant="outline"
+                  >
+                    Skip and submit
+                  </Button>
+                ) : null}
               </div>
 
               <div className="fl-mortgage-draft-controls">
@@ -2358,40 +2423,41 @@ function MortgageIntakeWizard({
 function MortgageChoiceGroup({
   compact = false,
   label,
+  layout = 'cards',
   onSelect,
   options,
   selectedValue,
 }: {
   compact?: boolean
   label: string
+  layout?: 'cards' | 'chips'
   onSelect: (value: string) => void
   options: readonly string[]
   selectedValue: string
 }) {
+  const optionsClassName = [
+    'fl-mortgage-options',
+    compact ? 'is-compact' : '',
+    layout === 'chips' ? 'is-chip-grid' : '',
+  ]
+    .filter(Boolean)
+    .join(' ')
+
   return (
     <fieldset className="fl-mortgage-choice-group">
       <legend>{label}</legend>
-      <div className={compact ? 'fl-mortgage-options is-compact' : 'fl-mortgage-options'}>
+      <div className={optionsClassName}>
         {options.map((option) => {
           const isSelected = selectedValue === option
 
           return (
-            <button
-              aria-pressed={isSelected}
-              className="fl-mortgage-option"
-              data-selected={isSelected}
+            <MortgageChoiceOption
               key={option}
-              onClick={() => onSelect(option)}
-              type="button"
-            >
-              <span className="fl-mortgage-option__radio" aria-hidden="true">
-                {isSelected ? <i /> : null}
-              </span>
-              <span>{option}</span>
-              {isSelected ? (
-                <Check aria-hidden="true" className="fl-mortgage-option__check" />
-              ) : null}
-            </button>
+              layout={layout}
+              onSelect={onSelect}
+              option={option}
+              selected={isSelected}
+            />
           )
         })}
       </div>
@@ -2496,9 +2562,10 @@ function MortgageFileVisual({
     { label: 'Estimated value', value: values.propertyValue },
     { label: 'Amount requested', value: values.amount },
     { label: 'Current mortgage', value: values.currentMortgage },
-    { label: 'Additional liens', value: values.additionalLiens },
+    { label: 'Additional debt', value: values.additionalLiens },
     ...(isRentalProperty
       ? [
+          { label: 'Other debt amount', value: values.additionalDebtAmount },
           { label: 'Financing details', value: values.additionalLienDetails },
           { label: 'Gross monthly rent', value: values.grossRentalIncome },
           { label: 'Timing', value: values.timeline },
@@ -2860,11 +2927,11 @@ function validateMortgageStep(step: number, values: LeadCaptureValues): string {
   }
 
   if (step === 3 && (!values.amount || !values.currentMortgage || !values.additionalLiens)) {
-    return 'Choose an amount range, current mortgage balance, and any additional liens.'
+    return 'Choose an amount range, current mortgage balance, and any additional debt.'
   }
 
-  if (step === 4 && (!values.timeline || !values.exitPlan)) {
-    return 'Choose the timing and the most likely repayment path.'
+  if (step === 4 && !values.timeline) {
+    return 'Choose when you need an answer.'
   }
 
   return ''
@@ -2877,14 +2944,18 @@ function validateRentalPropertyStep(step: number, values: LeadCaptureValues): st
     return 'Choose the transaction, ownership status, and ownership structure.'
   }
 
+  const requiresUnitCount = rentalPropertyTypesWithUnitCount.has(values.propertyUse)
+
   if (
     step === 2 &&
-    (!values.address || !values.propertyUse || !values.numberOfUnits || !values.occupancyStatus)
+    (!values.address || !values.propertyUse || (requiresUnitCount && !values.numberOfUnits) || !values.occupancyStatus)
   ) {
-    return 'Add the address, property type, number of units, and current occupancy.'
+    return requiresUnitCount
+      ? 'Add the address, property type, number of units, and current occupancy.'
+      : 'Add the address, property type, and current occupancy.'
   }
 
-  if (step === 2 && !/^[1-9]\d*$/.test(values.numberOfUnits.trim())) {
+  if (step === 2 && requiresUnitCount && !/^[1-9]\d*$/.test(values.numberOfUnits.trim())) {
     return 'Enter the residential unit count as a whole number greater than zero.'
   }
 
@@ -2893,6 +2964,8 @@ function validateRentalPropertyStep(step: number, values: LeadCaptureValues): st
     (!values.amount ||
       !values.propertyValue ||
       !values.additionalLiens ||
+      (values.additionalLiens === 'Other debt (unsecured or non-property debt)' &&
+        !values.additionalDebtAmount) ||
       (isRefinance && !values.currentMortgage))
   ) {
     return isRefinance
@@ -2973,7 +3046,7 @@ function InvestorBrief({ copy, compact = false }: { copy: IntakeCopy; compact?: 
               </span>
               <span className="fl-intake-preview__stat">
                 <strong>~30 yrs</strong>
-                <em>GTA</em>
+                <em>Southern Ontario</em>
               </span>
             </div>
           </header>
@@ -3333,4 +3406,8 @@ function validateLeadCapture(
   }
 
   return errors
+}
+
+function isValidEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())
 }

@@ -14,7 +14,7 @@ export function EthosManifestoBlock({ housingImageSrc }: EthosManifestoBlockProp
       <div className="fairlend-ethos__manifesto-seal">
         <p>The FairLend standard / 05</p>
         <span aria-hidden="true" />
-        <p>Shared success / Toronto</p>
+        <p>Shared success / Southern Ontario</p>
       </div>
 
       <figure aria-hidden="true" className="fairlend-ethos__manifesto-housing">

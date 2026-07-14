@@ -1,3 +1,4 @@
+import { GardenSuiteOpportunityBadge } from '@/components/GardenSuiteOpportunityBadge'
 import { cn } from '@/utilities/ui'
 
 import { fairlendRouteSelectorAssets } from './assets'
@@ -29,6 +30,14 @@ type FairlendRouteMotionStyle = FairlendRouteSelectorStyle & {
   '--route-motion-index'?: number
 }
 
+const fairlendRouteDesktopPlacement: Record<string, string> = {
+  'construction-financing': 'xl:col-start-1 xl:row-span-3 xl:row-start-1',
+  'residential-mortgages': 'xl:col-start-2 xl:row-start-1',
+  'garden-laneway-suites': 'xl:col-start-2 xl:row-span-3 xl:row-start-3',
+  invest: 'xl:col-start-1 xl:row-span-3 xl:row-start-5 xl:min-h-0',
+  'partner-program': 'xl:col-start-2 xl:row-start-7 xl:min-h-0',
+}
+
 type FairlendRouteSelectorProps = Omit<FairlendRouteComponentProps<HTMLElement>, 'title'> &
   Partial<FairlendRouteSelectorCopy> & {
     backgroundImage?: string
@@ -50,13 +59,12 @@ export function FairlendRouteSelector({
   ...props
 }: FairlendRouteSelectorProps) {
   const featuredRoute = routes.find((route) => route.id === 'construction-financing') ?? routes[0]
-  const supportingRoutes = routes.filter((route) => route.id !== featuredRoute?.id)
 
   return (
     <section
       className={cn(
         fairlendRouteSelectorVariants(),
-        'py-10 lg:py-10 xl:h-[100svh] xl:min-h-[720px] xl:max-h-[980px] xl:px-[clamp(18px,2vw,34px)] xl:py-5',
+        'py-10 lg:py-10 xl:min-h-[720px] xl:overflow-visible xl:px-[clamp(18px,2vw,34px)] xl:py-8',
         className,
       )}
       data-fairlend-route-selector
@@ -87,7 +95,7 @@ export function FairlendRouteSelector({
       <FairlendRouteSelectorMotion />
 
       <div className="relative z-10 mx-auto flex h-full w-full max-w-none flex-col">
-        <div className="grid shrink-0 items-end gap-6 lg:grid-cols-[minmax(0,0.92fr)_minmax(280px,0.58fr)] lg:gap-[clamp(28px,4vw,58px)] xl:grid-cols-[minmax(0,1.42fr)_minmax(320px,0.58fr)]">
+        <div className="grid shrink-0 items-end gap-6 lg:grid-cols-[minmax(0,0.92fr)_minmax(280px,0.58fr)] lg:gap-[clamp(28px,4vw,56px)] xl:grid-cols-[minmax(0,1.58fr)_minmax(300px,0.42fr)]">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left [&_*]:text-center lg:[&_*]:text-left">
             <span
               className={fairlendRouteOriginDotVariants()}
@@ -103,7 +111,7 @@ export function FairlendRouteSelector({
             <h2
               className={cn(
                 fairlendRouteHeaderTextVariants({ role: 'title' }),
-                'max-w-[680px] xl:mt-2 xl:max-w-[1050px] xl:text-[52px] xl:leading-[0.9]',
+                'max-w-[680px] xl:mt-2 xl:max-w-none',
               )}
               data-fairlend-route-motion="title"
             >
@@ -114,45 +122,51 @@ export function FairlendRouteSelector({
             className="mx-auto border-y border-[rgb(17_17_15_/_14%)] py-[18px] text-center text-[color:var(--fl-route-body-ink)] lg:mx-0 lg:text-left xl:py-3"
             data-fairlend-route-motion="description"
           >
-            <strong className="mb-[7px] block text-[12px] leading-none font-black tracking-[0.18em] text-[color:var(--fl-route-kicker-ink)] uppercase">
+            <strong className="mb-2 block text-[12px] leading-none font-extrabold tracking-[0.28em] text-[color:var(--fl-route-kicker-ink)] uppercase">
               Route first
             </strong>
-            <span className="mx-auto block max-w-[34ch] text-[14px] leading-[1.36] font-semibold text-[color:var(--fl-route-body-ink)] lg:mx-0">
+            <span className="mx-auto block max-w-[34ch] text-[16px] leading-[1.45] font-medium text-[color:var(--fl-route-body-ink)] lg:mx-0">
               {description}
             </span>
           </div>
         </div>
 
         <div
-          className="mt-6 grid w-full gap-3 xl:mt-4 xl:min-h-0 xl:flex-1 xl:grid-cols-[minmax(440px,0.92fr)_minmax(0,1.48fr)]"
+          className="mt-6 grid w-full items-stretch gap-4 xl:mt-5 xl:grid-cols-[minmax(400px,0.92fr)_minmax(0,1.48fr)] xl:grid-rows-[auto_16px_283px_16px_143px_16px_155px] xl:gap-x-4 xl:gap-y-0 xl:overflow-visible"
           data-fairlend-route-motion="grid"
         >
-          {featuredRoute ? (
+          {routes.map((route, index) => (
             <FairlendRouteCard
-              key={featuredRoute.id}
-              layout="featured"
-              route={featuredRoute}
-              selected={featuredRoute.id === selectedRouteId}
-              style={{ '--route-motion-index': 0 } as FairlendRouteMotionStyle}
+              className={cn(
+                fairlendRouteDesktopPlacement[route.id],
+                route.id === featuredRoute?.id &&
+                  !fairlendRouteDesktopPlacement[route.id] &&
+                  'xl:row-span-2',
+                route.span === 'wide' && 'xl:col-span-2',
+              )}
+              key={route.id}
+              layout={
+                route.id === featuredRoute?.id
+                  ? 'featured'
+                  : route.density === 'compact'
+                    ? 'compact'
+                    : 'supporting'
+              }
+              route={route}
+              selected={route.id === selectedRouteId}
+              style={{ '--route-motion-index': index } as FairlendRouteMotionStyle}
             />
-          ) : null}
+          ))}
 
-          <div className="grid min-h-0 grid-cols-1 gap-3 md:grid-cols-2 xl:grid-rows-2">
-            {supportingRoutes.map((route, index) => (
-              <FairlendRouteCard
-                key={route.id}
-                layout="supporting"
-                route={route}
-                selected={route.id === selectedRouteId}
-                style={{ '--route-motion-index': index + 1 } as FairlendRouteMotionStyle}
-              />
-            ))}
-          </div>
+          <GardenSuiteOpportunityBadge
+            className="pointer-events-none z-30 hidden w-[29%] xl:col-start-2 xl:row-start-3 xl:-mt-[28px] xl:-mr-12 xl:inline-flex xl:rotate-[0.8deg] xl:self-start xl:justify-self-end"
+            context="route"
+          />
         </div>
 
         {helpBanner ? (
           <FairlendRouteHelpBanner
-            className="mt-5 xl:hidden"
+            className="mt-5"
             content={helpBanner}
             data-fairlend-route-motion="helper"
           />
@@ -202,7 +216,9 @@ export type { FairlendRouteSelectorStyle } from './styles'
 export type {
   FairlendRouteChoice,
   FairlendRouteHelpBannerContent,
+  FairlendRouteHighlight,
   FairlendRouteIcon,
   FairlendRouteImage,
+  FairlendRouteService,
   FairlendRouteSelectorCopy,
 } from './types'

@@ -701,7 +701,7 @@
   @keyframes routeSelectorMapSettle {
     from {
       opacity: 0.78;
-      filter: blur(5px) saturate(0.92);
+      filter: saturate(0.92);
       transform: scale(1.045);
     }
 
@@ -738,29 +738,29 @@
 
   @keyframes routeHeaderIn {
     from {
-      opacity: 0.72;
-      filter: blur(6px);
-      transform: translate3d(0, 18px, 0);
+      clip-path: inset(0 0 28% 0);
+      opacity: 0.82;
+      transform: translate3d(0, 12px, 0);
     }
 
     to {
+      clip-path: none;
       opacity: 1;
-      filter: blur(0);
       transform: translate3d(0, 0, 0);
     }
   }
 
   @keyframes routeCardIn {
     from {
-      opacity: 0.72;
-      filter: blur(5px);
-      transform: translate3d(0, 22px, 0) rotateX(-2deg);
+      clip-path: inset(0 0 9% 0 round var(--fl-route-radius-card));
+      opacity: 0.82;
+      transform: translate3d(0, 14px, 0) scale(0.995);
     }
 
     to {
+      clip-path: none;
       opacity: 1;
-      filter: blur(0);
-      transform: translate3d(0, 0, 0) rotateX(0deg);
+      transform: translate3d(0, 0, 0) scale(1);
     }
   }
 
@@ -778,9 +778,8 @@
 
   @keyframes routeIllustrationIn {
     from {
-      opacity: 0.72;
-      filter: blur(4px);
-      transform: translateY(10px) scale(0.985);
+      opacity: 0.78;
+      transform: translateY(8px) scale(0.99);
     }
 
     to {
@@ -811,6 +810,14 @@
     to {
       opacity: 1;
       transform: scale(1);
+    }
+  }
+
+  @keyframes routePreviewStepSignal {
+    45% {
+      background-color: var(--fl-route-lime);
+      box-shadow: 0 0 0 4px rgb(156 255 0 / 18%);
+      transform: scale(1.28);
     }
   }
 
@@ -857,9 +864,32 @@
   }
 
   [data-fairlend-route-motion='card']:hover [data-fairlend-route-motion='illustration'],
+  [data-fairlend-route-motion='card']:focus-within [data-fairlend-route-motion='illustration'],
   [data-fairlend-route-motion='helper']:hover img {
     filter: contrast(1.06);
     transform: translateY(-3px) scale(1.015);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    [data-fairlend-route-selector][data-route-preview='active'] [data-fairlend-route-card] {
+      transition:
+        border-color 260ms var(--route-motion-ease),
+        box-shadow 260ms var(--route-motion-ease),
+        translate 260ms var(--route-motion-ease);
+    }
+
+    [data-fairlend-route-selector] [data-fairlend-route-card][data-fairlend-route-preview] {
+      border-color: var(--fl-route-lime);
+      box-shadow: var(--fl-route-shadow-card-selected);
+      translate: 0 -4px;
+    }
+
+    [data-fairlend-route-selector]
+      [data-fairlend-route-card][data-fairlend-route-preview-signal]
+      [data-fairlend-route-motion='step-dot'] {
+      animation: routePreviewStepSignal 520ms var(--route-motion-ease)
+        calc(var(--route-step-index, 0) * 80ms) 1;
+    }
   }
 
   [data-fairlend-route-selected='true']::after {
@@ -901,20 +931,22 @@
     [data-fairlend-route-motion='title'],
   [data-fairlend-route-selector][data-route-motion-state='idle']
     [data-fairlend-route-motion='description'] {
-    opacity: 0.72;
-    transform: translate3d(0, 18px, 0);
+    clip-path: inset(0 0 28% 0);
+    opacity: 0.82;
+    transform: translate3d(0, 12px, 0);
   }
 
   [data-fairlend-route-selector][data-route-motion-state='idle']
     [data-fairlend-route-motion='card'] {
-    opacity: 0.72;
-    transform: translate3d(0, 22px, 0) rotateX(-2deg);
+    clip-path: inset(0 0 9% 0 round var(--fl-route-radius-card));
+    opacity: 0.82;
+    transform: translate3d(0, 14px, 0) scale(0.995);
   }
 
   [data-fairlend-route-selector][data-route-motion-state='idle']
     [data-fairlend-route-motion='illustration'] {
-    opacity: 0.72;
-    transform: translateY(10px) scale(0.985);
+    opacity: 0.78;
+    transform: translateY(8px) scale(0.99);
   }
 
   [data-fairlend-route-selector][data-route-motion-state='idle']
@@ -937,7 +969,7 @@
 
   [data-fairlend-route-selector][data-route-motion-state='active']
     [data-fairlend-route-motion='map'] {
-    animation: routeSelectorMapSettle 1050ms var(--route-motion-ease) both;
+    animation: routeSelectorMapSettle 900ms var(--route-motion-ease) both;
   }
 
   [data-fairlend-route-selector][data-route-motion-state='active']
@@ -952,62 +984,92 @@
 
   [data-fairlend-route-selector][data-route-motion-state='active']
     [data-fairlend-route-motion='kicker'] {
-    animation: routeHeaderIn 680ms var(--route-motion-ease) 140ms both;
+    animation: routeHeaderIn 560ms var(--route-motion-ease) 120ms both;
   }
 
   [data-fairlend-route-selector][data-route-motion-state='active']
     [data-fairlend-route-motion='title'] {
-    animation: routeHeaderIn 780ms var(--route-motion-ease) 210ms both;
+    animation: routeHeaderIn 640ms var(--route-motion-ease) 180ms both;
   }
 
   [data-fairlend-route-selector][data-route-motion-state='active']
     [data-fairlend-route-motion='description'] {
-    animation: routeHeaderIn 720ms var(--route-motion-ease) 300ms both;
+    animation: routeHeaderIn 600ms var(--route-motion-ease) 250ms both;
   }
 
   [data-fairlend-route-selector][data-route-motion-state='active']
     [data-fairlend-route-motion='card'] {
-    animation: routeCardIn 760ms var(--route-motion-ease)
-      calc(380ms + var(--route-motion-index, 0) * 70ms) both;
+    animation: routeCardIn 620ms var(--route-motion-ease)
+      calc(330ms + var(--route-motion-index, 0) * 55ms) both;
     transform-origin: center bottom;
   }
 
   [data-fairlend-route-selector][data-route-motion-state='active']
     [data-fairlend-route-selected='true']::after {
-    animation: routeCardSelectedRule 860ms var(--route-motion-ease) 780ms both;
+    animation: routeCardSelectedRule 720ms var(--route-motion-ease) 680ms both;
   }
 
   [data-fairlend-route-selector][data-route-motion-state='active']
     [data-fairlend-route-motion='illustration'] {
-    animation: routeIllustrationIn 640ms var(--route-motion-ease)
-      calc(620ms + var(--route-motion-index, 0) * 70ms) both;
+    animation: routeIllustrationIn 520ms var(--route-motion-ease)
+      calc(520ms + var(--route-motion-index, 0) * 55ms) both;
   }
 
   [data-fairlend-route-selector][data-route-motion-state='active']
     [data-fairlend-route-motion='step-line'] {
-    animation: routeStepLineIn 560ms var(--route-motion-ease)
-      calc(760ms + var(--route-motion-index, 0) * 70ms) both;
+    animation: routeStepLineIn 420ms var(--route-motion-ease)
+      calc(640ms + var(--route-motion-index, 0) * 55ms) both;
   }
 
   [data-fairlend-route-selector][data-route-motion-state='active']
     [data-fairlend-route-motion='step-dot'] {
-    animation: routeStepDotIn 360ms var(--route-motion-ease)
-      calc(900ms + var(--route-motion-index, 0) * 70ms + var(--route-step-index, 0) * 42ms) both;
+    animation: routeStepDotIn 280ms var(--route-motion-ease)
+      calc(740ms + var(--route-motion-index, 0) * 55ms + var(--route-step-index, 0) * 36ms) both;
   }
 
   [data-fairlend-route-selector][data-route-motion-state='active']
     [data-fairlend-route-motion='helper'] {
-    animation: routeHelperIn 700ms var(--route-motion-ease) 820ms both;
+    animation: routeHelperIn 560ms var(--route-motion-ease) 720ms both;
+  }
+
+  @media (max-width: 1023px) {
+    [data-fairlend-route-selector][data-route-motion-state='active']
+      [data-fairlend-route-motion='card']:not([data-fairlend-route-selected='true']),
+    [data-fairlend-route-selector][data-route-motion-state='active']
+      [data-fairlend-route-motion='card']:not([data-fairlend-route-selected='true'])
+      [data-fairlend-route-motion='illustration'],
+    [data-fairlend-route-selector][data-route-motion-state='active']
+      [data-fairlend-route-motion='card']:not([data-fairlend-route-selected='true'])
+      [data-fairlend-route-motion='step-line'],
+    [data-fairlend-route-selector][data-route-motion-state='active']
+      [data-fairlend-route-motion='card']:not([data-fairlend-route-selected='true'])
+      [data-fairlend-route-motion='step-dot'] {
+      animation: none;
+      clip-path: inset(0);
+      opacity: 1;
+      transform: none;
+    }
+
+    [data-fairlend-route-selector][data-route-motion-state='active']
+      [data-fairlend-route-motion='card']:not([data-fairlend-route-selected='true']) {
+      clip-path: none;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
     [data-fairlend-route-selector] [data-fairlend-route-motion],
     [data-fairlend-route-selected='true']::after {
       animation: none !important;
+      clip-path: none !important;
       filter: none !important;
       opacity: 1 !important;
       transform: none !important;
       transition-duration: 0.01ms !important;
+    }
+
+    [data-fairlend-route-selector] [data-fairlend-route-motion='card'] {
+      clip-path: none !important;
+      filter: drop-shadow(9px 10px 0 var(--fl-route-lime)) !important;
     }
   }
 
@@ -1720,6 +1782,18 @@
   min-width: 0;
   max-width: 100%;
   overflow-x: clip;
+}
+
+@media (min-width: 1280px) {
+  .fairlend-landing-rail:has([data-fairlend-route-selector]),
+  .fairlend-landing-rail__content:has([data-fairlend-route-selector]) {
+    overflow-x: visible;
+  }
+
+  .fairlend-landing-rail__content:has([data-fairlend-route-selector]) {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 .fairlend-landing-rail__content > main {

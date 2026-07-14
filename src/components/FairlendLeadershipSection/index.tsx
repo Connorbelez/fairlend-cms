@@ -48,10 +48,10 @@ const leadershipProof = [
     value: '160+',
   },
   {
-    detail: 'GTA market knowledge with national capital relationships.',
+    detail: 'Southern Ontario market knowledge with national capital relationships.',
     Icon: MapPin,
-    label: 'Toronto-based',
-    value: 'GTA',
+    label: 'Southern Ontario-based',
+    value: 'LOCAL',
   },
 ] satisfies ReadonlyArray<{
   detail: string

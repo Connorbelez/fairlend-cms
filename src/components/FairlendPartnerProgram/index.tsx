@@ -49,7 +49,7 @@ export function FairlendPartnerHero(): ReactElement {
           <p className="partner-hero__subhead">
             For the professionals clients rely on before a build begins. FairLend helps partners
             find the right site, shape the project strategy, structure the financing, support the
-            build, and plan the exit across GTA residential construction.
+            build, and plan the exit across Southern Ontario residential construction.
           </p>
 
           <div className="partner-hero__cta-row">
@@ -925,7 +925,7 @@ export function FairlendPartnerCredibility(): ReactElement {
             {/* COMPLIANCE: $2B+ and "nearly three decades" must be substantiated before publishing. */}
             <p className="partner-credibility__body">
               FairLend combines mortgage brokerage, private lending, construction financing,
-              mortgage administration, draw planning, build support, and local GTA market judgment —
+              mortgage administration, draw planning, build support, and local Southern Ontario market judgment —
               led by <strong>Elie Soberano</strong>, with <strong>nearly three decades</strong> in
               mortgage brokerage and <strong>more than $2B funded</strong> [COMPLIANCE], supported
               by a team spanning technology, operations, construction, appraisal, legal, and
