@@ -57,6 +57,7 @@ import {
   type LeadSubmissionResponse,
 } from '@/lib/analytics/events'
 import { getFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
+import { fairlendPrincipalBrokerClaims } from '@/lib/fairlend-claims'
 import {
   buildFairlendIntakeHref,
   type FairlendRentalPropertyTransaction,
@@ -715,7 +716,11 @@ export function FairlendLeadIntake({
     const stepNumber = isDraftedWizard ? mortgageStep : 1
     const properties = {
       form_id: formId,
-      form_variant: isDraftedWizard ? (isInvestorHero ? investorVariant : mortgageVariant) : 'single',
+      form_variant: isDraftedWizard
+        ? isInvestorHero
+          ? investorVariant
+          : mortgageVariant
+        : 'single',
       journey_type: journeyType,
       source,
       step_key: getLeadIntakeStepKey(journeyType, stepNumber),
@@ -1432,6 +1437,7 @@ function MortgageIntakeSuccess({
 }) {
   const isInstitutional = product === 'institutional'
   const isRentalProperty = product === 'rental-property'
+  const SuccessHeading = variant === 'hero' ? 'h2' : 'h1'
   const successPanel = (
     <Card
       className="fl-mortgage-wizard-panel fl-mortgage-success-panel"
@@ -1442,13 +1448,13 @@ function MortgageIntakeSuccess({
           <Check />
         </div>
         <p className="fl-mortgage-step-label">Request received</p>
-        <h1 id="fl-mortgage-success-title">
+        <SuccessHeading id="fl-mortgage-success-title">
           Your{' '}
           {isRentalProperty
             ? 'rental property financing'
             : `${isInstitutional ? 'institutional ' : ''}mortgage`}{' '}
           file is with FairLend.
-        </h1>
+        </SuccessHeading>
         <p className="fl-mortgage-success-lede">
           {isRentalProperty
             ? 'A specialist can now review the transaction, ownership, property, rent, existing debt, requested proceeds, and timing before the first conversation.'
@@ -1528,7 +1534,7 @@ function InvestorIntakeSuccess({ consultationFollowUpHref }: { consultationFollo
             <Check />
           </div>
           <p className="fl-mortgage-step-label">Investor profile received</p>
-          <h1 id="fl-investor-success-title">Your investor review is with FairLend.</h1>
+          <h2 id="fl-investor-success-title">Your investor review is with FairLend.</h2>
           <p className="fl-mortgage-success-lede">
             The investor team can now review your capital range, experience, timeline, and deal
             preferences before the first conversation.
@@ -1757,6 +1763,7 @@ function MortgageIntakeWizard({
   }
 
   const RootElement = variant === 'hero' ? 'div' : 'main'
+  const StepHeading = variant === 'hero' ? 'h2' : 'h1'
 
   return (
     <RootElement
@@ -1814,9 +1821,9 @@ function MortgageIntakeWizard({
 
               <div className="fl-mortgage-step-copy" key={step}>
                 <p className="fl-mortgage-step-label">{stepContent.label}</p>
-                <h1 id="fl-mortgage-step-title" tabIndex={-1}>
+                <StepHeading id="fl-mortgage-step-title" tabIndex={-1}>
                   {stepContent.title}
-                </h1>
+                </StepHeading>
                 <p>{stepContent.description}</p>
               </div>
 
@@ -3157,12 +3164,12 @@ function InvestorBrief({ copy, compact = false }: { copy: IntakeCopy; compact?: 
             </div>
             <div className="fl-intake-preview__stat-line">
               <span className="fl-intake-preview__stat">
-                <strong>~$2B</strong>
-                <em>funded</em>
+                <strong>{fairlendPrincipalBrokerClaims.volumeValue}</strong>
+                <em>funded · internal records</em>
               </span>
               <span className="fl-intake-preview__stat">
-                <strong>~30 yrs</strong>
-                <em>Southern Ontario</em>
+                <strong>{fairlendPrincipalBrokerClaims.experienceValue} yrs</strong>
+                <em>as of Jul 2026</em>
               </span>
             </div>
           </header>

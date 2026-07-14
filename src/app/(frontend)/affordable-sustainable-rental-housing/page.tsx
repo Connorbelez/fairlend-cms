@@ -1,6 +1,7 @@
 import { FairlendFeedbackContentPage } from '@/components/FairlendFeedbackContentPage'
 import { fairlendRouteSelectorAssets } from '@/components/FairlendRouteSelector/assets'
 import { FairlendServiceSeo } from '@/components/SEO/FairlendRouteSeo'
+import { fairlendMortgageEditorialSources } from '@/lib/fairlend-editorial'
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 import { buildFairlendMetadata } from '@/utilities/seo'
 
@@ -30,7 +31,7 @@ const intakeHref = buildFairlendIntakeHref({
 export default function AffordableSustainableRentalHousingPage() {
   return (
     <>
-      <FairlendServiceSeo {...serviceSeo} />
+      <FairlendServiceSeo {...serviceSeo} dateModified="2026-07-14" reviewedByPrincipalBroker />
       <FairlendFeedbackContentPage
         config={{
           eyebrow: 'Sustainable Housing',
@@ -41,8 +42,61 @@ export default function AffordableSustainableRentalHousingPage() {
             alt: 'Sustainable rental housing financing illustration',
           },
           primaryCta: { href: intakeHref, label: 'Review rental project' },
-          secondaryCta: { href: '/cmhc-mli-select-multiplex-financing', label: 'MLI Select route' },
+          secondaryCta: { href: '/multiplex-financing-gta', label: 'Multiplex financing' },
           proof: ['Affordability', 'Operating resilience', 'Construction feasibility'],
+          geoAnswer: {
+            question: 'What makes a rental housing project financeable?',
+            answer: (
+              <p>
+                A rental housing project becomes financeable when its land basis, permitted scope,
+                construction budget, schedule, borrower equity, projected rents, operating costs,
+                debt service, and exit strategy support one coherent repayment plan. Lenders test
+                more than the headline loan amount: they examine approvals, appraisal assumptions,
+                lease-up timing, cost-to-complete, contingency, contractor capacity, environmental
+                and building requirements, guarantees, and the borrower&apos;s ability to carry
+                delays or reimbursement gaps. Affordability or energy-efficiency features can
+                improve the operating case or program fit, but they do not replace viable project
+                economics. The financing structure should match when costs occur, when draws can be
+                requested, how interest is funded, and how the completed property will stabilize or
+                refinance. Program eligibility, pricing, leverage, approvals, and funding remain
+                subject to current lender rules, verified documentation, valuation, available
+                capital, and applicable government requirements.
+              </p>
+            ),
+            comparison: {
+              caption: 'Rental project financing evidence',
+              columns: ['Evidence', 'Core question'],
+              rows: [
+                {
+                  label: 'Development',
+                  values: ['Approvals, scope, budget, schedule', 'Can the project be completed?'],
+                },
+                {
+                  label: 'Operations',
+                  values: [
+                    'Rents, vacancy, expenses, reserves',
+                    'Can the property carry the debt?',
+                  ],
+                },
+                {
+                  label: 'Capital',
+                  values: [
+                    'Equity, draws, contingency, exit',
+                    'Can delays and overruns be absorbed?',
+                  ],
+                },
+              ],
+            },
+          },
+          editorial: {
+            sources: [
+              ...fairlendMortgageEditorialSources,
+              {
+                href: 'https://www.cmhc-schl.gc.ca/professionals/project-funding-and-mortgage-financing/mortgage-loan-insurance/multi-unit-insurance',
+                label: 'CMHC — multi-unit and rental housing mortgage loan insurance',
+              },
+            ],
+          },
           sections: [
             {
               kicker: 'Feasibility',

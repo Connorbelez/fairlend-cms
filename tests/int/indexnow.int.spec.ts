@@ -9,7 +9,9 @@ vi.mock('@neondatabase/serverless', () => ({
   neon: vi.fn(() => indexNowMocks.sql),
 }))
 
-import { getIndexNowKey, notifyIndexNowChange } from '@/lib/indexnow'
+import { DEFAULT_INDEXNOW_KEY } from '@/lib/indexnow-key'
+import { getIndexNowKey, isIndexNowEnabled, notifyIndexNowChange } from '@/lib/indexnow'
+import { GET as getIndexNowKeyFile } from '@/app/(frontend)/indexnow-key.txt/route'
 
 describe('IndexNow publication notifications', () => {
   beforeEach(() => {
@@ -30,6 +32,7 @@ describe('IndexNow publication notifications', () => {
     vi.restoreAllMocks()
     delete process.env.INDEXNOW_ENABLED
     delete process.env.INDEXNOW_KEY
+    delete process.env.VERCEL_ENV
   })
 
   it('posts the final www canonical URL and required key location', async () => {
@@ -89,5 +92,21 @@ describe('IndexNow publication notifications', () => {
       }),
     ).resolves.toMatchObject({ status: 'disabled' })
     expect(fetch).not.toHaveBeenCalled()
+  })
+
+  it('serves the stable public key when no rotation override is configured', async () => {
+    delete process.env.INDEXNOW_KEY
+
+    expect(getIndexNowKey()).toBe(DEFAULT_INDEXNOW_KEY)
+
+    const response = getIndexNowKeyFile()
+    expect(response.status).toBe(200)
+    await expect(response.text()).resolves.toBe(DEFAULT_INDEXNOW_KEY)
+  })
+
+  it('does not submit from Vercel preview deployments', () => {
+    process.env.VERCEL_ENV = 'preview'
+
+    expect(isIndexNowEnabled()).toBe(false)
   })
 })

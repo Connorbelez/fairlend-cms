@@ -73,10 +73,7 @@ export function FairlendRouteSelector({
     >
       <div
         aria-hidden="true"
-        className={cn(
-          fairlendRouteSelectorLayerVariants({ layer: 'map' }),
-          'opacity-[0.825] contrast-[1.022]',
-        )}
+        className={cn(fairlendRouteSelectorLayerVariants({ layer: 'map' }), 'opacity-[0.825]')}
       />
       <div aria-hidden="true" className={fairlendRouteSelectorLayerVariants({ layer: 'paper' })} />
 

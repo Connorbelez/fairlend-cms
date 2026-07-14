@@ -47,12 +47,9 @@ export const fairlendRouteSelectorTokens = {
     pill: '9999px',
   },
   shadows: {
-    routeCard: '0 18px 42px rgb(27 25 18 / 5%)',
-    routeCardHover: '0 24px 52px rgb(27 25 18 / 8%)',
-    routeCardSelected: '0 22px 48px rgb(138 255 0 / 14%), inset 0 0 0 1px rgb(156 255 0 / 24%)',
-    helper: '0 16px 38px rgb(28 26 18 / 5%)',
-    originDot: '0 0 20px rgb(156 255 0 / 60%)',
-    iconOrb: '0 0 18px rgb(167 255 0 / 48%)',
+    helper: '0 1px 0 rgb(28 26 18 / 8%)',
+    originDot: '0 0 0 4px rgb(156 255 0 / 22%)',
+    iconOrb: '0 0 0 6px rgb(167 255 0 / 16%)',
   },
 } as const
 
@@ -98,9 +95,6 @@ type FairlendRouteSelectorTokenProperty =
   | '--fl-route-radius-arrow'
   | '--fl-route-radius-badge'
   | '--fl-route-radius-pill'
-  | '--fl-route-shadow-card'
-  | '--fl-route-shadow-card-hover'
-  | '--fl-route-shadow-card-selected'
   | '--fl-route-shadow-helper'
   | '--fl-route-shadow-origin-dot'
   | '--fl-route-shadow-icon-orb'
@@ -149,9 +143,6 @@ export const fairlendRouteSelectorTokenStyles = {
   '--fl-route-radius-arrow': fairlendRouteSelectorTokens.radii.arrow,
   '--fl-route-radius-badge': fairlendRouteSelectorTokens.radii.badge,
   '--fl-route-radius-pill': fairlendRouteSelectorTokens.radii.pill,
-  '--fl-route-shadow-card': fairlendRouteSelectorTokens.shadows.routeCard,
-  '--fl-route-shadow-card-hover': fairlendRouteSelectorTokens.shadows.routeCardHover,
-  '--fl-route-shadow-card-selected': fairlendRouteSelectorTokens.shadows.routeCardSelected,
   '--fl-route-shadow-helper': fairlendRouteSelectorTokens.shadows.helper,
   '--fl-route-shadow-origin-dot': fairlendRouteSelectorTokens.shadows.originDot,
   '--fl-route-shadow-icon-orb': fairlendRouteSelectorTokens.shadows.iconOrb,
@@ -191,7 +182,7 @@ export const fairlendRouteOriginDotVariants = cva(
 )
 
 export const fairlendRouteCardVariants = cva(
-  'group relative flex flex-col overflow-hidden rounded-[var(--fl-route-radius-card)] border border-[color:var(--fl-route-ink)] bg-[color:var(--fl-route-card-bg-translucent)] p-[18px] [filter:drop-shadow(9px_10px_0_var(--fl-route-lime))] backdrop-blur-sm transition-[filter,transform] duration-300 ease-[var(--route-motion-ease)] max-md:min-h-0 max-md:rounded-2xl max-md:p-4 max-md:[filter:none] max-md:shadow-[9px_10px_0_var(--fl-route-lime)] max-md:backdrop-blur-none',
+  'group relative flex flex-col overflow-hidden rounded-[var(--fl-route-radius-card)] border border-[color:var(--fl-route-ink)] bg-[color:var(--fl-route-card-bg-translucent)] p-[18px] shadow-[9px_10px_0_var(--fl-route-lime)] transition-transform duration-300 ease-[var(--route-motion-ease)] max-md:min-h-0 max-md:rounded-2xl max-md:p-4',
   {
     variants: {
       layout: {
@@ -270,7 +261,7 @@ export const fairlendRouteArrowBoxVariants = cva(
 )
 
 export const fairlendRouteHelpBannerVariants = cva(
-  'grid w-full grid-cols-[96px_minmax(0,1fr)_1px_196px] items-center gap-7 rounded-[var(--fl-route-radius-helper)] border border-[color:var(--fl-route-helper-rule)] bg-[color:var(--fl-route-helper-bg)] px-5 py-3 shadow-[var(--fl-route-shadow-helper)] backdrop-blur-sm max-md:grid-cols-[74px_minmax(0,1fr)] max-md:gap-x-4 max-md:gap-y-3 max-md:px-4 max-md:py-4 max-md:backdrop-blur-none',
+  'grid w-full grid-cols-[96px_minmax(0,1fr)_1px_196px] items-center gap-7 rounded-[var(--fl-route-radius-helper)] border border-[color:var(--fl-route-helper-rule)] bg-[color:var(--fl-route-helper-bg)] px-5 py-3 shadow-[var(--fl-route-shadow-helper)] max-md:grid-cols-[74px_minmax(0,1fr)] max-md:gap-x-4 max-md:gap-y-3 max-md:px-4 max-md:py-4',
 )
 
 export const fairlendRouteHelpTextVariants = cva('', {
@@ -354,7 +345,7 @@ export const fairlendRouteIconBadgeSurfaceVariants = cva(
     variants: {
       layer: {
         base: 'inset-0 bg-[color:var(--fl-route-lime-soft)] shadow-[var(--fl-route-shadow-icon-orb)]',
-        glow: 'inset-2 bg-[color:var(--fl-route-lime-glow)] blur-md',
+        glow: 'inset-2 bg-[color:var(--fl-route-lime-glow)] opacity-50',
       },
     },
   },

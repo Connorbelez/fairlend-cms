@@ -1,0 +1,230 @@
+.fairlend-office-map {
+  --office-map-ink: var(--contact-ink, #08090a);
+  --office-map-white: #fff;
+  --office-map-signal: var(--contact-lime, #96ec18);
+  --office-map-signal-ink: var(--contact-lime-ink, #203500);
+
+  position: relative;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-width: 0;
+  min-height: clamp(32rem, 56vw, 44rem);
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 18%);
+  background: var(--office-map-ink);
+  color: var(--office-map-white);
+}
+
+.fairlend-office-map__frame {
+  position: relative;
+  min-height: 22rem;
+  overflow: hidden;
+  background: #0c0e0f;
+}
+
+.fairlend-office-map__canvas {
+  isolation: isolate;
+  background: #0c0e0f;
+}
+
+.fairlend-office-map__canvas::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border: 1px solid rgb(255 255 255 / 8%);
+  background-image:
+    linear-gradient(
+      90deg,
+      transparent calc(50% - 0.5px),
+      rgb(150 236 24 / 14%) 50%,
+      transparent calc(50% + 0.5px)
+    ),
+    linear-gradient(
+      transparent calc(50% - 0.5px),
+      rgb(150 236 24 / 14%) 50%,
+      transparent calc(50% + 0.5px)
+    );
+  content: '';
+  pointer-events: none;
+}
+
+.fairlend-office-map__canvas .maplibregl-canvas {
+  filter: grayscale(0.72) contrast(1.04) brightness(1.14);
+}
+
+.fairlend-office-map__canvas .maplibregl-ctrl-attrib {
+  background: rgb(8 9 10 / 78%);
+  color: rgb(255 255 255 / 62%);
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+  font-size: 0.5625rem;
+}
+
+.fairlend-office-map__canvas .maplibregl-ctrl-attrib a {
+  color: inherit;
+}
+
+.fairlend-office-map__marker-wrap {
+  z-index: 3;
+  cursor: default;
+}
+
+.fairlend-office-map__marker {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid var(--office-map-ink);
+  background: var(--office-map-signal);
+  box-shadow:
+    0 0 0 1px var(--office-map-signal),
+    0 0 0 8px rgb(150 236 24 / 16%),
+    0 0 2.5rem rgb(150 236 24 / 44%);
+  color: var(--office-map-signal-ink);
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.fairlend-office-map__marker::before,
+.fairlend-office-map__marker::after {
+  position: absolute;
+  background: var(--office-map-signal);
+  content: '';
+  pointer-events: none;
+}
+
+.fairlend-office-map__marker::before {
+  top: 50%;
+  right: -1.3rem;
+  left: -1.3rem;
+  height: 1px;
+}
+
+.fairlend-office-map__marker::after {
+  top: -1.3rem;
+  bottom: -1.3rem;
+  left: 50%;
+  width: 1px;
+}
+
+.fairlend-office-map__label {
+  margin-top: 0.8rem;
+  border: 1px solid rgb(150 236 24 / 56%);
+  padding: 0.42rem 0.6rem;
+  background: var(--office-map-ink);
+  color: var(--office-map-white);
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.fairlend-office-map__controls {
+  z-index: 4;
+}
+
+.fairlend-office-map__controls > div {
+  border: 1px solid rgb(150 236 24 / 48%);
+  border-radius: 0;
+  background: var(--office-map-ink);
+  box-shadow: none;
+}
+
+.fairlend-office-map__controls button {
+  border-radius: 0;
+  color: var(--office-map-white);
+}
+
+.fairlend-office-map__controls button:hover {
+  background: var(--office-map-signal);
+  color: var(--office-map-signal-ink);
+}
+
+.fairlend-office-map__coordinates {
+  position: absolute;
+  bottom: 0.8rem;
+  left: 0.8rem;
+  z-index: 3;
+  margin: 0;
+  color: rgb(255 255 255 / 72%);
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+  font-size: 0.5625rem;
+  font-weight: 720;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.fairlend-office-map__address {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.75rem 1rem;
+  align-items: center;
+  border-top: 1px solid rgb(150 236 24 / 42%);
+  padding: 1rem;
+  background: var(--office-map-ink);
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+}
+
+.fairlend-office-map__address p,
+.fairlend-office-map__address address {
+  margin: 0;
+}
+
+.fairlend-office-map__address p {
+  color: var(--office-map-signal);
+  font-size: 0.75rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.fairlend-office-map__address address {
+  color: var(--office-map-white);
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 640;
+  line-height: 1.5;
+}
+
+.fairlend-office-map__address a {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+  border-bottom: 1px solid var(--office-map-signal);
+  padding-block: 0.3rem;
+  color: var(--office-map-signal);
+  font-size: 0.75rem;
+  font-weight: 820;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.fairlend-office-map__address a:hover {
+  color: var(--office-map-white);
+}
+
+.fairlend-office-map__address a:focus-visible {
+  outline: 2px solid var(--office-map-signal);
+  outline-offset: 4px;
+}
+
+@media (max-width: 47.999rem) {
+  .fairlend-office-map {
+    min-height: 30rem;
+  }
+
+  .fairlend-office-map__address {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .fairlend-office-map__address p {
+    grid-column: 1 / -1;
+  }
+}

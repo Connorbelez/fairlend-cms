@@ -2019,8 +2019,8 @@
   display: grid;
   grid-template-columns:
     minmax(170px, 1.12fr) minmax(92px, 0.58fr) minmax(118px, 0.76fr)
-    minmax(125px, 0.82fr) minmax(130px, 0.84fr) minmax(145px, 0.96fr)
-    minmax(200px, 1.16fr);
+    minmax(118px, 0.76fr) minmax(125px, 0.82fr) minmax(130px, 0.84fr)
+    minmax(145px, 0.96fr) minmax(200px, 1.16fr);
   isolation: isolate;
 }
 
@@ -2404,6 +2404,14 @@
   color: var(--bm-on-signal);
 }
 
+.bm-strategy-variable.is-locked .bm-strategy-toggle {
+  cursor: not-allowed;
+}
+
+.bm-strategy-variable.is-locked .bm-strategy-toggle > button {
+  cursor: not-allowed;
+}
+
 .bm-sensitivity-variable.is-locked .bm-wheel-viewport {
   overflow: hidden;
   cursor: not-allowed;
@@ -2526,11 +2534,18 @@
   width: 1px;
 }
 
-.bm-profit-value {
+.bm-profit-value-row {
   position: relative;
   z-index: 2;
-  display: block;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   max-width: calc(100% - 24px);
+}
+
+.bm-profit-value {
+  display: block;
+  max-width: 100%;
   overflow: hidden;
   color: var(--bm-signal);
   font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif;
@@ -2540,6 +2555,15 @@
   line-height: 0.86;
   text-align: center;
   white-space: nowrap;
+}
+
+.bm-profit-hst-mark {
+  margin: -2px 0 0 3px;
+  color: var(--bm-signal);
+  font-family: 'Oxanium', ui-monospace, monospace;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
 }
 
 .bm-profit-margin {
@@ -2592,6 +2616,11 @@
   font-weight: 600;
   letter-spacing: 0;
   text-transform: none;
+}
+
+.bm-profit-disclaimer .bm-profit-hst-note {
+  color: var(--bm-ink-deep);
+  font-weight: 800;
 }
 
 /* ---------- Motion ---------- */

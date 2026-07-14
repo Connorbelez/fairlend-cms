@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { Suspense, type ReactElement } from 'react'
 import { ArrowDownRight, Check } from 'lucide-react'
 
@@ -25,7 +26,9 @@ export function InstitutionalCover(): ReactElement {
       </svg>
 
       <div className="im-cover__copy">
-        <p className="im-system-label">Institutional mortgage / Ontario</p>
+        <p className="im-system-label">
+          <Link href="/borrowers">Borrower overview</Link> / Institutional mortgage / Ontario
+        </p>
         <h1 id="im-cover-title">
           The right mortgage is a <span>policy match.</span>
         </h1>

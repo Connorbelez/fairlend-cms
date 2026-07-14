@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 
 import { cn } from '@/utilities/ui'
 
-import { FairlendRailCrossDots } from './FairlendRailCrossDots.client'
+import { FairlendRailCrossDots } from './FairlendRailCrossDots'
 
 type FairlendLandingRailProps = ComponentPropsWithoutRef<'div'> & {
   children: ReactNode

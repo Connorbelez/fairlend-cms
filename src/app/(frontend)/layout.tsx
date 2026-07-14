@@ -23,7 +23,11 @@ import { Toaster } from '@/components/ui/sonner'
 import './globals.css'
 import { FrontendChrome } from './FrontendChrome.client'
 import { buildFairlendMetadata, getCanonicalOrigin } from '@/utilities/seo'
-import { fairlendOrganizationJsonLd, fairlendWebsiteJsonLd } from '@/utilities/structuredData'
+import {
+  fairlendOrganizationJsonLd,
+  fairlendPrincipalBrokerJsonLd,
+  fairlendWebsiteJsonLd,
+} from '@/utilities/structuredData'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -92,7 +96,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href={FAIRLEND_LOGO_SRC} rel="icon" type="image/svg+xml" />
       </head>
       <body>
-        <JsonLd data={[fairlendOrganizationJsonLd(), fairlendWebsiteJsonLd()]} />
+        <JsonLd
+          data={[
+            fairlendOrganizationJsonLd(),
+            fairlendWebsiteJsonLd(),
+            fairlendPrincipalBrokerJsonLd(),
+          ]}
+        />
         <Providers initialTheme={defaultTheme}>
           <FrontendChrome footer={<Footer />}>{children}</FrontendChrome>
           <FairlendConsultationBookingModalInterceptor />

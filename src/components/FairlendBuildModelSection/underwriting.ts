@@ -185,9 +185,12 @@ export function calculateBuildUnderwriting(
   )
   const takeoutLoan = Math.max(bindingTakeoutLimit.amount, 0)
   const annualDebtService = takeoutLoan * annualMortgageConstant
+  const monthlyTakeoutPayment = annualDebtService / 12
   const debtServiceCoverageRatio =
     annualDebtService === 0 ? null : netOperatingIncome / annualDebtService
   const annualCashFlow = netOperatingIncome - annualDebtService
+  const grossMonthlyRent = grossPotentialRent / 12
+  const netMonthlyCashFlow = annualCashFlow / 12
 
   const constructionEquityRequired = Math.max(totalDevelopmentCost - constructionLoan, 0)
   const stabilizedEquity = Math.max(totalDevelopmentCost - takeoutLoan, 0)
@@ -227,11 +230,13 @@ export function calculateBuildUnderwriting(
     equityReturnedAtTakeout,
     exitMargin,
     grossPotentialRent,
+    grossMonthlyRent,
     hardConstructionCost,
     landClosingCosts,
     loanToCost: totalDevelopmentCost === 0 ? null : takeoutLoan / totalDevelopmentCost,
     loanToValue: stabilizedValue === 0 ? null : takeoutLoan / stabilizedValue,
     netOperatingIncome,
+    netMonthlyCashFlow,
     netSaleProceeds,
     operatingExpenses,
     projectAllowance,
@@ -243,6 +248,7 @@ export function calculateBuildUnderwriting(
     stabilizedValue,
     takeoutLoan,
     takeoutLoanConstraint: bindingTakeoutLimit.constraint,
+    monthlyTakeoutPayment,
     takeoutShortfall,
     totalArea,
     totalDevelopmentCost,

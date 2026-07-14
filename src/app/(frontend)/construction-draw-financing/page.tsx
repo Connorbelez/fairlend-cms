@@ -1,6 +1,7 @@
 import { FairlendFeedbackContentPage } from '@/components/FairlendFeedbackContentPage'
 import { fairlendRouteSelectorAssets } from '@/components/FairlendRouteSelector/assets'
 import { FairlendServiceSeo } from '@/components/SEO/FairlendRouteSeo'
+import { fairlendMortgageEditorialSources } from '@/lib/fairlend-editorial'
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 import { buildFairlendMetadata } from '@/utilities/seo'
 
@@ -30,7 +31,7 @@ const intakeHref = buildFairlendIntakeHref({
 export default function ConstructionDrawFinancingPage() {
   return (
     <>
-      <FairlendServiceSeo {...serviceSeo} />
+      <FairlendServiceSeo {...serviceSeo} dateModified="2026-07-14" reviewedByPrincipalBroker />
       <FairlendFeedbackContentPage
         config={{
           eyebrow: 'Construction draw financing',
@@ -43,10 +44,59 @@ export default function ConstructionDrawFinancingPage() {
           },
           primaryCta: { href: intakeHref, label: 'Start draw review' },
           secondaryCta: {
-            href: '/resources/construction-draws-small-builders',
-            label: 'Read builder guide',
+            href: '/borrowers',
+            label: 'Compare financing routes',
           },
           proof: ['Work first', 'Evidence next', 'Admin approval'],
+          geoAnswer: {
+            question: 'How does construction draw financing work?',
+            answer: (
+              <p>
+                Construction draw financing releases an approved loan in stages as documented work
+                is completed, rather than advancing the entire construction budget at closing. The
+                borrower first funds or completes an agreed milestone, then submits a draw request
+                with evidence such as invoices, photos, progress notes, statutory declarations, and
+                any required inspection or quantity-surveyor report. The lender or administrator
+                checks the work, budget, title, liens, insurance, taxes, and remaining cost to
+                complete before deciding whether to release funds. Holdbacks, interest, fees, and
+                inspection requirements vary by loan and applicable law. A reliable draw plan maps
+                each milestone to its evidence, requested amount, approval authority, and expected
+                timing while preserving working-capital contingency. Completing work or uploading
+                evidence does not itself authorize payment: the lender makes the final release
+                decision under the commitment and current file conditions.
+              </p>
+            ),
+            comparison: {
+              caption: 'Typical construction draw sequence',
+              columns: ['Required evidence', 'Decision point'],
+              rows: [
+                {
+                  label: 'Milestone complete',
+                  values: ['Scope, invoices, photos, site status', 'Is the funded work complete?'],
+                },
+                {
+                  label: 'Draw review',
+                  values: [
+                    'Inspection, budget, title, liens, insurance',
+                    'Are release conditions met?',
+                  ],
+                },
+                {
+                  label: 'Release',
+                  values: ['Approval record and payment instructions', 'How much can be advanced?'],
+                },
+              ],
+            },
+          },
+          editorial: {
+            sources: [
+              ...fairlendMortgageEditorialSources,
+              {
+                href: 'https://www.ontario.ca/laws/statute/90c30',
+                label: 'Ontario e-Laws — Construction Act',
+              },
+            ],
+          },
           sections: [
             {
               kicker: 'Draw logic',

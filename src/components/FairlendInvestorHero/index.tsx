@@ -1,6 +1,7 @@
 import { Suspense, type ReactElement } from 'react'
 import { ArrowDownRight, Check } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { FairlendLeadIntake } from '@/components/FairlendLeadIntake/FairlendLeadIntake.client'
 
@@ -34,7 +35,9 @@ export function FairlendInvestorHero(): ReactElement {
           <div className="investor-hero__copy">
             <p className="investor-hero__kicker">
               <span aria-hidden="true" />
-              Southern Ontario. Registered mortgages. Documented process.
+              <Link href="/investing">
+                Investor overview / Southern Ontario. Registered mortgages. Documented process.
+              </Link>
             </p>
             <h1 className="investor-hero__title" id="investor-hero-title">
               Put your capital to work. <em>Through registered mortgage investments.</em>

@@ -14,6 +14,21 @@ The production UI calls the pure `calculateBuildUnderwriting` engine in `src/com
 
 Invalid, negative, infinite, or non-integral inputs are rejected before calculation. A ratio with no cash denominator returns `null` (`N/M` in the UI), never a fabricated `0.0%`.
 
+## Calculator presets
+
+The console loads on the Multiplex preset. Selecting a different build type resets every editable driver to that preset so values cannot leak between scenarios.
+
+| Preset | Units | Area per unit | Land basis | Hard cost | Monthly rent per unit | Exit value | Default strategy |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| Multiplex | 5 | 1,500 ft² | $1.20M | $270/ft² | $3,200 | $4.50M | Exit |
+| Garden Suite | 1 | 1,290 ft² | $0 owned-land basis | $420/ft² | $4,200 | N/A | Rent only |
+| Single Family Luxury | 1 | 4,500 ft² | $1.20M | $450/ft² | $9,000 | $2.40M* | Exit |
+| Single Family | 1 | 2,800 ft² | $1.10M | $300/ft² | $7,500 | $2.20M* | Exit |
+
+`*` The supplied single-family exit values and their modeled profits are presented net of HST. The engine does not deduct HST a second time.
+
+Area per unit is editable from 500–5,000 ft² in 10-ft² increments. Multiplex and Garden Suite retain their existing unit-count ranges. When unit count changes, the exit value scales at the preset or user-selected value per door; for example, the $4.50M five-unit Multiplex preset carries a $900,000 value per door.
+
 ## Development uses and construction financing
 
 ```text
@@ -64,7 +79,9 @@ DSCR_limit = (NOI ÷ 1.20 minimum DSCR) ÷ annual_mortgage_constant
 
 takeout_loan = min(cost_basis_limit, LTV_limit, DSCR_limit)
 annual_debt_service = takeout_loan × annual_mortgage_constant
+monthly_takeout_payment = annual_debt_service ÷ 12
 annual_cash_flow = NOI - annual_debt_service
+net_monthly_cash_flow = annual_cash_flow ÷ 12
 ```
 
 The UI reports the binding constraint. It also calculates any construction-loan takeout shortfall rather than assuming the permanent loan automatically repays construction debt.
@@ -78,7 +95,7 @@ peak_equity_required = max(construction_equity, stabilized_equity)
 cash_yield = annual_cash_flow ÷ peak_equity_required
 ```
 
-Peak equity is the denominator because it represents the maximum modeled cash the project must fund. A strong appraisal cannot erase the cash needed during construction. When peak equity is genuinely zero, cash yield is not mathematically meaningful and the UI displays `N/M`.
+Peak equity is the denominator because it represents the maximum modeled cash the project must fund. A strong appraisal cannot erase the cash needed during construction. The UI labels this ratio `Cash yield (amortized)` because annual cash flow deducts fully amortizing principal-and-interest takeout payments, not interest-only payments. It displays gross monthly rent, the monthly takeout payment, and net monthly cash flow so the yield numerator can be reconciled directly. When peak equity is genuinely zero, cash yield is not mathematically meaningful and the UI displays `N/M`.
 
 For an exit strategy, the model deducts a 4% disposition-cost allowance before calculating profit and margin:
 

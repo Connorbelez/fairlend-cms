@@ -601,6 +601,84 @@ a.contact-methods__item:focus-visible .contact-methods__arrow {
   transform: translate(0.2rem, -0.2rem);
 }
 
+.contact-office {
+  display: grid;
+  border-block: 1px solid var(--contact-line-strong);
+  background: var(--contact-ink);
+}
+
+.contact-office__copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(3rem, 7vw, 7rem);
+  padding: clamp(4.5rem, 7vw, 7rem) clamp(1.25rem, 4.5vw, 4.5rem);
+  background: var(--contact-route-paper);
+  color: var(--contact-ink);
+}
+
+.contact-office__copy h2 {
+  max-width: 10ch;
+  margin-top: 1.25rem;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(3rem, 4.8vw, 4.5rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.94;
+  text-wrap: balance;
+}
+
+.contact-office__copy > div > p:last-child {
+  max-width: 38rem;
+  margin-top: 1.75rem;
+  color: var(--contact-muted);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.contact-office__visit-note {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  border-top: 1px solid var(--contact-line-strong);
+}
+
+.contact-office__visit-note > div {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1.25rem 1rem 0 0;
+}
+
+.contact-office__visit-note > div + div {
+  border-left: 1px solid var(--contact-line);
+  padding-left: 1rem;
+}
+
+.contact-office__visit-note dt {
+  color: var(--contact-muted);
+  font-family: var(--font-oxanium), ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.contact-office__visit-note dd {
+  margin: 0;
+  color: var(--contact-ink);
+  font-size: 1rem;
+  font-weight: 750;
+  line-height: 1.4;
+}
+
+.contact-office__map {
+  border: 0;
+}
+
 .contact-compliance {
   display: grid;
   gap: clamp(3rem, 6vw, 6rem);
@@ -704,6 +782,10 @@ a.contact-methods__item:focus-visible .contact-methods__arrow {
   .contact-pathways {
     grid-template-columns: minmax(24rem, 0.82fr) minmax(0, 1.18fr);
   }
+
+  .contact-office {
+    grid-template-columns: minmax(24rem, 0.72fr) minmax(0, 1.28fr);
+  }
 }
 
 @media (max-width: 63.999rem) {
@@ -723,12 +805,17 @@ a.contact-methods__item:focus-visible .contact-methods__arrow {
   .contact-pathways__figure {
     min-height: 16rem;
   }
+
+  .contact-office__copy {
+    border-bottom: 1px solid var(--contact-line-strong);
+  }
 }
 
 @media (max-width: 47.999rem) {
   .contact-hero__intro,
   .contact-hero__intake-inner,
   .contact-pathways__story,
+  .contact-office__copy,
   .contact-compliance {
     padding-inline: 1.25rem;
   }
@@ -777,6 +864,7 @@ a.contact-methods__item:focus-visible .contact-methods__arrow {
   }
 
   .contact-pathways__story h2,
+  .contact-office__copy h2,
   .contact-compliance__copy h2 {
     font-size: clamp(2.75rem, 13vw, 3.75rem);
   }
@@ -800,6 +888,17 @@ a.contact-methods__item:focus-visible .contact-methods__arrow {
     grid-column: 2;
     justify-self: start;
     margin-top: 0.75rem;
+  }
+
+  .contact-office__visit-note {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-office__visit-note > div + div {
+    margin-top: 1rem;
+    border-top: 1px solid var(--contact-line);
+    border-left: 0;
+    padding-left: 0;
   }
 
   .contact-compliance__docket {

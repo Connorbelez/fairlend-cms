@@ -452,7 +452,42 @@ export function Header() {
             {NAV_LINKS.map((link, index) => {
               const isOpen = link.menu?.id === activeMenu?.id
 
-              return link.menu ? (
+              return link.menu && hasNavigableLink(link.link) ? (
+                <Link
+                  {...link.link}
+                  aria-controls="desktop-mega-menu"
+                  aria-expanded={isOpen}
+                  aria-haspopup="menu"
+                  className={cn('mkt-dhh-nav-item', isOpen && 'mkt-dhh-nav-item-open')}
+                  key={link.label}
+                  onClick={(event) => {
+                    if (!isOpen) {
+                      event.preventDefault()
+                      openMenu(link.menu!, index)
+                    } else {
+                      closeDesktopMenu()
+                    }
+                  }}
+                  onFocus={() => openMenu(link.menu!, index)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Escape') {
+                      closeDesktopMenu()
+                      event.currentTarget.focus()
+                    }
+                  }}
+                  onMouseEnter={() => openMenu(link.menu!, index)}
+                >
+                  {link.label}
+                  <ChevronDown
+                    aria-hidden="true"
+                    className={cn(
+                      'size-3.5 transition-transform duration-200',
+                      isOpen && 'rotate-180',
+                    )}
+                    strokeWidth={1.8}
+                  />
+                </Link>
+              ) : link.menu ? (
                 <button
                   aria-controls="desktop-mega-menu"
                   aria-expanded={isOpen}

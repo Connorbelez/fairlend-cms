@@ -9,15 +9,36 @@ type BreadcrumbItem = {
 
 type JsonLdObject = Record<string, unknown>
 
+type WebPageType = 'ContactPage' | 'ProfilePage' | 'WebPage'
+
 const defaultAreaServed = [
   { '@type': 'AdministrativeArea', name: 'Ontario' },
   { '@type': 'City', name: 'Toronto' },
   { '@type': 'AdministrativeArea', name: 'Greater Toronto Area' },
 ]
 
+export const getSchemaNodeId = (path: string, node: string) => `${getCanonicalUrl(path)}#${node}`
+
+const organizationId = () => getSchemaNodeId('/', 'organization')
+const websiteId = () => getSchemaNodeId('/', 'website')
+const principalBrokerId = () => getSchemaNodeId('/', 'elie-soberano')
+
+const personSlug = (name: string) =>
+  name
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '')
+
+const personId = (name: string) =>
+  personSlug(name) === 'elie-soberano'
+    ? principalBrokerId()
+    : getSchemaNodeId('/', `person-${personSlug(name)}`)
+
 export const fairlendOrganizationJsonLd = (): JsonLdObject => ({
   '@context': 'https://schema.org',
-  '@id': `${getCanonicalUrl('/')}#organization`,
+  '@id': organizationId(),
   '@type': ['Organization', 'FinancialService'],
   areaServed: defaultAreaServed,
   contactPoint: {
@@ -28,6 +49,7 @@ export const fairlendOrganizationJsonLd = (): JsonLdObject => ({
     telephone: '+1-647-831-7605',
   },
   email: 'elie@fairlend.ca',
+  founder: { '@id': principalBrokerId() },
   legalName: fairlendSeo.legalName,
   logo: getCanonicalUrl('/assets/fairlend/fairlend-logo.svg'),
   name: fairlendSeo.siteName,
@@ -47,31 +69,102 @@ export const fairlendOrganizationJsonLd = (): JsonLdObject => ({
   url: getCanonicalUrl('/'),
 })
 
-export const buildContactPageJsonLd = (): JsonLdObject => ({
+export const fairlendPrincipalBrokerJsonLd = (): JsonLdObject => ({
   '@context': 'https://schema.org',
-  '@id': `${getCanonicalUrl('/contact')}#webpage`,
-  '@type': 'ContactPage',
-  about: { '@id': `${getCanonicalUrl('/')}#organization` },
-  description:
-    'Contact FairLend Mortgage about private, construction, and institutional mortgage financing in Ontario.',
-  inLanguage: 'en-CA',
-  mainEntity: { '@id': `${getCanonicalUrl('/')}#organization` },
-  name: 'Contact FairLend Mortgage',
-  url: getCanonicalUrl('/contact'),
+  '@id': principalBrokerId(),
+  '@type': 'Person',
+  hasCredential: {
+    '@type': 'EducationalOccupationalCredential',
+    credentialCategory: 'Mortgage broker licence',
+    identifier: 'M08001537',
+    recognizedBy: {
+      '@type': 'GovernmentOrganization',
+      name: 'Financial Services Regulatory Authority of Ontario',
+      url: 'https://www.fsrao.ca/',
+    },
+  },
+  jobTitle: 'Principal Broker and Founder',
+  knowsAbout: [
+    'Private mortgage financing',
+    'Institutional mortgage financing',
+    'Construction financing',
+    'Mortgage administration',
+  ],
+  name: 'Elie Soberano',
+  url: getCanonicalUrl('/investing/private-mortgage-lending#investor-leadership'),
+  worksFor: { '@id': organizationId() },
 })
+
+export const buildPersonJsonLd = ({ name }: { name: string }): JsonLdObject =>
+  personId(name) === principalBrokerId()
+    ? fairlendPrincipalBrokerJsonLd()
+    : {
+        '@context': 'https://schema.org',
+        '@id': personId(name),
+        '@type': 'Person',
+        name,
+      }
 
 export const fairlendWebsiteJsonLd = (): JsonLdObject => ({
   '@context': 'https://schema.org',
-  '@id': `${getCanonicalUrl('/')}#website`,
+  '@id': websiteId(),
   '@type': 'WebSite',
   inLanguage: 'en-CA',
   name: fairlendSeo.siteName,
-  publisher: { '@id': `${getCanonicalUrl('/')}#organization` },
+  publisher: { '@id': organizationId() },
   url: getCanonicalUrl('/'),
 })
 
+export const buildWebPageJsonLd = ({
+  dateModified,
+  datePublished,
+  description,
+  hasBreadcrumb = true,
+  mainEntityId,
+  name,
+  path,
+  reviewedByPrincipalBroker = false,
+  type = 'WebPage',
+}: {
+  dateModified?: string | null
+  datePublished?: string | null
+  description: string
+  hasBreadcrumb?: boolean
+  mainEntityId?: string
+  name: string
+  path: string
+  reviewedByPrincipalBroker?: boolean
+  type?: WebPageType
+}): JsonLdObject => ({
+  '@context': 'https://schema.org',
+  '@id': getSchemaNodeId(path, 'webpage'),
+  '@type': type,
+  about: { '@id': organizationId() },
+  ...(hasBreadcrumb ? { breadcrumb: { '@id': getSchemaNodeId(path, 'breadcrumb') } } : {}),
+  ...(dateModified ? { dateModified } : {}),
+  ...(datePublished ? { datePublished } : {}),
+  description,
+  inLanguage: 'en-CA',
+  isPartOf: { '@id': websiteId() },
+  ...(mainEntityId ? { mainEntity: { '@id': mainEntityId } } : {}),
+  name,
+  ...(reviewedByPrincipalBroker ? { reviewedBy: { '@id': principalBrokerId() } } : {}),
+  url: getCanonicalUrl(path),
+})
+
+export const buildContactPageJsonLd = (): JsonLdObject =>
+  buildWebPageJsonLd({
+    description:
+      'Contact FairLend Mortgage about private, construction, and institutional mortgage financing in Ontario.',
+    mainEntityId: organizationId(),
+    name: 'Contact FairLend Mortgage',
+    path: '/contact',
+    type: 'ContactPage',
+  })
+
 export const buildBreadcrumbJsonLd = (items: BreadcrumbItem[]): JsonLdObject => ({
   '@context': 'https://schema.org',
+  '@id': getSchemaNodeId(items.at(-1)?.path || '/', 'breadcrumb'),
   '@type': 'BreadcrumbList',
   itemListElement: items.map((item, index) => ({
     '@type': 'ListItem',
@@ -93,16 +186,18 @@ export const buildServiceJsonLd = ({
   serviceType?: string
 }): JsonLdObject => ({
   '@context': 'https://schema.org',
+  '@id': getSchemaNodeId(path, 'service'),
   '@type': 'Service',
   areaServed: defaultAreaServed,
   description,
   name,
-  provider: { '@id': `${getCanonicalUrl('/')}#organization` },
+  provider: { '@id': organizationId() },
   serviceType: serviceType || name,
   url: getCanonicalUrl(path),
 })
 
 export const buildArticleJsonLd = ({
+  authorNames = [],
   dateModified,
   datePublished,
   description,
@@ -110,6 +205,7 @@ export const buildArticleJsonLd = ({
   path,
   title,
 }: {
+  authorNames?: string[]
   dateModified?: string | null
   datePublished?: string | null
   description: string
@@ -118,13 +214,20 @@ export const buildArticleJsonLd = ({
   title: string
 }): JsonLdObject => ({
   '@context': 'https://schema.org',
+  '@id': getSchemaNodeId(path, 'article'),
   '@type': 'BlogPosting',
-  dateModified: dateModified || datePublished,
-  datePublished: datePublished || dateModified,
+  author:
+    authorNames.length > 0
+      ? authorNames.map((name) => ({ '@id': buildPersonJsonLd({ name })['@id'] }))
+      : { '@id': organizationId() },
+  ...(dateModified || datePublished ? { dateModified: dateModified || datePublished } : {}),
+  ...(datePublished || dateModified ? { datePublished: datePublished || dateModified } : {}),
   description,
   headline: title,
   image: [getMediaUrl(image)],
-  mainEntityOfPage: getCanonicalUrl(path),
-  publisher: { '@id': `${getCanonicalUrl('/')}#organization` },
+  inLanguage: 'en-CA',
+  isPartOf: { '@id': websiteId() },
+  mainEntityOfPage: { '@id': getSchemaNodeId(path, 'webpage') },
+  publisher: { '@id': organizationId() },
   url: getCanonicalUrl(path),
 })
