@@ -5,6 +5,7 @@ import {
   ensureCampaignScanLockedDocumentRelation,
   markFairlendCampaignScanConverted,
 } from '@/lib/fairlend-campaign-attribution'
+import { syncFairlendLeadToTwenty, type TwentySyncResult } from '@/lib/twenty/client'
 
 type LeadStatus = 'draft' | 'started' | 'submitted'
 type LeadWorkflowStatus =
@@ -251,6 +252,18 @@ export async function upsertFairlendLead(payload: LeadPayload): Promise<{ id: st
 
   await syncFairlendLeadAdminRecord(lead.normalized)
 
+  const twentySync = await syncFairlendLeadToTwenty(lead.normalized)
+  await recordFairlendLeadTwentySync(lead.id, twentySync).catch((error) => {
+    console.error('Failed to persist Twenty sync status', { error, leadId: lead.id })
+  })
+
+  if (twentySync.status === 'failed') {
+    console.error('Failed to sync FairLend lead to Twenty', {
+      error: twentySync.error,
+      leadId: lead.id,
+    })
+  }
+
   if (lead.normalized.status === 'submitted') {
     await markFairlendCampaignScanConverted({
       campaignScanId: lead.normalized.campaignScanId,
@@ -431,6 +444,7 @@ export function deriveFairlendLeadIntakeDetails(
 export async function syncFairlendLeadAdminRecord(payload: NormalizedLeadPayload): Promise<void> {
   const data = toFairlendLeadAdminData(payload)
   const sql = getLeadSql()
+  const twentySyncStatus = process.env.TWENTY_SYNC_ENABLED === 'true' ? 'pending' : 'disabled'
 
   await ensureFairlendLeadAdminSchema(sql)
 
@@ -468,6 +482,7 @@ export async function syncFairlendLeadAdminRecord(payload: NormalizedLeadPayload
       campaign,
       campaign_scan_id,
       attribution,
+      twenty_sync_status,
       created_at,
       updated_at
     )
@@ -504,6 +519,7 @@ export async function syncFairlendLeadAdminRecord(payload: NormalizedLeadPayload
       ${data.campaign},
       ${data.campaignScanId},
       ${JSON.stringify(data.attribution)}::jsonb,
+      ${twentySyncStatus}::text::enum_fairlend_leads_twenty_sync_status,
       now(),
       now()
     )
@@ -548,7 +564,52 @@ export async function syncFairlendLeadAdminRecord(payload: NormalizedLeadPayload
         WHEN EXCLUDED.attribution = '{}'::jsonb THEN lead.attribution
         ELSE EXCLUDED.attribution
       END,
+      twenty_sync_status = EXCLUDED.twenty_sync_status,
+      twenty_sync_error = NULL,
       updated_at = now()
+  `
+}
+
+async function recordFairlendLeadTwentySync(
+  leadId: string,
+  result: TwentySyncResult,
+): Promise<void> {
+  const sql = getLeadSql()
+  await ensureFairlendLeadAdminSchema(sql)
+
+  if (result.status === 'synced') {
+    await sql`
+      UPDATE fairlend_leads
+      SET
+        twenty_sync_status = 'synced'::enum_fairlend_leads_twenty_sync_status,
+        twenty_record_id = ${result.recordId},
+        twenty_last_synced_at = now(),
+        twenty_sync_error = NULL,
+        updated_at = now()
+      WHERE lead_id = ${leadId}
+    `
+    return
+  }
+
+  if (result.status === 'failed') {
+    await sql`
+      UPDATE fairlend_leads
+      SET
+        twenty_sync_status = 'failed'::enum_fairlend_leads_twenty_sync_status,
+        twenty_sync_error = ${result.error},
+        updated_at = now()
+      WHERE lead_id = ${leadId}
+    `
+    return
+  }
+
+  await sql`
+    UPDATE fairlend_leads
+    SET
+      twenty_sync_status = 'disabled'::enum_fairlend_leads_twenty_sync_status,
+      twenty_sync_error = NULL,
+      updated_at = now()
+    WHERE lead_id = ${leadId}
   `
 }
 
@@ -637,6 +698,15 @@ async function ensureFairlendLeadAdminSchema(sql: NeonQueryFunction<false, false
       IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'enum_fairlend_leads_priority') THEN
         CREATE TYPE enum_fairlend_leads_priority AS ENUM('high', 'normal', 'low');
       END IF;
+
+      IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'enum_fairlend_leads_twenty_sync_status') THEN
+        CREATE TYPE enum_fairlend_leads_twenty_sync_status AS ENUM(
+          'disabled',
+          'pending',
+          'synced',
+          'failed'
+        );
+      END IF;
     END $$;
   `
   await sql`
@@ -674,6 +744,10 @@ async function ensureFairlendLeadAdminSchema(sql: NeonQueryFunction<false, false
       campaign varchar,
       campaign_scan_id varchar,
       attribution jsonb,
+      twenty_sync_status enum_fairlend_leads_twenty_sync_status NOT NULL DEFAULT 'disabled',
+      twenty_record_id varchar,
+      twenty_last_synced_at timestamp(3) with time zone,
+      twenty_sync_error varchar,
       updated_at timestamp(3) with time zone NOT NULL DEFAULT now(),
       created_at timestamp(3) with time zone NOT NULL DEFAULT now(),
       CONSTRAINT fairlend_leads_lead_id_unique UNIQUE(lead_id)
@@ -700,7 +774,11 @@ async function ensureFairlendLeadAdminSchema(sql: NeonQueryFunction<false, false
       ADD COLUMN IF NOT EXISTS intake_investment_focus varchar,
       ADD COLUMN IF NOT EXISTS campaign varchar,
       ADD COLUMN IF NOT EXISTS campaign_scan_id varchar,
-      ADD COLUMN IF NOT EXISTS attribution jsonb
+      ADD COLUMN IF NOT EXISTS attribution jsonb,
+      ADD COLUMN IF NOT EXISTS twenty_sync_status enum_fairlend_leads_twenty_sync_status NOT NULL DEFAULT 'disabled',
+      ADD COLUMN IF NOT EXISTS twenty_record_id varchar,
+      ADD COLUMN IF NOT EXISTS twenty_last_synced_at timestamp(3) with time zone,
+      ADD COLUMN IF NOT EXISTS twenty_sync_error varchar
   `
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_lead_id_idx ON fairlend_leads USING btree (lead_id)`
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_status_idx ON fairlend_leads USING btree (status)`
@@ -719,6 +797,8 @@ async function ensureFairlendLeadAdminSchema(sql: NeonQueryFunction<false, false
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_intake_mortgage_product_idx ON fairlend_leads USING btree (intake_mortgage_product)`
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_campaign_idx ON fairlend_leads USING btree (campaign)`
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_campaign_scan_id_idx ON fairlend_leads USING btree (campaign_scan_id)`
+  await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_twenty_sync_status_idx ON fairlend_leads USING btree (twenty_sync_status)`
+  await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_twenty_record_id_idx ON fairlend_leads USING btree (twenty_record_id)`
   await ensureCampaignScanLockedDocumentRelation(sql)
 
   adminSchemaReady = true

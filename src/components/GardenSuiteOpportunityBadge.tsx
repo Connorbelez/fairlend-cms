@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/utilities/ui'
 
 const gardenSuiteOpportunityBadgeVariants = cva(
-  'relative inline-flex w-full flex-col border border-[#08090a] bg-[#9DFF00] text-left shadow-[3px_3px_0_#08090a]',
+  'relative inline-flex w-full min-w-0 flex-col border border-[#08090a] bg-[#9DFF00] text-left shadow-[3px_3px_0_#08090a] [container-type:inline-size]',
   {
     variants: {
       context: {
@@ -58,21 +58,18 @@ export function GardenSuiteOpportunityBadge({
       ) : null}
       <div
         className={cn(
-          'mt-2 flex items-end gap-2 border-t border-[#08090a]/30 pt-2',
+          'mt-2 flex min-w-0 flex-wrap items-end gap-x-2 gap-y-1 border-t border-[#08090a]/30 pt-2',
           isRouteContext && 'mt-1 pt-1',
         )}
       >
         <strong
-          className={cn(
-            'shrink-0 text-[27px] leading-[0.9] font-black tracking-[-0.04em] text-[#08090a]',
-            isRouteContext && 'text-[27px]',
-          )}
+          className="shrink-0 text-[clamp(22px,11cqi,27px)] leading-[0.9] font-black tracking-[-0.04em] whitespace-nowrap text-[#08090a]"
         >
           {torontoTwoBedroomAskingRent}
         </strong>
         <span
           className={cn(
-            'text-[10px] leading-[1.15] font-extrabold tracking-[0.035em] text-[#08090a] uppercase',
+            'min-w-[7ch] flex-1 text-[clamp(8px,4cqi,10px)] leading-[1.15] font-extrabold tracking-[0.035em] text-[#08090a] uppercase',
             isRouteContext && 'leading-[1.05]',
           )}
         >

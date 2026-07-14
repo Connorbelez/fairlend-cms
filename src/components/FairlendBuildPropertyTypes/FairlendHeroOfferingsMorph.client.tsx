@@ -3,7 +3,14 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { AnimatePresence, LayoutGroup, motion, type PanInfo, useReducedMotion } from 'motion/react'
-import { useCallback, useEffect, useRef, useState, type ReactElement } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactElement,
+} from 'react'
 
 import { cn } from '@/utilities/ui'
 
@@ -26,6 +33,7 @@ type OfferingsLayout = 'list' | 'stack'
 const MORPH_DELAY_MS = 4000
 const AMBIENT_INTERVAL_MS = 3200
 const SWIPE_THRESHOLD = 50
+const MOBILE_HERO_QUERY = '(max-width: 576px)'
 
 type FairlendHeroOfferingsMorphProps = {
   rows: readonly FairlendHeroOfferingRow[]
@@ -35,6 +43,8 @@ type FairlendHeroOfferingsMorphProps = {
 type StackCard = FairlendHeroOfferingRow & {
   stackPosition: number
 }
+
+type ViewportMode = 'unresolved' | 'mobile' | 'desktop'
 
 function OfferingCardBody({
   linkTitle,
@@ -113,7 +123,9 @@ export function FairlendHeroOfferingsMorph({
 }: FairlendHeroOfferingsMorphProps): ReactElement | null {
   const rootRef = useRef<HTMLDivElement>(null)
   const shouldReduceMotion = useReducedMotion()
-  const [layout, setLayout] = useState<OfferingsLayout>('list')
+  const [desktopLayout, setDesktopLayout] = useState<OfferingsLayout>('list')
+  const [viewportMode, setViewportMode] = useState<ViewportMode>('unresolved')
+  const [viewportMotionReady, setViewportMotionReady] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const [manualRotationKey, setManualRotationKey] = useState(0)
   const [liveText, setLiveText] = useState(() => {
@@ -124,8 +136,8 @@ export function FairlendHeroOfferingsMorph({
   const isDraggingRef = useRef(false)
   const isInViewRef = useRef(true)
   const isVisibleRef = useRef(true)
-  const layoutRef = useRef<OfferingsLayout>('list')
-  layoutRef.current = layout
+  const layout: OfferingsLayout =
+    viewportMode === 'desktop' && !shouldReduceMotion ? desktopLayout : 'stack'
 
   const announce = useCallback(
     (index: number) => {
@@ -144,20 +156,44 @@ export function FairlendHeroOfferingsMorph({
     [announce],
   )
 
-  useEffect(() => {
-    if (shouldReduceMotion) {
-      setLayout('stack')
-      return
+  useLayoutEffect(() => {
+    const mobileQuery = window.matchMedia(MOBILE_HERO_QUERY)
+
+    const syncViewportMode = () => {
+      setViewportMode(mobileQuery.matches ? 'mobile' : 'desktop')
     }
 
+    syncViewportMode()
+    mobileQuery.addEventListener('change', syncViewportMode)
+
+    return () => {
+      mobileQuery.removeEventListener('change', syncViewportMode)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (viewportMode === 'unresolved') return
+
+    const frame = window.requestAnimationFrame(() => {
+      setViewportMotionReady(true)
+    })
+
+    return () => {
+      window.cancelAnimationFrame(frame)
+    }
+  }, [viewportMode])
+
+  useEffect(() => {
+    if (viewportMode !== 'desktop' || shouldReduceMotion) return
+
     const timer = window.setTimeout(() => {
-      setLayout('stack')
+      setDesktopLayout('stack')
     }, MORPH_DELAY_MS)
 
     return () => {
       window.clearTimeout(timer)
     }
-  }, [shouldReduceMotion])
+  }, [shouldReduceMotion, viewportMode])
 
   useEffect(() => {
     if (layout !== 'stack' || rows.length < 2) return
@@ -180,7 +216,6 @@ export function FairlendHeroOfferingsMorph({
     observer.observe(root)
 
     const interval = window.setInterval(() => {
-      if (layoutRef.current !== 'stack') return
       if (isDraggingRef.current) return
       if (!isInViewRef.current || !isVisibleRef.current) return
 
@@ -297,6 +332,8 @@ export function FairlendHeroOfferingsMorph({
                   transition={
                     shouldReduceMotion
                       ? { duration: 0 }
+                      : !viewportMotionReady
+                        ? { duration: 0 }
                       : {
                           layout: {
                             duration: 0.55,

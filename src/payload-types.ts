@@ -2480,6 +2480,10 @@ export interface FairlendLead {
    * Internal notes for admin follow-up. Not shown to visitors.
    */
   adminNotes?: string | null;
+  twentySyncStatus: 'disabled' | 'pending' | 'synced' | 'failed';
+  twentyRecordId?: string | null;
+  twentyLastSyncedAt?: string | null;
+  twentySyncError?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -4210,6 +4214,10 @@ export interface FairlendLeadsSelect<T extends boolean = true> {
   addressDetails?: T;
   attribution?: T;
   adminNotes?: T;
+  twentySyncStatus?: T;
+  twentyRecordId?: T;
+  twentyLastSyncedAt?: T;
+  twentySyncError?: T;
   updatedAt?: T;
   createdAt?: T;
 }
