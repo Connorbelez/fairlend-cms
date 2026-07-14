@@ -80,7 +80,7 @@ export const fairlendRouteChoices = [
       },
       {
         title: 'HELOC',
-        description: 'Revolving credit secured against the available equity in your home.',
+        description: 'Revolving credit reviewed around the available equity in your home.',
         href: buildFairlendMortgageHref('route-selector-heloc'),
       },
     ],

@@ -121,7 +121,7 @@ Suggested public wording:
 | Cost consultants and quantity surveyors | Budget, cost risk, contingency, scope control | Financing structure that matches the budget, draw rhythm, and equity requirement |
 | Project managers and owner reps | Coordination, timeline, documentation, stakeholder management | Capital strategy, lender/investor packaging, draw workflow, documentation discipline |
 | Contractors, trades, and suppliers | Early visibility into undercapitalized or promising projects | Referral path to proper financing structure and project support |
-| Lawyers, accountants, and other professional advisors | Clients making acquisition, estate, tax, restructuring, or investment decisions | Mortgage-backed financing strategy and project planning input where appropriate |
+| Lawyers, accountants, and other professional advisors | Clients making acquisition, estate, tax, restructuring, or investment decisions | Mortgage financing strategy and project planning input where appropriate |
 
 ### Important Audience Rule
 
@@ -640,7 +640,7 @@ Secondary CTA:
 - Purpose-built rental projects.
 - Small-to-mid-scale rental housing.
 - CMHC MLI Select-oriented projects where applicable.
-- Private mortgage, bridge, renewal, equity, and construction-backed scenarios.
+- Private mortgage, bridge, renewal, equity, and construction financing scenarios.
 
 **Copy:**
 

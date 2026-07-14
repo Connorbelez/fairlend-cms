@@ -30,7 +30,7 @@ FairLend is the fair, transparent, anti-predatory private mortgage financing par
 
 ### Positioning Statement
 
-For residential borrowers who need a first, second, third, bridge, renewal, or equity-based private mortgage, FairLend provides a faster path to a clear answer while structuring the file around suitability, real property value, payment capacity, standardized fees, transparent cost disclosure, and a practical exit strategy.
+For residential borrowers who need a first, second, third, bridge, renewal, or equity-based private mortgage, FairLend provides a faster path to a clear answer while structuring the file around suitability, property valuation, payment capacity, standardized fees, transparent cost disclosure, and a practical exit strategy.
 
 Unlike fee-heavy private lenders or generic mortgage brokers who disappear after closing, FairLend is building a borrower-protection model around standardized commitments, no surprise economics buried in legal documents, $0 payout fees where applicable, low missed-payment administration fees, clear renewal rules, mortgage administration, appraisal review, AI-assisted underwriting, and human judgment from an experienced GTA mortgage team.
 
@@ -316,7 +316,7 @@ Feature blocks:
 - **Low missed-payment administration fees:** position missed-payment fees as administrative recovery, not punishment. Use the $50 vs $450 contrast only after compliance approval.
 - **No hidden legal-doc economics:** the material economic terms should be visible in the commitment, not buried later.
 - **Exit-first planning:** refinance, sale, renewal, income stabilization, debt cleanup, or other route identified before funding.
-- **Real property value:** appraisal review and third-party valuation discipline.
+- **Property valuation:** appraisal review and third-party valuation discipline.
 - **Support after closing:** servicing, PAD payments, renewal coordination, payout support, and administration.
 
 ### 4. Borrower Scenarios

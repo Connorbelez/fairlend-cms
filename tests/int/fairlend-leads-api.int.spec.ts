@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { NextRequest } from 'next/server'
 
 import {
@@ -8,6 +8,7 @@ import {
 import type { LeadPayload } from '@/lib/fairlend-leads'
 
 const leadRouteMocks = vi.hoisted(() => ({
+  recordFairlendCampaignJourneyEvent: vi.fn(),
   upsertFairlendLead: vi.fn(),
 }))
 
@@ -15,12 +16,21 @@ vi.mock('@/lib/fairlend-leads', () => ({
   upsertFairlendLead: leadRouteMocks.upsertFairlendLead,
 }))
 
+vi.mock('@/lib/fairlend-campaign-journey', () => ({
+  recordFairlendCampaignJourneyEvent: leadRouteMocks.recordFairlendCampaignJourneyEvent,
+}))
+
 import { POST } from '@/app/(frontend)/api/leads/route'
 
 describe('Fairlend leads API', () => {
   afterEach(() => {
     leadRouteMocks.upsertFairlendLead.mockReset()
+    leadRouteMocks.recordFairlendCampaignJourneyEvent.mockReset()
     vi.restoreAllMocks()
+  })
+
+  beforeEach(() => {
+    leadRouteMocks.recordFairlendCampaignJourneyEvent.mockResolvedValue(undefined)
   })
 
   it('persists the lead before returning a successful response', async () => {
@@ -80,6 +90,14 @@ describe('Fairlend leads API', () => {
       attribution,
       campaign: 'v1',
       campaignScanId: 'd11da39e-21d6-49ef-9d09-9fe6e5e347fb',
+    })
+    expect(leadRouteMocks.recordFairlendCampaignJourneyEvent).toHaveBeenCalledWith({
+      attribution,
+      event: expect.objectContaining({
+        eventType: 'intake_submitted',
+        formId: 'homepage-build-application-form',
+        leadId: '5ab72f3d-7bb1-4b44-a4f1-c5b4f5453ad4',
+      }),
     })
   })
 

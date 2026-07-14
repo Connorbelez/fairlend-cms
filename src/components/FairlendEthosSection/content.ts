@@ -39,7 +39,7 @@ export const ALIGNED_INTERESTS = [
   {
     audience: 'Investors',
     code: '02',
-    copy: 'Investors get disciplined underwriting, transparent information, and professionally administered mortgage-backed opportunities.',
+    copy: 'Investors get disciplined underwriting, transparent information, and professionally administered private mortgage opportunities.',
     fields: ['Disciplined underwriting', 'Transparent information', 'Professional administration'],
   },
   {

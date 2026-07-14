@@ -4,6 +4,7 @@ import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
 
 import { getCanonicalOrigin } from '@/utilities/seo'
+import { FAIRLEND_SITEMAP_EXCLUDED_PAGE_SLUGS } from '@/lib/fairlend-routes'
 
 const staticIndexableRoutes = [
   '/',
@@ -11,7 +12,6 @@ const staticIndexableRoutes = [
   '/borrowers',
   '/borrowers/institutional-mortgage',
   '/borrowers/private-mortgage-financing',
-  '/cmhc-mli-select-multiplex-financing',
   '/construction-draw-financing',
   '/contact',
   '/disclosures',
@@ -23,11 +23,8 @@ const staticIndexableRoutes = [
   '/multiplex-financing-gta',
   '/partners',
   '/posts',
-  '/resources/construction-draws-small-builders',
   '/terms',
 ]
-
-const excludedPayloadPageSlugs = new Set(['contact', 'money-page-blocks-qa-2026-07-12'])
 
 const getPagesSitemap = unstable_cache(
   async () => {
@@ -58,7 +55,9 @@ const getPagesSitemap = unstable_cache(
 
     const sitemap = results.docs
       ? results.docs
-          .filter((page) => Boolean(page?.slug) && !excludedPayloadPageSlugs.has(page.slug))
+          .filter(
+            (page) => Boolean(page?.slug) && !FAIRLEND_SITEMAP_EXCLUDED_PAGE_SLUGS.has(page.slug),
+          )
           .map((page) => {
             return {
               loc: page?.slug === 'home' ? `${SITE_URL}/` : `${SITE_URL}/${page?.slug}`,
@@ -76,7 +75,7 @@ const getPagesSitemap = unstable_cache(
         .values(),
     )
   },
-  ['pages-sitemap'],
+  ['pages-sitemap-v3'],
   {
     tags: ['pages-sitemap'],
   },

@@ -63,7 +63,7 @@ On desktop, alternate copy and a project-file visual. On mobile, stack each row 
 
 **Headline:** Structure capital around the way the build will actually happen.
 
-**Body:** We bring the land basis, construction budget, borrower equity, working-capital needs, milestones, and exit into the same financing model. Then we arrange an appropriate mortgage-backed structure and map when capital needs to be available—not merely how much is approved on paper.
+**Body:** We bring the land basis, construction budget, borrower equity, working-capital needs, milestones, and exit into the same financing model. Then we arrange an appropriate mortgage structure and map when capital needs to be available—not merely how much is approved on paper.
 
 **We connect:** Acquisition and bridge needs · borrower capital · construction financing · milestone draws · financing costs · contingency
 
@@ -146,7 +146,7 @@ The centre rail carries one continuous project line from site to exit. Add a sma
 
 **Fragmented process:** A lender approves an amount, but the borrower still has to reconcile equity timing, deposits, trade payments, interest carry, holdbacks, and the gap between draws.
 
-**FairLend response:** We structure the mortgage-backed financing around the project budget and sequence of work, then build a milestone draw plan that accounts for borrower capital and working-capital needs.
+**FairLend response:** We structure the mortgage financing around the project budget and sequence of work, then build a milestone draw plan that accounts for borrower capital and working-capital needs.
 
 **Continuity record:** Capital stack, draw conditions, and borrower obligations in one model.
 

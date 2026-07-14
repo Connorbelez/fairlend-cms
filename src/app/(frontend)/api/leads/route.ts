@@ -1,9 +1,10 @@
 import type { NextRequest } from 'next/server'
 
 import {
-  fairlendCampaignAttributionCookieName,
-  parseFairlendCampaignAttribution,
+  getFairlendCampaignAttributionFromRequest,
+  getFairlendRequestPagePath,
 } from '@/lib/fairlend-campaign-attribution'
+import { recordFairlendCampaignJourneyEvent } from '@/lib/fairlend-campaign-journey'
 import { upsertFairlendLead, type LeadPayload } from '@/lib/fairlend-leads'
 
 export const runtime = 'nodejs'
@@ -16,7 +17,28 @@ export async function POST(request: NextRequest): Promise<Response> {
   }
 
   try {
-    const lead = await upsertFairlendLead(withCampaignAttribution(payload, request))
+    const attribution = getFairlendCampaignAttributionFromRequest(request)
+    const attributedPayload = withCampaignAttribution(payload, attribution)
+    const lead = await upsertFairlendLead(attributedPayload)
+
+    if (attribution) {
+      await recordFairlendCampaignJourneyEvent({
+        attribution,
+        event: {
+          eventId: `lead:${lead.id}:${attributedPayload.status === 'submitted' ? 'submitted' : 'started'}`,
+          eventType:
+            attributedPayload.status === 'submitted' ? 'intake_submitted' : 'intake_started',
+          formId: attributedPayload.source,
+          formName: attributedPayload.source,
+          intakeType: attributedPayload.intent,
+          leadId: lead.id,
+          pagePath: getFairlendRequestPagePath(request),
+        },
+      }).catch((error) => {
+        console.error('Failed to record lead campaign journey event', error)
+      })
+    }
+
     return Response.json({ id: lead.id })
   } catch (error) {
     console.error('Failed to persist FairLend lead', error)
@@ -24,11 +46,10 @@ export async function POST(request: NextRequest): Promise<Response> {
   }
 }
 
-function withCampaignAttribution(payload: LeadPayload, request: NextRequest): LeadPayload {
-  const attribution = parseFairlendCampaignAttribution(
-    request.cookies.get(fairlendCampaignAttributionCookieName)?.value,
-  )
-
+function withCampaignAttribution(
+  payload: LeadPayload,
+  attribution: ReturnType<typeof getFairlendCampaignAttributionFromRequest>,
+): LeadPayload {
   if (!attribution) {
     return payload
   }

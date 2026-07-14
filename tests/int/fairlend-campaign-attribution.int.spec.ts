@@ -18,7 +18,9 @@ vi.mock('@/lib/fairlend-campaign-attribution', async () => {
 
 import {
   fairlendCampaignAttributionCookieName,
+  fairlendCampaignAttributionMarkerCookieName,
   parseFairlendCampaignAttribution,
+  serializeFairlendCampaignAttribution,
 } from '@/lib/fairlend-campaign-attribution'
 import { GET } from '@/app/(frontend)/r/[campaign]/route'
 
@@ -51,6 +53,10 @@ describe('FairLend QR campaign attribution route', () => {
     expect(cookie?.httpOnly).toBe(true)
     expect(cookie?.path).toBe('/')
     expect(cookie?.sameSite).toBe('lax')
+    expect(response.cookies.get(fairlendCampaignAttributionMarkerCookieName)).toMatchObject({
+      httpOnly: false,
+      value: '1',
+    })
 
     const attribution = parseFairlendCampaignAttribution(cookie?.value)
     expect(attribution).toMatchObject({
@@ -74,6 +80,30 @@ describe('FairLend QR campaign attribution route', () => {
     expect(campaignMocks.persistFairlendCampaignScan.mock.calls[0][0].hashedIp).toMatch(
       /^[a-f0-9]{64}$/,
     )
+  })
+
+  it('rejects attribution cookies whose signed payload was changed', () => {
+    const signed = serializeFairlendCampaignAttribution({
+      campaign: 'v1',
+      capturedAt: '2026-07-14T12:00:00.000Z',
+      destination: '/',
+      scanId: 'd11da39e-21d6-49ef-9d09-9fe6e5e347fb',
+      source: 'qr-v1',
+    })
+    const [payload, signature] = signed.split('.')
+    const tamperedPayload = Buffer.from(
+      JSON.stringify({
+        campaign: 'fake',
+        capturedAt: '2026-07-14T12:00:00.000Z',
+        destination: '/',
+        scanId: 'd11da39e-21d6-49ef-9d09-9fe6e5e347fb',
+        source: 'qr-fake',
+      }),
+      'utf8',
+    ).toString('base64url')
+
+    expect(payload).not.toBe(tamperedPayload)
+    expect(parseFairlendCampaignAttribution(`${tamperedPayload}.${signature}`)).toBeNull()
   })
 
   it('still redirects and sets attribution when scan persistence fails', async () => {

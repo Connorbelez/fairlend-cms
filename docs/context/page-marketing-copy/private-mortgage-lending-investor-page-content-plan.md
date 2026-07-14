@@ -17,7 +17,7 @@ Credibility anchors — **~$2B funded**, **nearly 30 years of experience from pr
 - `docs/Company Brief.md`
 - FSRA, [Mortgage Brokering sector supervision plan 2025-26](https://www.fsrao.ca/industry/mortgage-brokering/regulatory-framework/supervision/mortgage-brokering-sector-supervision-plan-2025-26)
 
-**Compliance reminder (applies to all copy below):** No "guaranteed," "risk-free," "safe," "principal protected," "CDIC-like," or "bank-account substitute" language. Use "designed to protect," "mortgage-backed," "conservative," "selected/curated," "subject to investor review," and always keep the risk line clean: private mortgage investments involve risk and are not bank deposits or guaranteed-return products. Full guardrails and the list of claims to substantiate are in the Appendix.
+**Compliance reminder (applies to all copy below):** No "guaranteed," "risk-free," "safe," "principal protected," "CDIC-like," "bank-account substitute," or asset-backing language. Use "designed to protect," "private mortgage," "conservative," "selected/curated," "subject to investor review," and always keep the risk line clean: private mortgage investments involve risk and are not bank deposits or guaranteed-return products. Full guardrails and the list of claims to substantiate are in the Appendix.
 
 ---
 
@@ -25,13 +25,13 @@ Credibility anchors — **~$2B funded**, **nearly 30 years of experience from pr
 
 ## 1. Hero
 
-**Goal:** In one screen, establish the category (mortgage-backed private credit), the dual promise (managed convenience + protection discipline), and credibility — without implying guaranteed or bank-deposit safety.
+**Goal:** In one screen, establish the category (private mortgage credit), the dual promise (managed convenience + protection discipline), and credibility — without implying guaranteed or bank-deposit safety.
 
 **Concept A — Split "Operations Desk" hero.**
 Left: headline, subhead, primary/secondary CTA. Right: a clean, restrained product mock of the investor portal showing a deal card, payment status, and a "disbursement sent" chip. Calm institutional palette; no cash imagery.
 
 > **Private mortgage income, professionally underwritten — and fully managed for you.**
-> FairLend gives investors access to curated, pre-vetted mortgage-backed opportunities, then handles everything end to end: digital closing, PAD collection, automated disbursements, and a transparent investor portal with tax-ready exports. Conservative LTVs, double valuation review, and a dedicated legal recovery team sit behind every deal.
+> FairLend gives investors access to curated, pre-vetted private mortgage opportunities, then handles everything end to end: digital closing, PAD collection, automated disbursements, and a transparent investor portal with tax-ready exports. Conservative LTVs, double valuation review, and a dedicated legal recovery team sit behind every deal.
 > **[ Request Investor Access ]**  •  *See the protection framework*
 
 **Concept B — Credibility-forward banner.**
@@ -44,7 +44,7 @@ Full-width, typographic hero. The track-record numbers are the visual ($2B / ~30
 **Concept C — "Proof-bar" hero.**
 Headline + subhead, with a horizontal proof bar of six chips beneath the CTA. Designed so a skimming investor absorbs the whole value prop in five seconds.
 
-> **Mortgage-backed income, managed with institutional discipline.**
+> **Private mortgage income, managed with institutional discipline.**
 > Curated opportunities. Conservative LTVs. One platform that closes, collects, disburses, reports, and recovers — so you never chase a cheque or build a servicing team.
 > **[ Request Investor Access ]**  •  *See the protection framework*
 > Proof bar: `Curated, pre-vetted deals` · `Target LTVs under 75%` · `Double valuation review` · `Automated disbursements + portal` · `Power-of-sale recovery path` · `Dedicated legal recovery team`
@@ -59,14 +59,14 @@ Headline + subhead, with a horizontal proof bar of six chips beneath the CTA. De
 **Goal:** Educate plainly and officially. Define the product, show how investors earn, why borrowers use it, and why it requires underwriting — not just collateral. Avoid patronizing.
 
 **Concept A — Annotated diagram.**
-A simple three-node flow: Borrower → Mortgage secured by property → Investor earns interest. Each node has a one-line caption. Clean, ledger-like styling.
+A simple three-node flow: Borrower → Registered mortgage → Investor earns interest. Each node has a one-line caption. Clean, ledger-like styling.
 
-> **A private mortgage is a loan secured against real estate.** A borrower obtains mortgage financing outside the traditional bank channel; investors earn income from the interest paid on that mortgage. The security, valuation, borrower quality, LTV, payment structure, and exit path determine whether an opportunity is worth considering. The collateral is the property — but the discipline is the underwriting.
+> **A private mortgage is a documented mortgage agreement outside the traditional bank channel.** Investors may earn income from interest paid on the mortgage. Borrower quality, valuation, LTV, payment structure, legal documentation, and exit path determine whether an opportunity is worth considering.
 
 **Concept B — "Two-column explainer" (How you earn / Why borrowers come).**
-Left column: how investors earn (interest, shorter terms, mortgage-backed security). Right column: why borrowers use private mortgages (speed, bridge timing, complex income, non-standard files). Balanced, side-by-side cards.
+Left column: how investors earn (interest, shorter terms, documented mortgage terms). Right column: why borrowers use private mortgages (speed, bridge timing, complex income, non-standard files). Balanced, side-by-side cards.
 
-> **How you earn:** Borrowers make scheduled interest payments on a mortgage registered against their property. Terms are typically shorter than a conventional mortgage, and the security is real estate — not an unsecured promise to pay.
+> **How you earn:** Borrowers make scheduled interest payments under a registered mortgage. Terms are typically shorter than a conventional mortgage, with the obligations and available remedies set out in the legal documentation.
 > **Why borrowers come to us:** Banks are often too slow, too narrow, or too rigid for time-sensitive closings, bridge periods, equity-based situations, or complex but real income. That financing need — not a lack of quality — is where the income potential comes from.
 
 **Concept C — Myth-vs-reality strip.**
@@ -112,7 +112,7 @@ Six stacked, numbered bands forming a single column — visually communicating d
 > 2. **Double valuation review** — We pressure-test property value so the LTV is grounded in reality. *"Is the value real?"*
 > 3. **Conservative LTVs under 75%** — A real equity cushion sits beneath your position. *"Is there a margin of safety?"*
 > 4. **AI-assisted, human-led verification** — ~7,000 data points across borrower, property, income, fraud, and documentation; experienced people make the call. *"Was this checked beyond a credit score?"*
-> 5. **Mortgage security + power-of-sale path** — Mortgage-backed, not an unsecured IOU. *"What if the borrower stops paying?"*
+> 5. **Mortgage documentation + power-of-sale path** — Terms, obligations, and available remedies are documented. *"What if the borrower stops paying?"*
 > 6. **Dedicated legal recovery team** — A battle-tested default playbook that exists before anything goes wrong. *"Is there a plan if a file gets stressed?"*
 
 **Concept B — Six-card grid (3×2).**
@@ -311,18 +311,18 @@ Two paired blocks: one on GTA-specific knowledge (municipal processes, appraisal
 Clean side-by-side. The "Not for" column is a feature, not an apology.
 
 > **Built for investors who care as much about the file as the rate.**
-> **For:** investors seeking mortgage-backed income; comfortable with private-credit risk; who value documentation, reporting, and administration; who prefer conservative LTV and collateral discipline; who understand return potential comes with risk and illiquidity.
+> **For:** investors seeking private mortgage income; comfortable with private-credit risk; who value documentation, reporting, and administration; who prefer conservative LTV and valuation discipline; who understand return potential comes with risk and illiquidity.
 > **Not for:** investors who need daily liquidity; want a bank-deposit replacement; require guaranteed returns; won't review risk disclosure; or chase the highest rate regardless of file quality.
 
 **Concept B — Self-qualifying checklist.**
 A short "this sounds like me" checklist the investor can mentally tick, leading into the access CTA.
 
-> **Does this fit you?** You want income backed by real property. You'd rather have one managed platform than a second job collecting cheques. You read the file before you commit. You understand this isn't a bank account. If that's you, the next step is an investor review.
+> **Does this fit you?** You want to evaluate registered mortgage investments. You'd rather have one managed platform than a second job collecting cheques. You read the file before you commit. You understand this isn't a bank account. If that's you, the next step is an investor review.
 
 **Concept C — Honest single-statement band.**
 One understated, confident line that does the qualifying work, paired with the risk microcopy.
 
-> **If you want guaranteed, liquid, risk-free returns, this isn't it — and we'd rather tell you now.** What we offer is professionally underwritten, fully managed, mortgage-backed private credit, with the risks documented up front.
+> **If you want guaranteed, liquid, risk-free returns, this isn't it — and we'd rather tell you now.** What we offer is professionally underwritten, fully managed private mortgage credit, with the risks documented up front.
 
 ---
 
@@ -368,7 +368,7 @@ A slim recap strip of the value prop chips above the CTA, so the last thing the 
 **Concept C — "Reassurance close."**
 The CTA paired directly with the honest risk line, so the final impression is confident *and* candid.
 
-> **A more disciplined way to participate in mortgage-backed private credit.**
+> **A more disciplined way to participate in private mortgage credit.**
 > **[ Request Investor Access ]**
 > *Private mortgage investments involve risk. Opportunities are subject to investor review, deal availability, documentation, and suitability considerations.*
 
@@ -383,9 +383,9 @@ The CTA paired directly with the honest risk line, so the final impression is co
 
 The page should not sell private mortgage investing as a "high rate hack" — that frames FairLend as exactly the market FSRA is scrutinizing. Sell a managed private credit process: disciplined deal rejection, verified value, conservative LTV, broader fraud/income analysis, legal security, administration, reporting, and a recovery system that exists before anything goes wrong.
 
-- **Emotional promise:** Your capital is not thrown at private deals. It is placed through a controlled, mortgage-backed process that feels organized, documented, and professionally managed.
+- **Emotional promise:** Your capital is not thrown at private deals. It is placed through a controlled private mortgage process that feels organized, documented, and professionally managed.
 - **Rational promise:** FairLend helps investors access selected private mortgage opportunities through conservative underwriting, real valuation discipline, AI-assisted verification, transparent documentation, digital closing, administration, payment coordination, and dedicated recovery support.
-- **Right frame:** Bank-level *process* discipline. Private-credit income potential. Mortgage-backed security. Clear risk disclosure.
+- **Right frame:** Bank-level *process* discipline. Private-credit income potential. Documented mortgage terms. Clear risk disclosure.
 
 Do not claim or imply capital is guaranteed, insured, liquid on demand, CDIC-protected, or equivalent to a bank deposit. The experience may feel organized and professionally administered; the investment-risk line must stay clean.
 
@@ -406,10 +406,10 @@ Use FSRA as subtext, not fearmongering.
 
 ## A3. Positioning
 
-- **Core position:** An institutional-feeling private mortgage investment platform for investors who want mortgage-backed income without the usual private-lending chaos (loose valuation, rushed files, unclear documents, weak reporting, improvised recovery).
-- **Positioning statement:** For income-focused investors seeking private mortgage opportunities, FairLend provides access to selected mortgage-backed investments through conservative underwriting, double valuation review, disciplined LTV limits, AI-assisted fraud/income verification, digital documentation, administration, payment coordination, and an experienced legal recovery team. Unlike informal private-lending networks, rate-sheet brokers, or passive marketplaces, FairLend combines brokerage, administration, underwriting, investor coordination, digital closing, servicing, and legal recovery into one managed operating layer.
-- **Brand promise:** Higher potential mortgage-backed income, with the underwriting, administration, and recovery discipline private lending usually lacks.
-- **Category frame — use:** "Mortgage-backed private credit," "private mortgage investment opportunities," "professionally underwritten private mortgage investing," "institutional-grade private mortgage administration." **Avoid:** "Bank account alternative," "guaranteed income," "risk-free returns," "safe investment," "set it and forget it," "principal protected," "CDIC-like."
+- **Core position:** An institutional-feeling private mortgage investment platform for investors who want private mortgage income without the usual private-lending chaos (loose valuation, rushed files, unclear documents, weak reporting, improvised recovery).
+- **Positioning statement:** For income-focused investors seeking private mortgage opportunities, FairLend provides access to selected private mortgage investments through conservative underwriting, double valuation review, disciplined LTV limits, AI-assisted fraud/income verification, digital documentation, administration, payment coordination, and an experienced legal recovery team. Unlike informal private-lending networks, rate-sheet brokers, or passive marketplaces, FairLend combines brokerage, administration, underwriting, investor coordination, digital closing, servicing, and legal recovery into one managed operating layer.
+- **Brand promise:** Higher potential private mortgage income, with the underwriting, administration, and recovery discipline private lending usually lacks.
+- **Category frame — use:** "Private mortgage credit," "private mortgage investment opportunities," "professionally underwritten private mortgage investing," "institutional-grade private mortgage administration." **Avoid:** "Bank account alternative," "guaranteed income," "risk-free returns," "safe investment," "set it and forget it," "principal protected," "CDIC-like."
 - **The enemy:** Not low bank rates — sloppy private lending: optimistic values, high LTVs, weak verification, unclear documentation, missing administration agreements, poor payment tracking, weak reporting, hidden conflicts, and recovery improvised only after default.
 
 ## A4. Offer Strategy
@@ -433,7 +433,7 @@ Use FSRA as subtext, not fearmongering.
 - **Can I review the deal before investing?** Yes — full deal package before funding.
 - **How liquid is it?** Not a daily-liquid product; expect capital committed for the term unless a payout/sale/transfer/permitted exit occurs.
 - **Who administers payments?** FairLend's administration layer: PAD collection, automated disbursements, servicing, renewals, payouts, coordination, reporting, default escalation.
-- **Individual mortgages or pooled?** Depends on the opportunity — whole, syndicated, fractional, first, second, construction-backed, or future MIC where appropriate. Don't overstate availability.
+- **Individual mortgages or pooled?** Depends on the opportunity — whole, syndicated, fractional, first, second, construction financing, or future MIC where appropriate. Don't overstate availability.
 - **What fees do investors pay?** List only confirmed fees; if they vary, disclosed in the deal package before funding.
 - **Is FairLend regulated?** State exact licensed roles and licence numbers once verified. Suggested wording after verification: "FairLend operates as a mortgage brokerage and mortgage administrator in Ontario. Relevant licence information and documentation are provided during investor onboarding." Do not publish without confirming legal names and licence numbers.
 
@@ -460,10 +460,10 @@ The page should feel like a private-bank operations desk — not a crypto-yield 
 
 **Must avoid:** guaranteed return/principal, risk-free, safe investment, bank-account substitute, CDIC/bank-insured implication, "everyone qualifies," "always recover," "no losses," "fully protected," "instant liquidity," and specific rates unless current, approved, and accompanied by required risk disclosure.
 
-**Use instead:** "designed to protect capital," "risk-managed," "professionally underwritten," "mortgage-backed," "conservative LTV," "selected/curated opportunities," "subject to investor review," "where applicable," "private mortgage investments involve risk," "not a bank deposit," "not guaranteed."
+**Use instead:** "designed to protect capital," "risk-managed," "professionally underwritten," "private mortgage," "conservative LTV," "selected/curated opportunities," "subject to investor review," "where applicable," "private mortgage investments involve risk," "not a bank deposit," "not guaranteed."
 
 **Claims to substantiate before publishing:** 90% deal rejection rate; <75% LTV target/actual; double valuation usage & triggers; ~7,000 data points; AI fraud-detection capability; digital income-verification sources; legal recovery team "on staff" and "battle-tested"; investor portal features incl. tax-document export and QuickBooks integration (live vs roadmap); PAD and automated disbursement specifics; fractionalization availability/minimums; brokerage & administrator licence names/numbers; **$2B funded** and **~30 years / top-volume** leadership claims (Company Brief: Elie Soberano, nearly three decades, $2B+).
 
 ## A9. Recommended Final Page Thesis
 
-> FairLend gives investors access to private mortgage income opportunities through a controlled, professionally administered process — and runs the entire lifecycle on one platform. We curate and reject most files, verify value where appropriate, keep LTVs conservative, use AI-assisted fraud and income analysis, secure investments through mortgage-backed legal remedies, administer every payment and disbursement, and stand behind files with dedicated legal recovery. The result is not a guaranteed product. It is a more disciplined — and far less hands-on — way to participate in mortgage-backed private credit.
+> FairLend gives investors access to private mortgage income opportunities through a controlled, professionally administered process — and runs the entire lifecycle on one platform. We curate and reject most files, verify value where appropriate, keep LTVs conservative, use AI-assisted fraud and income analysis, document each mortgage and its available legal remedies, administer every payment and disbursement, and support files with dedicated legal recovery. The result is not a guaranteed product. It is a more disciplined — and far less hands-on — way to participate in private mortgage credit.

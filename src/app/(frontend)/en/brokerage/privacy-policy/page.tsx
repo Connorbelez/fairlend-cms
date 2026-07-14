@@ -326,6 +326,11 @@ const policyBlocks = [
   },
   {
     type: 'list',
+    text: '**First-party QR campaign attribution:** When you enter our website through a FairLend QR campaign link, we set a first-party cookie for up to 30 days containing a random scan identifier and campaign information. We use it to connect that scan with completed website intake forms, consultation bookings, or other form submissions and to measure campaign performance. With analytics consent, we also associate page paths and time-on-page events with that random identifier so we can understand navigation and abandonment. Form answers are not copied into the campaign journey log. Clearing the cookie prevents future activity on that browser from being linked to the scan.',
+    level: 1,
+  },
+  {
+    type: 'list',
     text: '**Google Analytics:** We may use Google Analytics, which allows us to see information on user website activities including, but not limited to, page views, source and time spent on our website. Where used, this information is depersonalized and is displayed as numbers, meaning that it cannot be tracked back to individuals. You may opt-out of our use of Google Analytics by visiting the Google Analytics opt-out page.',
     level: 1,
   },
@@ -543,9 +548,7 @@ function renderPolicyBlocks(blocks: PolicyBlock[]) {
       >
         {items.map((item, index) => (
           <li
-            className={
-              item.level ? 'ml-5 pl-2 text-[15px] leading-7' : 'pl-2 text-[15px] leading-7'
-            }
+            className={item.level ? 'ml-5 pl-2 text-base leading-7' : 'pl-2 text-base leading-7'}
             key={`${item.text}-${index}`}
           >
             <span className="mr-3 inline-block size-1.5 translate-y-[-2px] rounded-full bg-[#96ec18]" />
@@ -577,10 +580,7 @@ function renderPolicyBlocks(blocks: PolicyBlock[]) {
     }
 
     rendered.push(
-      <p
-        className="my-5 text-[15px] leading-8 text-[#34342f] sm:text-base"
-        key={`${block.text}-${index}`}
-      >
+      <p className="my-5 text-base leading-8 text-[#34342f]" key={`${block.text}-${index}`}>
         {renderText(block.text)}
       </p>,
     )
@@ -614,7 +614,7 @@ export default function FairlendPrivacyPolicyPage() {
             <dl className="mt-5 space-y-4 text-sm">
               <div>
                 <dt className="font-bold text-[#090909]">Last updated</dt>
-                <dd className="mt-1 text-[#5a5a52]">July 8, 2026</dd>
+                <dd className="mt-1 text-[#5a5a52]">July 14, 2026</dd>
               </div>
               <div>
                 <dt className="font-bold text-[#090909]">Administrator licence</dt>

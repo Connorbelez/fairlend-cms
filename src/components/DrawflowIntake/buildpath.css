@@ -11269,6 +11269,21 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
   text-wrap: balance;
 }
 
+.bp-copy h1 {
+  max-width: min(18ch, calc(100% - 36px));
+}
+
+.bp-copy h1 .bp-title-line {
+  white-space: nowrap;
+}
+
+.bp-copy h1 .bp-title-lockup {
+  display: inline-block;
+  white-space: nowrap;
+  animation: none;
+  will-change: auto;
+}
+
 .bp-copy > p,
 .bp-form-copy > p {
   max-width: 54ch;
@@ -11627,6 +11642,10 @@ body:has(.bp-page) button[aria-label='Open TanStack Devtools'] {
 }
 
 @media (max-width: 760px) {
+  .bp-copy h1 .bp-title-line {
+    white-space: normal;
+  }
+
   .bp-copy h1,
   .bp-form-copy h1,
   .bp-capital-feature-copy h2,

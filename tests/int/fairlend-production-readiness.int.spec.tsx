@@ -10,12 +10,16 @@ import BeforeDashboard from '@/components/BeforeDashboard'
 
 const dashboardMocks = vi.hoisted(() => ({
   find: vi.fn(),
+  getFairlendCampaignJourneyAnalytics: vi.fn(),
   getPayload: vi.fn(),
 }))
 
 vi.mock('@payload-config', () => ({ default: Promise.resolve({}) }))
 vi.mock('payload', () => ({
   getPayload: dashboardMocks.getPayload,
+}))
+vi.mock('@/lib/fairlend-campaign-journey', () => ({
+  getFairlendCampaignJourneyAnalytics: dashboardMocks.getFairlendCampaignJourneyAnalytics,
 }))
 vi.mock('@payloadcms/ui/elements/Banner', () => ({
   Banner: ({
@@ -41,6 +45,7 @@ async function source(path: string): Promise<string> {
 describe('FairLend production readiness guards', () => {
   beforeEach(() => {
     dashboardMocks.find.mockReset()
+    dashboardMocks.getFairlendCampaignJourneyAnalytics.mockReset()
     dashboardMocks.getPayload.mockReset()
   })
 
@@ -125,7 +130,9 @@ describe('FairLend production readiness guards', () => {
       source('src/components/directional-hover-header/header/nav-data.ts'),
     ])
 
-    expect(navigation).toContain("privateMortgages: { href: '/borrowers/private-mortgage-financing' }")
+    expect(navigation).toContain(
+      "privateMortgages: { href: '/borrowers/private-mortgage-financing' }",
+    )
     expect(routeSelector).toContain("buildFairlendMortgageHref('route-selector-private-mortgage')")
     expect(propertyTypes).toContain(
       "buildFairlendMortgageHref('property-types-residential-mortgage')",
@@ -160,6 +167,41 @@ describe('FairLend production readiness guards', () => {
   })
 
   it('renders the Payload operations dashboard with populated and empty states', async () => {
+    dashboardMocks.getFairlendCampaignJourneyAnalytics.mockResolvedValueOnce({
+      abandonments: [{ abandonedScanCount: 4, campaign: 'v1', pagePath: '/borrowers' }],
+      forms: [
+        {
+          campaign: 'v1',
+          completionCount: 3,
+          eventType: 'intake_submitted',
+          formId: 'drawflow-intake',
+          formName: 'drawflow-intake',
+          intakeType: 'mortgage',
+        },
+      ],
+      pages: [{ campaign: 'v1', pagePath: '/', pageViewCount: 12, uniqueScanCount: 8 }],
+      performance: [
+        {
+          bouncedScanCount: 4,
+          bounceRate: 50,
+          campaign: 'v1',
+          scanCount: 12,
+          successfulIntakeCount: 3,
+          successfulIntakeRate: 25,
+          trackedScanCount: 8,
+        },
+      ],
+      recentJourneys: [
+        {
+          campaign: 'v1',
+          capturedAt: '2026-07-07T12:00:00.000Z',
+          formName: 'drawflow-intake',
+          outcome: 'successful_intake',
+          pagePaths: ['/', '/intake'],
+          scanId: 'scan-123',
+        },
+      ],
+    })
     dashboardMocks.find
       .mockResolvedValueOnce({
         docs: [
@@ -191,14 +233,18 @@ describe('FairLend production readiness guards', () => {
     expect(populatedMarkup).toContain('FairLend Operations')
     expect(populatedMarkup).toContain('Submitted leads')
     expect(populatedMarkup).toContain('QR scans')
-    expect(populatedMarkup).toContain('QR lead completions')
-    expect(populatedMarkup).toContain('QR conversion rate')
+    expect(populatedMarkup).toContain('QR bounce rate')
+    expect(populatedMarkup).toContain('Successful QR intakes')
     expect(populatedMarkup).toContain('QR campaign performance')
     expect(populatedMarkup).toContain('v1')
     expect(populatedMarkup).toContain('qr-v1')
     expect(populatedMarkup).toContain('12 scans')
-    expect(populatedMarkup).toContain('3 completed leads')
-    expect(populatedMarkup).toContain('25% conversion')
+    expect(populatedMarkup).toContain('4 bounced · 50%')
+    expect(populatedMarkup).toContain('3 successful · 25%')
+    expect(populatedMarkup).toContain('Pages visited')
+    expect(populatedMarkup).toContain('Last page before abandonment')
+    expect(populatedMarkup).toContain('Successful intake forms')
+    expect(populatedMarkup).toContain('Recent QR scan outcomes')
     expect(populatedMarkup).toContain('Lead Owner')
     expect(populatedMarkup).toContain('footer-book-consultation')
     expect(populatedMarkup).toContain('/admin/collections/fairlend-leads')
@@ -206,6 +252,13 @@ describe('FairLend production readiness guards', () => {
     expect(populatedMarkup).toContain('/admin/collections/fairlend-consultation-bookings')
 
     dashboardMocks.find.mockReset()
+    dashboardMocks.getFairlendCampaignJourneyAnalytics.mockResolvedValueOnce({
+      abandonments: [],
+      forms: [],
+      pages: [],
+      performance: [],
+      recentJourneys: [],
+    })
     dashboardMocks.find
       .mockResolvedValueOnce({ docs: [], totalDocs: 0 })
       .mockResolvedValueOnce({ docs: [], totalDocs: 0 })

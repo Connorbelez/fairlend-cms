@@ -2,7 +2,7 @@
 
 FairLend is first and foremost a mortgage brokerage and mortgage administrator, with a related Mortgage Investment Corporation. The company is built as a hybrid of capabilities that are usually separated in the market: traditional mortgage brokering, private mortgage placement, mortgage administration, construction financing strategy, investment structuring, and end-to-end build financing support.
 
-FairLend provides traditional mortgage and private mortgage brokering services while specializing in GTA construction financing, infill development, multiplex projects, garden suites, laneway suites, multifamily renovations, and single-family residential builds. The company’s core role is to help borrowers, builders, and investors structure better mortgage-backed financing solutions — and to work with builders as a financing and advisory partner to design projects that can finance, execute, and move from land acquisition through construction to takeout.
+FairLend provides traditional mortgage and private mortgage brokering services while specializing in GTA construction financing, infill development, multiplex projects, garden suites, laneway suites, multifamily renovations, and single-family residential builds. The company’s core role is to help borrowers, builders, and investors structure better mortgage financing solutions — and to work with builders as a financing and advisory partner to design projects that can finance, execute, and move from land acquisition through construction to takeout.
 
 FairLend is led by Elie Soberano, one of Canada’s top mortgage brokers by volume, with more than $2B funded over 29 years. The broader leadership team includes:
 
@@ -17,7 +17,7 @@ Former President of Barton Engineering.
 
 ### 4.1 FairLend Is a Mortgage Brokerage, Private Lending, and Mortgage Financing Company
 
-FairLend arranges, structures, and administers mortgage-backed financing for borrowers who need flexible and practical capital solutions. The company’s work includes traditional mortgage brokering, private mortgage placement, first mortgages, second mortgages, third mortgages, bridge financing, equity-based lending structures, construction financing, and other mortgage-backed scenarios where conventional lenders may be too slow, too narrow, or too rigid.
+FairLend arranges, structures, and administers mortgage financing for borrowers who need flexible and practical capital solutions. The company’s work includes traditional mortgage brokering, private mortgage placement, first mortgages, second mortgages, third mortgages, bridge financing, equity-based lending structures, construction financing, and other mortgage scenarios where conventional lenders may be too slow, too narrow, or too rigid.
 
 FairLend should be understood primarily as a mortgage brokerage and administrator, not simply as a direct lender. The company connects borrowers with appropriate mortgage capital, helps structure the transaction, supports documentation and administration, and works with lenders, investors, and related entities, including its MIC, where appropriate.
 
@@ -76,7 +76,7 @@ In practical terms, FairLend helps builders move from early project intent to a 
 4. **Support the build** — Help coordinate draw planning, documentation, administration, and project financing needs.
 5. **Plan the takeout** — Prepare for refinance, sale, rental stabilization, or CMHC MLI Select takeout financing where that path is available.
 
-FairLend’s advisory layer exists to help good builders make better business decisions. The company helps builders cut through the complexity, build the right equation, structure the right mortgage-backed financing, and move forward with a project plan grounded in real GTA market conditions.
+FairLend’s advisory layer exists to help good builders make better business decisions. The company helps builders cut through the complexity, build the right equation, structure the right mortgage financing, and move forward with a project plan grounded in real GTA market conditions.
 
 
 ---
@@ -206,9 +206,9 @@ Investor-facing private mortgage opportunities may include:
 * Fractional participation where appropriate.
 * First mortgage opportunities.
 * Second mortgage opportunities.
-* Construction-backed or project-backed opportunities where appropriate.
+* Construction financing opportunities where appropriate.
 
-Investor access should be framed around visibility, process, and administration rather than hype. FairLend provides investors with a more organized way to review Mortgage-backed opportunities, understand the file, access documentation, close digitally, track payments, and coordinate with an experienced administration team.
+Investor access should be framed around visibility, process, and administration rather than hype. FairLend provides investors with a more organized way to review private mortgage opportunities, understand the file, access documentation, close digitally, track payments, and coordinate with an experienced administration team.
 
 ### 7.3 Construction Financing
 
@@ -310,7 +310,7 @@ The FairLend Investor Portal is the digital interface for investor clients.
 
 It should be positioned as the current form of the Marketplace platform. Its purpose is to help investors:
 
-* Discover available Mortgage-backed opportunities.
+* Discover available private mortgage opportunities.
 * Review deal summaries.
 * Access supporting documentation.
 * Review mortgage or project details.
@@ -594,7 +594,7 @@ They benefit by bringing financing and execution judgment into the project earli
 
 ### 9.6 Investors and Capital Partners
 
-Investors and capital partners are interested in Mortgage-backed private credit, private mortgages, construction-backed opportunities, and potentially future MIC participation.
+Investors and capital partners are interested in private mortgage credit, private mortgages, construction financing opportunities, and potentially future MIC participation.
 
 Their core concerns:
 

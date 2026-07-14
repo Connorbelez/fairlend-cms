@@ -43,7 +43,7 @@ The name on the sign is the standard inside.
 **Body copy**  
 FairLend was built around a straightforward belief: fair lending is not only good for society. It is good business.
 
-The strongest mortgages align the interests of everyone involved. Borrowers get clear terms, a realistic exit, and financing that solves the problem without creating a larger one. Investors get disciplined underwriting, transparent information, and professionally administered mortgage-backed opportunities. Builders get capital structured around how projects are actually built. FairLend earns relationships that last beyond a single transaction.
+The strongest mortgages align the interests of everyone involved. Borrowers get clear terms, a realistic exit, and financing that solves the problem without creating a larger one. Investors get disciplined underwriting, transparent information, and professionally administered private mortgage opportunities. Builders get capital structured around how projects are actually built. FairLend earns relationships that last beyond a single transaction.
 
 That is why we do not believe in hidden charges or predatory fees that profit from a borrower’s moment of need. We want borrowers to return because we treated them fairly—and, one day, to trust us when they have capital of their own to lend.
 
@@ -71,7 +71,7 @@ Our Ethos
 Capital should do more than close the deal.
 
 **Body copy**  
-A mortgage is never only a transaction. It can give a borrower the time to reach a better exit. It can give an investor a well-administered, mortgage-backed opportunity. It can give a builder the working capital to keep trades moving. And, when the project is right, it can help add useful housing to an established neighbourhood.
+A mortgage is never only a transaction. It can give a borrower the time to reach a better exit. It can give an investor a well-administered private mortgage opportunity. It can give a builder the working capital to keep trades moving. And, when the project is right, it can help add useful housing to an established neighbourhood.
 
 Those outcomes depend on discipline. We look at the whole equation: the people, the property, the terms, the payment capacity, the build plan, the risks, and the way out. We believe each party should understand that equation before capital moves—and should have visibility throughout the life of the mortgage.
 

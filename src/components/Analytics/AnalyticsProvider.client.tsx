@@ -28,6 +28,8 @@ import {
 import { trackFairlendEvent } from '@/lib/analytics/events'
 import { cn } from '@/utilities/ui'
 
+import { FairlendCampaignJourneyTracker } from './FairlendCampaignJourneyTracker.client'
+
 declare global {
   interface Window {
     _fbq?: unknown
@@ -266,6 +268,7 @@ export function AnalyticsProvider(): React.ReactElement | null {
 
   return (
     <>
+      <FairlendCampaignJourneyTracker enabled={effectiveConsent.analytics} />
       {hasGoogleDestination && (
         <Script id="fairlend-google-consent-default" strategy="afterInteractive">
           {`
@@ -383,23 +386,23 @@ export function AnalyticsProvider(): React.ReactElement | null {
       {shouldShowBanner && (
         <div
           className={cn(
-            'fixed inset-x-3 bottom-3 z-[70] mx-auto flex max-w-4xl flex-col gap-4 rounded-lg border border-[#d8c7b6] bg-[#fffdf8] p-4 text-[#101010] shadow-[0_22px_80px_rgb(8_9_10/20%)] sm:inset-x-6 sm:flex-row sm:items-center sm:justify-between',
+            'fixed bottom-3 left-1/2 z-[70] flex w-[calc(100vw-1.5rem)] max-w-4xl -translate-x-1/2 flex-col gap-4 overflow-hidden rounded-lg border border-[#d8c7b6] bg-[#fffdf8] p-4 text-[#101010] shadow-[0_22px_80px_rgb(8_9_10/20%)] sm:w-[calc(100vw-3rem)] sm:flex-row sm:items-center sm:justify-between',
           )}
           role="dialog"
           aria-label="Cookie preferences"
         >
-          <div className="max-w-2xl">
+          <div className="min-w-0 max-w-2xl">
             <p className="text-sm font-extrabold uppercase tracking-[0.14em] text-[#4f6f10]">
               Privacy preferences
             </p>
-            <p className="mt-1 text-sm font-semibold leading-6 text-[#34403d]">
+            <p className="mt-1 break-words text-sm leading-6 font-semibold text-[#34403d]">
               FairLend uses analytics to improve the site and advertising tags to measure or
               retarget campaigns. Optional tracking stays off unless you allow it.
             </p>
           </div>
-          <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+          <div className="grid w-full shrink-0 grid-cols-1 gap-2 sm:w-auto sm:grid-cols-3">
             <Button
-              className="rounded-md"
+              className="min-h-11 w-full rounded-md border-[#08090a] bg-[#fffdf9] text-[#08090a] hover:bg-[#f7f6f1] hover:text-[#08090a]"
               onClick={() => setAndPersistConsent(deniedConsent)}
               type="button"
               variant="outline"
@@ -407,7 +410,7 @@ export function AnalyticsProvider(): React.ReactElement | null {
               Reject optional
             </Button>
             <Button
-              className="rounded-md"
+              className="min-h-11 w-full rounded-md"
               onClick={() => {
                 setDraftConsent(consent)
                 setIsPreferencesOpen(true)
@@ -418,7 +421,7 @@ export function AnalyticsProvider(): React.ReactElement | null {
               Manage
             </Button>
             <Button
-              className="rounded-md"
+              className="min-h-11 w-full rounded-md"
               onClick={() => setAndPersistConsent(grantedConsent)}
               type="button"
             >
@@ -433,8 +436,8 @@ export function AnalyticsProvider(): React.ReactElement | null {
           <DialogHeader>
             <DialogTitle>Privacy preferences</DialogTitle>
             <DialogDescription>
-              Required site behavior is always on. Optional analytics and retargeting can be
-              changed separately.
+              Required site behavior is always on. Optional analytics and retargeting can be changed
+              separately.
             </DialogDescription>
           </DialogHeader>
 
@@ -476,6 +479,7 @@ export function AnalyticsProvider(): React.ReactElement | null {
             <Button
               onClick={() => setAndPersistConsent(deniedConsent)}
               type="button"
+              className="border-[#08090a] bg-[#fffdf9] text-[#08090a] hover:bg-[#f7f6f1] hover:text-[#08090a]"
               variant="outline"
             >
               Reject optional

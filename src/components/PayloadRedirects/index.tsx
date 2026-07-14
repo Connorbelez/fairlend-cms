@@ -4,6 +4,7 @@ import type { Page, Post } from '@/payload-types'
 import { getCachedDocument } from '@/utilities/getDocument'
 import { getCachedRedirects } from '@/utilities/getRedirects'
 import { notFound, redirect } from 'next/navigation'
+import { isFairlendTombstonedPublicPath } from '@/lib/fairlend-routes'
 
 interface Props {
   disableNotFound?: boolean
@@ -12,6 +13,8 @@ interface Props {
 
 /* This component helps us with SSR based dynamic redirects */
 export const PayloadRedirects: React.FC<Props> = async ({ disableNotFound, url }) => {
+  if (isFairlendTombstonedPublicPath(url)) notFound()
+
   const redirects = await getCachedRedirects()()
 
   const redirectItem = redirects.find((redirect) => redirect.from === url)

@@ -11,7 +11,7 @@ export const privateMortgageSituationOptions = [
   'Refinance my mortgage',
   'Get a bridge loan',
   'Home Equity Line of Credit (HELOC)',
-  'Mortgage-backed financing for my business',
+  'Mortgage financing for my business',
   'Use equity in my property',
   'Pay out an existing mortgage',
   'Something else',

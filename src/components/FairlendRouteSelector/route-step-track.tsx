@@ -1,5 +1,6 @@
 import { BadgeCheck, ClipboardList, Landmark, Search } from 'lucide-react'
 import type { VariantProps } from 'class-variance-authority'
+import type { CSSProperties } from 'react'
 
 import { cn } from '@/utilities/ui'
 

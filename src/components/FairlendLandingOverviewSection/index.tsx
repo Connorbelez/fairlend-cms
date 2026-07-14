@@ -17,10 +17,7 @@ import {
 } from '@/lib/fairlend-intake'
 import { cn } from '@/utilities/ui'
 
-import {
-  DrawFlowInterestBadge,
-  MliSelectReadinessBadge,
-} from './DrawFlowInterestBadge'
+import { DrawFlowInterestBadge, MliSelectReadinessBadge } from './DrawFlowInterestBadge'
 import styles from './overview-section.module.css'
 
 const assetBase = '/assets/about-webp/webp'
@@ -100,7 +97,7 @@ export const financeItems = [
   },
   {
     code: '02',
-    copy: 'Flexible revolving credit secured against available home equity, reviewed around property value, mortgage position, and repayment capacity.',
+    copy: 'Flexible revolving credit reviewed around available home equity, property value, mortgage position, and repayment capacity.',
     emphasis: { action: 'underline', phrase: 'Flexible revolving credit' },
     href: buildFairlendIntakeHref({
       intent: 'mortgage',

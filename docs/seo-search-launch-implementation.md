@@ -9,7 +9,7 @@ This document maps the code-owned items from the July 14, 2026 search-indexing l
 - The production migration `20260714_140000_search_readiness` deletes the QA page `money-page-blocks-qa-2026-07-12` and the three generic demo posts.
 - The seed workflow no longer creates demo authors, demo posts, generic categories, or the template contact page.
 - Both sitemap routes defensively exclude the QA/demo slugs even before the cleanup migration runs.
-- The pages sitemap now includes every canonical static public route, including institutional mortgage financing, contact, terms, disclosures, borrower/investor hubs, CMHC MLI Select, and the builder resource.
+- The pages sitemap includes only finished canonical static public routes. The unfinished CMHC MLI Select and builder-resource pages are deliberately excluded.
 - `/terms` is intentionally `index, follow`, self-canonical, internally linked, and included in the sitemap.
 - Search, intake, builder workflow, pagination, preview, admin, API, and campaign routes remain outside the sitemap.
 - CMS-derived `lastmod` values continue to use Payload's `updatedAt`; static routes do not emit synthetic deployment timestamps.
@@ -17,7 +17,7 @@ This document maps the code-owned items from the July 14, 2026 search-indexing l
 ### Canonical and route hygiene
 
 - Canonical URLs normalize the apex host to `https://www.fairlend.ca`.
-- The legacy `/fairlend-landing-hero` route uses a permanent redirect to `/`.
+- The legacy `/fairlend-landing-hero` route has been removed and returns `404`.
 - Unknown `/r/*` campaign codes return a real `404` with `X-Robots-Tag: noindex`; configured codes retain tracked temporary redirects.
 - `robots.txt` generation explicitly allows Googlebot, Bingbot, DuckDuckBot, Applebot, and OAI-SearchBot while blocking admin, API, and preview endpoints.
 
@@ -57,7 +57,7 @@ This document maps the code-owned items from the July 14, 2026 search-indexing l
 6. If the gate reports a failure, use the individual checks below to inspect it:
 
    ```sh
-   curl -I https://www.fairlend.ca/fairlend-landing-hero
+   curl -I https://www.fairlend.ca/fairlend-landing-hero # expect 404
    curl -I https://www.fairlend.ca/r/not-real
    curl https://www.fairlend.ca/robots.txt
    curl https://www.fairlend.ca/sitemap.xml

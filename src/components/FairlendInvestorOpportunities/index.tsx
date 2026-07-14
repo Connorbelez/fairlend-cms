@@ -23,7 +23,7 @@ const dealPackage = [
   'Term, rate & fees',
   'Exit strategy',
   'Material risks',
-  'Legal / security structure',
+  'Legal documentation and remedies',
   'Administration agreement',
   'Recovery path',
 ] as const
@@ -126,9 +126,9 @@ export function FairlendInvestorOpportunities(): ReactElement {
         </div>
 
         <p className="investor-opportunities__tail">
-          We do the vetting so you can do the deciding. Decades of Southern Ontario pattern recognition go into
-          rejecting weak files and structuring the strong ones. What reaches you is curated,
-          pre-vetted, and fully documented.
+          We do the vetting so you can do the deciding. Decades of Southern Ontario pattern
+          recognition go into rejecting weak files and structuring the strong ones. What reaches you
+          is curated, pre-vetted, and fully documented.
         </p>
       </div>
     </section>

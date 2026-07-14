@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 import { mkdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
-const fairlendLandingPath = '/fairlend-landing-hero'
+const fairlendLandingPath = '/'
 const round = process.env.ROUND || '1'
 const artifactDir = path.join(process.cwd(), 'artifacts', 'responsive-page', `round-${round}`)
 
@@ -86,18 +86,21 @@ function assertHorizontalBounds(
 }
 
 async function rectFor(page: import('@playwright/test').Page, selector: string) {
-  return page.locator(selector).first().evaluate((element) => {
-    const rect = element.getBoundingClientRect()
+  return page
+    .locator(selector)
+    .first()
+    .evaluate((element) => {
+      const rect = element.getBoundingClientRect()
 
-    return {
-      bottom: rect.bottom,
-      height: rect.height,
-      left: rect.left,
-      right: rect.right,
-      top: rect.top,
-      width: rect.width,
-    }
-  }) as Promise<Rect>
+      return {
+        bottom: rect.bottom,
+        height: rect.height,
+        left: rect.left,
+        right: rect.right,
+        top: rect.top,
+        width: rect.width,
+      }
+    }) as Promise<Rect>
 }
 
 async function frameworkOverlayFor(page: import('@playwright/test').Page) {

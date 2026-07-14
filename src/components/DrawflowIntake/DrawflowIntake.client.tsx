@@ -1246,7 +1246,9 @@ function BuildPathHeroStart({
         <BuildPathStepProgress step={1} />
 
         <h1 id="bp-hero-title">
-          <span>Build financing that </span>
+          <span className="bp-title-line">
+            <span className="bp-title-lockup">Build financing</span> that
+          </span>
           <span>moves with the work</span>
         </h1>
 

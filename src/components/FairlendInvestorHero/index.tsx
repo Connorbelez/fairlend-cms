@@ -7,7 +7,7 @@ import { FairlendLeadIntake } from '@/components/FairlendLeadIntake/FairlendLead
 import './investor-hero.css'
 
 const proofPoints = [
-  'Selected mortgage-backed opportunities',
+  'Selected private mortgage opportunities',
   'Conservative LTV discipline',
   'Administration from funding through payout',
   'Documented recovery path',
@@ -34,10 +34,10 @@ export function FairlendInvestorHero(): ReactElement {
           <div className="investor-hero__copy">
             <p className="investor-hero__kicker">
               <span aria-hidden="true" />
-              Southern Ontario. Real property. Documented process.
+              Southern Ontario. Registered mortgages. Documented process.
             </p>
             <h1 className="investor-hero__title" id="investor-hero-title">
-              Put your capital to work. <em>Backed by real property.</em>
+              Put your capital to work. <em>Through registered mortgage investments.</em>
             </h1>
             <p className="investor-hero__subhead">
               Build a private mortgage portfolio around your capital range, timeline, and risk

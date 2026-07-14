@@ -142,13 +142,13 @@ Affected page:
 
 Evidence:
 
-- `src/components/FairlendInvestorHero/index.tsx:62-71` markets "Private mortgage investing", "Mortgage-backed income", and access to "curated, pre-vetted mortgage-backed opportunities."
+- `src/components/FairlendInvestorHero/index.tsx:62-71` previously used noncompliant asset-backing framing; the production copy now uses "Private mortgage investing" and "private mortgage opportunities."
 - `src/components/FairlendInvestorHero/index.tsx:74-84` uses CTAs "Request Investor Access" and "See the protection framework."
 - `src/components/FairlendInvestorHero/index.tsx:101-109` displays experience/performance-like stats `~$2B funded` and `~30 yrs GTA`.
 - `src/components/FairlendInvestorOpportunities/index.tsx:50-58` says users review a short list of opportunities already cleared through underwriting and documentation.
 - `src/components/FairlendInvestorOpportunities/index.tsx:76-97` shows an illustrative deal with `Loan $420,000`, `LTV 68%`, `Term 12 mo.`, and first position.
 - `src/components/FairlendInvestorOpportunities/index.tsx:118-123` CTA label is "Review Opportunities."
-- `src/components/FairlendInvestorFaq/index.tsx:60-63` references "whole, syndicated, fractional, first, second, construction-backed, or future MIC where appropriate."
+- `src/components/FairlendInvestorFaq/index.tsx:60-63` references "whole, syndicated, fractional, first, second, construction financing, or future MIC where appropriate."
 
 Mitigating copy already present:
 

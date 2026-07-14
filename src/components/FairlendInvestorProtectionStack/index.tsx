@@ -24,7 +24,7 @@ const protectionLayers: readonly ProtectionLayer[] = [
     name: 'Double valuation review',
     number: '02',
     promise:
-      'We pressure-test property value so the LTV is grounded in market reality, not optimistic assumptions.',
+      'We pressure-test the valuation so the LTV is grounded in market reality, not optimistic assumptions.',
     question: '“Is the value real?”',
   },
   {
@@ -32,7 +32,7 @@ const protectionLayers: readonly ProtectionLayer[] = [
     name: 'Conservative LTVs under 75%',
     number: '03',
     promise:
-      'A real equity cushion sits beneath your position. A conservative LTV does not eliminate risk — it leaves room for it.',
+      'A conservative LTV is one risk-control input. It does not eliminate valuation, market, borrower, or recovery risk.',
     question: '“Is there a margin of safety?”',
   },
   {
@@ -44,11 +44,11 @@ const protectionLayers: readonly ProtectionLayer[] = [
     question: '“Was this checked beyond a credit score?”',
   },
   {
-    id: 'security',
-    name: 'Mortgage security + power-of-sale path',
+    id: 'documentation',
+    name: 'Mortgage documentation + power-of-sale path',
     number: '05',
     promise:
-      'Mortgage-backed, not an unsecured IOU. Registered security with a power-of-sale recovery path where applicable.',
+      'Documented mortgage terms, obligations, and a power-of-sale recovery path where applicable.',
     question: '“What if the borrower stops paying?”',
   },
   {
@@ -88,8 +88,8 @@ export function FairlendInvestorProtectionStack(): ReactElement {
             Six layers, built before your capital is placed.
           </h2>
           <p className="investor-protection__lede">
-            Each layer answers a specific investor question. Together they form a controlled
-            process — not a guarantee that losses cannot occur. The point is that risk is priced,
+            Each layer answers a specific investor question. Together they form a controlled process
+            — not a guarantee that losses cannot occur. The point is that risk is priced,
             documented, monitored, and managed before you ever commit.
           </p>
         </header>
@@ -116,9 +116,9 @@ export function FairlendInvestorProtectionStack(): ReactElement {
         </ol>
 
         <p className="investor-protection__foot-note">
-          Designed to protect capital is not the same as &ldquo;principal protected.&rdquo;
-          Private mortgage investments involve borrower, property, market, legal, liquidity, and
-          recovery risk. These layers reduce and manage that risk; they do not promise it away.
+          Designed to protect capital is not the same as &ldquo;principal protected.&rdquo; Private
+          mortgage investments involve borrower, property, market, legal, liquidity, and recovery
+          risk. These layers reduce and manage that risk; they do not promise it away.
         </p>
       </div>
     </section>

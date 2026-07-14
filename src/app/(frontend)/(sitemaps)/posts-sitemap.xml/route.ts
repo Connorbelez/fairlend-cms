@@ -4,12 +4,7 @@ import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
 
 import { getCanonicalOrigin } from '@/utilities/seo'
-
-const excludedDemoPostSlugs = new Set([
-  'digital-horizons',
-  'global-gaze',
-  'dollar-and-sense-the-financial-forecast',
-])
+import { isFairlendDemoPostSlug } from '@/lib/fairlend-posts'
 
 const getPostsSitemap = unstable_cache(
   async () => {
@@ -36,7 +31,7 @@ const getPostsSitemap = unstable_cache(
 
     const sitemap = results.docs
       ? results.docs
-          .filter((post) => Boolean(post?.slug) && !excludedDemoPostSlugs.has(post.slug))
+          .filter((post) => Boolean(post?.slug) && !isFairlendDemoPostSlug(post.slug))
           .map((post) => ({
             loc: `${SITE_URL}/posts/${post?.slug}`,
             lastmod: post.updatedAt,
