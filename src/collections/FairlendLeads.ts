@@ -18,6 +18,7 @@ export const FairlendLeads: CollectionConfig = {
     },
     defaultColumns: [
       'workflowStatus',
+      'twentySyncStatus',
       'status',
       'priority',
       'intent',
@@ -393,6 +394,66 @@ export const FairlendLeads: CollectionConfig = {
       admin: {
         description: 'Internal notes for admin follow-up. Not shown to visitors.',
       },
+    },
+    {
+      type: 'collapsible',
+      admin: {
+        description:
+          'Operational state for the server-side Twenty CRM mirror. The website remains the durable capture source if Twenty is unavailable.',
+        initCollapsed: true,
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'twentySyncStatus',
+              type: 'select',
+              admin: {
+                readOnly: true,
+                width: '33.333%',
+              },
+              defaultValue: 'disabled',
+              index: true,
+              options: [
+                { label: 'Disabled', value: 'disabled' },
+                { label: 'Pending', value: 'pending' },
+                { label: 'Synced', value: 'synced' },
+                { label: 'Failed', value: 'failed' },
+              ],
+              required: true,
+            },
+            {
+              name: 'twentyRecordId',
+              type: 'text',
+              admin: {
+                readOnly: true,
+                width: '33.333%',
+              },
+              index: true,
+            },
+            {
+              name: 'twentyLastSyncedAt',
+              type: 'date',
+              admin: {
+                date: {
+                  pickerAppearance: 'dayAndTime',
+                },
+                readOnly: true,
+                width: '33.333%',
+              },
+            },
+          ],
+        },
+        {
+          name: 'twentySyncError',
+          type: 'textarea',
+          admin: {
+            readOnly: true,
+          },
+        },
+      ],
+      label: 'Twenty CRM Sync',
     },
   ],
   labels: {

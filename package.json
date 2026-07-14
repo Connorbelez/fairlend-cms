@@ -7,6 +7,7 @@
   "scripts": {
     "audit:images": "node scripts/audit-images.mjs",
     "build": "cross-env NODE_OPTIONS=\"--max-old-space-size=6144 --no-deprecation\" next build",
+    "crm:twenty:reconcile": "cross-env NODE_OPTIONS=--no-deprecation tsx src/scripts/reconcileTwentyLeads.ts",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
     "ci": "pnpm build",
     "dev": "portless",
