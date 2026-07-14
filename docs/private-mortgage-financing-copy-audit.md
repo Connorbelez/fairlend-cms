@@ -195,7 +195,7 @@ Differentiators to expose:
 - Missed-payment administration fees that are not punitive, if approved.
 - No hidden legal-doc economics.
 - Exit-first structuring.
-- Real property value / appraisal discipline.
+- Property valuation / appraisal discipline.
 - Support after closing.
 - Human judgment supported by technology.
 

@@ -10,19 +10,19 @@ const faqGroups: readonly FaqGroup[] = [
     items: [
       {
         answer:
-          'No — not bank deposits, not CDIC-insured, not guaranteed, and may not be liquid on demand. What we provide is bank-level process discipline: documented underwriting, registered security, administration, payment tracking, reporting, and recovery support.',
+          'No — not bank deposits, not CDIC-insured, not guaranteed, and may not be liquid on demand. What we provide is bank-level process discipline: documented underwriting, legal documentation, administration, payment tracking, reporting, and recovery support.',
         id: 'risk-bank',
         question: 'Is this like putting money in a bank account?',
       },
       {
         answer:
-          'Deal rejection, valuation review, conservative LTVs, human-led verification, mortgage security, administration, and a legal recovery path can reduce and manage risk; they do not eliminate it. Principal and payments can be delayed, impaired, or lost. FairLend does not guarantee capital preservation, payment, recovery, or valuation accuracy. You remain responsible for your diligence and for independent legal, financial, tax, and appraisal advice.',
+          'Deal rejection, valuation review, conservative LTVs, human-led verification, mortgage documentation, administration, and an available legal recovery path can reduce and manage risk; they do not eliminate it. Principal and payments can be delayed, impaired, or lost. FairLend does not guarantee capital preservation, payment, recovery, or valuation accuracy. You remain responsible for your diligence and for independent legal, financial, tax, and appraisal advice.',
         id: 'risk-protected',
         question: 'What protects my capital?',
       },
       {
         answer:
-          'No. Private mortgage investing involves borrower, property, market, legal, liquidity, and recovery risk. Our entire model is built around managing that risk — conservative LTV, real valuation, security, and a recovery team — not around promising it away.',
+          'No. Private mortgage investing involves borrower, valuation, market, legal, liquidity, and recovery risk. Our entire model is built around managing that risk — conservative LTV, valuation review, documented terms, and a recovery team — not around promising it away.',
         id: 'risk-guaranteed',
         question: 'Are returns guaranteed?',
       },
@@ -52,13 +52,13 @@ const faqGroups: readonly FaqGroup[] = [
       },
       {
         answer:
-          'Yes. You review the full deal package — property, mortgage position, LTV, valuation support, borrower profile, term, fees, risks, security, and the recovery plan — before your capital moves.',
+          'Yes. You review the full deal package — project details, mortgage position, LTV, valuation support, borrower profile, term, fees, risks, legal documentation, and the recovery plan — before your capital moves.',
         id: 'money-review',
         question: 'Can I review the deal before investing?',
       },
       {
         answer:
-          'Depends on the opportunity: whole, syndicated, fractional, first, second, construction-backed, or future MIC where appropriate. We describe only what currently ships and never overstate availability.',
+          'Depends on the opportunity: whole, syndicated, fractional, first, second, construction financing, or future MIC where appropriate. We describe only what currently ships and never overstate availability.',
         id: 'money-structure',
         question: 'Individual mortgages or pooled?',
       },
@@ -76,7 +76,7 @@ const faqGroups: readonly FaqGroup[] = [
       },
       {
         answer:
-          'Loan-to-value is the mortgage amount against the property value. A lower LTV means more equity cushion beneath your position; it does not remove all risk.',
+          'Loan-to-value compares the mortgage amount with the reviewed valuation. A lower LTV can reduce some risk exposure; it does not remove borrower, valuation, market, legal, liquidity, or recovery risk.',
         id: 'process-ltv',
         question: 'What does LTV mean?',
       },

@@ -21,8 +21,7 @@ type Step = {
 
 const steps: readonly Step[] = [
   {
-    detail:
-      'We review your profile, goals, experience, and fit before presenting any opportunity.',
+    detail: 'We review your profile, goals, experience, and fit before presenting any opportunity.',
     id: 'access',
     number: '01',
     owner: 'you',
@@ -30,7 +29,7 @@ const steps: readonly Step[] = [
   },
   {
     detail:
-      'Examine deal summaries, valuation support, LTV, borrower profile, security, and risks.',
+      'Examine deal summaries, valuation support, LTV, borrower profile, legal documentation, and risks.',
     id: 'review',
     number: '02',
     owner: 'you',

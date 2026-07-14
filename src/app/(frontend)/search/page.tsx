@@ -8,6 +8,7 @@ import React from 'react'
 import { Search } from '@/search/Component'
 import PageClient from './page.client'
 import { CardPostData } from '@/components/Card'
+import { FAIRLEND_DEMO_POST_SLUGS } from '@/lib/fairlend-posts'
 
 type Args = {
   searchParams: Promise<{
@@ -30,34 +31,43 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
     },
     // pagination: false reduces overhead if you don't need totalDocs
     pagination: false,
-    ...(query
-      ? {
-          where: {
-            or: [
-              {
-                title: {
-                  like: query,
-                },
-              },
-              {
-                'meta.description': {
-                  like: query,
-                },
-              },
-              {
-                'meta.title': {
-                  like: query,
-                },
-              },
-              {
-                slug: {
-                  like: query,
-                },
-              },
-            ],
+    where: {
+      and: [
+        {
+          slug: {
+            not_in: [...FAIRLEND_DEMO_POST_SLUGS],
           },
-        }
-      : {}),
+        },
+        ...(query
+          ? [
+              {
+                or: [
+                  {
+                    title: {
+                      like: query,
+                    },
+                  },
+                  {
+                    'meta.description': {
+                      like: query,
+                    },
+                  },
+                  {
+                    'meta.title': {
+                      like: query,
+                    },
+                  },
+                  {
+                    slug: {
+                      like: query,
+                    },
+                  },
+                ],
+              },
+            ]
+          : []),
+      ],
+    },
   })
 
   return (

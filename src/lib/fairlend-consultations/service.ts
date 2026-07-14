@@ -4,6 +4,7 @@ import { z } from 'zod'
 
 import configPromise from '@payload-config'
 
+import type { FairlendCampaignAttribution } from '@/lib/fairlend-campaign-attribution'
 import { upsertFairlendLead } from '@/lib/fairlend-leads'
 
 import {
@@ -104,10 +105,12 @@ export async function getConsultationAvailability({
 }
 
 export async function bookConsultation({
+  attribution,
   input,
   now = new Date(),
   payload,
 }: {
+  attribution?: FairlendCampaignAttribution | null
   input: unknown
   now?: Date
   payload?: Payload
@@ -125,6 +128,7 @@ export async function bookConsultation({
   if (!isGoogleCalendarConfigured()) {
     const fallbackBookingId = parsed.data.leadId ?? randomUUID()
     await mirrorConsultationBookingLead({
+      attribution,
       bookingId: fallbackBookingId,
       email: parsed.data.email,
       leadId: parsed.data.leadId,
@@ -179,6 +183,7 @@ export async function bookConsultation({
   })
 
   await mirrorConsultationBookingLead({
+    attribution,
     bookingId,
     email: parsed.data.email,
     leadId: parsed.data.leadId,
@@ -217,6 +222,7 @@ export async function bookConsultation({
     })
 
     await mirrorConsultationBookingLead({
+      attribution,
       bookingId,
       email: parsed.data.email,
       googleEventLink: event.htmlLink,
@@ -247,6 +253,7 @@ export async function bookConsultation({
 }
 
 async function mirrorConsultationBookingLead({
+  attribution,
   bookingId,
   email,
   googleEventLink,
@@ -259,6 +266,7 @@ async function mirrorConsultationBookingLead({
   source,
   timezone,
 }: {
+  attribution?: FairlendCampaignAttribution | null
   bookingId: string
   email: string
   googleEventLink?: string | null
@@ -273,6 +281,9 @@ async function mirrorConsultationBookingLead({
 }): Promise<void> {
   try {
     await upsertFairlendLead({
+      attribution: attribution ?? undefined,
+      campaign: attribution?.campaign,
+      campaignScanId: attribution?.scanId,
       email,
       id: bookingId,
       intake: {

@@ -5,6 +5,7 @@ import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
 import { Categories } from './collections/Categories'
+import { FairlendCampaignEvents } from './collections/FairlendCampaignEvents'
 import { FairlendCampaignScans } from './collections/FairlendCampaignScans'
 import { FairlendConsultationBookings } from './collections/FairlendConsultationBookings'
 import { FairlendLeads } from './collections/FairlendLeads'
@@ -79,6 +80,7 @@ export default buildConfig({
     Categories,
     FairlendLeads,
     FairlendCampaignScans,
+    FairlendCampaignEvents,
     FairlendConsultationBookings,
     Users,
   ],

@@ -26,6 +26,7 @@ const expectedRemovedPaths = [
   '/posts/digital-horizons',
   '/posts/global-gaze',
   '/posts/dollar-and-sense-the-financial-forecast',
+  '/fairlend-landing-hero',
 ]
 
 await auditCrawlerAccess()
@@ -40,7 +41,6 @@ for (const path of expectedRemovedPaths) {
 }
 
 await expectStatus('/r/not-a-configured-campaign', [404, 410], 'unknown campaign URL')
-await expectPermanentRedirect('/fairlend-landing-hero', '/')
 
 console.log(
   JSON.stringify(
@@ -170,17 +170,6 @@ async function expectStatus(path, statuses, label) {
   const response = await fetch(url, { redirect: 'manual' })
   if (!statuses.includes(response.status)) {
     errors.push(`${label} ${url} returned ${response.status}; expected ${statuses.join(' or ')}`)
-  }
-}
-
-async function expectPermanentRedirect(path, destination) {
-  const url = new URL(path, origin)
-  const response = await fetch(url, { redirect: 'manual' })
-  const location = response.headers.get('location')
-  const expected = new URL(destination, origin).toString()
-
-  if (![301, 308].includes(response.status) || !location || new URL(location, url).toString() !== expected) {
-    errors.push(`${url} must permanently redirect to ${expected}`)
   }
 }
 

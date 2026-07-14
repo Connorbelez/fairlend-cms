@@ -11,6 +11,8 @@ import { JsonLd } from '@/components/SEO/JsonLd'
 import { generateMeta } from '@/utilities/generateMeta'
 import { buildBreadcrumbJsonLd } from '@/utilities/structuredData'
 import { getPayloadPagePath } from '@/utilities/seo'
+import { isFairlendTombstonedPageSlug } from '@/lib/fairlend-routes'
+import { notFound } from 'next/navigation'
 import PageClient from './page.client'
 
 export const dynamic = 'force-static'
@@ -31,7 +33,7 @@ export async function generateStaticParams() {
 
   const params = pages.docs
     ?.filter((doc) => {
-      return doc.slug !== 'home'
+      return doc.slug !== 'home' && !isFairlendTombstonedPageSlug(doc.slug)
     })
     .map(({ slug }) => {
       return { slug }
@@ -50,6 +52,8 @@ export default async function Page({ params: paramsPromise }: Args) {
   const { slug = 'home' } = await paramsPromise
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
+  if (isFairlendTombstonedPageSlug(decodedSlug)) notFound()
+
   const url = '/' + decodedSlug
   const page: RequiredDataFromCollectionSlug<'pages'> | null = await queryPageBySlug({
     slug: decodedSlug,
@@ -83,6 +87,8 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const { slug = 'home' } = await paramsPromise
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
+  if (isFairlendTombstonedPageSlug(decodedSlug)) notFound()
+
   const page = await queryPageBySlug({
     slug: decodedSlug,
   })
@@ -91,6 +97,8 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 }
 
 const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
+  if (isFairlendTombstonedPageSlug(slug)) return null
+
   const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({

@@ -15,6 +15,7 @@ import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import { buildArticleJsonLd, buildBreadcrumbJsonLd } from '@/utilities/structuredData'
 import { getPayloadDescription, getPayloadPostPath, getPayloadTitle } from '@/utilities/seo'
+import { FAIRLEND_DEMO_POST_SLUGS, isFairlendDemoPostSlug } from '@/lib/fairlend-posts'
 import PageClient from './page.client'
 
 export const dynamic = 'force-static'
@@ -30,6 +31,11 @@ export async function generateStaticParams() {
     pagination: false,
     select: {
       slug: true,
+    },
+    where: {
+      slug: {
+        not_in: [...FAIRLEND_DEMO_POST_SLUGS],
+      },
     },
   })
 
@@ -91,7 +97,11 @@ export default async function Post({ params: paramsPromise }: Args) {
         <div className="flex flex-col items-center gap-4 pt-8">
           <div className="container">
             {post.content ? (
-              <RichText className="max-w-[48rem] mx-auto" data={post.content} enableGutter={false} />
+              <RichText
+                className="max-w-[48rem] mx-auto"
+                data={post.content}
+                enableGutter={false}
+              />
             ) : null}
           </div>
         </div>
@@ -119,6 +129,8 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 }
 
 const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
+  if (isFairlendDemoPostSlug(slug)) return null
+
   const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({

@@ -319,7 +319,7 @@ The material mortgage economics should be visible in the commitment, with third-
 
 Refinance, sale, renewal, income stabilization, debt cleanup, or another realistic route is discussed before funding.
 
-**Real property value**
+**Property valuation**
 
 Appraisal review and valuation discipline help determine what the property can realistically support.
 

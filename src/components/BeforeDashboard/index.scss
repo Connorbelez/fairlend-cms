@@ -24,7 +24,7 @@
 
   &__card {
     border: 1px solid var(--theme-elevation-150);
-    border-radius: 6px;
+    border-radius: 8px;
     color: inherit;
     display: grid;
     gap: base(0.25);
@@ -37,11 +37,11 @@
 
     & span {
       color: var(--theme-elevation-650);
-      font-size: 0.85rem;
+      font-size: 12px;
     }
 
     & strong {
-      font-size: 2rem;
+      font-size: 27px;
       line-height: 1;
     }
 
@@ -51,10 +51,23 @@
   }
 
   &__campaigns,
-  &__recent {
+  &__recent,
+  &__journey-panel {
     border: 1px solid var(--theme-elevation-150);
-    border-radius: 6px;
+    border-radius: 8px;
     padding: base(0.7);
+  }
+
+  &__metric-note {
+    color: var(--theme-elevation-650);
+    font-size: 12px;
+    margin: calc(base(0.4) * -1) 0 0;
+  }
+
+  &__journey-grid {
+    display: grid;
+    gap: base(0.5);
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
 
   &__recent-head {
@@ -70,7 +83,9 @@
   }
 
   &__campaign-list,
-  &__lead-list {
+  &__lead-list,
+  &__journey-list,
+  &__breakdown-list {
     display: grid;
     gap: base(0.35);
     list-style: none;
@@ -79,7 +94,8 @@
   }
 
   &__campaign,
-  &__lead {
+  &__lead,
+  &__journey {
     border-top: 1px solid var(--theme-elevation-100);
     display: grid;
     gap: base(0.15);
@@ -104,7 +120,7 @@
     color: var(--theme-elevation-650);
     display: flex;
     flex-wrap: wrap;
-    font-size: 0.9rem;
+    font-size: 12px;
     gap: base(0.35);
 
     & a {
@@ -121,7 +137,85 @@
   &__lead-source,
   &__empty {
     color: var(--theme-elevation-650);
-    font-size: 0.9rem;
+    font-size: 12px;
+  }
+
+  &__breakdown-list {
+    & li {
+      align-items: start;
+      border-top: 1px solid var(--theme-elevation-100);
+      display: grid;
+      gap: base(0.3);
+      grid-template-columns: minmax(0, 1fr) auto;
+      padding-top: base(0.35);
+    }
+
+    & li > span:first-child {
+      display: grid;
+      gap: base(0.1);
+      min-width: 0;
+    }
+
+    & strong {
+      overflow-wrap: anywhere;
+    }
+
+    & em,
+    & li > span:last-child {
+      color: var(--theme-elevation-650);
+      font-size: 12px;
+      font-style: normal;
+    }
+
+    & li > span:last-child {
+      text-align: right;
+    }
+  }
+
+  &__journey-summary {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: base(0.3);
+
+    & > span:last-child {
+      color: var(--theme-elevation-650);
+      font-size: 12px;
+    }
+  }
+
+  &__outcome {
+    border: 1px solid var(--theme-elevation-200);
+    border-radius: 999px;
+    font-size: 12px;
+    font-style: normal;
+    padding: 2px 8px;
+
+    &--successful_intake {
+      border-color: var(--theme-success-500);
+      color: var(--theme-success-600);
+    }
+
+    &--bounced {
+      border-color: var(--theme-error-400);
+      color: var(--theme-error-600);
+    }
+
+    &--intake_abandoned {
+      border-color: var(--theme-warning-500);
+      color: var(--theme-warning-700);
+    }
+  }
+
+  &__journey-path {
+    font-family: monospace;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+  }
+
+  &__journey-form {
+    color: var(--theme-elevation-650);
+    font-size: 12px;
   }
 
   &__empty {

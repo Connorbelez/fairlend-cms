@@ -415,7 +415,7 @@
 
 **Marketing copy:**
 - Headline: **Built for complex residential construction and private mortgage scenarios.**
-- Wall: Multiplexes · Garden suites · Laneway suites · Infill builds · Single-family construction · Multifamily renovations · Conversions · Purpose-built rental · Small-to-mid-scale rental housing · MLI Select-oriented projects where applicable `[COMPLIANCE]` · Private mortgage, bridge, renewal, equity & construction-backed scenarios
+- Wall: Multiplexes · Garden suites · Laneway suites · Infill builds · Single-family construction · Multifamily renovations · Conversions · Purpose-built rental · Small-to-mid-scale rental housing · MLI Select-oriented projects where applicable `[COMPLIANCE]` · Private mortgage, bridge, renewal, equity, and construction financing scenarios
 - Qualifying line: FairLend is most useful when the project can't be solved by a simple rate quote — land, zoning, design, budget, working capital, appraisal, permits, draws, and exit all have to fit together.
 
 ### Concept B — Illustrated type cards
@@ -437,7 +437,7 @@
 **Marketing copy:**
 - Headline: **The test isn't project type. It's whether the pieces have to fit together.**
 - Left zone: Straightforward purchase or refinance with bank-ready documentation? Your client may not need us — and we'll say so.
-- Right zone: Land, zoning, design, budget, working capital, appraisal, permits, draws, and exit all interacting? That's the program: multiplexes, garden and laneway suites, infill, conversions, purpose-built rental, renovation, and construction-backed private mortgage scenarios.
+- Right zone: Land, zoning, design, budget, working capital, appraisal, permits, draws, and exit all interacting? That's the program: multiplexes, garden and laneway suites, infill, conversions, purpose-built rental, renovation, and construction private mortgage scenarios.
 - Closing line: Bring the complicated ones.
 
 ---

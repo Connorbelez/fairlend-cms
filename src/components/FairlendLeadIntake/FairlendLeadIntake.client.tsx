@@ -294,7 +294,7 @@ const investorExperienceOptions = [
 const investorMortgageTypeOptions = [
   'First mortgages',
   'Second mortgages',
-  'Construction-backed',
+  'Construction financing',
   'Open to the right file',
 ] as const
 
@@ -1804,7 +1804,9 @@ function MortgageIntakeWizard({
                     />
                     <MortgageChoiceGroup
                       compact
-                      label={isRentalRefinance ? 'Estimated current value (CAD)' : 'Purchase price (CAD)'}
+                      label={
+                        isRentalRefinance ? 'Estimated current value (CAD)' : 'Purchase price (CAD)'
+                      }
                       onSelect={(value) => choose('propertyValue', value)}
                       options={rentalPropertyValueRangeOptions}
                       selectedValue={values.propertyValue}
@@ -2948,7 +2950,10 @@ function validateRentalPropertyStep(step: number, values: LeadCaptureValues): st
 
   if (
     step === 2 &&
-    (!values.address || !values.propertyUse || (requiresUnitCount && !values.numberOfUnits) || !values.occupancyStatus)
+    (!values.address ||
+      !values.propertyUse ||
+      (requiresUnitCount && !values.numberOfUnits) ||
+      !values.occupancyStatus)
   ) {
     return requiresUnitCount
       ? 'Add the address, property type, number of units, and current occupancy.'

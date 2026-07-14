@@ -29,7 +29,7 @@ export function FairlendInvestorFinalCta(): ReactElement {
       <div className="investor-final__inner">
         <p className="investor-final__eyebrow">Investor review, not instant checkout.</p>
         <h2 className="investor-final__title" id="investor-final-title">
-          A more disciplined way to participate in mortgage-backed private credit.
+          A more disciplined way to evaluate private mortgage credit.
         </h2>
         <p className="investor-final__lede">
           See how FairLend curates and underwrites private mortgage opportunities, manages the full

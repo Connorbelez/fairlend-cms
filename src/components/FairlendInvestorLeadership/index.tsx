@@ -5,12 +5,14 @@ import './investor-leadership.css'
 
 const stats = [
   {
-    detail: 'Across lending, private mortgages, construction, appraisal, and recovery in Southern Ontario.',
+    detail:
+      'Across lending, private mortgages, construction, appraisal, and recovery in Southern Ontario.',
     label: 'Southern Ontario-focused',
     value: '~30 yrs',
   },
   {
-    detail: 'One of Canada’s top mortgage brokers by volume — across lending and private mortgages.',
+    detail:
+      'One of Canada’s top mortgage brokers by volume — across lending and private mortgages.',
     label: 'Funded',
     value: '~$2B',
   },
@@ -69,7 +71,7 @@ export function FairlendInvestorLeadership(): ReactElement {
           </div>
           <figure className="investor-leadership__ink-plate">
             <Image
-              alt="Halftone architectural plans and key representing property-backed lending judgment"
+              alt="Halftone architectural plans and key representing disciplined mortgage underwriting"
               fill
               loading="lazy"
               sizes="(max-width: 820px) 90vw, 32vw"
@@ -99,15 +101,13 @@ export function FairlendInvestorLeadership(): ReactElement {
         </div>
 
         <div className="investor-leadership__recovery">
-          <h3 className="investor-leadership__recovery-title">
-            And we plan for the hard files.
-          </h3>
+          <h3 className="investor-leadership__recovery-title">And we plan for the hard files.</h3>
           <p className="investor-leadership__recovery-copy">
             Recovery isn&apos;t improvised after a default. FairLend maintains a dedicated,
             battle-tested legal recovery team and a defined default-response playbook — borrower
             coordination, investor communication, enforcement strategy, and power of sale where
-            required. Recovery is a capability and a process, never a promise that we always
-            recover in full or on time.
+            required. Recovery is a capability and a process, never a promise that we always recover
+            in full or on time.
           </p>
         </div>
       </div>

@@ -25,15 +25,15 @@ const flowNodes: readonly FlowNode[] = [
   {
     Icon: Landmark,
     caption:
-      'Financing is secured against real estate as a registered mortgage — not an unsecured promise to pay. The collateral is the property.',
+      'The registered mortgage records the financing terms, repayment obligations, and legal rights reviewed for the file.',
     id: 'mortgage',
     step: '02',
-    title: 'Mortgage secured by property',
+    title: 'The registered mortgage',
   },
   {
     Icon: Wallet,
     caption:
-      'Investors earn income from the interest paid on that mortgage. Security, valuation, LTV, payment structure, and exit path determine whether it is worth considering.',
+      'Investors earn income from the interest paid on that mortgage. Documentation, valuation, LTV, payment structure, and exit path determine whether it is worth considering.',
     id: 'investor',
     step: '03',
     title: 'The investor earns',
@@ -43,9 +43,8 @@ const flowNodes: readonly FlowNode[] = [
 /**
  * Section 2 — What a private mortgage investment is (Concept A, annotated flow).
  *
- * A three-node ledger flow: Borrower → Mortgage secured by property → Investor.
- * The collateral is the property; the discipline is the underwriting. Kept
- * calm, ledger-styled, no icons-as-drama.
+ * A three-node ledger flow: Borrower → Registered mortgage → Investor. Kept
+ * calm and ledger-styled, with underwriting and documentation carrying the explanation.
  */
 export function FairlendInvestorPrimer(): ReactElement {
   return (
@@ -59,19 +58,18 @@ export function FairlendInvestorPrimer(): ReactElement {
         <header className="investor-primer__header">
           <div className="investor-primer__header-copy">
             <h2 className="investor-primer__title" id="investor-primer-title">
-              A private mortgage is a loan secured against real estate.
+              A private mortgage investment starts with a documented mortgage file.
             </h2>
             <p className="investor-primer__lede">
-              The security, valuation, borrower quality, LTV, payment structure, and exit path
-              determine whether an opportunity is worth considering. The collateral is the property —
-              but the discipline is the underwriting.
+              FairLend reviews borrower quality, valuation, LTV, payment structure, legal
+              documentation, and the exit path before presenting an opportunity for consideration.
             </p>
           </div>
 
           <figure className="investor-primer__dossier">
             <div className="investor-primer__dossier-image">
               <Image
-                alt="Engraved Toronto-area house representing the real property securing a private mortgage"
+                alt="Engraved Toronto-area house illustrating mortgage documentation review"
                 fill
                 loading="lazy"
                 sizes="(max-width: 820px) 90vw, 36vw"
@@ -79,8 +77,8 @@ export function FairlendInvestorPrimer(): ReactElement {
               />
             </div>
             <figcaption>
-              <span>Illustrative security file</span>
-              <strong>Real property · registered mortgage</strong>
+              <span>Illustrative mortgage file</span>
+              <strong>Registered mortgage · reviewed documentation</strong>
             </figcaption>
           </figure>
         </header>

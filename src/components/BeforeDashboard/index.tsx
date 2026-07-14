@@ -4,12 +4,20 @@ import { getPayload } from 'payload'
 import React from 'react'
 
 import { getFairlendCampaignConfigs } from '@/lib/fairlend-campaign-attribution'
+import {
+  getFairlendCampaignJourneyAnalytics,
+  type CampaignAbandonmentBreakdown,
+  type CampaignFormBreakdown,
+  type CampaignPageBreakdown,
+  type RecentCampaignJourney,
+} from '@/lib/fairlend-campaign-journey'
 
 import './index.scss'
 
 const baseClass = 'before-dashboard'
 const leadsCollectionUrl = '/admin/collections/fairlend-leads'
 const campaignScansCollectionUrl = '/admin/collections/fairlend-campaign-scans'
+const campaignEventsCollectionUrl = '/admin/collections/fairlend-campaign-events'
 const bookingsCollectionUrl = '/admin/collections/fairlend-consultation-bookings'
 
 type SnapshotLead = {
@@ -26,23 +34,33 @@ type SnapshotLead = {
 }
 
 type CampaignPerformanceRow = {
+  bouncedScanCount: number
+  bounceRate: number
   campaign: string
-  completionCount: number
-  conversionRate: number
   scanCount: number
   source: string
+  successfulIntakeCount: number
+  successfulIntakeRate: number
+  trackedScanCount: number
 }
 
 type OperationsSnapshot = {
   activeLeadCount: number
   bookingCount: number
+  campaignAbandonments: CampaignAbandonmentBreakdown[]
+  campaignForms: CampaignFormBreakdown[]
+  campaignPages: CampaignPageBreakdown[]
   campaignPerformance: CampaignPerformanceRow[]
   error?: string
   highPriorityCount: number
-  qrConversionRate: number
-  qrLeadCompletionCount: number
+  qrBounceRate: number
+  qrBouncedScanCount: number
   qrScanCount: number
+  qrSuccessfulIntakeCount: number
+  qrSuccessfulIntakeRate: number
+  qrTrackedScanCount: number
   recentLeads: SnapshotLead[]
+  recentQrJourneys: RecentCampaignJourney[]
   submittedLeadCount: number
   syncFailureCount: number
 }
@@ -57,7 +75,7 @@ async function getOperationsSnapshot(): Promise<OperationsSnapshot> {
       activeLeads,
       highPriorityLeads,
       consultationBookings,
-      ...campaignResults
+      journeyAnalytics,
     ] = await Promise.all([
       payload.find({
         collection: 'fairlend-leads',
@@ -93,56 +111,55 @@ async function getOperationsSnapshot(): Promise<OperationsSnapshot> {
         limit: 0,
         overrideAccess: true,
       }),
-      ...campaignConfigs.flatMap((campaign) => [
-        payload.find({
-          collection: 'fairlend-campaign-scans',
-          depth: 0,
-          limit: 0,
-          overrideAccess: true,
-          where: { campaign: { equals: campaign.campaign } },
-        }),
-        payload.find({
-          collection: 'fairlend-leads',
-          depth: 0,
-          limit: 0,
-          overrideAccess: true,
-          where: {
-            and: [
-              { campaign: { equals: campaign.campaign } },
-              { status: { equals: 'submitted' } },
-            ],
-          },
-        }),
-      ]),
+      getFairlendCampaignJourneyAnalytics(campaignConfigs.map((campaign) => campaign.campaign)),
     ])
 
-    const campaignPerformance = campaignConfigs.map((campaign, index) => {
-      const scanCount = campaignResults[index * 2]?.totalDocs ?? 0
-      const completionCount = campaignResults[index * 2 + 1]?.totalDocs ?? 0
+    const campaignPerformance = campaignConfigs.map((campaign) => {
+      const performance = journeyAnalytics.performance.find(
+        (row) => row.campaign === campaign.campaign,
+      )
 
       return {
+        bouncedScanCount: performance?.bouncedScanCount ?? 0,
+        bounceRate: performance?.bounceRate ?? 0,
         campaign: campaign.campaign,
-        completionCount,
-        conversionRate: calculateConversionRate(completionCount, scanCount),
-        scanCount,
+        scanCount: performance?.scanCount ?? 0,
         source: campaign.source,
+        successfulIntakeCount: performance?.successfulIntakeCount ?? 0,
+        successfulIntakeRate: performance?.successfulIntakeRate ?? 0,
+        trackedScanCount: performance?.trackedScanCount ?? 0,
       }
     })
     const qrScanCount = campaignPerformance.reduce((total, row) => total + row.scanCount, 0)
-    const qrLeadCompletionCount = campaignPerformance.reduce(
-      (total, row) => total + row.completionCount,
+    const qrTrackedScanCount = campaignPerformance.reduce(
+      (total, row) => total + row.trackedScanCount,
+      0,
+    )
+    const qrBouncedScanCount = campaignPerformance.reduce(
+      (total, row) => total + row.bouncedScanCount,
+      0,
+    )
+    const qrSuccessfulIntakeCount = campaignPerformance.reduce(
+      (total, row) => total + row.successfulIntakeCount,
       0,
     )
 
     return {
       activeLeadCount: activeLeads.totalDocs,
       bookingCount: consultationBookings.totalDocs,
+      campaignAbandonments: journeyAnalytics.abandonments,
+      campaignForms: journeyAnalytics.forms,
+      campaignPages: journeyAnalytics.pages,
       campaignPerformance,
       highPriorityCount: highPriorityLeads.totalDocs,
-      qrConversionRate: calculateConversionRate(qrLeadCompletionCount, qrScanCount),
-      qrLeadCompletionCount,
+      qrBounceRate: calculateConversionRate(qrBouncedScanCount, qrTrackedScanCount),
+      qrBouncedScanCount,
       qrScanCount,
+      qrSuccessfulIntakeCount,
+      qrSuccessfulIntakeRate: calculateConversionRate(qrSuccessfulIntakeCount, qrScanCount),
+      qrTrackedScanCount,
       recentLeads: recentLeads.docs as SnapshotLead[],
+      recentQrJourneys: journeyAnalytics.recentJourneys,
       submittedLeadCount: submittedLeads.totalDocs,
       syncFailureCount: 0,
     }
@@ -152,13 +169,20 @@ async function getOperationsSnapshot(): Promise<OperationsSnapshot> {
     return {
       activeLeadCount: 0,
       bookingCount: 0,
+      campaignAbandonments: [],
+      campaignForms: [],
+      campaignPages: [],
       campaignPerformance: [],
       error: message,
       highPriorityCount: 0,
-      qrConversionRate: 0,
-      qrLeadCompletionCount: 0,
+      qrBounceRate: 0,
+      qrBouncedScanCount: 0,
       qrScanCount: 0,
+      qrSuccessfulIntakeCount: 0,
+      qrSuccessfulIntakeRate: 0,
+      qrTrackedScanCount: 0,
       recentLeads: [],
+      recentQrJourneys: [],
       submittedLeadCount: 0,
       syncFailureCount: 0,
     }
@@ -190,8 +214,16 @@ const calculateConversionRate = (completed: number, scans: number): number =>
   scans > 0 ? (completed / scans) * 100 : 0
 const campaignScansUrl = (campaign: string): string =>
   `${campaignScansCollectionUrl}?where[campaign][equals]=${encodeURIComponent(campaign)}`
-const campaignCompletionsUrl = (campaign: string): string =>
-  `${leadsCollectionUrl}?where[campaign][equals]=${encodeURIComponent(campaign)}&where[status][equals]=submitted`
+const campaignEventsUrl = (campaign: string): string =>
+  `${campaignEventsCollectionUrl}?where[campaign][equals]=${encodeURIComponent(campaign)}`
+const formatOutcome = (outcome: RecentCampaignJourney['outcome']): string =>
+  ({
+    bounced: 'Bounced',
+    browsing: 'Browsed, no intake',
+    intake_abandoned: 'Intake abandoned',
+    not_tracked: 'Journey not tracked',
+    successful_intake: 'Successful intake',
+  })[outcome]
 
 const BeforeDashboard = async () => {
   const snapshot = await getOperationsSnapshot()
@@ -218,14 +250,20 @@ const BeforeDashboard = async () => {
       value: snapshot.qrScanCount,
     },
     {
-      href: leadsCollectionUrl,
-      label: 'QR lead completions',
-      value: snapshot.qrLeadCompletionCount,
+      href: campaignEventsCollectionUrl,
+      label: 'Behavior-tracked scans',
+      value: snapshot.qrTrackedScanCount,
     },
     {
-      href: campaignScansCollectionUrl,
-      label: 'QR conversion rate',
-      value: formatPercent(snapshot.qrConversionRate),
+      href: campaignEventsCollectionUrl,
+      label: 'QR bounce rate',
+      value: `${snapshot.qrBouncedScanCount} · ${formatPercent(snapshot.qrBounceRate)}`,
+      warning: snapshot.qrBounceRate >= 50,
+    },
+    {
+      href: campaignEventsCollectionUrl,
+      label: 'Successful QR intakes',
+      value: `${snapshot.qrSuccessfulIntakeCount} · ${formatPercent(snapshot.qrSuccessfulIntakeRate)}`,
     },
     {
       href: leadsCollectionUrl,
@@ -280,10 +318,16 @@ const BeforeDashboard = async () => {
                 </span>
                 <span className={`${baseClass}__campaign-metrics`}>
                   <a href={campaignScansUrl(row.campaign)}>{row.scanCount} scans</a>
-                  <a href={campaignCompletionsUrl(row.campaign)}>
-                    {row.completionCount} completed leads
+                  <a href={campaignEventsUrl(row.campaign)}>
+                    {row.trackedScanCount} behavior tracked
                   </a>
-                  <strong>{formatPercent(row.conversionRate)} conversion</strong>
+                  <span>
+                    {row.bouncedScanCount} bounced · {formatPercent(row.bounceRate)}
+                  </span>
+                  <strong>
+                    {row.successfulIntakeCount} successful ·{' '}
+                    {formatPercent(row.successfulIntakeRate)}
+                  </strong>
                 </span>
               </li>
             ))}
@@ -292,6 +336,116 @@ const BeforeDashboard = async () => {
           <p className={`${baseClass}__empty`}>
             No QR campaign activity is visible yet. Scans through /r/v1 will appear here.
           </p>
+        )}
+      </div>
+
+      <p className={`${baseClass}__metric-note`}>
+        Bounce rate is single-page, no-intake behavior among scans that consented to analytics.
+        Successful-intake rate is completed lead, scheduler, or CMS form outcomes across all scans.
+      </p>
+
+      <div className={`${baseClass}__journey-grid`}>
+        <div className={`${baseClass}__journey-panel`}>
+          <div className={`${baseClass}__recent-head`}>
+            <h5>Pages visited</h5>
+            <a href={campaignEventsCollectionUrl}>All events</a>
+          </div>
+          {snapshot.campaignPages.length > 0 ? (
+            <ol className={`${baseClass}__breakdown-list`}>
+              {snapshot.campaignPages.slice(0, 10).map((row) => (
+                <li key={`${row.campaign}:${row.pagePath}`}>
+                  <span>
+                    <strong>{row.pagePath}</strong>
+                    <em>{row.campaign}</em>
+                  </span>
+                  <span>
+                    {row.uniqueScanCount} scans · {row.pageViewCount} views
+                  </span>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <p className={`${baseClass}__empty`}>No consented QR page journeys yet.</p>
+          )}
+        </div>
+
+        <div className={`${baseClass}__journey-panel`}>
+          <div className={`${baseClass}__recent-head`}>
+            <h5>Last page before abandonment</h5>
+            <a href={campaignEventsCollectionUrl}>Inspect events</a>
+          </div>
+          {snapshot.campaignAbandonments.length > 0 ? (
+            <ol className={`${baseClass}__breakdown-list`}>
+              {snapshot.campaignAbandonments.slice(0, 10).map((row) => (
+                <li key={`${row.campaign}:${row.pagePath}`}>
+                  <span>
+                    <strong>{row.pagePath}</strong>
+                    <em>{row.campaign}</em>
+                  </span>
+                  <span>{row.abandonedScanCount} exits</span>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <p className={`${baseClass}__empty`}>No abandoned tracked journeys yet.</p>
+          )}
+        </div>
+
+        <div className={`${baseClass}__journey-panel`}>
+          <div className={`${baseClass}__recent-head`}>
+            <h5>Successful intake forms</h5>
+            <a href={campaignEventsCollectionUrl}>Inspect outcomes</a>
+          </div>
+          {snapshot.campaignForms.length > 0 ? (
+            <ol className={`${baseClass}__breakdown-list`}>
+              {snapshot.campaignForms.slice(0, 10).map((row) => (
+                <li key={`${row.campaign}:${row.eventType}:${row.formId ?? row.formName}`}>
+                  <span>
+                    <strong>{row.formName}</strong>
+                    <em>
+                      {row.intakeType ?? row.eventType} · {row.campaign}
+                    </em>
+                  </span>
+                  <span>{row.completionCount} completed</span>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <p className={`${baseClass}__empty`}>No attributed intake completions yet.</p>
+          )}
+        </div>
+      </div>
+
+      <div className={`${baseClass}__recent`}>
+        <div className={`${baseClass}__recent-head`}>
+          <h5>Recent QR scan outcomes</h5>
+          <a href={campaignScansCollectionUrl}>Open scans</a>
+        </div>
+
+        {snapshot.recentQrJourneys.length > 0 ? (
+          <ul className={`${baseClass}__journey-list`}>
+            {snapshot.recentQrJourneys.map((journey) => (
+              <li className={`${baseClass}__journey`} key={journey.scanId}>
+                <span className={`${baseClass}__journey-summary`}>
+                  <strong>{journey.campaign}</strong>
+                  <em className={`${baseClass}__outcome ${baseClass}__outcome--${journey.outcome}`}>
+                    {formatOutcome(journey.outcome)}
+                  </em>
+                  <span>{formatDate(journey.capturedAt)}</span>
+                </span>
+                <span className={`${baseClass}__journey-path`}>
+                  {journey.pagePaths.length > 0
+                    ? journey.pagePaths.join(' → ')
+                    : 'No consented page path'}
+                </span>
+                {journey.formName ? (
+                  <span className={`${baseClass}__journey-form`}>{journey.formName}</span>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className={`${baseClass}__empty`}>No QR scans are visible yet.</p>
         )}
       </div>
 

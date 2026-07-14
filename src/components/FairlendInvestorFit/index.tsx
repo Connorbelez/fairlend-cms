@@ -11,10 +11,10 @@ const accessHref = buildFairlendIntakeHref({
 })
 
 const forYou = [
-  'Investors seeking mortgage-backed income',
+  'Investors seeking private mortgage income',
   'Comfortable with private-credit risk',
   'Value documentation, reporting, and administration',
-  'Prefer conservative LTV and collateral discipline',
+  'Prefer conservative LTV and valuation discipline',
   'Understand return potential comes with risk and illiquidity',
 ] as const
 
@@ -46,21 +46,29 @@ export function FairlendInvestorFit(): ReactElement {
             Built for investors who care as much about the file as the rate.
           </h2>
           <p className="investor-fit__lede">
-            We qualify investors on purpose. If you want guaranteed, liquid, risk-free returns,
-            this isn&apos;t it — and we&apos;d rather tell you now.
+            We qualify investors on purpose. If you want guaranteed, liquid, risk-free returns, this
+            isn&apos;t it — and we&apos;d rather tell you now.
           </p>
         </header>
 
         <div className="investor-fit__columns">
           <article className="investor-fit__column">
             <h3 className="investor-fit__column-title">
-              <span className="investor-fit__column-mark investor-fit__column-mark--for" aria-hidden="true">+</span>
+              <span
+                className="investor-fit__column-mark investor-fit__column-mark--for"
+                aria-hidden="true"
+              >
+                +
+              </span>
               This fits if
             </h3>
             <ul className="investor-fit__list">
               {forYou.map((item) => (
                 <li className="investor-fit__list-item" key={item}>
-                  <span aria-hidden="true" className="investor-fit__bullet investor-fit__bullet--for" />
+                  <span
+                    aria-hidden="true"
+                    className="investor-fit__bullet investor-fit__bullet--for"
+                  />
                   <span>{item}</span>
                 </li>
               ))}
@@ -69,13 +77,21 @@ export function FairlendInvestorFit(): ReactElement {
 
           <article className="investor-fit__column">
             <h3 className="investor-fit__column-title">
-              <span className="investor-fit__column-mark investor-fit__column-mark--not" aria-hidden="true">−</span>
+              <span
+                className="investor-fit__column-mark investor-fit__column-mark--not"
+                aria-hidden="true"
+              >
+                −
+              </span>
               Not for
             </h3>
             <ul className="investor-fit__list">
               {notForYou.map((item) => (
                 <li className="investor-fit__list-item" key={item}>
-                  <span aria-hidden="true" className="investor-fit__bullet investor-fit__bullet--not" />
+                  <span
+                    aria-hidden="true"
+                    className="investor-fit__bullet investor-fit__bullet--not"
+                  />
                   <span>{item}</span>
                 </li>
               ))}

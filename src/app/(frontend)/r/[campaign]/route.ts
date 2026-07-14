@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server'
 import {
   createFairlendCampaignAttribution,
   fairlendCampaignAttributionCookieName,
+  fairlendCampaignAttributionMarkerCookieName,
   fairlendCampaignAttributionMaxAgeSeconds,
   getFairlendCampaignConfig,
   getFairlendCampaignRequestMetadata,
@@ -42,8 +43,19 @@ export async function GET(request: NextRequest, { params }: Args): Promise<NextR
 
   const attribution = createFairlendCampaignAttribution(config)
 
-  response.cookies.set(fairlendCampaignAttributionCookieName, serializeFairlendCampaignAttribution(attribution), {
-    httpOnly: true,
+  response.cookies.set(
+    fairlendCampaignAttributionCookieName,
+    serializeFairlendCampaignAttribution(attribution),
+    {
+      httpOnly: true,
+      maxAge: fairlendCampaignAttributionMaxAgeSeconds,
+      path: '/',
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+    },
+  )
+  response.cookies.set(fairlendCampaignAttributionMarkerCookieName, '1', {
+    httpOnly: false,
     maxAge: fairlendCampaignAttributionMaxAgeSeconds,
     path: '/',
     sameSite: 'lax',

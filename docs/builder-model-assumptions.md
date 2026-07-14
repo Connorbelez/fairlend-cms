@@ -1,9 +1,12 @@
 # Builder Consulting illustrative assumptions
 
-Snapshot: 2026-07-13  
+Snapshot: 2026-07-13
+
 Geography: Southern Ontario, with Toronto-specific examples retained where zoning or the reviewed scenario requires them.
 
 These are partner-review-approved explanatory assumptions from the website review meeting. They are not an appraisal, market report, investment forecast, profit projection, or financing commitment. Before publication of new market claims, replace or validate each assumption against an approved dated source.
+
+The interactive sensitivity console uses a separate, newer underwriting engine documented in [build-sensitivity-underwriting.md](./build-sensitivity-underwriting.md).
 
 ## Model conventions
 

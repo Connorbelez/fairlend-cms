@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 import { mkdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
-const fairlendLandingPath = '/fairlend-landing-hero'
+const fairlendLandingPath = '/'
 const round = process.env.ROUND || '1'
 const strict = process.env.RESPONSIVE_HERO_STRICT !== '0'
 const artifactDir = path.join(process.cwd(), 'artifacts', 'responsive-hero', `round-${round}`)
@@ -262,21 +262,20 @@ async function readHeroMetrics(page: Page, viewport: Viewport): Promise<Metrics>
     desktopProcessVisible,
     mobileProcessVisible,
     frameworkOverlay,
-  ] =
-    await Promise.all([
-      readBoxes(page),
-      page.evaluate(() => ({
-        body: document.body.scrollWidth,
-        document: document.documentElement.scrollWidth,
-      })),
-      page
-        .locator('main > section picture img')
-        .evaluate((image) => (image as HTMLImageElement).currentSrc),
-      readProcessCards(page, viewport),
-      page.locator(selectors.desktopProcess).isVisible(),
-      page.locator(selectors.mobileProcess).isVisible(),
-      readFrameworkOverlay(page),
-    ])
+  ] = await Promise.all([
+    readBoxes(page),
+    page.evaluate(() => ({
+      body: document.body.scrollWidth,
+      document: document.documentElement.scrollWidth,
+    })),
+    page
+      .locator('main > section picture img')
+      .evaluate((image) => (image as HTMLImageElement).currentSrc),
+    readProcessCards(page, viewport),
+    page.locator(selectors.desktopProcess).isVisible(),
+    page.locator(selectors.mobileProcess).isVisible(),
+    readFrameworkOverlay(page),
+  ])
 
   return {
     bodyScrollWidth: scrollWidths.body,
@@ -304,7 +303,9 @@ function collectCoreFailures(metrics: Metrics, viewport: Viewport) {
   }
 
   if (metrics.bodyScrollWidth > viewport.width + 1) {
-    failures.push(`body horizontal overflow: scrollWidth ${metrics.bodyScrollWidth} > ${viewport.width}`)
+    failures.push(
+      `body horizontal overflow: scrollWidth ${metrics.bodyScrollWidth} > ${viewport.width}`,
+    )
   }
 
   if (metrics.frameworkOverlay) {
@@ -386,12 +387,22 @@ function collectCompactFailures(metrics: Metrics, viewport: Viewport) {
     failures.push(...boxWithinViewport(metrics.boxes[name], viewport, name))
   }
 
-  failures.push(...boxInsideBox(metrics.boxes.copy, metrics.boxes.compactPanel, 'copy in compact panel'))
   failures.push(
-    ...boxInsideBox(metrics.boxes.application, metrics.boxes.compactPanel, 'application in compact panel'),
+    ...boxInsideBox(metrics.boxes.copy, metrics.boxes.compactPanel, 'copy in compact panel'),
   )
   failures.push(
-    ...boxInsideBox(metrics.boxes.compactStats, metrics.boxes.compactPanel, 'stats in compact panel'),
+    ...boxInsideBox(
+      metrics.boxes.application,
+      metrics.boxes.compactPanel,
+      'application in compact panel',
+    ),
+  )
+  failures.push(
+    ...boxInsideBox(
+      metrics.boxes.compactStats,
+      metrics.boxes.compactPanel,
+      'stats in compact panel',
+    ),
   )
 
   if (metrics.boxes.copy && metrics.boxes.application) {
@@ -447,7 +458,9 @@ function collectTabletLandscapeFailures(metrics: Metrics, viewport: Viewport) {
   }
 
   failures.push(...boxWithinViewport(metrics.boxes.map, viewport, 'tablet landscape map'))
-  failures.push(...boxWithinViewport(metrics.boxes.handwrittenConnector, viewport, 'handwritten connector'))
+  failures.push(
+    ...boxWithinViewport(metrics.boxes.handwrittenConnector, viewport, 'handwritten connector'),
+  )
 
   if (metrics.boxes.copy && metrics.boxes.application) {
     const copyFormGap = metrics.boxes.application.left - metrics.boxes.copy.right
@@ -487,11 +500,15 @@ function collectTabletLandscapeFailures(metrics: Metrics, viewport: Viewport) {
   const titleApplicationOverlap = overlapArea(metrics.boxes.title, metrics.boxes.application)
 
   if (copyApplicationOverlap > 16) {
-    failures.push(`tablet landscape copy/application overlap area ${Math.round(copyApplicationOverlap)}px2`)
+    failures.push(
+      `tablet landscape copy/application overlap area ${Math.round(copyApplicationOverlap)}px2`,
+    )
   }
 
   if (titleApplicationOverlap > 16) {
-    failures.push(`tablet landscape title/application overlap area ${Math.round(titleApplicationOverlap)}px2`)
+    failures.push(
+      `tablet landscape title/application overlap area ${Math.round(titleApplicationOverlap)}px2`,
+    )
   }
 
   if (metrics.processCards.length !== 4) {
@@ -504,7 +521,9 @@ function collectTabletLandscapeFailures(metrics: Metrics, viewport: Viewport) {
     const ratio = visibleRatio(box, viewport) ?? 0
 
     if (ratio < 0.98) {
-      failures.push(`tablet landscape process card ${index + 1} visible ratio ${ratio.toFixed(3)} < 0.98`)
+      failures.push(
+        `tablet landscape process card ${index + 1} visible ratio ${ratio.toFixed(3)} < 0.98`,
+      )
     }
   })
 
@@ -536,7 +555,9 @@ function collectDesktopFailures(metrics: Metrics, viewport: Viewport) {
   }
 
   if (titleApplicationOverlap > 16) {
-    failures.push(`desktop title/application overlap area ${Math.round(titleApplicationOverlap)}px2`)
+    failures.push(
+      `desktop title/application overlap area ${Math.round(titleApplicationOverlap)}px2`,
+    )
   }
 
   if (copyMapOverlap > 16) {
@@ -552,7 +573,9 @@ function collectDesktopFailures(metrics: Metrics, viewport: Viewport) {
     const formLeftEdge = metrics.boxes.application.left
 
     if (formLeftEdge - copyRightEdge < 18) {
-      failures.push(`desktop copy/application horizontal gap ${(formLeftEdge - copyRightEdge).toFixed(1)} < 18`)
+      failures.push(
+        `desktop copy/application horizontal gap ${(formLeftEdge - copyRightEdge).toFixed(1)} < 18`,
+      )
     }
   }
 
@@ -606,13 +629,15 @@ function collectFailures(metrics: Metrics, viewport: Viewport) {
         ? collectTabletLandscapeFailures(metrics, viewport)
         : collectDesktopFailures(metrics, viewport)
 
-  return [
-    ...collectCoreFailures(metrics, viewport),
-    ...modeFailures,
-  ]
+  return [...collectCoreFailures(metrics, viewport), ...modeFailures]
 }
 
-async function attachArtifact(testInfo: TestInfo, name: string, contentType: string, artifactPath: string) {
+async function attachArtifact(
+  testInfo: TestInfo,
+  name: string,
+  contentType: string,
+  artifactPath: string,
+) {
   await testInfo.attach(name, {
     contentType,
     path: artifactPath,
@@ -723,7 +748,9 @@ test.describe('Fairlend hero handwritten caret reduced motion', () => {
   for (const viewport of viewports.filter(({ id }) =>
     ['compact-687', 'tablet-landscape-short-1024', 'portrait-1280', 'desktop-1280'].includes(id),
   )) {
-    test(`aligns handwritten caret with financing gap under reduced motion at ${viewport.id}`, async ({ page }) => {
+    test(`aligns handwritten caret with financing gap under reduced motion at ${viewport.id}`, async ({
+      page,
+    }) => {
       await page.emulateMedia({ reducedMotion: 'reduce' })
       await page.setViewportSize({ height: viewport.height, width: viewport.width })
       await page.goto(fairlendLandingPath, { waitUntil: 'domcontentloaded' })

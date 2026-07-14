@@ -60,13 +60,13 @@ export const fairlendFaqGroups = [
     questionCountLabel: '4 questions',
     routeLabel: 'Risk, review, and administration.',
     summary:
-      'For investors looking at mortgage-backed private credit with professional underwriting, administration, and reporting.',
+      'For investors looking at private mortgage credit with professional underwriting, administration, and reporting.',
     items: [
       {
         id: 'investors-bank-account',
         question: 'Is this like putting money in a bank account?',
         answer:
-          'No. Private mortgage investments are not bank deposits, are not CDIC-insured, are not guaranteed, and may not be liquid on demand. FairLend frames private mortgage investing as mortgage-backed private credit: investors review a real file, accept private-credit and liquidity risk, and rely on disciplined underwriting, documented security, administration, reporting, servicing, and recovery support rather than a deposit guarantee.',
+          'No. Private mortgage investments are not bank deposits, are not CDIC-insured, are not guaranteed, and may not be liquid on demand. Investors review a complete file, accept private-credit and liquidity risk, and rely on disciplined underwriting, legal documentation, administration, reporting, servicing, and recovery support rather than a deposit guarantee.',
       },
       {
         id: 'investors-capital-protection',
@@ -78,7 +78,7 @@ export const fairlendFaqGroups = [
         id: 'investors-review-before-funding',
         question: 'Can I review the deal before my capital moves?',
         answer:
-          'Yes. Investor access is built around visibility before commitment, not blind allocation. Investors review the available deal package before funding, including property details, mortgage position, valuation support, LTV, borrower profile, term, rate, fees, material risks, security, closing requirements, and the administration structure. Opportunities remain subject to investor review, deal availability, documentation, suitability considerations, and final underwriting.',
+          'Yes. Investor access is built around visibility before commitment, not blind allocation. Investors review the available deal package before funding, including project details, mortgage position, valuation support, LTV, borrower profile, term, rate, fees, material risks, legal documentation, closing requirements, and the administration structure. Opportunities remain subject to investor review, deal availability, documentation, suitability considerations, and final underwriting.',
       },
       {
         id: 'investors-payment-admin',

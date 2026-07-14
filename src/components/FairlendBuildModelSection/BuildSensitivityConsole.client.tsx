@@ -11,6 +11,14 @@ import {
 } from '@tabler/icons-react'
 import { AnimatePresence, motion, type PanInfo, useReducedMotion } from 'motion/react'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { BUILD_MODEL_ASSUMPTIONS } from './market-data'
+import {
+  calculateBuildUnderwriting,
+  estimateMonthlyRentForValue,
+  estimateStabilizedValue,
+  type TakeoutConstraint,
+  type UnderwritingStrategy,
+} from './underwriting'
 import {
   type KeyboardEvent,
   type WheelEvent,
@@ -22,17 +30,7 @@ import {
 } from 'react'
 
 const WHEEL_ITEM_HEIGHT = 38
-const OPERATING_EXPENSE_RATIO = 0.2
-const CAPITALIZATION_RATE = 0.04
-const PROJECT_ALLOWANCE_RATIO = 0.2
-const CONSTRUCTION_INTEREST_RATE = 0.1
-const CONSTRUCTION_LOAN_TO_COST = 0.8
-const AVERAGE_CONSTRUCTION_DRAW = 0.5
-const CONSTRUCTION_TERM_YEARS = 1
-const TAKEOUT_INTEREST_RATE = 0.05
-const TAKEOUT_LOAN_TO_VALUE = 0.75
-
-type Strategy = 'exit' | 'rent'
+type Strategy = UnderwritingStrategy
 
 type BuildScenario = {
   areaPerUnit: number
@@ -159,9 +157,13 @@ function roundTo(value: number, increment: number) {
 }
 
 function getScenarioExitValue(scenario: BuildScenario, unitCount: number) {
-  const annualGrossRent = scenario.monthlyRentPerUnit * unitCount * 12
-  const netOperatingIncome = annualGrossRent * (1 - OPERATING_EXPENSE_RATIO)
-  return roundTo(netOperatingIncome / CAPITALIZATION_RATE, 100_000)
+  return roundTo(estimateStabilizedValue(scenario.monthlyRentPerUnit, unitCount), 100_000)
+}
+
+const takeoutConstraintLabels: Record<TakeoutConstraint, string> = {
+  costBasis: 'cost-basis cap',
+  debtServiceCoverage: 'DSCR cap',
+  loanToValue: 'LTV cap',
 }
 
 type ModelDriver = 'buildType' | 'units' | 'land' | 'buildCost' | 'strategy' | 'return'
@@ -680,60 +682,27 @@ export function BuildSensitivityConsole() {
         ? roundTo(state.exitValuePerUnitOverride * state.unitCount, 100_000)
         : getScenarioExitValue(buildType, state.unitCount)
     const monthlyRentPerUnit = state.monthlyRentPerUnitOverride ?? buildType.monthlyRentPerUnit
-    const totalArea = buildType.areaPerUnit * state.unitCount
-    const hardConstructionCost = buildCost * totalArea
-    const projectAllowance = hardConstructionCost * PROJECT_ALLOWANCE_RATIO
-    const financedConstructionCost = hardConstructionCost + projectAllowance
-    const constructionLoan = financedConstructionCost * CONSTRUCTION_LOAN_TO_COST
-    const constructionInterest =
-      constructionLoan *
-      CONSTRUCTION_INTEREST_RATE *
-      AVERAGE_CONSTRUCTION_DRAW *
-      CONSTRUCTION_TERM_YEARS
     const landValue = buildType.assumesOwnedLand ? 0 : state.landValue
-    const totalDevelopmentCost =
-      landValue + hardConstructionCost + projectAllowance + constructionInterest
-    const annualGrossRent = monthlyRentPerUnit * state.unitCount * 12
-    const netOperatingIncome = annualGrossRent * (1 - OPERATING_EXPENSE_RATIO)
-    const stabilizedValue = netOperatingIncome / CAPITALIZATION_RATE
-    const takeoutLoan = Math.min(totalDevelopmentCost, stabilizedValue * TAKEOUT_LOAN_TO_VALUE)
-    const takeoutInterest = takeoutLoan * TAKEOUT_INTEREST_RATE
-    const requiredEquity = totalDevelopmentCost - takeoutLoan
-    const rawExitProfit = exitValue - totalDevelopmentCost
-    const annualCashFlow = netOperatingIncome - takeoutInterest
-    const result = state.strategy === 'rent' ? annualCashFlow : rawExitProfit
-    const roundedResult = roundTo(result, state.strategy === 'rent' ? 1_000 : 10_000)
-    const returnRate =
-      state.strategy === 'rent'
-        ? requiredEquity === 0
-          ? 0
-          : (annualCashFlow / requiredEquity) * 100
-        : exitValue === 0
-          ? 0
-          : (rawExitProfit / exitValue) * 100
+    const underwriting = calculateBuildUnderwriting({
+      areaPerUnit: buildType.areaPerUnit,
+      buildCostPerSquareFoot: buildCost,
+      exitValue,
+      landBasis: landValue,
+      monthlyRentPerUnit,
+      strategy: state.strategy,
+      units: state.unitCount,
+    })
     const valuePerUnit = exitValue / state.unitCount
-    const impliedMonthlyRent =
-      (exitValue * CAPITALIZATION_RATE) / (state.unitCount * 12 * (1 - OPERATING_EXPENSE_RATIO))
+    const impliedMonthlyRent = estimateMonthlyRentForValue(exitValue, state.unitCount)
 
     return {
       buildCost,
-      constructionInterest,
       exitValue,
-      hardConstructionCost,
       impliedMonthlyRent,
       landValue,
       monthlyRentPerUnit,
-      netOperatingIncome,
-      projectAllowance,
-      requiredEquity,
-      result: roundedResult,
-      returnRate,
-      stabilizedValue,
-      takeoutInterest,
-      takeoutLoan,
-      totalArea,
-      totalDevelopmentCost,
       valuePerUnit,
+      ...underwriting,
     }
   }, [
     buildType,
@@ -798,7 +767,8 @@ export function BuildSensitivityConsole() {
           annotation="cost −"
           details={[
             `${formatCompactCurrency(model.hardConstructionCost)} hard cost`,
-            `${formatCompactCurrency(model.projectAllowance)} allowance`,
+            `${formatCompactCurrency(model.softCosts)} soft costs`,
+            `${formatCompactCurrency(model.contingency)} contingency`,
             `${formatCompactCurrency(model.constructionInterest)} construction interest`,
           ]}
           formatValue={(value) => `$${value} / ft²`}
@@ -812,8 +782,11 @@ export function BuildSensitivityConsole() {
           details={
             state.strategy === 'rent'
               ? [
-                  `${formatCompactCurrency(model.takeoutLoan)} takeout @ 75% LTV`,
-                  `${formatCompactCurrency(model.takeoutInterest)} annual interest`,
+                  `${formatCompactCurrency(model.takeoutLoan)} takeout · ${takeoutConstraintLabels[model.takeoutLoanConstraint]}`,
+                  `${formatCompactCurrency(model.annualDebtService)} annual debt service`,
+                  model.takeoutShortfall > 0
+                    ? `${formatCompactCurrency(model.takeoutShortfall)} construction-loan gap`
+                    : `${formatCompactCurrency(model.equityReturnedAtTakeout)} equity returned`,
                 ]
               : ['Construction loan repaid on sale', 'No takeout financing required']
           }
@@ -875,11 +848,19 @@ export function BuildSensitivityConsole() {
               value={model.result}
             />
             <span className="bm-profit-margin">
-              <NumberFlow
-                format={{ maximumFractionDigits: 1, minimumFractionDigits: 1 }}
-                value={model.returnRate}
-              />
-              % {state.strategy === 'rent' ? 'cash yield' : 'margin'}
+              {model.returnRate === null ? (
+                <span aria-label="cash yield not meaningful">
+                  N/M {state.strategy === 'rent' ? 'cash yield' : 'margin'}
+                </span>
+              ) : (
+                <>
+                  <NumberFlow
+                    format={{ maximumFractionDigits: 1, minimumFractionDigits: 1 }}
+                    value={model.returnRate}
+                  />
+                  % {state.strategy === 'rent' ? 'cash yield' : 'margin'}
+                </>
+              )}
             </span>
             <span className="bm-profit-total-cost">
               {state.strategy === 'rent'
@@ -889,9 +870,29 @@ export function BuildSensitivityConsole() {
           </div>
           <span className="bm-profit-disclaimer">
             {state.strategy === 'rent' ? 'Illustrative year one' : 'Illustrative model'}
-            <small>4.0% cap · 20% expenses · 20% project allowance</small>
-            <small>10.0% construction · 80% LTC · 50% average draw</small>
-            {state.strategy === 'rent' && <small>5.0% takeout · 75% LTV · interest-only</small>}
+            {state.strategy === 'rent' ? (
+              <>
+                <small>
+                  {(BUILD_MODEL_ASSUMPTIONS.vacancyRate * 100).toFixed(1)}% vacancy ·{' '}
+                  {(BUILD_MODEL_ASSUMPTIONS.operatingExpenseRate * 100).toFixed(0)}% expenses ·{' '}
+                  {(BUILD_MODEL_ASSUMPTIONS.capitalizationRate * 100).toFixed(1)}% cap
+                </small>
+                <small>
+                  {(BUILD_MODEL_ASSUMPTIONS.takeoutInterestRate * 100).toFixed(1)}% takeout ·{' '}
+                  {BUILD_MODEL_ASSUMPTIONS.permanentAmortizationYears}-yr amortization ·{' '}
+                  {BUILD_MODEL_ASSUMPTIONS.minimumDebtServiceCoverageRatio.toFixed(2)}× DSCR
+                </small>
+              </>
+            ) : (
+              <small>
+                {(BUILD_MODEL_ASSUMPTIONS.dispositionCostRate * 100).toFixed(1)}% disposition costs
+              </small>
+            )}
+            <small>
+              {(BUILD_MODEL_ASSUMPTIONS.constructionInterestRate * 100).toFixed(1)}% construction ·{' '}
+              {(BUILD_MODEL_ASSUMPTIONS.constructionLoanToCost * 100).toFixed(0)}% LTC ·{' '}
+              {(BUILD_MODEL_ASSUMPTIONS.averageConstructionDraw * 100).toFixed(0)}% average draw
+            </small>
             <small>Site-specific · not a quote or guarantee</small>
           </span>
         </section>

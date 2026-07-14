@@ -90,7 +90,7 @@ export default function GardenSuiteFinancingGtaPage() {
             },
           ],
           finalNote:
-            'FairLend Mortgage structures the review around real property constraints, borrower liquidity, and the timing of reimbursement draws.',
+            'FairLend Mortgage structures the review around site constraints, borrower liquidity, and the timing of reimbursement draws.',
         }}
       />
     </>

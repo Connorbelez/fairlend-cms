@@ -31,7 +31,7 @@ describe('Fairlend intake routing helpers', () => {
         'Refinance my mortgage',
         'Get a bridge loan',
         'Home Equity Line of Credit (HELOC)',
-        'Mortgage-backed financing for my business',
+        'Mortgage financing for my business',
       ]),
     )
 

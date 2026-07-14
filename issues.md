@@ -8,61 +8,61 @@ Extraction method: explicit **New Issue** / **Note to the Agent** markers were r
 
 Last updated: 2026-07-13. Verification combines matched before/after captures, targeted integration tests, TypeScript validation, and a final repository-wide copy/claim audit. FL-WEB-047 remains partial only where approved third-party source material, consent, and fact approval are external dependencies; the itemized request was sent and verified in Gmail on 2026-07-13.
 
-| Issue | Status | Current implementation note |
-| --- | --- | --- |
-| FL-WEB-001 | Verified · evidence attached | Desktop authority proof now renders the existing `hrs` qualifier beside `24`. |
-| FL-WEB-002 | Verified · evidence attached | Construction route explicitly supports single homes through large multi-unit projects without a hard ceiling. |
-| FL-WEB-003 | Verified · evidence attached | Overview uses the approved high-tech/seasoned-brokerage three-line direction. |
-| FL-WEB-004 | Verified · evidence attached | Core Lending is enclosed with its related cards as a distinct content group. |
-| FL-WEB-005 | Verified · evidence attached | Unsupported DrawFlow trademark designation removed. |
-| FL-WEB-006 | Verified · evidence attached | Financing copy already uses direct `provides/offers` language; rejected `carry/curate` wording is absent. |
-| FL-WEB-007 | Verified · evidence attached | Project-manager claim now says FairLend can refer an experienced manager; no assignment/control claim. |
-| FL-WEB-008 | Verified · evidence attached | JSX renders exactly one sentence boundary space before `Complimentary access`. |
-| FL-WEB-009 | Verified · evidence attached | Milestone scroller has branded native scrollbar chrome. |
-| FL-WEB-010 | Verified · evidence attached | Board counts and DrawFlow metrics use Oxanium/tabular numerals only. |
-| FL-WEB-011 | Verified · evidence attached | Comparison redesigned as stacked dark cards with restrained lime accents and textual labels. |
-| FL-WEB-012 | Verified · evidence attached | Feasibility headline explicitly names collaboration with FairLend. |
-| FL-WEB-013 | Verified · evidence attached | Visible station note expands OAC and conditions complimentary review on credit/file acceptance. |
-| FL-WEB-014 | Verified · evidence attached | Without-FairLend pain now leads with idle capital, interest, and stalled-work pressure. |
-| FL-WEB-015 | Verified · evidence attached | Scoped Build Support and Live Deal File terms standardized to `draw schedule`. |
-| FL-WEB-016 | Verified · evidence attached | MLI Select framed positively as one of multiple insured options. |
-| FL-WEB-017 | Verified · evidence attached | Profane/censored program name replaced by `Build Recovery Program`. |
-| FL-WEB-018 | Verified · evidence attached | Takeout comparison now contrasts late discovery with early eligibility planning without guaranteeing approval. |
-| FL-WEB-019 | Verified · evidence attached | Persistent model footnote identifies every result as illustrative and non-guaranteed. |
-| FL-WEB-020 | Verified · tests passing | Cash yield uses annual cash flow / cash invested; positive, zero, and negative cases are covered. |
-| FL-WEB-021 | Verified · evidence attached | Southern Ontario presets and dated assumptions are documented in `docs/builder-model-assumptions.md`. |
-| FL-WEB-022 | Verified · tests passing | Shared illustrative cap rate is `0.05`; derived capitalization value is covered. |
-| FL-WEB-023 | Verified · evidence attached | Year pills are larger, tabular, and the changing primary year is announced accessibly. |
-| FL-WEB-024 | Verified · evidence attached | Lead headline/copy divides builder execution from FairLend financing/business modeling. |
-| FL-WEB-025 | Verified · evidence attached | Luxury baseline uses $400/ft²; later single-family assumptions diverge visibly. |
-| FL-WEB-026 | Verified · tests passing | Soft costs are a first-class displayed/model variable and are included exactly once. |
-| FL-WEB-027 | Verified · evidence attached | Large responsive value-minus-costs equation added to 2019/2023 states. |
-| FL-WEB-028 | Verified · evidence attached | 2023 active-state copy names construction, land, and lower end-value causes. |
-| FL-WEB-029 | Verified · tests passing | 2019 preset uses $1M land, $400/ft² hard cost, and $50/ft² financing-inclusive soft costs. |
-| FL-WEB-030 | Verified · evidence attached | Both 2026 multiplex callouts and program output use `5 or more` / `5+`. |
-| FL-WEB-031 | Verified · evidence attached | Garden Suite display no longer asserts a unit count in its label/callout. |
-| FL-WEB-032 | Verified · evidence attached | Garden Suite shows one home and a $400K–$600K total-cost model with soft costs marked included. |
-| FL-WEB-033 | Verified · audit passing | Organization/service-area positioning is Southern Ontario; Toronto-specific product/SEO facts are preserved for final audit. |
-| FL-WEB-034 | Verified · evidence attached | Barton leadership/manufacturing experience is published without unsupported customer names; source record added. |
-| FL-WEB-035 | Verified · evidence attached | Borrower FAQ now covers all material fee categories and qualified payout/discharge language. |
-| FL-WEB-036 | Verified · evidence attached | Homepage and investor FAQs now disclose loss, non-guarantee, valuation, and independent-diligence responsibility. |
-| FL-WEB-037 | Verified · tests passing | Private-mortgage purpose coverage now includes refinance, bridge, HELOC, mortgage-backed business financing, and existing purposes; every reviewed purpose resolves to the private-loan path. |
-| FL-WEB-038 | Verified · tests passing | HELOC is exposed as a distinct overview and route-selection entry backed by the tested private-mortgage intake. |
-| FL-WEB-039 | Verified · tests passing | Private-mortgage encumbrance language is now `Additional debt`; legacy storage keys remain compatible. |
-| FL-WEB-040 | Verified · tests passing | Redundant repayment-plan screen removed and private-mortgage progress/validation remains a five-section flow. |
-| FL-WEB-041 | Verified · responsive evidence attached | CTA/trust controls have zero intersection and no horizontal overflow at 320/360/390/768 px; 150% text plus a long CTA label also remains collision-free. |
-| FL-WEB-042 | Verified · tests passing | Address autocomplete requests Canadian results and rejects known non-Canadian detail records. |
-| FL-WEB-043 | Verified · tests passing | Construction property type now includes the exact `Single-Family Residence` option and compatible aliases. |
-| FL-WEB-044 | Verified · tests passing | Rental unit count is conditional on mixed-use residential, student/rooming, or other existing rental selections only. |
-| FL-WEB-045 | Verified · tests passing | Rental amount, property-value, and current-mortgage inputs are now structured range selectors. |
-| FL-WEB-046 | Verified · tests passing | `Other debt` is an explicit refinance option with an independently persisted approximate-amount range and optional detail field. |
-| FL-WEB-047 | Partial · source approval pending | Fabricated testimonials are removed; the slot inventory and itemized request are in `docs/content-requests/`. The request was sent to Elie and verified in Gmail; source material, consent, and approvals remain external dependencies. |
-| FL-WEB-048 | Verified · evidence attached | June 26, 2015 Ontario call-to-bar record supports durable `over 10 years` copy; source record added. |
-| FL-WEB-049 | Verified · visual evidence and tests passing | Construction status navigation renders a visible shadCN Continue action gated by the required property/status selections; every status path is covered. |
-| FL-WEB-050 | Verified · tests passing | Mortgage, rental, and construction flows collect contact details early and expose an intentional partial-submit path with `partial` completion status in persisted payloads. |
-| FL-WEB-051 | Verified · visual evidence attached | `Find Your Fit` keeps construction dominant while Partner Program spans the supporting grid and removes the empty lower-right quadrant. |
-| FL-WEB-052 | Verified · visual evidence attached | Core Lending now includes a dedicated residential home refinancing deal-file card with a tracked mortgage-intake route. |
-| FL-WEB-053 | Verified · visual evidence attached | Overview card copy alternates the shared lime highlight and underline treatments across the requested financing phrases. |
+| Issue      | Status                                       | Current implementation note                                                                                                                                                                                                             |
+| ---------- | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FL-WEB-001 | Verified · evidence attached                 | Desktop authority proof now renders the existing `hrs` qualifier beside `24`.                                                                                                                                                           |
+| FL-WEB-002 | Verified · evidence attached                 | Construction route explicitly supports single homes through large multi-unit projects without a hard ceiling.                                                                                                                           |
+| FL-WEB-003 | Verified · evidence attached                 | Overview uses the approved high-tech/seasoned-brokerage three-line direction.                                                                                                                                                           |
+| FL-WEB-004 | Verified · evidence attached                 | Core Lending is enclosed with its related cards as a distinct content group.                                                                                                                                                            |
+| FL-WEB-005 | Verified · evidence attached                 | Unsupported DrawFlow trademark designation removed.                                                                                                                                                                                     |
+| FL-WEB-006 | Verified · evidence attached                 | Financing copy already uses direct `provides/offers` language; rejected `carry/curate` wording is absent.                                                                                                                               |
+| FL-WEB-007 | Verified · evidence attached                 | Project-manager claim now says FairLend can refer an experienced manager; no assignment/control claim.                                                                                                                                  |
+| FL-WEB-008 | Verified · evidence attached                 | JSX renders exactly one sentence boundary space before `Complimentary access`.                                                                                                                                                          |
+| FL-WEB-009 | Verified · evidence attached                 | Milestone scroller has branded native scrollbar chrome.                                                                                                                                                                                 |
+| FL-WEB-010 | Verified · evidence attached                 | Board counts and DrawFlow metrics use Oxanium/tabular numerals only.                                                                                                                                                                    |
+| FL-WEB-011 | Verified · evidence attached                 | Comparison redesigned as stacked dark cards with restrained lime accents and textual labels.                                                                                                                                            |
+| FL-WEB-012 | Verified · evidence attached                 | Feasibility headline explicitly names collaboration with FairLend.                                                                                                                                                                      |
+| FL-WEB-013 | Verified · evidence attached                 | Visible station note expands OAC and conditions complimentary review on credit/file acceptance.                                                                                                                                         |
+| FL-WEB-014 | Verified · evidence attached                 | Without-FairLend pain now leads with idle capital, interest, and stalled-work pressure.                                                                                                                                                 |
+| FL-WEB-015 | Verified · evidence attached                 | Scoped Build Support and Live Deal File terms standardized to `draw schedule`.                                                                                                                                                          |
+| FL-WEB-016 | Verified · evidence attached                 | MLI Select framed positively as one of multiple insured options.                                                                                                                                                                        |
+| FL-WEB-017 | Verified · evidence attached                 | Profane/censored program name replaced by `Build Recovery Program`.                                                                                                                                                                     |
+| FL-WEB-018 | Verified · evidence attached                 | Takeout comparison now contrasts late discovery with early eligibility planning without guaranteeing approval.                                                                                                                          |
+| FL-WEB-019 | Verified · evidence attached                 | Persistent model footnote identifies every result as illustrative and non-guaranteed.                                                                                                                                                   |
+| FL-WEB-020 | Verified · tests passing                     | Cash yield uses annual cash flow / cash invested; positive, zero, and negative cases are covered.                                                                                                                                       |
+| FL-WEB-021 | Verified · evidence attached                 | Southern Ontario presets and dated assumptions are documented in `docs/builder-model-assumptions.md`.                                                                                                                                   |
+| FL-WEB-022 | Verified · tests passing                     | Shared illustrative cap rate is `0.05`; derived capitalization value is covered.                                                                                                                                                        |
+| FL-WEB-023 | Verified · evidence attached                 | Year pills are larger, tabular, and the changing primary year is announced accessibly.                                                                                                                                                  |
+| FL-WEB-024 | Verified · evidence attached                 | Lead headline/copy divides builder execution from FairLend financing/business modeling.                                                                                                                                                 |
+| FL-WEB-025 | Verified · evidence attached                 | Luxury baseline uses $400/ft²; later single-family assumptions diverge visibly.                                                                                                                                                         |
+| FL-WEB-026 | Verified · tests passing                     | Soft costs are a first-class displayed/model variable and are included exactly once.                                                                                                                                                    |
+| FL-WEB-027 | Verified · evidence attached                 | Large responsive value-minus-costs equation added to 2019/2023 states.                                                                                                                                                                  |
+| FL-WEB-028 | Verified · evidence attached                 | 2023 active-state copy names construction, land, and lower end-value causes.                                                                                                                                                            |
+| FL-WEB-029 | Verified · tests passing                     | 2019 preset uses $1M land, $400/ft² hard cost, and $50/ft² financing-inclusive soft costs.                                                                                                                                              |
+| FL-WEB-030 | Verified · evidence attached                 | Both 2026 multiplex callouts and program output use `5 or more` / `5+`.                                                                                                                                                                 |
+| FL-WEB-031 | Verified · evidence attached                 | Garden Suite display no longer asserts a unit count in its label/callout.                                                                                                                                                               |
+| FL-WEB-032 | Verified · evidence attached                 | Garden Suite shows one home and a $400K–$600K total-cost model with soft costs marked included.                                                                                                                                         |
+| FL-WEB-033 | Verified · audit passing                     | Organization/service-area positioning is Southern Ontario; Toronto-specific product/SEO facts are preserved for final audit.                                                                                                            |
+| FL-WEB-034 | Verified · evidence attached                 | Barton leadership/manufacturing experience is published without unsupported customer names; source record added.                                                                                                                        |
+| FL-WEB-035 | Verified · evidence attached                 | Borrower FAQ now covers all material fee categories and qualified payout/discharge language.                                                                                                                                            |
+| FL-WEB-036 | Verified · evidence attached                 | Homepage and investor FAQs now disclose loss, non-guarantee, valuation, and independent-diligence responsibility.                                                                                                                       |
+| FL-WEB-037 | Verified · tests passing                     | Private-mortgage purpose coverage now includes refinance, bridge, HELOC, mortgage business financing, and existing purposes; every reviewed purpose resolves to the private-loan path.                                                  |
+| FL-WEB-038 | Verified · tests passing                     | HELOC is exposed as a distinct overview and route-selection entry backed by the tested private-mortgage intake.                                                                                                                         |
+| FL-WEB-039 | Verified · tests passing                     | Private-mortgage encumbrance language is now `Additional debt`; legacy storage keys remain compatible.                                                                                                                                  |
+| FL-WEB-040 | Verified · tests passing                     | Redundant repayment-plan screen removed and private-mortgage progress/validation remains a five-section flow.                                                                                                                           |
+| FL-WEB-041 | Verified · responsive evidence attached      | CTA/trust controls have zero intersection and no horizontal overflow at 320/360/390/768 px; 150% text plus a long CTA label also remains collision-free.                                                                                |
+| FL-WEB-042 | Verified · tests passing                     | Address autocomplete requests Canadian results and rejects known non-Canadian detail records.                                                                                                                                           |
+| FL-WEB-043 | Verified · tests passing                     | Construction property type now includes the exact `Single-Family Residence` option and compatible aliases.                                                                                                                              |
+| FL-WEB-044 | Verified · tests passing                     | Rental unit count is conditional on mixed-use residential, student/rooming, or other existing rental selections only.                                                                                                                   |
+| FL-WEB-045 | Verified · tests passing                     | Rental amount, property-value, and current-mortgage inputs are now structured range selectors.                                                                                                                                          |
+| FL-WEB-046 | Verified · tests passing                     | `Other debt` is an explicit refinance option with an independently persisted approximate-amount range and optional detail field.                                                                                                        |
+| FL-WEB-047 | Partial · source approval pending            | Fabricated testimonials are removed; the slot inventory and itemized request are in `docs/content-requests/`. The request was sent to Elie and verified in Gmail; source material, consent, and approvals remain external dependencies. |
+| FL-WEB-048 | Verified · evidence attached                 | June 26, 2015 Ontario call-to-bar record supports durable `over 10 years` copy; source record added.                                                                                                                                    |
+| FL-WEB-049 | Verified · visual evidence and tests passing | Construction status navigation renders a visible shadCN Continue action gated by the required property/status selections; every status path is covered.                                                                                 |
+| FL-WEB-050 | Verified · tests passing                     | Mortgage, rental, and construction flows collect contact details early and expose an intentional partial-submit path with `partial` completion status in persisted payloads.                                                            |
+| FL-WEB-051 | Verified · visual evidence attached          | `Find Your Fit` keeps construction dominant while Partner Program spans the supporting grid and removes the empty lower-right quadrant.                                                                                                 |
+| FL-WEB-052 | Verified · visual evidence attached          | Core Lending now includes a dedicated residential home refinancing deal-file card with a tracked mortgage-intake route.                                                                                                                 |
+| FL-WEB-053 | Verified · visual evidence attached          | Overview card copy alternates the shared lime highlight and underline treatments across the requested financing phrases.                                                                                                                |
 
 ## Homepage and overview
 
@@ -70,8 +70,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-001 before](docs/issue-evidence/tickets/FL-WEB-001-before.png) | ![FL-WEB-001 after](docs/issue-evidence/tickets/FL-WEB-001-after.png) |
 
 - **Reference section:** Homepage → Hero → Qualified commitment target / authority-file proof
@@ -88,8 +88,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-002 before](docs/issue-evidence/tickets/FL-WEB-002-before.png) | ![FL-WEB-002 after](docs/issue-evidence/tickets/FL-WEB-002-after.png) |
 
 - **Reference section:** Homepage → Find Your Fit / What We Finance → Construction Financing card
@@ -106,8 +106,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-003 before](docs/issue-evidence/tickets/FL-WEB-003-before.png) | ![FL-WEB-003 after](docs/issue-evidence/tickets/FL-WEB-003-after.png) |
 
 - **Reference section:** Homepage → `FairlendLandingOverviewSection` → 01 Who We Are
@@ -124,8 +124,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-004 before](docs/issue-evidence/tickets/FL-WEB-004-before.png) | ![FL-WEB-004 after](docs/issue-evidence/tickets/FL-WEB-004-after.png) |
 
 - **Reference section:** Homepage → `FairlendLandingOverviewSection` → Core Lending / What We Finance
@@ -142,8 +142,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-005 before](docs/issue-evidence/tickets/FL-WEB-005-before.png) | ![FL-WEB-005 after](docs/issue-evidence/tickets/FL-WEB-005-after.png) |
 
 - **Reference section:** Homepage → Overview / What We Finance copy using the trademark mark
@@ -162,8 +162,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-006 before](docs/issue-evidence/tickets/FL-WEB-006-before.png) | ![FL-WEB-006 after](docs/issue-evidence/tickets/FL-WEB-006-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuildModelSection` → Already Building / Keep Your Focus on Site
@@ -180,8 +180,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-007 before](docs/issue-evidence/tickets/FL-WEB-007-before.png) | ![FL-WEB-007 after](docs/issue-evidence/tickets/FL-WEB-007-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuildModelSection` → First-Time Builder
@@ -198,8 +198,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-008 before](docs/issue-evidence/tickets/FL-WEB-008-before.png) | ![FL-WEB-008 after](docs/issue-evidence/tickets/FL-WEB-008-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuildModelSection` → Milestone Line of Credit for Your Build
@@ -215,8 +215,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-009 before](docs/issue-evidence/tickets/FL-WEB-009-before.png) | ![FL-WEB-009 after](docs/issue-evidence/tickets/FL-WEB-009-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuildModelSection` → Milestone Line of Credit for Your Build
@@ -233,8 +233,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-010 before](docs/issue-evidence/tickets/FL-WEB-010-before.png) | ![FL-WEB-010 after](docs/issue-evidence/tickets/FL-WEB-010-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuildModelSection` → metric readouts
@@ -251,8 +251,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-011 before](docs/issue-evidence/tickets/FL-WEB-011-before.png) | ![FL-WEB-011 after](docs/issue-evidence/tickets/FL-WEB-011-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuildModelSection` → Feasible Before Commitment comparison
@@ -269,8 +269,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-012 before](docs/issue-evidence/tickets/FL-WEB-012-before.png) | ![FL-WEB-012 after](docs/issue-evidence/tickets/FL-WEB-012-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuildModelSection` → Feasible Before Commitment
@@ -287,8 +287,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-013 before](docs/issue-evidence/tickets/FL-WEB-013-before.png) | ![FL-WEB-013 after](docs/issue-evidence/tickets/FL-WEB-013-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuildModelSection` → Feasible Before Commitment / consulting offer
@@ -305,8 +305,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-014 before](docs/issue-evidence/tickets/FL-WEB-014-before.png) | ![FL-WEB-014 after](docs/issue-evidence/tickets/FL-WEB-014-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuildModelSection` → 03 Build Support → Without FairLend
@@ -323,8 +323,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-015 before](docs/issue-evidence/tickets/FL-WEB-015-before.png) | ![FL-WEB-015 after](docs/issue-evidence/tickets/FL-WEB-015-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuildModelSection` → 03 Build Support
@@ -341,8 +341,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-016 before](docs/issue-evidence/tickets/FL-WEB-016-before.png) | ![FL-WEB-016 after](docs/issue-evidence/tickets/FL-WEB-016-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuildModelSection` → 04 Takeout
@@ -359,8 +359,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-017 before](docs/issue-evidence/tickets/FL-WEB-017-before.png) | ![FL-WEB-017 after](docs/issue-evidence/tickets/FL-WEB-017-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuildModelSection` → contingency / recovery content
@@ -377,8 +377,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-018 before](docs/issue-evidence/tickets/FL-WEB-018-before.png) | ![FL-WEB-018 after](docs/issue-evidence/tickets/FL-WEB-018-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuildModelSection` → 04 Takeout → Without/With FairLend
@@ -397,8 +397,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-019 before](docs/issue-evidence/tickets/FL-WEB-019-before.png) | ![FL-WEB-019 after](docs/issue-evidence/tickets/FL-WEB-019-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuilderConsultingSection` → calculator/results
@@ -415,8 +415,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-020 before](docs/issue-evidence/tickets/FL-WEB-020-before.png) | ![FL-WEB-020 after](docs/issue-evidence/tickets/FL-WEB-020-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuilderConsultingSection` → Multiplex / Rent strategy calculator
@@ -433,8 +433,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-021 before](docs/issue-evidence/tickets/FL-WEB-021-before.png) | ![FL-WEB-021 after](docs/issue-evidence/tickets/FL-WEB-021-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuilderConsultingSection` → all build-type default inputs
@@ -451,8 +451,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-022 before](docs/issue-evidence/tickets/FL-WEB-022-before.png) | ![FL-WEB-022 after](docs/issue-evidence/tickets/FL-WEB-022-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuilderConsultingSection` → Illustrative Year One
@@ -469,8 +469,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-023 before](docs/issue-evidence/tickets/FL-WEB-023-before.png) | ![FL-WEB-023 after](docs/issue-evidence/tickets/FL-WEB-023-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuilderConsultingSection` → equation timeline
@@ -488,8 +488,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-024 before](docs/issue-evidence/tickets/FL-WEB-024-before.png) | ![FL-WEB-024 after](docs/issue-evidence/tickets/FL-WEB-024-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuilderConsultingSection` → “Building Shouldn’t Be the Easy Part” headline/copy
@@ -506,8 +506,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-025 before](docs/issue-evidence/tickets/FL-WEB-025-before.png) | ![FL-WEB-025 after](docs/issue-evidence/tickets/FL-WEB-025-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuilderConsultingSection` → equation timeline → Single Family rows
@@ -524,8 +524,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-026 before](docs/issue-evidence/tickets/FL-WEB-026-before.png) | ![FL-WEB-026 after](docs/issue-evidence/tickets/FL-WEB-026-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuilderConsultingSection` → equation inputs and calculations
@@ -542,8 +542,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-027 before](docs/issue-evidence/tickets/FL-WEB-027-before.png) | ![FL-WEB-027 after](docs/issue-evidence/tickets/FL-WEB-027-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuilderConsultingSection` → 2019 and 2023 timeline states
@@ -560,8 +560,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-028 before](docs/issue-evidence/tickets/FL-WEB-028-before.png) | ![FL-WEB-028 after](docs/issue-evidence/tickets/FL-WEB-028-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuilderConsultingSection` → 2023 timeline whitespace
@@ -578,8 +578,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-029 before](docs/issue-evidence/tickets/FL-WEB-029-before.png) | ![FL-WEB-029 after](docs/issue-evidence/tickets/FL-WEB-029-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuilderConsultingSection` → 2019 timeline state
@@ -596,8 +596,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-030 before](docs/issue-evidence/tickets/FL-WEB-030-before.png) | ![FL-WEB-030 after](docs/issue-evidence/tickets/FL-WEB-030-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuilderConsultingSection` → 2026 Density Changes the Model → Multiplex
@@ -614,8 +614,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-031 before](docs/issue-evidence/tickets/FL-WEB-031-before.png) | ![FL-WEB-031 after](docs/issue-evidence/tickets/FL-WEB-031-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuilderConsultingSection` → 2026 Density Changes the Model → Garden Suite
@@ -632,8 +632,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-032 before](docs/issue-evidence/tickets/FL-WEB-032-before.png) | ![FL-WEB-032 after](docs/issue-evidence/tickets/FL-WEB-032-after.png) |
 
 - **Reference section:** Homepage → `FairlendBuilderConsultingSection` → Garden Suite calculator
@@ -652,8 +652,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-033 before](docs/issue-evidence/tickets/FL-WEB-033-before.png) | ![FL-WEB-033 after](docs/issue-evidence/tickets/FL-WEB-033-after.png) |
 
 - **Reference section:** Site-wide marketing copy and metadata → geography positioning
@@ -670,8 +670,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-034 before](docs/issue-evidence/tickets/FL-WEB-034-before.png) | ![FL-WEB-034 after](docs/issue-evidence/tickets/FL-WEB-034-after.png) |
 
 - **Reference section:** Homepage → `FairlendTeamSection` → Behind the File → Bogdan Krystek
@@ -688,8 +688,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-035 before](docs/issue-evidence/tickets/FL-WEB-035-before.png) | ![FL-WEB-035 after](docs/issue-evidence/tickets/FL-WEB-035-after.png) |
 
 - **Reference section:** Borrowers → Private Mortgage Financing → FAQ → “Will I get trapped in payout or renewal fees?”
@@ -706,8 +706,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-036 before](docs/issue-evidence/tickets/FL-WEB-036-before.png) | ![FL-WEB-036 after](docs/issue-evidence/tickets/FL-WEB-036-after.png) |
 
 - **Reference section:** Investor page → `FairlendInvestorFaq` → “How is my investment protected?”
@@ -726,32 +726,32 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-037 before](docs/issue-evidence/tickets/FL-WEB-037-before.png) | ![FL-WEB-037 after](docs/issue-evidence/tickets/FL-WEB-037-after.png) |
 
 - **Reference section:** `/intake` → Mortgage intake → “What would you like this mortgage to solve?”
 - **Transcript:** `01:23:46–01:24:16`
-- **Cleaned quote:** “Add refinance, bridge loan, and a mortgage-backed/business-purpose loan option to the mortgage-purpose field.”
+- **Cleaned quote:** “Add refinance, bridge loan, and a mortgage business-purpose loan option to the mortgage-purpose field.”
 - **Surrounding context:** “Use equity in my property” was considered too broad to make these common intents discoverable.
 - **Description:** Add discrete, plain-language purpose options and map them through intake state, submission payloads, analytics, and admin/export views.
 - **Acceptance criteria:**
   - [x] Refinance and bridge-loan options are selectable.
-  - [x] A reviewed mortgage-backed/business-purpose option is selectable.
+  - [x] A reviewed mortgage business-purpose option is selectable.
   - [x] Values persist through submission and appear correctly in admin/export/analytics.
 
 ### FL-WEB-038 — Add HELOC across services, routing, and intake
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-038 before](docs/issue-evidence/tickets/FL-WEB-038-before.png) | ![FL-WEB-038 after](docs/issue-evidence/tickets/FL-WEB-038-after.png) |
 
 - **Reference section:** Homepage → What We Finance; route content; `/intake` mortgage-purpose field
 - **Transcript:** `01:24:17–01:26:17`
 - **Cleaned quote:** “Add Home Equity Line of Credit (HELOC) under What We Finance, add the route on the landing page, and add it to ‘What would you like this mortgage to solve?’ Use the name people recognize: HELOC.”
-- **Surrounding context:** The group clarified that a HELOC is still mortgage-backed credit, but should be discoverable as its own familiar option.
+- **Surrounding context:** The group clarified that a HELOC should be discoverable as its own familiar mortgage-purpose option.
 - **Description:** Add HELOC as a reusable financing/service option across navigation surfaces and intake classification.
 - **Acceptance criteria:**
   - [x] “Home Equity Line of Credit (HELOC)” appears in What We Finance.
@@ -763,8 +763,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-039 before](docs/issue-evidence/tickets/FL-WEB-039-before.png) | ![FL-WEB-039 after](docs/issue-evidence/tickets/FL-WEB-039-after.png) |
 
 - **Reference section:** `/intake` → Mortgage intake → “What does the financing need to cover?”
@@ -781,8 +781,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-040 before](docs/issue-evidence/tickets/FL-WEB-040-before.png) | ![FL-WEB-040 after](docs/issue-evidence/tickets/FL-WEB-040-after.png) |
 
 - **Reference section:** `/intake` → Core mortgage intake → Step 4 of 5
@@ -799,8 +799,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-041 before](docs/issue-evidence/tickets/FL-WEB-041-before.png) | ![FL-WEB-041 after](docs/issue-evidence/tickets/FL-WEB-041-after.png) |
 
 - **Reference section:** `/intake` → route hero / entry panel
@@ -817,8 +817,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-042 before](docs/issue-evidence/tickets/FL-WEB-042-before.png) | ![FL-WEB-042 after](docs/issue-evidence/tickets/FL-WEB-042-after.png) |
 
 - **Reference section:** Shared `GoogleAddressAutocomplete` → all intake address fields
@@ -835,8 +835,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-043 before](docs/issue-evidence/tickets/FL-WEB-043-before.png) | ![FL-WEB-043 after](docs/issue-evidence/tickets/FL-WEB-043-after.png) |
 
 - **Reference section:** `/intake` → Construction financing intake → “What are you looking to finance?”
@@ -853,8 +853,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-044 before](docs/issue-evidence/tickets/FL-WEB-044-before.png) | ![FL-WEB-044 after](docs/issue-evidence/tickets/FL-WEB-044-after.png) |
 
 - **Reference section:** `/intake` → Rental property acquisition/refinance → property type/details
@@ -871,8 +871,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-045 before](docs/issue-evidence/tickets/FL-WEB-045-before.png) | ![FL-WEB-045 after](docs/issue-evidence/tickets/FL-WEB-045-after.png) |
 
 - **Reference section:** `/intake` → Acquisition/refinance of existing rental properties → Step 3 of 5
@@ -890,8 +890,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-046 before](docs/issue-evidence/tickets/FL-WEB-046-before.png) | ![FL-WEB-046 after](docs/issue-evidence/tickets/FL-WEB-046-after.png) |
 
 - **Reference section:** `/intake` → Rental property intake → Step 3 of 5 → other liens/lenders/encumbrances
@@ -911,8 +911,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-047 before](docs/issue-evidence/tickets/FL-WEB-047-before.png) | ![FL-WEB-047 after](docs/issue-evidence/tickets/FL-WEB-047-after.png) |
 
 - **Reference section:** Homepage → Our Build Model placeholders; Leadership / proof content
@@ -930,8 +930,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-048 before](docs/issue-evidence/tickets/FL-WEB-048-before.png) | ![FL-WEB-048 after](docs/issue-evidence/tickets/FL-WEB-048-after.png) |
 
 - **Reference section:** Homepage → Leadership / Team biography → Joel
@@ -948,8 +948,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-049 before](docs/issue-evidence/tickets/FL-WEB-049-before.png) | ![FL-WEB-049 after](docs/issue-evidence/tickets/FL-WEB-049-after.png) |
 
 - **Reference section:** `/intake` → Construction financing intake → Current Property Status step
@@ -967,8 +967,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-050 before](docs/issue-evidence/tickets/FL-WEB-050-before.png) | ![FL-WEB-050 after](docs/issue-evidence/tickets/FL-WEB-050-after.png) |
 
 - **Reference section:** `/intake` → long-form mortgage, construction, and rental variants
@@ -989,8 +989,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-051 before](docs/issue-evidence/tickets/FL-WEB-051-before.png) | ![FL-WEB-051 after](docs/issue-evidence/tickets/FL-WEB-051-after.png) |
 
 - **Reference section:** Homepage → `FairlendRouteSelector` → desktop route-card grid
@@ -1009,8 +1009,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-052 before](docs/issue-evidence/tickets/FL-WEB-052-before.png) | ![FL-WEB-052 after](docs/issue-evidence/tickets/FL-WEB-052-after.png) |
 
 - **Reference section:** Homepage → `FairlendLandingOverviewSection` → Core Lending
@@ -1029,8 +1029,8 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 
 **Matched visual evidence**
 
-| Before | After |
-| --- | --- |
+| Before                                                                  | After                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-053 before](docs/issue-evidence/tickets/FL-WEB-053-before.png) | ![FL-WEB-053 after](docs/issue-evidence/tickets/FL-WEB-053-after.png) |
 
 - **Reference section:** Homepage → `FairlendLandingOverviewSection` → What We Finance dossiers
@@ -1079,7 +1079,6 @@ The transcript contains 60 literal convention matches. They resolve as follows:
 - **Late unmarked decisions recovered by gap analysis:** `FL-WEB-047`–`050`.
 
 Final result: **50 transcript-derived issues plus 3 post-review visual-QA additions (53 total)**, with all 60 convention matches dispositioned and the remaining transcript reviewed for unmarked actionable feedback.
-
 
 ## Final implementation gap analysis
 

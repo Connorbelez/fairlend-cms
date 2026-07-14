@@ -73,6 +73,7 @@ export interface Config {
     categories: Category;
     'fairlend-leads': FairlendLead;
     'fairlend-campaign-scans': FairlendCampaignScan;
+    'fairlend-campaign-events': FairlendCampaignEvent;
     'fairlend-consultation-bookings': FairlendConsultationBooking;
     users: User;
     redirects: Redirect;
@@ -98,6 +99,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     'fairlend-leads': FairlendLeadsSelect<false> | FairlendLeadsSelect<true>;
     'fairlend-campaign-scans': FairlendCampaignScansSelect<false> | FairlendCampaignScansSelect<true>;
+    'fairlend-campaign-events': FairlendCampaignEventsSelect<false> | FairlendCampaignEventsSelect<true>;
     'fairlend-consultation-bookings': FairlendConsultationBookingsSelect<false> | FairlendConsultationBookingsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
@@ -2538,6 +2540,39 @@ export interface FairlendCampaignScan {
   createdAt: string;
 }
 /**
+ * Privacy-limited page and intake events associated with signed QR campaign sessions. Form values are never stored here.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-campaign-events".
+ */
+export interface FairlendCampaignEvent {
+  id: number;
+  eventId: string;
+  scanId: string;
+  campaign: string;
+  eventType:
+    | 'page_view'
+    | 'page_exit'
+    | 'intake_started'
+    | 'intake_submitted'
+    | 'consultation_booked'
+    | 'form_started'
+    | 'form_submitted';
+  pagePath?: string | null;
+  visitId?: string | null;
+  /**
+   * Time on page in milliseconds, capped at twelve hours.
+   */
+  durationMs?: number | null;
+  formId?: string | null;
+  formName?: string | null;
+  intakeType?: string | null;
+  leadId?: string | null;
+  occurredAt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "fairlend-consultation-bookings".
  */
@@ -2775,6 +2810,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'fairlend-campaign-scans';
         value: number | FairlendCampaignScan;
+      } | null)
+    | ({
+        relationTo: 'fairlend-campaign-events';
+        value: number | FairlendCampaignEvent;
       } | null)
     | ({
         relationTo: 'fairlend-consultation-bookings';
@@ -4255,6 +4294,26 @@ export interface FairlendCampaignScansSelect<T extends boolean = true> {
   userAgent?: T;
   hashedIp?: T;
   queryParams?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fairlend-campaign-events_select".
+ */
+export interface FairlendCampaignEventsSelect<T extends boolean = true> {
+  eventId?: T;
+  scanId?: T;
+  campaign?: T;
+  eventType?: T;
+  pagePath?: T;
+  visitId?: T;
+  durationMs?: T;
+  formId?: T;
+  formName?: T;
+  intakeType?: T;
+  leadId?: T;
+  occurredAt?: T;
   updatedAt?: T;
   createdAt?: T;
 }

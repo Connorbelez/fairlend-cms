@@ -107,7 +107,7 @@ export function FairlendTeamSection(): ReactElement {
             ({ discipline, experience, initials, name, plate, responsibility, role }) => (
               <article className="fairlend-team__member" data-team-member key={name}>
                 <div
-                  aria-label={`Portrait placeholder for ${name}`}
+                  aria-label={`${name}, ${role}`}
                   className="fairlend-team__portrait"
                   data-team-portrait
                   role="img"
@@ -116,7 +116,7 @@ export function FairlendTeamSection(): ReactElement {
                   <span className="fairlend-team__initials" aria-hidden="true">
                     {initials}
                   </span>
-                  <span className="fairlend-team__portrait-label">Portrait placeholder</span>
+                  <span className="fairlend-team__portrait-label">FairLend leadership</span>
                 </div>
 
                 <div className="fairlend-team__member-copy" data-team-member-copy>

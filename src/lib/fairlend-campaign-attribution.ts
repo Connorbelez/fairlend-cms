@@ -1,8 +1,9 @@
-import { createHash, randomUUID } from 'crypto'
+import { createHash, createHmac, randomUUID, timingSafeEqual } from 'crypto'
 import { neon, type NeonQueryFunction } from '@neondatabase/serverless'
 import type { NextRequest } from 'next/server'
 
 export const fairlendCampaignAttributionCookieName = 'fairlend_campaign_attribution'
+export const fairlendCampaignAttributionMarkerCookieName = 'fairlend_campaign_session'
 export const fairlendCampaignAttributionMaxAgeSeconds = 60 * 60 * 24 * 30
 
 export type FairlendCampaignConfig = {
@@ -61,7 +62,8 @@ export function createFairlendCampaignAttribution(
 export function serializeFairlendCampaignAttribution(
   attribution: FairlendCampaignAttribution,
 ): string {
-  return Buffer.from(JSON.stringify(attribution), 'utf8').toString('base64url')
+  const payload = Buffer.from(JSON.stringify(attribution), 'utf8').toString('base64url')
+  return `${payload}.${signAttributionPayload(payload)}`
 }
 
 export function parseFairlendCampaignAttribution(
@@ -72,7 +74,18 @@ export function parseFairlendCampaignAttribution(
   }
 
   try {
-    const parsed = parseAttributionCookieValue(value)
+    const [payload, signature, ...extra] = value.split('.')
+
+    if (
+      !payload ||
+      !signature ||
+      extra.length > 0 ||
+      !hasValidAttributionSignature(payload, signature)
+    ) {
+      return null
+    }
+
+    const parsed = parseAttributionCookieValue(payload)
     const campaign = normalizeCampaignSlug(parsed.campaign)
     const source = normalizeText(parsed.source, 80)
     const scanId = normalizeUuid(parsed.scanId)
@@ -96,12 +109,52 @@ export function parseFairlendCampaignAttribution(
 }
 
 function parseAttributionCookieValue(value: string): Partial<FairlendCampaignAttribution> {
+  return JSON.parse(
+    Buffer.from(value, 'base64url').toString('utf8'),
+  ) as Partial<FairlendCampaignAttribution>
+}
+
+function signAttributionPayload(payload: string): string {
+  return createHmac('sha256', getAttributionSigningSecret()).update(payload).digest('base64url')
+}
+
+function hasValidAttributionSignature(payload: string, signature: string): boolean {
+  const expected = Buffer.from(signAttributionPayload(payload), 'utf8')
+  const received = Buffer.from(signature, 'utf8')
+
+  return expected.length === received.length && timingSafeEqual(expected, received)
+}
+
+function getAttributionSigningSecret(): string {
+  const secret = process.env.FAIRLEND_ATTRIBUTION_SECRET || process.env.PAYLOAD_SECRET
+
+  if (!secret) {
+    throw new Error('FAIRLEND_ATTRIBUTION_SECRET or PAYLOAD_SECRET is required for QR attribution')
+  }
+
+  return secret
+}
+
+export function getFairlendCampaignAttributionFromRequest(
+  request: NextRequest,
+): FairlendCampaignAttribution | null {
+  return parseFairlendCampaignAttribution(
+    request.cookies.get(fairlendCampaignAttributionCookieName)?.value,
+  )
+}
+
+export function getFairlendRequestPagePath(request: NextRequest): string | null {
+  const referrer = request.headers.get('referer')
+
+  if (!referrer) {
+    return null
+  }
+
   try {
-    return JSON.parse(Buffer.from(value, 'base64url').toString('utf8')) as Partial<
-      FairlendCampaignAttribution
-    >
+    const url = new URL(referrer)
+    return normalizeDestination(url.pathname)
   } catch {
-    return JSON.parse(decodeURIComponent(value)) as Partial<FairlendCampaignAttribution>
+    return null
   }
 }
 
@@ -119,9 +172,7 @@ export function getFairlendCampaignRequestMetadata(request: NextRequest): {
   }
 }
 
-export async function persistFairlendCampaignScan(
-  input: FairlendCampaignScanInput,
-): Promise<void> {
+export async function persistFairlendCampaignScan(input: FairlendCampaignScanInput): Promise<void> {
   const normalized = normalizeCampaignScanInput(input)
   const sql = getScanSql()
 
