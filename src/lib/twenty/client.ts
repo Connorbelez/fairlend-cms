@@ -39,12 +39,14 @@ export async function syncFairlendLeadToTwenty(
 }
 
 export function toTwentyMortgageLeadCreateInput(lead: NormalizedLeadPayload): Record<string, unknown> {
-  return {
+  return compactRecord({
     id: lead.id,
     ...toTwentyMortgageLeadUpdateInput(lead),
     workflowStatus: toTwentySelectValue(lead.workflowStatus),
     priority: toTwentySelectValue(lead.priority),
-  }
+    nextActionAt: lead.nextActionAt,
+    adminNotes: lead.adminNotes,
+  })
 }
 
 export function toTwentyMortgageLeadUpdateInput(lead: NormalizedLeadPayload): Record<string, unknown> {

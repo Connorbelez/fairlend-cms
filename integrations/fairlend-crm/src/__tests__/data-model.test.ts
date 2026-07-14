@@ -11,6 +11,7 @@ import mortgageLead from 'src/objects/mortgage-lead';
 import campaignTouchesView from 'src/views/campaign-touches.view';
 import consultationsView from 'src/views/consultations.view';
 import mortgageLeadsView from 'src/views/mortgage-leads.view';
+import { FieldType, RelationType } from 'twenty-sdk/define';
 import { describe, expect, it } from 'vitest';
 
 const entities = [mortgageLead, consultation, campaignTouch];
@@ -49,6 +50,38 @@ describe('FairLend CRM data model', () => {
     ]);
 
     expect(new Set(identifiers).size).toBe(identifiers.length);
+  });
+
+  it('declares a physical join column for every many-to-one relation', () => {
+    const relationFields = entities.flatMap((entity) =>
+      entity.config.fields.filter((field) => field.type === FieldType.RELATION),
+    );
+    const manyToOneFields = relationFields.filter(
+      (field) => field.universalSettings?.relationType === RelationType.MANY_TO_ONE,
+    );
+
+    expect(manyToOneFields).toHaveLength(6);
+
+    for (const field of manyToOneFields) {
+      expect(field.universalSettings?.joinColumnName, field.name).toMatch(/Id$/);
+    }
+  });
+
+  it('quotes literal string defaults for Twenty metadata sync', () => {
+    const stringDefaults = entities
+      .flatMap((entity) => entity.config.fields)
+      .filter(
+        (field): field is typeof field & { defaultValue: string } =>
+          'defaultValue' in field && typeof field.defaultValue === 'string',
+      )
+      .map((field) => field.defaultValue)
+      .filter((defaultValue) => !['now', 'uuid'].includes(defaultValue));
+
+    expect(stringDefaults.length).toBeGreaterThan(0);
+
+    for (const defaultValue of stringDefaults) {
+      expect(defaultValue).toMatch(/^'.*'$/);
+    }
   });
 
   it('models the complete normalized website lead contract', () => {

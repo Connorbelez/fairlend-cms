@@ -33,7 +33,7 @@ export default defineObject({
       type: FieldType.TEXT,
       name: 'name',
       label: 'Campaign Touch',
-      defaultValue: 'Campaign touch',
+      defaultValue: "'Campaign touch'",
       isNullable: false,
     },
     {
@@ -75,7 +75,10 @@ export default defineObject({
       isNullable: true,
       relationTargetObjectMetadataUniversalIdentifier: MORTGAGE_LEAD_OBJECT_ID,
       relationTargetFieldMetadataUniversalIdentifier: MORTGAGE_LEAD_FIELD_IDS.campaignTouches,
-      universalSettings: { relationType: RelationType.MANY_TO_ONE },
+      universalSettings: {
+        relationType: RelationType.MANY_TO_ONE,
+        joinColumnName: 'mortgageLeadId',
+      },
     },
   ],
 });
