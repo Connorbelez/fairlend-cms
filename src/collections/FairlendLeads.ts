@@ -286,11 +286,11 @@ export const FairlendLeads: CollectionConfig = {
               name: 'intakeMortgageGoal',
               type: 'text',
               admin: {
-                description: 'Step-one mortgage goal or situation selected by the lead.',
+                description: 'Mortgage product, goal, or borrowing situation selected by the lead.',
                 readOnly: true,
                 width: '75%',
               },
-              label: 'Mortgage Goal',
+              label: 'Mortgage Product / Goal',
             },
           ],
         },

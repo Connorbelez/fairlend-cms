@@ -2436,7 +2436,7 @@ export interface FairlendLead {
    */
   intakeMortgageProduct?: ('institutional' | 'private') | null;
   /**
-   * Step-one mortgage goal or situation selected by the lead.
+   * Mortgage product, goal, or borrowing situation selected by the lead.
    */
   intakeMortgageGoal?: string | null;
   intakeFinancingNeeds?: string | null;

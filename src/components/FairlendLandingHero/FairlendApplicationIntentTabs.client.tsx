@@ -88,6 +88,8 @@ export function FairlendApplicationIntentTabs({
     positionPill(hasPositionedTabPillRef.current && !reduceMotion)
     hasPositionedTabPillRef.current = true
 
+    if (typeof ResizeObserver === 'undefined') return
+
     const resizeObserver = new ResizeObserver(() => positionPill(false))
     resizeObserver.observe(tabList)
 
