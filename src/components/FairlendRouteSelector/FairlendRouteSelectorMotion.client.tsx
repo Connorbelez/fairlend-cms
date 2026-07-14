@@ -35,6 +35,16 @@ export function FairlendRouteSelectorMotion() {
     }
 
     const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const compactViewportQuery = window.matchMedia('(max-width: 767px)')
+
+    // Mobile WebKit is prone to checkerboarding when this tall section combines
+    // offscreen entrance transforms, clip paths, filters, and backdrop layers.
+    // The compact layout is already sequential, so render it in its final state
+    // and avoid installing scroll observers solely for decorative choreography.
+    if (compactViewportQuery.matches) {
+      section.dataset.routeMotionState = 'static'
+      return
+    }
 
     if (reducedMotionQuery.matches) {
       section.dataset.routeMotionState = 'reduced'

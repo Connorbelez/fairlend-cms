@@ -1051,6 +1051,16 @@
     }
   }
 
+  @media (max-width: 767px) {
+    [data-fairlend-route-selector] [data-fairlend-route-motion],
+    [data-fairlend-route-selected='true']::after {
+      animation: none !important;
+      backface-visibility: visible;
+      clip-path: none !important;
+      transform: none !important;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     [data-fairlend-route-selector] [data-fairlend-route-motion],
     [data-fairlend-route-selected='true']::after {

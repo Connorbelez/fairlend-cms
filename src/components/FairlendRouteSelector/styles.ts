@@ -191,7 +191,7 @@ export const fairlendRouteOriginDotVariants = cva(
 )
 
 export const fairlendRouteCardVariants = cva(
-  'group relative flex flex-col overflow-hidden rounded-[var(--fl-route-radius-card)] border border-[color:var(--fl-route-ink)] bg-[color:var(--fl-route-card-bg-translucent)] p-[18px] [filter:drop-shadow(9px_10px_0_var(--fl-route-lime))] backdrop-blur-sm transition-[filter,transform] duration-300 ease-[var(--route-motion-ease)] max-md:min-h-0 max-md:rounded-2xl max-md:p-4',
+  'group relative flex flex-col overflow-hidden rounded-[var(--fl-route-radius-card)] border border-[color:var(--fl-route-ink)] bg-[color:var(--fl-route-card-bg-translucent)] p-[18px] [filter:drop-shadow(9px_10px_0_var(--fl-route-lime))] backdrop-blur-sm transition-[filter,transform] duration-300 ease-[var(--route-motion-ease)] max-md:min-h-0 max-md:rounded-2xl max-md:p-4 max-md:[filter:none] max-md:shadow-[9px_10px_0_var(--fl-route-lime)] max-md:backdrop-blur-none',
   {
     variants: {
       layout: {
@@ -270,7 +270,7 @@ export const fairlendRouteArrowBoxVariants = cva(
 )
 
 export const fairlendRouteHelpBannerVariants = cva(
-  'grid w-full grid-cols-[96px_minmax(0,1fr)_1px_196px] items-center gap-7 rounded-[var(--fl-route-radius-helper)] border border-[color:var(--fl-route-helper-rule)] bg-[color:var(--fl-route-helper-bg)] px-5 py-3 shadow-[var(--fl-route-shadow-helper)] backdrop-blur-sm max-md:grid-cols-[74px_minmax(0,1fr)] max-md:gap-x-4 max-md:gap-y-3 max-md:px-4 max-md:py-4',
+  'grid w-full grid-cols-[96px_minmax(0,1fr)_1px_196px] items-center gap-7 rounded-[var(--fl-route-radius-helper)] border border-[color:var(--fl-route-helper-rule)] bg-[color:var(--fl-route-helper-bg)] px-5 py-3 shadow-[var(--fl-route-shadow-helper)] backdrop-blur-sm max-md:grid-cols-[74px_minmax(0,1fr)] max-md:gap-x-4 max-md:gap-y-3 max-md:px-4 max-md:py-4 max-md:backdrop-blur-none',
 )
 
 export const fairlendRouteHelpTextVariants = cva('', {
