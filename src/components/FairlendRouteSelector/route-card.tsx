@@ -52,9 +52,6 @@ export function FairlendRouteCard({
         isCompact && 'xl:gap-x-5 xl:p-3',
         className,
       )}
-      data-fairlend-route-card={route.id}
-      data-fairlend-route-motion="card"
-      data-fairlend-route-selected={isSelected ? 'true' : 'false'}
       {...props}
     >
       {badgeLabel ? (
@@ -109,7 +106,6 @@ export function FairlendRouteCard({
           <Image
             alt=""
             className="h-auto max-h-[104px] w-full object-contain object-right-top mix-blend-multiply"
-            data-fairlend-route-motion="illustration"
             height={route.illustration.height}
             sizes="245px"
             src={route.illustration.src}
@@ -241,7 +237,6 @@ export function FairlendRouteCard({
                     hasHighlights && 'max-h-[190px] md:max-h-[230px]',
                     isInvestRoute && 'xl:max-h-[86px]',
                   )}
-                  data-fairlend-route-motion="illustration"
                   height={route.illustration.height}
                   sizes="(min-width: 1280px) 260px, 45vw"
                   src={route.illustration.src}
@@ -343,7 +338,6 @@ export function FairlendRouteCard({
                     ? 'max-h-[min(34vh,330px)] object-right-bottom max-md:max-h-[clamp(160px,35vw,220px)] max-md:object-center'
                     : 'max-h-[110px]',
                 )}
-                data-fairlend-route-motion="illustration"
                 height={route.illustration.height}
                 sizes={isFeatured ? '(min-width: 1280px) 560px, 70vw' : '220px'}
                 src={route.illustration.src}

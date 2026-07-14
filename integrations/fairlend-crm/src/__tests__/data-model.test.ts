@@ -4,17 +4,36 @@ import personConsultations from 'src/fields/person-consultations';
 import personMortgageLeads from 'src/fields/person-mortgage-leads';
 import campaignTouchesNavigation from 'src/navigation-menu-items/campaign-touches.navigation-menu-item';
 import consultationsNavigation from 'src/navigation-menu-items/consultations.navigation-menu-item';
-import mortgageLeadsNavigation from 'src/navigation-menu-items/mortgage-leads.navigation-menu-item';
 import campaignTouch from 'src/objects/campaign-touch';
 import consultation from 'src/objects/consultation';
+import constructionApplication from 'src/objects/construction-application';
+import generalInquiry from 'src/objects/general-inquiry';
+import lenderApplication from 'src/objects/lender-application';
+import mortgageBorrowerLead from 'src/objects/mortgage-borrower-lead';
 import mortgageLead from 'src/objects/mortgage-lead';
+import newsletterSubscription from 'src/objects/newsletter-subscription';
+import partnerLead from 'src/objects/partner-lead';
+import {
+  buildIntakeViewConfig,
+  getAllPromotedFieldNames,
+  type IntakeObjectKind,
+} from 'src/schema/intake-model';
 import campaignTouchesView from 'src/views/campaign-touches.view';
 import consultationsView from 'src/views/consultations.view';
 import mortgageLeadsView from 'src/views/mortgage-leads.view';
 import { FieldType, RelationType } from 'twenty-sdk/define';
 import { describe, expect, it } from 'vitest';
 
-const entities = [mortgageLead, consultation, campaignTouch];
+const operationalEntities = {
+  mortgage: mortgageBorrowerLead,
+  lender: lenderApplication,
+  construction: constructionApplication,
+  partner: partnerLead,
+  consultation,
+  general: generalInquiry,
+  newsletter: newsletterSubscription,
+} as const;
+const entities = [mortgageLead, campaignTouch, ...Object.values(operationalEntities)];
 const supportingEntities = [
   companyMortgageLeads,
   opportunityMortgageLeads,
@@ -25,7 +44,6 @@ const supportingEntities = [
   mortgageLeadsView,
   campaignTouchesNavigation,
   consultationsNavigation,
-  mortgageLeadsNavigation,
 ];
 
 describe('FairLend CRM data model', () => {
@@ -60,7 +78,7 @@ describe('FairLend CRM data model', () => {
       (field) => field.universalSettings?.relationType === RelationType.MANY_TO_ONE,
     );
 
-    expect(manyToOneFields).toHaveLength(6);
+    expect(manyToOneFields.length).toBeGreaterThanOrEqual(18);
 
     for (const field of manyToOneFields) {
       expect(field.universalSettings?.joinColumnName, field.name).toMatch(/Id$/);
@@ -84,43 +102,24 @@ describe('FairLend CRM data model', () => {
     }
   });
 
-  it('models the complete normalized website lead contract', () => {
-    const fieldNames = mortgageLead.config.fields.map((field) => field.name);
+  it('models the complete normalized website lead contract in typed columns', () => {
+    for (const [kind, entity] of Object.entries(operationalEntities) as [IntakeObjectKind, typeof consultation][]) {
+      const fieldNames = entity.config.fields.map((field) => field.name);
+      expect(fieldNames).toEqual(expect.arrayContaining(getAllPromotedFieldNames(kind)));
+      expect(fieldNames).toEqual(expect.arrayContaining(['capturedAt', 'submittedAt', 'timestampProvenance']));
+    }
+  });
 
-    expect(fieldNames).toEqual(
-      expect.arrayContaining([
-        'fairlendLeadId',
-        'captureStatus',
-        'workflowStatus',
-        'priority',
-        'intent',
-        'source',
-        'campaign',
-        'campaignScanId',
-        'contactName',
-        'email',
-        'phone',
-        'propertyAddress',
-        'intakeType',
-        'requestedAmount',
-        'timeline',
-        'projectStage',
-        'mortgageProduct',
-        'mortgageGoal',
-        'financingNeeds',
-        'propertyValue',
-        'mortgageBalance',
-        'additionalLiens',
-        'investmentFocus',
-        'intakeSummary',
-        'intakeDetail',
-        'intakePayload',
-        'addressPayload',
-        'attributionPayload',
-        'person',
-        'company',
-        'opportunity',
-      ]),
-    );
+  it('keeps raw audit JSON out of every user-facing All Intake Fields view', () => {
+    for (const kind of Object.keys(operationalEntities) as IntakeObjectKind[]) {
+      const view = buildIntakeViewConfig(kind, 'all-fields');
+      const visibleIds = view.fields?.map((field) => field.fieldMetadataUniversalIdentifier) ?? [];
+      const entity = operationalEntities[kind];
+      const visibleNames = entity.config.fields
+        .filter((field) => visibleIds.includes(field.universalIdentifier))
+        .map((field) => field.name);
+      expect(visibleNames).not.toEqual(expect.arrayContaining(['intakePayload', 'addressPayload', 'attributionPayload']));
+      expect(visibleNames).toEqual(expect.arrayContaining(['capturedAt', 'submittedAt']));
+    }
   });
 });

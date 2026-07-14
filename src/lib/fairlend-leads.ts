@@ -6,6 +6,7 @@ import {
   markFairlendCampaignScanConverted,
 } from '@/lib/fairlend-campaign-attribution'
 import { syncFairlendLeadToTwenty, type TwentySyncResult } from '@/lib/twenty/client'
+import type { TimestampProvenance } from '@/lib/twenty/intake-registry'
 
 type LeadStatus = 'draft' | 'started' | 'submitted'
 type LeadWorkflowStatus =
@@ -49,6 +50,7 @@ export interface NormalizedLeadPayload {
   attribution: LeadJsonRecord
   campaign: string | null
   campaignScanId: string | null
+  capturedAt: string
   email: string | null
   formattedAddress: string | null
   id: string
@@ -74,6 +76,8 @@ export interface NormalizedLeadPayload {
   priority: LeadPriority
   source: string
   status: LeadStatus
+  submittedAt: string | null
+  timestampProvenance: TimestampProvenance
   workflowStatus: LeadWorkflowStatus
 }
 
@@ -151,6 +155,9 @@ export function normalizeLeadPayload(payload: LeadPayload): NormalizedLeadPayloa
   const id = normalizeId(payload.id)
   const intake = isRecord(payload.intake) ? payload.intake : {}
   const intakeDetails = deriveFairlendLeadIntakeDetails(intake, payload.intent)
+  const capturedAt = new Date().toISOString()
+  const sourceSubmittedAt = normalizeDateTime(intake.submittedAt)
+  const status = normalizeStatus(payload.status)
 
   return {
     address: normalizeText(payload.address, 2000),
@@ -159,6 +166,7 @@ export function normalizeLeadPayload(payload: LeadPayload): NormalizedLeadPayloa
     attribution: isRecord(payload.attribution) ? payload.attribution : {},
     campaign: normalizeText(payload.campaign, 80),
     campaignScanId: normalizeText(payload.campaignScanId, 80),
+    capturedAt,
     email: normalizeText(payload.email, 320),
     formattedAddress: normalizeText(payload.formattedAddress, 2000),
     id,
@@ -171,7 +179,13 @@ export function normalizeLeadPayload(payload: LeadPayload): NormalizedLeadPayloa
     placeId: normalizeText(payload.placeId, 255),
     priority: normalizePriority(payload.priority),
     source: normalizeText(payload.source, 80) ?? 'website',
-    status: normalizeStatus(payload.status),
+    status,
+    submittedAt: sourceSubmittedAt ?? (status === 'submitted' ? capturedAt : null),
+    timestampProvenance: sourceSubmittedAt
+      ? 'source_supplied'
+      : status === 'submitted'
+        ? 'inferred_created_at'
+        : 'not_submitted',
     workflowStatus: normalizeWorkflowStatus(payload.workflowStatus),
   }
 }
@@ -182,7 +196,7 @@ export async function persistFairlendLead(payload: LeadPayload): Promise<Persist
 
   await ensureFairlendLeadSchema(sql)
 
-  await sql`
+  const persistedRows = await sql`
     INSERT INTO fairlend.leads AS lead (
       id,
       source,
@@ -198,7 +212,10 @@ export async function persistFairlendLead(payload: LeadPayload): Promise<Persist
       phone,
       campaign,
       campaign_scan_id,
-      attribution_payload
+      attribution_payload,
+      captured_at,
+      submitted_at,
+      submitted_at_source
     )
     VALUES (
       ${normalized.id},
@@ -215,11 +232,17 @@ export async function persistFairlendLead(payload: LeadPayload): Promise<Persist
       ${normalized.phone},
       ${normalized.campaign},
       ${normalized.campaignScanId},
-      ${JSON.stringify(normalized.attribution)}::jsonb
+      ${JSON.stringify(normalized.attribution)}::jsonb,
+      ${normalized.capturedAt},
+      ${normalized.submittedAt},
+      ${normalized.timestampProvenance}
     )
     ON CONFLICT (id) DO UPDATE SET
       source = EXCLUDED.source,
-      intent = COALESCE(EXCLUDED.intent, lead.intent),
+      intent = CASE
+        WHEN EXCLUDED.intent = 'document-upload' THEN lead.intent
+        ELSE COALESCE(EXCLUDED.intent, lead.intent)
+      END,
       status = EXCLUDED.status,
       address = COALESCE(EXCLUDED.address, lead.address),
       formatted_address = COALESCE(EXCLUDED.formatted_address, lead.formatted_address),
@@ -241,10 +264,32 @@ export async function persistFairlendLead(payload: LeadPayload): Promise<Persist
         WHEN EXCLUDED.attribution_payload = '{}'::jsonb THEN lead.attribution_payload
         ELSE EXCLUDED.attribution_payload
       END,
+      captured_at = COALESCE(lead.captured_at, EXCLUDED.captured_at),
+      submitted_at = COALESCE(lead.submitted_at, EXCLUDED.submitted_at),
+      submitted_at_source = CASE
+        WHEN lead.submitted_at IS NOT NULL THEN lead.submitted_at_source
+        ELSE EXCLUDED.submitted_at_source
+      END,
       updated_at = now()
+    RETURNING created_at
   `
 
-  return { id: normalized.id, normalized }
+  const persistedCreatedAt = normalizeDateTime(
+    (persistedRows[0] as { created_at?: unknown } | undefined)?.created_at,
+  ) ?? normalized.capturedAt
+  const sourceSubmittedAt = normalizeDateTime(normalized.intake.submittedAt)
+  const normalizedWithTimestamps: NormalizedLeadPayload = {
+    ...normalized,
+    capturedAt: persistedCreatedAt,
+    submittedAt: sourceSubmittedAt ?? (normalized.status === 'submitted' ? persistedCreatedAt : null),
+    timestampProvenance: sourceSubmittedAt
+      ? 'source_supplied'
+      : normalized.status === 'submitted'
+        ? 'inferred_created_at'
+        : 'not_submitted',
+  }
+
+  return { id: normalized.id, normalized: normalizedWithTimestamps }
 }
 
 export async function upsertFairlendLead(payload: LeadPayload): Promise<{ id: string }> {
@@ -253,7 +298,7 @@ export async function upsertFairlendLead(payload: LeadPayload): Promise<{ id: st
   await syncFairlendLeadAdminRecord(lead.normalized)
 
   const twentySync = await syncFairlendLeadToTwenty(lead.normalized)
-  await recordFairlendLeadTwentySync(lead.id, twentySync).catch((error) => {
+  await recordFairlendLeadTwentySync(lead.normalized, twentySync).catch((error) => {
     console.error('Failed to persist Twenty sync status', { error, leadId: lead.id })
   })
 
@@ -529,7 +574,10 @@ export async function syncFairlendLeadAdminRecord(payload: NormalizedLeadPayload
       priority = lead.priority,
       next_action_at = COALESCE(lead.next_action_at, EXCLUDED.next_action_at),
       admin_notes = COALESCE(lead.admin_notes, EXCLUDED.admin_notes),
-      intent = COALESCE(EXCLUDED.intent, lead.intent),
+      intent = CASE
+        WHEN EXCLUDED.intent = 'document-upload' THEN lead.intent
+        ELSE COALESCE(EXCLUDED.intent, lead.intent)
+      END,
       source = EXCLUDED.source,
       name = COALESCE(EXCLUDED.name, lead.name),
       email = COALESCE(EXCLUDED.email, lead.email),
@@ -571,7 +619,7 @@ export async function syncFairlendLeadAdminRecord(payload: NormalizedLeadPayload
 }
 
 async function recordFairlendLeadTwentySync(
-  leadId: string,
+  lead: NormalizedLeadPayload,
   result: TwentySyncResult,
 ): Promise<void> {
   const sql = getLeadSql()
@@ -583,10 +631,15 @@ async function recordFairlendLeadTwentySync(
       SET
         twenty_sync_status = 'synced'::enum_fairlend_leads_twenty_sync_status,
         twenty_record_id = ${result.recordId},
+        twenty_object_kind = ${result.objectKind},
+        twenty_related_record_ids = ${JSON.stringify(result.relatedRecords)}::jsonb,
+        captured_at = ${lead.capturedAt},
+        submitted_at = ${lead.submittedAt},
+        submitted_at_source = ${lead.timestampProvenance},
         twenty_last_synced_at = now(),
         twenty_sync_error = NULL,
         updated_at = now()
-      WHERE lead_id = ${leadId}
+      WHERE lead_id = ${lead.id}
     `
     return
   }
@@ -597,8 +650,11 @@ async function recordFairlendLeadTwentySync(
       SET
         twenty_sync_status = 'failed'::enum_fairlend_leads_twenty_sync_status,
         twenty_sync_error = ${result.error},
+        captured_at = ${lead.capturedAt},
+        submitted_at = ${lead.submittedAt},
+        submitted_at_source = ${lead.timestampProvenance},
         updated_at = now()
-      WHERE lead_id = ${leadId}
+      WHERE lead_id = ${lead.id}
     `
     return
   }
@@ -608,8 +664,11 @@ async function recordFairlendLeadTwentySync(
     SET
       twenty_sync_status = 'disabled'::enum_fairlend_leads_twenty_sync_status,
       twenty_sync_error = NULL,
+      captured_at = ${lead.capturedAt},
+      submitted_at = ${lead.submittedAt},
+      submitted_at_source = ${lead.timestampProvenance},
       updated_at = now()
-    WHERE lead_id = ${leadId}
+    WHERE lead_id = ${lead.id}
   `
 }
 
@@ -651,6 +710,9 @@ async function ensureFairlendLeadSchema(sql: NeonQueryFunction<false, false>): P
       campaign varchar(80),
       campaign_scan_id varchar(80),
       attribution_payload jsonb NOT NULL DEFAULT '{}'::jsonb,
+      captured_at timestamptz,
+      submitted_at timestamptz,
+      submitted_at_source varchar(40),
       created_at timestamptz NOT NULL DEFAULT now(),
       updated_at timestamptz NOT NULL DEFAULT now()
     )
@@ -659,7 +721,10 @@ async function ensureFairlendLeadSchema(sql: NeonQueryFunction<false, false>): P
     ALTER TABLE fairlend.leads
       ADD COLUMN IF NOT EXISTS campaign varchar(80),
       ADD COLUMN IF NOT EXISTS campaign_scan_id varchar(80),
-      ADD COLUMN IF NOT EXISTS attribution_payload jsonb NOT NULL DEFAULT '{}'::jsonb
+      ADD COLUMN IF NOT EXISTS attribution_payload jsonb NOT NULL DEFAULT '{}'::jsonb,
+      ADD COLUMN IF NOT EXISTS captured_at timestamptz,
+      ADD COLUMN IF NOT EXISTS submitted_at timestamptz,
+      ADD COLUMN IF NOT EXISTS submitted_at_source varchar(40)
   `
   await sql`CREATE INDEX IF NOT EXISTS leads_created_at_idx ON fairlend.leads (created_at)`
   await sql`CREATE INDEX IF NOT EXISTS leads_status_idx ON fairlend.leads (status)`
@@ -748,6 +813,11 @@ async function ensureFairlendLeadAdminSchema(sql: NeonQueryFunction<false, false
       twenty_record_id varchar,
       twenty_last_synced_at timestamp(3) with time zone,
       twenty_sync_error varchar,
+      twenty_object_kind varchar,
+      twenty_related_record_ids jsonb NOT NULL DEFAULT '[]'::jsonb,
+      captured_at timestamp(3) with time zone,
+      submitted_at timestamp(3) with time zone,
+      submitted_at_source varchar,
       updated_at timestamp(3) with time zone NOT NULL DEFAULT now(),
       created_at timestamp(3) with time zone NOT NULL DEFAULT now(),
       CONSTRAINT fairlend_leads_lead_id_unique UNIQUE(lead_id)
@@ -779,6 +849,11 @@ async function ensureFairlendLeadAdminSchema(sql: NeonQueryFunction<false, false
       ADD COLUMN IF NOT EXISTS twenty_record_id varchar,
       ADD COLUMN IF NOT EXISTS twenty_last_synced_at timestamp(3) with time zone,
       ADD COLUMN IF NOT EXISTS twenty_sync_error varchar
+      ,ADD COLUMN IF NOT EXISTS twenty_object_kind varchar
+      ,ADD COLUMN IF NOT EXISTS twenty_related_record_ids jsonb NOT NULL DEFAULT '[]'::jsonb
+      ,ADD COLUMN IF NOT EXISTS captured_at timestamp(3) with time zone
+      ,ADD COLUMN IF NOT EXISTS submitted_at timestamp(3) with time zone
+      ,ADD COLUMN IF NOT EXISTS submitted_at_source varchar
   `
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_lead_id_idx ON fairlend_leads USING btree (lead_id)`
   await sql`CREATE INDEX IF NOT EXISTS fairlend_leads_status_idx ON fairlend_leads USING btree (status)`

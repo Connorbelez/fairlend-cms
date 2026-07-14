@@ -84,7 +84,7 @@ export const fairlendBuildPropertyTypesRows = [
   {
     id: 'land',
     title: 'Land',
-    tagline: 'Unlock possibility',
+    tagline: 'We fund land acquisition',
     image: fairlendBuildPropertyTypesAssets.land,
     imageClassName: 'fairlend-build-property-types__image--land',
     href: '/start/builder',

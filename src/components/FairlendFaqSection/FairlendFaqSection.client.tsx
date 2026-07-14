@@ -511,17 +511,18 @@ export function FairlendFaqSectionClient() {
           </div>
         </div>
 
-        <div className="absolute top-[75px] right-[36px] z-10 w-[152px] max-md:hidden">
+        <div className="absolute top-[75px] right-[36px] z-10 w-[158px] max-md:hidden">
           <p className="m-0 text-[12px] leading-none font-black tracking-[0.12em] text-[#4e524b] uppercase">
             Toronto
           </p>
           <Image
             alt=""
             aria-hidden="true"
-            className="mt-6 h-[146px] w-full object-contain object-right opacity-[0.86] mix-blend-multiply"
+            className="mt-6 h-auto w-full object-contain object-right opacity-[0.86] mix-blend-multiply"
             height={146}
             loading="eager"
             src="/assets/fairlend-faq-reference/toronto-landmark-engraving.webp"
+            style={{ height: 'auto' }}
             width={158}
           />
         </div>

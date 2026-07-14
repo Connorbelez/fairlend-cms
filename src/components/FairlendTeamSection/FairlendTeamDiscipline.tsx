@@ -4,7 +4,7 @@ import type { ReactElement } from 'react'
 
 import { cn } from '@/utilities/ui'
 
-export type FairlendDisciplinePlateKind = 'legal' | 'operations' | 'technology'
+export type FairlendDisciplinePlateKind = 'finance' | 'legal' | 'technology'
 
 const disciplineVariants = cva('fairlend-team__discipline', {
   variants: {
@@ -35,7 +35,7 @@ type DisciplineProps =
     }
 
 const technologySignals = ['System architecture', 'Data', 'Model', 'Human review'] as const
-const operationsScale = ['00', '25', '50', '75', '100'] as const
+const financeScale = ['00', '25', '50', '75', '100'] as const
 const legalIndex = ['001', '002', '003', '004', '005', '006'] as const
 
 function RegistrationMark({ position }: { position: 'bottom' | 'top' }): ReactElement {
@@ -92,9 +92,9 @@ function TechnologyPlate(): ReactElement {
   )
 }
 
-function OperationsPlate(): ReactElement {
+function FinancePlate(): ReactElement {
   return (
-    <div className="team-plate team-plate--operations" data-team-plate="operations">
+    <div className="team-plate team-plate--finance" data-team-plate="finance">
       <span className="team-plate__edge team-plate__edge--top" data-axis="x" data-plate-line />
       <span className="team-plate__edge team-plate__edge--right" data-axis="y" data-plate-line />
       <span className="team-plate__edge team-plate__edge--bottom" data-axis="x" data-plate-line />
@@ -116,19 +116,19 @@ function OperationsPlate(): ReactElement {
       </span>
 
       <div className="team-plate__meta team-plate__meta--top" data-plate-meta>
-        <span>Control register</span>
-        <strong>OPS-CTRL-02</strong>
+        <span>Financial control register</span>
+        <strong>FIN-CTRL-02</strong>
         <i data-axis="x" data-plate-line />
       </div>
 
-      <strong className="team-plate__code team-plate__code--operations" data-plate-code>
-        <span>OPS/</span>
+      <strong className="team-plate__code team-plate__code--finance" data-plate-code>
+        <span>FIN/</span>
         <span>CTRL</span>
       </strong>
 
       <div className="team-plate__scale" data-plate-detail>
         <i className="team-plate__scale-line" data-axis="x" data-plate-line />
-        {operationsScale.map((value, index) => (
+        {financeScale.map((value, index) => (
           <span className={index === 2 ? 'is-active' : undefined} key={value}>
             <i data-axis="y" data-plate-line />
             <b>{value}</b>
@@ -184,7 +184,7 @@ function LegalPlate(): ReactElement {
 
 function ClassificationPlate({ plate }: { plate: FairlendDisciplinePlateKind }): ReactElement {
   if (plate === 'technology') return <TechnologyPlate />
-  if (plate === 'operations') return <OperationsPlate />
+  if (plate === 'finance') return <FinancePlate />
   return <LegalPlate />
 }
 

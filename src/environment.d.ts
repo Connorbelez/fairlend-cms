@@ -10,6 +10,8 @@ declare global {
       CRON_SECRET: string
       NEXT_PUBLIC_SERVER_URL: string
       VERCEL_PROJECT_PRODUCTION_URL: string
+      INDEXNOW_ENABLED?: string
+      INDEXNOW_KEY?: string
     }
   }
 }

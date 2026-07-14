@@ -62,19 +62,38 @@ describe('FairLend production readiness guards', () => {
     expect(fairlendNavLinks).toEqual({
       about: { href: '/#overview' },
       backoffice: { href: '/#questions' },
+      borrowers: { href: '/borrowers' },
+      bridgeLoans: {
+        href: '/intake?intent=mortgage&source=header-nav-bridge-loans',
+      },
+      builderResource: { href: '/resources/construction-draws-small-builders' },
+      constructionFinancing: { href: '/construction-draw-financing' },
+      contact: { href: '/contact' },
+      disclosures: { href: '/disclosures' },
+      ethos: { href: '/#ethos' },
+      gardenLanewaySuites: { href: '/garden-suite-financing-gta' },
       home: { href: '/' },
       intake: { href: '/intake' },
-      investing: { href: '/investing/private-mortgage-lending' },
+      institutionalMortgages: { href: '/borrowers/institutional-mortgage' },
+      investing: { href: '/investing' },
       leadership: { href: '/#leadership' },
+      mliSelectInsuredHousing: { href: '/cmhc-mli-select-multiplex-financing' },
+      multiplexFinancing: { href: '/multiplex-financing-gta' },
       partners: { href: '/partners' },
-      privateMortgages: {
-        href: '/intake?intent=mortgage&source=header-nav-private-mortgage',
-      },
+      privateMortgageLending: { href: '/investing/private-mortgage-lending' },
+      privateMortgages: { href: '/borrowers/private-mortgage-financing' },
       rentalPropertyAcquisition: {
         href: '/intake?intent=mortgage&source=header-nav-acquisition-existing-rental-properties',
       },
       rentalPropertyRefinance: {
         href: '/intake?intent=mortgage&source=header-nav-refinancing-existing-rental-properties',
+      },
+      renovationFinancing: {
+        href: '/intake?intent=build&projectScope=renovation-financing&source=header-nav-renovation-financing',
+      },
+      resources: { href: '/posts' },
+      residentialMortgages: {
+        href: '/intake?intent=mortgage&source=header-nav-residential-mortgages',
       },
       startFile: { href: '/intake' },
     })
@@ -99,18 +118,18 @@ describe('FairLend production readiness guards', () => {
     ])
   })
 
-  it('routes private mortgage navigation and cards to the unified intake', async () => {
-    const files = await Promise.all([
+  it('links the private-mortgage money page from navigation while keeping conversion cards tracked', async () => {
+    const [routeSelector, propertyTypes, navigation] = await Promise.all([
       source('src/components/FairlendRouteSelector/route-data.tsx'),
       source('src/components/FairlendBuildPropertyTypes/index.tsx'),
       source('src/components/directional-hover-header/header/nav-data.ts'),
     ])
-    const combined = files.join('\n')
 
-    expect(combined).not.toContain("href: '/borrowers/private-mortgage-financing'")
-    expect(combined).toContain("buildFairlendMortgageHref('route-selector-private-mortgage')")
-    expect(combined).toContain("buildFairlendMortgageHref('property-types-residential-mortgage')")
-    expect(combined).toContain("buildFairlendMortgageHref('header-nav-private-mortgage')")
+    expect(navigation).toContain("privateMortgages: { href: '/borrowers/private-mortgage-financing' }")
+    expect(routeSelector).toContain("buildFairlendMortgageHref('route-selector-private-mortgage')")
+    expect(propertyTypes).toContain(
+      "buildFairlendMortgageHref('property-types-residential-mortgage')",
+    )
   })
 
   it('routes bridge-loan cards to the unified mortgage intake', async () => {
@@ -133,7 +152,10 @@ describe('FairLend production readiness guards', () => {
 
     expect(footerSource).toContain("buildFairlendConsultationHref('reference-footer-apply-now')")
     expect(footerSource).toContain('href: consultationHref')
-    expect(footerSource).toContain('href="/search?q=terms"')
+    expect(footerSource).toContain('href="/terms"')
+    expect(footerSource).toContain('href="/contact"')
+    expect(footerSource).toContain('647-831-7605')
+    expect(footerSource).not.toContain('416-555-0199')
     expect(footerSource).not.toContain('outlook.office.com/book')
   })
 

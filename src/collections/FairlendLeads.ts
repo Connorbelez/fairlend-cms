@@ -29,6 +29,8 @@ export const FairlendLeads: CollectionConfig = {
       'intakeAdditionalLiens',
       'intakeTimeline',
       'intakeProjectStage',
+      'capturedAt',
+      'submittedAt',
       'name',
       'email',
       'phone',
@@ -70,6 +72,28 @@ export const FairlendLeads: CollectionConfig = {
         { label: 'Submitted', value: 'submitted' },
       ],
       required: true,
+    },
+    {
+      name: 'capturedAt',
+      type: 'date',
+      admin: { date: { pickerAppearance: 'dayAndTime' }, readOnly: true },
+      index: true,
+    },
+    {
+      name: 'submittedAt',
+      type: 'date',
+      admin: { date: { pickerAppearance: 'dayAndTime' }, readOnly: true },
+      index: true,
+    },
+    {
+      name: 'submittedAtSource',
+      type: 'select',
+      admin: { readOnly: true },
+      options: [
+        { label: 'Source supplied', value: 'source_supplied' },
+        { label: 'Inferred from captured time', value: 'inferred_created_at' },
+        { label: 'Not submitted', value: 'not_submitted' },
+      ],
     },
     {
       name: 'workflowStatus',
@@ -411,7 +435,7 @@ export const FairlendLeads: CollectionConfig = {
               type: 'select',
               admin: {
                 readOnly: true,
-                width: '33.333%',
+                width: '25%',
               },
               defaultValue: 'disabled',
               index: true,
@@ -428,7 +452,16 @@ export const FairlendLeads: CollectionConfig = {
               type: 'text',
               admin: {
                 readOnly: true,
-                width: '33.333%',
+                width: '25%',
+              },
+              index: true,
+            },
+            {
+              name: 'twentyObjectKind',
+              type: 'text',
+              admin: {
+                readOnly: true,
+                width: '25%',
               },
               index: true,
             },
@@ -440,10 +473,15 @@ export const FairlendLeads: CollectionConfig = {
                   pickerAppearance: 'dayAndTime',
                 },
                 readOnly: true,
-                width: '33.333%',
+                width: '25%',
               },
             },
           ],
+        },
+        {
+          name: 'twentyRelatedRecordIds',
+          type: 'json',
+          admin: { readOnly: true },
         },
         {
           name: 'twentySyncError',

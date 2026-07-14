@@ -79,6 +79,16 @@ Evidence: browser interaction selected `residential-mortgages`, rendered non-emp
 - Browser console: no section page errors. The root page still emits a pre-existing hydration mismatch from `BuildSensitivityConsole`, outside this section and unchanged by this work.
 - Repository constraints: no build and no test suite were run, per the landing-page instructions.
 
+## Stability correction — 2026-07-14
+
+The Animate, Overdrive, and Delight experiments above were removed after frame-by-frame review of a production-shaped capture exposed two conflicting client state machines:
+
+- The observer leaf hydrated the fully rendered server markup and then applied an `idle` clip/transform state, causing already-visible cards and CTAs to disappear before replaying their entrance.
+- The canvas leaf selected the card closest to any pointer position inside the section, so whitespace and scroll movement could trigger a second visual selection independent of the actual link under the pointer.
+- The clean selector is now server-rendered and stable on first paint. Only direct CSS hover/focus behavior remains on actual interactive elements; there is no section-wide pointer listener, canvas targeting, observer, timeout, or post-hydration animation state.
+
+Detailed evidence and the 13-frame breakdown live in `docs/issue-evidence/fairlend-route-selector-gif-diagnosis.md`.
+
 ## Visual evidence
 
 - Baseline: `route-selector-baseline-mobile.png`, `route-selector-baseline-tablet.png`, `route-selector-baseline-desktop.png`

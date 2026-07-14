@@ -20,11 +20,44 @@ export const fairlendOrganizationJsonLd = (): JsonLdObject => ({
   '@id': `${getCanonicalUrl('/')}#organization`,
   '@type': ['Organization', 'FinancialService'],
   areaServed: defaultAreaServed,
+  contactPoint: {
+    '@type': 'ContactPoint',
+    availableLanguage: ['English'],
+    contactType: 'mortgage inquiries',
+    email: 'elie@fairlend.ca',
+    telephone: '+1-647-831-7605',
+  },
   email: 'elie@fairlend.ca',
   legalName: fairlendSeo.legalName,
+  logo: getCanonicalUrl('/assets/fairlend/fairlend-logo.svg'),
   name: fairlendSeo.siteName,
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      closes: '17:00',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '09:00',
+    },
+  ],
+  sameAs: [
+    'https://mbsweblist.fsco.gov.on.ca/ShowLicence.aspx?13827~',
+    'https://mbsweblist.fsco.gov.on.ca/ShowLicence.aspx?13828~',
+  ],
   telephone: '+1-647-831-7605',
   url: getCanonicalUrl('/'),
+})
+
+export const buildContactPageJsonLd = (): JsonLdObject => ({
+  '@context': 'https://schema.org',
+  '@id': `${getCanonicalUrl('/contact')}#webpage`,
+  '@type': 'ContactPage',
+  about: { '@id': `${getCanonicalUrl('/')}#organization` },
+  description:
+    'Contact FairLend Mortgage about private, construction, and institutional mortgage financing in Ontario.',
+  inLanguage: 'en-CA',
+  mainEntity: { '@id': `${getCanonicalUrl('/')}#organization` },
+  name: 'Contact FairLend Mortgage',
+  url: getCanonicalUrl('/contact'),
 })
 
 export const fairlendWebsiteJsonLd = (): JsonLdObject => ({

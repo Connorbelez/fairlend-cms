@@ -23,7 +23,7 @@ export type FairlendHeroOfferingRow = {
 
 type OfferingsLayout = 'list' | 'stack'
 
-const MORPH_DELAY_MS = 4000
+const MORPH_DELAY_MS = 2000
 const AMBIENT_INTERVAL_MS = 3200
 const SWIPE_THRESHOLD = 50
 const MOBILE_HERO_QUERY = '(max-width: 576px)'

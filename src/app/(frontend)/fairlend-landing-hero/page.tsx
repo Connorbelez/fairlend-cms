@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation'
+import { permanentRedirect } from 'next/navigation'
 
 import { buildFairlendMetadata } from '@/utilities/seo'
 
@@ -10,5 +10,5 @@ export const metadata = buildFairlendMetadata({
 })
 
 export default function FairlendLandingHeroPage() {
-  redirect('/')
+  permanentRedirect('/')
 }

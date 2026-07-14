@@ -21,7 +21,7 @@ const proofStats = [
     disclaimer: '*Principal-broker lifetime volume; final figure to be verified.',
     label: 'volume by\nprincipal\nbroker',
     qualifier: '*',
-    value: '$2B+',
+    value: '$1B+',
   },
   {
     disclaimer: '*Available for complete files; timing varies by file.',
@@ -103,7 +103,7 @@ function HeroTalkToExpertButton({ mobileDocked = false }: { mobileDocked?: boole
 
 function HeroDesktopActions() {
   return (
-    <div className="mt-[27px] flex flex-wrap items-center gap-3 max-md:mt-5 hero-mobile:hidden">
+    <div className="mt-0 flex flex-wrap items-center gap-3 hero-mobile:hidden">
       <BookConsultationButton />
       <HeroTalkToExpertButton />
     </div>
@@ -112,13 +112,13 @@ function HeroDesktopActions() {
 
 function ProofStats() {
   return (
-    <aside aria-label="FairLend proof points" className="animate-authority-variant-two delight-proof absolute top-[18%] right-[4.4%] z-10 hidden w-[294px] border border-[#08090a] bg-[#f8f7f5]/96 p-4 shadow-[8px_8px_0_#96ec18] xl:block"><span aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.34] mix-blend-multiply" style={{ backgroundImage: "url('/textures/grid-noise.png')" }} /><div className="relative flex items-center justify-between pb-3"><span aria-hidden="true" className="authority-rule absolute inset-x-0 bottom-0 h-px bg-[#08090a]" /><p className="m-0 text-[10px] font-extrabold tracking-[0.16em] uppercase">Authority file</p><span className="delight-stamp border border-[#72b900] px-2 py-1 text-[8px] font-extrabold tracking-[0.12em] text-[#72b900] opacity-60 transition-[transform,opacity] duration-300">VERIFIED</span></div><div className="relative divide-y divide-[#08090a]/25">{proofStats.map((stat) => <div className="delight-row grid grid-cols-[112px_minmax(0,1fr)] items-center gap-3 py-4 transition-transform duration-300 ease-out" key={stat.value}><strong className="font-serif text-[54px] leading-[0.82] font-semibold tracking-[-0.04em]">{stat.value}{'prefix' in stat ? <span className="ml-1 font-sans text-[12px] font-extrabold tracking-[0.08em] uppercase">{stat.prefix}</span> : null}<sup className="text-[10px]">{stat.qualifier}</sup></strong><span className="text-[14px] leading-[1.08] font-bold uppercase whitespace-pre-line">{stat.label}</span></div>)}</div></aside>
+    <aside aria-label="FairLend proof points" className="animate-authority-variant-two delight-proof absolute top-[18%] right-[4.4%] z-10 hidden w-[294px] border border-[#08090a] bg-[#f8f7f5]/96 p-4 shadow-[8px_8px_0_#96ec18] xl:block"><span aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.34] mix-blend-multiply" style={{ backgroundImage: "url('/textures/grid-noise.png')" }} /><div className="relative flex items-center justify-between pb-3"><span aria-hidden="true" className="authority-rule absolute inset-x-0 bottom-0 h-px bg-[#08090a]" /><p className="m-0 text-[10px] font-extrabold tracking-[0.16em] uppercase">Authority file</p><span className="delight-stamp border border-[#72b900] px-2 py-1 text-[8px] font-extrabold tracking-[0.12em] text-[#72b900] opacity-60 transition-[transform,opacity] duration-300">VERIFIED</span></div><div className="relative divide-y divide-[#08090a]/25">{proofStats.map((stat) => <div className="delight-row grid grid-cols-[112px_minmax(0,1fr)] items-center gap-3 py-4 transition-transform duration-300 ease-out" key={stat.value}><strong className="text-[54px] leading-[0.82] font-normal tracking-[-0.04em] [font-family:var(--font-dm-serif-display),Georgia,serif]">{stat.value}{'prefix' in stat ? <span className="ml-1 font-sans text-[12px] font-extrabold tracking-[0.08em] uppercase">{stat.prefix}</span> : null}<sup className="text-[10px]">{stat.qualifier}</sup></strong><span className="text-[14px] leading-[1.08] font-bold uppercase whitespace-pre-line">{stat.label}</span></div>)}</div></aside>
   )
 }
 
 function MobileAuthorityBar() {
   const statValueClassName =
-    'whitespace-nowrap font-serif text-[clamp(22px,7.4vw,30px)] leading-[0.82] font-semibold tracking-[-0.04em] text-[#050506]'
+    'whitespace-nowrap text-[clamp(22px,7.4vw,30px)] leading-[0.82] font-normal tracking-[-0.04em] text-[#050506] [font-family:var(--font-dm-serif-display),Georgia,serif]'
   const statLabelClassName =
     'min-h-[30px] text-[8px] leading-[1.06] font-bold tracking-[0.08em] text-[#141414]/72 uppercase hero-compact:text-[7px]'
 

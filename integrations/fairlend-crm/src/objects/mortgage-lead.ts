@@ -40,13 +40,13 @@ export default defineObject({
   universalIdentifier: MORTGAGE_LEAD_OBJECT_ID,
   nameSingular: 'mortgageLead',
   namePlural: 'mortgageLeads',
-  labelSingular: 'Mortgage Lead',
-  labelPlural: 'Mortgage Leads',
-  description: 'A FairLend website lead from mortgage, construction, investor, partner, consultation, contact, or newsletter intake.',
+  labelSingular: 'Legacy Intake Lead',
+  labelPlural: 'Legacy Intake Leads',
+  description: 'Read-only migration source for FairLend intake records captured before the operational CRM model.',
   icon: 'IconHomeDollar',
   isSearchable: true,
-  isUICreatable: true,
-  isUIEditable: true,
+  isUICreatable: false,
+  isUIEditable: false,
   labelIdentifierFieldMetadataUniversalIdentifier: MORTGAGE_LEAD_FIELD_IDS.name,
   fields: [
     {

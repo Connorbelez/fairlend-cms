@@ -1059,12 +1059,6 @@ export function FairlendScrollChoreography({
       if (leadership) {
         const select = gsap.utils.selector(leadership)
         const isDesktop = window.matchMedia('(min-width: 1025px)').matches
-        const kickerNumber = select('[data-leadership-kicker-number]')
-        const kickerSlash = select('[data-leadership-kicker-slash]')
-        const kickerLabel = select('[data-leadership-kicker-label]')
-        const intro = select('[data-leadership-intro]')
-        const meta = select('[data-leadership-meta]')
-        const ledgerTabs = select('[data-leadership-ledger-tab]')
         const frame = select('[data-leadership-frame]')
         const frameLinesX = select(
           '[data-leadership-frame-line="top"], [data-leadership-frame-line="bottom"]',
@@ -1077,11 +1071,6 @@ export function FairlendScrollChoreography({
         const visualImage = visualPanel?.querySelector('img')
         const visualGrid = select('[data-leadership-visual-grid]')
         const visualSweep = select('[data-leadership-visual-sweep]')
-        const routeOverlay = select('[data-leadership-route-overlay]')
-        const routePaths = gsap.utils.toArray<SVGPathElement>(
-          leadership.querySelectorAll('[data-leadership-route-path]'),
-        )
-        const routeDots = select('.leadership-route-dot')
         const indexMark = select('[data-leadership-index]')
         const copyItems = select('[data-leadership-copy-item]')
         const titleLines = select('[data-leadership-title-line] > span')
@@ -1101,33 +1090,6 @@ export function FairlendScrollChoreography({
         const quoteCopy = select('[data-leadership-quote-copy]')
         const commitments = select('[data-leadership-commitment]')
 
-        gsap.set(kickerNumber, {
-          autoAlpha: 0.16,
-          clipPath: 'inset(100% 0% 0% 0%)',
-          y: 28,
-        })
-        gsap.set(kickerSlash, {
-          autoAlpha: 0.18,
-          clipPath: 'inset(0% 0% 100% 0%)',
-          scaleY: 0.58,
-          transformOrigin: '50% 100%',
-        })
-        gsap.set(kickerLabel, {
-          autoAlpha: 0.12,
-          clipPath: 'inset(0% 100% 0% 0%)',
-          x: -24,
-        })
-        gsap.set(intro, { autoAlpha: 0.2, filter: 'blur(5px)', y: 22 })
-        gsap.set(meta, {
-          autoAlpha: 0.18,
-          clipPath: 'inset(0% 0% 0% 100%)',
-          x: 18,
-        })
-        gsap.set(ledgerTabs, {
-          autoAlpha: 0.16,
-          scaleX: 0.08,
-          transformOrigin: 'left center',
-        })
         gsap.set(frame, {
           autoAlpha: 1,
           borderColor: 'rgb(8 45 35 / 0%)',
@@ -1160,16 +1122,6 @@ export function FairlendScrollChoreography({
         }
         gsap.set(visualGrid, { autoAlpha: 0, xPercent: -5 })
         gsap.set(visualSweep, { autoAlpha: 0, skewX: -12, xPercent: -150 })
-        gsap.set(routeOverlay, { autoAlpha: 0 })
-        routePaths.forEach((path) => {
-          const length = path.getTotalLength()
-
-          gsap.set(path, {
-            strokeDasharray: length,
-            strokeDashoffset: length,
-          })
-        })
-        gsap.set(routeDots, { autoAlpha: 0, scale: 0.42, transformOrigin: '50% 50%' })
         gsap.set(indexMark, { autoAlpha: 0, scale: 1.24, x: 18 })
         gsap.set(copyItems, { autoAlpha: 0.16, filter: 'blur(5px)', y: 24 })
         gsap.set(titleLines, {
@@ -1284,14 +1236,6 @@ export function FairlendScrollChoreography({
             },
             0,
           )
-          .to(kickerNumber, { autoAlpha: 1, clipPath: 'inset(0% 0% 0% 0%)', y: 0 }, 0)
-          .to(kickerSlash, { autoAlpha: 1, clipPath: 'inset(0% 0% 0% 0%)', scaleY: 1 }, 0.12)
-          .to(kickerSlash, { duration: 0.08, ease: 'none', x: 4 }, 0.34)
-          .to(kickerSlash, { duration: 0.14, ease: 'power2.out', x: 0 }, 0.42)
-          .to(kickerLabel, { autoAlpha: 1, clipPath: 'inset(0% 0% 0% 0%)', x: 0 }, 0.2)
-          .to(intro, { autoAlpha: 1, filter: 'blur(0px)', y: 0 }, 0.3)
-          .to(meta, { autoAlpha: 1, clipPath: 'inset(0% 0% 0% 0%)', x: 0 }, 0.32)
-          .to(ledgerTabs, { autoAlpha: 1, scaleX: 1, stagger: 0.045 }, 0.4)
           .to(
             mainPanel,
             {
@@ -1317,9 +1261,6 @@ export function FairlendScrollChoreography({
           .to(visualSweep, { autoAlpha: 0.82, duration: 0.18 }, 0.8)
           .to(visualSweep, { duration: 0.74, ease: 'power2.inOut', xPercent: 320 }, 0.82)
           .to(visualSweep, { autoAlpha: 0, duration: 0.18 }, 1.42)
-          .to(routeOverlay, { autoAlpha: 1, duration: 0.22 }, 0.9)
-          .to(routePaths, { duration: 0.72, ease: 'power2.inOut', strokeDashoffset: 0 }, 0.92)
-          .to(routeDots, { autoAlpha: 1, duration: 0.18, scale: 1, stagger: 0.055 }, 1.18)
           .to(visualGrid, { autoAlpha: 0.28, duration: 0.32 }, 1.34)
           .to(indexMark, { autoAlpha: 1, scale: 1, x: 0 }, 0.72)
           .to(copyItems, { autoAlpha: 1, filter: 'blur(0px)', stagger: 0.06, y: 0 }, 0.76)

@@ -6,6 +6,7 @@ import {
   MORTGAGE_LEAD_FIELD_IDS,
   MORTGAGE_LEAD_OBJECT_ID,
 } from 'src/constants/data-model';
+import { buildCampaignTouchRelationConfig } from 'src/schema/intake-model';
 
 const textField = (universalIdentifier: string, name: string, label: string) => ({
   universalIdentifier,
@@ -80,5 +81,12 @@ export default defineObject({
         joinColumnName: 'mortgageLeadId',
       },
     },
+    buildCampaignTouchRelationConfig('mortgage'),
+    buildCampaignTouchRelationConfig('lender'),
+    buildCampaignTouchRelationConfig('construction'),
+    buildCampaignTouchRelationConfig('partner'),
+    buildCampaignTouchRelationConfig('consultation'),
+    buildCampaignTouchRelationConfig('general'),
+    buildCampaignTouchRelationConfig('newsletter'),
   ],
 });

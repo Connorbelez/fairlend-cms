@@ -2379,6 +2379,9 @@ export interface FairlendLead {
    */
   leadId: string;
   status: 'draft' | 'started' | 'submitted';
+  capturedAt?: string | null;
+  submittedAt?: string | null;
+  submittedAtSource?: ('source_supplied' | 'inferred_created_at' | 'not_submitted') | null;
   /**
    * Editable admin pipeline stage for follow-up.
    */
@@ -2482,7 +2485,17 @@ export interface FairlendLead {
   adminNotes?: string | null;
   twentySyncStatus: 'disabled' | 'pending' | 'synced' | 'failed';
   twentyRecordId?: string | null;
+  twentyObjectKind?: string | null;
   twentyLastSyncedAt?: string | null;
+  twentyRelatedRecordIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   twentySyncError?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -4184,6 +4197,9 @@ export interface CategoriesSelect<T extends boolean = true> {
 export interface FairlendLeadsSelect<T extends boolean = true> {
   leadId?: T;
   status?: T;
+  capturedAt?: T;
+  submittedAt?: T;
+  submittedAtSource?: T;
   workflowStatus?: T;
   priority?: T;
   nextActionAt?: T;
@@ -4216,7 +4232,9 @@ export interface FairlendLeadsSelect<T extends boolean = true> {
   adminNotes?: T;
   twentySyncStatus?: T;
   twentyRecordId?: T;
+  twentyObjectKind?: T;
   twentyLastSyncedAt?: T;
+  twentyRelatedRecordIds?: T;
   twentySyncError?: T;
   updatedAt?: T;
   createdAt?: T;

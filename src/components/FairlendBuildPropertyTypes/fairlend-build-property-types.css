@@ -558,7 +558,7 @@
 @media (min-width: 577px) {
   .fairlend-build-property-types--hero {
     width: min(100%, 466px);
-    height: clamp(236px, 28vh, 272px);
+    height: clamp(292px, 34vh, 324px);
     aspect-ratio: auto;
   }
 
@@ -567,7 +567,7 @@
   }
 
   .fairlend-hero-offerings-morph[data-offerings-layout='list'] .fairlend-build-property-types__row {
-    height: 22%;
+    height: 23%;
     overflow: hidden;
     border-radius: 12px;
     background: rgb(248 247 245 / 86%);
@@ -583,17 +583,17 @@
 
   .fairlend-hero-offerings-morph[data-offerings-layout='list']
     .fairlend-build-property-types__row:nth-child(2) {
-    top: 26%;
+    top: 25.5%;
   }
 
   .fairlend-hero-offerings-morph[data-offerings-layout='list']
     .fairlend-build-property-types__row:nth-child(3) {
-    top: 51%;
+    top: 50%;
   }
 
   .fairlend-hero-offerings-morph[data-offerings-layout='list']
     .fairlend-build-property-types__row:nth-child(4) {
-    top: 76%;
+    top: 74.5%;
   }
 
   .fairlend-hero-offerings-morph[data-offerings-layout='list'] .fairlend-build-property-types__art,
@@ -636,7 +636,7 @@
     .fairlend-build-property-types__row:nth-child(n)
     .fairlend-build-property-types__copy {
     left: 39%;
-    top: 14%;
+    top: 12%;
     width: 57%;
   }
 

@@ -274,11 +274,12 @@ async function mirrorConsultationBookingLead({
   try {
     await upsertFairlendLead({
       email,
-      id: leadId ?? bookingId,
+      id: bookingId,
       intake: {
         bookingId,
         googleEventLink: googleEventLink ?? null,
         notes: notes ?? null,
+        originatingLeadId: leadId ?? null,
         scheduledEnd,
         scheduledStart,
         timezone,

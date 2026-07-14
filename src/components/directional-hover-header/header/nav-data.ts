@@ -36,20 +36,28 @@ export type NavLink = {
 export const fairlendNavLinks = {
   home: { href: '/' },
   backoffice: { href: '/#questions' },
+  borrowers: { href: '/borrowers' },
+  contact: { href: '/contact' },
+  disclosures: { href: '/disclosures' },
   intake: { href: '/intake' },
-  privateMortgages: { href: buildFairlendMortgageHref('header-nav-private-mortgage') },
+  privateMortgages: { href: '/borrowers/private-mortgage-financing' },
+  institutionalMortgages: { href: '/borrowers/institutional-mortgage' },
+  constructionFinancing: { href: '/construction-draw-financing' },
   rentalPropertyAcquisition: {
     href: buildFairlendMortgageHref(fairlendRentalPropertyAcquisitionHeaderSource),
   },
   rentalPropertyRefinance: {
     href: buildFairlendMortgageHref(fairlendRentalPropertyRefinanceHeaderSource),
   },
-  investing: { href: '/investing/private-mortgage-lending' },
+  investing: { href: '/investing' },
+  privateMortgageLending: { href: '/investing/private-mortgage-lending' },
   partners: { href: '/partners' },
   startFile: { href: '/intake' },
   about: { href: '/#overview' },
   ethos: { href: '/#ethos' },
   leadership: { href: '/#leadership' },
+  resources: { href: '/posts' },
+  builderResource: { href: '/resources/construction-draws-small-builders' },
   residentialMortgages: {
     href: buildFairlendMortgageHref('header-nav-residential-mortgages'),
   },
@@ -62,25 +70,13 @@ export const fairlendNavLinks = {
     }),
   },
   multiplexFinancing: {
-    href: buildFairlendIntakeHref({
-      intent: 'build',
-      projectScope: 'multiplex-financing',
-      source: 'header-nav-multiplex-financing',
-    }),
+    href: '/multiplex-financing-gta',
   },
   gardenLanewaySuites: {
-    href: buildFairlendIntakeHref({
-      intent: 'build',
-      projectScope: 'garden-laneway-suites',
-      source: 'header-nav-garden-laneway-suites',
-    }),
+    href: '/garden-suite-financing-gta',
   },
   mliSelectInsuredHousing: {
-    href: buildFairlendIntakeHref({
-      intent: 'build',
-      projectScope: 'mli-select-insured-housing',
-      source: 'header-nav-mli-select-insured-housing',
-    }),
+    href: '/cmhc-mli-select-multiplex-financing',
   },
 } as const
 
@@ -94,10 +90,12 @@ export const NAV_LINKS: NavLink[] = [
         {
           heading: 'Financing options',
           items: [
+            { label: 'Borrower financing overview', link: fairlendNavLinks.borrowers },
             { label: 'Residential Mortgages', link: fairlendNavLinks.residentialMortgages },
             { label: 'Bridge Loans', link: fairlendNavLinks.bridgeLoans },
-            { label: 'Construction financing', link: fairlendNavLinks.intake },
+            { label: 'Construction financing', link: fairlendNavLinks.constructionFinancing },
             { label: 'Private mortgages', link: fairlendNavLinks.privateMortgages },
+            { label: 'Institutional mortgages', link: fairlendNavLinks.institutionalMortgages },
           ],
         },
         {
@@ -138,7 +136,10 @@ export const NAV_LINKS: NavLink[] = [
       columns: [
         {
           heading: 'Private mortgage lending',
-          items: [{ label: 'Invest with FairLend', link: fairlendNavLinks.investing }],
+          items: [
+            { label: 'Investor overview', link: fairlendNavLinks.investing },
+            { label: 'Private mortgage lending', link: fairlendNavLinks.privateMortgageLending },
+          ],
         },
       ],
     },
@@ -155,6 +156,9 @@ export const NAV_LINKS: NavLink[] = [
             { label: 'About', link: fairlendNavLinks.about },
             { label: 'Our ethos', link: fairlendNavLinks.ethos },
             { label: 'Leadership', link: fairlendNavLinks.leadership },
+            { label: 'Resources', link: fairlendNavLinks.resources },
+            { label: 'Contact', link: fairlendNavLinks.contact },
+            { label: 'Disclosures', link: fairlendNavLinks.disclosures },
           ],
         },
       ],

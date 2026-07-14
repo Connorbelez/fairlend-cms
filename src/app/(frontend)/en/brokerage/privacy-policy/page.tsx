@@ -15,9 +15,9 @@ export const dynamic = 'force-static'
 
 export const metadata = buildFairlendMetadata({
   description:
-    'Read the FairLend Management Inc. privacy policy for mortgage administration, brokerage activities, website privacy, consent, disclosure, retention, and contact rights.',
+    'Read the Fairlend Management Inc. privacy policy for mortgage administration, brokerage activities, website privacy, consent, disclosure, retention, and contact rights.',
   path: policyUrl,
-  title: 'Privacy Policy | FairLend Management Inc.',
+  title: 'Privacy Policy | Fairlend Management Inc.',
 })
 
 const inlineLinks = [
@@ -39,7 +39,7 @@ const policyBlocks = [
   },
   {
     type: 'paragraph',
-    text: 'FairLend Management Inc., operating as FairLend Mortgage ("FairLend"), is licensed by FSRA as both a mortgage brokerage and mortgage administrator. FairLend helps customers find the most suitable mortgage product for their needs and may, with the customer\'s consent, refer customers to duly-licensed insurance brokerages for related insurance products.',
+    text: 'Fairlend Management Inc., operating as FairLend Mortgage ("FairLend"), is licensed by FSRA as both a mortgage brokerage and mortgage administrator. FairLend helps customers find the most suitable mortgage product for their needs and may, with the customer\'s consent, refer customers to duly-licensed insurance brokerages for related insurance products.',
   },
   {
     type: 'paragraph',
@@ -51,7 +51,7 @@ const policyBlocks = [
   },
   {
     type: 'paragraph',
-    text: 'FairLend Management Inc. carries on business under the authorized name "FairLend Mortgage" and is licensed by FSRA as both a mortgage brokerage and a mortgage administrator. All references in this privacy policy to "FairLend" include FairLend Management Inc. operating as FairLend Mortgage. As a mortgage brokerage, FairLend assists prospective borrowers in obtaining mortgages from lenders. As a mortgage administrator, FairLend services mortgages on behalf of lenders, including processing payments and coordinating with lenders, borrowers, and other parties throughout the life of the mortgage. This privacy policy applies to personal information FairLend collects, uses, or discloses in connection with both of these licensed activities. The persons whose personal information is covered by this policy include mortgage applicants, borrowers, co-borrowers, guarantors, lenders, suppliers and service providers, prospective customers, website visitors, and any other individuals whose personal information FairLend handles in the course of its business.',
+    text: 'Fairlend Management Inc. carries on business under the authorized name "FairLend Mortgage" and is licensed by FSRA as both a mortgage brokerage and a mortgage administrator. All references in this privacy policy to "FairLend" include Fairlend Management Inc. operating as FairLend Mortgage. As a mortgage brokerage, FairLend assists prospective borrowers in obtaining mortgages from lenders. As a mortgage administrator, FairLend services mortgages on behalf of lenders, including processing payments and coordinating with lenders, borrowers, and other parties throughout the life of the mortgage. This privacy policy applies to personal information FairLend collects, uses, or discloses in connection with both of these licensed activities. The persons whose personal information is covered by this policy include mortgage applicants, borrowers, co-borrowers, guarantors, lenders, suppliers and service providers, prospective customers, website visitors, and any other individuals whose personal information FairLend handles in the course of its business.',
   },
   {
     type: 'paragraph',
@@ -418,7 +418,7 @@ const policyBlocks = [
   },
   {
     type: 'paragraph',
-    text: '**Elie Soberano**\nPrincipal Broker – Privacy Officer\n#M08001537\nFairLend Management Inc.\nUnit #2 - 890 Sheppard Avenue\nNorth York, Ontario M3H 6B9\nBy phone: 647-439-1232\nBy e-mail: elie@fairlend.ca',
+    text: '**Elie Soberano**\nPrincipal Broker – Privacy Officer\n#M08001537\nFairlend Management Inc.\nUnit #2 - 890 Sheppard Avenue\nNorth York, Ontario M3H 6B9\nBy phone: 647-439-1232\nBy e-mail: elie@fairlend.ca',
   },
   {
     type: 'paragraph',
@@ -434,7 +434,7 @@ const policyBlocks = [
   },
   {
     type: 'paragraph',
-    text: '**FairLend Management Inc. o/a FairLend Mortgage**\nFSRA Mortgage Brokerage Licence #13827\nFSRA Mortgage Administrator Licence #13828',
+    text: '**Fairlend Management Inc. o/a FairLend Mortgage**\nFSRA Mortgage Brokerage Licence #13827\nFSRA Mortgage Administrator Licence #13828',
   },
 ] satisfies PolicyBlock[]
 
@@ -603,7 +603,7 @@ export default function FairlendPrivacyPolicyPage() {
               {titleBlock?.text ?? 'Privacy Policy'}
             </h1>
             <p className="mt-7 max-w-3xl text-base leading-8 font-medium text-[#46463f] sm:text-lg">
-              FairLend Management Inc. privacy policy for mortgage brokerage and administration
+              Fairlend Management Inc. privacy policy for mortgage brokerage and administration
               activities, website use, consent, disclosure, retention, and privacy contact rights.
             </p>
           </div>
