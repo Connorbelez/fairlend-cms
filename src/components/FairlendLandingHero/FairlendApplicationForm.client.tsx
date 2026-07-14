@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowRight, MapPin } from 'lucide-react'
+import { ArrowRight, LoaderCircle, MapPin } from 'lucide-react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useRouter } from 'next/navigation'
 import { FormEvent, useCallback, useRef, useState } from 'react'
@@ -30,8 +30,65 @@ import {
   fairlendApplicationIntents,
   type FairlendApplicationIntent,
 } from './FairlendApplicationIntentTabs.client'
+import {
+  FairlendApplicationChoiceChips,
+  type FairlendApplicationChoice,
+} from './FairlendApplicationChoiceChips.client'
+import { FairlendSubmissionSuccess } from './FairlendSubmissionSuccess.client'
 
 type FormTab = FairlendApplicationIntent
+
+const INVESTMENT_AMOUNT_OPTIONS: readonly FairlendApplicationChoice[] = [
+  { label: '$50K – $250K', value: '$50K – $250K' },
+  { label: '$250K – $1M', value: '$250K – $1M' },
+  { label: '$1M – $5M', value: '$1M – $5M' },
+  { label: '$5M+', value: '$5M+' },
+]
+
+const MORTGAGE_PRODUCT_OPTIONS: readonly FairlendApplicationChoice[] = [
+  { label: 'First mortgage', value: 'first-mortgage' },
+  { label: 'Second mortgage', value: 'second-mortgage' },
+  { label: 'Bridge financing', value: 'bridge-financing' },
+  { label: 'Refinance', value: 'refinance' },
+  { label: 'Debt consolidation', value: 'debt-consolidation' },
+  { label: 'HELOC', value: 'heloc' },
+  { label: 'Not sure yet', value: 'not-sure' },
+]
+
+const MORTGAGE_AMOUNT_OPTIONS: readonly FairlendApplicationChoice[] = [
+  { label: 'Under $250K', value: 'Under $250K' },
+  { label: '$250K – $500K', value: '$250K – $500K' },
+  { label: '$500K – $1M', value: '$500K – $1M' },
+  { label: '$1M – $3M', value: '$1M – $3M' },
+  { label: '$3M+', value: '$3M+' },
+]
+
+const MORTGAGE_PRODUCTS_REQUIRING_BALANCE = new Set([
+  'second-mortgage',
+  'bridge-financing',
+  'refinance',
+  'debt-consolidation',
+  'heloc',
+])
+
+const MORTGAGE_PRODUCT_LANES: Record<string, 'institutional' | 'private' | undefined> = {
+  'first-mortgage': 'institutional',
+  'second-mortgage': 'private',
+  'bridge-financing': 'private',
+  refinance: 'private',
+  'debt-consolidation': 'private',
+  heloc: 'institutional',
+  'not-sure': undefined,
+}
+
+const CONTACT_REQUIRED_ERROR = 'Enter an email address or phone number so we can follow up.'
+
+const MORTGAGE_TIMELINE_OPTIONS = [
+  'Within 2 weeks',
+  'Within 30 days',
+  '1–3 months',
+  'Exploring options',
+] as const
 
 const applicationPanelVariants = {
   center: { filter: 'blur(0px)', opacity: 1, x: 0 },
@@ -73,14 +130,26 @@ type FormValues = {
     email: string
     phone: string
     address: string
-    equity: string
+    product: string
+    amount: string
+    currentMortgage: string
+    timeline: string
   }
 }
 
 const INITIAL_VALUES: FormValues = {
   build: { address: '' },
   invest: { name: '', email: '', phone: '', amount: '', focus: '' },
-  mortgage: { name: '', email: '', phone: '', address: '', equity: '' },
+  mortgage: {
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    product: '',
+    amount: '',
+    currentMortgage: '',
+    timeline: '',
+  },
 }
 
 const visuallyHiddenClassName =
@@ -97,6 +166,8 @@ const fieldSubmitButtonClassName =
 
 const fieldsStackClassName = 'flex flex-col gap-[clamp(10px,0.8vw,14px)]'
 const fieldRowClassName = 'flex flex-col gap-[6px]'
+const compactFieldsGridClassName =
+  'grid min-w-0 grid-cols-2 gap-x-[10px] gap-y-[clamp(10px,0.8vw,14px)] hero-mobile:grid-cols-1'
 const currencyAdornmentClassName =
   'pointer-events-none absolute top-1/2 left-[clamp(14px,1vw,16px)] -translate-y-1/2 text-[clamp(14px,0.95vw,15px)] font-bold text-[#586562]'
 
@@ -114,6 +185,11 @@ export function FairlendApplicationForm() {
 
   const activeMeta = TAB_META[activeTab]
   const shouldLiftForAutocomplete = activeTab !== 'invest' && isAddressAutocompleteOpen
+  const showDirectSuccess =
+    submittedTab === activeTab && (activeTab === 'invest' || activeTab === 'mortgage')
+  const hasContactError = submitError === CONTACT_REQUIRED_ERROR
+  const shouldAskForMortgageBalance =
+    activeTab === 'mortgage' && MORTGAGE_PRODUCTS_REQUIRING_BALANCE.has(values.mortgage.product)
 
   const handleSelectTab = useCallback(
     (value: FormTab) => {
@@ -161,6 +237,16 @@ export function FairlendApplicationForm() {
       }
     }
 
+    if (activeTab === 'invest' || activeTab === 'mortgage') {
+      const { email, phone } = values[activeTab]
+      if (!email.trim() && !phone.trim()) {
+        setSubmittedTab(null)
+        setSubmitError(CONTACT_REQUIRED_ERROR)
+        document.getElementById(`fairlend-${activeTab}-email`)?.focus()
+        return
+      }
+    }
+
     setIsSubmitting(true)
     setSubmitError('')
     trackLeadStarted({
@@ -199,16 +285,26 @@ export function FairlendApplicationForm() {
       routeEmail = trimmedEmail
       routePhone = trimmedPhone
     } else {
-      const { name, email, phone, address, equity } = values.mortgage
+      const { name, email, phone, address, product, amount, currentMortgage, timeline } =
+        values.mortgage
       const trimmedName = name.trim()
       const trimmedEmail = email.trim()
       const trimmedPhone = phone.trim()
       const trimmedAddress = address.trim()
+      const mortgageGoal =
+        MORTGAGE_PRODUCT_OPTIONS.find((option) => option.value === product)?.label ?? product
       body.name = trimmedName
       body.email = trimmedEmail
       body.phone = trimmedPhone
       body.address = trimmedAddress
-      body.intake = { approximateEquity: equity.trim(), homepageValue: trimmedAddress }
+      body.intake = {
+        amount: amount.trim(),
+        currentMortgage: currentMortgage.trim(),
+        homepageValue: trimmedAddress,
+        mortgageGoal,
+        mortgageProduct: MORTGAGE_PRODUCT_LANES[product],
+        timeline,
+      }
       routeAddress = trimmedAddress
       routeName = trimmedName
       routeEmail = trimmedEmail
@@ -338,303 +434,468 @@ export function FairlendApplicationForm() {
                   {activeMeta.description}
                 </span>
 
-                {activeTab === 'build' ? (
-                  <>
-                    <label className={visuallyHiddenClassName} htmlFor="fairlend-build">
-                      Property address
-                    </label>
-                    <div className="grid h-[clamp(52px,3.45vw,58px)] min-w-0 grid-cols-[22px_minmax(0,1fr)_44px] items-center gap-[10px] rounded-[12px] border border-[#dededb] bg-[rgb(255_253_249/92%)] py-0 pr-[clamp(7px,0.5vw,8px)] pl-[clamp(15px,1.15vw,19px)] transition-[border-color,box-shadow] duration-[220ms] ease-[var(--hero-ease-quint)] focus-within:border-[#96ec18] focus-within:shadow-[0_0_0_3px_rgb(150_236_24/18%),0_10px_22px_rgb(5_5_6/5%)] [&>svg]:size-[20px] [&>svg]:text-[#111c20] hero-tablet:h-[clamp(50px,6.8vw,58px)] hero-tablet:grid-cols-[22px_minmax(0,1fr)_44px] hero-tablet:pl-4 hero-tablet-landscape-short:h-[46px] hero-tablet-landscape-short:grid-cols-[20px_minmax(0,1fr)_40px] hero-tablet-landscape-short:pl-3.5 hero-mobile:h-[clamp(48px,13vw,52px)] hero-mobile:grid-cols-[20px_minmax(0,1fr)_44px] hero-mobile:pl-3.5 hero-landscape:ml-0 hero-landscape:mr-0 hero-landscape:h-[58px] hero-landscape:grid-cols-[48px_minmax(0,1fr)_58px] hero-landscape:gap-0 hero-landscape:rounded-none hero-landscape:border-[var(--landing-gutter-line)] hero-landscape:bg-[rgb(255_255_255/52%)] hero-landscape:p-0 hero-landscape:shadow-none hero-landscape:[&>svg]:mx-auto hero-landscape:[&>svg]:size-[24px] hero-landscape:[&>svg]:text-[#111c20] hero-landscape:[&>svg]:stroke-[2.1]">
-                      <MapPin aria-hidden="true" />
-                      <GoogleAddressAutocomplete
-                        ariaDescribedBy="fairlend-build-description fairlend-build-status"
-                        autoComplete="section-build street-address"
-                        className="contents"
-                        id="fairlend-build"
-                        inputClassName="h-[clamp(48px,3.25vw,54px)] w-full min-w-0 border-0 bg-transparent p-0 text-[15px] text-[#15201f] shadow-none placeholder:text-[#586562] focus-visible:ring-0 focus-visible:shadow-none focus-visible:outline-none hero-tablet:h-11 hero-tablet:text-[clamp(13px,1.85vw,15px)] hero-mobile:h-11 hero-mobile:text-[clamp(12px,3.4vw,14px)] hero-landscape:h-[56px] hero-landscape:px-[16px] hero-landscape:text-[20px] hero-landscape:font-medium hero-landscape:placeholder:text-[#586562]"
-                        inputMode="text"
-                        name="buildAddress"
-                        onChange={(nextValue) => {
-                          clearTransientStatus()
-                          setField('build', { address: nextValue })
-                        }}
-                        onOpenChange={handleAddressAutocompleteOpenChange}
-                        placeholder="Property address"
-                        required
-                        type="text"
-                        value={values.build.address}
-                      />
-                      <Button
-                        aria-label={activeMeta.submitLabel}
-                        className="relative isolate size-11 overflow-visible rounded-full bg-[#96ec18] text-[#101010] shadow-[0_0_0_3px_rgb(255_253_247/96%),0_10px_20px_rgb(118_205_0/18%)] transition-[background-color,box-shadow,transform,filter] duration-[260ms] ease-[var(--hero-ease-quint)] before:absolute before:inset-[-9px] before:z-[-1] before:rounded-full before:bg-[radial-gradient(circle,rgb(150_236_24/34%)_0%,rgb(150_236_24/14%)_42%,transparent_72%)] before:opacity-80 before:blur-[2px] before:content-[''] hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-[#a4fb20] hover:shadow-[0_0_0_3px_rgb(255_253_247/98%),0_0_0_8px_rgb(150_236_24/15%),0_18px_30px_rgb(118_205_0/22%)] active:translate-y-0 active:scale-[0.97] motion-safe:before:animate-[applicationCtaHalo_2200ms_var(--hero-ease-out)_infinite] [&_svg]:size-6 hero-tablet:size-11 hero-tablet-landscape-short:size-10 hero-tablet-landscape-short:before:inset-[-7px] hero-mobile:size-11 hero-mobile:before:inset-[-7px] hero-landscape:size-[58px] hero-landscape:rounded-none hero-landscape:border-l hero-landscape:border-[var(--landing-gutter-line)] hero-landscape:shadow-none hero-landscape:before:hidden hero-landscape:hover:shadow-none hero-landscape:[&_svg]:size-[34px] hero-landscape:[&_svg]:stroke-[1.8]"
-                        data-fairlend-application-submit
-                        disabled={isSubmitting}
-                        size="icon"
-                        type="submit"
-                      >
-                        <ArrowRight
-                          aria-hidden="true"
-                          className="size-6 hero-landscape:size-[34px]"
-                          strokeWidth={1.8}
-                        />
-                      </Button>
-                    </div>
-                  </>
-                ) : activeTab === 'invest' ? (
-                  <div className={fieldsStackClassName}>
-                    <div className={fieldRowClassName}>
-                      <Label className={fieldLabelClassName} htmlFor="fairlend-invest-name">
-                        Name
-                      </Label>
-                      <Input
-                        aria-describedby="fairlend-invest-description fairlend-invest-status"
-                        autoComplete="section-invest name"
-                        className={fieldInputClassName}
-                        id="fairlend-invest-name"
-                        name="name"
-                        onChange={(event) => {
-                          clearTransientStatus()
-                          setField('invest', { name: event.target.value })
-                        }}
-                        placeholder="Full name"
-                        required
-                        type="text"
-                        value={values.invest.name}
-                      />
-                    </div>
-                    <div className={fieldRowClassName}>
-                      <Label className={fieldLabelClassName} htmlFor="fairlend-invest-email">
-                        Email
-                      </Label>
-                      <Input
-                        aria-describedby="fairlend-invest-description fairlend-invest-status"
-                        autoComplete="section-invest email"
-                        className={fieldInputClassName}
-                        id="fairlend-invest-email"
-                        inputMode="email"
-                        name="email"
-                        onChange={(event) => {
-                          clearTransientStatus()
-                          setField('invest', { email: event.target.value })
-                        }}
-                        placeholder="you@example.com"
-                        required
-                        type="email"
-                        value={values.invest.email}
-                      />
-                    </div>
-                    <div className={fieldRowClassName}>
-                      <Label className={fieldLabelClassName} htmlFor="fairlend-invest-phone">
-                        Phone number
-                      </Label>
-                      <Input
-                        aria-describedby="fairlend-invest-description fairlend-invest-status"
-                        autoComplete="section-invest tel"
-                        className={fieldInputClassName}
-                        id="fairlend-invest-phone"
-                        inputMode="tel"
-                        name="tel"
-                        onChange={(event) => {
-                          clearTransientStatus()
-                          setField('invest', { phone: event.target.value })
-                        }}
-                        placeholder="(555) 555-5555"
-                        required
-                        type="tel"
-                        value={values.invest.phone}
-                      />
-                    </div>
-                    <div className={fieldRowClassName}>
-                      <Label className={fieldLabelClassName} htmlFor="fairlend-invest-amount">
-                        Amount looking to invest
-                      </Label>
-                      <div className="relative">
-                        <span aria-hidden="true" className={currencyAdornmentClassName}>
-                          $
-                        </span>
-                        <Input
-                          aria-describedby="fairlend-invest-description fairlend-invest-status"
-                          className={cn(fieldInputClassName, 'pl-[clamp(30px,2vw,34px)]')}
-                          id="fairlend-invest-amount"
-                          inputMode="numeric"
-                          name="investmentAmount"
-                          onChange={(event) => {
-                            clearTransientStatus()
-                            setField('invest', { amount: event.target.value })
-                          }}
-                          placeholder="Amount"
-                          type="text"
-                          value={values.invest.amount}
-                        />
-                      </div>
-                    </div>
-                    <div className={fieldRowClassName}>
-                      <Label className={fieldLabelClassName} htmlFor="fairlend-invest-focus">
-                        Investment focus
-                      </Label>
-                      <Select
-                        name="investmentFocus"
-                        required
-                        value={values.invest.focus}
-                        onValueChange={(nextValue) => {
-                          clearTransientStatus()
-                          setField('invest', { focus: nextValue })
-                        }}
-                      >
-                        <SelectTrigger
-                          aria-describedby="fairlend-invest-description fairlend-invest-status"
-                          className={fieldInputClassName}
-                          id="fairlend-invest-focus"
-                        >
-                          <SelectValue placeholder="Investment focus" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="construction">Construction financing</SelectItem>
-                          <SelectItem value="private-mortgages">Private mortgages</SelectItem>
-                          <SelectItem value="investor-fit-review">Investor-fit review</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <Button
-                      className={fieldSubmitButtonClassName}
-                      data-fairlend-application-submit
-                      disabled={isSubmitting}
-                      type="submit"
+                <AnimatePresence initial={false} mode="wait">
+                  {showDirectSuccess ? (
+                    <FairlendSubmissionSuccess
+                      intent={activeTab === 'invest' ? 'invest' : 'mortgage'}
+                      key={`${activeTab}-success`}
+                    />
+                  ) : (
+                    <motion.div
+                      animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+                      exit={
+                        shouldReduceMotion
+                          ? undefined
+                          : { filter: 'blur(4px)', opacity: 0, scale: 0.985, y: -8 }
+                      }
+                      initial={
+                        shouldReduceMotion ? false : { filter: 'blur(3px)', opacity: 0, y: 6 }
+                      }
+                      key={`${activeTab}-fields`}
+                      transition={
+                        shouldReduceMotion
+                          ? { duration: 0 }
+                          : { duration: 0.22, ease: [0.22, 1, 0.36, 1] }
+                      }
                     >
-                      {activeMeta.submitLabel}
-                      <ArrowRight aria-hidden="true" strokeWidth={1.8} />
-                    </Button>
-                  </div>
-                ) : (
-                  <div className={fieldsStackClassName}>
-                    <div className={fieldRowClassName}>
-                      <Label className={fieldLabelClassName} htmlFor="fairlend-mortgage-name">
-                        Name
-                      </Label>
-                      <Input
-                        aria-describedby="fairlend-mortgage-description fairlend-mortgage-status"
-                        autoComplete="section-mortgage name"
-                        className={fieldInputClassName}
-                        id="fairlend-mortgage-name"
-                        name="name"
-                        onChange={(event) => {
-                          clearTransientStatus()
-                          setField('mortgage', { name: event.target.value })
-                        }}
-                        placeholder="Full name"
-                        required
-                        type="text"
-                        value={values.mortgage.name}
-                      />
-                    </div>
-                    <div className={fieldRowClassName}>
-                      <Label className={fieldLabelClassName} htmlFor="fairlend-mortgage-email">
-                        Email
-                      </Label>
-                      <Input
-                        aria-describedby="fairlend-mortgage-description fairlend-mortgage-status"
-                        autoComplete="section-mortgage email"
-                        className={fieldInputClassName}
-                        id="fairlend-mortgage-email"
-                        inputMode="email"
-                        name="email"
-                        onChange={(event) => {
-                          clearTransientStatus()
-                          setField('mortgage', { email: event.target.value })
-                        }}
-                        placeholder="you@example.com"
-                        required
-                        type="email"
-                        value={values.mortgage.email}
-                      />
-                    </div>
-                    <div className={fieldRowClassName}>
-                      <Label className={fieldLabelClassName} htmlFor="fairlend-mortgage-phone">
-                        Phone number
-                      </Label>
-                      <Input
-                        aria-describedby="fairlend-mortgage-description fairlend-mortgage-status"
-                        autoComplete="section-mortgage tel"
-                        className={fieldInputClassName}
-                        id="fairlend-mortgage-phone"
-                        inputMode="tel"
-                        name="tel"
-                        onChange={(event) => {
-                          clearTransientStatus()
-                          setField('mortgage', { phone: event.target.value })
-                        }}
-                        placeholder="(555) 555-5555"
-                        required
-                        type="tel"
-                        value={values.mortgage.phone}
-                      />
-                    </div>
-                    <div className={fieldRowClassName}>
-                      <Label className={fieldLabelClassName} htmlFor="fairlend-mortgage-address">
-                        Address
-                      </Label>
-                      <GoogleAddressAutocomplete
-                        ariaDescribedBy="fairlend-mortgage-description fairlend-mortgage-status"
-                        autoComplete="section-mortgage street-address"
-                        className="contents"
-                        id="fairlend-mortgage-address"
-                        inputClassName={cn(fieldInputClassName, 'pr-[clamp(36px,2.6vw,42px)]')}
-                        inputMode="text"
-                        name="mortgageAddress"
-                        onChange={(nextValue) => {
-                          clearTransientStatus()
-                          setField('mortgage', { address: nextValue })
-                        }}
-                        onOpenChange={handleAddressAutocompleteOpenChange}
-                        placeholder="Property address"
-                        required
-                        type="text"
-                        value={values.mortgage.address}
-                      />
-                    </div>
-                    <div className={fieldRowClassName}>
-                      <Label className={fieldLabelClassName} htmlFor="fairlend-mortgage-equity">
-                        Approximate equity in home
-                      </Label>
-                      <div className="relative">
-                        <span aria-hidden="true" className={currencyAdornmentClassName}>
-                          $
-                        </span>
-                        <Input
-                          aria-describedby="fairlend-mortgage-description fairlend-mortgage-status"
-                          className={cn(fieldInputClassName, 'pl-[clamp(30px,2vw,34px)]')}
-                          id="fairlend-mortgage-equity"
-                          inputMode="numeric"
-                          name="approximateEquity"
-                          onChange={(event) => {
-                            clearTransientStatus()
-                            setField('mortgage', { equity: event.target.value })
-                          }}
-                          placeholder="Approximate equity"
-                          type="text"
-                          value={values.mortgage.equity}
-                        />
-                      </div>
-                    </div>
-                    <Button
-                      className={fieldSubmitButtonClassName}
-                      data-fairlend-application-submit
-                      disabled={isSubmitting}
-                      type="submit"
-                    >
-                      {activeMeta.submitLabel}
-                      <ArrowRight aria-hidden="true" strokeWidth={1.8} />
-                    </Button>
-                  </div>
-                )}
+                      {activeTab === 'build' ? (
+                        <>
+                          <label className={visuallyHiddenClassName} htmlFor="fairlend-build">
+                            Property address
+                          </label>
+                          <div className="grid h-[clamp(52px,3.45vw,58px)] min-w-0 grid-cols-[22px_minmax(0,1fr)_44px] items-center gap-[10px] rounded-[12px] border border-[#dededb] bg-[rgb(255_253_249/92%)] py-0 pr-[clamp(7px,0.5vw,8px)] pl-[clamp(15px,1.15vw,19px)] transition-[border-color,box-shadow] duration-[220ms] ease-[var(--hero-ease-quint)] focus-within:border-[#96ec18] focus-within:shadow-[0_0_0_3px_rgb(150_236_24/18%),0_10px_22px_rgb(5_5_6/5%)] [&>svg]:size-[20px] [&>svg]:text-[#111c20] hero-tablet:h-[clamp(50px,6.8vw,58px)] hero-tablet:grid-cols-[22px_minmax(0,1fr)_44px] hero-tablet:pl-4 hero-tablet-landscape-short:h-[46px] hero-tablet-landscape-short:grid-cols-[20px_minmax(0,1fr)_40px] hero-tablet-landscape-short:pl-3.5 hero-mobile:h-[clamp(48px,13vw,52px)] hero-mobile:grid-cols-[20px_minmax(0,1fr)_44px] hero-mobile:pl-3.5 hero-landscape:ml-0 hero-landscape:mr-0 hero-landscape:h-[58px] hero-landscape:grid-cols-[48px_minmax(0,1fr)_58px] hero-landscape:gap-0 hero-landscape:rounded-none hero-landscape:border-[var(--landing-gutter-line)] hero-landscape:bg-[rgb(255_255_255/52%)] hero-landscape:p-0 hero-landscape:shadow-none hero-landscape:[&>svg]:mx-auto hero-landscape:[&>svg]:size-[24px] hero-landscape:[&>svg]:text-[#111c20] hero-landscape:[&>svg]:stroke-[2.1]">
+                            <MapPin aria-hidden="true" />
+                            <GoogleAddressAutocomplete
+                              ariaDescribedBy="fairlend-build-description fairlend-build-status"
+                              autoComplete="section-build street-address"
+                              className="contents"
+                              id="fairlend-build"
+                              inputClassName="h-[clamp(48px,3.25vw,54px)] w-full min-w-0 border-0 bg-transparent p-0 text-[15px] text-[#15201f] shadow-none placeholder:text-[#586562] focus-visible:ring-0 focus-visible:shadow-none focus-visible:outline-none hero-tablet:h-11 hero-tablet:text-[clamp(13px,1.85vw,15px)] hero-mobile:h-11 hero-mobile:text-[clamp(12px,3.4vw,14px)] hero-landscape:h-[56px] hero-landscape:px-[16px] hero-landscape:text-[20px] hero-landscape:font-medium hero-landscape:placeholder:text-[#586562]"
+                              inputMode="text"
+                              name="buildAddress"
+                              onChange={(nextValue) => {
+                                clearTransientStatus()
+                                setField('build', { address: nextValue })
+                              }}
+                              onOpenChange={handleAddressAutocompleteOpenChange}
+                              placeholder="Property address"
+                              required
+                              type="text"
+                              value={values.build.address}
+                            />
+                            <Button
+                              aria-label={activeMeta.submitLabel}
+                              className="relative isolate size-11 overflow-visible rounded-full bg-[#96ec18] text-[#101010] shadow-[0_0_0_3px_rgb(255_253_247/96%),0_10px_20px_rgb(118_205_0/18%)] transition-[background-color,box-shadow,transform,filter] duration-[260ms] ease-[var(--hero-ease-quint)] before:absolute before:inset-[-9px] before:z-[-1] before:rounded-full before:bg-[radial-gradient(circle,rgb(150_236_24/34%)_0%,rgb(150_236_24/14%)_42%,transparent_72%)] before:opacity-80 before:blur-[2px] before:content-[''] hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-[#a4fb20] hover:shadow-[0_0_0_3px_rgb(255_253_247/98%),0_0_0_8px_rgb(150_236_24/15%),0_18px_30px_rgb(118_205_0/22%)] active:translate-y-0 active:scale-[0.97] motion-safe:before:animate-[applicationCtaHalo_2200ms_var(--hero-ease-out)_infinite] [&_svg]:size-6 hero-tablet:size-11 hero-tablet-landscape-short:size-10 hero-tablet-landscape-short:before:inset-[-7px] hero-mobile:size-11 hero-mobile:before:inset-[-7px] hero-landscape:size-[58px] hero-landscape:rounded-none hero-landscape:border-l hero-landscape:border-[var(--landing-gutter-line)] hero-landscape:shadow-none hero-landscape:before:hidden hero-landscape:hover:shadow-none hero-landscape:[&_svg]:size-[34px] hero-landscape:[&_svg]:stroke-[1.8]"
+                              data-fairlend-application-submit
+                              disabled={isSubmitting}
+                              size="icon"
+                              type="submit"
+                            >
+                              <ArrowRight
+                                aria-hidden="true"
+                                className="size-6 hero-landscape:size-[34px]"
+                                strokeWidth={1.8}
+                              />
+                            </Button>
+                          </div>
+                        </>
+                      ) : activeTab === 'invest' ? (
+                        <div className={fieldsStackClassName}>
+                          <div className={fieldRowClassName}>
+                            <Label className={fieldLabelClassName} htmlFor="fairlend-invest-name">
+                              Name
+                            </Label>
+                            <Input
+                              aria-describedby="fairlend-invest-description fairlend-invest-status"
+                              autoComplete="section-invest name"
+                              className={fieldInputClassName}
+                              id="fairlend-invest-name"
+                              name="name"
+                              onChange={(event) => {
+                                clearTransientStatus()
+                                setField('invest', { name: event.target.value })
+                              }}
+                              placeholder="Full name"
+                              required
+                              type="text"
+                              value={values.invest.name}
+                            />
+                          </div>
+                          <div className={fieldRowClassName}>
+                            <Label className={fieldLabelClassName} htmlFor="fairlend-invest-email">
+                              Email
+                            </Label>
+                            <Input
+                              aria-describedby="fairlend-invest-description fairlend-invest-contact-hint fairlend-invest-status"
+                              aria-invalid={hasContactError || undefined}
+                              autoComplete="section-invest email"
+                              className={fieldInputClassName}
+                              id="fairlend-invest-email"
+                              inputMode="email"
+                              name="email"
+                              onChange={(event) => {
+                                clearTransientStatus()
+                                setField('invest', { email: event.target.value })
+                              }}
+                              placeholder="you@example.com"
+                              type="email"
+                              value={values.invest.email}
+                            />
+                          </div>
+                          <div className={fieldRowClassName}>
+                            <Label className={fieldLabelClassName} htmlFor="fairlend-invest-phone">
+                              Phone number
+                            </Label>
+                            <Input
+                              aria-describedby="fairlend-invest-description fairlend-invest-contact-hint fairlend-invest-status"
+                              aria-invalid={hasContactError || undefined}
+                              autoComplete="section-invest tel"
+                              className={fieldInputClassName}
+                              id="fairlend-invest-phone"
+                              inputMode="tel"
+                              name="tel"
+                              onChange={(event) => {
+                                clearTransientStatus()
+                                setField('invest', { phone: event.target.value })
+                              }}
+                              placeholder="(555) 555-5555"
+                              type="tel"
+                              value={values.invest.phone}
+                            />
+                          </div>
+                          <p
+                            className={cn(
+                              '-mt-1 text-xs leading-[1.3] font-semibold',
+                              hasContactError ? 'text-[#a33a2a]' : 'text-[#6f7980]',
+                            )}
+                            id="fairlend-invest-contact-hint"
+                          >
+                            Email or phone number required.
+                          </p>
+                          <FairlendApplicationChoiceChips
+                            describedBy="fairlend-invest-description fairlend-invest-status"
+                            legend="Amount looking to invest"
+                            name="investmentAmount"
+                            onValueChange={(nextValue) => {
+                              clearTransientStatus()
+                              setField('invest', { amount: nextValue })
+                            }}
+                            options={INVESTMENT_AMOUNT_OPTIONS}
+                            required
+                            value={values.invest.amount}
+                          />
+                          <div className={fieldRowClassName}>
+                            <Label className={fieldLabelClassName} htmlFor="fairlend-invest-focus">
+                              Investment focus
+                            </Label>
+                            <Select
+                              name="investmentFocus"
+                              required
+                              value={values.invest.focus}
+                              onValueChange={(nextValue) => {
+                                clearTransientStatus()
+                                setField('invest', { focus: nextValue })
+                              }}
+                            >
+                              <SelectTrigger
+                                aria-describedby="fairlend-invest-description fairlend-invest-status"
+                                className={fieldInputClassName}
+                                id="fairlend-invest-focus"
+                              >
+                                <SelectValue placeholder="Investment focus" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="construction">Construction financing</SelectItem>
+                                <SelectItem value="private-mortgages">Private mortgages</SelectItem>
+                                <SelectItem value="investor-fit-review">
+                                  Investor-fit review
+                                </SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          <Button
+                            className={fieldSubmitButtonClassName}
+                            data-fairlend-application-submit
+                            disabled={isSubmitting}
+                            type="submit"
+                          >
+                            {isSubmitting ? (
+                              <>
+                                <LoaderCircle
+                                  aria-hidden="true"
+                                  className="animate-spin"
+                                  strokeWidth={1.8}
+                                />
+                                Sending securely
+                              </>
+                            ) : (
+                              <>
+                                {activeMeta.submitLabel}
+                                <ArrowRight aria-hidden="true" strokeWidth={1.8} />
+                              </>
+                            )}
+                          </Button>
+                        </div>
+                      ) : (
+                        <div className={fieldsStackClassName}>
+                          <FairlendApplicationChoiceChips
+                            describedBy="fairlend-mortgage-description fairlend-mortgage-status"
+                            legend="Mortgage product"
+                            name="mortgageProduct"
+                            onValueChange={(nextValue) => {
+                              clearTransientStatus()
+                              setField('mortgage', {
+                                product: nextValue,
+                                ...(MORTGAGE_PRODUCTS_REQUIRING_BALANCE.has(nextValue)
+                                  ? {}
+                                  : { currentMortgage: '' }),
+                              })
+                            }}
+                            options={MORTGAGE_PRODUCT_OPTIONS}
+                            required
+                            value={values.mortgage.product}
+                          />
+
+                          <div className={compactFieldsGridClassName}>
+                            <div className={fieldRowClassName}>
+                              <Label
+                                className={fieldLabelClassName}
+                                htmlFor="fairlend-mortgage-name"
+                              >
+                                Name
+                              </Label>
+                              <Input
+                                aria-describedby="fairlend-mortgage-description fairlend-mortgage-status"
+                                autoComplete="section-mortgage name"
+                                className={fieldInputClassName}
+                                id="fairlend-mortgage-name"
+                                name="name"
+                                onChange={(event) => {
+                                  clearTransientStatus()
+                                  setField('mortgage', { name: event.target.value })
+                                }}
+                                placeholder="Full name"
+                                required
+                                type="text"
+                                value={values.mortgage.name}
+                              />
+                            </div>
+                            <div className={fieldRowClassName}>
+                              <Label
+                                className={fieldLabelClassName}
+                                htmlFor="fairlend-mortgage-email"
+                              >
+                                Email
+                              </Label>
+                              <Input
+                                aria-describedby="fairlend-mortgage-description fairlend-mortgage-contact-hint fairlend-mortgage-status"
+                                aria-invalid={hasContactError || undefined}
+                                autoComplete="section-mortgage email"
+                                className={fieldInputClassName}
+                                id="fairlend-mortgage-email"
+                                inputMode="email"
+                                name="email"
+                                onChange={(event) => {
+                                  clearTransientStatus()
+                                  setField('mortgage', { email: event.target.value })
+                                }}
+                                placeholder="you@example.com"
+                                type="email"
+                                value={values.mortgage.email}
+                              />
+                            </div>
+                            <div className={fieldRowClassName}>
+                              <Label
+                                className={fieldLabelClassName}
+                                htmlFor="fairlend-mortgage-phone"
+                              >
+                                Phone number
+                              </Label>
+                              <Input
+                                aria-describedby="fairlend-mortgage-description fairlend-mortgage-contact-hint fairlend-mortgage-status"
+                                aria-invalid={hasContactError || undefined}
+                                autoComplete="section-mortgage tel"
+                                className={fieldInputClassName}
+                                id="fairlend-mortgage-phone"
+                                inputMode="tel"
+                                name="tel"
+                                onChange={(event) => {
+                                  clearTransientStatus()
+                                  setField('mortgage', { phone: event.target.value })
+                                }}
+                                placeholder="(555) 555-5555"
+                                type="tel"
+                                value={values.mortgage.phone}
+                              />
+                            </div>
+                            <div className={fieldRowClassName}>
+                              <Label
+                                className={fieldLabelClassName}
+                                htmlFor="fairlend-mortgage-address"
+                              >
+                                Address
+                              </Label>
+                              <GoogleAddressAutocomplete
+                                ariaDescribedBy="fairlend-mortgage-description fairlend-mortgage-status"
+                                autoComplete="section-mortgage street-address"
+                                className="contents"
+                                id="fairlend-mortgage-address"
+                                inputClassName={cn(
+                                  fieldInputClassName,
+                                  'pr-[clamp(36px,2.6vw,42px)]',
+                                )}
+                                inputMode="text"
+                                name="mortgageAddress"
+                                onChange={(nextValue) => {
+                                  clearTransientStatus()
+                                  setField('mortgage', { address: nextValue })
+                                }}
+                                onOpenChange={handleAddressAutocompleteOpenChange}
+                                placeholder="Property address"
+                                required
+                                type="text"
+                                value={values.mortgage.address}
+                              />
+                            </div>
+                            <p
+                              className={cn(
+                                'col-span-full -mt-1 text-xs leading-[1.3] font-semibold',
+                                hasContactError ? 'text-[#a33a2a]' : 'text-[#6f7980]',
+                              )}
+                              id="fairlend-mortgage-contact-hint"
+                            >
+                              Email or phone number required.
+                            </p>
+                          </div>
+
+                          <FairlendApplicationChoiceChips
+                            describedBy="fairlend-mortgage-description fairlend-mortgage-status"
+                            legend="Amount needed"
+                            name="amountNeeded"
+                            onValueChange={(nextValue) => {
+                              clearTransientStatus()
+                              setField('mortgage', { amount: nextValue })
+                            }}
+                            options={MORTGAGE_AMOUNT_OPTIONS}
+                            required
+                            value={values.mortgage.amount}
+                          />
+
+                          <div
+                            className={cn(
+                              compactFieldsGridClassName,
+                              !shouldAskForMortgageBalance && 'grid-cols-1',
+                            )}
+                          >
+                            {shouldAskForMortgageBalance ? (
+                              <motion.div
+                                animate={{ opacity: 1, y: 0 }}
+                                className={fieldRowClassName}
+                                initial={shouldReduceMotion ? false : { opacity: 0, y: -5 }}
+                                transition={
+                                  shouldReduceMotion
+                                    ? { duration: 0 }
+                                    : { duration: 0.2, ease: [0.22, 1, 0.36, 1] }
+                                }
+                              >
+                                <Label
+                                  className={fieldLabelClassName}
+                                  htmlFor="fairlend-mortgage-current-balance"
+                                >
+                                  Current mortgage balance
+                                </Label>
+                                <div className="relative">
+                                  <span aria-hidden="true" className={currencyAdornmentClassName}>
+                                    $
+                                  </span>
+                                  <Input
+                                    aria-describedby="fairlend-mortgage-description fairlend-mortgage-status"
+                                    className={cn(fieldInputClassName, 'pl-[clamp(30px,2vw,34px)]')}
+                                    id="fairlend-mortgage-current-balance"
+                                    inputMode="decimal"
+                                    name="currentMortgageBalance"
+                                    onChange={(event) => {
+                                      clearTransientStatus()
+                                      setField('mortgage', {
+                                        currentMortgage: event.target.value,
+                                      })
+                                    }}
+                                    placeholder="0 if none"
+                                    type="text"
+                                    value={values.mortgage.currentMortgage}
+                                  />
+                                </div>
+                              </motion.div>
+                            ) : null}
+                            <div className={fieldRowClassName}>
+                              <Label
+                                className={fieldLabelClassName}
+                                htmlFor="fairlend-mortgage-timeline"
+                              >
+                                Timing
+                              </Label>
+                              <Select
+                                name="mortgageTimeline"
+                                onValueChange={(nextValue) => {
+                                  clearTransientStatus()
+                                  setField('mortgage', { timeline: nextValue })
+                                }}
+                                required
+                                value={values.mortgage.timeline}
+                              >
+                                <SelectTrigger
+                                  aria-describedby="fairlend-mortgage-description fairlend-mortgage-status"
+                                  className={fieldInputClassName}
+                                  id="fairlend-mortgage-timeline"
+                                >
+                                  <SelectValue placeholder="Select timing" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {MORTGAGE_TIMELINE_OPTIONS.map((option) => (
+                                    <SelectItem key={option} value={option}>
+                                      {option}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            </div>
+                          </div>
+                          <Button
+                            className={fieldSubmitButtonClassName}
+                            data-fairlend-application-submit
+                            disabled={isSubmitting}
+                            type="submit"
+                          >
+                            {isSubmitting ? (
+                              <>
+                                <LoaderCircle
+                                  aria-hidden="true"
+                                  className="animate-spin"
+                                  strokeWidth={1.8}
+                                />
+                                Sending securely
+                              </>
+                            ) : (
+                              <>
+                                {activeMeta.submitLabel}
+                                <ArrowRight aria-hidden="true" strokeWidth={1.8} />
+                              </>
+                            )}
+                          </Button>
+                        </div>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
                 <p
                   aria-live="polite"
-                  className="mt-2 min-h-[17px] text-[11px] leading-[1.3] font-bold text-[#6f7980] hero-tablet:hidden hero-mobile:hidden hero-landscape:hidden"
+                  className="mt-2 min-h-[17px] text-xs leading-[1.3] font-bold text-[#6f7980] hero-tablet:hidden hero-mobile:hidden hero-landscape:hidden"
                   id={`fairlend-${activeTab}-status`}
                 >
                   {submittedTab === activeTab
                     ? activeTab === 'invest' || activeTab === 'mortgage'
-                      ? 'Received. We will follow up shortly.'
+                      ? ''
                       : 'Opening your intake.'
                     : submitError
                       ? submitError

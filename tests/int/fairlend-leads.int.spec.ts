@@ -123,6 +123,31 @@ describe('Fairlend lead normalization', () => {
     })
   })
 
+  it('retains homepage HELOC selection, amount band, balance, and timeline for operations', () => {
+    const details = deriveFairlendLeadIntakeDetails(
+      {
+        amount: '$250K – $500K',
+        currentMortgage: '$425,000',
+        mortgageGoal: 'HELOC',
+        mortgageProduct: 'institutional',
+        requestedIntent: 'mortgage',
+        timeline: 'Within 30 days',
+      },
+      'mortgage',
+    )
+
+    expect(details).toMatchObject({
+      intakeAmount: '$250K – $500K',
+      intakeMortgageBalance: '$425,000',
+      intakeMortgageGoal: 'HELOC',
+      intakeMortgageProduct: 'institutional',
+      intakeTimeline: 'Within 30 days',
+    })
+    expect(details.intakeSummary).toContain('Mortgage goal: HELOC')
+    expect(details.intakeSummary).toContain('Amount: $250K – $500K')
+    expect(details.intakeSummary).toContain('Balance: $425,000')
+  })
+
   it('summarizes rental-property refinance debt for admin review', () => {
     const details = deriveFairlendLeadIntakeDetails(
       {
