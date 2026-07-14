@@ -1,0 +1,28 @@
+# Local dependency and build caches
+node_modules/
+.next/
+.pnpm-store/
+.vercel/
+.git/
+
+# Agent, design, and browser-test artifacts
+.pi/
+.cursor/
+.impeccable/
+artifacts/
+output/
+tmp/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Development-only repositories and documentation
+integrations/
+docs/
+plans/
+tests/
+
+# Root-level design review artifacts are not application inputs
+/*.html
+/*.md

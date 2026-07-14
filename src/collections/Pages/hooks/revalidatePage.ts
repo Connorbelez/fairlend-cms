@@ -3,8 +3,9 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'paylo
 import { revalidatePath, revalidateTag } from 'next/cache'
 
 import type { Page } from '../../../payload-types'
+import { notifyIndexNowChange } from '../../../lib/indexnow'
 
-export const revalidatePage: CollectionAfterChangeHook<Page> = ({
+export const revalidatePage: CollectionAfterChangeHook<Page> = async ({
   doc,
   previousDoc,
   req: { payload, context },
@@ -17,6 +18,13 @@ export const revalidatePage: CollectionAfterChangeHook<Page> = ({
 
       revalidatePath(path)
       revalidateTag('pages-sitemap', 'max')
+      await notifyIndexNowChange({
+        changeType: previousDoc?._status === 'published' ? 'updated' : 'published',
+        documentId: doc.id,
+        documentUpdatedAt: doc.updatedAt,
+        path,
+        sourceCollection: 'pages',
+      })
     }
 
     // If the page was previously published, we need to revalidate the old path
@@ -27,16 +35,30 @@ export const revalidatePage: CollectionAfterChangeHook<Page> = ({
 
       revalidatePath(oldPath)
       revalidateTag('pages-sitemap', 'max')
+      await notifyIndexNowChange({
+        changeType: 'unpublished',
+        documentId: previousDoc.id,
+        documentUpdatedAt: doc.updatedAt,
+        path: oldPath,
+        sourceCollection: 'pages',
+      })
     }
   }
   return doc
 }
 
-export const revalidateDelete: CollectionAfterDeleteHook<Page> = ({ doc, req: { context } }) => {
+export const revalidateDelete: CollectionAfterDeleteHook<Page> = async ({ doc, req: { context } }) => {
   if (!context.disableRevalidate) {
     const path = doc?.slug === 'home' ? '/' : `/${doc?.slug}`
     revalidatePath(path)
     revalidateTag('pages-sitemap', 'max')
+    await notifyIndexNowChange({
+      changeType: 'deleted',
+      documentId: doc.id,
+      documentUpdatedAt: doc.updatedAt,
+      path,
+      sourceCollection: 'pages',
+    })
   }
 
   return doc

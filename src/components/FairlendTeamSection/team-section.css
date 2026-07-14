@@ -289,6 +289,18 @@
   text-wrap: pretty;
 }
 
+.fairlend-team__experience {
+  max-width: 38ch;
+  margin: 10px 0 0;
+  color: var(--team-muted);
+  font-family: var(--font-inter), ui-sans-serif, sans-serif;
+  font-size: clamp(10px, 0.78vw, 13px);
+  font-weight: 620;
+  letter-spacing: 0.015em;
+  line-height: 1.38;
+  text-wrap: pretty;
+}
+
 .fairlend-team__discipline {
   align-self: stretch;
   border-left: 1px solid rgb(8 9 10 / 38%);
@@ -437,18 +449,18 @@
   height: calc(100% - 26px);
 }
 
-.team-plate--operations .team-plate__edge--top,
-.team-plate--operations .team-plate__edge--bottom {
+.team-plate--finance .team-plate__edge--top,
+.team-plate--finance .team-plate__edge--bottom {
   width: 100%;
 }
 
-.team-plate--operations .team-plate__edge--right,
-.team-plate--operations .team-plate__edge--left {
+.team-plate--finance .team-plate__edge--right,
+.team-plate--finance .team-plate__edge--left {
   top: 0;
   height: 100%;
 }
 
-.team-plate--operations .team-plate__edge--left {
+.team-plate--finance .team-plate__edge--left {
   background: linear-gradient(
     to bottom,
     currentColor 0 29%,
@@ -515,6 +527,15 @@
   top: 38px;
   left: 13%;
   font-size: clamp(54px, 4.55vw, 78px);
+}
+
+.team-plate__code--finance {
+  top: 43px;
+  left: 15px;
+  display: flex;
+  font-size: clamp(34px, 2.8vw, 48px);
+  letter-spacing: -0.04em;
+  line-height: 0.8;
 }
 
 .team-plate__code--operations {
@@ -622,7 +643,7 @@
   border-radius: 50%;
 }
 
-.team-plate--operations {
+.team-plate--finance {
   width: min(calc(100% - 12px), 190px);
 }
 
@@ -974,7 +995,7 @@
     height: clamp(220px, 62vw, 248px);
   }
 
-  .team-plate--operations {
+  .team-plate--finance {
     width: min(calc(100% - 20px), 312px);
   }
 
@@ -1003,6 +1024,12 @@
     font-size: clamp(76px, 22vw, 90px);
     transform: scaleX(1.35);
     transform-origin: left top;
+  }
+
+  .team-plate__code--finance {
+    top: 68px;
+    left: 24px;
+    font-size: clamp(58px, 17.5vw, 70px);
   }
 
   .team-plate__code--operations {
@@ -1073,7 +1100,7 @@
     bottom: 7px;
   }
 
-  .team-plate--operations .team-plate__registration--bottom {
+  .team-plate--finance .team-plate__registration--bottom {
     right: -6px;
     bottom: 5px;
   }

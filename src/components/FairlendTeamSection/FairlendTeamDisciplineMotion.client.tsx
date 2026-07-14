@@ -250,7 +250,7 @@ export function FairlendTeamDisciplineMotion() {
         const copy = row.querySelector<HTMLElement>('[data-team-member-copy]')
         const copyItems = gsap.utils.toArray<HTMLElement>(
           row.querySelectorAll<HTMLElement>(
-            '[data-team-member-name], [data-team-member-role], [data-team-member-responsibility]',
+            '[data-team-member-name], [data-team-member-role], [data-team-member-responsibility], [data-team-member-experience]',
           ),
         )
         const nameRule = row.querySelector<HTMLElement>('[data-team-name-rule]')

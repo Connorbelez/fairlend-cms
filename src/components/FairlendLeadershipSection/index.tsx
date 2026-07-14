@@ -140,7 +140,7 @@ export function FairlendLeadershipSection() {
 
           position: relative;
           isolation: isolate;
-          height: 100svh;
+          min-height: 100svh;
           overflow: hidden;
           background:
             radial-gradient(circle at 78% 18%, rgb(255 255 255 / 58%), transparent 27rem),
@@ -187,9 +187,9 @@ export function FairlendLeadershipSection() {
           display: grid;
           grid-template-rows: minmax(0, 1fr);
           width: min(100%, 1800px);
-          height: 100svh;
+          min-height: 100svh;
           margin-inline: auto;
-          padding: 30px;
+          padding: 0 30px 30px;
         }
 
         .leadership-header {
@@ -272,10 +272,10 @@ export function FairlendLeadershipSection() {
           position: relative;
           display: grid;
           grid-template-columns: minmax(0, 1fr) minmax(280px, 0.27fr);
-          grid-template-rows: minmax(0, 1fr) auto;
+          grid-template-rows: minmax(min-content, 1fr) auto;
           gap: 0;
           align-self: stretch;
-          min-height: 0;
+          min-height: 100svh;
           overflow: hidden;
           border: 1px solid rgb(8 9 10 / 16%);
           background: rgb(255 255 255 / 58%);
@@ -379,20 +379,26 @@ export function FairlendLeadershipSection() {
 
         .leadership-eyebrow {
           display: inline-flex;
-          width: fit-content;
+          box-sizing: border-box;
+          width: 100%;
           align-items: center;
           gap: 12px;
+          padding-right: 78px;
           color: rgb(8 9 10 / 74%);
           font-size: 11px;
           font-weight: 900;
           letter-spacing: 0.18em;
           line-height: 1;
+          white-space: nowrap;
           text-transform: uppercase;
         }
 
         .leadership-eyebrow::after {
           display: block;
-          width: 72px;
+          width: auto;
+          min-width: 24px;
+          max-width: 72px;
+          flex: 1 1 72px;
           height: 2px;
           background: linear-gradient(90deg, var(--leadership-signal), transparent);
           content: "";
@@ -888,7 +894,7 @@ export function FairlendLeadershipSection() {
 
         @media (max-width: 1400px) {
           .leadership-shell {
-            padding: 24px;
+            padding: 0 24px 24px;
           }
 
           .leadership-header {
@@ -938,7 +944,7 @@ export function FairlendLeadershipSection() {
           }
 
           .leadership-shell {
-            padding: 30px 22px;
+            padding: 0 22px 30px;
           }
 
           .leadership-header {
@@ -959,6 +965,7 @@ export function FairlendLeadershipSection() {
           }
 
           .leadership-frame {
+            min-height: 0;
             border-width: 2px;
           }
 
@@ -1022,7 +1029,7 @@ export function FairlendLeadershipSection() {
 
         @media (max-width: 720px) {
           .leadership-shell {
-            padding: 28px 16px;
+            padding: 0 16px 28px;
           }
 
           .leadership-header {
@@ -1057,6 +1064,21 @@ export function FairlendLeadershipSection() {
 
           .leadership-copy-panel {
             padding: 22px 16px 22px;
+          }
+
+          .leadership-eyebrow {
+            gap: 8px;
+            padding-right: 62px;
+            font-size: clamp(8px, 2.6vw, 11px);
+            letter-spacing: 0.12em;
+          }
+
+          .leadership-panel-index {
+            right: 16px;
+          }
+
+          .leadership-eyebrow::after {
+            min-width: 16px;
           }
 
           .leadership-title {
@@ -1170,7 +1192,7 @@ export function FairlendLeadershipSection() {
                 01
               </span>
               <span className="leadership-eyebrow" data-leadership-copy-item>
-                Founder & Principal Broker
+                Founder, Principal Broker & MIC Director
               </span>
               <h3 className="leadership-title" data-leadership-title>
                 <span className="leadership-title-line" data-leadership-title-line>
@@ -1226,7 +1248,7 @@ export function FairlendLeadershipSection() {
                 </div>
                 <div className="leadership-portrait-caption">
                   Elie Soberano
-                  <span>Founder & Principal Broker</span>
+                  <span>Founder, Principal Broker & MIC Director</span>
                 </div>
               </div>
               <span className="leadership-visual-grid" data-leadership-visual-grid />

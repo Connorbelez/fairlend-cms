@@ -10,6 +10,8 @@ import * as migration_20260712_010000_fairlend_lead_mortgage_classification from
 import * as migration_20260712_223325_money_page_blocks from './20260712_223325_money_page_blocks';
 import * as migration_20260713_012559_money_page_unique_editor_enums from './20260713_012559_money_page_unique_editor_enums';
 import * as migration_20260714_120000_twenty_crm_sync from './20260714_120000_twenty_crm_sync';
+import * as migration_20260714_130000_twenty_intake_model from './20260714_130000_twenty_intake_model';
+import * as migration_20260714_140000_search_readiness from './20260714_140000_search_readiness';
 
 export const migrations = [
   {
@@ -71,5 +73,15 @@ export const migrations = [
     up: migration_20260714_120000_twenty_crm_sync.up,
     down: migration_20260714_120000_twenty_crm_sync.down,
     name: '20260714_120000_twenty_crm_sync',
+  },
+  {
+    up: migration_20260714_130000_twenty_intake_model.up,
+    down: migration_20260714_130000_twenty_intake_model.down,
+    name: '20260714_130000_twenty_intake_model',
+  },
+  {
+    up: migration_20260714_140000_search_readiness.up,
+    down: migration_20260714_140000_search_readiness.down,
+    name: '20260714_140000_search_readiness',
   },
 ];

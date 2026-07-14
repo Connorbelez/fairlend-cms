@@ -433,11 +433,30 @@
 .bm-board-count {
   display: inline-block;
   color: var(--bm-signal);
-  font-family: 'Oxanium', ui-monospace, monospace;
+  font-family: var(--font-dm-serif-display), Georgia, serif;
   font-size: clamp(48px, min(7vw, 8dvh), 94px);
-  font-weight: 500;
+  font-weight: 400;
   font-variant-numeric: tabular-nums;
   line-height: 0.78;
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .bm-board-count {
+    background-image:
+      linear-gradient(
+        color-mix(in srgb, var(--bm-signal) 66%, transparent),
+        color-mix(in srgb, var(--bm-signal) 66%, transparent)
+      ),
+      url('/textures/groovepaper.png');
+    background-repeat: repeat;
+    background-size:
+      auto,
+      180px 180px;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
 .bm-board-title {

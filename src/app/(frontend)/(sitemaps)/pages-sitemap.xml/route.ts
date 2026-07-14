@@ -3,19 +3,31 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
 
+import { getCanonicalOrigin } from '@/utilities/seo'
+
 const staticIndexableRoutes = [
   '/',
   '/affordable-sustainable-rental-housing',
+  '/borrowers',
+  '/borrowers/institutional-mortgage',
   '/borrowers/private-mortgage-financing',
+  '/cmhc-mli-select-multiplex-financing',
   '/construction-draw-financing',
+  '/contact',
+  '/disclosures',
   '/en/brokerage/privacy-policy',
   '/garden-suite-financing-gta',
   '/garden-suite',
+  '/investing',
   '/investing/private-mortgage-lending',
   '/multiplex-financing-gta',
   '/partners',
   '/posts',
+  '/resources/construction-draws-small-builders',
+  '/terms',
 ]
+
+const excludedPayloadPageSlugs = new Set(['contact', 'money-page-blocks-qa-2026-07-12'])
 
 const getPagesSitemap = unstable_cache(
   async () => {
@@ -46,7 +58,7 @@ const getPagesSitemap = unstable_cache(
 
     const sitemap = results.docs
       ? results.docs
-          .filter((page) => Boolean(page?.slug))
+          .filter((page) => Boolean(page?.slug) && !excludedPayloadPageSlugs.has(page.slug))
           .map((page) => {
             return {
               loc: page?.slug === 'home' ? `${SITE_URL}/` : `${SITE_URL}/${page?.slug}`,
@@ -77,13 +89,5 @@ export async function GET() {
 }
 
 function getSitemapSiteUrl(): string {
-  const configuredUrl = process.env.NEXT_PUBLIC_SERVER_URL?.trim()
-  const vercelProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim()
-  const siteUrl = configuredUrl || (vercelProductionUrl ? `https://${vercelProductionUrl}` : '')
-
-  if (!siteUrl) {
-    throw new Error('NEXT_PUBLIC_SERVER_URL or VERCEL_PROJECT_PRODUCTION_URL is required')
-  }
-
-  return siteUrl.replace(/\/+$/, '')
+  return getCanonicalOrigin()
 }

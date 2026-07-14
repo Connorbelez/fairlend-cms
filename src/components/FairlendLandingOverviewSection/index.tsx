@@ -381,6 +381,7 @@ function FinanceCard({
               alt=""
               aria-hidden="true"
               className="h-[70px] w-[82px] object-contain mix-blend-multiply [filter:grayscale(1)_contrast(1.18)]"
+              data-overview-finance-image
               height={512}
               loading="lazy"
               sizes="82px"
@@ -657,7 +658,7 @@ export function FairlendLandingOverviewSection() {
               alt=""
               className="object-contain object-bottom opacity-[0.82] grayscale [filter:grayscale(1)_contrast(0.86)_brightness(1.15)]"
               fill
-              sizes="100vw"
+              sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 1023px) calc(100vw - 64px), 0px"
               src={torontoHeroAssets.skyline}
             />
           </div>

@@ -24,7 +24,7 @@ const stats = [
 const bench = [
   {
     name: 'Elie Soberano',
-    role: 'Principal Broker · Founder',
+    role: 'Principal Broker · Founder · MIC Director',
     summary:
       'Nearly 30 years in mortgage brokerage and more than $2B funded, with deep Southern Ontario experience across lending, private mortgages, construction, appraisal, and recovery. Has built custom homes, managed major rental properties, and advised at the product-strategy level.',
   },
@@ -36,9 +36,9 @@ const bench = [
   },
   {
     name: 'Bogdan Krystek',
-    role: 'Operations & Finance',
+    role: 'CFO & MIC Director',
     summary:
-      'Former President of Barton Engineering, adding precision-manufacturing, high-volume production, and just-in-time operating discipline to underwriting and recovery work.',
+      'Leads financial oversight, capital planning, reporting, and controls across FairLend.',
   },
 ] as const
 

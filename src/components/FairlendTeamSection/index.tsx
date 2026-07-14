@@ -19,13 +19,15 @@ const teamMembers = [
     role: 'CTO & MIC Director',
   },
   {
-    discipline: 'Operations & controls',
+    discipline: 'Finance & controls',
+    experience:
+      'Former President of Barton Engineering, a Tier 1 manufacturer supplying Ford and Magna.',
     initials: 'BK',
     name: 'Bogdan Krystek',
-    plate: 'operations',
+    plate: 'finance',
     responsibility:
-      'Former President of Barton Engineering, bringing precision-manufacturing, high-volume production, and just-in-time supply-chain discipline to the complete file lifecycle.',
-    role: 'Operations & Finance',
+      'Leads financial oversight, capital planning, reporting, and controls across FairLend.',
+    role: 'CFO & MIC Director',
   },
   {
     discipline: 'Legal & risk',
@@ -38,9 +40,10 @@ const teamMembers = [
   },
 ] satisfies ReadonlyArray<{
   discipline: string
+  experience?: string
   initials: string
   name: string
-  plate: 'legal' | 'operations' | 'technology'
+  plate: 'finance' | 'legal' | 'technology'
   responsibility: string
   role: string
 }>
@@ -100,35 +103,46 @@ export function FairlendTeamSection(): ReactElement {
         </div>
 
         <div className="fairlend-team__members">
-          {teamMembers.map(({ discipline, initials, name, plate, responsibility, role }) => (
-            <article className="fairlend-team__member" data-team-member key={name}>
-              <div
-                aria-label={`Portrait placeholder for ${name}`}
-                className="fairlend-team__portrait"
-                data-team-portrait
-                role="img"
-              >
-                <span className="fairlend-team__portrait-ink" aria-hidden="true" />
-                <span className="fairlend-team__initials" aria-hidden="true">
-                  {initials}
-                </span>
-                <span className="fairlend-team__portrait-label">Portrait placeholder</span>
-              </div>
+          {teamMembers.map(
+            ({ discipline, experience, initials, name, plate, responsibility, role }) => (
+              <article className="fairlend-team__member" data-team-member key={name}>
+                <div
+                  aria-label={`Portrait placeholder for ${name}`}
+                  className="fairlend-team__portrait"
+                  data-team-portrait
+                  role="img"
+                >
+                  <span className="fairlend-team__portrait-ink" aria-hidden="true" />
+                  <span className="fairlend-team__initials" aria-hidden="true">
+                    {initials}
+                  </span>
+                  <span className="fairlend-team__portrait-label">Portrait placeholder</span>
+                </div>
 
-              <div className="fairlend-team__member-copy" data-team-member-copy>
-                <h3 data-team-member-name>{name}</h3>
-                <p className="fairlend-team__role" data-team-member-role>
-                  {role}
-                </p>
-                <span aria-hidden="true" className="fairlend-team__name-rule" data-team-name-rule />
-                <p className="fairlend-team__responsibility" data-team-member-responsibility>
-                  {responsibility}
-                </p>
-              </div>
+                <div className="fairlend-team__member-copy" data-team-member-copy>
+                  <h3 data-team-member-name>{name}</h3>
+                  <p className="fairlend-team__role" data-team-member-role>
+                    {role}
+                  </p>
+                  <span
+                    aria-hidden="true"
+                    className="fairlend-team__name-rule"
+                    data-team-name-rule
+                  />
+                  <p className="fairlend-team__responsibility" data-team-member-responsibility>
+                    {responsibility}
+                  </p>
+                  {experience ? (
+                    <p className="fairlend-team__experience" data-team-member-experience>
+                      {experience}
+                    </p>
+                  ) : null}
+                </div>
 
-              <FairlendTeamDiscipline appearance="plate" discipline={discipline} plate={plate} />
-            </article>
-          ))}
+                <FairlendTeamDiscipline appearance="plate" discipline={discipline} plate={plate} />
+              </article>
+            ),
+          )}
         </div>
       </FairlendPaperShell>
     </FairlendPaperSection>

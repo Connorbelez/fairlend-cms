@@ -10,7 +10,7 @@ export const metadata = buildFairlendMetadata({
   description:
     'Read the terms governing use of the FairLend Mortgage website and its financing request tools.',
   path: termsUrl,
-  title: 'Website Terms of Use | FairLend Management Inc.',
+  title: 'Website Terms of Use | Fairlend Management Inc.',
 })
 
 const sections = [
@@ -23,7 +23,7 @@ const sections = [
     heading: 'No offer or advice',
   },
   {
-    body: 'FairLend Management Inc. operates as FairLend Mortgage and is licensed by the Financial Services Regulatory Authority of Ontario (FSRA) as a mortgage brokerage and mortgage administrator. FairLend does not represent that a mortgage, lender, rate, structure, or investment is suitable for every person or project. Obtain independent professional advice before making a decision.',
+    body: 'Fairlend Management Inc. operates as FairLend Mortgage and is licensed by the Financial Services Regulatory Authority of Ontario (FSRA) as a mortgage brokerage and mortgage administrator. FairLend does not represent that a mortgage, lender, rate, structure, or investment is suitable for every person or project. Obtain independent professional advice before making a decision.',
     heading: 'Regulatory disclosure',
   },
   {
@@ -57,7 +57,7 @@ export default function TermsPage() {
     <main className="bg-[#f8f7f5] px-5 py-16 text-[#090909] sm:px-8 sm:py-24">
       <article className="mx-auto max-w-3xl">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#42656d]">
-          FairLend Management Inc. o/a FairLend Mortgage
+          Fairlend Management Inc. o/a FairLend Mortgage
         </p>
         <h1 className="mt-5 font-serif text-5xl tracking-[-0.03em] sm:text-6xl">
           Website Terms of Use

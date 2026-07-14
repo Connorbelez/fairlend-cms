@@ -22,16 +22,23 @@ type Args = {
 export async function GET(request: NextRequest, { params }: Args): Promise<NextResponse> {
   const { campaign = '' } = await params
   const config = getFairlendCampaignConfig(campaign)
-  const destination = config?.destination ?? '/'
+
+  if (!config) {
+    return new NextResponse(null, {
+      headers: {
+        'Cache-Control': 'no-store',
+        'X-Robots-Tag': 'noindex',
+      },
+      status: 404,
+    })
+  }
+
+  const destination = config.destination
   const redirectUrl = new URL(destination, request.nextUrl.origin)
   const response = NextResponse.redirect(redirectUrl, 302)
 
   response.headers.set('Cache-Control', 'no-store')
   response.headers.set('X-Robots-Tag', 'noindex')
-
-  if (!config) {
-    return response
-  }
 
   const attribution = createFairlendCampaignAttribution(config)
 

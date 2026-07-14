@@ -1,6 +1,5 @@
 import { BadgeCheck, ClipboardList, Landmark, Search } from 'lucide-react'
 import type { VariantProps } from 'class-variance-authority'
-import type { CSSProperties } from 'react'
 
 import { cn } from '@/utilities/ui'
 
@@ -12,10 +11,6 @@ import {
   fairlendRouteStepTrackVariants,
 } from './styles'
 import type { FairlendRouteComponentProps } from './types'
-
-type FairlendRouteStepStyle = CSSProperties & {
-  '--route-step-index'?: number
-}
 
 type FairlendRouteStepTrackProps = FairlendRouteComponentProps<HTMLDivElement> &
   VariantProps<typeof fairlendRouteStepTrackVariants> & {
@@ -45,16 +40,8 @@ export function FairlendRouteStepTrack({
   }
 
   return (
-    <div
-      className={cn(fairlendRouteStepTrackVariants({ density }), className)}
-      data-fairlend-route-motion="steps"
-      {...props}
-    >
-      <div
-        aria-hidden="true"
-        className={fairlendRouteStepLineVariants()}
-        data-fairlend-route-motion="step-line"
-      />
+    <div className={cn(fairlendRouteStepTrackVariants({ density }), className)} {...props}>
+      <div aria-hidden="true" className={fairlendRouteStepLineVariants()} />
       <ol
         className={cn('relative z-10 grid gap-0', detailed && 'grid-cols-4')}
         style={detailed ? undefined : compactTrackStyle}
@@ -71,16 +58,12 @@ export function FairlendRouteStepTrack({
                   ? 'relative flex flex-col items-center gap-1.5 px-2 text-center'
                   : 'contents',
               )}
-              style={
-                detailed ? ({ '--route-step-index': index } as FairlendRouteStepStyle) : undefined
-              }
             >
               {detailed ? (
                 <>
                   <span
                     aria-hidden="true"
                     className={fairlendRouteStepDotVariants({ active: isActive })}
-                    data-fairlend-route-motion="step-dot"
                   />
                   <StepIcon aria-hidden="true" className="mt-1 size-5" strokeWidth={1.8} />
                   <span className="text-[12px] leading-none font-bold">{step}</span>
@@ -89,21 +72,12 @@ export function FairlendRouteStepTrack({
                   </span>
                 </>
               ) : (
-                <span
-                  className="relative flex flex-col items-center gap-2"
-                  style={{ '--route-step-index': index } as FairlendRouteStepStyle}
-                >
+                <span className="relative flex flex-col items-center gap-2">
                   <span
                     aria-hidden="true"
                     className={fairlendRouteStepDotVariants({ active: isActive })}
-                    data-fairlend-route-motion="step-dot"
                   />
-                  <span
-                    className={fairlendRouteStepLabelVariants()}
-                    data-fairlend-route-motion="step-label"
-                  >
-                    {step}
-                  </span>
+                  <span className={fairlendRouteStepLabelVariants()}>{step}</span>
                 </span>
               )}
               {!detailed && index < steps.length - 1 ? (

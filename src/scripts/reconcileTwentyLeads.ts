@@ -9,6 +9,7 @@ type ReconcileRow = {
   attribution: Record<string, unknown> | null
   campaign: string | null
   campaignScanId: string | null
+  capturedAt: string
   email: string | null
   formattedAddress: string | null
   intake: Record<string, unknown> | null
@@ -21,6 +22,8 @@ type ReconcileRow = {
   priority: 'high' | 'normal' | 'low'
   source: string
   status: 'draft' | 'started' | 'submitted'
+  submittedAt: string | null
+  submittedAtSource: 'source_supplied' | 'inferred_created_at' | 'not_submitted' | null
   workflowStatus:
     | 'new'
     | 'contact_attempted'
@@ -41,6 +44,9 @@ if (process.env.TWENTY_SYNC_ENABLED !== 'true') {
 const sql = neon(connectionString)
 const parsedLimit = Number(process.env.TWENTY_RECONCILE_LIMIT ?? '100')
 const limit = Number.isInteger(parsedLimit) ? Math.min(Math.max(parsedLimit, 1), 1000) : 100
+const reconcileAll = process.env.TWENTY_RECONCILE_ALL === 'true'
+const parsedDelay = Number(process.env.TWENTY_RECONCILE_DELAY_MS ?? '2100')
+const delayMs = Number.isFinite(parsedDelay) ? Math.max(parsedDelay, 0) : 2100
 
 const rows = (await sql`
   SELECT
@@ -49,9 +55,12 @@ const rows = (await sql`
     next_action_at::text AS "nextActionAt", intent, source, name, email, phone, address,
     formatted_address AS "formattedAddress", place_id AS "placeId", intake,
     address_details AS "addressDetails", campaign, campaign_scan_id AS "campaignScanId",
-    attribution
+    attribution,
+    COALESCE(captured_at, created_at)::text AS "capturedAt",
+    submitted_at::text AS "submittedAt",
+    submitted_at_source AS "submittedAtSource"
   FROM fairlend_leads
-  WHERE twenty_sync_status <> 'synced'
+  WHERE ${reconcileAll} OR twenty_sync_status <> 'synced'
   ORDER BY updated_at ASC
   LIMIT ${limit}
 `) as ReconcileRow[]
@@ -80,6 +89,14 @@ for (const [index, row] of rows.entries()) {
     status: row.status,
     workflowStatus: row.workflowStatus,
   })
+  lead.capturedAt = new Date(row.capturedAt).toISOString()
+  lead.submittedAt = row.submittedAt
+    ? new Date(row.submittedAt).toISOString()
+    : row.status === 'submitted'
+      ? lead.capturedAt
+      : null
+  lead.timestampProvenance = row.submittedAtSource
+    ?? (lead.submittedAt ? 'inferred_created_at' : 'not_submitted')
   const result = await syncFairlendLeadToTwenty(lead)
 
   if (result.status === 'synced') {
@@ -87,6 +104,8 @@ for (const [index, row] of rows.entries()) {
     await sql`
       UPDATE fairlend_leads
       SET twenty_sync_status = 'synced', twenty_record_id = ${result.recordId},
+          twenty_object_kind = ${result.objectKind},
+          twenty_related_record_ids = ${JSON.stringify(result.relatedRecords)}::jsonb,
           twenty_last_synced_at = now(), twenty_sync_error = NULL
       WHERE lead_id = ${row.leadId}
     `
@@ -101,7 +120,7 @@ for (const [index, row] of rows.entries()) {
   }
 
   if (index < rows.length - 1) {
-    await new Promise((resolve) => setTimeout(resolve, 650))
+    await new Promise((resolve) => setTimeout(resolve, delayMs))
   }
 }
 

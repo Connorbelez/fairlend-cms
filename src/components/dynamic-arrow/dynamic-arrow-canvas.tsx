@@ -65,7 +65,6 @@ export type DynamicArrowCanvasProps = {
   maxCurveOffset?: number
   maxOpacity?: number
   minOpacity?: number
-  onTargetChange?: (element: HTMLElement | null) => void
   opacityDistance?: number
   origin: DynamicArrowOrigin
   position?: 'absolute' | 'fixed'
@@ -266,7 +265,6 @@ export function DynamicArrowCanvas({
   maxCurveOffset = 200,
   maxOpacity = 1,
   minOpacity = 0,
-  onTargetChange,
   opacityDistance = 500,
   origin,
   position = 'fixed',
@@ -289,17 +287,13 @@ export function DynamicArrowCanvas({
   const strokeColorRef = useRef<RgbColor>(fallbackStrokeColor)
   const [mediaEnabled, setMediaEnabled] = useState(false)
 
-  const setActiveTarget = useCallback(
-    (element: HTMLElement | null) => {
-      if (activeTargetRef.current === element) {
-        return
-      }
+  const setActiveTarget = useCallback((element: HTMLElement | null) => {
+    if (activeTargetRef.current === element) {
+      return
+    }
 
-      activeTargetRef.current = element
-      onTargetChange?.(element)
-    },
-    [onTargetChange],
-  )
+    activeTargetRef.current = element
+  }, [])
 
   const getCanvasBounds = useCallback(() => {
     const scopeElement = getScopeElement?.() ?? scopeRef?.current ?? null

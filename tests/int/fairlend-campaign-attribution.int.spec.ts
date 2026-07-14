@@ -89,13 +89,14 @@ describe('FairLend QR campaign attribution route', () => {
     expect(response.cookies.get(fairlendCampaignAttributionCookieName)?.value).toBeTruthy()
   })
 
-  it('redirects unknown campaigns home without setting attribution', async () => {
+  it('returns a real 404 for unknown campaigns without setting attribution', async () => {
     const response = await GET(new NextRequest('https://fairlend.test/r/not-real'), {
       params: Promise.resolve({ campaign: 'not-real' }),
     })
 
-    expect(response.status).toBe(302)
-    expect(response.headers.get('location')).toBe('https://fairlend.test/')
+    expect(response.status).toBe(404)
+    expect(response.headers.get('location')).toBeNull()
+    expect(response.headers.get('x-robots-tag')).toBe('noindex')
     expect(response.cookies.get(fairlendCampaignAttributionCookieName)).toBeUndefined()
     expect(campaignMocks.persistFairlendCampaignScan).not.toHaveBeenCalled()
   })

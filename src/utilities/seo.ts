@@ -6,23 +6,33 @@ export const fairlendSeo = {
   defaultDescription:
     'FairLend helps Ontario borrowers, builders, partners, and private mortgage investors structure clear real-estate financing options.',
   defaultOgImagePath: '/opengraph-image',
-  legalName: 'FairLend Management Inc.',
+  legalName: 'Fairlend Management Inc.',
   locale: 'en_CA',
   siteName: 'FairLend Mortgage',
   titleTemplate: '%s | FairLend Mortgage',
 } as const
 
-const productionOrigin = 'https://fairlend.ca'
+const productionOrigin = 'https://www.fairlend.ca'
 
 const stripTrailingSlash = (value: string) => value.replace(/\/+$/, '')
 
 const isLocalOrigin = (value: string) => /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(value)
 
+const normalizeCanonicalOrigin = (value: string) => {
+  const url = new URL(value)
+
+  if (url.hostname === 'fairlend.ca') {
+    url.hostname = 'www.fairlend.ca'
+  }
+
+  return stripTrailingSlash(url.toString())
+}
+
 export const getCanonicalOrigin = () => {
   const configuredUrl = process.env.NEXT_PUBLIC_SERVER_URL?.trim()
   const vercelProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim()
   const configuredOrigin = configuredUrl ? stripTrailingSlash(configuredUrl) : ''
-  const origin = stripTrailingSlash(
+  const origin = normalizeCanonicalOrigin(
     process.env.NODE_ENV === 'production' && isLocalOrigin(configuredOrigin)
       ? vercelProductionUrl
         ? `https://${vercelProductionUrl}`

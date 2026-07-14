@@ -4,11 +4,11 @@ import { MORTGAGE_LEAD_FIELD_IDS, MORTGAGE_LEAD_OBJECT_ID, VIEW_IDS } from 'src/
 
 export default defineView({
   universalIdentifier: VIEW_IDS.mortgageLeads,
-  name: 'FairLend Mortgage Leads',
+  name: 'Legacy Intake Leads',
   objectUniversalIdentifier: MORTGAGE_LEAD_OBJECT_ID,
   icon: 'IconHomeDollar',
   key: ViewKey.INDEX,
-  position: 0,
+  position: 99,
   fields: [
     { universalIdentifier: 'cf5e2afe-413a-4b6a-84ec-346a920c89d3', fieldMetadataUniversalIdentifier: MORTGAGE_LEAD_FIELD_IDS.name, position: 0, isVisible: true, size: 240 },
     { universalIdentifier: '64f986d2-034b-418f-b914-436d56127e56', fieldMetadataUniversalIdentifier: MORTGAGE_LEAD_FIELD_IDS.workflowStatus, position: 1, isVisible: true, size: 180 },

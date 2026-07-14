@@ -1,13 +1,14 @@
 # FairLend CRM Twenty application
 
-This package is the source of truth for FairLend's Twenty Cloud data model. It defines Mortgage Leads, Consultations, Campaign Touches, saved views, sidebar navigation, and relations to Twenty's standard Person, Company, and Opportunity objects.
+This package is the source of truth for FairLend's Twenty Cloud data model. It defines Mortgage Borrower Leads, Lender Applications, Construction Applications, Partner Leads, Consultation Requests, General Inquiries, Newsletter Subscriptions, Campaign Touches, saved views, navigation, and standard-object relations.
 
 ## Features
 
-- Models every normalized FairLend intake field and preserves raw source payloads.
+- Promotes every emitted intake value into a typed CRM column while preserving raw source payloads as hidden audit data.
 - Separates website-owned capture data from CRM-owned workflow data.
-- Connects leads to native People, Companies, and Opportunities.
-- Ships useful list views and sidebar navigation.
+- Deduplicates and connects native People; creates Companies only from explicit organization input.
+- Ships Operations, All Intake Fields, Drafts, and workflow Kanban views.
+- Retains Legacy Intake Leads read-only until migration verification is complete.
 
 ## Getting started
 

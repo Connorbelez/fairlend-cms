@@ -57,8 +57,9 @@ const footerColumns = [
       { label: 'Market Commentary', href: '/posts' },
       { label: 'Toronto Field Guide', href: '/garden-suite-financing-gta' },
       { label: 'Reports & Data', href: '/cmhc-mli-select-multiplex-financing' },
-      { label: 'Case Studies', href: '/partners' },
-      { label: 'Newsroom', href: '/posts' },
+      { label: 'Builder Draw Guide', href: '/resources/construction-draws-small-builders' },
+      { label: 'Contact FairLend', href: '/contact' },
+      { label: 'Regulatory Disclosures', href: '/disclosures' },
     ],
   },
 ] as const
@@ -254,9 +255,9 @@ export function WatermelonFooter() {
                 <Phone aria-hidden="true" />
               </span>
               <p>
-                <a href="tel:+14165550199">416-555-0199</a>
+                <a href="tel:+16478317605">647-831-7605</a>
                 <br />
-                <a href="mailto:capital@fairlend.ca">capital@fairlend.ca</a>
+                <a href="mailto:elie@fairlend.ca">elie@fairlend.ca</a>
               </p>
             </div>
           </section>
@@ -270,7 +271,7 @@ export function WatermelonFooter() {
           <span aria-hidden="true" className={styles.centerTick} />
           <div aria-label="FairLend licence information" className={styles.legalLinks}>
             <span className="sr-only">
-              FairLend Management Inc. operating as FairLend Mortgage.
+              Fairlend Management Inc. operating as FairLend Mortgage.
             </span>
             <a
               href="https://mbsweblist.fsco.gov.on.ca/ShowLicence.aspx?13827~"
@@ -291,6 +292,8 @@ export function WatermelonFooter() {
             <Link href="/en/brokerage/privacy-policy">Privacy</Link>
             <span aria-hidden="true" className={styles.verticalRule} />
             <Link href="/terms">Terms</Link>
+            <span aria-hidden="true" className={styles.verticalRule} />
+            <Link href="/contact">Contact</Link>
             <span aria-hidden="true" className={styles.crosshair} />
           </div>
         </div>

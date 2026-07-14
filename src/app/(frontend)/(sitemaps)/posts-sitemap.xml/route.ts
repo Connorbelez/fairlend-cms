@@ -3,6 +3,14 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
 
+import { getCanonicalOrigin } from '@/utilities/seo'
+
+const excludedDemoPostSlugs = new Set([
+  'digital-horizons',
+  'global-gaze',
+  'dollar-and-sense-the-financial-forecast',
+])
+
 const getPostsSitemap = unstable_cache(
   async () => {
     const payload = await getPayload({ config })
@@ -28,7 +36,7 @@ const getPostsSitemap = unstable_cache(
 
     const sitemap = results.docs
       ? results.docs
-          .filter((post) => Boolean(post?.slug))
+          .filter((post) => Boolean(post?.slug) && !excludedDemoPostSlugs.has(post.slug))
           .map((post) => ({
             loc: `${SITE_URL}/posts/${post?.slug}`,
             lastmod: post.updatedAt,
@@ -50,13 +58,5 @@ export async function GET() {
 }
 
 function getSitemapSiteUrl(): string {
-  const configuredUrl = process.env.NEXT_PUBLIC_SERVER_URL?.trim()
-  const vercelProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim()
-  const siteUrl = configuredUrl || (vercelProductionUrl ? `https://${vercelProductionUrl}` : '')
-
-  if (!siteUrl) {
-    throw new Error('NEXT_PUBLIC_SERVER_URL or VERCEL_PROJECT_PRODUCTION_URL is required')
-  }
-
-  return siteUrl.replace(/\/+$/, '')
+  return getCanonicalOrigin()
 }

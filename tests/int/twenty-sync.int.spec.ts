@@ -3,8 +3,8 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { normalizeLeadPayload } from '@/lib/fairlend-leads'
 import {
   syncFairlendLeadToTwenty,
-  toTwentyMortgageLeadCreateInput,
-  toTwentyMortgageLeadUpdateInput,
+  toTwentyObjectCreateInput,
+  toTwentyObjectUpdateInput,
 } from '@/lib/twenty/client'
 
 const lead = normalizeLeadPayload({
@@ -30,6 +30,7 @@ const lead = normalizeLeadPayload({
     projectScope: 'multiplex-financing',
     projectStage: 'Permits submitted',
     situation: 'Close a property quickly',
+    submittedAt: '2026-07-14T15:00:00.000Z',
     timeline: 'Within 30 days',
   },
   intent: 'mortgage',
@@ -44,22 +45,27 @@ const lead = normalizeLeadPayload({
   workflowStatus: 'qualified',
 })
 
+const personId = '89537ee7-3454-473b-bc68-130e7d3fd016'
+
 afterEach(() => {
   vi.unstubAllEnvs()
 })
 
-describe('Twenty mortgage lead mapping', () => {
-  it('maps normalized intake fields and stable identifiers into the app schema', () => {
-    expect(toTwentyMortgageLeadCreateInput(lead)).toMatchObject({
+describe('Twenty operational intake mapping', () => {
+  it('maps normalized mortgage fields, timestamps, and stable identifiers into typed columns', () => {
+    expect(toTwentyObjectCreateInput(lead, 'mortgage')).toMatchObject({
       id: lead.id,
       fairlendLeadId: lead.id,
       captureStatus: 'SUBMITTED',
       workflowStatus: 'QUALIFIED',
       priority: 'HIGH',
+      capturedAt: lead.capturedAt,
+      submittedAt: '2026-07-14T15:00:00.000Z',
+      timestampProvenance: 'SOURCE_SUPPLIED',
       adminNotes: 'Borrower requested an afternoon call.',
       nextActionAt: '2026-07-15T18:00:00.000Z',
-      mortgageProduct: 'PRIVATE',
-      requestedAmount: '$1,200,000',
+      mortgageProduct: 'private',
+      amount: '$1,200,000',
       additionalLiens: '$50,000',
       source: 'multiplex-financing-gta',
       propertyAddress: {
@@ -75,8 +81,7 @@ describe('Twenty mortgage lead mapping', () => {
   })
 
   it('does not overwrite CRM-owned workflow fields during website updates', () => {
-    const update = toTwentyMortgageLeadUpdateInput(lead)
-
+    const update = toTwentyObjectUpdateInput(lead, 'mortgage')
     expect(update).not.toHaveProperty('workflowStatus')
     expect(update).not.toHaveProperty('priority')
     expect(update).not.toHaveProperty('nextActionAt')
@@ -84,50 +89,57 @@ describe('Twenty mortgage lead mapping', () => {
   })
 })
 
-describe('Twenty mortgage lead sync', () => {
+describe('Twenty operational intake sync', () => {
   it('is explicitly disabled unless configured', async () => {
     const fetchMock = vi.fn()
-
-    await expect(
-      syncFairlendLeadToTwenty(lead, { fetchImpl: fetchMock as unknown as typeof fetch }),
-    ).resolves.toEqual({ status: 'disabled' })
+    await expect(syncFairlendLeadToTwenty(lead, { fetchImpl: fetchMock as unknown as typeof fetch }))
+      .resolves.toEqual({ status: 'disabled' })
     expect(fetchMock).not.toHaveBeenCalled()
   })
 
-  it('patches the deterministic FairLend lead id when the record already exists', async () => {
+  it('deduplicates the person and patches the deterministic object record', async () => {
     vi.stubEnv('TWENTY_SYNC_ENABLED', 'true')
     vi.stubEnv('TWENTY_API_KEY', 'test-api-key')
-    const fetchMock = vi.fn(async (_input: RequestInfo | URL, _init?: RequestInit) =>
-      Response.json({ data: { id: lead.id } }),
-    )
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input)
+      if (url.includes('/rest/people?')) return Response.json({ data: { people: [{ id: personId }] } })
+      if (url.includes('/rest/mortgageBorrowerLeads/')) return Response.json({ data: { id: lead.id } })
+      if (url.includes('/rest/campaignTouches/')) return Response.json({ data: { id: lead.id } })
+      return new Response(null, { status: 500 })
+    })
 
-    await expect(
-      syncFairlendLeadToTwenty(lead, { fetchImpl: fetchMock as unknown as typeof fetch }),
-    ).resolves.toEqual({ status: 'synced', recordId: lead.id })
-    expect(fetchMock).toHaveBeenCalledTimes(1)
-    expect(fetchMock.mock.calls[0]?.[0]).toBe(
-      `https://api.twenty.com/rest/mortgageLeads/${lead.id}`,
-    )
-    expect(fetchMock.mock.calls[0]?.[1]).toMatchObject({ method: 'PATCH' })
+    const result = await syncFairlendLeadToTwenty(lead, { fetchImpl: fetchMock as unknown as typeof fetch })
+    expect(result).toMatchObject({ status: 'synced', recordId: lead.id, objectKind: 'mortgage' })
+    expect(result.status === 'synced' ? result.relatedRecords : []).toEqual([
+      { objectKind: 'person', recordId: personId },
+      { objectKind: 'campaignTouch', recordId: lead.id },
+    ])
+    expect(fetchMock.mock.calls.some(([url]) => String(url).includes(`/rest/mortgageBorrowerLeads/${lead.id}`))).toBe(true)
   })
 
-  it('creates a missing record and seeds CRM-owned workflow defaults once', async () => {
+  it('creates missing Person, application, and campaign-touch records', async () => {
     vi.stubEnv('TWENTY_SYNC_ENABLED', 'true')
     vi.stubEnv('TWENTY_API_KEY', 'test-api-key')
-    const fetchMock = vi
-      .fn(async (_input: RequestInfo | URL, _init?: RequestInit) => new Response())
-      .mockResolvedValueOnce(new Response(null, { status: 404 }))
-      .mockResolvedValueOnce(Response.json({ id: lead.id }, { status: 201 }))
+    const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input)
+      if (url.includes('/rest/people?')) return Response.json({ data: { people: [] } })
+      if (url.endsWith('/rest/people') && init?.method === 'POST') return Response.json({ id: personId }, { status: 201 })
+      if (url.includes(`/rest/mortgageBorrowerLeads/${lead.id}`)) return new Response(null, { status: 404 })
+      if (url.endsWith('/rest/mortgageBorrowerLeads')) return Response.json({ id: lead.id }, { status: 201 })
+      if (url.includes('/rest/campaignTouches/')) return new Response(null, { status: 404 })
+      if (url.endsWith('/rest/campaignTouches')) return Response.json({ id: lead.id }, { status: 201 })
+      return new Response(null, { status: 500 })
+    })
 
-    await expect(
-      syncFairlendLeadToTwenty(lead, { fetchImpl: fetchMock as unknown as typeof fetch }),
-    ).resolves.toEqual({ status: 'synced', recordId: lead.id })
+    const result = await syncFairlendLeadToTwenty(lead, { fetchImpl: fetchMock as unknown as typeof fetch })
+    expect(result).toMatchObject({ status: 'synced', recordId: lead.id, objectKind: 'mortgage' })
 
-    const createInit = fetchMock.mock.calls[1]?.[1] as RequestInit
-    expect(fetchMock.mock.calls[1]?.[0]).toBe('https://api.twenty.com/rest/mortgageLeads')
-    expect(createInit.method).toBe('POST')
-    expect(JSON.parse(String(createInit.body))).toMatchObject({
+    const createCall = fetchMock.mock.calls.find(([url, init]) =>
+      String(url).endsWith('/rest/mortgageBorrowerLeads') && init?.method === 'POST')
+    expect(createCall).toBeDefined()
+    expect(JSON.parse(String(createCall?.[1]?.body))).toMatchObject({
       id: lead.id,
+      personId,
       workflowStatus: 'QUALIFIED',
       priority: 'HIGH',
       adminNotes: 'Borrower requested an afternoon call.',
@@ -135,21 +147,48 @@ describe('Twenty mortgage lead sync', () => {
     })
   })
 
-  it('returns a bounded operational error instead of failing lead capture', async () => {
+  it('re-reads a newly created Person when Twenty omits its id from the create response', async () => {
     vi.stubEnv('TWENTY_SYNC_ENABLED', 'true')
     vi.stubEnv('TWENTY_API_KEY', 'test-api-key')
-    const fetchMock = vi.fn(async () =>
-      Response.json({ message: 'API key cannot access mortgageLeads' }, { status: 403 }),
-    )
-
-    const result = await syncFairlendLeadToTwenty(lead, {
-      fetchImpl: fetchMock as unknown as typeof fetch,
+    let personLookupCount = 0
+    const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input)
+      if (url.includes('/rest/people?')) {
+        personLookupCount += 1
+        return Response.json({ data: { people: personLookupCount === 1 ? [] : [{ id: personId }] } })
+      }
+      if (url.endsWith('/rest/people') && init?.method === 'POST') {
+        return Response.json({ data: {} }, { status: 201 })
+      }
+      if (url.includes(`/rest/mortgageBorrowerLeads/${lead.id}`)) return Response.json({ id: lead.id })
+      if (url.includes('/rest/campaignTouches/')) return Response.json({ id: lead.id })
+      return new Response(null, { status: 500 })
     })
 
+    const result = await syncFairlendLeadToTwenty(lead, { fetchImpl: fetchMock as unknown as typeof fetch })
+
+    expect(personLookupCount).toBe(2)
+    expect(result).toMatchObject({
+      status: 'synced',
+      relatedRecords: expect.arrayContaining([{ objectKind: 'person', recordId: personId }]),
+    })
+    const updateCall = fetchMock.mock.calls.find(([url]) =>
+      String(url).includes(`/rest/mortgageBorrowerLeads/${lead.id}`))
+    expect(JSON.parse(String(updateCall?.[1]?.body))).toMatchObject({ personId })
+  })
+
+  it('returns a bounded operational error without failing lead capture', async () => {
+    vi.stubEnv('TWENTY_SYNC_ENABLED', 'true')
+    vi.stubEnv('TWENTY_API_KEY', 'test-api-key')
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      if (String(input).includes('/rest/people?')) return Response.json({ data: { people: [{ id: personId }] } })
+      return Response.json({ message: 'API key cannot access mortgageBorrowerLeads' }, { status: 403 })
+    })
+
+    const result = await syncFairlendLeadToTwenty(lead, { fetchImpl: fetchMock as unknown as typeof fetch })
     expect(result).toEqual({
       status: 'failed',
-      error:
-        'Twenty API could not update mortgage lead: HTTP 403 (API key cannot access mortgageLeads)',
+      error: 'Twenty API could not update mortgage borrower lead: HTTP 403 (API key cannot access mortgageBorrowerLeads)',
     })
   })
 })

@@ -42,3 +42,7 @@ The production Twenty Cloud deployment and website integration are documented in
 ## Troubleshooting
 
 See the [troubleshooting guide](https://docs.twenty.com/developers/extend/apps/getting-started/troubleshooting) or ask on [Discord](https://discord.gg/cx5n4Jzs57).
+
+## Codex operating boundary
+
+Use the native Twenty MCP connector for record discovery and controlled record CRUD. Make schema, field, relation, view, and navigation changes in this package, then run `yarn twenty plan`. Production `yarn twenty apply` requires explicit approval, and `--force` is prohibited unless a destructive migration has been separately approved.

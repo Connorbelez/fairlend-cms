@@ -8,15 +8,28 @@ FairLend uses Twenty Cloud as the operator-facing CRM while the website database
 
 ## Data model
 
-The app creates **Mortgage Lead**, **Consultation**, and **Campaign Touch** objects. Mortgage Lead is the normalized union of mortgage, construction, investor, partner, consultation, contact, newsletter, and route-helper intake payloads. It preserves the complete raw intake, address, and attribution JSON alongside operator-friendly normalized columns.
+The app owns seven operational intake objects: **Mortgage Borrower Leads**, **Lender Applications**, **Construction Applications**, **Partner Leads**, **Consultation Requests**, **General Inquiries**, and **Newsletter Subscriptions**. **Campaign Touches** remains the attribution model. The former Mortgage Lead union is retained as read-only **Legacy Intake Leads** during migration.
 
-Mortgage Leads relate to Twenty's standard **Person**, **Company**, and **Opportunity** objects. Codex can qualify a raw lead, create or find the canonical CRM entities, and attach them without duplicating Twenty's native sales model.
+Every emitted form value has a typed, visible destination column. Raw intake, address, and attribution JSON remain hidden audit fields only. Each operational object has an Operations view and an All Intake Fields view; draft-capable objects also have Drafts views, and workflow objects have Kanban views. `Captured At` is immutable, while `Submitted At` is populated once when a draft becomes a submitted application.
+
+Operational records relate to Twenty's standard **Person** and **Company** objects. People are deduplicated by normalized email. Companies are created and linked only when the intake explicitly supplies an organization name. Partner project submissions produce a linked Partner Lead and Construction Application.
 
 The website owns capture fields such as contact details, requested amount, mortgage lane, intake payload, and attribution. Twenty owns workflow stage, priority, next action, Person/Company/Opportunity relations, and internal notes after initial creation. Website resubmissions deliberately do not overwrite those CRM-owned fields.
 
 ## Automatic lead capture and autofill
 
-Every website intake that calls `upsertFairlendLead`—including `/api/leads`, autosaved Drawflow applications, contact/newsletter forms, mortgage applications, and consultation booking mirrors—immediately upserts the corresponding Twenty **Mortgage Lead** using the FairLend UUID as the stable record ID.
+Every website intake that calls `upsertFairlendLead`—including `/api/leads`, autosaved Drawflow applications, contact/newsletter forms, mortgage applications, and consultation booking mirrors—upserts the appropriate operational Twenty object using the FairLend UUID as the idempotency key.
+
+The routing registry is authoritative:
+
+- `mortgage` and borrower-page submissions → Mortgage Borrower Lead
+- `invest` → Lender Application
+- `build` → Construction Application
+- partner intents → Partner Lead; `partner-project` also creates a linked Construction Application
+- consultation and booking events → Consultation Request, linked to the originating application when available
+- contact, route-helper, and unmatched documents → General Inquiry
+- newsletter → Newsletter Subscription
+- unknown intents → General Inquiry with `Needs Classification` and the full audit payload
 
 The first create autofills contact name, email, phone, structured and formatted address, source, intent, campaign attribution, capture state, workflow state, priority, next action, internal notes, mortgage classification, amount, timeline, project and financing details, normalized intake summary, and the complete raw intake/address/attribution payloads. Later autosaves refresh website-owned intake fields while preserving workflow state, priority, next action, internal notes, and CRM relations edited by the sales team.
 
@@ -89,7 +102,13 @@ Environment-variable changes take effect on the next production deployment.
 
 Every new lead is persisted locally first. Twenty failures are recorded in the Payload **Twenty CRM Sync** panel and returned as a successful website submission, preventing a CRM outage from dropping a lead.
 
-Backfill or retry non-synced leads after deployment:
+Backfill all historical intake records after installing the operational schema:
+
+```bash
+TWENTY_SYNC_ENABLED=true pnpm crm:twenty:migrate
+```
+
+This route-aware migration uses deterministic FairLend IDs, preserves source submission timestamps, marks historical timestamps inferred from immutable creation time, and is safe to retry. To retry only pending or failed records later:
 
 ```bash
 TWENTY_RECONCILE_LIMIT=100 pnpm crm:twenty:reconcile
@@ -110,21 +129,21 @@ Safe first prompt:
 
 ```text
 Use the Twenty MCP server. Inspect the available tools and the FairLend CRM schema.
-Read only: list the five newest Mortgage Leads with workflow status, source,
-requested amount, timeline, contact details, and related Person/Company/Opportunity.
+Read only: list the five newest Mortgage Borrower Leads with workflow status,
+source, requested amount, timeline, contact details, and related Person/Company.
 Do not mutate anything.
 ```
 
 Operational prompt:
 
 ```text
-Use Twenty to find Mortgage Leads in NEW status. For each lead, check for an
+Use Twenty to find Mortgage Borrower Leads in NEW status. For each lead, check for an
 existing Person by email before creating one, attach the Person to the lead,
 create a follow-up task due next business day, and move the lead to
 CONTACT_ATTEMPTED. Show a dry-run summary before executing writes.
 ```
 
-Schema changes belong in `integrations/fairlend-crm`, validated and previewed with `yarn twenty plan`. Do not make ad hoc production metadata changes through MCP when the equivalent app declaration can be version-controlled.
+Schema changes belong in `integrations/fairlend-crm`, validated and previewed with `yarn twenty plan`. Do not make ad hoc production metadata changes through MCP when the equivalent app declaration can be version-controlled. Never run `apply` or `--force` without explicit production approval. Use native Twenty MCP for record discovery and CRUD; use the app repository for objects, fields, relations, views, and navigation.
 
 ## Failure handling
 
