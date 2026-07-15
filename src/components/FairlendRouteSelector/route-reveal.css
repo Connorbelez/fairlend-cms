@@ -1,0 +1,158 @@
+[data-route-reveal-card]::after {
+  position: absolute;
+  top: 0;
+  right: 18px;
+  left: 18px;
+  z-index: 30;
+  height: 2px;
+  background: var(--fl-route-lime);
+  content: '';
+  opacity: 0;
+  pointer-events: none;
+  transform: scaleX(0.08);
+  transform-origin: left center;
+}
+
+[data-route-reveal-card] [data-route-motion-part],
+[data-route-reveal-card] [data-route-motion-icon],
+[data-route-reveal-card] [data-route-motion-arrow],
+[data-route-reveal-card] [data-route-step-line],
+[data-route-reveal-card] [data-route-step-item] {
+  opacity: 1;
+  transform: none;
+  transition-property: opacity, transform;
+  transition-duration: 320ms, 420ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-route-reveal-card] [data-route-motion-part='badge'] {
+  --route-part-delay: 0ms;
+}
+
+[data-route-reveal-card] [data-route-motion-part='heading'] {
+  --route-part-delay: 45ms;
+}
+
+[data-route-reveal-card] [data-route-motion-part='description'] {
+  --route-part-delay: 90ms;
+}
+
+[data-route-reveal-card] [data-route-motion-part='illustration'] {
+  --route-part-delay: 115ms;
+}
+
+[data-route-reveal-card] [data-route-motion-part='body'] {
+  --route-part-delay: 135ms;
+}
+
+[data-route-reveal-card] [data-route-motion-part='steps'] {
+  --route-part-delay: 180ms;
+}
+
+[data-route-reveal-card] [data-route-motion-part='footer'] {
+  --route-part-delay: 225ms;
+}
+
+[data-route-reveal-state='pending'] [data-route-motion-part] {
+  opacity: 0.93;
+  transform: translateY(8px);
+}
+
+[data-route-reveal-state='pending'] [data-route-motion-part='badge'] {
+  transform: translateY(-5px);
+}
+
+[data-route-reveal-state='pending'] [data-route-motion-icon] {
+  opacity: 0.92;
+  transform: rotate(-2deg) scale(0.93);
+}
+
+[data-route-reveal-state='pending'] [data-route-motion-arrow] {
+  opacity: 0.92;
+  transform: translate(-4px, 4px) scale(0.92);
+}
+
+[data-route-reveal-state='pending'] [data-route-step-line] {
+  opacity: 0.72;
+  transform: scaleX(0.08);
+}
+
+[data-route-reveal-state='pending'] [data-route-step-item] {
+  opacity: 0.9;
+  transform: translateY(5px) scale(0.96);
+}
+
+[data-route-reveal-state='revealing'] [data-route-motion-part] {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--route-reveal-delay, 0ms) + var(--route-part-delay, 0ms));
+}
+
+[data-route-reveal-state='revealing'] [data-route-motion-icon] {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+  transition-delay: calc(var(--route-reveal-delay, 0ms) + 90ms);
+}
+
+[data-route-reveal-state='revealing'] [data-route-motion-arrow] {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+  transition-delay: calc(var(--route-reveal-delay, 0ms) + 270ms);
+}
+
+[data-route-reveal-state='revealing'] [data-route-step-line] {
+  opacity: 1;
+  transform: scaleX(1);
+  transform-origin: left center;
+  transition-delay: calc(var(--route-reveal-delay, 0ms) + 180ms);
+}
+
+[data-route-reveal-state='revealing'] [data-route-step-item] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: calc(var(--route-reveal-delay, 0ms) + 205ms + var(--route-step-delay, 0ms));
+}
+
+[data-route-reveal-state='revealing']::after {
+  animation: route-signal-registration 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--route-reveal-delay, 0ms) + 105ms);
+}
+
+@keyframes route-signal-registration {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.08);
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  72% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-route-reveal-card]::after {
+    display: none;
+  }
+
+  [data-route-reveal-card],
+  [data-route-reveal-card] [data-route-motion-part],
+  [data-route-reveal-card] [data-route-motion-icon],
+  [data-route-reveal-card] [data-route-motion-arrow],
+  [data-route-reveal-card] [data-route-step-line],
+  [data-route-reveal-card] [data-route-step-item] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

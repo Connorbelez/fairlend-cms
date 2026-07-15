@@ -16,7 +16,7 @@ const contactMethods: Array<{
     detail: 'elie@fairlend.ca',
     href: 'mailto:elie@fairlend.ca',
     icon: Mail,
-    label: 'Email the capital desk',
+    label: 'Email FairLend',
   },
   {
     detail: 'Monday–Friday, 9:00 a.m.–5:00 p.m. ET',

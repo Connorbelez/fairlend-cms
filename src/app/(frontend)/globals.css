@@ -1105,36 +1105,6 @@
   @apply relative after:absolute after:bottom-0 after:left-[-100vw] after:-z-1 after:h-px after:w-[200vw] after:bg-line;
 }
 
-[data-fairlend-hero-scroll] {
-  min-height: calc(100svh + 145svh);
-}
-
-[data-fairlend-hero-transition][data-fairlend-hero-reduced='true'] [data-fairlend-hero-progress] {
-  display: none;
-}
-
-@media (max-width: 1023px) {
-  [data-fairlend-hero-scroll] {
-    min-height: calc(100svh + 92svh);
-  }
-
-  [data-fairlend-hero-pin] {
-    position: sticky;
-    top: 0;
-  }
-}
-
-@media (orientation: portrait) and (min-width: 901px) and (min-height: 1200px) {
-  [data-fairlend-hero-scroll] {
-    min-height: calc(100svh + 92svh);
-  }
-
-  [data-fairlend-hero-pin] {
-    position: sticky;
-    top: 0;
-  }
-}
-
 .fairlend-hero-application-card {
   top: auto;
 }
@@ -1193,55 +1163,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-fairlend-hero-scroll] {
-    min-height: 0;
-  }
-
-  [data-fairlend-hero-pin] {
-    position: relative;
-    top: auto;
-    height: auto;
-  }
-
-  @media (max-width: 576px) {
-    [data-fairlend-hero-pin] {
-      height: calc(100svh - 96px);
-      min-height: 700px;
-    }
-  }
-
-  @media (min-width: 577px) and (max-width: 1023px) {
-    [data-fairlend-hero-pin] {
-      height: calc(100svh - 116px);
-      min-height: 720px;
-    }
-  }
-
-  @media (min-width: 1024px) and (max-width: 1279px) and (orientation: landscape) {
-    [data-fairlend-hero-pin] {
-      height: calc(100svh - 86px);
-      min-height: 760px;
-    }
-  }
-
-  @media (min-width: 1024px) and (max-width: 1279px) and (orientation: landscape) and (max-height: 780px) {
-    [data-fairlend-hero-pin] {
-      height: calc(100svh - 68px);
-      min-height: 0;
-    }
-  }
-
-  @media (min-width: 1280px) and (orientation: landscape) {
-    [data-fairlend-hero-pin] {
-      height: 100svh;
-      min-height: 100svh;
-    }
-  }
-
-  [data-fairlend-hero-progress] {
-    display: none;
-  }
-
   [data-testid='hero-mobile-route-leader'] {
     opacity: 0.78;
     stroke-dashoffset: 0;

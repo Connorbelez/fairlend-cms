@@ -149,19 +149,7 @@ export const fairlendRouteSelectorTokenStyles = {
 } satisfies FairlendRouteSelectorStyle
 
 export const fairlendRouteSelectorVariants = cva(
-  'relative isolate overflow-hidden rounded-[var(--fl-route-radius-section)] bg-[color:var(--fl-route-section-bg)] px-6 py-[68px] text-[color:var(--fl-route-ink)] [--route-motion-ease:cubic-bezier(0.16,1,0.3,1)] sm:px-8 lg:px-10 lg:py-[70px]',
-)
-
-export const fairlendRouteSelectorLayerVariants = cva(
-  'pointer-events-none absolute inset-0 -z-10 rounded-[var(--fl-route-radius-section)]',
-  {
-    variants: {
-      layer: {
-        map: 'bg-[image:var(--route-selector-bg)] bg-cover bg-center opacity-95',
-        paper: 'bg-[color:var(--fl-route-paper-overlay)]',
-      },
-    },
-  },
+  'relative rounded-[var(--fl-route-radius-section)] bg-[color:var(--fl-route-section-bg)] bg-[image:linear-gradient(var(--fl-route-paper-overlay),var(--fl-route-paper-overlay)),var(--route-selector-bg)] px-6 py-[68px] text-[color:var(--fl-route-ink)] [--route-motion-ease:cubic-bezier(0.16,1,0.3,1)] [background-position:center,center_top] [background-repeat:no-repeat,repeat-y] [background-size:100%_100%,auto_720px] sm:px-8 md:[background-position:center] md:[background-repeat:no-repeat] md:[background-size:100%_100%,cover] lg:px-10 lg:py-[70px]',
 )
 
 export const fairlendRouteHeaderTextVariants = cva('text-center', {
@@ -182,7 +170,7 @@ export const fairlendRouteOriginDotVariants = cva(
 )
 
 export const fairlendRouteCardVariants = cva(
-  'group relative flex flex-col overflow-hidden rounded-[var(--fl-route-radius-card)] border border-[color:var(--fl-route-ink)] bg-[color:var(--fl-route-card-bg-translucent)] p-[18px] shadow-[9px_10px_0_var(--fl-route-lime)] transition-transform duration-300 ease-[var(--route-motion-ease)] max-md:min-h-0 max-md:rounded-2xl max-md:p-4',
+  'group relative flex flex-col overflow-hidden rounded-[var(--fl-route-radius-card)] border border-[color:var(--fl-route-ink)] bg-[color:var(--fl-route-card-bg-translucent)] p-[18px] opacity-100 shadow-[9px_10px_0_var(--fl-route-lime)] transition-[opacity,transform] duration-[420ms] ease-[var(--route-motion-ease)] data-[route-reveal-state=pending]:translate-y-3 data-[route-reveal-state=pending]:opacity-[0.92] data-[route-reveal-state=revealing]:[transition-delay:var(--route-reveal-delay)] motion-reduce:transition-none max-md:min-h-0 max-md:rounded-2xl max-md:p-4',
   {
     variants: {
       layout: {

@@ -34,7 +34,7 @@ export function ContactHeroSection() {
         </Breadcrumb>
 
         <div className="contact-hero__lead">
-          <p className="contact-kicker">Ontario mortgage desk</p>
+          <p className="contact-kicker">Ontario mortgage team</p>
           <h1 id="contact-page-title">Bring us the file. We’ll make the next move clear.</h1>
           <p className="contact-hero__summary">
             Tell us the property, capital need, and deadline. We’ll route the facts to the right
