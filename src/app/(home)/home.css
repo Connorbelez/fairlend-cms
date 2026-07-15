@@ -32,7 +32,9 @@
 @source '../../components/FairlendLandingOverviewSection/index.tsx';
 @source '../../components/FairlendLandingRail/FairlendRailCrossDots.tsx';
 @source '../../components/FairlendLandingRail/index.tsx';
-@source '../../components/FairlendRouteSelector';
+/* Keep this glob explicit. A bare directory source is not expanded by the
+   current Tailwind/Turbopack pipeline, which silently drops these utilities. */
+@source '../../components/FairlendRouteSelector/*.{ts,tsx}';
 @source '../../components/FairlendStaticHomepageFallbacks.tsx';
 @source '../../components/GardenSuiteOpportunityBadge.tsx';
 @source '../../components/FairlendOfficeMap/data.ts';

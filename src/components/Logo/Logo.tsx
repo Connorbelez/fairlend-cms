@@ -33,7 +33,10 @@ export const Logo = (props: Props) => {
         unoptimized
         width={244}
       />
-      <span className="font-serif text-[31px] font-bold tracking-normal">FairLend</span>
+      <span className="inline-flex items-baseline gap-2">
+        <span className="font-serif text-[31px] font-bold tracking-normal">FairLend</span>
+        <span className="text-[10px] font-medium tracking-[0.025em] text-[#494944]">Mortgage</span>
+      </span>
     </span>
   )
 }

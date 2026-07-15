@@ -59,7 +59,7 @@ export const PARTNER_BOARD_DEFINITIONS: Record<PartnerBoardKind, BoardDefinition
     fields: [
       'name', 'priority', 'engagementHealth', 'owner', ...ENTITY_CARD_FIELDS, 'partnerRole', 'proposedOffer',
       'proposalReviewStatus', 'activationStatus', 'lastContactAt', 'nextActionAt',
-      'nextAction', 'campaign', 'followUpCount',
+      'nextFollowUpMethod', 'nextAction', 'nextFollowUpRequirements', 'campaign', 'followUpCount',
     ],
   },
   podcasts: {
@@ -75,7 +75,8 @@ export const PARTNER_BOARD_DEFINITIONS: Record<PartnerBoardKind, BoardDefinition
     fields: [
       'name', 'priority', 'engagementHealth', 'owner', ...ENTITY_CARD_FIELDS, 'activityRecencyStatus',
       'primaryHook', 'proposedOffer', 'proposalReviewStatus', 'activationStatus',
-      'lastContactAt', 'nextActionAt', 'nextAction', 'campaign', 'followUpCount',
+      'lastContactAt', 'nextActionAt', 'nextFollowUpMethod', 'nextAction', 'nextFollowUpRequirements',
+      'campaign', 'followUpCount',
     ],
   },
   'investor-groups': {
@@ -92,7 +93,7 @@ export const PARTNER_BOARD_DEFINITIONS: Record<PartnerBoardKind, BoardDefinition
     fields: [
       'name', 'priority', 'engagementHealth', 'owner', ...ENTITY_CARD_FIELDS, 'partnerRole', 'proposedOffer',
       'proposalReviewStatus', 'activationDate', 'activationStatus', 'lastContactAt',
-      'nextActionAt', 'nextAction', 'campaign', 'followUpCount',
+      'nextActionAt', 'nextFollowUpMethod', 'nextAction', 'nextFollowUpRequirements', 'campaign', 'followUpCount',
     ],
   },
   meetups: {
@@ -109,7 +110,8 @@ export const PARTNER_BOARD_DEFINITIONS: Record<PartnerBoardKind, BoardDefinition
     fields: [
       'name', 'priority', 'engagementHealth', 'owner', ...ENTITY_CARD_FIELDS, 'activityRecencyStatus',
       'proposedOffer', 'proposalReviewStatus', 'activationDate', 'activationStatus',
-      'lastContactAt', 'nextActionAt', 'nextAction', 'campaign', 'followUpCount',
+      'lastContactAt', 'nextActionAt', 'nextFollowUpMethod', 'nextAction', 'nextFollowUpRequirements',
+      'campaign', 'followUpCount',
     ],
   },
   'trade-shows': {
@@ -126,15 +128,16 @@ export const PARTNER_BOARD_DEFINITIONS: Record<PartnerBoardKind, BoardDefinition
     fields: [
       'name', 'priority', 'engagementHealth', 'owner', ...ENTITY_CARD_FIELDS, 'activityRecencyStatus',
       'proposedOffer', 'proposalReviewStatus', 'activationDate', 'activationStatus',
-      'lastContactAt', 'nextActionAt', 'nextAction', 'campaign', 'followUpCount',
+      'lastContactAt', 'nextActionAt', 'nextFollowUpMethod', 'nextAction', 'nextFollowUpRequirements',
+      'campaign', 'followUpCount',
     ],
   },
 };
 
 const queueFields = [
   'name', 'partnerCategory', 'partnershipStage', 'priority', 'engagementHealth',
-  'owner', ...ENTITY_CARD_FIELDS, 'responseStatus', 'lastContactAt', 'nextActionAt', 'nextAction',
-  'campaign', 'followUpCount',
+  'owner', ...ENTITY_CARD_FIELDS, 'responseStatus', 'lastContactAt', 'nextActionAt',
+  'nextFollowUpMethod', 'nextAction', 'nextFollowUpRequirements', 'campaign', 'followUpCount',
 ] as const;
 
 const viewField = (viewKind: string, fieldName: string, position: number) => ({
@@ -142,7 +145,11 @@ const viewField = (viewKind: string, fieldName: string, position: number) => ({
   fieldMetadataUniversalIdentifier: getIntakeFieldId('partner', fieldName),
   position,
   isVisible: true,
-  size: fieldName === 'name' ? 260 : fieldName === 'nextAction' || fieldName === 'proposedOffer' ? 260 : 170,
+  size: fieldName === 'name'
+    ? 260
+    : fieldName === 'nextAction' || fieldName === 'nextFollowUpRequirements' || fieldName === 'proposedOffer'
+      ? 280
+      : 170,
 });
 
 const filter = (viewKind: string, fieldName: string, operand: ViewFilterOperand, value: string | string[]) => ({

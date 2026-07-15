@@ -393,7 +393,7 @@
   min-height: 0;
   gap: clamp(8px, 1.3dvh, 16px);
   padding-bottom: 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .build-model:not([data-bm-active-step='intro']) .bm-board-visual {
@@ -1695,8 +1695,8 @@
 
 /* ---------- DrawFlow ---------- */
 .bm-drawflow-step {
-  background: #000f22;
-  box-shadow: 0 0 0 24px #000f22;
+  background: transparent;
+  box-shadow: none;
 }
 
 .bm-drawflow {
@@ -1715,7 +1715,6 @@
   isolation: isolate;
   display: flex;
   flex-direction: column;
-  aspect-ratio: 932 / 1576;
   overflow: hidden;
   border: 0;
   border-radius: 0;
@@ -2015,6 +2014,8 @@
 
 .bm-df-cmp.fairlend .bm-df-cmp-num {
   color: var(--bm-signal);
+  width: 154%;
+  transform: scaleX(0.65);
 }
 
 .bm-df-cmp-num {
@@ -2120,7 +2121,13 @@
 }
 
 .bm-tile {
+  display: flow-root;
   min-height: 189px;
+}
+
+.bm-tile .tile-icon {
+  float: left;
+  margin: 0 14px 8px 0;
 }
 
 .bm-tile .tile-icon,

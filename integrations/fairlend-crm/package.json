@@ -19,7 +19,11 @@
     "test:unit": "vitest run --config vitest.unit.config.ts",
     "validate:partner-corpus": "node scripts/validate-partner-research-corpus.mjs",
     "build:partner-entity-manifest": "node scripts/build-partner-entity-manifest.mjs",
-    "build:partner-outreach-manifest": "node scripts/build-partner-outreach-manifest.mjs"
+    "build:partner-outreach-manifest": "node scripts/build-partner-outreach-manifest.mjs",
+    "enrich:gta-builder-contacts": "node scripts/enrich-gta-builder-public-contacts.mjs",
+    "build:gta-builder-prospects": "node scripts/build-gta-builder-prospect-manifest.mjs",
+    "enrich:mli-select-professionals": "node scripts/enrich-mli-select-professionals.mjs",
+    "build:mli-select-professionals": "node scripts/build-mli-select-professional-manifest.mjs"
   },
   "devDependencies": {
     "@types/node": "^24.7.2",

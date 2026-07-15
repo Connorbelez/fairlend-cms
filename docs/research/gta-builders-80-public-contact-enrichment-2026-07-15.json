@@ -1,0 +1,3925 @@
+{
+  "version": 1,
+  "source": "docs/research/gta-builders-80-2026-07-15.json",
+  "generatedAt": "2026-07-15T17:51:59.447Z",
+  "count": 80,
+  "records": [
+    {
+      "name": "Caledon Build",
+      "website": "https://www.caledonbuild.com/",
+      "scannedOn": "2026-07-15T17:51:38.681Z",
+      "emails": [
+        "info@caledonbuild.com",
+        "careers@caledonbuild.com"
+      ],
+      "phones": [
+        "416-400-5029",
+        "905-636-1682"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.caledonbuild.com/",
+          "finalUrl": "https://www.caledonbuild.com/",
+          "emails": [
+            "info@caledonbuild.com"
+          ],
+          "phones": [
+            "4164005029"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.caledonbuild.com/contact/",
+          "finalUrl": "https://www.caledonbuild.com/contact/",
+          "emails": [
+            "info@caledonbuild.com",
+            "careers@caledonbuild.com"
+          ],
+          "phones": [
+            "4164005029",
+            "905-636-1682"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.caledonbuild.com/about/about-us/",
+          "finalUrl": "https://www.caledonbuild.com/about/about-us/",
+          "emails": [
+            "info@caledonbuild.com"
+          ],
+          "phones": [
+            "4164005029"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.caledonbuild.com/process/",
+          "finalUrl": "https://www.caledonbuild.com/process/",
+          "emails": [
+            "info@caledonbuild.com"
+          ],
+          "phones": [
+            "4164005029"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.caledonbuild.com/projects/",
+          "finalUrl": "https://www.caledonbuild.com/projects/",
+          "emails": [
+            "info@caledonbuild.com"
+          ],
+          "phones": [
+            "4164005029"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Catlin",
+      "website": "https://catlin.ca/",
+      "scannedOn": "2026-07-15T17:51:38.638Z",
+      "emails": [],
+      "phones": [
+        "289-427-1092"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://catlin.ca/",
+          "finalUrl": "https://catlin.ca/",
+          "emails": [],
+          "phones": [
+            "%20+1-289-427-1092"
+          ]
+        },
+        {
+          "requestedUrl": "https://catlin.ca/contact-us/",
+          "finalUrl": "https://catlin.ca/contact-us/",
+          "emails": [],
+          "phones": [
+            "%20+1-289-427-1092"
+          ]
+        },
+        {
+          "requestedUrl": "https://catlin.ca/team-catlin/",
+          "finalUrl": "https://catlin.ca/team-catlin/",
+          "emails": [],
+          "phones": [
+            "%20+1-289-427-1092"
+          ]
+        },
+        {
+          "requestedUrl": "https://catlin.ca/services/",
+          "finalUrl": "https://catlin.ca/services/",
+          "emails": [],
+          "phones": [
+            "%20+1-289-427-1092"
+          ]
+        },
+        {
+          "requestedUrl": "https://catlin.ca/burlington-custom-home-builder/",
+          "finalUrl": "https://catlin.ca/burlington-custom-home-builder/",
+          "emails": [],
+          "phones": [
+            "%20+1-289-427-1092"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Dalzotto Homes",
+      "website": "https://dalzottohomes.com/",
+      "scannedOn": "2026-07-15T17:51:46.020Z",
+      "emails": [
+        "info@dalzottohomes.com"
+      ],
+      "phones": [
+        "905-335-8799",
+        "905 335 9631"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://dalzottohomes.com/",
+          "finalUrl": "https://dalzottohomes.com/",
+          "emails": [
+            "info@dalzottohomes.com"
+          ],
+          "phones": [
+            "905 335 8799"
+          ]
+        },
+        {
+          "requestedUrl": "https://dalzottohomes.com/contact/",
+          "finalUrl": "https://dalzottohomes.com/contact/",
+          "emails": [
+            "info@dalzottohomes.com"
+          ],
+          "phones": [
+            "905 335 8799",
+            "905 335 9631"
+          ]
+        },
+        {
+          "requestedUrl": "https://dalzottohomes.com/about/",
+          "finalUrl": "https://dalzottohomes.com/about/",
+          "emails": [
+            "info@dalzottohomes.com"
+          ],
+          "phones": [
+            "905 335 8799"
+          ]
+        },
+        {
+          "requestedUrl": "https://dalzottohomes.com/project-mgt/",
+          "finalUrl": "https://dalzottohomes.com/project-mgt/",
+          "emails": [
+            "info@dalzottohomes.com"
+          ],
+          "phones": [
+            "905 335 8799"
+          ]
+        },
+        {
+          "requestedUrl": "https://dalzottohomes.com/current-developments/",
+          "finalUrl": "https://dalzottohomes.com/current-developments/",
+          "emails": [
+            "info@dalzottohomes.com"
+          ],
+          "phones": [
+            "905 335 8799"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Ever After Homes",
+      "website": "https://everafterhomes.ca/",
+      "scannedOn": "2026-07-15T17:51:39.202Z",
+      "emails": [
+        "info@everafterhomes.ca"
+      ],
+      "phones": [
+        "905-631-3332",
+        "906-631-3332"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://everafterhomes.ca/",
+          "finalUrl": "https://everafterhomes.ca/",
+          "emails": [
+            "info@everafterhomes.ca"
+          ],
+          "phones": [
+            "906-631-3332"
+          ]
+        },
+        {
+          "requestedUrl": "https://everafterhomes.ca/start-a-development-conversation/",
+          "finalUrl": "https://everafterhomes.ca/start-a-development-conversation/",
+          "emails": [
+            "info@everafterhomes.ca"
+          ],
+          "phones": [
+            "906-631-3332",
+            "905-631-3332"
+          ]
+        },
+        {
+          "requestedUrl": "https://everafterhomes.ca/design-studio/",
+          "finalUrl": "https://everafterhomes.ca/design-studio/",
+          "emails": [
+            "info@everafterhomes.ca"
+          ],
+          "phones": [
+            "906-631-3332"
+          ]
+        },
+        {
+          "requestedUrl": "https://everafterhomes.ca/development/",
+          "finalUrl": "https://everafterhomes.ca/development/",
+          "emails": [
+            "info@everafterhomes.ca"
+          ],
+          "phones": [
+            "906-631-3332"
+          ]
+        },
+        {
+          "requestedUrl": "https://everafterhomes.ca/process-guide-glp",
+          "finalUrl": "https://everafterhomes.ca/process-guide-glp/",
+          "emails": [
+            "info@everafterhomes.ca"
+          ],
+          "phones": [
+            "906-631-3332"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Kooger Custom Homes",
+      "website": "https://www.koogerconstruction.com/",
+      "scannedOn": "2026-07-15T17:51:38.466Z",
+      "emails": [
+        "info@koogercustomhomes.com"
+      ],
+      "phones": [
+        "905-243-3899",
+        "555-555-5555"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.koogerconstruction.com/",
+          "finalUrl": "https://www.koogerconstruction.com/",
+          "emails": [
+            "info@koogercustomhomes.com"
+          ],
+          "phones": [
+            "905-243-3899",
+            "555-555-5555"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.koogerconstruction.com/get-a-quote",
+          "finalUrl": "https://www.koogerconstruction.com/get-a-quote",
+          "emails": [
+            "info@koogercustomhomes.com"
+          ],
+          "phones": [
+            "905-243-3899",
+            "555-555-5555"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.koogerconstruction.com/be-a-client",
+          "finalUrl": "https://www.koogerconstruction.com/be-a-client",
+          "emails": [
+            "info@koogercustomhomes.com"
+          ],
+          "phones": [
+            "905-243-3899",
+            "555-555-5555"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.koogerconstruction.com/be-a-partner",
+          "finalUrl": "https://www.koogerconstruction.com/be-a-partner",
+          "emails": [
+            "info@koogercustomhomes.com"
+          ],
+          "phones": [
+            "905-243-3899",
+            "555-555-5555"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Lavalley Homes Inc.",
+      "website": "https://www.lavalleyhomes.ca/",
+      "scannedOn": "2026-07-15T17:51:40.617Z",
+      "emails": [
+        "info@lavalleyhomes.ca"
+      ],
+      "phones": [
+        "647-809-3677"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.lavalleyhomes.ca/",
+          "finalUrl": "https://www.lavalleyhomes.ca/",
+          "emails": [
+            "info@lavalleyhomes.ca"
+          ],
+          "phones": [
+            "647-809-3677"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.lavalleyhomes.ca/home",
+          "finalUrl": "https://www.lavalleyhomes.ca/home",
+          "emails": [
+            "info@lavalleyhomes.ca"
+          ],
+          "phones": [
+            "647-809-3677"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.lavalleyhomes.ca/services",
+          "finalUrl": "https://www.lavalleyhomes.ca/services",
+          "emails": [
+            "info@lavalleyhomes.ca"
+          ],
+          "phones": [
+            "647-809-3677"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "North Lakes Developments & Construction",
+      "website": "https://northlakesdevelopments.ca/",
+      "scannedOn": "2026-07-15T17:51:42.104Z",
+      "emails": [
+        "info@northlakesdevelopments.ca"
+      ],
+      "phones": [],
+      "pages": [
+        {
+          "requestedUrl": "https://northlakesdevelopments.ca/",
+          "finalUrl": "https://northlakesdevelopments.ca/",
+          "emails": [
+            "info@northlakesdevelopments.ca"
+          ],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://northlakesdevelopments.ca/contact/",
+          "finalUrl": "https://northlakesdevelopments.ca/contact-us/",
+          "emails": [
+            "info@northlakesdevelopments.ca"
+          ],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://northlakesdevelopments.ca/about/",
+          "finalUrl": "https://northlakesdevelopments.ca/about/",
+          "emails": [
+            "info@northlakesdevelopments.ca"
+          ],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://northlakesdevelopments.ca/projects-underway/",
+          "finalUrl": "https://northlakesdevelopments.ca/projects-underway/",
+          "emails": [
+            "info@northlakesdevelopments.ca"
+          ],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://northlakesdevelopments.ca/know-daniel-hogenbirk/",
+          "finalUrl": "https://northlakesdevelopments.ca/know-daniel-hogenbirk/",
+          "emails": [
+            "info@northlakesdevelopments.ca"
+          ],
+          "phones": []
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Sturdy Custom Builders",
+      "website": "https://sturdycustombuilders.com/",
+      "scannedOn": "2026-07-15T17:51:50.145Z",
+      "emails": [
+        "kit@sturdycustombuilders.com",
+        "info@sturdycustombuilders.com",
+        "chad@sturdycustombuilders.com"
+      ],
+      "phones": [
+        "416-527-1062",
+        "4165792980"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://sturdycustombuilders.com/",
+          "finalUrl": "https://sturdycustombuilders.com/",
+          "emails": [
+            "info@sturdycustombuilders.com"
+          ],
+          "phones": [
+            "4165271062",
+            "4165792980"
+          ]
+        },
+        {
+          "requestedUrl": "https://sturdycustombuilders.com/contact/",
+          "finalUrl": "https://sturdycustombuilders.com/contact/",
+          "emails": [
+            "info@sturdycustombuilders.com"
+          ],
+          "phones": [
+            "4165271062",
+            "4165792980"
+          ]
+        },
+        {
+          "requestedUrl": "https://sturdycustombuilders.com/profile/",
+          "finalUrl": "https://sturdycustombuilders.com/profile/",
+          "emails": [
+            "chad@sturdycustombuilders.com",
+            "kit@sturdycustombuilders.com",
+            "info@sturdycustombuilders.com"
+          ],
+          "phones": [
+            "4165271062",
+            "4165792980"
+          ]
+        },
+        {
+          "requestedUrl": "https://sturdycustombuilders.com/testimonials/",
+          "finalUrl": "https://sturdycustombuilders.com/testimonials/",
+          "emails": [
+            "info@sturdycustombuilders.com"
+          ],
+          "phones": [
+            "4165271062",
+            "4165792980"
+          ]
+        },
+        {
+          "requestedUrl": "https://sturdycustombuilders.com/projects/",
+          "finalUrl": "https://sturdycustombuilders.com/projects/",
+          "emails": [
+            "info@sturdycustombuilders.com"
+          ],
+          "phones": [
+            "4165271062",
+            "4165792980"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Construct & Conserve Building Inc.",
+      "website": "https://www.constructconserve.com/home",
+      "scannedOn": "2026-07-15T17:51:38.913Z",
+      "emails": [
+        "info@constructconserve.com"
+      ],
+      "phones": [
+        "905-370-0205"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.constructconserve.com/home",
+          "finalUrl": "https://www.constructconserve.com/home",
+          "emails": [],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://www.constructconserve.com/contact",
+          "finalUrl": "https://www.constructconserve.com/contact",
+          "emails": [
+            "info@constructconserve.com"
+          ],
+          "phones": [
+            "9053700205"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.constructconserve.com/about-us",
+          "finalUrl": "https://www.constructconserve.com/about-us",
+          "emails": [],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://www.constructconserve.com/current-developments",
+          "finalUrl": "https://www.constructconserve.com/current-developments",
+          "emails": [],
+          "phones": []
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Henley Contracting Ltd.",
+      "website": "https://henleycontracting.com/",
+      "scannedOn": "2026-07-15T17:51:39.484Z",
+      "emails": [
+        "info@henleycontracting.com"
+      ],
+      "phones": [
+        "905-576-9714"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://henleycontracting.com/",
+          "finalUrl": "https://henleycontracting.com/",
+          "emails": [
+            "info@henleycontracting.com"
+          ],
+          "phones": [
+            "+19055769714"
+          ]
+        },
+        {
+          "requestedUrl": "https://henleycontracting.com/contact-us/",
+          "finalUrl": "https://henleycontracting.com/contact-us/",
+          "emails": [
+            "info@henleycontracting.com"
+          ],
+          "phones": [
+            "+19055769714"
+          ]
+        },
+        {
+          "requestedUrl": "https://henleycontracting.com/about-us/",
+          "finalUrl": "https://henleycontracting.com/about-us/",
+          "emails": [
+            "info@henleycontracting.com"
+          ],
+          "phones": [
+            "+19055769714"
+          ]
+        },
+        {
+          "requestedUrl": "https://henleycontracting.com/prefab-modular-construction-services-in-whitby-durham-region-on/",
+          "finalUrl": "https://henleycontracting.com/prefab-modular-construction-services-in-whitby-durham-region-on/",
+          "emails": [
+            "info@henleycontracting.com"
+          ],
+          "phones": [
+            "+19055769714"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Home Pillars",
+      "website": "https://homepillars.ca/",
+      "scannedOn": "2026-07-15T17:51:39.949Z",
+      "emails": [],
+      "phones": [
+        "647-404-0610"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://homepillars.ca/",
+          "finalUrl": "https://homepillars.ca/",
+          "emails": [],
+          "phones": [
+            "(647) 404-0610"
+          ]
+        },
+        {
+          "requestedUrl": "https://homepillars.ca/contact/",
+          "finalUrl": "https://homepillars.ca/contact/",
+          "emails": [],
+          "phones": [
+            "(647) 404-0610"
+          ]
+        },
+        {
+          "requestedUrl": "https://homepillars.ca/about/",
+          "finalUrl": "https://homepillars.ca/about/",
+          "emails": [],
+          "phones": [
+            "(647) 404-0610"
+          ]
+        },
+        {
+          "requestedUrl": "https://homepillars.ca/custom-home-builders-oakville/",
+          "finalUrl": "https://homepillars.ca/custom-home-builders-oakville/",
+          "emails": [],
+          "phones": [
+            "(647) 404-0610"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Prestige Custom Homes",
+      "website": "https://www.prestigecustomhomes.ca/",
+      "scannedOn": "2026-07-15T17:51:39.609Z",
+      "emails": [
+        "karl@prestigecustomhomes.ca",
+        "katherine@prestigecustomhomes.ca",
+        "edrichardson_3@icloud.com"
+      ],
+      "phones": [
+        "905-858-9999",
+        "416-458-7997"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.prestigecustomhomes.ca/",
+          "finalUrl": "https://www.prestigecustomhomes.ca/",
+          "emails": [],
+          "phones": [
+            "905-858-9999"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.prestigecustomhomes.ca/mississauga",
+          "finalUrl": "https://www.prestigecustomhomes.ca/mississauga",
+          "emails": [],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://www.prestigecustomhomes.ca/our-story",
+          "finalUrl": "https://www.prestigecustomhomes.ca/our-story",
+          "emails": [
+            "karl@prestigecustomhomes.ca",
+            "katherine@prestigecustomhomes.ca",
+            "edrichardson_3@icloud.com"
+          ],
+          "phones": [
+            "905-858-9999",
+            "416-458-7997"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.prestigecustomhomes.ca/projects",
+          "finalUrl": "https://www.prestigecustomhomes.ca/projects",
+          "emails": [],
+          "phones": [
+            "905-858-9999"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.prestigecustomhomes.ca/blog",
+          "finalUrl": "https://www.prestigecustomhomes.ca/blog",
+          "emails": [],
+          "phones": []
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Stoneshore Custom Homes",
+      "website": "https://www.stoneshorehomes.com/",
+      "scannedOn": "2026-07-15T17:51:39.697Z",
+      "emails": [
+        "info@stoneshorehomes.com",
+        "terri@stoneshorehomes.com",
+        "amarit@stoneshorehomes.com",
+        "carmen@stoneshorehomes.com"
+      ],
+      "phones": [
+        "416-891-0586",
+        "(905) 849-2442",
+        "(905) 616-0799"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.stoneshorehomes.com/",
+          "finalUrl": "https://www.stoneshorehomes.com/",
+          "emails": [
+            "info@stoneshorehomes.com"
+          ],
+          "phones": [
+            "(416) 891-0586"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.stoneshorehomes.com/custom-home-build",
+          "finalUrl": "https://www.stoneshorehomes.com/custom-home-build",
+          "emails": [
+            "info@stoneshorehomes.com",
+            "terri@stoneshorehomes.com",
+            "amarit@stoneshorehomes.com",
+            "carmen@stoneshorehomes.com"
+          ],
+          "phones": [
+            "(416) 891-0586",
+            "(905) 849-2442",
+            "(905) 616-0799"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Artreum Homes",
+      "website": "https://artreum.ca/",
+      "scannedOn": "2026-07-15T17:51:40.030Z",
+      "emails": [
+        "suresh@artreum.ca"
+      ],
+      "phones": [
+        "416-704-1000",
+        "+1%20(416)%20704-1000",
+        "416-900-5000"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://artreum.ca/",
+          "finalUrl": "https://artreum.ca/",
+          "emails": [
+            "suresh@artreum.ca"
+          ],
+          "phones": [
+            "+1%20(416)%20704-1000",
+            "416-900-5000",
+            "+1 (416) 704-1000"
+          ]
+        },
+        {
+          "requestedUrl": "https://artreum.ca/contact-us/",
+          "finalUrl": "https://artreum.ca/contact-us/",
+          "emails": [
+            "suresh@artreum.ca"
+          ],
+          "phones": [
+            "+1%20(416)%20704-1000",
+            "416-900-5000",
+            "+1 (416) 704-1000"
+          ]
+        },
+        {
+          "requestedUrl": "https://artreum.ca/about-us/",
+          "finalUrl": "https://artreum.ca/about-us/",
+          "emails": [
+            "suresh@artreum.ca"
+          ],
+          "phones": [
+            "+1%20(416)%20704-1000",
+            "416-900-5000",
+            "+1 (416) 704-1000"
+          ]
+        },
+        {
+          "requestedUrl": "https://artreum.ca/projects/",
+          "finalUrl": "https://artreum.ca/projects/",
+          "emails": [
+            "suresh@artreum.ca"
+          ],
+          "phones": [
+            "+1%20(416)%20704-1000",
+            "416-900-5000",
+            "+1 (416) 704-1000"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Chatsworth Fine Homes",
+      "website": "https://chatsworthfinehomes.com/",
+      "scannedOn": "2026-07-15T17:51:41.826Z",
+      "emails": [
+        "info@chatsworthfinehomes.com"
+      ],
+      "phones": [
+        "905-337-1112",
+        "(905) 337-1116"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://chatsworthfinehomes.com/",
+          "finalUrl": "https://chatsworthfinehomes.com/",
+          "emails": [
+            "info@chatsworthfinehomes.com"
+          ],
+          "phones": [
+            "+19053371112",
+            "(905) 337-1116"
+          ]
+        },
+        {
+          "requestedUrl": "https://chatsworthfinehomes.com/our-team/",
+          "finalUrl": "https://chatsworthfinehomes.com/our-team/",
+          "emails": [],
+          "phones": [
+            "+19053371112",
+            "(905) 337-1116"
+          ]
+        },
+        {
+          "requestedUrl": "https://chatsworthfinehomes.com/projects-in-progress/2/",
+          "finalUrl": "https://chatsworthfinehomes.com/projects-in-progress/2/",
+          "emails": [],
+          "phones": [
+            "+19053371112",
+            "(905) 337-1116"
+          ]
+        },
+        {
+          "requestedUrl": "https://chatsworthfinehomes.com/luxury-custom-home-builder/",
+          "finalUrl": "https://chatsworthfinehomes.com/luxury-custom-home-builder/",
+          "emails": [],
+          "phones": [
+            "+19053371112",
+            "(905) 337-1116"
+          ]
+        },
+        {
+          "requestedUrl": "https://chatsworthfinehomes.com/faq/",
+          "finalUrl": "https://chatsworthfinehomes.com/faq/",
+          "emails": [],
+          "phones": [
+            "+19053371112",
+            "(905) 337-1116"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "DeSousa Homes / AccuBuilt Construction",
+      "website": "https://desousahomes.com/",
+      "scannedOn": "2026-07-15T17:51:54.059Z",
+      "emails": [
+        "info@desousahomes.com"
+      ],
+      "phones": [
+        "905-668-2331"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://desousahomes.com/",
+          "finalUrl": "https://desousahomes.com/",
+          "emails": [],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://desousahomes.com/about",
+          "finalUrl": "https://desousahomes.com/about",
+          "emails": [],
+          "phones": [
+            "905-668-2331"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "PalmView Contracting, Inc.",
+      "website": "https://palmview.ca/",
+      "scannedOn": "2026-07-15T17:51:40.285Z",
+      "emails": [
+        "hello@palmview.ca"
+      ],
+      "phones": [
+        "647-696-4515"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://palmview.ca/",
+          "finalUrl": "https://palmview.ca/",
+          "emails": [
+            "hello@palmview.ca"
+          ],
+          "phones": [
+            "6476964515"
+          ]
+        },
+        {
+          "requestedUrl": "https://palmview.ca/contact",
+          "finalUrl": "https://palmview.ca/contact",
+          "emails": [
+            "hello@palmview.ca"
+          ],
+          "phones": [
+            "6476964515"
+          ]
+        },
+        {
+          "requestedUrl": "https://palmview.ca/about",
+          "finalUrl": "https://palmview.ca/about",
+          "emails": [
+            "hello@palmview.ca"
+          ],
+          "phones": [
+            "6476964515"
+          ]
+        },
+        {
+          "requestedUrl": "https://palmview.ca/custom-homes",
+          "finalUrl": "https://palmview.ca/custom-homes",
+          "emails": [
+            "hello@palmview.ca"
+          ],
+          "phones": [
+            "6476964515"
+          ]
+        },
+        {
+          "requestedUrl": "https://palmview.ca/gallery",
+          "finalUrl": "https://palmview.ca/gallery",
+          "emails": [
+            "hello@palmview.ca"
+          ],
+          "phones": [
+            "6476964515"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Sealan Homes",
+      "website": "https://www.sealanhomes.com/",
+      "scannedOn": "2026-07-15T17:51:40.636Z",
+      "emails": [
+        "dean@sealanhomes.com"
+      ],
+      "phones": [
+        "1-844-573-2526"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.sealanhomes.com/",
+          "finalUrl": "https://www.sealanhomes.com/",
+          "emails": [
+            "dean@sealanhomes.com"
+          ],
+          "phones": [
+            "1-844-573-2526"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.sealanhomes.com/contact",
+          "finalUrl": "https://www.sealanhomes.com/contact",
+          "emails": [
+            "dean@sealanhomes.com"
+          ],
+          "phones": [
+            "1-844-573-2526"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.sealanhomes.com/team",
+          "finalUrl": "https://www.sealanhomes.com/team",
+          "emails": [
+            "dean@sealanhomes.com"
+          ],
+          "phones": [
+            "1-844-573-2526"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.sealanhomes.com/brookview-drive",
+          "finalUrl": "https://www.sealanhomes.com/brookview-drive",
+          "emails": [
+            "dean@sealanhomes.com"
+          ],
+          "phones": [
+            "1-844-573-2526"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "SevernWoods Fine Homes",
+      "website": "https://www.severnwoods.com/",
+      "scannedOn": "2026-07-15T17:51:40.782Z",
+      "emails": [
+        "info@severnwoods.com"
+      ],
+      "phones": [
+        "416-483-2941"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.severnwoods.com/",
+          "finalUrl": "https://www.severnwoods.com/",
+          "emails": [
+            "info@severnwoods.com"
+          ],
+          "phones": [
+            "+14164832941"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.severnwoods.com/contact-us/",
+          "finalUrl": "https://www.severnwoods.com/contact-toronto-custom-home-and-home-renovations",
+          "emails": [
+            "info@severnwoods.com"
+          ],
+          "phones": [
+            "+14164832941"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.severnwoods.com/who-we-are/",
+          "finalUrl": "https://www.severnwoods.com/who-we-are/",
+          "emails": [
+            "info@severnwoods.com"
+          ],
+          "phones": [
+            "+14164832941"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.severnwoods.com/blog/toronto-custom-home-building-process",
+          "finalUrl": "https://www.severnwoods.com/blog/toronto-custom-home-building-process",
+          "emails": [
+            "info@severnwoods.com"
+          ],
+          "phones": [
+            "+14164832941"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "A&R Developments Group",
+      "website": "https://www.ardevelopments.ca/",
+      "scannedOn": "2026-07-15T17:51:42.699Z",
+      "emails": [
+        "info@ardevelopments.ca"
+      ],
+      "phones": [
+        "905-442-6650",
+        "1 (647) 309-4099"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.ardevelopments.ca/",
+          "finalUrl": "https://www.ardevelopments.ca/",
+          "emails": [
+            "info@ardevelopments.ca"
+          ],
+          "phones": [
+            "1 (647) 309-4099",
+            "1 (905) 442-6650"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.ardevelopments.ca/about-us/",
+          "finalUrl": "https://www.ardevelopments.ca/about-us/",
+          "emails": [
+            "info@ardevelopments.ca"
+          ],
+          "phones": [
+            "1 (647) 309-4099",
+            "1 (905) 442-6650"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.ardevelopments.ca/build/",
+          "finalUrl": "https://www.ardevelopments.ca/build/",
+          "emails": [
+            "info@ardevelopments.ca"
+          ],
+          "phones": [
+            "1 (647) 309-4099",
+            "1 (905) 442-6650"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.ardevelopments.ca/faq/",
+          "finalUrl": "https://www.ardevelopments.ca/faq/",
+          "emails": [
+            "info@ardevelopments.ca"
+          ],
+          "phones": [
+            "1 (647) 309-4099",
+            "1 (905) 442-6650"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "BCMR Custom Homes",
+      "website": "https://www.bcmrgroup.com/new-page",
+      "scannedOn": "2026-07-15T17:51:41.258Z",
+      "emails": [
+        "brett@bcmrgroup.com",
+        "hamed@bcmrgroup.com"
+      ],
+      "phones": [
+        "647-962-4207",
+        "(647) 864 2725"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.bcmrgroup.com/new-page",
+          "finalUrl": "https://www.bcmrgroup.com/new-page",
+          "emails": [
+            "brett@bcmrgroup.com"
+          ],
+          "phones": [
+            "647-962-4207"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.bcmrgroup.com/contact-1",
+          "finalUrl": "https://www.bcmrgroup.com/contact-1",
+          "emails": [
+            "brett@bcmrgroup.com",
+            "hamed@bcmrgroup.com"
+          ],
+          "phones": [
+            "647-962-4207",
+            "(647) 864 2725"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.bcmrgroup.com/about",
+          "finalUrl": "https://www.bcmrgroup.com/about",
+          "emails": [
+            "brett@bcmrgroup.com"
+          ],
+          "phones": [
+            "647-962-4207"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.bcmrgroup.com/overview",
+          "finalUrl": "https://www.bcmrgroup.com/overview",
+          "emails": [
+            "brett@bcmrgroup.com"
+          ],
+          "phones": [
+            "647-962-4207"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Day Custom Homes",
+      "website": "https://daycustomhomes.ca/",
+      "scannedOn": "2026-07-15T17:51:41.086Z",
+      "emails": [
+        "info@daycustomhomes.ca"
+      ],
+      "phones": [
+        "647-891-3772"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://daycustomhomes.ca/",
+          "finalUrl": "https://daycustomhomes.ca/",
+          "emails": [
+            "info@daycustomhomes.ca"
+          ],
+          "phones": [
+            "647-891-3772"
+          ]
+        },
+        {
+          "requestedUrl": "https://daycustomhomes.ca/contact/",
+          "finalUrl": "https://daycustomhomes.ca/contact/",
+          "emails": [
+            "info@daycustomhomes.ca"
+          ],
+          "phones": [
+            "647-891-3772"
+          ]
+        },
+        {
+          "requestedUrl": "https://daycustomhomes.ca/projects-currently-under-construction/",
+          "finalUrl": "https://daycustomhomes.ca/projects-currently-under-construction/",
+          "emails": [
+            "info@daycustomhomes.ca"
+          ],
+          "phones": [
+            "647-891-3772"
+          ]
+        },
+        {
+          "requestedUrl": "https://daycustomhomes.ca/company/",
+          "finalUrl": "https://daycustomhomes.ca/company/",
+          "emails": [
+            "info@daycustomhomes.ca"
+          ],
+          "phones": [
+            "647-891-3772"
+          ]
+        },
+        {
+          "requestedUrl": "https://daycustomhomes.ca/faq/",
+          "finalUrl": "https://daycustomhomes.ca/faq/",
+          "emails": [
+            "info@daycustomhomes.ca"
+          ],
+          "phones": [
+            "647-891-3772"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Nova Decor Construction Ltd.",
+      "website": "https://novadecor.ca/",
+      "scannedOn": "2026-07-15T17:51:43.150Z",
+      "emails": [
+        "teresa@novadecor.ca"
+      ],
+      "phones": [
+        "905-201-0580"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://novadecor.ca/",
+          "finalUrl": "https://novadecor.ca/",
+          "emails": [
+            "teresa@novadecor.ca"
+          ],
+          "phones": [
+            "+1 (905) 201-0580"
+          ]
+        },
+        {
+          "requestedUrl": "https://novadecor.ca/contact-us/",
+          "finalUrl": "https://novadecor.ca/",
+          "emails": [
+            "teresa@novadecor.ca"
+          ],
+          "phones": [
+            "+1 (905) 201-0580"
+          ]
+        },
+        {
+          "requestedUrl": "https://novadecor.ca/about-us/",
+          "finalUrl": "https://novadecor.ca/about-us/",
+          "emails": [],
+          "phones": [
+            "+1 (905) 201-0580"
+          ]
+        },
+        {
+          "requestedUrl": "https://novadecor.ca/blog/",
+          "finalUrl": "https://novadecor.ca/blog/",
+          "emails": [],
+          "phones": [
+            "+1 (905) 201-0580"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "SLG Contracting",
+      "website": "https://slgcontracting.ca/",
+      "scannedOn": "2026-07-15T17:51:43.162Z",
+      "emails": [
+        "info@slgcontracting.ca"
+      ],
+      "phones": [
+        "647-931-8706",
+        "4169861831"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://slgcontracting.ca/",
+          "finalUrl": "https://slgcontracting.ca/",
+          "emails": [
+            "info@slgcontracting.ca"
+          ],
+          "phones": [
+            "4169861831"
+          ]
+        },
+        {
+          "requestedUrl": "https://slgcontracting.ca/about-us/",
+          "finalUrl": "https://slgcontracting.ca/about-us/",
+          "emails": [
+            "info@slgcontracting.ca"
+          ],
+          "phones": [
+            "4169861831"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Andelwood Homes",
+      "website": "https://www.andelwoodhomes.ca/",
+      "scannedOn": "2026-07-15T17:51:42.406Z",
+      "emails": [],
+      "phones": [
+        "905-439-4566"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.andelwoodhomes.ca/",
+          "finalUrl": "https://www.andelwoodhomes.ca/",
+          "emails": [],
+          "phones": [
+            "905-439-4566"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.andelwoodhomes.ca/contact",
+          "finalUrl": "https://www.andelwoodhomes.ca/contact",
+          "emails": [],
+          "phones": [
+            "905-439-4566"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.andelwoodhomes.ca/about",
+          "finalUrl": "https://www.andelwoodhomes.ca/about",
+          "emails": [],
+          "phones": [
+            "905-439-4566"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Delta Rae Homes",
+      "website": "https://delta-rae.com/",
+      "scannedOn": "2026-07-15T17:51:42.414Z",
+      "emails": [
+        "anthony@delta-rae.com",
+        "info@delta-rae.com"
+      ],
+      "phones": [
+        "905-240-1983"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://delta-rae.com/",
+          "finalUrl": "https://delta-rae.com/",
+          "emails": [],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://delta-rae.com/contact/",
+          "finalUrl": "https://delta-rae.com/contact/",
+          "emails": [
+            "info@delta-rae.com",
+            "anthony@delta-rae.com"
+          ],
+          "phones": [
+            "905-240-1983"
+          ]
+        },
+        {
+          "requestedUrl": "https://delta-rae.com/builder/",
+          "finalUrl": "https://delta-rae.com/builder/",
+          "emails": [],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://delta-rae.com/communities/",
+          "finalUrl": "https://delta-rae.com/communities/",
+          "emails": [],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://delta-rae.com/custom-homes/",
+          "finalUrl": "https://delta-rae.com/custom-homes/",
+          "emails": [
+            "anthony@delta-rae.com"
+          ],
+          "phones": [
+            "905-240-1983"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Eurodale Developments",
+      "website": "https://www.eurodale.ca/",
+      "scannedOn": "2026-07-15T17:51:43.434Z",
+      "emails": [
+        "info@eurodale.ca"
+      ],
+      "phones": [
+        "416-782-5690"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.eurodale.ca/",
+          "finalUrl": "https://www.eurodale.ca/",
+          "emails": [
+            "info@eurodale.ca"
+          ],
+          "phones": [
+            "(416) 782 5690"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.eurodale.ca/contact-us.html",
+          "finalUrl": "https://www.eurodale.ca/contact-us.html",
+          "emails": [
+            "info@eurodale.ca"
+          ],
+          "phones": [
+            "1 (416) 782 5690"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.eurodale.ca/about-us.html",
+          "finalUrl": "https://www.eurodale.ca/about-us.html",
+          "emails": [
+            "info@eurodale.ca"
+          ],
+          "phones": [
+            "1 (416) 782 5690"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Georgian Design Build",
+      "website": "https://georgianreno.com/",
+      "scannedOn": "2026-07-15T17:51:43.916Z",
+      "emails": [
+        "info@georgianreno.com"
+      ],
+      "phones": [
+        "289-498-1310"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://georgianreno.com/",
+          "finalUrl": "https://georgiancustomhomes.ca/",
+          "emails": [
+            "info@georgianreno.com"
+          ],
+          "phones": [
+            "+12894981310"
+          ]
+        },
+        {
+          "requestedUrl": "https://georgianreno.com/services/design-consultation/",
+          "finalUrl": "https://georgiancustomhomes.ca/services/design-consultation/",
+          "emails": [
+            "info@georgianreno.com"
+          ],
+          "phones": [
+            "+12894981310"
+          ]
+        },
+        {
+          "requestedUrl": "https://georgianreno.com/project-gallery/boyer-boulevard-home-transformation/",
+          "finalUrl": "https://georgiancustomhomes.ca/project-gallery/boyer-boulevard-home-transformation/",
+          "emails": [
+            "info@georgianreno.com"
+          ],
+          "phones": [
+            "+12894981310"
+          ]
+        }
+      ],
+      "failures": [
+        {
+          "url": "https://georgianreno.com/wp-content/uploads/2023/07/Georgian-SMARTRENO-Design-Guide.pdf",
+          "error": "Unsupported content type application/pdf"
+        }
+      ]
+    },
+    {
+      "name": "Hoss Development Inc.",
+      "website": "https://hossd.ca/",
+      "scannedOn": "2026-07-15T17:51:43.362Z",
+      "emails": [
+        "info@hossd.ca"
+      ],
+      "phones": [
+        "416-268-9175"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://hossd.ca/",
+          "finalUrl": "https://hossd.ca/",
+          "emails": [
+            "info@hossd.ca"
+          ],
+          "phones": [
+            "4162689175"
+          ]
+        },
+        {
+          "requestedUrl": "https://hossd.ca/custom-home-builder-vaughan.html",
+          "finalUrl": "https://hossd.ca/custom-home-builder-vaughan.html",
+          "emails": [
+            "info@hossd.ca"
+          ],
+          "phones": [
+            "4162689175"
+          ]
+        },
+        {
+          "requestedUrl": "https://hossd.ca/custom-home-builder-markham.html",
+          "finalUrl": "https://hossd.ca/custom-home-builder-markham.html",
+          "emails": [
+            "info@hossd.ca"
+          ],
+          "phones": [
+            "4162689175"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Marshall Homes",
+      "website": "https://marshallhomes.ca/",
+      "scannedOn": "2026-07-15T17:51:43.873Z",
+      "emails": [
+        "custom@marshallhomes.ca",
+        "sales@marshallhomes.ca",
+        "time@marshallhomes.ca"
+      ],
+      "phones": [
+        "647-534-1500"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://marshallhomes.ca/",
+          "finalUrl": "https://marshallhomes.ca/",
+          "emails": [
+            "sales@marshallhomes.ca"
+          ],
+          "phones": [
+            "647-534-1500"
+          ]
+        },
+        {
+          "requestedUrl": "https://marshallhomes.ca/contact-us/",
+          "finalUrl": "https://marshallhomes.ca/contact-us/",
+          "emails": [
+            "sales@marshallhomes.ca",
+            "time@marshallhomes.ca",
+            "custom@marshallhomes.ca"
+          ],
+          "phones": [
+            "647-534-1500"
+          ]
+        },
+        {
+          "requestedUrl": "https://marshallhomes.ca/about/",
+          "finalUrl": "https://marshallhomes.ca/about/",
+          "emails": [
+            "sales@marshallhomes.ca"
+          ],
+          "phones": [
+            "647-534-1500"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Ruso Development",
+      "website": "https://www.rusobuild.com/",
+      "scannedOn": "2026-07-15T17:51:44.728Z",
+      "emails": [
+        "rob@rusobuild.com"
+      ],
+      "phones": [
+        "416-417-8171"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.rusobuild.com/",
+          "finalUrl": "https://www.rusobuild.com/",
+          "emails": [
+            "rob@rusobuild.com"
+          ],
+          "phones": [
+            "416 417-8171"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.rusobuild.com/contact/",
+          "finalUrl": "https://www.rusobuild.com/contact/",
+          "emails": [
+            "rob@rusobuild.com"
+          ],
+          "phones": [
+            "416.417.8171"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.rusobuild.com/oakville/",
+          "finalUrl": "https://www.rusobuild.com/oakville/",
+          "emails": [
+            "rob@rusobuild.com"
+          ],
+          "phones": [
+            "416.417.8171"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Sensus Design Studio",
+      "website": "https://sensusdesignstudio.ca/",
+      "scannedOn": "2026-07-15T17:51:46.045Z",
+      "emails": [
+        "youremail@gmail.com"
+      ],
+      "phones": [
+        "416-720-6151",
+        "+16479770452",
+        "437-329-1308",
+        "647-780-0895",
+        "647-530-2333"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://sensusdesignstudio.ca/",
+          "finalUrl": "https://sensusdesignstudio.ca/",
+          "emails": [
+            "youremail@gmail.com"
+          ],
+          "phones": [
+            "+1 (416) 720 6151"
+          ]
+        },
+        {
+          "requestedUrl": "https://sensusdesignstudio.ca/contact/",
+          "finalUrl": "https://sensusdesignstudio.ca/contact/",
+          "emails": [
+            "youremail@gmail.com"
+          ],
+          "phones": [
+            "+16479770452",
+            "+1 (416) 720 6151",
+            "437-329-1308",
+            "647-780-0895",
+            "647-530-2333"
+          ]
+        },
+        {
+          "requestedUrl": "https://sensusdesignstudio.ca/who-we-are/",
+          "finalUrl": "https://sensusdesignstudio.ca/who-we-are/",
+          "emails": [
+            "youremail@gmail.com"
+          ],
+          "phones": [
+            "+1 (416) 720 6151"
+          ]
+        },
+        {
+          "requestedUrl": "https://sensusdesignstudio.ca/firm-profile/",
+          "finalUrl": "https://sensusdesignstudio.ca/firm-profile/",
+          "emails": [
+            "youremail@gmail.com"
+          ],
+          "phones": [
+            "+1 (416) 720 6151"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "South Park Design Build",
+      "website": "https://southparkdesignbuild.com/",
+      "scannedOn": "2026-07-15T17:51:44.108Z",
+      "emails": [
+        "info@southparkdesignbuild.com"
+      ],
+      "phones": [
+        "647-274-3186"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://southparkdesignbuild.com/",
+          "finalUrl": "https://southparkdesignbuild.com/",
+          "emails": [],
+          "phones": [
+            "+1-647-274-3186"
+          ]
+        },
+        {
+          "requestedUrl": "https://southparkdesignbuild.com/contact/",
+          "finalUrl": "https://southparkdesignbuild.com/contact/",
+          "emails": [
+            "info@southparkdesignbuild.com"
+          ],
+          "phones": [
+            "6472743186"
+          ]
+        },
+        {
+          "requestedUrl": "https://southparkdesignbuild.com/about/",
+          "finalUrl": "https://southparkdesignbuild.com/about/",
+          "emails": [],
+          "phones": [
+            "647.274.3186"
+          ]
+        },
+        {
+          "requestedUrl": "https://southparkdesignbuild.com/client-experience/",
+          "finalUrl": "https://southparkdesignbuild.com/client-experience/",
+          "emails": [],
+          "phones": [
+            "647.274.3186"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Alphyn Homes",
+      "website": "https://alphynhomes.com/",
+      "scannedOn": "2026-07-15T17:51:44.176Z",
+      "emails": [
+        "sean@alphynhomes.ca"
+      ],
+      "phones": [
+        "416-737-8607"
+      ],
+      "pages": [],
+      "failures": [
+        {
+          "url": "https://alphynhomes.com/",
+          "error": "HTTP 403"
+        },
+        {
+          "url": "https://alphynhomes.com/contact/",
+          "error": "HTTP 403"
+        },
+        {
+          "url": "https://alphynhomes.com/about-us/",
+          "error": "HTTP 403"
+        },
+        {
+          "url": "https://alphynhomes.com/portfolio/",
+          "error": "HTTP 403"
+        }
+      ]
+    },
+    {
+      "name": "Altevita",
+      "website": "https://altevita.ca/",
+      "scannedOn": "2026-07-15T17:51:44.233Z",
+      "emails": [
+        "info@altevita.ca"
+      ],
+      "phones": [
+        "416-856-6959",
+        "(416)%20856-6959"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://altevita.ca/",
+          "finalUrl": "https://altevita.ca/",
+          "emails": [
+            "info@altevita.ca"
+          ],
+          "phones": [
+            "(416)%20856-6959",
+            "(416) 856-6959"
+          ]
+        },
+        {
+          "requestedUrl": "https://altevita.ca/contact-us/",
+          "finalUrl": "https://altevita.ca/contact-us/",
+          "emails": [
+            "info@altevita.ca"
+          ],
+          "phones": [
+            "(416)%20856-6959",
+            "(416) 856-6959"
+          ]
+        },
+        {
+          "requestedUrl": "https://altevita.ca/about-us",
+          "finalUrl": "https://altevita.ca/about-us",
+          "emails": [
+            "info@altevita.ca"
+          ],
+          "phones": [
+            "(416)%20856-6959",
+            "(416) 856-6959"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Kopman Build",
+      "website": "https://kopmanbuild.com/",
+      "scannedOn": "2026-07-15T17:51:44.236Z",
+      "emails": [
+        "hello@kopmanbuild.com",
+        "press@kopmanbuild.com"
+      ],
+      "phones": [],
+      "pages": [
+        {
+          "requestedUrl": "https://kopmanbuild.com/",
+          "finalUrl": "https://kopmanbuild.com/",
+          "emails": [
+            "hello@kopmanbuild.com",
+            "press@kopmanbuild.com"
+          ],
+          "phones": []
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Kraco Contracting",
+      "website": "https://www.kraco.ca/",
+      "scannedOn": "2026-07-15T17:51:46.977Z",
+      "emails": [
+        "rudy@kraco.ca",
+        "info@kraco.ca"
+      ],
+      "phones": [
+        "(905) 623-1101",
+        "(905) 435-7363"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.kraco.ca/",
+          "finalUrl": "https://www.kraco.ca/",
+          "emails": [
+            "rudy@kraco.ca",
+            "info@kraco.ca"
+          ],
+          "phones": [
+            "(905) 623-1101",
+            "(905) 435-7363"
+          ]
+        },
+        {
+          "requestedUrl": "https://kraco.ca/contact-us/",
+          "finalUrl": "https://kraco.ca/contact-us",
+          "emails": [
+            "rudy@kraco.ca",
+            "info@kraco.ca"
+          ],
+          "phones": [
+            "(905) 623-1101",
+            "(905) 435-7363"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.kraco.ca/about-us",
+          "finalUrl": "https://www.kraco.ca/about-us",
+          "emails": [
+            "rudy@kraco.ca",
+            "info@kraco.ca"
+          ],
+          "phones": [
+            "(905) 623-1101",
+            "(905) 435-7363"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.kraco.ca/about/faqs",
+          "finalUrl": "https://www.kraco.ca/about/faqs",
+          "emails": [
+            "rudy@kraco.ca",
+            "info@kraco.ca"
+          ],
+          "phones": [
+            "(905) 623-1101",
+            "(905) 435-7363"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "MENATWORK Design Build",
+      "website": "https://menatwork.ca/",
+      "scannedOn": "2026-07-15T17:51:44.517Z",
+      "emails": [],
+      "phones": [
+        "416-763-0763"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://menatwork.ca/",
+          "finalUrl": "https://menatwork.ca/",
+          "emails": [],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://menatwork.ca/book-a-call/contact",
+          "finalUrl": "https://menatwork.ca/book-a-call/contact",
+          "emails": [],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://menatwork.ca/design-build",
+          "finalUrl": "https://menatwork.ca/design-build",
+          "emails": [],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://menatwork.ca/about-us/team",
+          "finalUrl": "https://menatwork.ca/about-us/team",
+          "emails": [],
+          "phones": []
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Ridgestone Homes Ltd.",
+      "website": "https://ridgestonehomes.ca/",
+      "scannedOn": "2026-07-15T17:51:50.131Z",
+      "emails": [
+        "info@rsgroup.ca"
+      ],
+      "phones": [
+        "905-264-7880"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://ridgestonehomes.ca/",
+          "finalUrl": "https://ridgestonehomes.ca/",
+          "emails": [
+            "info@rsgroup.ca"
+          ],
+          "phones": [
+            "9052647880"
+          ]
+        },
+        {
+          "requestedUrl": "https://ridgestonehomes.ca/home/contact-us/",
+          "finalUrl": "https://ridgestonehomes.ca/home/contact-us/",
+          "emails": [
+            "info@rsgroup.ca"
+          ],
+          "phones": [
+            "9052647880"
+          ]
+        },
+        {
+          "requestedUrl": "https://ridgestonehomes.ca/home/about-ridgestone-homes/",
+          "finalUrl": "https://ridgestonehomes.ca/home/about-ridgestone-homes/",
+          "emails": [
+            "info@rsgroup.ca"
+          ],
+          "phones": [
+            "9052647880"
+          ]
+        },
+        {
+          "requestedUrl": "https://ridgestonehomes.ca/home/our-portfolio/",
+          "finalUrl": "https://ridgestonehomes.ca/home/our-portfolio/",
+          "emails": [
+            "info@rsgroup.ca"
+          ],
+          "phones": [
+            "9052647880"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "BRIKS Design-Build Group",
+      "website": "https://briks.ca/",
+      "scannedOn": "2026-07-15T17:51:48.555Z",
+      "emails": [
+        "lobby@briks.ca"
+      ],
+      "phones": [
+        "416-799-1000",
+        "(999) 999-9999",
+        "4167971000"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://briks.ca/",
+          "finalUrl": "https://briks.ca/",
+          "emails": [],
+          "phones": [
+            "4167991000",
+            "(999) 999-9999"
+          ]
+        },
+        {
+          "requestedUrl": "https://briks.ca/contact/",
+          "finalUrl": "https://briks.ca/contact/",
+          "emails": [
+            "lobby@briks.ca"
+          ],
+          "phones": [
+            "4167991000",
+            "4167971000",
+            "(999) 999-9999"
+          ]
+        },
+        {
+          "requestedUrl": "https://briks.ca/blog/",
+          "finalUrl": "https://briks.ca/blog/",
+          "emails": [],
+          "phones": [
+            "4167991000",
+            "(999) 999-9999"
+          ]
+        },
+        {
+          "requestedUrl": "https://briks.ca/home-design-budgeting/",
+          "finalUrl": "https://briks.ca/home-design-budgeting/",
+          "emails": [],
+          "phones": [
+            "4167991000",
+            "(999) 999-9999"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Fatahi Building",
+      "website": "https://www.fatahibuilding.com/",
+      "scannedOn": "2026-07-15T17:51:46.070Z",
+      "emails": [
+        "info@fatahibuilding.com"
+      ],
+      "phones": [
+        "647-631-1211"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.fatahibuilding.com/",
+          "finalUrl": "https://www.fatahibuilding.com/",
+          "emails": [
+            "info@fatahibuilding.com"
+          ],
+          "phones": [
+            "+16476311211"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "iBUILD Homes",
+      "website": "https://ibuildhomes.ca/",
+      "scannedOn": "2026-07-15T17:51:48.629Z",
+      "emails": [
+        "ibuild@wexler.ca"
+      ],
+      "phones": [
+        "416-787-4000"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://ibuildhomes.ca/",
+          "finalUrl": "https://ibuildhomes.ca/",
+          "emails": [
+            "ibuild@wexler.ca"
+          ],
+          "phones": [
+            "(416) 787-4000"
+          ]
+        },
+        {
+          "requestedUrl": "https://ibuildhomes.ca/contact/",
+          "finalUrl": "https://ibuildhomes.ca/contact/",
+          "emails": [
+            "ibuild@wexler.ca"
+          ],
+          "phones": [
+            "(416) 787-4000"
+          ]
+        },
+        {
+          "requestedUrl": "https://ibuildhomes.ca/about/",
+          "finalUrl": "https://ibuildhomes.ca/about/",
+          "emails": [
+            "ibuild@wexler.ca"
+          ],
+          "phones": [
+            "(416) 787-4000"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "MGB Building Group",
+      "website": "https://www.mgbbuildinggroup.com/",
+      "scannedOn": "2026-07-15T17:51:47.813Z",
+      "emails": [
+        "info@mgbconstruction.ca"
+      ],
+      "phones": [
+        "416-473-3409",
+        "(647) 697-8154",
+        "416 267 1090",
+        "6476258146"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.mgbbuildinggroup.com/",
+          "finalUrl": "https://www.mgbbuildinggroup.com/",
+          "emails": [
+            "info@mgbconstruction.ca"
+          ],
+          "phones": [
+            "(416) 473 3409",
+            "(647) 697-8154"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.mgbbuildinggroup.com/contact",
+          "finalUrl": "https://www.mgbbuildinggroup.com/contact",
+          "emails": [
+            "info@mgbconstruction.ca"
+          ],
+          "phones": [
+            "(416) 473 3409",
+            "416 267 1090",
+            "6476258146",
+            "(647) 697-8154"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.mgbbuildinggroup.com/process",
+          "finalUrl": "https://www.mgbbuildinggroup.com/process",
+          "emails": [
+            "info@mgbconstruction.ca"
+          ],
+          "phones": [
+            "(416) 473 3409",
+            "416 267 1090",
+            "6476258146",
+            "(647) 697-8154"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Wesking Homes Inc.",
+      "website": "https://www.weskinghomes.com/",
+      "scannedOn": "2026-07-15T17:51:48.586Z",
+      "emails": [
+        "info@weskinghomes.com"
+      ],
+      "phones": [
+        "905-392-1868",
+        "direct 647-325-2388"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.weskinghomes.com/",
+          "finalUrl": "https://www.weskinghomes.com/",
+          "emails": [
+            "info@weskinghomes.com"
+          ],
+          "phones": [
+            "(905)-392-1868",
+            "(647)-325-2388"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.weskinghomes.com/contact",
+          "finalUrl": "https://www.weskinghomes.com/contact",
+          "emails": [
+            "info@weskinghomes.com"
+          ],
+          "phones": [
+            "(905)-392-1868",
+            "(647)-325-2388"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Luvnit Inc.",
+      "website": "https://luvnit.ca/",
+      "scannedOn": "2026-07-15T17:51:50.565Z",
+      "emails": [
+        "info@luvnit.ca"
+      ],
+      "phones": [
+        "365-500-3220"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://luvnit.ca/",
+          "finalUrl": "https://luvnit.ca/",
+          "emails": [
+            "info@luvnit.ca"
+          ],
+          "phones": [
+            "+13655003220"
+          ]
+        },
+        {
+          "requestedUrl": "https://luvnit.ca/contact-us/",
+          "finalUrl": "https://luvnit.ca/contact-us/",
+          "emails": [
+            "info@luvnit.ca"
+          ],
+          "phones": [
+            "+13655003220"
+          ]
+        },
+        {
+          "requestedUrl": "https://luvnit.ca/about-us/",
+          "finalUrl": "https://luvnit.ca/about-us/",
+          "emails": [
+            "info@luvnit.ca"
+          ],
+          "phones": [
+            "+13655003220"
+          ]
+        },
+        {
+          "requestedUrl": "https://luvnit.ca/areas-of-service/aurora-custom-home-builder/",
+          "finalUrl": "https://luvnit.ca/areas-of-service/aurora-custom-home-builder/",
+          "emails": [
+            "info@luvnit.ca"
+          ],
+          "phones": [
+            "+13655003220"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Markway Homes",
+      "website": "https://www.markwayhomes.ca/",
+      "scannedOn": "2026-07-15T17:51:50.474Z",
+      "emails": [
+        "nick@markwayhomes.ca"
+      ],
+      "phones": [
+        "289-338-6360"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.markwayhomes.ca/",
+          "finalUrl": "https://www.markwayhomes.ca/",
+          "emails": [
+            "nick@markwayhomes.ca"
+          ],
+          "phones": [
+            "2893386360"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.markwayhomes.ca/about",
+          "finalUrl": "https://www.markwayhomes.ca/about",
+          "emails": [
+            "nick@markwayhomes.ca"
+          ],
+          "phones": [
+            "2893386360"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.markwayhomes.ca/process",
+          "finalUrl": "https://www.markwayhomes.ca/process",
+          "emails": [
+            "nick@markwayhomes.ca"
+          ],
+          "phones": [
+            "2893386360"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Mayfield Custom Homes",
+      "website": "https://www.mayfieldcustomhomes.com/",
+      "scannedOn": "2026-07-15T17:51:51.045Z",
+      "emails": [
+        "info@mayfieldcustomhomes.com"
+      ],
+      "phones": [
+        "416-540-9750"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.mayfieldcustomhomes.com/",
+          "finalUrl": "https://www.mayfieldcustomhomes.com/",
+          "emails": [
+            "info@mayfieldcustomhomes.com"
+          ],
+          "phones": [
+            "416.540.9750"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.mayfieldcustomhomes.com/contact-us/",
+          "finalUrl": "https://www.mayfieldcustomhomes.com/contact-us/",
+          "emails": [
+            "info@mayfieldcustomhomes.com"
+          ],
+          "phones": [
+            "416.540.9750"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.mayfieldcustomhomes.com/process/",
+          "finalUrl": "https://www.mayfieldcustomhomes.com/process/",
+          "emails": [
+            "info@mayfieldcustomhomes.com"
+          ],
+          "phones": [
+            "416.540.9750"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "MBC Homes",
+      "website": "https://mbc.homes/",
+      "scannedOn": "2026-07-15T17:51:50.598Z",
+      "emails": [
+        "info@mbc.homes",
+        "mostsdn@gmail.com"
+      ],
+      "phones": [
+        "647-484-7366",
+        "(647)%20484-7366"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://mbc.homes/",
+          "finalUrl": "https://mbc.homes/",
+          "emails": [
+            "mostsdn@gmail.com",
+            "info@mbc.homes"
+          ],
+          "phones": [
+            "(647)%20484-7366",
+            "(647) 484-7366"
+          ]
+        },
+        {
+          "requestedUrl": "https://mbc.homes/contact/",
+          "finalUrl": "https://mbc.homes/contact/",
+          "emails": [
+            "info@mbc.homes"
+          ],
+          "phones": [
+            "647-484-7366"
+          ]
+        },
+        {
+          "requestedUrl": "https://mbc.homes/custom-build-homes/north-york/",
+          "finalUrl": "https://mbc.homes/custom-build-homes/north-york/",
+          "emails": [],
+          "phones": []
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Camstruct Limited",
+      "website": "https://camstruct.ca/",
+      "scannedOn": "2026-07-15T17:51:50.574Z",
+      "emails": [
+        "info@camstruct.com"
+      ],
+      "phones": [
+        "905-850-3888",
+        "1200-800-1024x683"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://camstruct.ca/",
+          "finalUrl": "https://camstruct.ca/",
+          "emails": [
+            "info@camstruct.com"
+          ],
+          "phones": [
+            "905-850-3888",
+            "1200-800-1024x683"
+          ]
+        },
+        {
+          "requestedUrl": "https://camstruct.ca/contact/",
+          "finalUrl": "https://camstruct.ca/contact-us/",
+          "emails": [
+            "info@camstruct.com"
+          ],
+          "phones": [
+            "9058503888"
+          ]
+        },
+        {
+          "requestedUrl": "https://camstruct.ca/home-renovation/",
+          "finalUrl": "https://camstruct.ca/home-renovation/",
+          "emails": [
+            "info@camstruct.com"
+          ],
+          "phones": [
+            "905-850-3888",
+            "1200-800-1024x683"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Greening Homes",
+      "website": "https://greeninghomes.com/",
+      "scannedOn": "2026-07-15T17:51:50.799Z",
+      "emails": [
+        "info@greeninghomes.com"
+      ],
+      "phones": [
+        "416-532-6811"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://greeninghomes.com/",
+          "finalUrl": "https://greeninghomes.com/",
+          "emails": [],
+          "phones": [
+            "416.532.6811"
+          ]
+        },
+        {
+          "requestedUrl": "https://greeninghomes.com/contact-us/",
+          "finalUrl": "https://greeninghomes.com/contact-us/",
+          "emails": [],
+          "phones": [
+            "416.532.6811"
+          ]
+        },
+        {
+          "requestedUrl": "https://greeninghomes.com/about-us/faq/",
+          "finalUrl": "https://greeninghomes.com/about-us/faq/",
+          "emails": [
+            "info@greeninghomes.com"
+          ],
+          "phones": [
+            "416.532.6811"
+          ]
+        },
+        {
+          "requestedUrl": "https://greeninghomes.com/community/our-industry-partners-and-links/",
+          "finalUrl": "https://greeninghomes.com/community/our-industry-partners-and-links/",
+          "emails": [],
+          "phones": [
+            "416.532.6811"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Jeffery Homes",
+      "website": "https://jefferyhomes.com/",
+      "scannedOn": "2026-07-15T17:51:50.683Z",
+      "emails": [
+        "salesinfo@jefferyhomes.com",
+        "service@jefferyhomes.ca"
+      ],
+      "phones": [
+        "905-433-4701",
+        "19054332173"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://jefferyhomes.com/",
+          "finalUrl": "https://jefferyhomes.com/",
+          "emails": [],
+          "phones": [
+            "19054332173",
+            "19054334701"
+          ]
+        },
+        {
+          "requestedUrl": "https://jefferyhomes.com/contact",
+          "finalUrl": "https://jefferyhomes.com/contact",
+          "emails": [
+            "salesinfo@jefferyhomes.com",
+            "service@jefferyhomes.ca"
+          ],
+          "phones": [
+            "19054332173",
+            "19054334701"
+          ]
+        },
+        {
+          "requestedUrl": "https://jefferyhomes.com/news/views-ribbon-cutting-ceremony",
+          "finalUrl": "https://jefferyhomes.com/news/views-ribbon-cutting-ceremony",
+          "emails": [
+            "salesinfo@jefferyhomes.com"
+          ],
+          "phones": [
+            "19054332173",
+            "19054334701"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Timberidge Carpentry Inc.",
+      "website": "https://timberidgecarpentry.com/",
+      "scannedOn": "2026-07-15T17:51:50.659Z",
+      "emails": [
+        "sales@timberidgecarpentry.com"
+      ],
+      "phones": [
+        "905-862-8488",
+        "(416) 567-4522"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://timberidgecarpentry.com/",
+          "finalUrl": "https://timberidgecarpentry.com/",
+          "emails": [
+            "sales@timberidgecarpentry.com"
+          ],
+          "phones": [
+            "1.905.862.8488"
+          ]
+        },
+        {
+          "requestedUrl": "https://timberidgecarpentry.com/testimonials/",
+          "finalUrl": "https://timberidgecarpentry.com/testimonials/",
+          "emails": [
+            "sales@timberidgecarpentry.com"
+          ],
+          "phones": [
+            "1.905.862.8488",
+            "(416) 567-4522"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "A4 Group Construction Services Inc.",
+      "website": "https://a4group.ca/",
+      "scannedOn": "2026-07-15T17:51:54.839Z",
+      "emails": [],
+      "phones": [
+        "365-268-4444",
+        "647-248-8984",
+        "(999) 999-9999"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://a4group.ca/",
+          "finalUrl": "https://a4group.ca/",
+          "emails": [],
+          "phones": [
+            "+1-365-268-4444",
+            "(647) 248-8984"
+          ]
+        },
+        {
+          "requestedUrl": "https://a4group.ca/construction/",
+          "finalUrl": "https://a4group.ca/construction/",
+          "emails": [],
+          "phones": [
+            "+1-365-268-4444",
+            "(647) 248-8984",
+            "(999) 999-9999"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "BGM Design & Build",
+      "website": "https://bgmdesignbuild.com/",
+      "scannedOn": "2026-07-15T17:51:50.779Z",
+      "emails": [
+        "info@bgmdesignbuild.com"
+      ],
+      "phones": [
+        "647-528-6262"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://bgmdesignbuild.com/contact/",
+          "finalUrl": "https://bgmdesignbuild.com/contact/",
+          "emails": [],
+          "phones": [
+            "6475286262"
+          ]
+        }
+      ],
+      "failures": [
+        {
+          "url": "https://bgmdesignbuild.com/",
+          "error": "HTTP 403"
+        },
+        {
+          "url": "https://bgmdesignbuild.com/residential/",
+          "error": "HTTP 403"
+        }
+      ]
+    },
+    {
+      "name": "Steve Snider Construction Inc.",
+      "website": "https://www.stevesnider.ca/",
+      "scannedOn": "2026-07-15T17:51:51.078Z",
+      "emails": [
+        "info@stevesnider.ca"
+      ],
+      "phones": [
+        "905-985-8201"
+      ],
+      "pages": [],
+      "failures": [
+        {
+          "url": "https://www.stevesnider.ca/",
+          "error": "fetch failed"
+        },
+        {
+          "url": "https://www.stevesnider.ca/about_us.html",
+          "error": "fetch failed"
+        },
+        {
+          "url": "https://www.stevesnider.ca/services.html",
+          "error": "fetch failed"
+        }
+      ]
+    },
+    {
+      "name": "Carick Homes",
+      "website": "https://www.carickhomeimprovements.com/",
+      "scannedOn": "2026-07-15T17:51:51.450Z",
+      "emails": [
+        "improve@carickhomes.com"
+      ],
+      "phones": [
+        "416-781-6671"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.carickhomeimprovements.com/",
+          "finalUrl": "https://www.carickhomeimprovements.com/",
+          "emails": [
+            "improve@carickhomes.com"
+          ],
+          "phones": [
+            "(416) 781-6671"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.carickhomeimprovements.com/contact-us",
+          "finalUrl": "https://www.carickhomeimprovements.com/contact-us",
+          "emails": [
+            "improve@carickhomes.com"
+          ],
+          "phones": [
+            "(416) 781-6671"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.carickhomeimprovements.com/about-carick",
+          "finalUrl": "https://www.carickhomeimprovements.com/about-carick",
+          "emails": [
+            "improve@carickhomes.com"
+          ],
+          "phones": [
+            "(416) 781-6671"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.carickhomeimprovements.com/testimonials",
+          "finalUrl": "https://www.carickhomeimprovements.com/testimonials",
+          "emails": [
+            "improve@carickhomes.com"
+          ],
+          "phones": [
+            "(416) 781-6671"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Melio Homes",
+      "website": "https://meliohomes.ca/",
+      "scannedOn": "2026-07-15T17:51:50.988Z",
+      "emails": [
+        "admin@meliohomes.ca",
+        "info@meliohomes.ca"
+      ],
+      "phones": [
+        "905-265-9393",
+        "416.827.2637"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://meliohomes.ca/",
+          "finalUrl": "https://meliohomes.ca/",
+          "emails": [
+            "admin@meliohomes.ca"
+          ],
+          "phones": [
+            "905.265.9393"
+          ]
+        },
+        {
+          "requestedUrl": "https://meliohomes.ca/contact-us/",
+          "finalUrl": "https://meliohomes.ca/contact-us/",
+          "emails": [
+            "info@meliohomes.ca",
+            "admin@meliohomes.ca"
+          ],
+          "phones": [
+            "416.827.2637",
+            "905.265.9393"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "STS Homes",
+      "website": "https://stshomes.ca/",
+      "scannedOn": "2026-07-15T17:51:51.589Z",
+      "emails": [
+        "sam@stshomes.ca"
+      ],
+      "phones": [
+        "416-578-6336",
+        "%20(416)%20578-6336"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://stshomes.ca/",
+          "finalUrl": "https://stshomes.ca/",
+          "emails": [
+            "sam@stshomes.ca"
+          ],
+          "phones": [
+            "%20(416)%20578-6336",
+            "(416) 578-6336"
+          ]
+        },
+        {
+          "requestedUrl": "https://stshomes.ca/contact-us/",
+          "finalUrl": "https://stshomes.ca/contact-us/",
+          "emails": [
+            "sam@stshomes.ca"
+          ],
+          "phones": [
+            "%20(416)%20578-6336",
+            "(416) 578-6336"
+          ]
+        },
+        {
+          "requestedUrl": "https://stshomes.ca/about-us/",
+          "finalUrl": "https://stshomes.ca/about-us/",
+          "emails": [
+            "sam@stshomes.ca"
+          ],
+          "phones": [
+            "%20(416)%20578-6336",
+            "(416) 578-6336"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Bachly Construction",
+      "website": "https://www.bachly.com/",
+      "scannedOn": "2026-07-15T17:51:51.561Z",
+      "emails": [
+        "jthornley@bachly.com",
+        "info@bachly.com",
+        "mmessmer@bachly.com",
+        "abachly@bachly.com"
+      ],
+      "phones": [
+        "905-842-6663",
+        "905-951-3100",
+        "1 (800) 363 3473"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.bachly.com/",
+          "finalUrl": "https://www.bachly.com/",
+          "emails": [],
+          "phones": [
+            "905-951-3100",
+            "1 (800) 363 3473"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.bachly.com/contact-us-homes/",
+          "finalUrl": "https://www.bachly.com/contact-us-homes/",
+          "emails": [
+            "info@bachly.com",
+            "mmessmer@bachly.com",
+            "jthornley@bachly.com",
+            "abachly@bachly.com"
+          ],
+          "phones": [
+            "905-951-3100",
+            "905-842 6663"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.bachly.com/oakville-custom-home-builders/",
+          "finalUrl": "https://www.bachly.com/oakville-custom-home-builders/",
+          "emails": [],
+          "phones": [
+            "905-951-3100"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Monlis Homes",
+      "website": "https://www.monlishomes.com/",
+      "scannedOn": "2026-07-15T17:51:51.443Z",
+      "emails": [
+        "info@monlishomes.com"
+      ],
+      "phones": [
+        "905-209-1990",
+        "905-209-3998"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.monlishomes.com/",
+          "finalUrl": "https://www.monlishomes.com/",
+          "emails": [
+            "info@monlishomes.com"
+          ],
+          "phones": [
+            "905-209-1990",
+            "905-209-3998"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.monlishomes.com/contact-us/",
+          "finalUrl": "https://www.monlishomes.com/contact-us/",
+          "emails": [
+            "info@monlishomes.com"
+          ],
+          "phones": [
+            "905-209-1990",
+            "905-209-3998"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Tatra Valley Homes",
+      "website": "https://tatravalleyhomes.ca/",
+      "scannedOn": "2026-07-15T17:51:51.440Z",
+      "emails": [],
+      "phones": [
+        "905-720-2004",
+        "(905) 263-2333"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://tatravalleyhomes.ca/",
+          "finalUrl": "https://tatravalleyhomes.ca/",
+          "emails": [],
+          "phones": [
+            "(905) 720-2004"
+          ]
+        },
+        {
+          "requestedUrl": "https://tatravalleyhomes.ca/contact-us/",
+          "finalUrl": "https://tatravalleyhomes.ca/contact-us/",
+          "emails": [],
+          "phones": [
+            "(905) 720-2004",
+            "(905) 263-2333"
+          ]
+        },
+        {
+          "requestedUrl": "https://tatravalleyhomes.ca/about-us/",
+          "finalUrl": "https://tatravalleyhomes.ca/about-us/",
+          "emails": [],
+          "phones": [
+            "(905) 720-2004"
+          ]
+        },
+        {
+          "requestedUrl": "https://tatravalleyhomes.ca/future-projects/",
+          "finalUrl": "https://tatravalleyhomes.ca/future-projects/",
+          "emails": [],
+          "phones": [
+            "(905) 720-2004"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Brumley Construction",
+      "website": "https://www.brumley-construction.com/",
+      "scannedOn": "2026-07-15T17:51:51.510Z",
+      "emails": [
+        "brumleyconstruction@icloud.com",
+        "pb.brumleyconstruction@gmail.com"
+      ],
+      "phones": [
+        "416-676-4664",
+        "123-456-7890"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.brumley-construction.com/",
+          "finalUrl": "https://www.brumley-construction.com/",
+          "emails": [
+            "brumleyconstruction@icloud.com",
+            "pb.brumleyconstruction@gmail.com"
+          ],
+          "phones": [
+            "123-456-7890",
+            "416-676-4664"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.brumley-construction.com/projects",
+          "finalUrl": "https://www.brumley-construction.com/projects",
+          "emails": [
+            "brumleyconstruction@icloud.com",
+            "pb.brumleyconstruction@gmail.com"
+          ],
+          "phones": [
+            "123-456-7890",
+            "416-676-4664"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Homes By Summerhill",
+      "website": "https://homesbysummerhill.com/",
+      "scannedOn": "2026-07-15T17:51:53.722Z",
+      "emails": [
+        "info@homesbysummerhill.com"
+      ],
+      "phones": [
+        "905-886-6900"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://homesbysummerhill.com/",
+          "finalUrl": "https://homesbysummerhill.com/",
+          "emails": [
+            "info@homesbysummerhill.com"
+          ],
+          "phones": [
+            "905.886.6900"
+          ]
+        },
+        {
+          "requestedUrl": "https://homesbysummerhill.com/contact-us/",
+          "finalUrl": "https://homesbysummerhill.com/contact-us/",
+          "emails": [
+            "info@homesbysummerhill.com"
+          ],
+          "phones": [
+            "905.886.6900"
+          ]
+        },
+        {
+          "requestedUrl": "https://homesbysummerhill.com/about-us/",
+          "finalUrl": "https://homesbysummerhill.com/about-us/",
+          "emails": [
+            "info@homesbysummerhill.com"
+          ],
+          "phones": [
+            "905.886.6900"
+          ]
+        },
+        {
+          "requestedUrl": "https://homesbysummerhill.com/design-build/",
+          "finalUrl": "https://homesbysummerhill.com/design-build/",
+          "emails": [
+            "info@homesbysummerhill.com"
+          ],
+          "phones": [
+            "905.886.6900"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Vishar Homes",
+      "website": "https://www.vishar.ca/",
+      "scannedOn": "2026-07-15T17:51:51.784Z",
+      "emails": [
+        "info@vishar.ca",
+        "vahid@homaart.ca"
+      ],
+      "phones": [],
+      "pages": [
+        {
+          "requestedUrl": "https://www.vishar.ca/",
+          "finalUrl": "https://www.vishar.ca/",
+          "emails": [
+            "info@vishar.ca"
+          ],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://www.vishar.ca/about",
+          "finalUrl": "https://www.vishar.ca/about",
+          "emails": [
+            "info@vishar.ca",
+            "vahid@homaart.ca"
+          ],
+          "phones": []
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Stellar Homes Inc.",
+      "website": "https://stellarhomesinc.ca/",
+      "scannedOn": "2026-07-15T17:51:53.241Z",
+      "emails": [
+        "info@stellarhomesinc.ca"
+      ],
+      "phones": [
+        "905-726-7778"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://stellarhomesinc.ca/",
+          "finalUrl": "https://stellarhomesinc.ca/",
+          "emails": [
+            "info@stellarhomesinc.ca"
+          ],
+          "phones": [
+            "(905) 726-7778"
+          ]
+        },
+        {
+          "requestedUrl": "https://stellarhomesinc.ca/about/",
+          "finalUrl": "https://stellarhomesinc.ca/about/",
+          "emails": [
+            "info@stellarhomesinc.ca"
+          ],
+          "phones": [
+            "(905) 726-7778"
+          ]
+        },
+        {
+          "requestedUrl": "https://stellarhomesinc.ca/gallery/",
+          "finalUrl": "https://stellarhomesinc.ca/gallery/",
+          "emails": [
+            "info@stellarhomesinc.ca"
+          ],
+          "phones": [
+            "(905) 726-7778"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Cornerstone Building Group",
+      "website": "https://cbgpro.ca/",
+      "scannedOn": "2026-07-15T17:51:53.338Z",
+      "emails": [
+        "info@cbgpro.ca",
+        "contact@cbgpro.ca"
+      ],
+      "phones": [
+        "905-624-8896"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://cbgpro.ca/",
+          "finalUrl": "https://cbgpro.ca/",
+          "emails": [
+            "contact@cbgpro.ca",
+            "info@cbgpro.ca"
+          ],
+          "phones": [
+            "9056248896"
+          ]
+        },
+        {
+          "requestedUrl": "https://cbgpro.ca/contact/",
+          "finalUrl": "https://cbgpro.ca/contact/",
+          "emails": [
+            "contact@cbgpro.ca",
+            "info@cbgpro.ca"
+          ],
+          "phones": [
+            "9056248896"
+          ]
+        },
+        {
+          "requestedUrl": "https://cbgpro.ca/about/",
+          "finalUrl": "https://cbgpro.ca/about/",
+          "emails": [
+            "contact@cbgpro.ca",
+            "info@cbgpro.ca"
+          ],
+          "phones": [
+            "9056248896"
+          ]
+        },
+        {
+          "requestedUrl": "https://cbgpro.ca/kitchen-renovation-calculator/",
+          "finalUrl": "https://cbgpro.ca/kitchen-renovation-calculator/",
+          "emails": [
+            "contact@cbgpro.ca",
+            "info@cbgpro.ca"
+          ],
+          "phones": [
+            "9056248896"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Woodland Homes",
+      "website": "https://woodlandhomes.ca/",
+      "scannedOn": "2026-07-15T17:51:53.247Z",
+      "emails": [
+        "shane@woodlandhomes.ca",
+        "info@woodlandhomes.ca",
+        "dave@woodlandhomes.ca",
+        "melissa@woodlandhomes.ca"
+      ],
+      "phones": [
+        "905-802-6280"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://woodlandhomes.ca/",
+          "finalUrl": "https://woodlandhomes.ca/",
+          "emails": [
+            "info@woodlandhomes.ca"
+          ],
+          "phones": [
+            "+1-905-802-6280"
+          ]
+        },
+        {
+          "requestedUrl": "https://woodlandhomes.ca/contact-us-construction-company-near-me/",
+          "finalUrl": "https://woodlandhomes.ca/contact-us-construction-company-near-me/",
+          "emails": [
+            "shane@woodlandhomes.ca",
+            "dave@woodlandhomes.ca",
+            "melissa@woodlandhomes.ca",
+            "info@woodlandhomes.ca"
+          ],
+          "phones": [
+            "905.802.6280"
+          ]
+        },
+        {
+          "requestedUrl": "https://woodlandhomes.ca/reviews-5-star-service/",
+          "finalUrl": "https://woodlandhomes.ca/",
+          "emails": [
+            "info@woodlandhomes.ca"
+          ],
+          "phones": [
+            "+1-905-802-6280"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Karry Home Solutions",
+      "website": "https://karry.ca/",
+      "scannedOn": "2026-07-15T17:51:53.566Z",
+      "emails": [
+        "jodyd.karry@rogers.com",
+        "karryhomes1@gmail.com"
+      ],
+      "phones": [
+        "905-456-2943"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://karry.ca/",
+          "finalUrl": "https://karry.ca/",
+          "emails": [
+            "jodyd.karry@rogers.com",
+            "karryhomes1@gmail.com"
+          ],
+          "phones": [
+            "+1 (905) 456-2943"
+          ]
+        },
+        {
+          "requestedUrl": "https://karry.ca/contact/",
+          "finalUrl": "https://karry.ca/contact/",
+          "emails": [
+            "jodyd.karry@rogers.com",
+            "karryhomes1@gmail.com"
+          ],
+          "phones": [
+            "(905) 456-2943"
+          ]
+        },
+        {
+          "requestedUrl": "https://karry.ca/about/",
+          "finalUrl": "https://karry.ca/about/",
+          "emails": [
+            "jodyd.karry@rogers.com",
+            "karryhomes1@gmail.com"
+          ],
+          "phones": [
+            "+1 (905) 456-2943"
+          ]
+        },
+        {
+          "requestedUrl": "https://karry.ca/services/",
+          "finalUrl": "https://karry.ca/services/",
+          "emails": [
+            "jodyd.karry@rogers.com",
+            "karryhomes1@gmail.com"
+          ],
+          "phones": [
+            "+1 (905) 456-2943"
+          ]
+        },
+        {
+          "requestedUrl": "https://karry.ca/our-commitment-to-canadian-made-renovations/",
+          "finalUrl": "https://karry.ca/blog/our-commitment-to-canadian-made-renovations/",
+          "emails": [
+            "jodyd.karry@rogers.com"
+          ],
+          "phones": [
+            "(905)4562943"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "SMB Builders",
+      "website": "https://smbbuilders.ca/",
+      "scannedOn": "2026-07-15T17:51:53.257Z",
+      "emails": [
+        "info@smbbuilders.ca"
+      ],
+      "phones": [
+        "+16476742061",
+        "647-691-7234",
+        "+1%20(647)%20674-2061"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://smbbuilders.ca/",
+          "finalUrl": "https://smbbuilders.ca/",
+          "emails": [
+            "info@smbbuilders.ca"
+          ],
+          "phones": [
+            "+16476742061",
+            "647-691-7234",
+            "+1%20(647)%20674-2061"
+          ]
+        },
+        {
+          "requestedUrl": "https://smbbuilders.ca/contact-us/",
+          "finalUrl": "https://smbbuilders.ca/contact-us/",
+          "emails": [
+            "info@smbbuilders.ca"
+          ],
+          "phones": [
+            "+16476742061",
+            "+1%20(647)%20674-2061"
+          ]
+        },
+        {
+          "requestedUrl": "https://smbbuilders.ca/custom-homes/",
+          "finalUrl": "https://smbbuilders.ca/custom-homes/",
+          "emails": [
+            "info@smbbuilders.ca"
+          ],
+          "phones": [
+            "+16476742061",
+            "+1%20(647)%20674-2061"
+          ]
+        },
+        {
+          "requestedUrl": "https://smbbuilders.ca/about-us/",
+          "finalUrl": "https://smbbuilders.ca/about-us/",
+          "emails": [
+            "info@smbbuilders.ca"
+          ],
+          "phones": [
+            "+16476742061",
+            "+1%20(647)%20674-2061"
+          ]
+        },
+        {
+          "requestedUrl": "https://smbbuilders.ca/custom-home-builder-in-mississauga-2/",
+          "finalUrl": "https://smbbuilders.ca/custom-home-builder-in-mississauga-2/",
+          "emails": [
+            "info@smbbuilders.ca"
+          ],
+          "phones": [
+            "+16476742061",
+            "+1%20(647)%20674-2061"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "SRK Design + Build",
+      "website": "https://www.srkdesignbuild.ca/",
+      "scannedOn": "2026-07-15T17:51:53.767Z",
+      "emails": [
+        "info@srkdesignbuild.ca",
+        "steven@srkdesignbuild.ca"
+      ],
+      "phones": [
+        "647-295-4120"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.srkdesignbuild.ca/",
+          "finalUrl": "https://www.srkdesignbuild.ca/",
+          "emails": [
+            "steven@srkdesignbuild.ca"
+          ],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://www.srkdesignbuild.ca/workwithus",
+          "finalUrl": "https://www.srkdesignbuild.ca/workwithus",
+          "emails": [
+            "steven@srkdesignbuild.ca",
+            "info@srkdesignbuild.ca"
+          ],
+          "phones": [
+            "647.295.4120"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.srkdesignbuild.ca/projects",
+          "finalUrl": "https://www.srkdesignbuild.ca/projects",
+          "emails": [
+            "steven@srkdesignbuild.ca"
+          ],
+          "phones": []
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "TM Builds",
+      "website": "https://www.tmbuilds.ca/",
+      "scannedOn": "2026-07-15T17:51:53.657Z",
+      "emails": [
+        "tm.builds@icloud.com"
+      ],
+      "phones": [
+        "705-934-0503",
+        "2899275994"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.tmbuilds.ca/",
+          "finalUrl": "https://www.tmbuilds.ca/",
+          "emails": [
+            "tm.builds@icloud.com"
+          ],
+          "phones": [
+            "7059340503",
+            "2899275994"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.tmbuilds.ca/about-tm-builds",
+          "finalUrl": "https://www.tmbuilds.ca/about-tm-builds",
+          "emails": [
+            "tm.builds@icloud.com"
+          ],
+          "phones": [
+            "7059340503",
+            "2899275994"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.tmbuilds.ca/custom-homes-additions-garages",
+          "finalUrl": "https://www.tmbuilds.ca/custom-homes-additions-garages",
+          "emails": [
+            "tm.builds@icloud.com"
+          ],
+          "phones": [
+            "7059340503",
+            "2899275994"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Decorest Home Inc.",
+      "website": "https://decoresthome.com/",
+      "scannedOn": "2026-07-15T17:51:59.447Z",
+      "emails": [
+        "info@decoresthome.com"
+      ],
+      "phones": [
+        "905-758-2717"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://decoresthome.com/",
+          "finalUrl": "https://decoresthome.com/",
+          "emails": [
+            "info@decoresthome.com"
+          ],
+          "phones": [
+            "+1 905-758-2717"
+          ]
+        },
+        {
+          "requestedUrl": "https://decoresthome.com/contact-us/",
+          "finalUrl": "https://decoresthome.com/contact-us/",
+          "emails": [
+            "info@decoresthome.com"
+          ],
+          "phones": [
+            "+1 905-758-2717"
+          ]
+        },
+        {
+          "requestedUrl": "https://decoresthome.com/about-us/",
+          "finalUrl": "https://decoresthome.com/about-us/",
+          "emails": [
+            "info@decoresthome.com"
+          ],
+          "phones": [
+            "+1 905-758-2717"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Treasure Hill Homes",
+      "website": "https://www.treasurehill.com/",
+      "scannedOn": "2026-07-15T17:51:55.106Z",
+      "emails": [
+        "info@treasurehill.com",
+        "service@treasurehill.com",
+        "designstudio@treasurehill.com",
+        "ecast@treasurehill.com",
+        "avella@treasurehill.com"
+      ],
+      "phones": [
+        "416-987-5500",
+        "sales 416-900-9788",
+        "(905) 326-3600",
+        "18886269988",
+        "9055971662"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.treasurehill.com/",
+          "finalUrl": "https://www.treasurehill.com/",
+          "emails": [
+            "info@treasurehill.com"
+          ],
+          "phones": [
+            "4169875500",
+            "4169009788",
+            "(905) 326-3600"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.treasurehill.com/contact/",
+          "finalUrl": "https://www.treasurehill.com/contact/",
+          "emails": [
+            "info@treasurehill.com",
+            "service@treasurehill.com",
+            "designstudio@treasurehill.com"
+          ],
+          "phones": [
+            "4169875500",
+            "18886269988",
+            "9055971662",
+            "4169009788",
+            "9053263600"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.treasurehill.com/communities/",
+          "finalUrl": "https://www.treasurehill.com/communities/",
+          "emails": [
+            "info@treasurehill.com"
+          ],
+          "phones": [
+            "4169875500",
+            "4169009788",
+            "(905) 326-3600"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.treasurehill.com/communities/avella/",
+          "finalUrl": "https://www.treasurehill.com/communities/avella/",
+          "emails": [
+            "ecast@treasurehill.com",
+            "avella@treasurehill.com",
+            "info@treasurehill.com"
+          ],
+          "phones": [
+            "4169875500",
+            "4169009788",
+            "(905) 326-3600"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.treasurehill.com/design-studio/",
+          "finalUrl": "https://www.treasurehill.com/design-studio/",
+          "emails": [
+            "designstudio@treasurehill.com",
+            "info@treasurehill.com"
+          ],
+          "phones": [
+            "4169875500",
+            "4169009788",
+            "(905) 326-3600"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Veenstra Design & Fine Homebuilding",
+      "website": "https://veenstra.ca/",
+      "scannedOn": "2026-07-15T17:51:54.271Z",
+      "emails": [
+        "david@veenstra.ca"
+      ],
+      "phones": [],
+      "pages": [
+        {
+          "requestedUrl": "https://veenstra.ca/",
+          "finalUrl": "https://veenstra.ca/",
+          "emails": [
+            "david@veenstra.ca"
+          ],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://veenstra.ca/contact-us/",
+          "finalUrl": "https://veenstra.ca/contact-us/",
+          "emails": [
+            "david@veenstra.ca"
+          ],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://veenstra.ca/about-us/",
+          "finalUrl": "https://veenstra.ca/about-us/",
+          "emails": [
+            "david@veenstra.ca"
+          ],
+          "phones": []
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Poetry Living",
+      "website": "https://poetryliving.com/",
+      "scannedOn": "2026-07-15T17:51:55.462Z",
+      "emails": [
+        "info@poetryliving.com"
+      ],
+      "phones": [
+        "905-738-6671",
+        "905-738-6281"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://poetryliving.com/",
+          "finalUrl": "https://poetryliving.com/",
+          "emails": [],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://poetryliving.com/contact/",
+          "finalUrl": "https://poetryliving.com/contact/",
+          "emails": [
+            "info@poetryliving.com"
+          ],
+          "phones": [
+            "//19057386671",
+            "905-738-6281"
+          ]
+        },
+        {
+          "requestedUrl": "https://poetryliving.com/communities/",
+          "finalUrl": "https://poetryliving.com/new-homes/",
+          "emails": [
+            "info@poetryliving.com"
+          ],
+          "phones": [
+            "//19057386671"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Carriage Gate Homes",
+      "website": "https://carriagegatehomes.com/",
+      "scannedOn": "2026-07-15T17:51:55.116Z",
+      "emails": [
+        "info@carriagegatehomes.com",
+        "info@gallerycondominiums.ca"
+      ],
+      "phones": [
+        "905-637-8888",
+        "905-333-9640",
+        "905 637 3885"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://carriagegatehomes.com/",
+          "finalUrl": "https://carriagegatehomes.com/",
+          "emails": [],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://carriagegatehomes.com/contact/",
+          "finalUrl": "https://carriagegatehomes.com/contact/",
+          "emails": [
+            "info@carriagegatehomes.com"
+          ],
+          "phones": [
+            "905-637-8888",
+            "905-333-9640"
+          ]
+        },
+        {
+          "requestedUrl": "https://carriagegatehomes.com/press/",
+          "finalUrl": "https://carriagegatehomes.com/press/",
+          "emails": [],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://carriagegatehomes.com/category/news/",
+          "finalUrl": "https://carriagegatehomes.com/category/news/",
+          "emails": [
+            "info@gallerycondominiums.ca"
+          ],
+          "phones": [
+            "905 637 3885"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Bhumi Builders",
+      "website": "https://bhumibuilders.com/",
+      "scannedOn": "2026-07-15T17:51:54.290Z",
+      "emails": [
+        "bhumi.jega@gmail.com"
+      ],
+      "phones": [
+        "416-836-8222"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://bhumibuilders.com/",
+          "finalUrl": "https://bhumibuilders.com/",
+          "emails": [
+            "bhumi.jega@gmail.com"
+          ],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://bhumibuilders.com/contact",
+          "finalUrl": "https://bhumibuilders.com/contact",
+          "emails": [
+            "bhumi.jega@gmail.com"
+          ],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://bhumibuilders.com/portfolio",
+          "finalUrl": "https://bhumibuilders.com/portfolio",
+          "emails": [
+            "bhumi.jega@gmail.com"
+          ],
+          "phones": []
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Reflection360",
+      "website": "https://reflection360.ca/",
+      "scannedOn": "2026-07-15T17:51:54.333Z",
+      "emails": [
+        "info@reflection360.ca"
+      ],
+      "phones": [
+        "416-804-4846"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://reflection360.ca/",
+          "finalUrl": "https://reflection360.ca/",
+          "emails": [],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://reflection360.ca/contact-us",
+          "finalUrl": "https://reflection360.ca/contact-us",
+          "emails": [
+            "info@reflection360.ca"
+          ],
+          "phones": [
+            "416 804 4846"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Branthaven",
+      "website": "https://www.branthaven.com/",
+      "scannedOn": "2026-07-15T17:51:57.087Z",
+      "emails": [
+        "info@branthaven.com",
+        "casasales@branthaven.com",
+        "communitysales@branthaven.com",
+        "winonasales@branthaven.com",
+        "grimsbysales@branthaven.com",
+        "upperwestsales@branthaven.com",
+        "customercare@branthaven.com",
+        "careers@branthaven.com",
+        "pierhousesales@branthaven.com",
+        "creekviewcollectivesales@branthaven.com"
+      ],
+      "phones": [
+        "905-333-8364",
+        "289-309-2272",
+        "519-804-1515",
+        "289-408-4849",
+        "905-333-6162",
+        "905-333-8364 Ext.271",
+        "1-905-333-6148",
+        "442.477 8638"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.branthaven.com/",
+          "finalUrl": "https://www.branthaven.com/",
+          "emails": [
+            "casasales@branthaven.com",
+            "communitysales@branthaven.com",
+            "winonasales@branthaven.com",
+            "grimsbysales@branthaven.com",
+            "upperwestsales@branthaven.com",
+            "customercare@branthaven.com"
+          ],
+          "phones": [
+            "19053338364",
+            "289-309-2272",
+            "519-804-1515",
+            "289-408-4849",
+            "905-333-6162",
+            "905-333-8364 Ext.271"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.branthaven.com/contact",
+          "finalUrl": "https://www.branthaven.com/contact/",
+          "emails": [
+            "casasales@branthaven.com",
+            "communitysales@branthaven.com",
+            "winonasales@branthaven.com",
+            "grimsbysales@branthaven.com",
+            "upperwestsales@branthaven.com",
+            "customercare@branthaven.com",
+            "careers@branthaven.com"
+          ],
+          "phones": [
+            "19053338364",
+            "289-309-2272",
+            "519-804-1515",
+            "289-408-4849",
+            "905-333-6162",
+            "905-333-8364 Ext.271"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.branthaven.com/communities/pier-house/",
+          "finalUrl": "https://www.branthaven.com/communities/pier-house/",
+          "emails": [
+            "casasales@branthaven.com",
+            "communitysales@branthaven.com",
+            "winonasales@branthaven.com",
+            "grimsbysales@branthaven.com",
+            "upperwestsales@branthaven.com",
+            "customercare@branthaven.com",
+            "pierhousesales@branthaven.com"
+          ],
+          "phones": [
+            "1-905-333-6148",
+            "19053338364",
+            "289-309-2272",
+            "519-804-1515",
+            "289-408-4849",
+            "905-333-6162",
+            "905-333-8364 Ext.271",
+            "442.477 8638"
+          ]
+        },
+        {
+          "requestedUrl": "https://www.branthaven.com/communities/creekview-collective/",
+          "finalUrl": "https://www.branthaven.com/communities/creekview-collective/",
+          "emails": [
+            "casasales@branthaven.com",
+            "communitysales@branthaven.com",
+            "winonasales@branthaven.com",
+            "grimsbysales@branthaven.com",
+            "upperwestsales@branthaven.com",
+            "customercare@branthaven.com",
+            "creekviewcollectivesales@branthaven.com"
+          ],
+          "phones": [
+            "1-289-309-2272",
+            "19053338364",
+            "519-804-1515",
+            "289-408-4849",
+            "905-333-6162",
+            "905-333-8364 Ext.271",
+            "442.477 8638"
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Noble Design Build",
+      "website": "https://www.nobledesignbuild.ca/",
+      "scannedOn": "2026-07-15T17:51:54.645Z",
+      "emails": [],
+      "phones": [
+        "416-832-5830"
+      ],
+      "pages": [
+        {
+          "requestedUrl": "https://www.nobledesignbuild.ca/",
+          "finalUrl": "https://www.nobledesignbuild.ca/",
+          "emails": [],
+          "phones": []
+        },
+        {
+          "requestedUrl": "https://www.nobledesignbuild.ca/contact",
+          "finalUrl": "https://www.nobledesignbuild.ca/contact",
+          "emails": [],
+          "phones": []
+        }
+      ],
+      "failures": []
+    }
+  ]
+}

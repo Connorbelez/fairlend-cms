@@ -17,6 +17,12 @@ import personFairlendSourceUrls from 'src/fields/person-fairlend-source-urls';
 import personFairlendVerifiedOn from 'src/fields/person-fairlend-verified-on';
 import personPartnerContactLinks from 'src/fields/person-partner-contact-links';
 import workspaceMemberPartnerLeads from 'src/fields/workspace-member-partner-leads';
+import taskFairlendTaskKey from 'src/fields/task-fairlend-task-key';
+import taskFollowUpMethod from 'src/fields/task-follow-up-method';
+import taskFollowUpOutcome from 'src/fields/task-follow-up-outcome';
+import taskFollowUpRequirements from 'src/fields/task-follow-up-requirements';
+import taskFollowUpSequenceStep from 'src/fields/task-follow-up-sequence-step';
+import taskTargetFairlendKey from 'src/fields/task-target-fairlend-key';
 import { buildPartnerProspectUpserts } from 'src/imports/partner-prospect-enrichment';
 import campaignTouchesNavigation from 'src/navigation-menu-items/campaign-touches.navigation-menu-item';
 import consultationsNavigation from 'src/navigation-menu-items/consultations.navigation-menu-item';
@@ -91,6 +97,12 @@ const supportingEntities = [
   personMortgageLeads,
   personPartnerContactLinks,
   workspaceMemberPartnerLeads,
+  taskFairlendTaskKey,
+  taskFollowUpMethod,
+  taskFollowUpOutcome,
+  taskFollowUpRequirements,
+  taskFollowUpSequenceStep,
+  taskTargetFairlendKey,
   campaignTouchesView,
   consultationsView,
   mortgageLeadsView,
@@ -259,8 +271,12 @@ describe('FairLend CRM data model', () => {
     const fieldNames = partnerLead.config.fields.map((field) => field.name);
     expect(fieldNames).toEqual(expect.arrayContaining([
       'partnerCategory', 'partnershipStage', 'engagementHealth', 'responseStatus', 'owner',
-      'lastContactAt', 'nextActionAt', 'nextAction', 'campaign', 'followUpCount',
+      'lastContactAt', 'nextActionAt', 'nextFollowUpMethod', 'nextAction',
+      'nextFollowUpRequirements', 'nextFollowUpTaskKey', 'nextFollowUpTaskId', 'campaign', 'followUpCount',
       'primaryHook', 'fitEvidence', 'opennessSignal', 'contactRoute', 'sourceUrls',
+      'companyWebsite', 'publicContactSummary', 'allContactEmails', 'allContactPhones',
+      'contactFormUrl', 'contactLocations', 'servicesSummary', 'buildPortfolioSummary',
+      'buildPortfolioSourceUrls',
       'verificationDate', 'proposedOffer', 'firstCta', 'objectionsAndRisks',
       'activityRecencyStatus', 'activityRecencyNotes', 'proposalReviewStatus',
       'activationType', 'activationStatus', 'activationDate', 'conversionOutcome',
@@ -269,6 +285,27 @@ describe('FairLend CRM data model', () => {
       'companyVerificationStatus', 'primaryDecisionMakerStatus', 'companyMatchKey',
       'companySourceUrls', 'companyVerifiedOn', 'companyResearchNotes', 'peopleResearchSummary',
     ]));
+  });
+
+  it('models executable Follow-up Actions on native Tasks with idempotent Task Targets', () => {
+    expect(taskFairlendTaskKey.config).toMatchObject({
+      name: 'fairlendTaskKey', type: FieldType.TEXT, isUnique: true, isUIEditable: false,
+    });
+    expect(taskFollowUpMethod.config).toMatchObject({
+      name: 'followUpMethod', type: FieldType.SELECT, defaultValue: "'OTHER'",
+    });
+    expect(taskFollowUpOutcome.config).toMatchObject({
+      name: 'followUpOutcome', type: FieldType.SELECT, defaultValue: "'PENDING'",
+    });
+    expect(taskFollowUpRequirements.config).toMatchObject({
+      name: 'followUpRequirements', type: FieldType.TEXT,
+    });
+    expect(taskFollowUpSequenceStep.config).toMatchObject({
+      name: 'followUpSequenceStep', type: FieldType.NUMBER,
+    });
+    expect(taskTargetFairlendKey.config).toMatchObject({
+      name: 'fairlendTaskTargetKey', type: FieldType.TEXT, isUnique: true, isUIEditable: false,
+    });
   });
 
   it('models evidence-backed many-person partnership relationships without replacing the primary contact', () => {
