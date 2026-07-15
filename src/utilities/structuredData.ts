@@ -1,4 +1,5 @@
 import type { Config, Media } from '@/payload-types'
+import { FAIRLEND_OFFICE } from '@/components/FairlendOfficeMap/data'
 
 import { fairlendSeo, getCanonicalUrl, getMediaUrl } from './seo'
 
@@ -40,6 +41,14 @@ export const fairlendOrganizationJsonLd = (): JsonLdObject => ({
   '@context': 'https://schema.org',
   '@id': organizationId(),
   '@type': ['Organization', 'FinancialService'],
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: FAIRLEND_OFFICE.addressCountry,
+    addressLocality: FAIRLEND_OFFICE.addressLocality,
+    addressRegion: FAIRLEND_OFFICE.addressRegion,
+    postalCode: FAIRLEND_OFFICE.postalCode,
+    streetAddress: FAIRLEND_OFFICE.addressLine,
+  },
   areaServed: defaultAreaServed,
   contactPoint: {
     '@type': 'ContactPoint',
@@ -50,6 +59,11 @@ export const fairlendOrganizationJsonLd = (): JsonLdObject => ({
   },
   email: 'elie@fairlend.ca',
   founder: { '@id': principalBrokerId() },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: FAIRLEND_OFFICE.latitude,
+    longitude: FAIRLEND_OFFICE.longitude,
+  },
   legalName: fairlendSeo.legalName,
   logo: getCanonicalUrl('/assets/fairlend/fairlend-logo.svg'),
   name: fairlendSeo.siteName,

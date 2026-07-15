@@ -58,12 +58,14 @@ export async function notifyIndexNowChange(
   const url = getCanonicalUrl(change.path)
 
   if (!isIndexNowEnabled()) {
+    logIndexNowEvent('info', change, url, undefined, 0, 'disabled', 'IndexNow is disabled')
     return { status: 'disabled', url }
   }
 
   const key = getIndexNowKey()
 
   if (!key) {
+    logIndexNowEvent('warn', change, url, undefined, 0, 'disabled', 'No valid IndexNow key')
     return { status: 'disabled', url }
   }
 
@@ -103,6 +105,7 @@ export async function notifyIndexNowChange(
     `) as Array<{ id: number }>
 
     if (inserted.length === 0) {
+      logIndexNowEvent('info', change, url, undefined, 0, 'duplicate')
       return { status: 'duplicate', url }
     }
 
@@ -259,7 +262,7 @@ function logIndexNowEvent(
   url: string,
   responseCode: number | undefined,
   retryCount: number,
-  status: 'accepted' | 'failed',
+  status: 'accepted' | 'disabled' | 'duplicate' | 'failed',
   error?: string,
 ) {
   const entry = {

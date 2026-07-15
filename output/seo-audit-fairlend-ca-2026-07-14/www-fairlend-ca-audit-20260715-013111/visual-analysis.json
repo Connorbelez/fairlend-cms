@@ -1,0 +1,144 @@
+{
+  "url": "https://www.fairlend.ca/",
+  "above_fold": {
+    "h1_visible": true,
+    "cta_visible": false,
+    "hero_image": "/_next/image?url=%2Fassets%2Ffairlend-toronto-contour-map.webp&w=3840&q=75&dpl=dpl_CBSVfNci4LhJABRFcmmnBvRRBJoS"
+  },
+  "mobile": {
+    "viewport_meta": true,
+    "horizontal_scroll": false,
+    "touch_targets_ok": false,
+    "undersized_touch_targets": [
+      {
+        "tag": "a",
+        "label": "FairLend",
+        "width": 126.6,
+        "height": 30
+      },
+      {
+        "tag": "button",
+        "label": "Open navigation",
+        "width": 34,
+        "height": 34
+      },
+      {
+        "tag": "a",
+        "label": "TALK Book",
+        "width": 30,
+        "height": 30
+      },
+      {
+        "tag": "a",
+        "label": "Multi-plex",
+        "width": 107.9,
+        "height": 26.6
+      },
+      {
+        "tag": "button",
+        "label": "Build",
+        "width": 105,
+        "height": 43
+      },
+      {
+        "tag": "button",
+        "label": "Invest",
+        "width": 105,
+        "height": 43
+      },
+      {
+        "tag": "button",
+        "label": "Mortgage",
+        "width": 105,
+        "height": 43
+      }
+    ]
+  },
+  "layout": {
+    "overlapping_elements": [
+      {
+        "fixed_element": "PRIVACY PREFERENCES Optional analytics and advertising stay off unless you allow",
+        "covered_element": "*Career funded-mortgage volume uses internal funded-file records; experience and"
+      },
+      {
+        "fixed_element": "PRIVACY PREFERENCES Optional analytics and advertising stay off unless you allow",
+        "covered_element": "Build"
+      },
+      {
+        "fixed_element": "PRIVACY PREFERENCES Optional analytics and advertising stay off unless you allow",
+        "covered_element": "Invest"
+      },
+      {
+        "fixed_element": "PRIVACY PREFERENCES Optional analytics and advertising stay off unless you allow",
+        "covered_element": "Mortgage"
+      }
+    ],
+    "text_overflow": [
+      {
+        "tag": "span",
+        "text": "TALK Book",
+        "overflow_x": true,
+        "overflow_y": true
+      },
+      {
+        "tag": "span",
+        "text": "TALK",
+        "overflow_x": true,
+        "overflow_y": false
+      },
+      {
+        "tag": "span",
+        "text": "Book",
+        "overflow_x": true,
+        "overflow_y": false
+      },
+      {
+        "tag": "h1",
+        "text": "Fast Flexible Fair Financing for: multi-plex, single family, land, and private m",
+        "overflow_x": false,
+        "overflow_y": true
+      },
+      {
+        "tag": "span",
+        "text": "Fast",
+        "overflow_x": false,
+        "overflow_y": true
+      },
+      {
+        "tag": "span",
+        "text": "Flexible",
+        "overflow_x": false,
+        "overflow_y": true
+      },
+      {
+        "tag": "span",
+        "text": "Fair",
+        "overflow_x": false,
+        "overflow_y": true
+      },
+      {
+        "tag": "span",
+        "text": "Fair",
+        "overflow_x": false,
+        "overflow_y": true
+      },
+      {
+        "tag": "span",
+        "text": "Financing for:",
+        "overflow_x": false,
+        "overflow_y": true
+      },
+      {
+        "tag": "span",
+        "text": "multi-plex, single family, land, and private mortgage",
+        "overflow_x": true,
+        "overflow_y": true
+      }
+    ]
+  },
+  "fonts": {
+    "base_size": 16,
+    "readable": true
+  },
+  "error": null
+}

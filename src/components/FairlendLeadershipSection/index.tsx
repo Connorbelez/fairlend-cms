@@ -1230,10 +1230,11 @@ export function FairlendLeadershipSection() {
               </div>
             </div>
 
-            <div className="leadership-visual-panel" aria-hidden="true" data-leadership-visual>
+            <div className="leadership-visual-panel" data-leadership-visual>
               <Image
                 className="leadership-scene-image"
                 alt=""
+                aria-hidden="true"
                 decoding="async"
                 fill
                 priority={false}
@@ -1243,7 +1244,7 @@ export function FairlendLeadershipSection() {
               <div className="leadership-portrait-card">
                 <div className="leadership-portrait-media">
                   <Image
-                    alt=""
+                    alt="Portrait of Elie Soberano, FairLend founder and principal broker"
                     decoding="async"
                     fill
                     priority={false}

@@ -1,7 +1,8 @@
 import { FairlendLandingHero } from '@/components/FairlendLandingHero'
+import { FairlendLandingOverviewSection } from '@/components/FairlendLandingOverviewSection'
+import { FairlendDeferredLandingSections } from '@/components/FairlendDeferredLandingSections.client'
+import { FairlendDeferredRouteSelector } from '@/components/FairlendDeferredRouteSelector.client'
 import { FairlendLandingRail } from '@/components/FairlendLandingRail'
-import { FairlendLandingSections } from '@/components/FairlendLandingSections'
-import { FairlendRouteSelector } from '@/components/FairlendRouteSelector'
 import { JsonLd } from '@/components/SEO/JsonLd'
 import { buildFairlendMetadata } from '@/utilities/seo'
 import { buildWebPageJsonLd, getSchemaNodeId } from '@/utilities/structuredData'
@@ -31,10 +32,11 @@ export default function Page() {
       <FairlendLandingRail gutterTexture="fabric-of-squares">
         <FairlendLandingHero />
       </FairlendLandingRail>
-      <FairlendLandingRail gutterTexture="grid-noise">
-        <FairlendRouteSelector id="services" />
+      <FairlendDeferredRouteSelector />
+      <FairlendLandingRail gutterTexture="inflicted">
+        <FairlendLandingOverviewSection />
       </FairlendLandingRail>
-      <FairlendLandingSections />
+      <FairlendDeferredLandingSections />
     </main>
   )
 }

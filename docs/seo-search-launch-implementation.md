@@ -47,9 +47,9 @@ This document maps the code-owned items from the July 14, 2026 search-indexing l
 - Apex-host traffic now receives one permanent redirect directly to the final HTTPS `www` URL.
 - The two intentional noindex resource placeholders are retired with permanent redirects, and live navigation now links directly to their complete replacement pages.
 - Every source-controlled page sitemap entry has a source-authored `lastmod`; CMS-only pages retain Payload `updatedAt`, and the posts archive advances when a real published post changes.
-- Global response headers now add HSTS, MIME-sniffing protection, a strict referrer policy, framing protection, a permissions policy, and a report-only CSP with a bounded, privacy-sanitized report endpoint.
+- Global response headers now add HSTS, MIME-sniffing protection, a strict referrer policy, framing protection, a permissions policy, and a CSP with a bounded, privacy-sanitized report endpoint. CSP defaults to report-only; set `CSP_ENFORCE=true` only after a clean preview canary. Reports include a stable violation fingerprint and deployment metadata so logs can be aggregated by directive, blocked source, and release.
 - `X-Powered-By` is disabled before Payload wraps the Next.js configuration.
-- HSTS `includeSubDomains` and preload were evaluated and intentionally withheld: wildcard and nested FairLend DNS names do not all present valid TLS, and `autodiscover.fairlend.ca` could not be proven HTTPS-safe. Re-evaluate only after an authoritative subdomain inventory and TLS remediation.
+- HSTS `includeSubDomains` and preload were evaluated and intentionally withheld: wildcard and nested FairLend DNS names do not all present valid TLS, and `autodiscover.fairlend.ca` could not be proven HTTPS-safe. Re-evaluate only after an authoritative subdomain inventory and TLS remediation. `HSTS_INCLUDE_SUBDOMAINS=true` and `HSTS_PRELOAD=true` are explicit post-remediation rollout controls; configuration rejects preload without `includeSubDomains`.
 
 ## Production deployment steps
 

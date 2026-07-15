@@ -1,29 +1,20 @@
 'use client'
 
-import Image from 'next/image'
-import Link from 'next/link'
 import { AnimatePresence, LayoutGroup, motion, type PanInfo, useReducedMotion } from 'motion/react'
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactElement } from 'react'
 
 import { cn } from '@/utilities/ui'
 
-export type FairlendHeroOfferingRow = {
-  id: string
-  title: string
-  tagline: string
-  image: {
-    src: string
-    alt?: string
-    width: number
-    height: number
-  }
-  imageClassName?: string
-  href?: string
-}
+import {
+  FairlendHeroOfferingCardBody,
+  type FairlendHeroOfferingRow,
+} from './FairlendHeroOfferingCardBody'
+
+export type { FairlendHeroOfferingRow } from './FairlendHeroOfferingCardBody'
 
 type OfferingsLayout = 'list' | 'stack'
 
-const MORPH_DELAY_MS = 2000
+const MORPH_DELAY_MS = 300
 const AMBIENT_INTERVAL_MS = 3200
 const SWIPE_THRESHOLD = 50
 const MOBILE_HERO_QUERY = '(max-width: 576px)'
@@ -38,54 +29,6 @@ type StackCard = FairlendHeroOfferingRow & {
 }
 
 type ViewportMode = 'unresolved' | 'mobile' | 'desktop'
-
-function OfferingCardBody({
-  linkTitle,
-  row,
-  priority,
-}: {
-  linkTitle: boolean
-  row: FairlendHeroOfferingRow
-  priority?: boolean
-}): ReactElement {
-  return (
-    <>
-      <div className="fairlend-build-property-types__art">
-        <Image
-          alt={row.image.alt ?? ''}
-          className={cn('fairlend-build-property-types__image', row.imageClassName)}
-          height={row.image.height}
-          priority={priority}
-          sizes="(max-width: 640px) 38vw, (max-width: 1024px) 31vw, 290px"
-          src={row.image.src}
-          width={row.image.width}
-        />
-      </div>
-
-      <div aria-hidden="true" className="fairlend-build-property-types__divider" />
-
-      <div className="fairlend-build-property-types__copy">
-        <h2 className="fairlend-build-property-types__title">
-          {linkTitle && row.href ? (
-            <Link
-              aria-label={`${row.title}: ${row.tagline}`}
-              className="fairlend-hero-offerings-morph__title-link"
-              draggable={false}
-              href={row.href}
-              onDragStart={(event) => event.preventDefault()}
-              onPointerDown={(event) => event.stopPropagation()}
-            >
-              {row.title}
-            </Link>
-          ) : (
-            row.title
-          )}
-        </h2>
-        <p className="fairlend-build-property-types__tagline">{row.tagline}</p>
-      </div>
-    </>
-  )
-}
 
 function getStackOrder(rows: readonly FairlendHeroOfferingRow[], activeIndex: number): StackCard[] {
   const reordered: StackCard[] = []
@@ -280,7 +223,7 @@ export function FairlendHeroOfferingsMorph({
                 layout === 'stack' ? getStackStyles(card.stackPosition, rows.length) : undefined
 
               const body = (
-                <OfferingCardBody
+                <FairlendHeroOfferingCardBody
                   linkTitle={layout === 'list' || isTopCard}
                   priority={index === 0 || isTopCard}
                   row={card}
@@ -335,14 +278,14 @@ export function FairlendHeroOfferingsMorph({
                         ? { duration: 0 }
                         : {
                             layout: {
-                              duration: 0.55,
+                              duration: 0.32,
                               ease: [0.22, 1, 0.36, 1],
                             },
                             opacity: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
-                            rotate: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
-                            scale: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
-                            x: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
-                            default: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+                            rotate: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
+                            scale: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
+                            x: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+                            default: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
                           }
                   }
                   whileDrag={{ cursor: 'grabbing', scale: 1.015 }}

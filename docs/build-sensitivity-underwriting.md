@@ -38,7 +38,6 @@ contingency = hard_cost × 8%
 land_closing = land_basis × 2.5%
 
 construction_loan = (hard_cost + soft_costs + contingency) × 80% LTC
-construction_interest = construction_loan × 10% × 50% average draw × 1 year
 
 total_development_cost =
   land_basis
@@ -46,10 +45,11 @@ total_development_cost =
   + hard_cost
   + soft_costs
   + contingency
-  + construction_interest
 ```
 
 The 12% soft-cost and 8% contingency factors preserve the prior 20% aggregate project allowance while making its components auditable. They remain heuristics. Site work, demolition, development charges, municipal fees, HST treatment, and unusual carrying costs require a project-specific pro forma.
+
+Construction interest is not included in modeled development cost. The public illustration assumes construction financing is refinanced by the permanent takeout mortgage, so neither construction interest nor permanent debt service is deducted from the gross-revenue headline.
 
 ## Rental operations and value
 
@@ -63,6 +63,15 @@ stabilized_value = NOI ÷ 5% capitalization rate
 ```
 
 The operating-expense allowance represents a blended provision for property tax, insurance, utilities paid by the owner, management, repairs, maintenance, and replacement reserves. It is not a substitute for an operating budget.
+
+These operating assumptions are retained only for the internal stabilized-value and takeout-sizing sensitivity. They do not reduce the public gross-revenue result:
+
+```text
+gross_monthly_revenue = monthly_rent_per_unit × units
+annual_gross_revenue = gross_monthly_revenue × 12
+```
+
+The rent-strategy UI displays those gross monthly and annual figures directly. Vacancy, operating expenses, construction interest, and takeout mortgage payments are not deducted from either displayed figure.
 
 ## Permanent takeout sizing
 
@@ -95,7 +104,7 @@ peak_equity_required = max(construction_equity, stabilized_equity)
 cash_yield = annual_cash_flow ÷ peak_equity_required
 ```
 
-Peak equity is the denominator because it represents the maximum modeled cash the project must fund. A strong appraisal cannot erase the cash needed during construction. The UI labels this ratio `Cash yield (amortized)` because annual cash flow deducts fully amortizing principal-and-interest takeout payments, not interest-only payments. It displays gross monthly rent, the monthly takeout payment, and net monthly cash flow so the yield numerator can be reconciled directly. When peak equity is genuinely zero, cash yield is not mathematically meaningful and the UI displays `N/M`.
+Peak equity remains available in the engine for financing sensitivity, but it is not presented as the rent strategy's headline result. The public UI presents gross monthly revenue, annual gross revenue, and the explicit `units × rent per unit` calculation instead of cash yield or net monthly cash flow.
 
 For an exit strategy, the model deducts a 4% disposition-cost allowance before calculating profit and margin:
 
@@ -112,4 +121,4 @@ margin = profit ÷ net_sale_proceeds
 - [Bank of Canada, June 10, 2026](https://www.bankofcanada.ca/2026/06/fad-press-release-2026-06-10/): overnight policy rate 2.25%. The model's 5.0% takeout rate is an illustrative all-in rate, not a quoted product rate.
 - [Altus Group 2026 Canadian Cost Guide](https://www.altusgroup.com/featured-insights/canadian-cost-guide/): source for the GTA construction-cost ranges summarized in `docs/builder-consulting-gta-market-research.md`.
 
-The 5% capitalization rate, 32% operating-expense ratio, 75% LTV, construction terms, soft costs, contingency, closing costs, and disposition costs are conservative heuristics for sensitivity analysis. They must be replaced with approved property-specific inputs for underwriting.
+The 5% capitalization rate, 32% operating-expense ratio, 75% LTV, construction LTC, soft costs, contingency, closing costs, and disposition costs are conservative heuristics for sensitivity analysis. They must be replaced with approved property-specific inputs for underwriting.

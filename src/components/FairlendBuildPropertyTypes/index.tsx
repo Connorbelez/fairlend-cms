@@ -6,7 +6,7 @@ import { Separator } from '@/components/ui/separator'
 import { buildFairlendMortgageHref } from '@/lib/fairlend-intake'
 import { cn } from '@/utilities/ui'
 
-import { FairlendHeroOfferingsMorph } from './FairlendHeroOfferingsMorph.client'
+import { FairlendHeroOfferingsDeferred } from './FairlendHeroOfferingsDeferred.client'
 import './fairlend-build-property-types.css'
 
 export type FairlendBuildPropertyTypeAsset = {
@@ -36,25 +36,25 @@ export type FairlendBuildPropertyTypesProps = {
 export const fairlendBuildPropertyTypesAssets = {
   multiplex: {
     src: '/assets/fairlend-build-property-types/multiplex-building-engraving.webp',
-    alt: '',
+    alt: 'Architectural engraving of a multiplex building',
     width: 1164,
     height: 918,
   },
   singleFamily: {
     src: '/assets/fairlend-build-property-types/single-family-house-engraving.webp',
-    alt: '',
+    alt: 'Architectural engraving of a single-family home',
     width: 1212,
     height: 757,
   },
   land: {
     src: '/assets/fairlend-build-property-types/land-parcel-plan-engraving.webp',
-    alt: '',
+    alt: 'Architectural engraving of a land parcel plan',
     width: 1303,
     height: 744,
   },
   privateMortgage: {
     src: '/assets/fairlend-route-selector/private-mortgage-house-engraving.webp',
-    alt: '',
+    alt: 'Pen-and-ink engraving of a residential home',
     width: 900,
     height: 378,
   },
@@ -140,6 +140,7 @@ function PropertyTypesList({
                 aria-label={`${row.title}: ${row.tagline}`}
                 className="fairlend-build-property-types__link"
                 href={row.href}
+                prefetch={false}
               >
                 {content}
               </Link>
@@ -181,7 +182,6 @@ export function FairlendBuildPropertyTypes({
           aria-hidden="true"
           className="fairlend-build-property-types__mobile-image"
           fill
-          priority
           sizes="(max-width: 576px) 100vw, 1px"
           src="/assets/fairlend/mobile-hero-property-path.webp"
         />
@@ -189,7 +189,7 @@ export function FairlendBuildPropertyTypes({
 
       {variant === 'hero' ? (
         <div className="pointer-events-none absolute inset-0 z-[1]">
-          <FairlendHeroOfferingsMorph rows={rows} />
+          <FairlendHeroOfferingsDeferred rows={rows} />
         </div>
       ) : (
         list

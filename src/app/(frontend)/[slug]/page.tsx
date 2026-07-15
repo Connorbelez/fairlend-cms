@@ -10,7 +10,12 @@ import { RenderHero } from '@/heros/RenderHero'
 import { JsonLd } from '@/components/SEO/JsonLd'
 import { generateMeta } from '@/utilities/generateMeta'
 import { buildBreadcrumbJsonLd, buildWebPageJsonLd } from '@/utilities/structuredData'
-import { getPayloadDescription, getPayloadPagePath, getPayloadTitle } from '@/utilities/seo'
+import {
+  fairlendNotFoundMetadata,
+  getPayloadDescription,
+  getPayloadPagePath,
+  getPayloadTitle,
+} from '@/utilities/seo'
 import { isFairlendTombstonedPageSlug } from '@/lib/fairlend-routes'
 import { notFound } from 'next/navigation'
 import PageClient from './page.client'
@@ -101,6 +106,8 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const page = await queryPageBySlug({
     slug: decodedSlug,
   })
+
+  if (!page) return fairlendNotFoundMetadata
 
   return generateMeta({ collection: 'pages', doc: page })
 }

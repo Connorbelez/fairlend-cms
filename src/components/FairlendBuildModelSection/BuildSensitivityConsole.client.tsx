@@ -16,7 +16,6 @@ import { BUILD_MODEL_ASSUMPTIONS } from './market-data'
 import {
   calculateBuildUnderwriting,
   estimateMonthlyRentForValue,
-  type TakeoutConstraint,
   type UnderwritingStrategy,
 } from './underwriting'
 import {
@@ -187,12 +186,6 @@ function formatMonthlyCurrency(value: number) {
 
 function roundTo(value: number, increment: number) {
   return Math.round(value / increment) * increment
-}
-
-const takeoutConstraintLabels: Record<TakeoutConstraint, string> = {
-  costBasis: 'cost-basis cap',
-  debtServiceCoverage: 'DSCR cap',
-  loanToValue: 'LTV cap',
 }
 
 type ModelDriver = 'buildType' | 'units' | 'area' | 'land' | 'buildCost' | 'strategy' | 'return'
@@ -789,7 +782,7 @@ export function BuildSensitivityConsole() {
     state.unitCount,
   ])
 
-  const displayedResult = state.strategy === 'rent' ? model.netMonthlyCashFlow : model.result
+  const displayedResult = state.strategy === 'rent' ? model.grossMonthlyRent : model.result
   const isNetOfHstExit = state.strategy === 'exit' && buildType.netOfHstExit
 
   const pulseKey = (column: ModelColumn) =>
@@ -860,7 +853,6 @@ export function BuildSensitivityConsole() {
             `${formatCompactCurrency(model.hardConstructionCost)} hard cost`,
             `${formatCompactCurrency(model.softCosts)} soft costs`,
             `${formatCompactCurrency(model.contingency)} contingency`,
-            `${formatCompactCurrency(model.constructionInterest)} construction interest`,
           ]}
           formatValue={(value) => `$${value} / ft²`}
           label="Build cost"
@@ -873,13 +865,9 @@ export function BuildSensitivityConsole() {
           details={
             state.strategy === 'rent'
               ? [
-                  `${formatCompactCurrency(model.takeoutLoan)} takeout · ${takeoutConstraintLabels[model.takeoutLoanConstraint]}`,
-                  `${formatMonthlyCurrency(model.monthlyTakeoutPayment)} amortized payment`,
-                  buildType.rentOnly
-                    ? 'Exit value N/A · rent only'
-                    : model.takeoutShortfall > 0
-                      ? `${formatCompactCurrency(model.takeoutShortfall)} construction-loan gap`
-                      : `${formatCompactCurrency(model.equityReturnedAtTakeout)} equity returned`,
+                  `${formatMonthlyCurrency(model.grossMonthlyRent)} gross monthly revenue`,
+                  `${formatCompactCurrency(model.grossPotentialRent)} annual gross revenue`,
+                  buildType.rentOnly ? 'Exit value N/A · rent only' : 'Hold-and-rent strategy',
                 ]
               : ['Construction loan repaid on sale', 'No takeout financing required']
           }
@@ -892,8 +880,8 @@ export function BuildSensitivityConsole() {
           <WheelPicker
             annotation="income +"
             details={[
-              `${formatMonthlyCurrency(model.grossMonthlyRent)} gross rent`,
-              `${formatCompactCurrency(model.netOperatingIncome)} annual NOI`,
+              `${formatMonthlyCurrency(model.grossMonthlyRent)} gross monthly revenue`,
+              `${formatCompactCurrency(model.grossPotentialRent)} annual gross revenue`,
             ]}
             formatValue={formatMonthlyCurrency}
             label="Rent / unit"
@@ -922,7 +910,7 @@ export function BuildSensitivityConsole() {
         <section className={`bm-sensitivity-profit${displayedResult < 0 ? ' is-negative' : ''}`}>
           <DependencyPulse pulseKey={pulseKey('profit')} />
           <span className="bm-sensitivity-label">
-            {state.strategy === 'rent' ? 'Net monthly' : 'Profit'}
+            {state.strategy === 'rent' ? 'Gross monthly' : 'Profit'}
           </span>
           <div className="bm-profit-orbit">
             <span aria-hidden="true" className="bm-profit-orbit-radar">
@@ -933,7 +921,7 @@ export function BuildSensitivityConsole() {
             </span>
             <span className="bm-profit-value-row">
               <NumberFlow
-                aria-label={`Illustrative ${state.strategy === 'rent' ? 'net monthly cash flow' : 'profit'} ${formatCurrency(displayedResult)}${isNetOfHstExit ? ', net of HST' : ''}`}
+                aria-label={`Illustrative ${state.strategy === 'rent' ? 'gross monthly revenue' : 'profit'} ${formatCurrency(displayedResult)}${isNetOfHstExit ? ', net of HST' : ''}`}
                 className="bm-profit-value"
                 format={{
                   currency: 'CAD',
@@ -951,45 +939,50 @@ export function BuildSensitivityConsole() {
               ) : null}
             </span>
             <span className="bm-profit-margin">
-              {model.returnRate === null ? (
-                <span aria-label="cash yield not meaningful">
-                  N/M {state.strategy === 'rent' ? 'cash yield (amortized)' : 'margin'}
+              {state.strategy === 'rent' ? (
+                <>
+                  <NumberFlow
+                    aria-label={`${formatCurrency(model.grossPotentialRent)} annual gross revenue`}
+                    format={{
+                      currency: 'CAD',
+                      currencyDisplay: 'narrowSymbol',
+                      maximumFractionDigits: 0,
+                      notation: 'compact',
+                      style: 'currency',
+                    }}
+                    value={model.grossPotentialRent}
+                  />{' '}
+                  annual gross revenue
+                </>
+              ) : model.returnRate === null ? (
+                <span aria-label="margin not meaningful">
+                  N/M margin
                 </span>
               ) : (
                 <>
                   <NumberFlow
-                    aria-label={`${model.returnRate.toFixed(1)} percent ${state.strategy === 'rent' ? 'cash yield, amortized' : 'margin'}`}
+                    aria-label={`${model.returnRate.toFixed(1)} percent margin`}
                     format={{ maximumFractionDigits: 1, minimumFractionDigits: 1 }}
                     value={model.returnRate}
                   />
-                  % {state.strategy === 'rent' ? 'cash yield (amortized)' : 'margin'}
+                  % margin
                 </>
               )}
             </span>
             <span className="bm-profit-total-cost">
               {state.strategy === 'rent'
-                ? `${formatCompactCurrency(model.requiredEquity)} equity required`
+                ? `${state.unitCount} ${state.unitCount === 1 ? 'unit' : 'units'} × ${formatMonthlyCurrency(state.monthlyRentPerUnit)}`
                 : `${formatCompactCurrency(model.totalDevelopmentCost)} total cost`}
             </span>
           </div>
           <span className="bm-profit-disclaimer">
-            {state.strategy === 'rent' ? 'Illustrative year one' : 'Illustrative model'}
+            {state.strategy === 'rent' ? 'Illustrative gross revenue' : 'Illustrative model'}
             {state.strategy === 'rent' ? (
               <>
-                <small>{formatMonthlyCurrency(model.grossMonthlyRent)} gross monthly rent</small>
-                <small>
-                  {formatMonthlyCurrency(model.monthlyTakeoutPayment)} amortized takeout payment
-                </small>
-                <small>
-                  {(BUILD_MODEL_ASSUMPTIONS.vacancyRate * 100).toFixed(1)}% vacancy ·{' '}
-                  {(BUILD_MODEL_ASSUMPTIONS.operatingExpenseRate * 100).toFixed(0)}% expenses ·{' '}
-                  {(BUILD_MODEL_ASSUMPTIONS.capitalizationRate * 100).toFixed(1)}% cap
-                </small>
-                <small>
-                  {(BUILD_MODEL_ASSUMPTIONS.takeoutInterestRate * 100).toFixed(1)}% takeout ·{' '}
-                  {BUILD_MODEL_ASSUMPTIONS.permanentAmortizationYears}-yr amortization ·{' '}
-                  {BUILD_MODEL_ASSUMPTIONS.minimumDebtServiceCoverageRatio.toFixed(2)}× DSCR
-                </small>
+                <small>{formatMonthlyCurrency(state.monthlyRentPerUnit)} rent per unit</small>
+                <small>{state.unitCount} rental {state.unitCount === 1 ? 'unit' : 'units'}</small>
+                <small>{formatCompactCurrency(model.grossPotentialRent)} annual gross revenue</small>
+                <small>Before vacancy, operating expenses, and financing costs</small>
               </>
             ) : (
               <>
@@ -999,11 +992,6 @@ export function BuildSensitivityConsole() {
                 </small>
               </>
             )}
-            <small>
-              {(BUILD_MODEL_ASSUMPTIONS.constructionInterestRate * 100).toFixed(1)}% construction ·{' '}
-              {(BUILD_MODEL_ASSUMPTIONS.constructionLoanToCost * 100).toFixed(0)}% LTC ·{' '}
-              {(BUILD_MODEL_ASSUMPTIONS.averageConstructionDraw * 100).toFixed(0)}% average draw
-            </small>
             <small>Site-specific · not a quote or guarantee</small>
           </span>
         </section>
@@ -1011,13 +999,12 @@ export function BuildSensitivityConsole() {
           One {buildType.label} build with {state.unitCount}{' '}
           {state.unitCount === 1 ? 'dwelling door' : 'dwelling doors'} creates an estimated{' '}
           {formatArea(model.totalArea)} of floor area and{' '}
-          {formatCompactCurrency(model.totalDevelopmentCost)} total development cost, including{' '}
-          {formatCompactCurrency(model.constructionInterest)} construction interest. The{' '}
+          {formatCompactCurrency(model.totalDevelopmentCost)} total development cost. The{' '}
           {state.strategy === 'rent' ? 'rent strategy produces' : 'exit strategy produces'}{' '}
           {state.strategy === 'rent'
-            ? formatMonthlyCurrency(model.netMonthlyCashFlow)
+            ? formatMonthlyCurrency(model.grossMonthlyRent)
             : formatCompactCurrency(model.result)}{' '}
-          {state.strategy === 'rent' ? 'illustrative net monthly cash flow' : 'illustrative profit'}.
+          {state.strategy === 'rent' ? 'illustrative gross monthly revenue' : 'illustrative profit'}.
         </p>
       </div>
     </div>

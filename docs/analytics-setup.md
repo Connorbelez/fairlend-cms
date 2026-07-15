@@ -1,6 +1,28 @@
 # FairLend Production Analytics
 
-FairLend uses PostHog only for consented production traffic. Preview and development deployments must not receive `NEXT_PUBLIC_POSTHOG_KEY`, so they cannot initialize PostHog or send traffic into the production project.
+FairLend uses a direct GA4 Google tag for aggregate acquisition/conversion reporting, a published Google Tag Manager container for future tag management, and PostHog for consented product analytics. Preview and development deployments must not receive the production GA, GTM, or PostHog public IDs, so they cannot pollute production reporting.
+
+## Google production assets
+
+The canonical production origin is `https://www.fairlend.ca`.
+
+| Asset | Production value |
+| --- | --- |
+| GA4 account | `hfai` (`366481383`) |
+| GA4 property | `fairlend-root` (`502729166`) |
+| GA4 web stream | `FairLend Production Web` (`12081590698`) |
+| GA4 measurement ID | `G-09V5BSS55K` |
+| GTM account | `FairLend` (`6365028133`) |
+| GTM web container | `www.fairlend.ca` (`GTM-5HV3MRRW`, container `257766163`) |
+| Search Console property | `https://www.fairlend.ca/` (GA4-verified owner) |
+
+GTM Version 2, `Initial production ownership container`, is the current live version. It intentionally contains zero tags, the `Analytics Consent Granted` custom-event trigger, and the `Canonical Production Origin` constant. Google currently displays a malware-scanner warning on this zero-tag version, confirming that the flag is container/domain-level rather than caused by a tag payload.
+
+GA4 currently loads directly from the application with Consent Mode defaulted to denied. Its configuration suppresses automatic pageviews, and the application emits the first pageview only after analytics consent. GTM is independently installed for future tag management. This split is intentional: Google's malware scanner auto-paused a newly created native Google Tag before the container's first publication, and Google's remediation guidance warns against publishing or re-enabling flagged tags. The clean container is therefore published without the affected tag.
+
+Do not add a second GA pageview tag. The application configures `G-09V5BSS55K` with `send_page_view=false` and owns each initial and client-side navigation `page_view`. If Google clears the container and GA delivery is moved into GTM later, set `NEXT_PUBLIC_GA_MANAGED_BY_GTM=true`, configure the GTM Google Tag with `send_page_view=false`, and fire it only on the `fairlend_analytics_ready` custom event.
+
+The denied Consent Mode default, executable GTM bootstrap, and direct GA4 tag are server-rendered in `<head>`. The direct GA4 configuration uses `send_page_view=false`; loading the tag therefore does not authorize analytics storage or emit an application pageview before consent. The GTM `<noscript>` iframe is the first application child under `<body>`, but Next.js 16 inserts its own React streaming marker before application children. Search Console therefore uses the direct GA4 tag for URL-prefix ownership verification rather than relying on GTM's legacy requirement that nothing appear before the `<noscript>` element.
 
 ## Data contract
 
@@ -28,6 +50,9 @@ Abandonment is a funnel calculation: an intake start or step view with no lead s
 Configure these for Production only and redeploy because `NEXT_PUBLIC_*` values are compiled into the client bundle:
 
 ```bash
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-09V5BSS55K
+NEXT_PUBLIC_GA_MANAGED_BY_GTM=false
+NEXT_PUBLIC_GTM_ID=GTM-5HV3MRRW
 NEXT_PUBLIC_POSTHOG_KEY=
 NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
 POSTHOG_PROJECT_KEY=
@@ -35,6 +60,21 @@ POSTHOG_HOST=https://us.i.posthog.com
 POSTHOG_PERSON_ID_SALT=
 CRON_SECRET=
 ```
+
+The GA4 stream URL must remain `https://www.fairlend.ca`. Enhanced Measurement may remain enabled for scrolls, outbound clicks, site search, video engagement, file downloads, and form interactions, but its automatic pageview/history-change measurement must stay disabled because the application owns SPA pageviews.
+
+### GA4 event mapping
+
+The typed application contract remains the source of truth. Google receives these recommended-name mappings:
+
+- `fairlend_lead_submitted` → `generate_lead` (primary key event)
+- `fairlend_intake_started` → `begin_checkout`
+- `fairlend_consultation_scheduler_opened` → `schedule`
+- every other `fairlend_*` event keeps its canonical name
+
+Register event-scoped custom dimensions in GA4 for the reporting parameters that the sanitizer permits: `deployment_environment`, `page_type`, `content_group`, `journey_type`, `form_id`, `form_variant`, `source`, `cta_id`, `cta_location`, `step_key`, `completion_status`, `failure_type`, `input_category`, and `intent`. Never register or send contact details, free text, financial values, addresses, uploaded-document metadata, or internal database identifiers.
+
+`generate_lead` is the configured primary GA4 key event, counted once per event with no fabricated default monetary value. The stale `close_convert_lead` and `qualify_lead` key-event flags from the previous project iteration are disabled. GA4's built-in `purchase` key event remains present but is not emitted by the FairLend application.
 
 `POSTHOG_PERSON_ID_SALT` must be stable, high entropy, server-only, and at least 32 characters. Preview and Development must not have the PostHog key or host variables.
 

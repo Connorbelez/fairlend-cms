@@ -17,23 +17,24 @@ const screenshotScenario = {
 }
 
 describe('build sensitivity underwriting', () => {
-  it('returns a coherent cash yield for the supplied seven-unit reproduction', () => {
+  it('returns gross rental revenue without vacancy, expense, or financing deductions', () => {
     const result = calculateBuildUnderwriting(screenshotScenario)
 
     expect(result.hardConstructionCost).toBe(3_255_000)
     expect(result.softCosts).toBe(390_600)
     expect(result.contingency).toBe(260_400)
-    expect(result.constructionInterest).toBe(156_240)
-    expect(result.totalDevelopmentCost).toBe(5_035_990)
+    expect(result.totalDevelopmentCost).toBe(4_879_750)
+    expect(result.grossMonthlyRent).toBe(28_000)
+    expect(result.grossPotentialRent).toBe(336_000)
     expect(result.netOperatingIncome).toBeCloseTo(221_625.6, 4)
     expect(result.takeoutLoanConstraint).toBe('debtServiceCoverage')
     expect(result.takeoutLoan).toBeCloseTo(2_866_998.27, 2)
     expect(result.annualDebtService).toBeCloseTo(184_688, 2)
     expect(result.debtServiceCoverageRatio).toBeCloseTo(1.2, 8)
     expect(result.annualCashFlow).toBeCloseTo(36_937.6, 4)
-    expect(result.requiredEquity).toBeCloseTo(2_168_991.73, 2)
-    expect(result.cashYield).toBeCloseTo(0.01702985, 7)
-    expect(result.returnRate).toBeCloseTo(1.702985, 6)
+    expect(result.requiredEquity).toBeCloseTo(2_012_751.73, 2)
+    expect(result.cashYield).toBeCloseTo(0.01835179, 7)
+    expect(result.returnRate).toBeCloseTo(1.835179, 6)
   })
 
   it('uses amortizing debt service instead of interest-only payments', () => {

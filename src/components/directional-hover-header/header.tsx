@@ -55,7 +55,12 @@ function getMotionDurationMs(
 
 function Logo() {
   return (
-    <Link {...fairlendNavLinks.home} aria-label="FairLend Mortgage home" className="mkt-dhh-brand">
+    <Link
+      {...fairlendNavLinks.home}
+      aria-label="FairLend Mortgage home"
+      className="mkt-dhh-brand"
+      prefetch={false}
+    >
       <Image
         alt=""
         aria-hidden="true"
@@ -96,6 +101,7 @@ function HeaderActions({ mobile = false, onAction }: { mobile?: boolean; onActio
         {...fairlendNavLinks.backoffice}
         className="mkt-dhh-action mkt-dhh-action-secondary mkt-dhh-action-mobile"
         onClick={onAction}
+        prefetch={false}
       >
         Platform access
       </Link>
@@ -103,6 +109,7 @@ function HeaderActions({ mobile = false, onAction }: { mobile?: boolean; onActio
         {...fairlendNavLinks.startFile}
         className="mkt-dhh-action mkt-dhh-action-primary mkt-dhh-action-mobile"
         onClick={onAction}
+        prefetch={false}
       >
         Start a file
         <ArrowRight className="size-3.5 shrink-0" strokeWidth={1.6} />
@@ -476,6 +483,7 @@ export function Header() {
                     }
                   }}
                   onMouseEnter={() => openMenu(link.menu!, index)}
+                  prefetch={false}
                 >
                   {link.label}
                   <ChevronDown
@@ -484,6 +492,7 @@ export function Header() {
                       'size-3.5 transition-transform duration-200',
                       isOpen && 'rotate-180',
                     )}
+                    key={`${link.label}-dropdown-indicator`}
                     strokeWidth={1.8}
                   />
                 </Link>
@@ -523,6 +532,7 @@ export function Header() {
                   onClick={closeDesktopMenu}
                   onFocus={closeDesktopMenu}
                   onMouseEnter={closeDesktopMenu}
+                  prefetch={false}
                 >
                   {link.label}
                 </Link>
@@ -621,6 +631,7 @@ export function Header() {
                             {...link.link}
                             className="mkt-dhh-mobile-root-link"
                             onClick={closeMobileMenu}
+                            prefetch={false}
                           >
                             <span>{link.label}</span>
                           </Link>
@@ -660,6 +671,7 @@ export function Header() {
                               className="mkt-dhh-mobile-link t-stagger-line"
                               key={item.label}
                               onClick={closeMobileMenu}
+                              prefetch={false}
                               style={getMobileItemMotionStyle(
                                 mobileSubmenuItemOrder.get(item) ?? 0,
                               )}
