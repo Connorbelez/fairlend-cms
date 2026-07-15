@@ -1,15 +1,14 @@
 import { FairlendLandingHero } from '@/components/FairlendLandingHero'
 import { FairlendLandingOverviewSection } from '@/components/FairlendLandingOverviewSection'
 import { FairlendDeferredLandingSections } from '@/components/FairlendDeferredLandingSections.client'
-import { FairlendDeferredRouteSelector } from '@/components/FairlendDeferredRouteSelector.client'
 import { FairlendLandingRail } from '@/components/FairlendLandingRail'
+import { FairlendRouteSelector } from '@/components/FairlendRouteSelector'
 import {
   FairlendStaticBuilderConsulting,
   FairlendStaticBuildModel,
   FairlendStaticEthos,
   FairlendStaticFaq,
   FairlendStaticLeadershipTeam,
-  FairlendStaticRouteSelector,
 } from '@/components/FairlendStaticHomepageFallbacks'
 import { JsonLd } from '@/components/SEO/JsonLd'
 import { buildFairlendMetadata } from '@/utilities/seo'
@@ -47,7 +46,11 @@ export default function Page() {
       <FairlendLandingRail gutterTexture="fabric-of-squares">
         <FairlendLandingHero />
       </FairlendLandingRail>
-      <FairlendDeferredRouteSelector fallback={<FairlendStaticRouteSelector />} />
+      <FairlendLandingRail gutterTexture="grid-noise">
+        <div className="min-h-[2500px] bg-[#f8f7f5] xl:min-h-[720px]" id="services">
+          <FairlendRouteSelector />
+        </div>
+      </FairlendLandingRail>
       <FairlendLandingRail gutterTexture="inflicted">
         <FairlendLandingOverviewSection />
       </FairlendLandingRail>

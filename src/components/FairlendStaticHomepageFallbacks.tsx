@@ -4,7 +4,6 @@ import type { ReactElement, ReactNode } from 'react'
 import { fairlendFaqGroups } from '@/components/FairlendFaqSection/data'
 import { ALIGNED_INTERESTS, ETHOS_COPY } from '@/components/FairlendEthosSection/content'
 import {
-  fairlendAudiencePaths,
   fairlendBuilderEconomicsTimeline,
   fairlendBuildModelStages,
   fairlendLeadershipTeam,
@@ -55,60 +54,6 @@ function StaticSectionShell({
         {children}
       </div>
     </section>
-  )
-}
-
-export function FairlendStaticRouteSelector(): ReactElement {
-  return (
-    <StaticSectionShell
-      className="min-h-[2500px] xl:min-h-[720px]"
-      eyebrow="Find your fit"
-      intro="Whether you are looking to build, borrow, invest, or partner, start with the FairLend option that matches your goals."
-      title="Where would you like to go with FairLend?"
-    >
-      <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
-        {fairlendAudiencePaths.map((route, index) => (
-          <article
-            className="flex min-h-[330px] flex-col border border-black/15 bg-white/72 p-5"
-            key={route.id}
-          >
-            <div className="flex items-center justify-between gap-4 border-b border-black/12 pb-4">
-              <span className="text-xs font-black tracking-[0.18em] text-[#5b6055] uppercase">
-                Route {String(index + 1).padStart(2, '0')}
-              </span>
-              {route.badge ? (
-                <span className="bg-[#b7ff05] px-2 py-1 text-[10px] font-black tracking-[0.12em] uppercase">
-                  {route.badge}
-                </span>
-              ) : null}
-            </div>
-            <h3 className="mt-5 mb-0 font-serif text-[27px] leading-[0.98] font-semibold tracking-[-0.035em]">
-              {route.title}
-            </h3>
-            <p className="mt-4 mb-0 text-sm leading-[1.5] text-[#555950]">{route.description}</p>
-            <ul className="mt-5 grid gap-2 border-t border-black/10 pt-4 text-sm leading-[1.4] text-[#34372f]">
-              {route.bullets.map((bullet) => (
-                <li className="grid grid-cols-[9px_1fr] gap-2" key={bullet}>
-                  <span aria-hidden="true" className="mt-[0.45em] size-[5px] bg-[#8bd100]" />
-                  <span>{bullet}</span>
-                </li>
-              ))}
-            </ul>
-            <Link
-              className="mt-auto inline-flex min-h-12 items-center justify-between border-t border-black/15 pt-5 text-[12px] font-black tracking-[0.12em] uppercase focus-visible:outline-2 focus-visible:outline-offset-4"
-              href={route.href}
-            >
-              {route.ctaLabel}
-              <span aria-hidden="true">→</span>
-            </Link>
-          </article>
-        ))}
-      </div>
-      <p className="mt-6 mb-0 text-[12px] leading-[1.55] text-[#5c6056]">
-        Financing and mortgage investments remain subject to underwriting, documentation, available
-        capital, property review, lender or investor approval, and applicable risk disclosures.
-      </p>
-    </StaticSectionShell>
   )
 }
 

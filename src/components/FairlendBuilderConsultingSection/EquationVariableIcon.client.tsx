@@ -11,7 +11,7 @@ import { HammerIcon, type HammerIconHandle } from '@/components/ui/hammer'
 import { HomeIcon, type HomeIconHandle } from '@/components/ui/home'
 import { MapPinHouseIcon, type MapPinHouseIconHandle } from '@/components/ui/map-pin-house'
 
-type EquationVariableKey = 'land' | 'build' | 'soft' | 'home' | 'sale'
+type EquationVariableKey = 'land' | 'build' | 'soft' | 'incentives' | 'home' | 'sale'
 type AnimatedEquationIconHandle =
   | CircleDollarSignIconHandle
   | HammerIconHandle

@@ -1,9 +1,9 @@
 import { buildFairlendConsultationHref } from '@/lib/fairlend-intake'
 import { Phone } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import { FooterNewsletter } from './FooterNewsletter.client'
+import { FooterSkyline } from './FooterSkyline.client'
 import styles from './WatermelonFooter.module.css'
 
 const consultationHref = buildFairlendConsultationHref('reference-footer-apply-now')
@@ -67,25 +67,7 @@ const footerColumns = [
 export function WatermelonFooter() {
   return (
     <footer className={styles.footer}>
-      <section aria-label="Toronto after dark" className={styles.skyline}>
-        <Image
-          alt=""
-          aria-hidden="true"
-          className={styles.skylineImage}
-          fill
-          loading="lazy"
-          quality={55}
-          sizes="100vw"
-          src="/assets/footer/fairlend-toronto-waterfront.webp"
-        />
-        <div aria-hidden="true" className={styles.wordmark} data-text="FAIRLEND">
-          FAIRLEND
-        </div>
-        <div aria-hidden="true" className={styles.signalGlow} />
-        <span className="sr-only">
-          Toronto waterfront at night, rendered in monochrome halftone
-        </span>
-      </section>
+      <FooterSkyline />
 
       <div className={styles.content}>
         <div className={styles.primaryRow}>
@@ -99,9 +81,11 @@ export function WatermelonFooter() {
               <br />
               FINANCING
             </p>
-            <Link aria-label="FairLend home" className={styles.brandLockup} href="/">
+            <Link aria-label="FairLend Mortgage home" className={styles.brandLockup} href="/">
               <span className={styles.brandMark}>F</span>
-              <span className={styles.brandName}>FAIRLEND</span>
+              <span className={styles.brandName}>
+                FAIRLEND <span className={styles.brandMortgage}>MORTGAGE</span>
+              </span>
             </Link>
           </section>
 
@@ -145,9 +129,10 @@ export function WatermelonFooter() {
           </div>
           <span aria-hidden="true" className={styles.centerTick} />
           <div aria-label="FairLend licence information" className={styles.legalLinks}>
-            <span className="sr-only">
-              Fairlend Management Inc. operating as FairLend Mortgage.
+            <span className={styles.legalEntity}>
+              FairLend Management Inc. D.B.A. FairLend Mortgage
             </span>
+            <span aria-hidden="true" className={styles.verticalRule} />
             <a
               href="https://mbsweblist.fsco.gov.on.ca/ShowLicence.aspx?13827~"
               rel="noreferrer"

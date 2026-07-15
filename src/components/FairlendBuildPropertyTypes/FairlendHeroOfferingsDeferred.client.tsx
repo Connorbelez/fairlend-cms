@@ -15,7 +15,7 @@ const FairlendHeroOfferingsMorph = lazy(
     ),
 )
 
-const ENHANCEMENT_DELAY_MS = 8_000
+const ENHANCEMENT_DELAY_MS = 2_000
 
 type FairlendHeroOfferingsDeferredProps = {
   rows: readonly FairlendHeroOfferingRow[]
@@ -32,14 +32,16 @@ function FairlendHeroOfferingsStatic({
       data-fairlend-offerings-static
     >
       <div className="fairlend-build-property-types__list fairlend-hero-offerings-morph__stack">
-        {rows.slice(0, 1).map((row) => (
+        {rows.map((row, index) => (
           <div
-            className="fairlend-build-property-types__row fairlend-hero-offerings-morph__row fairlend-hero-offerings-morph__card fairlend-hero-offerings-morph__card--top pointer-events-auto"
+            className={`fairlend-build-property-types__row fairlend-hero-offerings-morph__row fairlend-hero-offerings-morph__card pointer-events-auto${
+              index === 0 ? ' fairlend-hero-offerings-morph__card--top' : ''
+            }`}
             data-offering-id={row.id}
             key={row.id}
           >
             <div className="fairlend-hero-offerings-morph__surface">
-              <FairlendHeroOfferingCardBody linkTitle priority row={row} />
+              <FairlendHeroOfferingCardBody linkTitle priority={index === 0} row={row} />
             </div>
           </div>
         ))}

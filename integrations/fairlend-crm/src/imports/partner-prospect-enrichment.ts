@@ -8,6 +8,15 @@ export type LegacyPartnerProspect = {
     researchDate?: string;
     masterResearchRow?: Record<string, string>;
     personalizedOutreachDossier?: string;
+    sourceDocuments?: string[];
+    personalizedOutreachChannels?: {
+      email?: string;
+      linkedIn?: string;
+      phoneAndForm?: string;
+      followUps?: string;
+      asset?: string;
+      guardrails?: string;
+    };
   };
 };
 
@@ -63,6 +72,7 @@ export const buildPartnerProspectUpserts = (records: LegacyPartnerProspect[], ow
     const payload = record.intakePayload;
     const research = payload.masterResearchRow ?? {};
     const dossier = payload.personalizedOutreachDossier ?? '';
+    const channels = payload.personalizedOutreachChannels ?? {};
     const rank = Number(payload.rank) || 20;
     const partnerCategory = categoryByLegacyType[record.partnerType as keyof typeof categoryByLegacyType] ?? 'OTHER';
     const activityRecencyStatus = activityStatusFromDossier(dossier);
@@ -108,7 +118,14 @@ export const buildPartnerProspectUpserts = (records: LegacyPartnerProspect[], ow
         /(recent|current|active|paused|stale|verify|reverify|dated|episode|event|202[4-7])/i,
         3_500,
       ) || `Research verified ${verificationDate}; recheck public activity before outreach.`,
-      activationContext: dossier.slice(0, 12_000),
+      activationContext: dossier,
+      outreachEmail: channels.email ?? '',
+      outreachLinkedIn: channels.linkedIn ?? '',
+      outreachPhoneAndForm: channels.phoneAndForm ?? '',
+      outreachFollowUps: channels.followUps ?? '',
+      outreachAsset: channels.asset ?? '',
+      outreachGuardrails: channels.guardrails ?? '',
+      outreachDossierSources: (payload.sourceDocuments ?? []).join('\n'),
     } as const;
   });
 };

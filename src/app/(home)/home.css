@@ -20,7 +20,6 @@
 @source '../../components/FairlendConsultationBooking/FairlendConsultationBookingDialog.client.tsx';
 @source '../../components/FairlendConsultationBooking/FairlendConsultationBookingModalInterceptor.client.tsx';
 @source '../../components/FairlendDeferredLandingSections.client.tsx';
-@source '../../components/FairlendDeferredRouteSelector.client.tsx';
 @source '../../components/FairlendLandingHero/FairlendApplicationArrow.client.tsx';
 @source '../../components/FairlendLandingHero/FairlendApplicationChoiceChips.client.tsx';
 @source '../../components/FairlendLandingHero/FairlendApplicationForm.client.tsx';
@@ -33,6 +32,9 @@
 @source '../../components/FairlendLandingOverviewSection/index.tsx';
 @source '../../components/FairlendLandingRail/FairlendRailCrossDots.tsx';
 @source '../../components/FairlendLandingRail/index.tsx';
+/* Keep this glob explicit. A bare directory source is not expanded by the
+   current Tailwind/Turbopack pipeline, which silently drops these utilities. */
+@source '../../components/FairlendRouteSelector/*.{ts,tsx}';
 @source '../../components/FairlendStaticHomepageFallbacks.tsx';
 @source '../../components/GardenSuiteOpportunityBadge.tsx';
 @source '../../components/FairlendOfficeMap/data.ts';

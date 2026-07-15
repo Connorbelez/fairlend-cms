@@ -47,6 +47,18 @@ const personNameParts = (fullName) => {
   };
 };
 
+const primaryNameAliases = (person) => {
+  const aliases = new Set([person.fullName, `${person.firstName} ${person.lastName}`]);
+  const givenName = person.firstName.split(/\s+/)[0];
+  if (givenName.length > 1) aliases.add(`${givenName} ${person.lastName}`);
+
+  for (const match of person.firstName.matchAll(/[\u201c\u201d"'()]([^\u201c\u201d"'()]+)[\u201c\u201d"'()]/g)) {
+    aliases.add(`${match[1]} ${person.lastName}`);
+  }
+
+  return [...aliases].map(normalize).filter((alias) => alias.length > 3);
+};
+
 const contactFunction = (value) => {
   if (/editor|host|producer|content|programming|speaker|podcast|media/i.test(value)) return 'PROGRAMMING_EDITORIAL';
   if (/sponsor|event|conference|exhibit|activation/i.test(value)) return 'SPONSORSHIP_EVENTS';
@@ -59,12 +71,18 @@ const contactFunction = (value) => {
 
 const parsePeople = (cell, primaryCell, notesCell, leadRoute) => {
   const people = [];
+  const cellSourceUrls = urls(cell);
+  let inheritedSourceUrls = [];
   const regex = /\*\*([^*]+)\*\*\s+—\s+([\s\S]*?);\s+\*\*(High|Medium)\*\*/g;
   for (const match of cell.matchAll(regex)) {
     const name = personNameParts(match[1]);
     if (!name.firstName || !name.lastName || /^(company|exception|primary)$/i.test(name.firstName)) continue;
     const body = plainText(match[2]);
-    const sourceUrls = urls(match[2]);
+    const directSourceUrls = urls(match[2]);
+    const sourceUrls = directSourceUrls.length > 0
+      ? directSourceUrls
+      : inheritedSourceUrls.length > 0 ? inheritedSourceUrls : cellSourceUrls;
+    if (directSourceUrls.length > 0) inheritedSourceUrls = directSourceUrls;
     const directEmail = match[2].match(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i)?.[0] ?? '';
     const profileUrl = sourceUrls.find((url) => /linkedin\.com/i.test(url)) ?? sourceUrls[0] ?? '';
     const confidence = match[3].toUpperCase();
@@ -92,10 +110,10 @@ const parsePeople = (cell, primaryCell, notesCell, leadRoute) => {
   }
 
   const primaryText = plainText(primaryCell).replace(/^Primary:\s*/i, '');
-  const primaryIndex = people.findIndex((person) => {
-    const variants = [person.fullName, person.lastName, `${person.firstName} ${person.lastName}`];
-    return variants.some((variant) => variant.length > 3 && primaryText.toLowerCase().includes(variant.toLowerCase()));
-  });
+  const normalizedPrimaryText = normalize(primaryText);
+  const primaryIndex = people.findIndex((person) => (
+    primaryNameAliases(person).some((alias) => normalizedPrimaryText.includes(alias))
+  ));
   if (primaryIndex >= 0) people[primaryIndex].isPrimary = true;
   return people;
 };

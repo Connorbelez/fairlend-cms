@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <meta
+      name="description"
+      content="Interactive FairLend prototype for agent-assisted construction financing intake."
+    />
+    <title>FairLend · Agent-assisted origination</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#conversation">Skip to conversation</a>
+
+    <header class="app-header">
+      <a class="brand" href="./" aria-label="FairLend home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>FairLend</span>
+      </a>
+      <div class="header-context">
+        <span class="context-name">Agent intake</span>
+        <span class="context-divider" aria-hidden="true"></span>
+        <span class="status-chip" id="session-status"><i></i> Illustrative · not signed in</span>
+      </div>
+      <button class="icon-button" id="menu-button" type="button" aria-label="Open session menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>
+      </button>
+      <div class="session-menu" id="session-menu" hidden>
+        <button type="button" id="restart-button">Restart prototype</button>
+      </div>
+    </header>
+
+    <nav class="journey" aria-label="Application progress">
+      <ol>
+        <li class="is-complete" data-step="1"><span>1</span><b>Explore</b><small>Anonymous estimate</small></li>
+        <li class="is-active" data-step="2"><span>2</span><b>Claim</b><small>Securely connect</small></li>
+        <li data-step="3"><span>3</span><b>Build draft</b><small>Confirm your facts</small></li>
+        <li data-step="4"><span>4</span><b>FairLend review</b><small>Human-led decision</small></li>
+      </ol>
+    </nav>
+
+    <main class="workspace">
+      <section class="conversation-panel" aria-labelledby="conversation-title">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">CONVERSATION / CONSTRUCTION</p>
+            <h1 id="conversation-title">Toronto laneway build</h1>
+          </div>
+          <button class="text-button" type="button" id="privacy-button">Privacy</button>
+        </div>
+
+        <div class="conversation" id="conversation" aria-live="polite">
+          <article class="message message-user">
+            <div class="avatar user-avatar" aria-hidden="true">CM</div>
+            <div class="bubble">
+              <p>Help me see whether FairLend could finance a laneway suite behind my home in Toronto.</p>
+            </div>
+          </article>
+
+          <article class="message message-agent">
+            <div class="avatar agent-avatar" aria-hidden="true">F</div>
+            <div class="bubble">
+              <p class="message-label">FAIRLEND ASSISTANT</p>
+              <p>I can map a construction scenario first—no account or credit check needed.</p>
+              <div class="assumption-grid" aria-label="Scenario assumptions">
+                <div><span>Project cost</span><strong>$620,000</strong></div>
+                <div><span>Land value</span><strong>$1,180,000</strong></div>
+                <div><span>Existing mortgage</span><strong>$460,000</strong></div>
+                <div><span>Cash equity</span><strong>$180,000</strong></div>
+              </div>
+              <p class="source-note">Based on the facts you supplied in this conversation.</p>
+            </div>
+          </article>
+
+          <article class="message message-agent">
+            <div class="avatar agent-avatar" aria-hidden="true">F</div>
+            <div class="bubble result-card">
+              <div class="result-header">
+                <div>
+                  <span class="result-kicker">ILLUSTRATIVE ESTIMATE</span>
+                  <h2>A four-draw facility may fit.</h2>
+                </div>
+                <span class="plain-badge">Generic assumptions</span>
+              </div>
+              <div class="draw-strip" aria-label="Illustrative construction draws">
+                <div><i style="--fill: 28%"></i><span>01</span><b>$126K</b><small>Foundation</small></div>
+                <div><i style="--fill: 53%"></i><span>02</span><b>$116K</b><small>Framing</small></div>
+                <div><i style="--fill: 78%"></i><span>03</span><b>$99K</b><small>Enclosed</small></div>
+                <div><i style="--fill: 100%"></i><span>04</span><b>$79K</b><small>Completion</small></div>
+              </div>
+              <div class="estimate-summary">
+                <div><span>Illustrative facility</span><strong>$420,000</strong></div>
+                <div><span>Peak estimated LTV</span><strong>44.7%</strong></div>
+                <div><span>Estimated interest reserve</span><strong>$34,800</strong></div>
+              </div>
+              <div class="notice">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5m0 3.4v.1M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                <p><strong>This is not a quote or pre-approval.</strong> It uses generic assumptions, excludes lender and legal fees, and is valid only as an educational calculation.</p>
+              </div>
+              <div class="message-actions">
+                <button class="button button-primary" type="button" id="save-draft-button">Save this scenario securely <span>→</span></button>
+                <button class="button button-secondary" type="button" id="edit-assumptions-button">Change assumptions</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <form class="composer" id="composer-form">
+          <label class="sr-only" for="composer-input">Message FairLend assistant</label>
+          <textarea id="composer-input" rows="1" placeholder="Ask about this project…"></textarea>
+          <button type="submit" aria-label="Send message">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 14-7-4 14-3-6-7-1Z"/></svg>
+          </button>
+          <p>FairLend can make mistakes. A licensed professional reviews consequential outcomes.</p>
+        </form>
+      </section>
+
+      <aside class="dossier" aria-labelledby="dossier-title">
+        <div class="dossier-header">
+          <div>
+            <p class="eyebrow">LIVE APPLICATION FILE</p>
+            <h2 id="dossier-title">Laneway build</h2>
+          </div>
+          <span class="file-id">FL–26–0715</span>
+        </div>
+
+        <div class="locked-file" id="locked-file">
+          <div class="lock-orbit" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="4.5" y="10" width="15" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          </div>
+          <h3>Your scenario is still local to this chat.</h3>
+          <p>Claim it through FairLend before an agent can create, save, or update your application.</p>
+          <ul>
+            <li>No credit report</li>
+            <li>No lender submission</li>
+            <li>Revoke access anytime</li>
+          </ul>
+        </div>
+
+        <div class="application-file" id="application-file" hidden>
+          <div class="completion-row">
+            <div class="completion-ring" style="--progress: 72" aria-label="Application 72% complete"><span id="completion-number">72%</span></div>
+            <div><strong id="completion-label">3 items to confirm</strong><span>Draft · last saved just now</span></div>
+          </div>
+
+          <div class="file-section">
+            <div class="file-section-title"><h3>Project facts</h3><button type="button" id="edit-file-button">Review</button></div>
+            <dl class="fact-list">
+              <div><dt>Project address</dt><dd>18 Brock Ave, Toronto</dd><small><i></i>User statement</small></div>
+              <div><dt>Project type</dt><dd>Laneway suite · 2 storey</dd><small><i></i>Agent transcription</small></div>
+              <div><dt>Total project cost</dt><dd>$620,000</dd><small><i></i>User confirmed</small></div>
+              <div><dt>Requested facility</dt><dd>$420,000</dd><small><i></i>Derived</small></div>
+            </dl>
+          </div>
+
+          <div class="file-section missing-section" id="missing-section">
+            <h3>Still needed</h3>
+            <ul>
+              <li><span></span>Permit status</li>
+              <li><span></span>Builder experience</li>
+              <li><span></span>Equity confirmation</li>
+            </ul>
+          </div>
+
+          <div class="file-section access-section">
+            <h3>Agent access</h3>
+            <div class="agent-access"><span class="agent-avatar">F</span><div><strong>FairLend Assistant</strong><small>Draft and application read access</small></div><button type="button" id="revoke-button">Manage</button></div>
+          </div>
+
+          <button class="button button-primary dossier-action" type="button" id="complete-button">Review &amp; complete 3 items</button>
+          <button class="button button-secondary dossier-action" type="button" id="rate-button" hidden>Request indicative rate range</button>
+          <button class="button button-primary dossier-action" type="button" id="submit-button" hidden>Submit for FairLend review</button>
+        </div>
+      </aside>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+    <dialog class="modal" id="claim-dialog" aria-labelledby="claim-title">
+      <form method="dialog" id="claim-form">
+        <button class="modal-close" value="cancel" aria-label="Close">×</button>
+        <p class="eyebrow">SECURE ACCOUNT CLAIM</p>
+        <h2 id="claim-title">Let this agent save your scenario?</h2>
+        <p class="modal-intro">You’ll sign in or create an account on a FairLend-owned page. Passwords and verification codes never return to the chat.</p>
+        <div class="permission-card">
+          <span class="agent-avatar">F</span>
+          <div><strong>FairLend Assistant</strong><small>Requested for your laneway build</small></div>
+          <span class="verified-mark">Verified</span>
+        </div>
+        <div class="scope-list">
+          <label><input type="checkbox" checked disabled /><span><b>Create and update this draft</b><small>Only application FL–26–0715</small></span></label>
+          <label><input type="checkbox" checked disabled /><span><b>Read status and missing items</b><small>No access to other customer files</small></span></label>
+          <label><input type="checkbox" checked /><span><b>Request an indicative rate range</b><small>You approve the exact inputs before it runs</small></span></label>
+        </div>
+        <label class="field-label" for="claim-email">Email address</label>
+        <input class="input" id="claim-email" type="email" value="connor@brickline.ca" required autocomplete="email" />
+        <div class="draft-preview"><span>Draft to be created</span><strong>Toronto laneway build · $420,000</strong></div>
+        <button class="button button-primary full-button" value="default" type="submit">Continue securely <span>→</span></button>
+        <p class="fine-print">By continuing, you authorize the selected access. You can revoke it from your FairLend account.</p>
+      </form>
+    </dialog>
+
+    <dialog class="modal" id="complete-dialog" aria-labelledby="complete-title">
+      <form method="dialog" id="complete-form">
+        <button class="modal-close" value="cancel" aria-label="Close">×</button>
+        <p class="eyebrow">CONFIRM YOUR FACTS</p>
+        <h2 id="complete-title">Finish your construction snapshot.</h2>
+        <p class="modal-intro">The assistant suggested these values from your conversation. Confirm or correct them before pricing.</p>
+        <label class="field-label" for="permit-status">Permit status</label>
+        <select class="input" id="permit-status" required><option value="">Choose status</option><option selected>Building permit submitted</option><option>Building permit issued</option><option>Preparing drawings</option></select>
+        <label class="field-label" for="experience">Completed ground-up builds</label>
+        <select class="input" id="experience" required><option>0</option><option>1</option><option selected>2</option><option>3+</option></select>
+        <label class="field-label" for="equity-confirm">Cash equity available</label>
+        <div class="currency-field"><span>$</span><input class="input" id="equity-confirm" inputmode="numeric" value="180,000" required /></div>
+        <label class="confirm-check"><input type="checkbox" id="facts-confirmed" required /><span>I confirm these facts are accurate to the best of my knowledge.</span></label>
+        <button class="button button-primary full-button" value="default" type="submit">Confirm and save</button>
+      </form>
+    </dialog>
+
+    <dialog class="modal modal-wide" id="rate-dialog" aria-labelledby="rate-title">
+      <form method="dialog" id="rate-form">
+        <button class="modal-close" value="cancel" aria-label="Close">×</button>
+        <p class="eyebrow">ACTION PREVIEW / INDICATIVE PRICING</p>
+        <h2 id="rate-title">Approve the facts used for this range.</h2>
+        <p class="modal-intro">FairLend will use self-attested information and a dated pricing snapshot. No credit report will be accessed.</p>
+        <dl class="approval-facts">
+          <div><dt>Project cost</dt><dd>$620,000</dd></div><div><dt>Requested facility</dt><dd>$420,000</dd></div>
+          <div><dt>Estimated completed value</dt><dd>$1,540,000</dd></div><div><dt>Builder experience</dt><dd>2 completed builds</dd></div>
+          <div><dt>Permit status</dt><dd>Submitted</dd></div><div><dt>Cash equity</dt><dd>$180,000</dd></div>
+        </dl>
+        <div class="notice"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5m0 3.4v.1M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><p><strong>Indicative only.</strong> This will not hold a rate, submit to a lender, or create a pre-approval.</p></div>
+        <label class="confirm-check"><input type="checkbox" id="rate-confirmed" required /><span>I approve using these facts for an indicative range.</span></label>
+        <button class="button button-primary full-button" value="default" type="submit">Request range <span>→</span></button>
+      </form>
+    </dialog>
+
+    <dialog class="modal modal-wide" id="booking-dialog" aria-labelledby="booking-title">
+      <form method="dialog" id="booking-form">
+        <button class="modal-close" value="cancel" aria-label="Close">×</button>
+        <p class="eyebrow">BOOK A FILE REVIEW</p>
+        <h2 id="booking-title">Choose a time with a FairLend specialist.</h2>
+        <p class="modal-intro">30 minutes · video call · America/Toronto</p>
+        <div class="date-header"><button type="button" aria-label="Previous dates">←</button><strong>July 20–22, 2026</strong><button type="button" aria-label="Next dates">→</button></div>
+        <div class="time-grid" role="radiogroup" aria-label="Available consultation times">
+          <div><strong>Mon 20</strong><button type="button" role="radio" aria-checked="false">10:30 AM</button><button type="button" role="radio" aria-checked="false">2:00 PM</button></div>
+          <div><strong>Tue 21</strong><button type="button" role="radio" aria-checked="false">9:00 AM</button><button type="button" role="radio" aria-checked="false">3:30 PM</button></div>
+          <div><strong>Wed 22</strong><button type="button" role="radio" aria-checked="false">11:00 AM</button><button type="button" role="radio" aria-checked="false">4:00 PM</button></div>
+        </div>
+        <button class="button button-primary full-button" id="confirm-booking" value="default" type="submit" disabled>Book selected time</button>
+      </form>
+    </dialog>
+
+    <dialog class="modal" id="submit-dialog" aria-labelledby="submit-title">
+      <form method="dialog" id="submit-form">
+        <button class="modal-close" value="cancel" aria-label="Close">×</button>
+        <p class="eyebrow">FINAL CONFIRMATION</p>
+        <h2 id="submit-title">Send this draft for human review?</h2>
+        <p class="modal-intro">A licensed FairLend professional will assess fit and contact you about any missing documents. This is not a lender submission.</p>
+        <div class="draft-preview"><span>Application</span><strong>FL–26–0715 · version 4</strong></div>
+        <label class="confirm-check"><input type="checkbox" id="submit-confirmed" required /><span>I confirm the application facts are complete and authorize FairLend to review this file.</span></label>
+        <button class="button button-primary full-button" value="default" type="submit">Submit for review <span>→</span></button>
+      </form>
+    </dialog>
+
+    <dialog class="modal" id="privacy-dialog" aria-labelledby="privacy-title">
+      <form method="dialog">
+        <button class="modal-close" value="cancel" aria-label="Close">×</button>
+        <p class="eyebrow">YOUR DATA</p>
+        <h2 id="privacy-title">You remain in control.</h2>
+        <div class="privacy-list">
+          <div><strong>Before account claim</strong><p>Calculations are anonymous and are not added to a customer file.</p></div>
+          <div><strong>After account claim</strong><p>Each stored field records whether it came from you, the agent, a document, staff, or a calculation.</p></div>
+          <div><strong>Never in chat</strong><p>Passwords, verification codes, SINs, banking credentials, identity documents, and credit reports.</p></div>
+        </div>
+        <button class="button button-secondary full-button" value="cancel">Close</button>
+      </form>
+    </dialog>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

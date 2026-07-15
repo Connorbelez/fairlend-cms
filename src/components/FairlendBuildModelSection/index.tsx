@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, CalendarDays, FileText, SlidersHorizontal } from 'lucide-react'
 import type { ReactNode } from 'react'
 
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
@@ -27,6 +27,7 @@ const variables = [
   'Professional path',
   'Permit & MLI readiness',
   'Exit',
+  'Recovery',
 ] as const
 
 const dossierTabs = [
@@ -103,7 +104,7 @@ const introState = {
   id: 'intro',
   status: 'Model open',
   count: '03',
-  title: 'Property to equation',
+  title: 'Property to equity',
   variables: ['Land', 'Scope', 'Capital'],
   dossierTab: 'parcel',
   theme: 'ivory',
@@ -120,7 +121,8 @@ const stations = [
     theme: 'electric-lime',
     num: '01',
     name: 'Plan',
-    headline: 'Work with FairLend to test whether the site and project economics support a financeable build.',
+    headline:
+      'Work with FairLend to test whether the site and project economics support a financeable build.',
     body: 'Before you commit more capital to land or design, FairLend works with you to review the acquisition basis, zoning and housing form, unit mix, buildable area, hard and soft costs, contingency, timeline, expected value, and intended exit.',
     comparison: {
       selfManaged:
@@ -174,7 +176,7 @@ const stations = [
     status: '04 / Takeout',
     count: '04',
     title: 'CMHC-insured takeout',
-    variables: ['Exit', 'Permit & MLI readiness'],
+    variables: ['Permit & MLI readiness', 'Exit'],
     dossierTab: 'takeout',
     theme: 'ivory',
     num: '04',
@@ -194,7 +196,7 @@ const stations = [
     status: '05 / Build recovery',
     count: '05',
     title: 'Recovery path',
-    variables: ['Capital', 'Draw schedule', 'Professional path'],
+    variables: ['Capital', 'Draw schedule', 'Recovery'],
     dossierTab: 'recovery',
     theme: 'builder-blueprint',
     num: '05',
@@ -227,7 +229,7 @@ const thesisState = {
   status: 'Builder Consulting',
   count: '→',
   title: 'Outcome',
-  variables,
+  variables: ['Permit & MLI readiness', 'Exit'],
   dossierTab: 'takeout',
   theme: 'forest',
 } as const satisfies BoardState
@@ -449,10 +451,11 @@ function BuildModelBoard({ className }: { className?: string }) {
         <BackgroundImageTexture
           className="bm-board-texture"
           opacity={0.18}
-          variant="groovepaper"
+          variant="fabric-of-squares"
         />
         <div className="bm-board-inner">
           <div className="bm-board-header">
+            <span className="bm-board-authority">Authority file</span>
             <span aria-hidden="true" className="bm-board-status" data-bm-board-status>
               {introState.status}
             </span>
@@ -462,10 +465,10 @@ function BuildModelBoard({ className }: { className?: string }) {
           </div>
           <div className="bm-board-visual" aria-hidden="true">
             <div className="bm-board-title">
-              <span className="bm-board-label">Live deal file</span>
               <span className="bm-board-active" data-bm-board-title>
                 {introState.title}
               </span>
+              <span className="bm-board-verified">Verified</span>
             </div>
 
             <div className="bm-dossier-stack" data-bm-dossier-stack>
@@ -635,12 +638,21 @@ function StationStep({ station }: { station: Station }) {
 
 function DrawFlowStep() {
   return (
-    <ScrollStep state={drawFlowState}>
+    <ScrollStep state={drawFlowState} className="bm-drawflow-step">
       <section className="bm-drawflow" aria-labelledby="bm-drawflow-title">
-        <span className="bm-df-label">
-          <span className="pip" />
-          Powered by DrawFlow
+        <span className="bm-df-revision" aria-hidden="true">
+          <span>FL-LOCREDIT</span>
+          <span>REV-01</span>
+          <span>05.14.2026</span>
         </span>
+        <span className="bm-df-corner-cross" aria-hidden="true" />
+        <div className="bm-df-meta">
+          <span className="bm-df-label">
+            <span className="pip" aria-hidden="true" />
+            Powered by DrawFlow
+          </span>
+          <span className="bm-df-dossier">Technical financing dossier</span>
+        </div>
         <h3 className="bm-df-head" id="bm-drawflow-title">
           A milestone <em>line of credit</em> for your build.
         </h3>
@@ -648,25 +660,29 @@ function DrawFlowStep() {
           More draws. Less interest. <b>Fund the work, not the wait.</b>
         </p>
 
-        <div
-          className="bm-milestones"
-          role="img"
-          aria-label="Milestone draw track: foundation, framing, roof, windows, mechanical, plumbing, electrical, drywall, flooring"
-        >
-          {milestoneNodes.map((node, index) => (
-            <span
-              className={[
-                'bm-milestone',
-                index < 5 ? 'done' : '',
-                node === 'Plumbing' ? 'active' : '',
-              ]
-                .filter(Boolean)
-                .join(' ')}
-              key={`bm-ms-${node}`}
-            >
-              {node}
-            </span>
-          ))}
+        <div className="bm-df-milestone-block">
+          <span className="bm-df-section-label">Construction milestones</span>
+          <div
+            className="bm-milestones"
+            role="img"
+            aria-label="Milestone draw track: foundation, framing, roof, windows, mechanical, plumbing, electrical, drywall, flooring"
+          >
+            {milestoneNodes.map((node, index) => (
+              <span
+                className={[
+                  'bm-milestone',
+                  index < 5 ? 'done' : '',
+                  node === 'Plumbing' ? 'active' : '',
+                  node === 'Flooring' ? 'bm-milestone--continuation' : '',
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+                key={`bm-ms-${node}`}
+              >
+                {node}
+              </span>
+            ))}
+          </div>
         </div>
 
         <div className="bm-df-compare">
@@ -682,35 +698,63 @@ function DrawFlowStep() {
 
         <div className="bm-df-saved">
           <span className="amt">≈ $12,000</span>
-          <span className="lbl">— Illustrative interest saved over a typical build.</span>
-          <span className="caveat">*Illustrative only. Every project differs.</span>
+          <span className="lbl">
+            <strong>Illustrative interest saved</strong>
+            <span>over a typical build.</span>
+          </span>
+          <span className="caveat">
+            *Illustrative only.
+            <br /> Every project
+            <br /> differs.
+          </span>
         </div>
 
         <div className="bm-df-flex">
           <article className="bm-tile">
-            <span className="tile-title">Your schedule, not ours</span>
-            <p>
-              Build your own draw schedule. Tie releases to the milestones that match how your
-              project actually goes up.
-            </p>
+            <span className="tile-icon" aria-hidden="true">
+              <CalendarDays />
+            </span>
+            <div className="tile-copy">
+              <span className="tile-title">
+                Your schedule,
+                <br /> not ours
+              </span>
+              <p>
+                Build your own draw schedule. Tie releases to the milestones that match how your
+                project actually goes up.
+              </p>
+            </div>
           </article>
           <article className="bm-tile">
-            <span className="tile-title">Modify it mid-build</span>
-            <p>
-              Builds don&apos;t always go as planned. Adjust the draw schedule as the work shifts so
-              capital is there when you need it, and not costing interest when you don&apos;t.
-            </p>
+            <span className="tile-icon" aria-hidden="true">
+              <SlidersHorizontal />
+            </span>
+            <div className="tile-copy">
+              <span className="tile-title">
+                Modify it
+                <br /> mid-build
+              </span>
+              <p>
+                Builds don&apos;t always go as planned. Adjust the draw schedule as the work shifts
+                so capital is there when you need it, and not costing interest when you don&apos;t.
+              </p>
+            </div>
           </article>
         </div>
 
         <div className="bm-df-more">
-          <p>
-            <b>More than capital.</b> Complimentary access to our Southern Ontario build specialists and a deep
-            supplier &amp; trade network. When a project needs one, we can refer an experienced
-            building project manager to work alongside the financing team.
-          </p>
+          <span className="tile-icon" aria-hidden="true">
+            <FileText />
+          </span>
+          <div className="tile-copy">
+            <b>More than capital.</b>
+            <p>
+              Complimentary access to our Southern Ontario build specialists and a deep supplier
+              &amp; trade network. When a project needs one, we can refer an experienced building
+              project manager to work alongside the financing team.
+            </p>
+          </div>
         </div>
-
       </section>
     </ScrollStep>
   )
@@ -773,9 +817,9 @@ export function FairlendBuildModelSection() {
             <VariableRibbon />
 
             <p className="bm-shared-lead">
-              Instead of finding and coordinating every party yourself, bring FairLend the
-              property, plan, or early idea. We help assemble the right team and keep the project,
-              financing, draws, and takeout moving through one coordinated plan.
+              Instead of finding and coordinating every party yourself, bring FairLend the property,
+              plan, or early idea. We help assemble the right team and keep the project, financing,
+              draws, and takeout moving through one coordinated plan.
             </p>
 
             <AudiencePaths />
