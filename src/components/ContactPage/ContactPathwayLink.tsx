@@ -20,7 +20,7 @@ export function ContactPathwayLink({ index, pathway }: ContactPathwayLinkProps) 
         <span className="contact-pathway__description">{pathway.description}</span>
       </span>
       <span className="contact-pathway__action">
-        <span>Open desk</span>
+        <span>Explore</span>
         <ArrowUpRight aria-hidden="true" />
       </span>
     </Link>

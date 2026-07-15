@@ -57,6 +57,7 @@ export function FairlendRouteCard({
       {badgeLabel ? (
         <Badge
           className={cn(fairlendRouteBadgeVariants(), hasHighlights && 'xl:right-[calc(29%+28px)]')}
+          data-route-motion-part="badge"
         >
           {badgeLabel}
         </Badge>
@@ -69,8 +70,13 @@ export function FairlendRouteCard({
           hasServices && 'md:pr-[260px]',
           isCompact && 'xl:col-start-1 xl:row-start-1',
         )}
+        data-route-motion-part="heading"
       >
-        <FairlendRouteIconBadge className="max-md:size-10" icon={route.icon} />
+        <FairlendRouteIconBadge
+          className="max-md:size-10"
+          data-route-motion-icon
+          icon={route.icon}
+        />
         <h3
           className={cn(
             fairlendRouteCardTextVariants({ role: 'title' }),
@@ -94,6 +100,7 @@ export function FairlendRouteCard({
           isCompact &&
             'xl:col-start-1 xl:row-start-2 xl:mt-2 xl:max-w-full xl:self-start xl:text-[14px] xl:leading-[1.3]',
         )}
+        data-route-motion-part="description"
       >
         {route.description}
       </p>
@@ -102,6 +109,7 @@ export function FairlendRouteCard({
         <div
           aria-hidden="true"
           className="pointer-events-none absolute top-10 right-4 hidden h-[104px] w-[245px] items-start justify-end md:flex"
+          data-route-motion-part="illustration"
         >
           <Image
             alt=""
@@ -117,7 +125,7 @@ export function FairlendRouteCard({
       {isSupporting ? (
         <>
           {hasServices ? (
-            <div className="mt-4 flex flex-1 flex-col md:mt-12">
+            <div className="mt-4 flex flex-1 flex-col md:mt-12" data-route-motion-part="body">
               <ul className="mb-4 grid gap-2 sm:grid-cols-3">
                 {route.bullets.map((bullet) => (
                   <li
@@ -171,6 +179,7 @@ export function FairlendRouteCard({
                 isCompact &&
                   'xl:col-start-2 xl:row-span-2 xl:row-start-1 xl:mt-0 xl:min-h-0 xl:self-center',
               )}
+              data-route-motion-part="body"
             >
               <ul
                 className={cn(
@@ -261,6 +270,7 @@ export function FairlendRouteCard({
               isCompact && 'xl:col-start-3 xl:row-start-1 xl:mt-0 xl:self-start',
             )}
             density="compact"
+            data-route-motion-part="steps"
             steps={route.steps}
           />
 
@@ -273,6 +283,7 @@ export function FairlendRouteCard({
               isCompact &&
                 'xl:col-start-3 xl:row-start-2 xl:mt-0 xl:self-end xl:border-t-0 xl:pt-0',
             )}
+            data-route-motion-part="footer"
           >
             <Button
               asChild
@@ -282,7 +293,10 @@ export function FairlendRouteCard({
             >
               <a href={route.href}>
                 <span>{route.ctaLabel}</span>
-                <span className={fairlendRouteArrowBoxVariants({ size: 'card' })}>
+                <span
+                  className={fairlendRouteArrowBoxVariants({ size: 'card' })}
+                  data-route-motion-arrow
+                >
                   <ArrowUpRight aria-hidden="true" className="size-[19px]" strokeWidth={2.8} />
                 </span>
               </a>
@@ -297,6 +311,7 @@ export function FairlendRouteCard({
                 ? 'relative mt-6 min-h-0 flex-1 overflow-hidden'
                 : 'mt-4 flex flex-1 flex-col',
             )}
+            data-route-motion-part="body"
           >
             <ul
               className={cn(
@@ -351,10 +366,11 @@ export function FairlendRouteCard({
               className={cn(isFeatured ? 'mt-3' : '-mt-[7px] max-md:mt-0')}
               descriptions={route.stepDescriptions}
               detailed={isFeatured}
+              data-route-motion-part="steps"
               steps={route.steps}
             />
 
-            <div className={fairlendRouteCardFooterVariants()}>
+            <div className={fairlendRouteCardFooterVariants()} data-route-motion-part="footer">
               <Button
                 asChild
                 className={fairlendRouteCardButtonVariants({ selected: isSelected })}
@@ -363,7 +379,10 @@ export function FairlendRouteCard({
               >
                 <a href={route.href}>
                   <span>{route.ctaLabel}</span>
-                  <span className={fairlendRouteArrowBoxVariants({ size: 'card' })}>
+                  <span
+                    className={fairlendRouteArrowBoxVariants({ size: 'card' })}
+                    data-route-motion-arrow
+                  >
                     <ArrowUpRight aria-hidden="true" className="size-[19px]" strokeWidth={2.8} />
                   </span>
                 </a>

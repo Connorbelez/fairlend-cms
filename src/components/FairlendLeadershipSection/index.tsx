@@ -22,6 +22,9 @@ import {
 } from '@/components/FairlendMarketingPrimitives'
 import { fairlendPrincipalBrokerClaims } from '@/lib/fairlend-claims'
 
+import { LeadershipMotion } from './LeadershipMotion.client'
+import './leadership-motion.css'
+
 const leadershipPortraitAsset = '/assets/elie-headshot.webp'
 const leadershipSceneAsset = '/assets/fairlend-principal-broker-background-halftone-key.webp'
 
@@ -1178,6 +1181,7 @@ export function FairlendLeadershipSection() {
       `}</style>
 
       <FairlendPaperShell className="leadership-shell">
+        <LeadershipMotion />
         <h2 id="fairlend-leadership-title" className="sr-only">
           Leadership
         </h2>

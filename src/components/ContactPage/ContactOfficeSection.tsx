@@ -6,7 +6,7 @@ export function ContactOfficeSection() {
       <div className="contact-office__copy">
         <div>
           <p className="contact-kicker">Toronto office</p>
-          <h2 id="contact-office-title">Bring the file to the Toronto desk.</h2>
+          <h2 id="contact-office-title">Meet with us in Toronto.</h2>
           <p>
             For an in-person working session, arrange a time with our team before visiting. We’ll
             review the property, capital need, timing, and constraints at 890 Sheppard Avenue West.
@@ -19,7 +19,7 @@ export function ContactOfficeSection() {
             <dd>By appointment</dd>
           </div>
           <div>
-            <dt>Desk</dt>
+            <dt>Office</dt>
             <dd>Toronto / Ontario</dd>
           </div>
         </dl>
