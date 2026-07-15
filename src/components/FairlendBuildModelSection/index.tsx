@@ -1,6 +1,16 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight } from 'lucide-react'
+import {
+  ArrowRight,
+  CalendarDays,
+  CircleDollarSign,
+  FileCheck2,
+  House,
+  Layers3,
+  LogOut,
+  UserRound,
+  type LucideIcon,
+} from 'lucide-react'
 import type { ReactNode } from 'react'
 
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
@@ -77,6 +87,55 @@ const dossierTabs = [
 type DossierTabId = (typeof dossierTabs)[number]['id']
 type BuildVariable = (typeof variables)[number]
 
+const variableDetails = {
+  Land: {
+    description: 'Lot, form, frontage, and the first buildable-area pass.',
+    icon: House,
+    presentation: 'ledger',
+  },
+  Scope: {
+    description: 'Housing form: Multiplex + laneway option.',
+    icon: Layers3,
+    presentation: 'ledger',
+  },
+  Capital: {
+    description: 'First decision: Can the site carry the scope?',
+    icon: CircleDollarSign,
+    presentation: 'ledger',
+  },
+  'Draw schedule': {
+    description: 'Milestone releases',
+    icon: CalendarDays,
+    presentation: 'utility',
+  },
+  'Professional path': {
+    description: 'Project team',
+    icon: UserRound,
+    presentation: 'utility',
+  },
+  'Permit & MLI readiness': {
+    description: 'Approval file',
+    icon: FileCheck2,
+    presentation: 'utility',
+  },
+  Exit: {
+    description: 'Takeout path',
+    icon: LogOut,
+    presentation: 'utility',
+  },
+} as const satisfies Record<
+  BuildVariable,
+  { description: string; icon: LucideIcon; presentation: 'ledger' | 'utility' }
+>
+
+const ledgerVariables = variables.filter(
+  (variable) => variableDetails[variable].presentation === 'ledger',
+)
+
+const utilityVariables = variables.filter(
+  (variable) => variableDetails[variable].presentation === 'utility',
+)
+
 type BoardState = {
   id: string
   status: string
@@ -103,7 +162,7 @@ const introState = {
   id: 'intro',
   status: 'Model open',
   count: '03',
-  title: 'Property to equation',
+  title: 'Property to equity',
   variables: ['Land', 'Scope', 'Capital'],
   dossierTab: 'parcel',
   theme: 'ivory',
@@ -280,16 +339,6 @@ function DossierParcelSketch() {
           width={1536}
         />
       </div>
-      <dl className="bm-dossier-mini-stats">
-        <div>
-          <dt>Housing form</dt>
-          <dd>Multiplex + laneway option</dd>
-        </div>
-        <div>
-          <dt>First decision</dt>
-          <dd>Can the site carry the scope?</dd>
-        </div>
-      </dl>
     </div>
   )
 }
@@ -416,18 +465,12 @@ function DossierTabCard({ tab }: { tab: (typeof dossierTabs)[number] }) {
       data-bm-dossier-tab={tab.id}
       data-bm-dossier-code={tab.code}
     >
-      <BackgroundImageTexture
-        className="bm-dossier-tab-texture"
-        opacity={0.3}
-        variant="groovepaper"
-      />
       <div className="bm-dossier-tab-top">
         <span className="bm-dossier-tab-code">{tab.code}</span>
-        <span className="bm-dossier-tab-label">{tab.label}</span>
+        <span className="bm-dossier-tab-label">{tab.title}</span>
       </div>
       <div className="bm-dossier-tab-body">
-        <h3>{tab.title}</h3>
-        <p>{tab.summary}</p>
+        {tab.id === 'parcel' ? null : <p className="bm-dossier-tab-summary">{tab.summary}</p>}
         {tab.id === 'parcel' ? <DossierParcelSketch /> : null}
         {tab.id === 'budget' ? <DossierBudgetSheet /> : null}
         {tab.id === 'permit' ? <DossierPermitMatrix /> : null}
@@ -453,6 +496,7 @@ function BuildModelBoard({ className }: { className?: string }) {
         />
         <div className="bm-board-inner">
           <div className="bm-board-header">
+            <span className="bm-board-authority">Authority file</span>
             <span aria-hidden="true" className="bm-board-status" data-bm-board-status>
               {introState.status}
             </span>
@@ -462,10 +506,10 @@ function BuildModelBoard({ className }: { className?: string }) {
           </div>
           <div className="bm-board-visual" aria-hidden="true">
             <div className="bm-board-title">
-              <span className="bm-board-label">Live deal file</span>
               <span className="bm-board-active" data-bm-board-title>
                 {introState.title}
               </span>
+              <span className="bm-board-verified">Verified</span>
             </div>
 
             <div className="bm-dossier-stack" data-bm-dossier-stack>
@@ -475,16 +519,43 @@ function BuildModelBoard({ className }: { className?: string }) {
             </div>
 
             <div className="bm-board-equation">
-              <div className="bm-board-chips" aria-label="Build variables">
-                {variables.map((variable) => (
-                  <span
-                    className="bm-board-chip"
-                    data-bm-variable={variable}
-                    key={`bm-board-${variable}`}
-                  >
-                    {variable}
-                  </span>
-                ))}
+              <div className="bm-board-chips" aria-label="Core build variables">
+                {ledgerVariables.map((variable) => {
+                  const detail = variableDetails[variable]
+                  const VariableIcon = detail.icon
+
+                  return (
+                    <span
+                      className="bm-board-chip"
+                      data-bm-variable={variable}
+                      key={`bm-board-${variable}`}
+                    >
+                      <span className="bm-board-chip-icon" aria-hidden="true">
+                        <VariableIcon />
+                      </span>
+                      <strong>{variable}</strong>
+                      <small>{detail.description}</small>
+                    </span>
+                  )
+                })}
+              </div>
+              <div className="bm-board-utilities" aria-label="Build file utilities">
+                {utilityVariables.map((variable) => {
+                  const detail = variableDetails[variable]
+                  const VariableIcon = detail.icon
+
+                  return (
+                    <span
+                      className="bm-board-utility"
+                      data-bm-variable={variable}
+                      key={`bm-board-${variable}`}
+                    >
+                      <VariableIcon aria-hidden="true" />
+                      <strong>{variable}</strong>
+                      <small>{detail.description}</small>
+                    </span>
+                  )
+                })}
               </div>
               <div className="bm-progress" aria-label="Build model progress">
                 {progressItems.map((item) => (
