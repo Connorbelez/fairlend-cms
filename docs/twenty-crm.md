@@ -16,6 +16,16 @@ Operational records relate to Twenty's standard **Person** and **Company** objec
 
 The website owns capture fields such as contact details, requested amount, mortgage lane, intake payload, and attribution. Twenty owns workflow stage, priority, next action, Person/Company/Opportunity relations, and internal notes after initial creation. Website resubmissions deliberately do not overwrite those CRM-owned fields.
 
+### Partner follow-up actions
+
+A Partner Lead's sales-cycle work is modeled with Twenty's native **Task** as the authoritative **Follow-up Action**. The Task carries its native due time, status, and assignee plus FairLend's deterministic task key, follow-up method, execution requirements, outcome, and sequence step. A native **Task Target** links the Task to the Partner Lead and has its own deterministic key so retries cannot create duplicate associations.
+
+The Partner Lead stores only the **Next Follow-up Snapshot**: `nextActionAt`, `nextFollowUpMethod`, `nextAction`, `nextFollowUpRequirements`, `nextFollowUpTaskKey`, and `nextFollowUpTaskId`. These fields project the earliest open Follow-up Action for fast operational views; they are not a second task record. Automation must reconcile the snapshot whenever an action is created, completed, rescheduled, or cancelled.
+
+Partner research records preserve the primary contact fields and the complete attributable public contact set (`companyWebsite`, `contactFormUrl`, `allContactEmails`, `allContactPhones`, `contactLocations`, and `publicContactSummary`). `servicesSummary`, `buildPortfolioSummary`, and `buildPortfolioSourceUrls` keep service and build evidence queryable without discarding the underlying research URLs and audit payload.
+
+Initial partnership tasks are internal work assignments, not authorization to send external messages. Any workflow that sends email or submits a contact form requires separate approval and must respect the lead's outreach guardrails. Scheduled workflow timestamps are stored in UTC and must be derived from `America/Toronto` business time with daylight-saving changes applied.
+
 ## Automatic lead capture and autofill
 
 Every website intake that calls `upsertFairlendLead`—including `/api/leads`, autosaved Drawflow applications, contact/newsletter forms, mortgage applications, and consultation booking mirrors—upserts the appropriate operational Twenty object using the FairLend UUID as the idempotency key.

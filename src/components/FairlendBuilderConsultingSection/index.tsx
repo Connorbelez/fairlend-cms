@@ -30,7 +30,8 @@ import { torontoLuxury2019Model } from './model'
 type IconComponent = ComponentType<SVGProps<SVGSVGElement>>
 type BuilderYear = '2019' | '2023' | '2026'
 type EquationVariant = 'full' | 'compact'
-type EquationVariableKey = 'land' | 'build' | 'soft' | 'home' | 'sale'
+type EquationVariableKey = 'land' | 'build' | 'soft' | 'incentives' | 'home' | 'sale'
+type RequiredEquationVariableKey = Exclude<EquationVariableKey, 'incentives'>
 type EquationRowKey = 'single-family' | 'multiplex' | 'garden-suite'
 type ProfitTone = 'profit' | 'loss' | 'neutral'
 
@@ -47,7 +48,7 @@ type EquationRow = {
   note: string
   year: BuilderYear
   tone: ProfitTone
-  values: Record<EquationVariableKey, string>
+  values: Record<RequiredEquationVariableKey, string> & Partial<Record<'incentives', string>>
   profit: string
   margin: string
   riskLeft: string
@@ -190,6 +191,12 @@ const equationVariables = [
     hint: 'consulting + financing input',
   },
   {
+    key: 'incentives',
+    label: 'INCENTIVES',
+    sublabel: 'PROGRAM SUPPORT',
+    hint: 'project-specific input',
+  },
+  {
     key: 'home',
     label: 'HOMES',
     sublabel: 'OUTPUT',
@@ -299,6 +306,7 @@ const finalOpportunityRows = [
       land: '$1.36M',
       build: '$210–330/ft²',
       soft: '$450–650K',
+      incentives: 'AVAILABLE',
       home: '5+ UNITS',
       sale: '$6.18M*',
     },
@@ -460,6 +468,7 @@ function EquationCard({
   variant?: EquationVariant
 }) {
   const value = row.values[variable.key]
+  if (value === undefined) return null
   const counterKey =
     dynamic && row.key === 'single-family' && variable.key !== 'home'
       ? `single-${variable.key}`
@@ -468,7 +477,7 @@ function EquationCard({
     'builder-equation-card builder-equation-card--timeline',
     variant === 'compact' && 'builder-equation-card--compact',
     dynamic && 'builder-equation-card--scroll',
-    value.length >= 9 && 'builder-equation-card--dense-value',
+    value.length >= 8 && 'builder-equation-card--dense-value',
     value.length >= 10 && 'builder-equation-card--extra-dense-value',
   )
   const label = row.labels?.[variable.key] ?? variable.label
@@ -628,6 +637,10 @@ function BuilderEquationLine({
   variant?: EquationVariant
 }) {
   const isCompact = variant === 'compact'
+  const rowVariables = equationVariables.filter(
+    (variable) => row.values[variable.key] !== undefined,
+  )
+  const hasIncentives = row.values.incentives !== undefined
 
   return (
     <div
@@ -636,6 +649,7 @@ function BuilderEquationLine({
         `builder-equation-line--${row.tone}`,
         dynamic && 'builder-equation-line--primary',
         emerging && 'builder-equation-line--emerging',
+        hasIncentives && 'builder-equation-line--has-incentives',
       )}
       data-builder-emerging-row={emerging ? row.key : undefined}
       data-builder-equation-line={row.key}
@@ -657,13 +671,14 @@ function BuilderEquationLine({
         <strong>{row.label}</strong>
         <em data-builder-primary-note={dynamic ? '' : undefined}>{row.note}</em>
       </div>
-      {equationVariables.map((variable, index) => (
+      {rowVariables.map((variable, index) => (
         <div className="builder-equation-cell" key={variable.key}>
           <EquationCard dynamic={dynamic} row={row} variable={variable} variant={variant} />
-          <Operator value={index < equationVariables.length - 1 ? '+' : '='} />
+          {index < rowVariables.length - 1 ? <Operator value="+" /> : null}
         </div>
       ))}
       <div className="builder-equation-cell builder-equation-cell--profit">
+        <Operator value="=" />
         <OutcomeCard dynamic={dynamic} row={row} variant={variant} />
       </div>
       {isCompact ? null : <span className="builder-equation-line__rail" aria-hidden="true" />}
@@ -1782,7 +1797,7 @@ function BuilderConsultingStyles() {
         margin: 0;
       }
 
-      @media (min-width: 1024px) {
+      @media (min-width: 1371px) {
         .builder-consulting {
           min-height: 100svh;
           overflow: hidden;
@@ -2035,7 +2050,7 @@ function BuilderConsultingStyles() {
         }
       }
 
-      @media (max-width: 1023px) {
+      @media (max-width: 1370px) {
         .builder-headline {
           max-width: 9.3ch;
           font-size: clamp(3.7rem, 17vw, 6.8rem);
@@ -2858,7 +2873,7 @@ function BuilderConsultingStyles() {
         font-size: 0.72rem;
       }
 
-      @media (min-width: 1024px) {
+      @media (min-width: 1371px) {
         .builder-editorial-shell {
           height: 100dvh;
           min-height: 0;
@@ -3161,7 +3176,7 @@ function BuilderConsultingStyles() {
         }
       }
 
-      @media (max-width: 1023px) {
+      @media (max-width: 1370px) {
         .builder-consulting {
           overflow: visible;
         }
@@ -3259,7 +3274,7 @@ function BuilderConsultingStyles() {
         }
       }
 
-      @media (max-width: 1023px) {
+      @media (max-width: 1370px) {
         .builder-mobile-state {
           display: grid;
           padding: clamp(0.78rem, 2.9vw, 1rem);
@@ -3874,6 +3889,15 @@ function BuilderConsultingStyles() {
         min-width: 0;
       }
 
+      .builder-equation-line--has-incentives {
+        --builder-equation-gap: clamp(0.38rem, 0.48vw, 0.56rem);
+        grid-template-columns:
+          minmax(8.8rem, 0.72fr)
+          repeat(3, minmax(0, 1fr))
+          minmax(0, 1.55fr)
+          repeat(3, minmax(0, 1fr));
+      }
+
       .builder-equation-line + .builder-equation-line {
         margin-top: clamp(0.36rem, 0.52vw, 0.58rem);
       }
@@ -4317,7 +4341,7 @@ function BuilderConsultingStyles() {
         }
       }
 
-      @media (max-width: 1023px) {
+      @media (max-width: 1370px) {
         .builder-equation-lines {
           display: block;
         }
@@ -4325,6 +4349,10 @@ function BuilderConsultingStyles() {
         .builder-equation-line {
           grid-template-columns: repeat(2, minmax(0, 1fr));
           gap: 0.34rem;
+        }
+
+        .builder-equation-line--has-incentives {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
         .builder-equation-line + .builder-equation-line {
@@ -4609,6 +4637,118 @@ function BuilderConsultingStyles() {
         }
       }
 
+      .builder-equation-cell--profit {
+        grid-template-columns: 1.35rem minmax(0, 1fr);
+        align-items: center;
+        column-gap: 0.38rem;
+      }
+
+      .builder-equation-cell--profit .builder-operator--equals {
+        position: static;
+        grid-column: 1;
+        grid-row: 1;
+        justify-self: center;
+        width: auto;
+        height: auto;
+        border: 0;
+        background: transparent;
+        font-size: 1.35rem;
+        transform: none;
+      }
+
+      .builder-equation-cell--profit .builder-outcome-card {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      @media (min-width: 1371px) {
+        .builder-equation-line {
+          grid-template-columns: minmax(8.8rem, 0.72fr) repeat(5, minmax(0, 1fr));
+          align-items: start;
+        }
+
+        .builder-equation-line--has-incentives {
+          --builder-equation-gap: clamp(0.38rem, 0.48vw, 0.56rem);
+          grid-template-columns:
+            minmax(8.8rem, 0.72fr)
+            repeat(3, minmax(0, 1fr))
+            minmax(0, 1.55fr)
+            repeat(2, minmax(0, 1fr));
+        }
+
+        .builder-equation-cell--profit {
+          grid-column: 2 / -1;
+        }
+
+        .builder-equation-line .builder-equation-card {
+          min-height: 5.8rem;
+        }
+
+        .builder-equation-cell--profit .builder-outcome-card {
+          display: grid;
+          height: 3.6rem !important;
+          min-height: 3.6rem !important;
+          grid-template-columns: minmax(5.6rem, 0.2fr) minmax(0, 1fr);
+          text-align: left;
+        }
+
+        .builder-equation-cell--profit .builder-outcome-card__header {
+          display: grid;
+          place-items: center;
+          border-right: 1px solid var(--builder-line);
+          border-bottom: 0;
+          padding: 0.2rem 0.5rem;
+        }
+
+        .builder-equation-cell--profit .builder-outcome-card__body {
+          display: grid;
+          grid-template-columns: auto auto;
+          align-items: center;
+          justify-content: start;
+          justify-items: start;
+          gap: 0.2rem 1rem;
+          padding: 0.2rem 0.7rem;
+        }
+
+        .builder-equation-cell--profit .builder-outcome-card__label,
+        .builder-equation-cell--profit .builder-risk-labels {
+          display: none;
+        }
+
+        .builder-equation-cell--profit .builder-outcome-card strong,
+        .builder-equation-cell--profit
+          .builder-outcome-card__body
+          > p:not(.builder-outcome-card__label) {
+          margin: 0;
+        }
+
+        .builder-equation-cell--profit .builder-outcome-card strong {
+          font-size: 1.4rem !important;
+          line-height: 1;
+        }
+
+        .builder-equation-cell--profit
+          .builder-outcome-card__body
+          > p:not(.builder-outcome-card__label) {
+          justify-content: flex-start;
+          text-align: left;
+        }
+      }
+
+      @media (min-width: 1371px) and (max-height: 850px) {
+        .builder-consulting[data-builder-phase='2026']
+          .builder-desktop
+          .builder-equation-card__hint {
+          display: none;
+        }
+
+        .builder-consulting[data-builder-phase='2026']
+          .builder-desktop
+          .builder-equation-card__content {
+          padding-bottom: 0.3rem;
+        }
+      }
+
       .builder-motion-phases {
         display: none;
       }
@@ -4732,16 +4872,93 @@ function BuilderConsultingStyles() {
         transform: translateY(0);
       }
 
-      @media (max-width: 1023px) {
+      @media (max-width: 1370px) {
         .builder-consulting[data-builder-motion-ready='true'] {
-          min-height: 270svh;
+          min-height: 300svh;
         }
-      }
 
-      @media (max-width: 767px) {
         .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
           .builder-equation-line--primary {
           display: none;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-narrative {
+          display: none;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--emerging {
+          max-height: 15rem;
+          gap: 0.22rem;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--emerging
+          .builder-equation-label em,
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--emerging
+          .builder-equation-card__static-label,
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--emerging
+          .builder-equation-card__hint,
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--emerging
+          .builder-outcome-card__label,
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--emerging
+          .builder-risk-labels {
+          display: none;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--emerging
+          .builder-equation-label {
+          padding-block: 0.25rem;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--emerging
+          .builder-equation-card--compact {
+          min-height: 2.35rem;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--emerging
+          .builder-equation-card__header {
+          padding: 0.22rem 0.42rem 0;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--emerging
+          .builder-equation-card__content {
+          gap: 0;
+          padding: 0.08rem 0.42rem 0.24rem;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--emerging
+          .builder-outcome-card--compact {
+          min-height: 2.85rem;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--emerging
+          .builder-outcome-card__header {
+          padding: 0.2rem 0.5rem 0;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--emerging
+          .builder-outcome-card__body {
+          gap: 0.04rem;
+          padding: 0.08rem 0.5rem 0.24rem;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--emerging
+          .builder-outcome-card--compact strong {
+          font-size: clamp(1rem, 5vw, 1.35rem);
         }
       }
 

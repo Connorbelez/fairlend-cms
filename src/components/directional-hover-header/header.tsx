@@ -71,6 +71,7 @@ function Logo() {
         width={244}
       />
       <span className="mkt-dhh-brand-word">FairLend</span>
+      <span className="mkt-dhh-brand-mortgage">Mortgage</span>
     </Link>
   )
 }

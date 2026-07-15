@@ -448,7 +448,11 @@ function BuildModelBoard({ className }: { className?: string }) {
       aria-label="Build model status and consultation shortcut"
     >
       <div className="bm-board">
-        <BackgroundImageTexture className="bm-board-texture" opacity={0.18} variant="groovepaper" />
+        <BackgroundImageTexture
+          className="bm-board-texture"
+          opacity={0.18}
+          variant="fabric-of-squares"
+        />
         <div className="bm-board-inner">
           <div className="bm-board-header">
             <span className="bm-board-authority">Authority file</span>

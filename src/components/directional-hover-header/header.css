@@ -282,11 +282,20 @@
   object-fit: contain;
 }
 
-.mkt-dhh-brand span {
+.mkt-dhh-brand .mkt-dhh-brand-word {
   font-weight: 560;
   font-size: clamp(1.72rem, 2vw, 1.98rem);
   line-height: 1;
   letter-spacing: -0.045em;
+}
+
+.mkt-dhh-brand .mkt-dhh-brand-mortgage {
+  margin-left: -3px;
+  color: #6c6c64;
+  font-size: clamp(0.64rem, 0.85vw, 0.75rem);
+  font-weight: 520;
+  line-height: 1;
+  letter-spacing: 0.025em;
 }
 
 .mkt-dhh-brand small {
@@ -755,6 +764,10 @@
     transform: none;
   }
 
+  .mkt-dhh-brand .mkt-dhh-brand-mortgage {
+    font-size: clamp(10px, 0.8vw, 12px);
+  }
+
   .mkt-dhh-brand small {
     display: none;
   }
@@ -933,7 +946,7 @@
   }
 
   .mkt-dhh-brand {
-    gap: 10px;
+    gap: 8px;
     width: auto;
   }
 
@@ -1091,6 +1104,10 @@
     transform: none;
   }
 
+  .mkt-dhh-brand .mkt-dhh-brand-mortgage {
+    font-size: 10px;
+  }
+
   .mkt-dhh-brand small {
     display: none;
   }
@@ -1156,6 +1173,10 @@
 
   .mkt-dhh-brand .mkt-dhh-brand-word {
     font-size: clamp(1.28rem, 6vw, 1.48rem);
+  }
+
+  .mkt-dhh-brand .mkt-dhh-brand-mortgage {
+    font-size: 10px;
   }
 
   .mkt-dhh-mobile-toggle {

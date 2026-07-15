@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react'
 import { ArrowUpRight } from 'lucide-react'
+import Image from 'next/image'
 
 import { FairlendConsultationBookingDialog } from '@/components/FairlendConsultationBooking/FairlendConsultationBookingDialog.client'
 import { FairlendBuildPropertyTypes } from '@/components/FairlendBuildPropertyTypes'
@@ -57,10 +58,6 @@ type TorontoCloudLayerProps = {
   src: string
   width: number
   zIndex: number
-}
-
-function getOptimizedCloudSrc(src: string, width: 384 | 640): string {
-  return `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=55`
 }
 
 function BookConsultationButton({ mobileDocked = false }: { mobileDocked?: boolean }) {
@@ -265,11 +262,16 @@ function CloudLayer({
         data-toronto-cloud-scroll
       >
         <span className="fairlend-toronto-cloud-drift block">
-          <FairlendSkylineCanvas
-            className="select-none opacity-[0.82] [filter:contrast(0.76)_brightness(1.16)]"
-            desktopSrc={getOptimizedCloudSrc(src, 640)}
+          {/* Canvas resampling aliases the engraving lines on 1x displays. Keep clouds as images. */}
+          <Image
+            alt=""
+            className="block h-auto w-full select-none object-contain opacity-[0.82] [filter:contrast(0.76)_brightness(1.16)] [-webkit-user-drag:none]"
+            decoding="async"
+            fetchPriority="low"
             height={height}
-            mobileSrc={getOptimizedCloudSrc(src, 384)}
+            loading="lazy"
+            sizes="(max-width: 768px) 35vw, 28vw"
+            src={src}
             width={width}
           />
         </span>
