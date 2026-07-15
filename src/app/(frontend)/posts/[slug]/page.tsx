@@ -13,8 +13,19 @@ import type { Post } from '@/payload-types'
 import { JsonLd } from '@/components/SEO/JsonLd'
 import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
-import { buildArticleJsonLd, buildBreadcrumbJsonLd } from '@/utilities/structuredData'
-import { getPayloadDescription, getPayloadPostPath, getPayloadTitle } from '@/utilities/seo'
+import {
+  buildArticleJsonLd,
+  buildBreadcrumbJsonLd,
+  buildPersonJsonLd,
+  buildWebPageJsonLd,
+  getSchemaNodeId,
+} from '@/utilities/structuredData'
+import {
+  fairlendNotFoundMetadata,
+  getPayloadDescription,
+  getPayloadPostPath,
+  getPayloadTitle,
+} from '@/utilities/seo'
 import { FAIRLEND_DEMO_POST_SLUGS, isFairlendDemoPostSlug } from '@/lib/fairlend-posts'
 import PageClient from './page.client'
 
@@ -62,6 +73,13 @@ export default async function Post({ params: paramsPromise }: Args) {
   if (!post) return <PayloadRedirects url={url} />
 
   const isMoneyPage = post.contentMode === 'moneyPage'
+  const path = getPayloadPostPath(post)
+  const title = getPayloadTitle(post)
+  const description = getPayloadDescription(post)
+  const authorNames =
+    post.populatedAuthors
+      ?.map((author) => author.name?.trim())
+      .filter((name): name is string => Boolean(name)) || []
 
   return (
     <article className="pt-16 pb-16">
@@ -75,16 +93,26 @@ export default async function Post({ params: paramsPromise }: Args) {
           buildBreadcrumbJsonLd([
             { name: 'Home', path: '/' },
             { name: 'Resources', path: '/posts' },
-            { name: post.title, path: getPayloadPostPath(post) },
+            { name: post.title, path },
           ]),
-          buildArticleJsonLd({
+          buildWebPageJsonLd({
             dateModified: post.updatedAt,
             datePublished: post.publishedAt || post.createdAt,
-            description: getPayloadDescription(post),
-            image: post.meta?.image || post.heroImage,
-            path: getPayloadPostPath(post),
-            title: getPayloadTitle(post),
+            description,
+            mainEntityId: getSchemaNodeId(path, 'article'),
+            name: title,
+            path,
           }),
+          buildArticleJsonLd({
+            authorNames,
+            dateModified: post.updatedAt,
+            datePublished: post.publishedAt || post.createdAt,
+            description,
+            image: post.meta?.image || post.heroImage,
+            path,
+            title,
+          }),
+          ...authorNames.map((name) => buildPersonJsonLd({ name })),
         ]}
       />
       {!isMoneyPage ? <PostHero post={post} /> : null}
@@ -124,6 +152,8 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
   const post = await queryPostBySlug({ slug: decodedSlug })
+
+  if (!post) return fairlendNotFoundMetadata
 
   return generateMeta({ collection: 'posts', doc: post })
 }

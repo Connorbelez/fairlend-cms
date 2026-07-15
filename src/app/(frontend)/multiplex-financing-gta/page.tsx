@@ -7,7 +7,7 @@ import { buildFairlendMetadata } from '@/utilities/seo'
 export const dynamic = 'force-static'
 
 const pageDescription =
-  'FairLend helps GTA owners, builders, brokers, and small developers pressure-test multiplex budgets, draw timing, private capital needs, and MLI Select readiness.'
+  'FairLend helps GTA owners, builders, and brokers pressure-test multiplex budgets, draw timing, private capital needs, and MLI Select readiness.'
 
 export const metadata = buildFairlendMetadata({
   description: pageDescription,

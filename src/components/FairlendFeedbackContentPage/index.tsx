@@ -3,6 +3,14 @@ import type { ReactNode } from 'react'
 import { ArrowRight, CheckCircle2, FileCheck2, ShieldCheck } from 'lucide-react'
 
 import { FairlendBorrowerCta } from '@/components/FairlendBorrowerCta'
+import {
+  FairlendEditorialReview,
+  type FairlendEditorialSource,
+} from '@/components/SEO/FairlendEditorialReview'
+import {
+  FairlendGeoAnswerBlock,
+  type FairlendGeoAnswerBlockProps,
+} from '@/components/SEO/FairlendGeoAnswerBlock'
 import { Card } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 
@@ -39,6 +47,12 @@ export type FeedbackPageConfig = {
     href: string
   }
   proof?: readonly ReactNode[]
+  geoAnswer?: FairlendGeoAnswerBlockProps
+  editorial?: {
+    dateModified?: string
+    methodology?: string
+    sources: readonly FairlendEditorialSource[]
+  }
   sections: readonly FeedbackPageSection[]
   finalNote?: ReactNode
 }
@@ -109,6 +123,8 @@ export function FairlendFeedbackContentPage({ config }: { config: FeedbackPageCo
       </section>
 
       <div className="mx-auto grid w-full max-w-[1680px] gap-8 px-5 py-12 sm:px-8 lg:px-12">
+        {config.geoAnswer ? <FairlendGeoAnswerBlock {...config.geoAnswer} /> : null}
+
         {config.sections.map((section, index) => (
           <section
             className={cn(
@@ -197,9 +213,13 @@ export function FairlendFeedbackContentPage({ config }: { config: FeedbackPageCo
           </section>
         ))}
 
+        {config.editorial ? <FairlendEditorialReview {...config.editorial} /> : null}
+
         {config.finalNote ? (
           <section className="flex flex-col gap-4 border border-[#cfc2b3] bg-[#10231f] p-6 text-white sm:flex-row sm:items-center sm:justify-between">
-            <p className="m-0 max-w-[900px] text-base leading-7 font-semibold">{config.finalNote}</p>
+            <p className="m-0 max-w-[900px] text-base leading-7 font-semibold">
+              {config.finalNote}
+            </p>
             {config.primaryCta ? (
               <FairlendBorrowerCta
                 href={config.primaryCta.href}

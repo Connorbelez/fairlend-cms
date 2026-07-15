@@ -42,7 +42,7 @@ export function FairlendRouteStepTrack({
 
   return (
     <div className={cn(fairlendRouteStepTrackVariants({ density }), className)} {...props}>
-      <div aria-hidden="true" className={fairlendRouteStepLineVariants()} />
+      <div aria-hidden="true" className={fairlendRouteStepLineVariants()} data-route-step-line />
       <ol
         className={cn('relative z-10 grid gap-0', detailed && 'grid-cols-4')}
         style={detailed ? undefined : compactTrackStyle}
@@ -53,12 +53,18 @@ export function FairlendRouteStepTrack({
 
           return (
             <li
+              data-route-step-item={detailed ? '' : undefined}
               key={`${step}-${index}`}
               className={cn(
                 detailed
                   ? 'relative flex flex-col items-center gap-1.5 px-2 text-center'
                   : 'contents',
               )}
+              style={
+                detailed
+                  ? ({ '--route-step-delay': `${index * 40}ms` } as CSSProperties)
+                  : undefined
+              }
             >
               {detailed ? (
                 <>
@@ -73,7 +79,11 @@ export function FairlendRouteStepTrack({
                   </span>
                 </>
               ) : (
-                <span className="relative flex flex-col items-center gap-2">
+                <span
+                  className="relative flex flex-col items-center gap-2"
+                  data-route-step-item
+                  style={{ '--route-step-delay': `${index * 40}ms` } as CSSProperties}
+                >
                   <span
                     aria-hidden="true"
                     className={fairlendRouteStepDotVariants({ active: isActive })}

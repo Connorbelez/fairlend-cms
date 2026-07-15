@@ -16,8 +16,6 @@ import { BUILD_MODEL_ASSUMPTIONS } from './market-data'
 import {
   calculateBuildUnderwriting,
   estimateMonthlyRentForValue,
-  estimateStabilizedValue,
-  type TakeoutConstraint,
   type UnderwritingStrategy,
 } from './underwriting'
 import {
@@ -34,14 +32,19 @@ const WHEEL_ITEM_HEIGHT = 38
 type Strategy = UnderwritingStrategy
 
 type BuildScenario = {
-  areaPerUnit: number
+  defaultAreaPerUnit: number
   defaultBuildCost: number
+  defaultExitValue: number | null
+  defaultLandValue: number
+  defaultMonthlyRentPerUnit: number
+  defaultStrategy: Strategy
   defaultUnits: number
   icon: typeof IconHome
   label: string
   maximumUnits: number
   minimumUnits: number
-  monthlyRentPerUnit: number
+  netOfHstExit: boolean
+  rentOnly: boolean
   assumesOwnedLand: boolean
   unitsLocked: boolean
 }
@@ -49,48 +52,68 @@ type BuildScenario = {
 const buildTypes = [
   {
     label: 'Single family',
-    areaPerUnit: 2_800,
+    defaultAreaPerUnit: 2_800,
     defaultUnits: 1,
-    defaultBuildCost: 380,
+    defaultBuildCost: 300,
+    defaultExitValue: 2_200_000,
+    defaultLandValue: 1_100_000,
+    defaultMonthlyRentPerUnit: 7_500,
+    defaultStrategy: 'exit',
     minimumUnits: 1,
     maximumUnits: 1,
-    monthlyRentPerUnit: 5_500,
+    netOfHstExit: true,
+    rentOnly: false,
     assumesOwnedLand: false,
     unitsLocked: true,
     icon: IconHome,
   },
   {
     label: 'Single family luxury',
-    areaPerUnit: 4_500,
+    defaultAreaPerUnit: 4_500,
     defaultUnits: 1,
-    defaultBuildCost: 500,
+    defaultBuildCost: 450,
+    defaultExitValue: 2_400_000,
+    defaultLandValue: 1_200_000,
+    defaultMonthlyRentPerUnit: 9_000,
+    defaultStrategy: 'exit',
     minimumUnits: 1,
     maximumUnits: 1,
-    monthlyRentPerUnit: 9_000,
+    netOfHstExit: true,
+    rentOnly: false,
     assumesOwnedLand: false,
     unitsLocked: true,
     icon: IconBuildingEstate,
   },
   {
     label: 'Garden suite',
-    areaPerUnit: 1_000,
+    defaultAreaPerUnit: 1_290,
     defaultUnits: 1,
     defaultBuildCost: 420,
+    defaultExitValue: null,
+    defaultLandValue: 0,
+    defaultMonthlyRentPerUnit: 4_200,
+    defaultStrategy: 'rent',
     minimumUnits: 1,
     maximumUnits: 4,
-    monthlyRentPerUnit: 2_700,
+    netOfHstExit: false,
+    rentOnly: true,
     assumesOwnedLand: true,
     unitsLocked: false,
     icon: IconBuildingCottage,
   },
   {
-    label: 'Multi-plex',
-    areaPerUnit: 1_500,
-    defaultUnits: 4,
-    defaultBuildCost: 310,
+    label: 'Multiplex',
+    defaultAreaPerUnit: 1_500,
+    defaultUnits: 5,
+    defaultBuildCost: 270,
+    defaultExitValue: 4_500_000,
+    defaultLandValue: 1_200_000,
+    defaultMonthlyRentPerUnit: 3_200,
+    defaultStrategy: 'exit',
     minimumUnits: 2,
     maximumUnits: 12,
-    monthlyRentPerUnit: 4_000,
+    netOfHstExit: false,
+    rentOnly: false,
     assumesOwnedLand: false,
     unitsLocked: false,
     icon: IconBuildingCommunity,
@@ -128,56 +151,55 @@ const buildTypeLabelMotion = {
 }
 
 const landValues = Array.from({ length: 33 }, (_, index) => 400_000 + index * 50_000)
+const areaPerUnitValues = Array.from({ length: 451 }, (_, index) => 500 + index * 10)
 const buildCostValues = Array.from({ length: 61 }, (_, index) => 200 + index * 5)
 const exitValueOptions = Array.from({ length: 116 }, (_, index) => 500_000 + index * 100_000)
 const monthlyRentOptions = Array.from({ length: 141 }, (_, index) => 1_000 + index * 100)
 
 function formatCompactCurrency(value: number) {
-  if (Math.abs(value) >= 1_000_000) {
-    return `$${(value / 1_000_000).toFixed(value % 1_000_000 === 0 ? 0 : 1)}M`
+  const absoluteValue = Math.abs(value)
+  const sign = value < 0 ? '-' : ''
+
+  if (absoluteValue >= 1_000_000) {
+    return `${sign}$${(absoluteValue / 1_000_000).toFixed(absoluteValue % 1_000_000 === 0 ? 0 : 1)}M`
   }
 
-  return `$${Math.round(value / 1_000)}K`
+  return `${sign}$${Math.round(absoluteValue / 1_000)}K`
 }
 
 function formatArea(value: number) {
   return `${new Intl.NumberFormat('en-CA').format(value)} ft²`
 }
 
-function formatMonthlyCurrency(value: number) {
-  return `${new Intl.NumberFormat('en-CA', {
+function formatCurrency(value: number) {
+  return new Intl.NumberFormat('en-CA', {
     currency: 'CAD',
     currencyDisplay: 'narrowSymbol',
     maximumFractionDigits: 0,
     style: 'currency',
-  }).format(value)} / mo`
+  }).format(value)
+}
+
+function formatMonthlyCurrency(value: number) {
+  return `${formatCurrency(value)} / mo`
 }
 
 function roundTo(value: number, increment: number) {
   return Math.round(value / increment) * increment
 }
 
-function getScenarioExitValue(scenario: BuildScenario, unitCount: number) {
-  return roundTo(estimateStabilizedValue(scenario.monthlyRentPerUnit, unitCount), 100_000)
-}
-
-const takeoutConstraintLabels: Record<TakeoutConstraint, string> = {
-  costBasis: 'cost-basis cap',
-  debtServiceCoverage: 'DSCR cap',
-  loanToValue: 'LTV cap',
-}
-
-type ModelDriver = 'buildType' | 'units' | 'land' | 'buildCost' | 'strategy' | 'return'
+type ModelDriver = 'buildType' | 'units' | 'area' | 'land' | 'buildCost' | 'strategy' | 'return'
 type ModelColumn = ModelDriver | 'profit'
 
 type ModelState = {
-  buildCostOverride: number | null
+  areaPerUnit: number
+  buildCost: number
   buildTypeIndex: number
-  exitValuePerUnitOverride: number | null
+  exitValuePerUnit: number | null
   impactRevision: number
   landValue: number
   lastDriver: ModelDriver
-  monthlyRentPerUnitOverride: number | null
+  monthlyRentPerUnit: number
   strategy: Strategy
   unitCount: number
 }
@@ -185,27 +207,36 @@ type ModelState = {
 type ModelAction =
   | { index: number; type: 'selectBuildType' }
   | { type: 'setUnits'; value: number }
+  | { type: 'setAreaPerUnit'; value: number }
   | { type: 'setLand'; value: number }
   | { type: 'setBuildCost'; value: number }
   | { type: 'setExitValue'; value: number }
   | { type: 'setMonthlyRent'; value: number }
   | { type: 'setStrategy'; value: Strategy }
 
+const INITIAL_BUILD_TYPE_INDEX = 3
+const initialBuildType = buildTypes[INITIAL_BUILD_TYPE_INDEX]
+
 const initialModelState: ModelState = {
-  buildCostOverride: null,
-  buildTypeIndex: 3,
-  exitValuePerUnitOverride: null,
+  areaPerUnit: initialBuildType.defaultAreaPerUnit,
+  buildCost: initialBuildType.defaultBuildCost,
+  buildTypeIndex: INITIAL_BUILD_TYPE_INDEX,
+  exitValuePerUnit:
+    initialBuildType.defaultExitValue === null
+      ? null
+      : initialBuildType.defaultExitValue / initialBuildType.defaultUnits,
   impactRevision: 0,
-  landValue: 950_000,
+  landValue: initialBuildType.defaultLandValue,
   lastDriver: 'buildType',
-  monthlyRentPerUnitOverride: null,
-  strategy: 'exit',
-  unitCount: 4,
+  monthlyRentPerUnit: initialBuildType.defaultMonthlyRentPerUnit,
+  strategy: initialBuildType.defaultStrategy,
+  unitCount: initialBuildType.defaultUnits,
 }
 
 const impactedColumns: Record<ModelDriver, readonly ModelColumn[]> = {
-  buildType: ['buildType', 'units', 'land', 'buildCost', 'strategy', 'return', 'profit'],
-  units: ['buildType', 'units', 'buildCost', 'strategy', 'return', 'profit'],
+  buildType: ['buildType', 'units', 'area', 'land', 'buildCost', 'strategy', 'return', 'profit'],
+  units: ['buildType', 'units', 'area', 'land', 'buildCost', 'strategy', 'return', 'profit'],
+  area: ['area', 'buildCost', 'strategy', 'return', 'profit'],
   land: ['land', 'profit'],
   buildCost: ['buildCost', 'profit'],
   strategy: ['strategy', 'return', 'profit'],
@@ -220,12 +251,18 @@ function modelReducer(state: ModelState, action: ModelAction): ModelState {
 
       return {
         ...state,
-        buildCostOverride: null,
+        areaPerUnit: nextScenario.defaultAreaPerUnit,
+        buildCost: nextScenario.defaultBuildCost,
         buildTypeIndex: action.index,
-        exitValuePerUnitOverride: null,
+        exitValuePerUnit:
+          nextScenario.defaultExitValue === null
+            ? null
+            : nextScenario.defaultExitValue / nextScenario.defaultUnits,
         impactRevision: state.impactRevision + 1,
+        landValue: nextScenario.defaultLandValue,
         lastDriver: 'buildType',
-        monthlyRentPerUnitOverride: null,
+        monthlyRentPerUnit: nextScenario.defaultMonthlyRentPerUnit,
+        strategy: nextScenario.defaultStrategy,
         unitCount: nextScenario.defaultUnits,
       }
     }
@@ -247,6 +284,14 @@ function modelReducer(state: ModelState, action: ModelAction): ModelState {
         unitCount: action.value,
       }
     }
+    case 'setAreaPerUnit':
+      if (action.value === state.areaPerUnit) return state
+      return {
+        ...state,
+        areaPerUnit: action.value,
+        impactRevision: state.impactRevision + 1,
+        lastDriver: 'area',
+      }
     case 'setLand':
       if ((buildTypes[state.buildTypeIndex] ?? buildTypes[0]).assumesOwnedLand) return state
       if (action.value === state.landValue) return state
@@ -257,52 +302,49 @@ function modelReducer(state: ModelState, action: ModelAction): ModelState {
         lastDriver: 'land',
       }
     case 'setBuildCost': {
-      const currentScenario = buildTypes[state.buildTypeIndex] ?? buildTypes[0]
-      const currentBuildCost = state.buildCostOverride ?? currentScenario.defaultBuildCost
-      if (action.value === currentBuildCost) return state
+      if (action.value === state.buildCost) return state
 
       return {
         ...state,
-        buildCostOverride: action.value,
+        buildCost: action.value,
         impactRevision: state.impactRevision + 1,
         lastDriver: 'buildCost',
       }
     }
     case 'setExitValue': {
-      const currentScenario = buildTypes[state.buildTypeIndex] ?? buildTypes[0]
       const currentExitValue =
-        state.exitValuePerUnitOverride !== null
-          ? roundTo(state.exitValuePerUnitOverride * state.unitCount, 100_000)
-          : getScenarioExitValue(currentScenario, state.unitCount)
+        state.exitValuePerUnit === null
+          ? 0
+          : roundTo(state.exitValuePerUnit * state.unitCount, 100_000)
       if (action.value === currentExitValue) return state
 
       return {
         ...state,
-        exitValuePerUnitOverride: action.value / state.unitCount,
+        exitValuePerUnit: action.value / state.unitCount,
         impactRevision: state.impactRevision + 1,
         lastDriver: 'return',
       }
     }
     case 'setMonthlyRent': {
-      const currentScenario = buildTypes[state.buildTypeIndex] ?? buildTypes[0]
-      const currentRent = state.monthlyRentPerUnitOverride ?? currentScenario.monthlyRentPerUnit
-      if (action.value === currentRent) return state
+      if (action.value === state.monthlyRentPerUnit) return state
 
       return {
         ...state,
         impactRevision: state.impactRevision + 1,
         lastDriver: 'return',
-        monthlyRentPerUnitOverride: action.value,
+        monthlyRentPerUnit: action.value,
       }
     }
-    case 'setStrategy':
-      if (action.value === state.strategy) return state
+    case 'setStrategy': {
+      const currentScenario = buildTypes[state.buildTypeIndex] ?? buildTypes[0]
+      if (currentScenario.rentOnly || action.value === state.strategy) return state
       return {
         ...state,
         impactRevision: state.impactRevision + 1,
         lastDriver: 'strategy',
         strategy: action.value,
       }
+    }
   }
 }
 
@@ -377,7 +419,7 @@ function WheelPicker({
   const visibleOptions = options
     .map((option, index) => ({ index, offset: index - selectedIndex, option }))
     .filter(({ offset }) => Math.abs(offset) <= 2)
-  const labelId = `bm-wheel-label-${label.toLowerCase().replaceAll(' ', '-')}`
+  const labelId = `bm-wheel-label-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
 
   const scrollToIndex = (index: number) => {
     if (disabled) return
@@ -622,17 +664,21 @@ function BuildTypeCarousel({
 
 function StrategySelector({
   details,
+  locked,
   onChange,
   pulseKey,
   value,
 }: {
   details: readonly string[]
+  locked?: boolean
   onChange: (value: Strategy) => void
   pulseKey: number
   value: Strategy
 }) {
   return (
-    <section className="bm-sensitivity-variable bm-strategy-variable">
+    <section
+      className={`bm-sensitivity-variable bm-strategy-variable${locked ? ' is-locked' : ''}`}
+    >
       <DependencyPulse pulseKey={pulseKey} />
       <span className="bm-sensitivity-label" id="bm-strategy-label">
         Strategy
@@ -643,6 +689,7 @@ function StrategySelector({
       <ToggleGroup
         aria-labelledby="bm-strategy-label"
         className="bm-strategy-toggle"
+        disabled={locked}
         onValueChange={(nextValue) => {
           if (nextValue === 'rent' || nextValue === 'exit') onChange(nextValue)
         }}
@@ -700,19 +747,17 @@ export function BuildSensitivityConsole() {
   )
 
   const model = useMemo(() => {
-    const buildCost = state.buildCostOverride ?? buildType.defaultBuildCost
     const exitValue =
-      state.exitValuePerUnitOverride !== null
-        ? roundTo(state.exitValuePerUnitOverride * state.unitCount, 100_000)
-        : getScenarioExitValue(buildType, state.unitCount)
-    const monthlyRentPerUnit = state.monthlyRentPerUnitOverride ?? buildType.monthlyRentPerUnit
+      state.exitValuePerUnit === null
+        ? 0
+        : roundTo(state.exitValuePerUnit * state.unitCount, 100_000)
     const landValue = buildType.assumesOwnedLand ? 0 : state.landValue
     const underwriting = calculateBuildUnderwriting({
-      areaPerUnit: buildType.areaPerUnit,
-      buildCostPerSquareFoot: buildCost,
+      areaPerUnit: state.areaPerUnit,
+      buildCostPerSquareFoot: state.buildCost,
       exitValue,
       landBasis: landValue,
-      monthlyRentPerUnit,
+      monthlyRentPerUnit: state.monthlyRentPerUnit,
       strategy: state.strategy,
       units: state.unitCount,
     })
@@ -720,23 +765,25 @@ export function BuildSensitivityConsole() {
     const impliedMonthlyRent = estimateMonthlyRentForValue(exitValue, state.unitCount)
 
     return {
-      buildCost,
       exitValue,
       impliedMonthlyRent,
       landValue,
-      monthlyRentPerUnit,
       valuePerUnit,
       ...underwriting,
     }
   }, [
     buildType,
-    state.buildCostOverride,
-    state.exitValuePerUnitOverride,
+    state.areaPerUnit,
+    state.buildCost,
+    state.exitValuePerUnit,
     state.landValue,
-    state.monthlyRentPerUnitOverride,
+    state.monthlyRentPerUnit,
     state.strategy,
     state.unitCount,
   ])
+
+  const displayedResult = state.strategy === 'rent' ? model.grossMonthlyRent : model.result
+  const isNetOfHstExit = state.strategy === 'exit' && buildType.netOfHstExit
 
   const pulseKey = (column: ModelColumn) =>
     impactedColumns[state.lastDriver].includes(column) ? state.impactRevision : 0
@@ -747,10 +794,10 @@ export function BuildSensitivityConsole() {
         <BuildTypeCarousel
           activeIndex={state.buildTypeIndex}
           details={[
-            `${formatArea(buildType.areaPerUnit)} / door`,
             buildType.unitsLocked
               ? '1 dwelling door · fixed'
               : `${buildType.minimumUnits}–${buildType.maximumUnits} dwelling doors`,
+            buildType.rentOnly ? 'Exit value N/A · rent only' : 'Rent or exit strategy',
           ]}
           onChange={(index) => updateModel({ type: 'selectBuildType', index }, 'buildType')}
           pulseKey={pulseKey('buildType')}
@@ -768,6 +815,19 @@ export function BuildSensitivityConsole() {
           options={unitOptions}
           pulseKey={pulseKey('units')}
           value={state.unitCount}
+        />
+        <WheelPicker
+          annotation="area ±"
+          details={[
+            `${formatArea(model.totalArea)} total floor area`,
+            `${state.unitCount} × ${formatArea(state.areaPerUnit)}`,
+          ]}
+          formatValue={formatArea}
+          label="Sq. ft. / unit"
+          onChange={(value) => updateModel({ type: 'setAreaPerUnit', value }, 'area')}
+          options={areaPerUnitValues}
+          pulseKey={pulseKey('area')}
+          value={state.areaPerUnit}
         />
         <WheelPicker
           annotation={buildType.assumesOwnedLand ? 'owned · $0' : 'basis −'}
@@ -793,27 +853,25 @@ export function BuildSensitivityConsole() {
             `${formatCompactCurrency(model.hardConstructionCost)} hard cost`,
             `${formatCompactCurrency(model.softCosts)} soft costs`,
             `${formatCompactCurrency(model.contingency)} contingency`,
-            `${formatCompactCurrency(model.constructionInterest)} construction interest`,
           ]}
           formatValue={(value) => `$${value} / ft²`}
           label="Build cost"
           onChange={(value) => updateModel({ type: 'setBuildCost', value }, 'buildCost')}
           options={buildCostValues}
           pulseKey={pulseKey('buildCost')}
-          value={model.buildCost}
+          value={state.buildCost}
         />
         <StrategySelector
           details={
             state.strategy === 'rent'
               ? [
-                  `${formatCompactCurrency(model.takeoutLoan)} takeout · ${takeoutConstraintLabels[model.takeoutLoanConstraint]}`,
-                  `${formatCompactCurrency(model.annualDebtService)} annual debt service`,
-                  model.takeoutShortfall > 0
-                    ? `${formatCompactCurrency(model.takeoutShortfall)} construction-loan gap`
-                    : `${formatCompactCurrency(model.equityReturnedAtTakeout)} equity returned`,
+                  `${formatMonthlyCurrency(model.grossMonthlyRent)} gross monthly revenue`,
+                  `${formatCompactCurrency(model.grossPotentialRent)} annual gross revenue`,
+                  buildType.rentOnly ? 'Exit value N/A · rent only' : 'Hold-and-rent strategy',
                 ]
               : ['Construction loan repaid on sale', 'No takeout financing required']
           }
+          locked={buildType.rentOnly}
           onChange={(value) => updateModel({ type: 'setStrategy', value }, 'strategy')}
           pulseKey={pulseKey('strategy')}
           value={state.strategy}
@@ -822,15 +880,15 @@ export function BuildSensitivityConsole() {
           <WheelPicker
             annotation="income +"
             details={[
-              `${formatCompactCurrency(model.stabilizedValue)} stabilized value`,
-              `${formatCompactCurrency(model.netOperatingIncome)} annual NOI`,
+              `${formatMonthlyCurrency(model.grossMonthlyRent)} gross monthly revenue`,
+              `${formatCompactCurrency(model.grossPotentialRent)} annual gross revenue`,
             ]}
             formatValue={formatMonthlyCurrency}
             label="Rent / unit"
             onChange={(value) => updateModel({ type: 'setMonthlyRent', value }, 'return')}
             options={monthlyRentOptions}
             pulseKey={pulseKey('return')}
-            value={model.monthlyRentPerUnit}
+            value={state.monthlyRentPerUnit}
           />
         ) : (
           <WheelPicker
@@ -839,7 +897,9 @@ export function BuildSensitivityConsole() {
               `${formatCompactCurrency(model.valuePerUnit)} value / unit`,
               `${formatCompactCurrency(model.impliedMonthlyRent)} / month implied`,
             ]}
-            formatValue={formatCompactCurrency}
+            formatValue={(value) =>
+              `${formatCompactCurrency(value)}${buildType.netOfHstExit ? '*' : ''}`
+            }
             label="Exit value"
             onChange={(value) => updateModel({ type: 'setExitValue', value }, 'return')}
             options={exitValueOptions}
@@ -847,10 +907,10 @@ export function BuildSensitivityConsole() {
             value={model.exitValue}
           />
         )}
-        <section className={`bm-sensitivity-profit${model.result < 0 ? ' is-negative' : ''}`}>
+        <section className={`bm-sensitivity-profit${displayedResult < 0 ? ' is-negative' : ''}`}>
           <DependencyPulse pulseKey={pulseKey('profit')} />
           <span className="bm-sensitivity-label">
-            {state.strategy === 'rent' ? 'Cash flow' : 'Profit'}
+            {state.strategy === 'rent' ? 'Gross monthly' : 'Profit'}
           </span>
           <div className="bm-profit-orbit">
             <span aria-hidden="true" className="bm-profit-orbit-radar">
@@ -859,64 +919,79 @@ export function BuildSensitivityConsole() {
               <i className="bm-profit-orbit-arcs" />
               <i className="bm-profit-orbit-nodes" />
             </span>
-            <NumberFlow
-              aria-label={`Illustrative ${state.strategy === 'rent' ? 'annual cash flow' : 'profit'} ${formatCompactCurrency(model.result)}`}
-              className="bm-profit-value"
-              format={{
-                currency: 'CAD',
-                currencyDisplay: 'narrowSymbol',
-                maximumFractionDigits: 0,
-                notation: 'compact',
-                style: 'currency',
-              }}
-              value={model.result}
-            />
+            <span className="bm-profit-value-row">
+              <NumberFlow
+                aria-label={`Illustrative ${state.strategy === 'rent' ? 'gross monthly revenue' : 'profit'} ${formatCurrency(displayedResult)}${isNetOfHstExit ? ', net of HST' : ''}`}
+                className="bm-profit-value"
+                format={{
+                  currency: 'CAD',
+                  currencyDisplay: 'narrowSymbol',
+                  maximumFractionDigits: 0,
+                  notation: state.strategy === 'rent' ? 'standard' : 'compact',
+                  style: 'currency',
+                }}
+                value={displayedResult}
+              />
+              {isNetOfHstExit ? (
+                <sup aria-hidden="true" className="bm-profit-hst-mark">
+                  *
+                </sup>
+              ) : null}
+            </span>
             <span className="bm-profit-margin">
-              {model.returnRate === null ? (
-                <span aria-label="cash yield not meaningful">
-                  N/M {state.strategy === 'rent' ? 'cash yield' : 'margin'}
+              {state.strategy === 'rent' ? (
+                <>
+                  <NumberFlow
+                    aria-label={`${formatCurrency(model.grossPotentialRent)} annual gross revenue`}
+                    format={{
+                      currency: 'CAD',
+                      currencyDisplay: 'narrowSymbol',
+                      maximumFractionDigits: 0,
+                      notation: 'compact',
+                      style: 'currency',
+                    }}
+                    value={model.grossPotentialRent}
+                  />{' '}
+                  annual gross revenue
+                </>
+              ) : model.returnRate === null ? (
+                <span aria-label="margin not meaningful">
+                  N/M margin
                 </span>
               ) : (
                 <>
                   <NumberFlow
+                    aria-label={`${model.returnRate.toFixed(1)} percent margin`}
                     format={{ maximumFractionDigits: 1, minimumFractionDigits: 1 }}
                     value={model.returnRate}
                   />
-                  % {state.strategy === 'rent' ? 'cash yield' : 'margin'}
+                  % margin
                 </>
               )}
             </span>
             <span className="bm-profit-total-cost">
               {state.strategy === 'rent'
-                ? `${formatCompactCurrency(model.requiredEquity)} equity required`
+                ? `${state.unitCount} ${state.unitCount === 1 ? 'unit' : 'units'} × ${formatMonthlyCurrency(state.monthlyRentPerUnit)}`
                 : `${formatCompactCurrency(model.totalDevelopmentCost)} total cost`}
             </span>
           </div>
           <span className="bm-profit-disclaimer">
-            {state.strategy === 'rent' ? 'Illustrative year one' : 'Illustrative model'}
+            {state.strategy === 'rent' ? 'Illustrative gross revenue' : 'Illustrative model'}
             {state.strategy === 'rent' ? (
               <>
-                <small>
-                  {(BUILD_MODEL_ASSUMPTIONS.vacancyRate * 100).toFixed(1)}% vacancy ·{' '}
-                  {(BUILD_MODEL_ASSUMPTIONS.operatingExpenseRate * 100).toFixed(0)}% expenses ·{' '}
-                  {(BUILD_MODEL_ASSUMPTIONS.capitalizationRate * 100).toFixed(1)}% cap
-                </small>
-                <small>
-                  {(BUILD_MODEL_ASSUMPTIONS.takeoutInterestRate * 100).toFixed(1)}% takeout ·{' '}
-                  {BUILD_MODEL_ASSUMPTIONS.permanentAmortizationYears}-yr amortization ·{' '}
-                  {BUILD_MODEL_ASSUMPTIONS.minimumDebtServiceCoverageRatio.toFixed(2)}× DSCR
-                </small>
+                <small>{formatMonthlyCurrency(state.monthlyRentPerUnit)} rent per unit</small>
+                <small>{state.unitCount} rental {state.unitCount === 1 ? 'unit' : 'units'}</small>
+                <small>{formatCompactCurrency(model.grossPotentialRent)} annual gross revenue</small>
+                <small>Before vacancy, operating expenses, and financing costs</small>
               </>
             ) : (
-              <small>
-                {(BUILD_MODEL_ASSUMPTIONS.dispositionCostRate * 100).toFixed(1)}% disposition costs
-              </small>
+              <>
+                {isNetOfHstExit ? <small className="bm-profit-hst-note">*Net of HST</small> : null}
+                <small>
+                  {(BUILD_MODEL_ASSUMPTIONS.dispositionCostRate * 100).toFixed(1)}% disposition costs
+                </small>
+              </>
             )}
-            <small>
-              {(BUILD_MODEL_ASSUMPTIONS.constructionInterestRate * 100).toFixed(1)}% construction ·{' '}
-              {(BUILD_MODEL_ASSUMPTIONS.constructionLoanToCost * 100).toFixed(0)}% LTC ·{' '}
-              {(BUILD_MODEL_ASSUMPTIONS.averageConstructionDraw * 100).toFixed(0)}% average draw
-            </small>
             <small>Site-specific · not a quote or guarantee</small>
           </span>
         </section>
@@ -924,11 +999,12 @@ export function BuildSensitivityConsole() {
           One {buildType.label} build with {state.unitCount}{' '}
           {state.unitCount === 1 ? 'dwelling door' : 'dwelling doors'} creates an estimated{' '}
           {formatArea(model.totalArea)} of floor area and{' '}
-          {formatCompactCurrency(model.totalDevelopmentCost)} total development cost, including{' '}
-          {formatCompactCurrency(model.constructionInterest)} construction interest. The{' '}
+          {formatCompactCurrency(model.totalDevelopmentCost)} total development cost. The{' '}
           {state.strategy === 'rent' ? 'rent strategy produces' : 'exit strategy produces'}{' '}
-          {formatCompactCurrency(model.result)}{' '}
-          {state.strategy === 'rent' ? 'illustrative annual cash flow' : 'illustrative profit'}.
+          {state.strategy === 'rent'
+            ? formatMonthlyCurrency(model.grossMonthlyRent)
+            : formatCompactCurrency(model.result)}{' '}
+          {state.strategy === 'rent' ? 'illustrative gross monthly revenue' : 'illustrative profit'}.
         </p>
       </div>
     </div>

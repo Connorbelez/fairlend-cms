@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(__filename)
 import { redirects } from './redirects'
+import { headers } from './security-headers'
 
 const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
@@ -13,6 +14,7 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
 
 const nextConfig: NextConfig = {
   devIndicators: false,
+  headers,
   // Temporarily required on Windows until Next.js fixes Turbopack Sass resolution.
   // See: https://github.com/vercel/next.js/issues/86431
   sassOptions: {
@@ -27,7 +29,7 @@ const nextConfig: NextConfig = {
         pathname: '/api/media/file/**',
       },
     ],
-    qualities: [75, 82, 90, 100],
+    qualities: [55, 60, 75, 82, 90, 100],
     remotePatterns: [
       ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {
         const url = new URL(item)
@@ -59,12 +61,37 @@ const nextConfig: NextConfig = {
   },
   reactStrictMode: true,
   redirects,
+  poweredByHeader: false,
   turbopack: {
     root: path.resolve(dirname),
   },
 }
 
 const payloadConfig = withPayload(nextConfig, { devBundleServerPackages: false })
+const payloadHeaders = payloadConfig.headers
+
+// Payload adds color-scheme Client Hints to every route so its admin UI can
+// select a theme before rendering. FairLend's public and admin shells already
+// have deterministic theme fallbacks, so the critical hint only forces an
+// unnecessary same-URL browser restart and fragments caches by color scheme.
+const headersWithoutThemeClientHints: NextConfig['headers'] = async () => {
+  const configuredRoutes = (await payloadHeaders?.()) || []
+
+  return configuredRoutes
+    .map((route) => ({
+      ...route,
+      headers: route.headers.filter(({ key, value }) => {
+        const normalizedKey = key.toLowerCase()
+
+        if (normalizedKey === 'accept-ch' || normalizedKey === 'critical-ch') return false
+
+        return !(
+          normalizedKey === 'vary' && value.trim().toLowerCase() === 'sec-ch-prefers-color-scheme'
+        )
+      }),
+    }))
+    .filter((route) => route.headers.length > 0)
+}
 
 // Payload disables this in its Next wrapper because it can break Payload Admin HMR.
 // This site opts back in so Turbopack keeps server-side Fast Refresh enabled.
@@ -72,6 +99,8 @@ export default {
   ...payloadConfig,
   experimental: {
     ...payloadConfig.experimental,
+    globalNotFound: true,
     turbopackServerFastRefresh: true,
   },
+  headers: headersWithoutThemeClientHints,
 } satisfies NextConfig

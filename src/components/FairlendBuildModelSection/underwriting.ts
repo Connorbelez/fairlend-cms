@@ -27,11 +27,8 @@ function assertRatio(name: string, value: number, allowOne = false) {
 }
 
 function validateAssumptions(assumptions: BuildModelAssumptions) {
-  assertRatio('averageConstructionDraw', assumptions.averageConstructionDraw, true)
   assertRatio('capitalizationRate', assumptions.capitalizationRate)
-  assertFiniteNonNegative('constructionInterestRate', assumptions.constructionInterestRate)
   assertRatio('constructionLoanToCost', assumptions.constructionLoanToCost, true)
-  assertFiniteNonNegative('constructionTermYears', assumptions.constructionTermYears)
   assertRatio('contingencyRate', assumptions.contingencyRate, true)
   assertRatio('dispositionCostRate', assumptions.dispositionCostRate, true)
   assertRatio('landClosingCostRate', assumptions.landClosingCostRate, true)
@@ -140,19 +137,13 @@ export function calculateBuildUnderwriting(
   const projectAllowance = softCosts + contingency
   const financedConstructionCost = hardConstructionCost + projectAllowance
   const constructionLoan = financedConstructionCost * assumptions.constructionLoanToCost
-  const constructionInterest =
-    constructionLoan *
-    assumptions.constructionInterestRate *
-    assumptions.averageConstructionDraw *
-    assumptions.constructionTermYears
   const landClosingCosts = input.landBasis * assumptions.landClosingCostRate
   const totalDevelopmentCost =
     input.landBasis +
     landClosingCosts +
     hardConstructionCost +
     softCosts +
-    contingency +
-    constructionInterest
+    contingency
 
   const grossPotentialRent = input.monthlyRentPerUnit * input.units * 12
   const vacancyAllowance = grossPotentialRent * assumptions.vacancyRate
@@ -185,9 +176,12 @@ export function calculateBuildUnderwriting(
   )
   const takeoutLoan = Math.max(bindingTakeoutLimit.amount, 0)
   const annualDebtService = takeoutLoan * annualMortgageConstant
+  const monthlyTakeoutPayment = annualDebtService / 12
   const debtServiceCoverageRatio =
     annualDebtService === 0 ? null : netOperatingIncome / annualDebtService
   const annualCashFlow = netOperatingIncome - annualDebtService
+  const grossMonthlyRent = grossPotentialRent / 12
+  const netMonthlyCashFlow = annualCashFlow / 12
 
   const constructionEquityRequired = Math.max(totalDevelopmentCost - constructionLoan, 0)
   const stabilizedEquity = Math.max(totalDevelopmentCost - takeoutLoan, 0)
@@ -218,7 +212,6 @@ export function calculateBuildUnderwriting(
     annualMortgageConstant,
     cashYield,
     constructionEquityRequired,
-    constructionInterest,
     constructionLoan,
     contingency,
     debtServiceCoverageRatio,
@@ -227,11 +220,13 @@ export function calculateBuildUnderwriting(
     equityReturnedAtTakeout,
     exitMargin,
     grossPotentialRent,
+    grossMonthlyRent,
     hardConstructionCost,
     landClosingCosts,
     loanToCost: totalDevelopmentCost === 0 ? null : takeoutLoan / totalDevelopmentCost,
     loanToValue: stabilizedValue === 0 ? null : takeoutLoan / stabilizedValue,
     netOperatingIncome,
+    netMonthlyCashFlow,
     netSaleProceeds,
     operatingExpenses,
     projectAllowance,
@@ -243,6 +238,7 @@ export function calculateBuildUnderwriting(
     stabilizedValue,
     takeoutLoan,
     takeoutLoanConstraint: bindingTakeoutLimit.constraint,
+    monthlyTakeoutPayment,
     takeoutShortfall,
     totalArea,
     totalDevelopmentCost,

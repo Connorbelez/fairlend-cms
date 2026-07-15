@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>www.fairlend.ca | Premium SEO Audit</title>
+  <style>
+    :root {
+      --ink: #081120;
+      --surface: #f8fafc;
+      --panel: #ffffff;
+      --panel-alt: #eff6ff;
+      --text: #0f172a;
+      --muted: #475569;
+      --line: #dbe4f0;
+      --accent: #0ea5e9;
+      --accent-2: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(14, 165, 233, 0.10), transparent 24%),
+        radial-gradient(circle at top right, rgba(16, 185, 129, 0.08), transparent 20%),
+        var(--surface);
+      line-height: 1.65;
+    }
+    .page {
+      width: min(1120px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 32px 0 64px;
+    }
+    .cover {
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 32px;
+      align-items: stretch;
+      padding: 28px 0 40px;
+    }
+    .cover-card, .cover-side, .toc, .report-section, .appendix {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .cover-card {
+      padding: 48px;
+      background:
+        linear-gradient(140deg, rgba(14,165,233,0.12), rgba(16,185,129,0.06)),
+        rgba(255,255,255,0.94);
+    }
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(14,165,233,0.10);
+      color: #0369a1;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .cover h1 {
+      margin: 22px 0 14px;
+      font-size: 48px;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+    .subhead {
+      margin: 0;
+      font-size: 19px;
+      color: var(--muted);
+      max-width: 55ch;
+    }
+    .cover-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+    .cover-meta div {
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(148,163,184,0.24);
+    }
+    .cover-meta span {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .cover-side {
+      padding: 32px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, #081120, #0f172a);
+      color: #e2e8f0;
+    }
+    .score-ring {
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 24px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      padding: 14px;
+    }
+    .score-ring-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #06101d;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .score-number { font-size: 64px; font-weight: 800; line-height: 1; }
+    .score-label { margin-top: 8px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #7dd3fc; }
+    .highlight-list { margin: 0; padding-left: 20px; }
+    .highlight-list li { margin-bottom: 10px; color: #cbd5e1; }
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(148,163,184,0.3), transparent);
+      margin: 22px 0;
+    }
+    .toc {
+      padding: 28px 32px;
+      margin-bottom: 28px;
+    }
+    .toc h2, .report-section h2, .appendix h2 {
+      margin: 0 0 16px;
+      font-size: 28px;
+      letter-spacing: -0.03em;
+    }
+    .toc ol {
+      margin: 0;
+      padding-left: 22px;
+      columns: 2;
+      column-gap: 40px;
+    }
+    .toc li { margin-bottom: 10px; break-inside: avoid; }
+    .toc a { color: #0f172a; text-decoration: none; }
+    .toc a:hover { color: var(--accent); }
+    .report-section, .appendix {
+      padding: 28px 32px;
+      margin-bottom: 26px;
+      page-break-inside: avoid;
+    }
+    .report-section h3 { margin-top: 24px; }
+    .report-section p, .report-section li, .appendix p, .appendix li {
+      color: var(--muted);
+    }
+    .report-section table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 22px 0;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+    .report-section th, .report-section td {
+      border: 1px solid var(--line);
+      padding: 12px 14px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .report-section th {
+      background: #eff6ff;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #0f172a;
+    }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin: 18px 0 28px;
+    }
+    .metric-card {
+      background: linear-gradient(180deg, #f8fbff, #eef6ff);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      min-height: 112px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .metric-value {
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1.1;
+      color: #0f172a;
+    }
+    .metric-label {
+      margin-top: 8px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+    }
+    .chart-figure {
+      margin: 24px 0 26px;
+      padding: 18px;
+      background: #0b1423;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(148,163,184,0.12);
+    }
+    .chart-figure figcaption {
+      margin-bottom: 10px;
+      color: #cbd5e1;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .chart {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      display: block;
+    }
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin: 22px 0 28px;
+    }
+    .screenshot-card {
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+    .screenshot-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      background: #f8fafc;
+    }
+    .screenshot-card figcaption {
+      padding: 12px 14px;
+      font-size: 14px;
+      color: var(--muted);
+      background: #fff;
+    }
+    .appendix details {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      background: #fff;
+    }
+    .appendix summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .appendix .prose {
+      margin-top: 12px;
+    }
+    code {
+      background: #eaf2ff;
+      color: #0f172a;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+    @media print {
+      @page {
+        margin: 18mm 14mm 22mm 14mm;
+      }
+      body { background: #fff; }
+      .page { width: 100%; padding: 0; }
+      .cover {
+        grid-template-columns: 1fr 0.9fr;
+        height: 257mm;
+        min-height: 257mm;
+        padding: 0;
+        overflow: hidden;
+        break-after: page;
+        page-break-after: always;
+      }
+      .cover-card {
+        padding: 12mm 10mm;
+      }
+      .cover h1 {
+        margin: 7mm 0 4mm;
+        font-size: 30pt;
+      }
+      .subhead {
+        font-size: 12pt;
+        line-height: 1.55;
+      }
+      .cover-meta {
+        gap: 5mm;
+        margin-top: 8mm;
+      }
+      .cover-meta div {
+        padding: 4mm;
+        font-size: 10pt;
+        line-height: 1.45;
+      }
+      .cover-side {
+        padding: 10mm 8mm;
+      }
+      .score-ring {
+        width: 48mm;
+        height: 48mm;
+        margin-bottom: 7mm;
+      }
+      .score-number {
+        font-size: 42pt;
+      }
+      .highlight-list {
+        font-size: 10pt;
+      }
+      .cover-card, .cover-side, .toc, .report-section, .appendix {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+      .toc { page-break-after: always; }
+      .report-section { margin-bottom: 14px; }
+    }
+    @media (max-width: 900px) {
+      .cover { grid-template-columns: 1fr; }
+      .metric-grid, .screenshot-grid { grid-template-columns: 1fr; }
+      .toc ol { columns: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="cover">
+      <div class="cover-card">
+        <div class="eyebrow">Premium SEO Deliverable</div>
+        <h1>SEO Audit & Strategy Report</h1>
+        <p class="subhead">A professional HTML and PDF report for www.fairlend.ca, built from the completed Codex SEO audit with inline evidence, charts, screenshots, and a print-safe structure.</p>
+        <div class="cover-meta">
+          <div><span>Website</span>www.fairlend.ca</div>
+          <div><span>Audit Date</span>July 15, 2026</div>
+          <div><span>Business Type</span>Ontario mortgage brokerage and administrator with a Toronto appointment-only office and Ontario/GTA service area</div>
+          <div><span>Pages Reviewed</span>17 canonical URLs reviewed</div>
+        </div>
+      </div>
+      <aside class="cover-side">
+        <div>
+          
+<div class="score-ring" style="background: conic-gradient(var(--accent) 79%, rgba(15, 23, 42, 0.14) 0);">
+  <div class="score-ring-inner">
+    <span class="score-number">79</span>
+    <span class="score-label">SEO Health</span>
+  </div>
+</div>
+
+          <ul class="highlight-list">
+            <li>Three mobile Lighthouse trials produced a median score of 56 and median LCP of 9.44 seconds.</li><li>No published editorial corpus exists; /posts has 39 main-content words and posts-sitemap.xml has zero URLs.</li><li>Garden-suite, multiplex, borrower, and investor hub pages are thin and lack the full review/source/internal-link layer.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="divider"></div>
+          <p style="margin:0;color:#94a3b8;font-size:13px;">Generated from the shared premium report standard in <code>seo/references/premium-report-standard.md</code>.</p>
+        </div>
+      </aside>
+    </section>
+
+    <nav class="toc" id="table-of-contents">
+      <h2>Table of Contents</h2>
+      <p><strong>Production target:</strong> <a href="https://fairlend.ca">https://fairlend.ca</a> → <a href="https://www.fairlend.ca/">https://www.fairlend.ca/</a><br />
+<strong>Point-in-time evidence:</strong> July 14, 2026, 21:20–21:31 EDT (July 15, 01:20–01:31 UTC)<br />
+<strong>Detected business:</strong> Ontario private-mortgage brokerage and mortgage administrator; hybrid appointment-only Toronto office plus Ontario/GTA service area<br />
+<strong>Overall SEO Health Score:</strong> <strong>79/100 — healthy foundation, material growth constraints</strong></p>
+      <ol><li><a href='#executive-summary'>Executive Summary</a></li><li><a href='#weighted-scorecard'>Weighted Scorecard</a></li><li><a href='#top-five-high-priority-issues'>Top Five High-Priority Issues</a></li><li><a href='#top-five-quick-wins'>Top Five Quick Wins</a></li><li><a href='#technical-seo'>Technical SEO</a></li><li><a href='#content-quality-and-e-e-a-t'>Content Quality and E-E-A-T</a></li><li><a href='#on-page-seo-and-internal-linking'>On-Page SEO and Internal Linking</a></li><li><a href='#schema-and-structured-data'>Schema and Structured Data</a></li><li><a href='#performance-and-core-web-vitals'>Performance and Core Web Vitals</a></li><li><a href='#images'>Images</a></li><li><a href='#ai-search-geo-readiness'>AI Search / GEO Readiness</a></li><li><a href='#search-experience-and-visual-ux'>Search Experience and Visual UX</a></li><li><a href='#local-seo'>Local SEO</a></li><li><a href='#backlinks-and-external-authority'>Backlinks and External Authority</a></li><li><a href='#evidence-and-limitations'>Evidence and Limitations</a></li><li><a href='#evidence-files'>Evidence Files</a></li><li><a href='#action-plan'>Action Plan</a></li><li><a href='#visual-analysis-snapshot'>Visual Analysis Snapshot</a></li></ol>
+    </nav>
+
+    <section class='report-section' id='executive-summary'><h2>Executive Summary</h2><div class='metric-grid'><div class='metric-card'><span class='metric-value'>17</span><span class='metric-label'>Pages reviewed</span></div><div class='metric-card'><span class='metric-value'>4493</span><span class='metric-label'>Homepage word count</span></div><div class='metric-card'><span class='metric-value'>9.44s</span><span class='metric-label'>LCP</span></div><div class='metric-card'><span class='metric-value'>0.000</span><span class='metric-label'>CLS</span></div><div class='metric-card'><span class='metric-value'>0</span><span class='metric-label'>Title issues</span></div><div class='metric-card'><span class='metric-value'>2</span><span class='metric-label'>Meta issues</span></div></div>
+<figure class="chart-figure">
+  <figcaption>Category Score Breakdown</figcaption>
+  <svg class="chart chart-bar" viewBox="0 0 960 520" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Category Score Breakdown">
+    <rect x="0" y="0" width="960" height="520" fill="#08101d"></rect>
+    <text x="480.0" y="36" text-anchor="middle" fill="#f8fafc" font-size="24" font-weight="700">Category Score Breakdown</text>
+    <line x1='180.00' y1='70' x2='180.00' y2='450' stroke='rgba(148,163,184,0.18)' stroke-width='1' /><text x='180.00' y='484' text-anchor='middle' fill='#94a3b8' font-size='12'>0</text><line x1='324.00' y1='70' x2='324.00' y2='450' stroke='rgba(148,163,184,0.18)' stroke-width='1' /><text x='324.00' y='484' text-anchor='middle' fill='#94a3b8' font-size='12'>20</text><line x1='468.00' y1='70' x2='468.00' y2='450' stroke='rgba(148,163,184,0.18)' stroke-width='1' /><text x='468.00' y='484' text-anchor='middle' fill='#94a3b8' font-size='12'>40</text><line x1='612.00' y1='70' x2='612.00' y2='450' stroke='rgba(148,163,184,0.18)' stroke-width='1' /><text x='612.00' y='484' text-anchor='middle' fill='#94a3b8' font-size='12'>60</text><line x1='756.00' y1='70' x2='756.00' y2='450' stroke='rgba(148,163,184,0.18)' stroke-width='1' /><text x='756.00' y='484' text-anchor='middle' fill='#94a3b8' font-size='12'>80</text><line x1='900.00' y1='70' x2='900.00' y2='450' stroke='rgba(148,163,184,0.18)' stroke-width='1' /><text x='900.00' y='484' text-anchor='middle' fill='#94a3b8' font-size='12'>100</text>
+    <text x='164' y='102.14' text-anchor='end' fill='#e2e8f0' font-size='15'>Technical</text><rect x='180' y='82.21' width='612.00' height='29.86' rx='10' fill='#22d3ee' /><text x='802.00' y='102.14' fill='#cbd5e1' font-size='14'>85</text><text x='164' y='156.43' text-anchor='end' fill='#e2e8f0' font-size='15'>Content</text><rect x='180' y='136.50' width='532.80' height='29.86' rx='10' fill='#22d3ee' /><text x='722.80' y='156.43' fill='#cbd5e1' font-size='14'>74</text><text x='164' y='210.71' text-anchor='end' fill='#e2e8f0' font-size='15'>On-Page</text><rect x='180' y='190.79' width='590.40' height='29.86' rx='10' fill='#22d3ee' /><text x='780.40' y='210.71' fill='#cbd5e1' font-size='14'>82</text><text x='164' y='265.00' text-anchor='end' fill='#e2e8f0' font-size='15'>Schema</text><rect x='180' y='245.07' width='705.60' height='29.86' rx='10' fill='#22d3ee' /><text x='895.60' y='265.00' fill='#cbd5e1' font-size='14'>98</text><text x='164' y='319.29' text-anchor='end' fill='#e2e8f0' font-size='15'>Performance</text><rect x='180' y='299.36' width='403.20' height='29.86' rx='10' fill='#22d3ee' /><text x='593.20' y='319.29' fill='#cbd5e1' font-size='14'>56</text><text x='164' y='373.57' text-anchor='end' fill='#e2e8f0' font-size='15'>AI Readiness</text><rect x='180' y='353.64' width='532.80' height='29.86' rx='10' fill='#22d3ee' /><text x='722.80' y='373.57' fill='#cbd5e1' font-size='14'>74</text><text x='164' y='427.86' text-anchor='end' fill='#e2e8f0' font-size='15'>Images</text><rect x='180' y='407.93' width='576.00' height='29.86' rx='10' fill='#22d3ee' /><text x='766.00' y='427.86' fill='#cbd5e1' font-size='14'>80</text>
+  </svg>
+</figure>
+<p>FairLend's refreshed production deployment has no critical crawl or indexing blocker. All 17 canonical sitemap pages return <code>200</code>, declare <code>index, follow</code>, self-canonicalize, expose one H1, render substantive content and JSON-LD in initial HTML, and pass local schema parsing. The sitemap, metadata, structured data, licensing disclosures, reviewed money-page modules, and <code>llms.txt</code> implementation are unusually strong for a financial YMYL site of this size.</p>
+<p>The ranking ceiling is no longer basic SEO hygiene. It is the combination of:</p>
+<ol>
+<li><strong>Slow mobile rendering:</strong> three Lighthouse mobile runs produced a median score of 56 and median LCP of 9.44 seconds.</li>
+<li><strong>No editorial footprint:</strong> <code>/posts</code> contains 39 main-content words, <code>posts-sitemap.xml</code> contains zero URLs, and no <code>Article</code>/<code>BlogPosting</code> schema exists.</li>
+<li><strong>Thin commercial and hub pages:</strong> garden-suite, multiplex, borrower, and investor hub URLs lack the depth, review layer, source support, and internal-link paths present on the strongest pages.</li>
+<li><strong>Mobile first-visit obstruction:</strong> the consent panel covers authority proof and the application tabs on a 375×812 viewport.</li>
+<li><strong>Weak local/off-site entity corroboration:</strong> the official address is missing <code>Unit 2</code> on-site, local schema lacks address/geo, public review/GBP signals are not exposed, and backlink data is insufficient.</li>
+</ol>
+<h3>Fresh-production changes that supersede the earlier cache</h3>
+<p>The following earlier findings are resolved in the current deployment and are <strong>not</strong> carried forward as defects:</p>
+<ul>
+<li><code>/affordable-sustainable-rental-housing</code> and <code>/garden-suite</code> now return <code>200</code>, <code>index, follow</code>, self-canonicals, and server-rendered content.</li>
+<li><a href="https://www.fairlend.ca/llms.txt">llms.txt</a> now returns <code>200</code> with verified identity, authoritative pages, regulatory sources, and citation guidance.</li>
+<li>HSTS, <code>X-Frame-Options</code>, <code>X-Content-Type-Options</code>, <code>Referrer-Policy</code>, Permissions Policy, and report-only CSP are deployed.</li>
+<li>Five core YMYL pages now expose named review by Elie Soberano, current review dates, licence details, primary sources, and answer-first passages.</li>
+<li>An <a href="https://www.fairlend.ca/indexnow-key.txt">IndexNow key endpoint</a> is live and the repository contains publish/update hooks. Submission acceptance is not externally verifiable, so this is treated as implemented but unproven operationally.</li>
+</ul></section><section class='report-section' id='weighted-scorecard'><h2>Weighted Scorecard</h2><table>
+<thead>
+<tr>
+<th>Category</th>
+<th style="text-align: right;">Weight</th>
+<th style="text-align: right;">Score</th>
+<th style="text-align: right;">Weighted points</th>
+<th>Assessment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Technical SEO</td>
+<td style="text-align: right;">22%</td>
+<td style="text-align: right;">85</td>
+<td style="text-align: right;">18.70</td>
+<td>Strong crawl/index/SSR implementation; protocol and error-page cleanup remains</td>
+</tr>
+<tr>
+<td>Content quality</td>
+<td style="text-align: right;">23%</td>
+<td style="text-align: right;">74</td>
+<td style="text-align: right;">17.02</td>
+<td>Excellent reviewed money pages; thin hubs and no editorial corpus</td>
+</tr>
+<tr>
+<td>On-page SEO</td>
+<td style="text-align: right;">20%</td>
+<td style="text-align: right;">82</td>
+<td style="text-align: right;">16.40</td>
+<td>Complete unique metadata/H1s; weak contextual linking and a few semantic issues</td>
+</tr>
+<tr>
+<td>Schema / structured data</td>
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">98</td>
+<td style="text-align: right;">9.80</td>
+<td>Valid sitewide graph; local address/geo is missing</td>
+</tr>
+<tr>
+<td>Performance / CWV proxy</td>
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">5.60</td>
+<td>Mobile LCP fails badly; no field CWV data</td>
+</tr>
+<tr>
+<td>AI search readiness</td>
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">74</td>
+<td style="text-align: right;">7.40</td>
+<td>Strong SSR, <code>llms.txt</code>, sources, and answer blocks; weak entity corroboration</td>
+</tr>
+<tr>
+<td>Images</td>
+<td style="text-align: right;">5%</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">4.00</td>
+<td>Responsive modern delivery; semantic-alt and dimension gaps</td>
+</tr>
+<tr>
+<td><strong>Overall</strong></td>
+<td style="text-align: right;"><strong>100%</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"><strong>78.92 → 79</strong></td>
+<td><strong>Healthy foundation; performance and authority constrain growth</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Supplemental scores not included in the weighted total: E-E-A-T 77, SXO 72, visual/mobile 72, local SEO 44, content-cluster maturity 28. Backlinks are unscored because fewer than four required factors were available.</p></section><section class='report-section' id='top-five-high-priority-issues'><h2>Top Five High-Priority Issues</h2><h3>1. Mobile LCP and first-party rendering cost</h3>
+<p>Three independent Lighthouse 13.4 mobile runs reported:</p>
+<table>
+<thead>
+<tr>
+<th>Trial</th>
+<th style="text-align: right;">Performance</th>
+<th style="text-align: right;">FCP</th>
+<th style="text-align: right;">LCP</th>
+<th style="text-align: right;">TBT</th>
+<th style="text-align: right;">CLS</th>
+<th style="text-align: right;">Main thread</th>
+<th style="text-align: right;">JS execution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">3.55s</td>
+<td style="text-align: right;">9.63s</td>
+<td style="text-align: right;">2,784ms</td>
+<td style="text-align: right;">0.00006</td>
+<td style="text-align: right;">12.50s</td>
+<td style="text-align: right;">8.10s</td>
+</tr>
+<tr>
+<td>2</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">3.27s</td>
+<td style="text-align: right;">8.91s</td>
+<td style="text-align: right;">330ms</td>
+<td style="text-align: right;">0.00006</td>
+<td style="text-align: right;">3.59s</td>
+<td style="text-align: right;">1.64s</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">3.50s</td>
+<td style="text-align: right;">9.44s</td>
+<td style="text-align: right;">394ms</td>
+<td style="text-align: right;">0.00006</td>
+<td style="text-align: right;">4.38s</td>
+<td style="text-align: right;">1.37s</td>
+</tr>
+<tr>
+<td><strong>Median</strong></td>
+<td style="text-align: right;"><strong>56</strong></td>
+<td style="text-align: right;"><strong>3.50s</strong></td>
+<td style="text-align: right;"><strong>9.44s</strong></td>
+<td style="text-align: right;"><strong>394ms</strong></td>
+<td style="text-align: right;"><strong>0.00006</strong></td>
+<td style="text-align: right;"><strong>4.38s</strong></td>
+<td style="text-align: right;"><strong>1.64s</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The representative payload is 1.93 MB across 59 requests: 768 KB JS, 734 KB images, 152 KB CSS, 149 KB document, and 129 KB fonts. Lighthouse estimates 383 KB unused JS and 119 KB unused CSS. The rendered DOM has 3,573 elements. The hero image is already discoverable, eager, and <code>fetchpriority="high"</code>; the main fix is to reduce hydration, render delay, first-party JS, duplicate responsive markup, DOM volume, and below-fold interactivity.</p>
+<p>Desktop also scores 56 with LCP 2.35s and TBT 611ms. CLS is excellent on both form factors.</p>
+<h3>2. No published resource cluster</h3>
+<p><a href="https://www.fairlend.ca/posts">The resources hub</a> contains only 39 main-content words and says the first field notes are being prepared. <code>posts-sitemap.xml</code> is valid but empty, and no crawled page emits <code>Article</code> or <code>BlogPosting</code> schema.</p>
+<p>This prevents FairLend from:</p>
+<ul>
+<li>entering through informational questions before borrowers/investors become transactional;</li>
+<li>building topic clusters around private mortgages, construction draws, multiplexes, garden suites, and mortgage investing;</li>
+<li>earning links with non-commercial, evidence-rich assets;</li>
+<li>giving money pages reviewed supporting sources and contextual internal links;</li>
+<li>demonstrating sustained topical authority to search and answer engines.</li>
+</ul>
+<h3>3. Thin indexed YMYL pages and hubs</h3>
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th style="text-align: right;">Main-content words</th>
+<th>Review/source layer</th>
+<th style="text-align: right;">Contextual destinations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/garden-suite-financing-gta</code></td>
+<td style="text-align: right;">242</td>
+<td>Missing</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td><code>/garden-suite</code></td>
+<td style="text-align: right;">191</td>
+<td>Missing</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td><code>/multiplex-financing-gta</code></td>
+<td style="text-align: right;">280</td>
+<td>Missing</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td><code>/investing</code></td>
+<td style="text-align: right;">179</td>
+<td>Missing</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr>
+<td><code>/borrowers</code></td>
+<td style="text-align: right;">268</td>
+<td>Missing</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr>
+<td><code>/affordable-sustainable-rental-housing</code></td>
+<td style="text-align: right;">420</td>
+<td>Present</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td><code>/construction-draw-financing</code></td>
+<td style="text-align: right;">553</td>
+<td>Present</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+<p>The garden-suite and multiplex URLs target commercial financial intent, not only navigation. They need eligibility, documents, equity/budget/contingency inputs, approval and permit dependencies, draw mechanics, position/takeout comparisons, limitations, current review attribution, primary sources, and proof. Keep both garden-suite URLs only if their intents remain clearly distinct; otherwise consolidate relevance.</p>
+<h3>4. Mobile consent and trust UI obstruction</h3>
+<p>On the captured 375×812 first-visit viewport:</p>
+<ul>
+<li>the H1 and two primary CTAs are visible and there is no horizontal overflow;</li>
+<li>the authority file begins at <code>y=588.8</code>;</li>
+<li>consent actions occupy <code>y=695–791</code>;</li>
+<li>application tabs begin at <code>y=757.6</code>.</li>
+</ul>
+<p>The consent panel therefore covers the substantiation behind the authority claim and the entry to the application. The page is roughly 44,265 CSS pixels tall, making rediscovery expensive. Header call/menu targets are also only 30×30 and 34×34, while critical trust copy renders at 7–11px.</p>
+<h3>5. Local entity, NAP, reviews, and off-site authority</h3>
+<p>FSRA's live records verify:</p>
+<ul>
+<li>Fairlend Management Inc. operating as FairLend Mortgage, brokerage <strong>13827</strong>, licensed;</li>
+<li>Fairlend Management Inc., administrator <strong>13828</strong>, licensed;</li>
+<li>Elie Soberano, broker <strong>M08001537</strong>, Principal Broker, Authorized to Sell through March 31, 2027.</li>
+</ul>
+<p>Both corporate FSRA records use <code>890 Sheppard Ave W, Unit 2, North York, ON M3H 6B9</code>. The website and Google directions destination omit <strong>Unit 2</strong>, and <code>FinancialService</code> JSON-LD omits <code>address</code> and <code>geo</code> entirely. No stable GBP listing/Place ID, rating, review count, review evidence, or review operation was visible in the audited surfaces. A legacy directory still maps the correct phone number to Mortgage Intelligence, creating entity ambiguity.</p></section><section class='report-section' id='top-five-quick-wins'><h2>Top Five Quick Wins</h2><ol>
+<li>Add <code>Unit 2</code> to the visible address and directions URL; add <code>PostalAddress</code> and <code>GeoCoordinates</code> to <code>FinancialService</code> JSON-LD.</li>
+<li>Remove <code>Critical-CH: Sec-CH-Prefers-Color-Scheme</code> if server rendering does not require it; Lighthouse recorded a same-URL 307 restart.</li>
+<li>Make <code>http://fairlend.ca/</code> redirect directly to <code>https://www.fairlend.ca/</code> instead of taking two hops.</li>
+<li>Fix 404 output so it emits one <code>noindex, follow</code> directive and no homepage canonical.</li>
+<li>Tighten the 168- and 161-character meta descriptions; enlarge mobile header targets to 44×44; repair the six clearly meaningful blank-alt instances.</li>
+</ol></section><section class='report-section' id='technical-seo'><h2>Technical SEO</h2><h3>Crawlability and indexability</h3>
+<ul>
+<li><code>robots.txt</code> returns 200, permits public content, blocks admin/API/preview paths, explicitly allows OAI-SearchBot, and declares the sitemap index and children.</li>
+<li><code>sitemap.xml</code> is a valid sitemap index.</li>
+<li><code>pages-sitemap.xml</code> contains 17 canonical HTTPS URLs; all 17 are 200, indexable, self-canonical, and non-redirecting.</li>
+<li><code>posts-sitemap.xml</code> is valid and empty.</li>
+<li>The link crawl exhausted its queue at 55 HTML URL variants: 17 indexable pages and 38 expected <code>noindex, follow</code> variants, primarily <code>/intake?...</code> campaign/intent parameters.</li>
+<li>All indexable pages are within two crawl depths. The two least-linked topical routes, <code>/affordable-sustainable-rental-housing</code> and <code>/garden-suite</code>, each have only one inbound source page and need stronger contextual discovery.</li>
+<li>Default and Googlebot homepage bodies were identical in length; no cloaking or prerender branch was detected.</li>
+<li>Unknown routes return a real 404 rather than a soft 200.</li>
+</ul>
+<h3>Technical issues</h3>
+<ol>
+<li><strong>High:</strong> same-URL 307 document restart consistent with <code>Critical-CH</code> negotiation.</li>
+<li><strong>Medium:</strong> CSP is report-only and still permits <code>'unsafe-inline'</code>; graduate to enforcement only after telemetry is clean.</li>
+<li><strong>Medium:</strong> HTTP apex takes two redirects.</li>
+<li><strong>Medium:</strong> 404 HTML contains conflicting <code>noindex</code> and <code>index, follow</code> plus a homepage canonical.</li>
+<li><strong>Low:</strong> intake query parameters create 37 crawl variants; safe now, but normalize if growth continues.</li>
+<li><strong>Low:</strong> HSTS lacks <code>includeSubDomains; preload</code>; add only after every subdomain is proven permanently HTTPS-capable.</li>
+</ol></section><section class='report-section' id='content-quality-and-e-e-a-t'><h2>Content Quality and E-E-A-T</h2><h3>What is working</h3>
+<p>Five pages now contain 136–145-word answer-first passages with named review, dates, licences, and source support:</p>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>Citation-ready question</th>
+<th style="text-align: right;">Words</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Private mortgage financing</td>
+<td>“What is a private mortgage in Ontario?”</td>
+<td style="text-align: right;">145</td>
+</tr>
+<tr>
+<td>Institutional mortgage</td>
+<td>“What is an institutional mortgage?”</td>
+<td style="text-align: right;">142</td>
+</tr>
+<tr>
+<td>Construction draw financing</td>
+<td>“How does construction draw financing work?”</td>
+<td style="text-align: right;">136</td>
+</tr>
+<tr>
+<td>Private mortgage investing</td>
+<td>“What is private mortgage investing?”</td>
+<td style="text-align: right;">141</td>
+</tr>
+<tr>
+<td>Affordable rental housing</td>
+<td>“What makes a rental housing project financeable?”</td>
+<td style="text-align: right;">138</td>
+</tr>
+</tbody>
+</table>
+<p>The strongest pages use question-led headings, lists, process steps, explicit risk language, reviewer identity, FSRA/CMHC/Ontario sources, and careful suitability language. No suspicious near-duplicate content was detected.</p>
+<h3>Remaining E-E-A-T gaps</h3>
+<ul>
+<li>Apply the same reviewed-by/date/source module to thin garden-suite and multiplex pages.</li>
+<li>Publish 3–5 anonymized funded-file case studies with starting constraint, property type, LTV band, funding structure, timeline, draw/recovery decision, and outcome.</li>
+<li>Publish a methodology defining funded volume, valuation review, LTV, commitment timing, and data limitations.</li>
+<li>Produce compliance-reviewed aggregate evidence rather than relying only on internal claims such as 28+ years and $1B+ funded.</li>
+<li>Add a correction/review methodology and update cadence for published financial guidance.</li>
+</ul>
+<p>Readability is directionally difficult on several pages. Preserve technical accuracy, but add short plain-language summaries, define acronyms, break noun-heavy sentences, and translate branded abstractions into decisions and actions.</p></section><section class='report-section' id='on-page-seo-and-internal-linking'><h2>On-Page SEO and Internal Linking</h2><h3>Passing checks</h3>
+<ul>
+<li>17/17 titles present, unique, and at or below 60 characters.</li>
+<li>17/17 meta descriptions present and unique.</li>
+<li>17/17 pages have exactly one H1.</li>
+<li>No heading-level skips were detected.</li>
+<li>No exact metadata or high-confidence body duplication was detected.</li>
+</ul>
+<h3>Improvements</h3>
+<ul>
+<li>Add 3–5 contextual links per roughly 1,000 words from money pages to sibling services, reviewed resources, and relevant legal/disclosure pages.</li>
+<li>Render only one semantic heading set for duplicated responsive homepage sections. Several H2s appear twice in server HTML.</li>
+<li>Tighten the privacy-policy description (168 characters) and multiplex description (161 characters).</li>
+<li>Test more descriptive titles for construction, garden-suite, and multiplex pages only after establishing a measurement baseline.</li>
+<li>Keep campaign attribution out of crawlable query strings where practical; prefer analytics/event attributes.</li>
+</ul></section><section class='report-section' id='schema-and-structured-data'><h2>Schema and Structured Data</h2><p>Schema is the strongest category. All 17 sitemap pages expose parseable server-rendered JSON-LD with zero invalid blocks. Types include <code>Organization</code>, <code>FinancialService</code>, <code>WebSite</code>, <code>Person</code>, <code>WebPage</code>, <code>ContactPage</code>, <code>Service</code>, <code>BreadcrumbList</code>, and homepage <code>FAQPage</code>. Live Schema.org Validator samples for the homepage and private-mortgage page returned zero errors and warnings.</p>
+<p>Actions:</p>
+<ul>
+<li>add <code>PostalAddress</code> and <code>GeoCoordinates</code> to the <code>FinancialService</code> entity;</li>
+<li>reconcile structured hours with visible “visits by appointment” wording;</li>
+<li>add only verified external <code>sameAs</code> profiles after NAP/entity cleanup;</li>
+<li>emit <code>Article</code>/<code>BlogPosting</code> plus Person author/reviewer when resources launch;</li>
+<li>retain FAQ schema for semantic value, but do not promise Google's restricted FAQ rich result.</li>
+</ul></section><section class='report-section' id='performance-and-core-web-vitals'><h2>Performance and Core Web Vitals</h2><p>The audit has <strong>lab evidence, not field CWV evidence</strong>. No PageSpeed API key or CrUX/GSC access was configured, and INP was not inferred from TBT.</p>
+<p>Primary findings:</p>
+<ul>
+<li>mobile median Lighthouse performance 56, LCP 9.44s, TBT 394ms, CLS 0.00006;</li>
+<li>desktop performance 56, LCP 2.35s, TBT 611ms, CLS 0;</li>
+<li>383 KB estimated unused JS and 119 KB unused CSS;</li>
+<li>3,573 DOM elements;</li>
+<li>87 KB measured mobile image-delivery opportunity;</li>
+<li>one worst-run first-party chunk generated an 8.23s bootup cost and a 3.26s long task;</li>
+<li>third-party cost was zero in the tested consent state, so the dominant work is first-party.</li>
+</ul>
+<p>Do not add another hero preload. The skyline image is already correctly eager/high-priority. Profile the homepage component graph, defer below-fold interactive islands, remove duplicated responsive DOM, reduce client boundaries, split heavyweight first-party chunks, and simplify CSS/DOM.</p></section><section class='report-section' id='images'><h2>Images</h2><p>Across 17 pages the audit found 115 image instances and 45 distinct resources:</p>
+<ul>
+<li>0 missing <code>alt</code> attributes;</li>
+<li>94 explicit empty alts, most plausibly decorative;</li>
+<li>21 non-empty descriptive alts;</li>
+<li>at least six meaningful blank-alt images needing review;</li>
+<li>49 instances without HTML intrinsic width or height, many likely using fill/ratio containers;</li>
+<li>responsive <code>srcset</code> on all Next.js images;</li>
+<li>115/115 <code>decoding="async"</code>;</li>
+<li>correct eager/high priority for the LCP skyline;</li>
+<li>several 3840px optimizer endpoints above 250–350 KB, led by partner-lifecycle assets.</li>
+</ul>
+<p>Keep decoration empty. Fix semantic inconsistencies on reused meaningful imagery, guarantee aspect ratio for fill images, and validate actual viewport transfers before re-exporting source assets.</p></section><section class='report-section' id='ai-search-geo-readiness'><h2>AI Search / GEO Readiness</h2><p>Strengths:</p>
+<ul>
+<li>critical copy and schema are server-rendered;</li>
+<li>wildcard crawler access plus explicit OAI-SearchBot access;</li>
+<li>deployed, substantive <code>llms.txt</code> with identity, authoritative pages, regulatory sources, and citation guidance;</li>
+<li>five extractable answer blocks with primary source support;</li>
+<li>stable Organization/FinancialService/Person graph.</li>
+</ul>
+<p>Constraints:</p>
+<ul>
+<li>no editorial corpus or <code>Article</code> schema;</li>
+<li>few comparison tables, original charts, calculators, or datasets;</li>
+<li>weak discoverable third-party entity corroboration;</li>
+<li>no GSC/Bing index verification;</li>
+<li>training crawlers currently inherit wildcard allow rules without an explicit policy;</li>
+<li><code>/.well-known/rsl.xml</code> is absent, which is not an SEO blocker.</li>
+</ul></section><section class='report-section' id='search-experience-and-visual-ux'><h2>Search Experience and Visual UX</h2><p>The private-mortgage borrower page and private-investor page align well with sampled SERP page types. The construction page matches hybrid intent but under-serves qualification, holdback, working-capital, stage-table, case-study, and calculator expectations. The garden-suite page has a high depth mismatch.</p>
+<p>The desktop hero communicates location, property type, authority, and action effectively. Mobile has no horizontal overflow and shows both primary CTAs, but the first-visit consent panel covers proof/application state. Increase mobile call/menu targets to 44×44, increase critical proof text above 12px where feasible, reduce consent height without weakening reject/accept parity, and add a durable return-to-task affordance on the 44k-pixel page.</p></section><section class='report-section' id='local-seo'><h2>Local SEO</h2><p>Local applies because FairLend presents a Toronto appointment-only office plus an Ontario/GTA service area.</p>
+<p>Immediate fixes:</p>
+<ol>
+<li>Normalize <code>Unit 2</code> across website, directions destination, schema, GBP, Bing Places, Apple Business Connect, and citations.</li>
+<li>Add address/geo to <code>FinancialService</code> schema.</li>
+<li>Verify or claim GBP and expose a stable listing/Place ID where appropriate.</li>
+<li>Correct the legacy Mortgage Intelligence citation.</li>
+<li>Establish a policy-compliant review request and response program; do not gate reviews.</li>
+<li>Earn Ontario mortgage, builder, housing, community, and regulated-industry mentions rather than low-quality directory volume.</li>
+</ol></section><section class='report-section' id='backlinks-and-external-authority'><h2>Backlinks and External Authority</h2><p>Backlink health is intentionally <strong>unscored</strong>. Moz, Bing Webmaster, DataForSEO, and a known-link export were unavailable. The current Common Crawl graph sample did not return the domain, but that does not prove zero backlinks. Anchor distribution, toxic-link ratio, follow ratio, geography, linked pages, competitor gap, and velocity could not be assessed.</p>
+<p>Do not create or upload a disavow file from this evidence. Configure Moz/Bing/GSC, verify known links directly, then score the profile. Prioritize useful evidence, partner/housing resources, original aggregate data, local editorial mentions, and regulatory/industry relationships.</p></section><section class='report-section' id='evidence-and-limitations'><h2>Evidence and Limitations</h2><ul>
+<li>Scope: 17 canonical sitemap URLs; 55 linked HTML variants; queue exhausted below the 500-page cap.</li>
+<li>Screenshots: desktop 1920×1080, laptop 1366×768, tablet 768×1024, mobile 375×812 CSS pixels at 2× DPR.</li>
+<li>Performance: three mobile Lighthouse trials and one desktop trial; lab data only.</li>
+<li>Schema: local parse on all 17 URLs; live validator sampling on homepage and one service page.</li>
+<li>No GSC, GA4, CrUX, GBP, Moz, Bing Webmaster, DataForSEO, or localized rank-tracking credentials.</li>
+<li>Public-search absence is directional and does not prove deindexing or entity absence.</li>
+<li>No conversion analytics, scroll depth, form completion, or authenticated GBP data.</li>
+<li>Backlink and local scores are confidence-limited and excluded from the core health formula where appropriate.</li>
+</ul></section><section class='report-section' id='evidence-files'><h2>Evidence Files</h2><ul>
+<li><code>ACTION-PLAN.md</code> — sequenced implementation plan with acceptance criteria</li>
+<li><code>SPECIALIST-TECHNICAL.md</code> — crawl, schema, redirects, headers, Lighthouse, and limitations</li>
+<li><code>SPECIALIST-CONTENT.md</code> — content inventory, E-E-A-T, on-page, SXO, GEO, images, and clusters</li>
+<li><code>SPECIALIST-VISUAL-LOCAL.md</code> — screenshots, consent geometry, NAP/licensing, local, backlinks, Google, and drift</li>
+<li><code>crawl-summary.json</code>, <code>sitemap-analysis.json</code>, <code>lighthouse-mobile-summary.json</code>, <code>lighthouse-desktop-summary.json</code></li>
+<li><code>screenshots/</code> — desktop, laptop, tablet, and mobile captures</li>
+</ul></section>
+
+    <section class="report-section" id="action-plan">
+      <h2>Action Plan</h2>
+      <p><strong>Baseline:</strong> 79/100 on July 14, 2026 EDT<br />
+<strong>Objective:</strong> remove the performance/conversion ceiling, establish reviewed topical authority, and make FairLend's regulated local entity independently verifiable.</p>
+<h2>Priority Definitions</h2>
+<ul>
+<li><strong>Critical:</strong> blocks indexing or creates penalty exposure; fix immediately.</li>
+<li><strong>High:</strong> materially affects rankings, conversion, or entity trust; complete within 1–4 weeks.</li>
+<li><strong>Medium:</strong> compounds authority/performance and prevents regression; complete within 1–2 months.</li>
+<li><strong>Low:</strong> useful refinement after the main constraints are removed.</li>
+</ul>
+<h2>Critical — Immediate</h2>
+<p>No critical indexing blocker or penalty condition was proven. Do not manufacture urgency from the empty public <code>site:</code> sample; verify indexation in Search Console and Bing Webmaster first.</p>
+<h2>High — Complete Within 1–4 Weeks</h2>
+<h3>H1. Reduce homepage mobile LCP and hydration cost</h3>
+<p><strong>Why:</strong> Median mobile Lighthouse is 56 with LCP 9.44s. The LCP asset is already discoverable/eager/high-priority; render and main-thread cost dominate.</p>
+<p><strong>Implementation surface:</strong></p>
+<ul>
+<li><code>src/app/(frontend)/page.tsx</code></li>
+<li><code>src/components/FairlendLandingHero/</code></li>
+<li><code>src/components/FairlendLandingSections.tsx</code></li>
+<li><code>src/components/FairlendRouteSelector/</code></li>
+<li>large below-fold client components imported by the homepage section graph</li>
+</ul>
+<p><strong>Work:</strong></p>
+<ol>
+<li>Profile the first-party chunk responsible for the worst long task and map it to source modules.</li>
+<li>Convert non-interactive sections to server components; isolate only controls requiring state/effects.</li>
+<li>Defer or dynamically load below-fold calculators, motion, carousels, maps, and application helpers.</li>
+<li>Remove duplicated desktop/mobile DOM when CSS can adapt one semantic structure.</li>
+<li>Reduce the 3,573-element DOM and 175 body children.</li>
+<li>Purge unused CSS and split page-specific styles/chunks.</li>
+<li>Preserve the hero skyline's eager/high-priority discovery; optimize its selected mobile candidate and measured 87 KB opportunity.</li>
+</ol>
+<p><strong>Acceptance criteria:</strong></p>
+<ul>
+<li>three cold mobile Lighthouse trials; median performance ≥80;</li>
+<li>median LCP ≤2.5s, TBT &lt;200ms, CLS ≤0.1;</li>
+<li>no regression to title, H1, canonical, robots, JSON-LD, CTA visibility, or reduced-motion behavior;</li>
+<li>representative mobile transfer and hydrated JS materially lower than the baseline 1.93 MB / 768 KB JS;</li>
+<li>field CWV baseline added when CrUX/GSC data becomes available.</li>
+</ul>
+<h3>H2. Publish the first reviewed resource cluster</h3>
+<p><strong>Why:</strong> <code>/posts</code> is a 39-word placeholder, the post sitemap has zero URLs, and cluster maturity is 28/100.</p>
+<p><strong>First cluster:</strong> private mortgages in Ontario, anchored to <code>/borrowers/private-mortgage-financing</code>.</p>
+<p><strong>Initial reviewed spokes:</strong></p>
+<ol>
+<li>Private mortgage rates, fees, and total-cost illustrations in Ontario.</li>
+<li>Exit strategies, renewals, and payout planning.</li>
+<li>First versus second private mortgages.</li>
+<li>Private mortgage versus B lender versus institutional mortgage.</li>
+<li>Documents, appraisal, LTV, and time-to-commitment.</li>
+<li>Missed payments, enforcement risk, and borrower questions.</li>
+</ol>
+<p><strong>Publishing contract:</strong></p>
+<ul>
+<li>named author and licensed reviewer;</li>
+<li>publication and review dates;</li>
+<li>primary regulatory/legal sources;</li>
+<li>original example, table, checklist, or data point;</li>
+<li>plain-language summary plus explicit risk/limitation language;</li>
+<li><code>Article</code>/<code>BlogPosting</code>, Person author/reviewer, breadcrumb, and WebPage schema;</li>
+<li>spoke → pillar, pillar → every spoke, and each spoke → 2–3 siblings;</li>
+<li>no generic bulk publishing or synthetic “2026 guide” churn.</li>
+</ul>
+<p><strong>Acceptance criteria:</strong></p>
+<ul>
+<li><code>/posts</code> lists at least one genuinely useful reviewed article;</li>
+<li><code>posts-sitemap.xml</code> contains only published canonical 200 URLs with accurate <code>lastmod</code>;</li>
+<li>every post passes metadata/H1/canonical/schema/source/reviewer checks;</li>
+<li>Search Console/Bing submission and indexation state recorded per URL.</li>
+</ul>
+<h3>H3. Expand and disambiguate thin YMYL pages</h3>
+<p><strong>Priority URLs:</strong></p>
+<ul>
+<li><code>/garden-suite-financing-gta</code></li>
+<li><code>/garden-suite</code></li>
+<li><code>/multiplex-financing-gta</code></li>
+<li><code>/investing</code></li>
+<li><code>/borrowers</code></li>
+<li><code>/construction-draw-financing</code></li>
+</ul>
+<p><strong>Work:</strong></p>
+<ol>
+<li>Give the two garden-suite URLs distinct jobs—commercial financing decision page versus eligibility/intake tool—or consolidate them.</li>
+<li>Add eligibility, equity, budget, contingency, permit/approval dependencies, appraisal, mortgage position, first-draw working capital, draw evidence, and takeout paths.</li>
+<li>Add reviewed-by/date/licence/source modules to garden-suite and multiplex content.</li>
+<li>Add a stage-by-stage draw table, holdback/carrying-cost explanation, required evidence, verifier, timing, and working-capital guidance to construction finance.</li>
+<li>Add one anonymized, compliance-reviewed case study to each priority commercial theme.</li>
+<li>Make borrower/investor hubs useful decision maps rather than thin navigation shells.</li>
+</ol>
+<p><strong>Acceptance criteria:</strong></p>
+<ul>
+<li>every indexed YMYL service page answers the primary decision questions without requiring a sales call;</li>
+<li>named licensed review, current date, and primary sources are visible;</li>
+<li>each page has 3–5 relevant body links and a unique intent statement;</li>
+<li>garden-suite URLs show no material keyword/intent cannibalization in GSC after reindexing.</li>
+</ul>
+<h3>H4. Fix the mobile consent-to-application path</h3>
+<p><strong>Implementation surface:</strong> <code>src/components/Analytics/AnalyticsProvider.client.tsx</code>, mobile header, and homepage hero/application layout.</p>
+<p><strong>Work:</strong></p>
+<ol>
+<li>Keep equal reject/accept prominence and access to granular management.</li>
+<li>Reduce the consent panel's occupied mobile height or move the application entry above the obstruction.</li>
+<li>Preserve focus management, keyboard access, screen-reader names, and consent persistence.</li>
+<li>Increase header call/menu hit areas to at least 44×44 CSS pixels.</li>
+<li>Raise critical proof, phone, and authority text from 7–11px to a legible size.</li>
+<li>Add an obvious return-to-application affordance after users scroll through the long page.</li>
+</ol>
+<p><strong>Acceptance criteria:</strong></p>
+<ul>
+<li>at 320, 375, and 390px widths, both consent choices and the application entry remain discoverable without overlap;</li>
+<li>no horizontal overflow;</li>
+<li>all touch targets ≥44×44 or equivalent spacing;</li>
+<li>focus order and dialog semantics pass keyboard/screen-reader review;</li>
+<li>CTA start/completion funnels are measurable without firing optional analytics before consent.</li>
+</ul>
+<h3>H5. Normalize the regulated local entity</h3>
+<p><strong>Implementation surface:</strong></p>
+<ul>
+<li>visible contact/footer address components</li>
+<li><code>src/components/FairlendOfficeMap/</code></li>
+<li><code>src/utilities/structuredData.ts</code></li>
+<li>verified external business profiles</li>
+</ul>
+<p><strong>Work:</strong></p>
+<ol>
+<li>Add <strong>Unit 2</strong> everywhere the official address appears, including the Google directions destination.</li>
+<li>Add <code>PostalAddress</code> and verified <code>GeoCoordinates</code> to <code>FinancialService</code> JSON-LD.</li>
+<li>Reconcile visible “visits by appointment” copy with structured opening/service hours.</li>
+<li>Claim/verify GBP, Bing Places, and Apple Business Connect using the exact legal/operating name, phone, address, categories, and appointment rules.</li>
+<li>Correct the legacy directory that still associates the current phone with Mortgage Intelligence.</li>
+<li>Establish a compliant, non-gated review request and response process.</li>
+</ol>
+<p><strong>Acceptance criteria:</strong></p>
+<ul>
+<li>site, FSRA, schema, directions, and owned profiles match exactly;</li>
+<li>Google Rich Results/Schema validator shows no address/entity error;</li>
+<li>stable GBP Place ID/listing URL documented internally;</li>
+<li>review requests are neutral, policy-compliant, and auditable.</li>
+</ul>
+<h3>H6. Instrument indexation, field performance, and authority evidence</h3>
+<p><strong>Work:</strong></p>
+<ol>
+<li>Configure Search Console domain property access and inspect all 17 canonical URLs.</li>
+<li>Submit/verify sitemap status in Google and Bing.</li>
+<li>Configure GA4 organic landing/conversion reporting with consent-safe event semantics.</li>
+<li>Configure a PageSpeed/CrUX API key and record field LCP/INP/CLS where eligible.</li>
+<li>Configure Moz or another trusted backlink source plus Bing Webmaster links.</li>
+<li>Capture the first accepted SEO drift baseline after the current remediation is deployed.</li>
+</ol>
+<p><strong>Acceptance criteria:</strong></p>
+<ul>
+<li>every canonical URL has a recorded indexation/canonical result;</li>
+<li>field and lab performance are reported separately;</li>
+<li>organic lead conversion can be segmented by landing page and intent;</li>
+<li>backlink score is withheld until enough factors are observable;</li>
+<li>no monitoring secret or service credential enters the repository.</li>
+</ul>
+<h2>Medium — Complete Within 1–2 Months</h2>
+<h3>M1. Eliminate protocol and error-page friction</h3>
+<p><strong>Work:</strong></p>
+<ul>
+<li>Remove <code>Critical-CH: Sec-CH-Prefers-Color-Scheme</code> unless pre-render selection genuinely depends on it.</li>
+<li>Redirect <code>http://fairlend.ca/</code> directly to <code>https://www.fairlend.ca/</code>.</li>
+<li>Emit one <code>noindex, follow</code> on 404s and remove the homepage canonical.</li>
+<li>Verify the deployed IndexNow key and publish/update hooks by recording accepted/failed submissions; do not describe it as absent merely because it is not advertised in HTML.</li>
+</ul>
+<p><strong>Acceptance criteria:</strong></p>
+<ul>
+<li>no same-URL browser restart in Chrome network/Lighthouse traces;</li>
+<li>one-hop redirect from every HTTP host variant;</li>
+<li>404 output has one consistent robots directive and no misleading canonical;</li>
+<li>IndexNow operational logs distinguish accepted, duplicate, disabled, and failed states.</li>
+</ul>
+<h3>M2. Build contextual internal-link architecture</h3>
+<p><strong>Work:</strong></p>
+<ul>
+<li>Add 3–5 relevant body links per ~1,000 words.</li>
+<li>Connect private/institutional mortgage, construction, multiplex, garden-suite, affordable-rental, investor, disclosure, and resource nodes.</li>
+<li>Link every resource spoke to its commercial pillar and related siblings.</li>
+<li>Strengthen inbound body links to <code>/garden-suite</code> and <code>/affordable-sustainable-rental-housing</code>, which currently have only one discovered source page each.</li>
+</ul>
+<p><strong>Acceptance criteria:</strong></p>
+<ul>
+<li>no indexable URL has fewer than three relevant internal source pages unless intentionally narrow;</li>
+<li>link labels describe the destination intent;</li>
+<li>no navigation-only pseudo-orphans;</li>
+<li>crawl-depth and inbound-link snapshot stored in the drift baseline.</li>
+</ul>
+<h3>M3. Publish first-party proof and methodology</h3>
+<p><strong>Work:</strong></p>
+<ul>
+<li>3–5 anonymized funded-file case studies;</li>
+<li>a methodology page for funded volume, LTV bands, review, commitment timing, and data limits;</li>
+<li>compliance-reviewed aggregate charts/tables by property/deal type, position, LTV band, turnaround, and exit outcome;</li>
+<li>correction policy and editorial review cadence.</li>
+</ul>
+<p><strong>Acceptance criteria:</strong> claims are reproducible from retained records, reviewed for privacy/compliance, date-bounded, and explicitly qualified.</p>
+<h3>M4. Repair image semantics and layout guarantees</h3>
+<p><strong>Work:</strong></p>
+<ul>
+<li>Fix at least six meaningful blank-alt instances: Elie headshot, property-type illustrations, private-mortgage house, and build-model parcel sketch.</li>
+<li>Standardize semantics when the same asset is reused.</li>
+<li>Keep decorative layers <code>alt=""</code>.</li>
+<li>Add intrinsic dimensions or guaranteed aspect-ratio containers for fill images.</li>
+<li>Re-export partner lifecycle assets only if viewport traces confirm oversized selection.</li>
+</ul>
+<p><strong>Acceptance criteria:</strong> no informative image has empty/filename alt; no decorative image is keyword-stuffed; CLS remains ≤0.1; actual selected image bytes improve.</p>
+<h3>M5. Graduate CSP safely</h3>
+<p><strong>Implementation surface:</strong> <code>security-headers.ts</code> and <code>/api/csp-report</code> telemetry.</p>
+<p><strong>Work:</strong></p>
+<ol>
+<li>Aggregate report-only violations by directive/source/deployment.</li>
+<li>Remove unnecessary allow-list entries and <code>'unsafe-inline'</code> through nonce/hash work where feasible.</li>
+<li>Canary an enforced policy and preserve required analytics, booking, map, and application flows.</li>
+<li>Evaluate HSTS <code>includeSubDomains; preload</code> separately after a complete subdomain inventory.</li>
+</ol>
+<p><strong>Acceptance criteria:</strong> enforced CSP blocks a controlled violation, required flows work, report volume is understood, and no subdomain is stranded by HSTS.</p>
+<h3>M6. Establish off-site entity and review authority</h3>
+<p><strong>Work:</strong></p>
+<ul>
+<li>Add only verified LinkedIn/company/principal profiles to <code>sameAs</code>.</li>
+<li>Create useful video/visual explainers where they materially improve mortgage decisions.</li>
+<li>Earn builder, housing, local-news, association, and community citations.</li>
+<li>Build original resources that partners can cite rather than buying generic directory links.</li>
+<li>Monitor name/address/phone and legacy employment citations quarterly.</li>
+</ul>
+<p><strong>Acceptance criteria:</strong> exact-brand searches consistently resolve to the Ontario regulated entity; owned profiles match NAP; referring domains and linked-page distribution can be measured.</p>
+<h2>Low / Backlog</h2>
+<ol>
+<li>Tighten two long meta descriptions and optionally enrich the short terms description.</li>
+<li>Test longer construction/garden-suite/multiplex titles only with CTR/rank baselines.</li>
+<li>Remove duplicate semantic homepage H2s generated by responsive presentation markup.</li>
+<li>Remove the empty posts child sitemap once convenient, or populate it when the first post launches.</li>
+<li>Reduce intake query crawl variants if the surface grows beyond the current 37 variants.</li>
+<li>Decide an explicit training-crawler and optional RSL policy with legal ownership.</li>
+<li>Consider HSTS preload only after every subdomain is inventoried and permanently HTTPS-capable.</li>
+</ol>
+<h2>Validation Checklist</h2>
+<ul>
+<li>[ ] 17/17 canonical URLs return 200, index/follow, one H1, and self-canonical.</li>
+<li>[ ] Sitemap contains only canonical 200 indexable pages with accurate <code>lastmod</code>.</li>
+<li>[ ] Googlebot/default HTML parity remains intact.</li>
+<li>[ ] Three-run mobile Lighthouse median meets performance thresholds.</li>
+<li>[ ] GSC URL Inspection and selected canonical recorded for all money pages.</li>
+<li>[ ] Thin YMYL pages have review/date/source/proof and distinct intent.</li>
+<li>[ ] <code>/posts</code> contains published reviewed resources and <code>Article</code> schema.</li>
+<li>[ ] Consent does not cover the application entry at 320–390px widths.</li>
+<li>[ ] All primary touch targets meet 44×44 guidance.</li>
+<li>[ ] Unit 2, phone, name, hours, schema, directions, and profiles match.</li>
+<li>[ ] 404 metadata is internally consistent.</li>
+<li>[ ] Critical-CH restart and two-hop apex redirect are removed.</li>
+<li>[ ] Informative images have meaningful alt and reserved layout space.</li>
+<li>[ ] CSP enforcement is telemetry-backed and canaried.</li>
+<li>[ ] Drift baseline captures metadata, robots, canonicals, headings, schema, status, and hashes.</li>
+</ul>
+<h2>Expected Score Movement</h2>
+<table>
+<thead>
+<tr>
+<th>Work completed</th>
+<th style="text-align: right;">Expected range</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H1 performance only</td>
+<td style="text-align: right;">82–84</td>
+<td>Performance rises from 56 toward 80+</td>
+</tr>
+<tr>
+<td>H1–H4</td>
+<td style="text-align: right;">85–88</td>
+<td>Adds content depth, cluster authority, and mobile SXO</td>
+</tr>
+<tr>
+<td>H1–H6 + medium tracks</td>
+<td style="text-align: right;">89–93</td>
+<td>Adds field evidence, local/entity consistency, links, proof, and regression control</td>
+</tr>
+</tbody>
+</table>
+<p>These are directional, not guaranteed ranking outcomes. Re-score from production evidence after each deployment tranche.</p>
+    </section>
+
+    <section class="appendix" id="visual-analysis-snapshot">
+      <h2>Visual Analysis Snapshot</h2>
+      <div class="prose">
+        <p><strong>H1 visible above the fold:</strong> Yes</p>
+<p><strong>CTA visible above the fold:</strong> Yes</p>
+        <p><strong>Mobile viewport meta present:</strong> Yes</p>
+        <p><strong>Horizontal scroll detected:</strong> No</p>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

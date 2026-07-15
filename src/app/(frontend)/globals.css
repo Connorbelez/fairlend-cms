@@ -4,6 +4,18 @@
 
 @config '../../../tailwind.config.mjs';
 
+/* Keep generated utilities scoped to production UI source. Tailwind's automatic
+   detector otherwise treats design artifacts, audit output, tests, scripts, and
+   the unused component registry as live class-name sources. */
+@source not '../../../artifacts';
+@source not '../../../docs';
+@source not '../../../integrations';
+@source not '../../../output';
+@source not '../../../plans';
+@source not '../../../scripts';
+@source not '../../../tests';
+@source not '../../components/registry-assets';
+
 @custom-variant dark (&:is([data-theme='dark'] *));
 @custom-variant sm (@media (width >= theme(--breakpoint-sm)));
 @custom-variant md (@media (width >= theme(--breakpoint-md)));
@@ -576,20 +588,6 @@
     }
   }
 
-  @keyframes fairlendTorontoSkylineIn {
-    from {
-      opacity: 0.62;
-      filter: blur(2px) contrast(0.96);
-      transform: translate3d(0, 12px, 0) scale(1.01);
-    }
-
-    to {
-      opacity: 1;
-      filter: blur(0) contrast(1);
-      transform: translate3d(0, 0, 0) scale(1);
-    }
-  }
-
   @keyframes fairlendTorontoCloudIn {
     from {
       opacity: 0.55;
@@ -618,7 +616,6 @@
   .fairlend-toronto-chrome,
   .fairlend-toronto-title,
   .fairlend-toronto-copy,
-  .fairlend-toronto-skyline,
   .fairlend-toronto-cloud {
     backface-visibility: hidden;
     will-change: opacity, filter, transform;
@@ -637,10 +634,6 @@
   .fairlend-toronto-copy {
     animation: fairlendTorontoCopyIn 780ms cubic-bezier(0.16, 1, 0.3, 1) both;
     animation-delay: var(--toronto-delay, 0ms);
-  }
-
-  .fairlend-toronto-skyline {
-    animation: fairlendTorontoSkylineIn 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   .fairlend-toronto-cloud {
@@ -1105,36 +1098,6 @@
   @apply relative after:absolute after:bottom-0 after:left-[-100vw] after:-z-1 after:h-px after:w-[200vw] after:bg-line;
 }
 
-[data-fairlend-hero-scroll] {
-  min-height: calc(100svh + 145svh);
-}
-
-[data-fairlend-hero-transition][data-fairlend-hero-reduced='true'] [data-fairlend-hero-progress] {
-  display: none;
-}
-
-@media (max-width: 1023px) {
-  [data-fairlend-hero-scroll] {
-    min-height: calc(100svh + 92svh);
-  }
-
-  [data-fairlend-hero-pin] {
-    position: sticky;
-    top: 0;
-  }
-}
-
-@media (orientation: portrait) and (min-width: 901px) and (min-height: 1200px) {
-  [data-fairlend-hero-scroll] {
-    min-height: calc(100svh + 92svh);
-  }
-
-  [data-fairlend-hero-pin] {
-    position: sticky;
-    top: 0;
-  }
-}
-
 .fairlend-hero-application-card {
   top: auto;
 }
@@ -1193,55 +1156,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-fairlend-hero-scroll] {
-    min-height: 0;
-  }
-
-  [data-fairlend-hero-pin] {
-    position: relative;
-    top: auto;
-    height: auto;
-  }
-
-  @media (max-width: 576px) {
-    [data-fairlend-hero-pin] {
-      height: calc(100svh - 96px);
-      min-height: 700px;
-    }
-  }
-
-  @media (min-width: 577px) and (max-width: 1023px) {
-    [data-fairlend-hero-pin] {
-      height: calc(100svh - 116px);
-      min-height: 720px;
-    }
-  }
-
-  @media (min-width: 1024px) and (max-width: 1279px) and (orientation: landscape) {
-    [data-fairlend-hero-pin] {
-      height: calc(100svh - 86px);
-      min-height: 760px;
-    }
-  }
-
-  @media (min-width: 1024px) and (max-width: 1279px) and (orientation: landscape) and (max-height: 780px) {
-    [data-fairlend-hero-pin] {
-      height: calc(100svh - 68px);
-      min-height: 0;
-    }
-  }
-
-  @media (min-width: 1280px) and (orientation: landscape) {
-    [data-fairlend-hero-pin] {
-      height: 100svh;
-      min-height: 100svh;
-    }
-  }
-
-  [data-fairlend-hero-progress] {
-    display: none;
-  }
-
   [data-testid='hero-mobile-route-leader'] {
     opacity: 0.78;
     stroke-dashoffset: 0;
@@ -1529,20 +1443,20 @@
     display: none;
   }
 
-  [data-fairlend-motion='landing-overview'] {
+  [data-fairlend-section='landing-overview'] {
     padding-block: 42px !important;
   }
 
-  [data-fairlend-motion='landing-overview'] > div {
+  [data-fairlend-section='landing-overview'] > div {
     gap: 34px !important;
   }
 
-  [data-fairlend-motion='landing-overview'] [data-overview-who-panel],
-  [data-fairlend-motion='landing-overview'] [data-overview-finance-panel] {
+  [data-fairlend-section='landing-overview'] [data-overview-who-panel],
+  [data-fairlend-section='landing-overview'] [data-overview-finance-panel] {
     min-height: 0 !important;
   }
 
-  [data-fairlend-motion='landing-overview'] [data-overview-mobile-skyline] {
+  [data-fairlend-section='landing-overview'] [data-overview-mobile-skyline] {
     height: 168px !important;
     margin-top: 28px !important;
   }
@@ -2184,18 +2098,37 @@
 }
 
 @keyframes authority-focus-in {
-  from { opacity: 0; transform: scale(0.96); filter: contrast(0.7) blur(6px); }
-  to { opacity: 1; transform: scale(1); filter: contrast(1) blur(0); }
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+    filter: contrast(0.7) blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: contrast(1) blur(0);
+  }
 }
 
 @keyframes authority-rule-in {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 @keyframes authority-stamp-in {
-  0%, 55% { opacity: 0; transform: scale(1.25) rotate(-14deg); }
-  100% { opacity: 0.6; transform: scale(1) rotate(0); }
+  0%,
+  55% {
+    opacity: 0;
+    transform: scale(1.25) rotate(-14deg);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1) rotate(0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

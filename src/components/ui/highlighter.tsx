@@ -17,6 +17,7 @@ type AnnotationAction =
 interface HighlighterProps {
   children: ReactNode
   action?: AnnotationAction
+  animate?: boolean
   color?: string
   strokeWidth?: number
   animationDuration?: number
@@ -29,6 +30,7 @@ interface HighlighterProps {
 export function Highlighter({
   children,
   action = 'highlight',
+  animate = true,
   color = '#ffd1dc',
   strokeWidth = 1.5,
   animationDuration = 600,
@@ -56,6 +58,7 @@ export function Highlighter({
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
       const annotationConfig = {
         type: action,
+        animate,
         color,
         strokeWidth,
         animationDuration: prefersReducedMotion ? 1 : animationDuration,
@@ -86,6 +89,7 @@ export function Highlighter({
   }, [
     shouldShow,
     action,
+    animate,
     color,
     strokeWidth,
     animationDuration,

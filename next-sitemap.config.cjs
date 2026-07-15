@@ -22,7 +22,10 @@ if (!SITE_URL) {
   throw new Error('NEXT_PUBLIC_SERVER_URL or VERCEL_PROJECT_PRODUCTION_URL is required')
 }
 
-if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(SITE_URL) || SITE_URL.includes('example.com')) {
+if (
+  /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(SITE_URL) ||
+  SITE_URL.includes('example.com')
+) {
   throw new Error('Sitemap generation requires a production canonical origin')
 }
 
@@ -43,6 +46,13 @@ module.exports = {
       { userAgent: 'DuckDuckBot', allow: '/', disallow: blockedCrawlerPaths },
       { userAgent: 'Applebot', allow: '/', disallow: blockedCrawlerPaths },
       { userAgent: 'OAI-SearchBot', allow: '/', disallow: blockedCrawlerPaths },
+      { userAgent: 'ChatGPT-User', allow: '/', disallow: blockedCrawlerPaths },
+      { userAgent: 'GPTBot', allow: '/', disallow: blockedCrawlerPaths },
+      { userAgent: 'Claude-SearchBot', allow: '/', disallow: blockedCrawlerPaths },
+      { userAgent: 'Claude-User', allow: '/', disallow: blockedCrawlerPaths },
+      { userAgent: 'ClaudeBot', allow: '/', disallow: blockedCrawlerPaths },
+      { userAgent: 'PerplexityBot', allow: '/', disallow: blockedCrawlerPaths },
+      { userAgent: 'Perplexity-User', allow: '/', disallow: blockedCrawlerPaths },
     ],
     additionalSitemaps: [`${SITE_URL}/pages-sitemap.xml`, `${SITE_URL}/posts-sitemap.xml`],
   },

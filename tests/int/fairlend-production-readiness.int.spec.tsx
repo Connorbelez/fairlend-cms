@@ -71,7 +71,7 @@ describe('FairLend production readiness guards', () => {
       bridgeLoans: {
         href: '/intake?intent=mortgage&source=header-nav-bridge-loans',
       },
-      builderResource: { href: '/resources/construction-draws-small-builders' },
+      builderResource: { href: '/construction-draw-financing' },
       constructionFinancing: { href: '/construction-draw-financing' },
       contact: { href: '/contact' },
       disclosures: { href: '/disclosures' },
@@ -82,7 +82,7 @@ describe('FairLend production readiness guards', () => {
       institutionalMortgages: { href: '/borrowers/institutional-mortgage' },
       investing: { href: '/investing' },
       leadership: { href: '/#leadership' },
-      mliSelectInsuredHousing: { href: '/cmhc-mli-select-multiplex-financing' },
+      mliSelectInsuredHousing: { href: '/multiplex-financing-gta' },
       multiplexFinancing: { href: '/multiplex-financing-gta' },
       partners: { href: '/partners' },
       privateMortgageLending: { href: '/investing/private-mortgage-lending' },

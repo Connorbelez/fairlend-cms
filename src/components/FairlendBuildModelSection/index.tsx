@@ -269,9 +269,9 @@ function stateData(state: BoardState) {
 function DossierParcelSketch() {
   return (
     <div className="bm-parcel-canvas">
-      <div className="bm-parcel-art" aria-hidden="true">
+      <div className="bm-parcel-art">
         <Image
-          alt=""
+          alt="Parcel feasibility sketch for a multiplex and laneway housing site"
           className="bm-parcel-art-image"
           height={1024}
           priority

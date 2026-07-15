@@ -9,7 +9,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
-import { buildBreadcrumbJsonLd } from '@/utilities/structuredData'
+import { buildBreadcrumbJsonLd, buildWebPageJsonLd } from '@/utilities/structuredData'
 
 type PathItem = {
   description: string
@@ -37,10 +37,17 @@ export function FairlendPathHub({
   return (
     <main className="bg-[#f8f7f5] text-[#08090a]">
       <JsonLd
-        data={buildBreadcrumbJsonLd([
-          { name: 'Home', path: '/' },
-          { name: label, path },
-        ])}
+        data={[
+          buildBreadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: label, path },
+          ]),
+          buildWebPageJsonLd({
+            description,
+            name: title,
+            path,
+          }),
+        ]}
       />
       <section className="mx-auto max-w-[86rem] px-5 pb-16 pt-7 sm:px-8 sm:pb-24 lg:px-14 lg:pb-28">
         <Breadcrumb>

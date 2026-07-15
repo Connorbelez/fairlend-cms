@@ -12,6 +12,11 @@ export const fairlendSeo = {
   titleTemplate: '%s | FairLend Mortgage',
 } as const
 
+export const fairlendNotFoundMetadata: Metadata = {
+  description: 'The requested FairLend page could not be found.',
+  title: 'Page Not Found | FairLend',
+}
+
 const productionOrigin = 'https://www.fairlend.ca'
 
 const stripTrailingSlash = (value: string) => value.replace(/\/+$/, '')

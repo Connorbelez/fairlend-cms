@@ -1,0 +1,814 @@
+.leadership-model-section[data-leadership-motion-state] {
+  --leadership-motion-ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --leadership-motion-ease-out: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --leadership-motion-ease-title: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] .leadership-frame {
+  border-color: rgb(8 45 35 / 0%);
+  transform: translateY(18px) scale(0.001);
+  transform-origin: 50% 50%;
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-frame-line='top'],
+.leadership-model-section[data-leadership-motion-state='ready']
+  [data-leadership-frame-line='bottom'] {
+  transform: scaleX(0);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready']
+  [data-leadership-frame-line='right'],
+.leadership-model-section[data-leadership-motion-state='ready']
+  [data-leadership-frame-line='left'] {
+  transform: scaleY(0);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-main] {
+  clip-path: inset(0 100% 0 0);
+  filter: blur(4px);
+  opacity: 0.2;
+  transform: translateX(-22px);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-visual] {
+  clip-path: inset(0 0 0 100%);
+  transform: translateX(24px);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-visual] > img {
+  filter: saturate(0.5) contrast(0.88) brightness(1.08);
+  transform: translateY(-2%) scale(1.1);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-visual-grid] {
+  opacity: 0;
+  transform: translateX(-5%);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-visual-sweep] {
+  opacity: 0;
+  transform: translateX(-150%) skewX(-12deg);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-index] {
+  opacity: 0;
+  transform: translateX(18px) scale(1.24);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-copy-item] {
+  filter: blur(5px);
+  opacity: 0.16;
+  transform: translateY(24px);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready']
+  [data-leadership-title-line]
+  > span {
+  opacity: 0.24;
+  transform: translateY(112%);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] .leadership-capabilities::before {
+  transform: scaleX(0);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] .leadership-capabilities::after {
+  transform: scaleY(0);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-capability] {
+  clip-path: inset(0 0 100% 0);
+  opacity: 0.16;
+  transform: translateY(18px);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-capability-icon] {
+  opacity: 0;
+  transform: rotate(-8deg) scale(0.78);
+  transform-origin: 50% 50%;
+}
+
+.leadership-model-section[data-leadership-motion-state='ready']
+  :is([data-leadership-capability-title], [data-leadership-capability-copy]) {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-capability-flash] {
+  opacity: 0;
+  transform: translateX(-110%) scaleX(0);
+  transform-origin: left center;
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-actions] {
+  opacity: 0.12;
+  transform: translateY(18px) scale(0.96);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-cta] {
+  clip-path: inset(0 100% 0 0);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-cta-arrow] {
+  transform: translateX(-8px) rotate(-24deg) scale(0.82);
+  transform-origin: 50% 50%;
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-proof-grid] {
+  transform: translateX(24px);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-proof-card] {
+  opacity: 0;
+  transform: translate(36px, 26px) perspective(1000px) rotateX(-8deg);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-proof-icon] {
+  opacity: 0;
+  transform: translateX(-12px) scale(0.82);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-proof-value] {
+  opacity: 0;
+  transform: translateY(10px) scale(0.82);
+  transform-origin: left bottom;
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-proof-label] {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-proof-detail] {
+  filter: blur(4px);
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-proof-pulse] {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-footer] {
+  clip-path: inset(100% 0 0 0);
+  opacity: 0.18;
+  transform: translateY(18px);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-quote-mark] {
+  opacity: 0;
+  transform: translateX(-10px) scale(0.7);
+  transform-origin: left center;
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-quote-copy] {
+  opacity: 0.18;
+  transform: translateX(-24px);
+}
+
+.leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-commitment] {
+  opacity: 0.12;
+  transform: translateX(18px);
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] .leadership-frame {
+  animation: leadership-frame-enter 520ms var(--leadership-motion-ease-in-out) both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered']
+  [data-leadership-frame-line='top'] {
+  animation: leadership-line-x-enter 460ms var(--leadership-motion-ease-in-out) both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered']
+  [data-leadership-frame-line='bottom'] {
+  animation: leadership-line-x-enter 460ms var(--leadership-motion-ease-in-out) 80ms both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered']
+  [data-leadership-frame-line='right'] {
+  animation: leadership-line-y-enter 480ms var(--leadership-motion-ease-in-out) 80ms both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered']
+  [data-leadership-frame-line='left'] {
+  animation: leadership-line-y-enter 480ms var(--leadership-motion-ease-in-out) 160ms both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-main] {
+  animation: leadership-main-enter 620ms var(--leadership-motion-ease-out) 520ms both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-visual] {
+  animation: leadership-visual-enter 620ms var(--leadership-motion-ease-out) 660ms both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-visual] > img {
+  animation: leadership-image-enter 920ms var(--leadership-motion-ease-out) 680ms both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-visual-grid] {
+  animation: leadership-grid-enter 940ms var(--leadership-motion-ease-out) 720ms both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-visual-sweep] {
+  animation: leadership-sweep-enter 800ms var(--leadership-motion-ease-in-out) 800ms both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-index] {
+  animation: leadership-index-enter 620ms var(--leadership-motion-ease-out) 720ms both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-copy-item] {
+  animation: leadership-copy-enter 620ms var(--leadership-motion-ease-out) 760ms both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered']
+  [data-leadership-copy-item]
+  ~ [data-leadership-copy-item] {
+  animation-delay: 820ms;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered']
+  [data-leadership-title-line]
+  > span {
+  animation: leadership-title-enter 640ms var(--leadership-motion-ease-title) both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered']
+  [data-leadership-title-line]:first-child
+  > span {
+  animation-delay: 860ms;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered']
+  [data-leadership-title-line]:last-child
+  > span {
+  animation-delay: 940ms;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] .leadership-capabilities::before {
+  animation: leadership-line-x-enter 440ms var(--leadership-motion-ease-in-out) 1220ms both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] .leadership-capabilities::after {
+  animation: leadership-line-y-enter 440ms var(--leadership-motion-ease-in-out) 1220ms both;
+}
+
+.leadership-model-section [data-leadership-capability]:nth-child(1) {
+  --leadership-capability-delay: 1280ms;
+}
+
+.leadership-model-section [data-leadership-capability]:nth-child(2) {
+  --leadership-capability-delay: 1355ms;
+}
+
+.leadership-model-section [data-leadership-capability]:nth-child(3) {
+  --leadership-capability-delay: 1430ms;
+}
+
+.leadership-model-section [data-leadership-capability]:nth-child(4) {
+  --leadership-capability-delay: 1505ms;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-capability] {
+  animation: leadership-capability-enter 420ms var(--leadership-motion-ease-out)
+    var(--leadership-capability-delay) both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered']
+  [data-leadership-capability-icon] {
+  animation: leadership-icon-enter 240ms var(--leadership-motion-ease-out)
+    calc(var(--leadership-capability-delay) + 40ms) both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered']
+  [data-leadership-capability-title] {
+  animation: leadership-small-copy-enter 240ms var(--leadership-motion-ease-out)
+    calc(var(--leadership-capability-delay) + 80ms) both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered']
+  [data-leadership-capability-copy] {
+  animation: leadership-small-copy-enter 300ms var(--leadership-motion-ease-out)
+    calc(var(--leadership-capability-delay) + 120ms) both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered']
+  [data-leadership-capability-flash] {
+  animation: leadership-capability-flash 540ms var(--leadership-motion-ease-out)
+    calc(var(--leadership-capability-delay) + 100ms) both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-actions] {
+  animation: leadership-actions-enter 340ms var(--leadership-motion-ease-out) 1740ms both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-cta] {
+  animation: leadership-clip-enter 320ms var(--leadership-motion-ease-out) 1780ms both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-cta-arrow] {
+  animation: leadership-arrow-enter 300ms var(--leadership-motion-ease-out) 1860ms both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-proof-grid] {
+  animation: leadership-proof-grid-enter 360ms var(--leadership-motion-ease-out) 1360ms both;
+}
+
+.leadership-model-section [data-leadership-proof-card]:nth-child(1) {
+  --leadership-proof-delay: 1500ms;
+}
+
+.leadership-model-section [data-leadership-proof-card]:nth-child(2) {
+  --leadership-proof-delay: 1630ms;
+}
+
+.leadership-model-section [data-leadership-proof-card]:nth-child(3) {
+  --leadership-proof-delay: 1760ms;
+}
+
+.leadership-model-section [data-leadership-proof-card]:nth-child(4) {
+  --leadership-proof-delay: 1890ms;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-proof-card] {
+  animation: leadership-proof-card-enter 460ms var(--leadership-motion-ease-out)
+    var(--leadership-proof-delay) both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-proof-icon] {
+  animation: leadership-proof-icon-enter 240ms var(--leadership-motion-ease-out)
+    calc(var(--leadership-proof-delay) + 40ms) both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-proof-value] {
+  animation: leadership-proof-value-enter 240ms var(--leadership-motion-ease-out)
+    calc(var(--leadership-proof-delay) + 100ms) both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-proof-label] {
+  animation: leadership-small-copy-enter 200ms var(--leadership-motion-ease-out)
+    calc(var(--leadership-proof-delay) + 160ms) both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-proof-detail] {
+  animation: leadership-proof-detail-enter 300ms var(--leadership-motion-ease-out)
+    calc(var(--leadership-proof-delay) + 200ms) both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-proof-pulse] {
+  animation: leadership-proof-pulse 360ms var(--leadership-motion-ease-out)
+    calc(var(--leadership-proof-delay) + 240ms) both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-footer] {
+  animation: leadership-footer-enter 620ms var(--leadership-motion-ease-out) 2180ms both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-quote-mark] {
+  animation: leadership-quote-mark-enter 260ms var(--leadership-motion-ease-out) 2280ms both;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-quote-copy] {
+  animation: leadership-quote-copy-enter 440ms var(--leadership-motion-ease-out) 2360ms both;
+}
+
+.leadership-model-section [data-leadership-commitment]:nth-child(1) {
+  --leadership-commitment-delay: 2480ms;
+}
+
+.leadership-model-section [data-leadership-commitment]:nth-child(2) {
+  --leadership-commitment-delay: 2535ms;
+}
+
+.leadership-model-section [data-leadership-commitment]:nth-child(3) {
+  --leadership-commitment-delay: 2590ms;
+}
+
+.leadership-model-section [data-leadership-commitment]:nth-child(4) {
+  --leadership-commitment-delay: 2645ms;
+}
+
+.leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-commitment] {
+  animation: leadership-commitment-enter 340ms var(--leadership-motion-ease-out)
+    var(--leadership-commitment-delay) both;
+}
+
+@keyframes leadership-frame-enter {
+  from {
+    border-color: rgb(8 45 35 / 0%);
+    transform: translateY(18px) scale(0.001);
+  }
+  to {
+    border-color: rgb(8 9 10 / 16%);
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes leadership-line-x-enter {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes leadership-line-y-enter {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes leadership-main-enter {
+  from {
+    clip-path: inset(0 100% 0 0);
+    filter: blur(4px);
+    opacity: 0.2;
+    transform: translateX(-22px);
+  }
+  to {
+    clip-path: inset(0);
+    filter: blur(0);
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes leadership-visual-enter {
+  from {
+    clip-path: inset(0 0 0 100%);
+    transform: translateX(24px);
+  }
+  to {
+    clip-path: inset(0);
+    transform: translateX(0);
+  }
+}
+
+@keyframes leadership-image-enter {
+  from {
+    filter: saturate(0.5) contrast(0.88) brightness(1.08);
+    transform: translateY(-2%) scale(1.1);
+  }
+  to {
+    filter: saturate(1) contrast(1) brightness(1);
+    transform: translateY(0) scale(1.05);
+  }
+}
+
+@keyframes leadership-grid-enter {
+  0% {
+    opacity: 0;
+    transform: translateX(-5%);
+  }
+  45% {
+    opacity: 0.58;
+    transform: translateX(0);
+  }
+  66% {
+    opacity: 0.58;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0.28;
+    transform: translateX(0);
+  }
+}
+
+@keyframes leadership-sweep-enter {
+  0% {
+    opacity: 0;
+    transform: translateX(-150%) skewX(-12deg);
+  }
+  23% {
+    opacity: 0.82;
+  }
+  78% {
+    opacity: 0.82;
+  }
+  95% {
+    transform: translateX(320%) skewX(-12deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(320%) skewX(-12deg);
+  }
+}
+
+@keyframes leadership-index-enter {
+  from {
+    opacity: 0;
+    transform: translateX(18px) scale(1.24);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes leadership-copy-enter {
+  from {
+    filter: blur(5px);
+    opacity: 0.16;
+    transform: translateY(24px);
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes leadership-title-enter {
+  from {
+    opacity: 0.24;
+    transform: translateY(112%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes leadership-capability-enter {
+  from {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0.16;
+    transform: translateY(18px);
+  }
+  to {
+    clip-path: inset(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes leadership-icon-enter {
+  from {
+    opacity: 0;
+    transform: rotate(-8deg) scale(0.78);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+@keyframes leadership-small-copy-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes leadership-capability-flash {
+  0% {
+    opacity: 0;
+    transform: translateX(-110%) scaleX(0);
+  }
+  26% {
+    opacity: 1;
+    transform: translateX(-110%) scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(96%) scaleX(1);
+  }
+}
+
+@keyframes leadership-actions-enter {
+  from {
+    opacity: 0.12;
+    transform: translateY(18px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes leadership-clip-enter {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes leadership-arrow-enter {
+  from {
+    transform: translateX(-8px) rotate(-24deg) scale(0.82);
+  }
+  to {
+    transform: translateX(0) rotate(0) scale(1);
+  }
+}
+
+@keyframes leadership-proof-grid-enter {
+  from {
+    transform: translateX(24px);
+  }
+  to {
+    transform: translate(0);
+  }
+}
+
+@keyframes leadership-proof-card-enter {
+  from {
+    opacity: 0;
+    transform: translate(36px, 26px) perspective(1000px) rotateX(-8deg);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0) perspective(1000px) rotateX(0);
+  }
+}
+
+@keyframes leadership-proof-icon-enter {
+  from {
+    opacity: 0;
+    transform: translateX(-12px) scale(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes leadership-proof-value-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes leadership-proof-detail-enter {
+  from {
+    filter: blur(4px);
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes leadership-proof-pulse {
+  0% {
+    opacity: 0;
+    transform: translateX(0) scaleX(0);
+  }
+  28% {
+    opacity: 0.8;
+    transform: translateX(0) scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(92%) scaleX(1);
+  }
+}
+
+@keyframes leadership-footer-enter {
+  from {
+    clip-path: inset(100% 0 0 0);
+    opacity: 0.18;
+    transform: translateY(18px);
+  }
+  to {
+    clip-path: inset(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes leadership-quote-mark-enter {
+  from {
+    opacity: 0;
+    transform: translateX(-10px) scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes leadership-quote-copy-enter {
+  from {
+    opacity: 0.18;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes leadership-commitment-enter {
+  from {
+    opacity: 0.12;
+    transform: translateX(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 1024px) {
+  .leadership-model-section[data-leadership-motion-state='ready']
+    [data-leadership-title-line]
+    > span {
+    opacity: 0.72;
+    transform: translateY(18%);
+  }
+
+  .leadership-model-section[data-leadership-motion-state='entered']
+    [data-leadership-title-line]:first-child
+    > span {
+    animation-delay: 580ms;
+  }
+
+  .leadership-model-section[data-leadership-motion-state='entered']
+    [data-leadership-title-line]:last-child
+    > span {
+    animation-delay: 660ms;
+  }
+
+  .leadership-model-section[data-leadership-motion-state='entered']
+    [data-leadership-title-line]
+    > span {
+    animation-name: leadership-title-enter-compact;
+  }
+
+  .leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-proof-grid] {
+    transform: translateY(18px);
+  }
+
+  .leadership-model-section[data-leadership-motion-state='ready'] [data-leadership-proof-card] {
+    transform: translateY(26px);
+  }
+
+  .leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-proof-grid] {
+    animation-name: leadership-proof-grid-enter-compact;
+  }
+
+  .leadership-model-section[data-leadership-motion-state='entered'] [data-leadership-proof-card] {
+    animation-name: leadership-proof-card-enter-compact;
+  }
+}
+
+@keyframes leadership-title-enter-compact {
+  from {
+    opacity: 0.72;
+    transform: translateY(18%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes leadership-proof-grid-enter-compact {
+  from {
+    transform: translateY(18px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes leadership-proof-card-enter-compact {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leadership-model-section[data-leadership-motion-state] *,
+  .leadership-model-section[data-leadership-motion-state] *::before,
+  .leadership-model-section[data-leadership-motion-state] *::after {
+    animation: none !important;
+  }
+}

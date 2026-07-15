@@ -1,0 +1,33 @@
+import { FairlendOfficeMap } from '@/components/FairlendOfficeMap'
+import { FAIRLEND_OFFICE } from '@/components/FairlendOfficeMap/data'
+
+export function ContactOfficeSection() {
+  return (
+    <section aria-labelledby="contact-office-title" className="contact-office">
+      <div className="contact-office__copy">
+        <div>
+          <p className="contact-kicker">Toronto office</p>
+          <h2 id="contact-office-title">Meet with us in Toronto.</h2>
+          <p>
+            For an in-person working session, arrange a time with our team before visiting. We’ll
+            review the property, capital need, timing, and constraints at{' '}
+            {FAIRLEND_OFFICE.addressLine}.
+          </p>
+        </div>
+
+        <dl className="contact-office__visit-note">
+          <div>
+            <dt>Visits</dt>
+            <dd>By appointment</dd>
+          </div>
+          <div>
+            <dt>Office</dt>
+            <dd>Toronto / Ontario</dd>
+          </div>
+        </dl>
+      </div>
+
+      <FairlendOfficeMap className="contact-office__map" variant="contact" />
+    </section>
+  )
+}

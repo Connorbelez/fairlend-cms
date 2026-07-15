@@ -1,0 +1,21 @@
+{
+  "categories": {
+    "performance": { "score": 0.56 },
+    "accessibility": { "score": 0.90 },
+    "best-practices": { "score": 0.96 },
+    "seo": { "score": 1.0 }
+  },
+  "audits": {
+    "first-contentful-paint": { "numericValue": 3496.18905 },
+    "largest-contentful-paint": { "numericValue": 9438.56715 },
+    "total-blocking-time": { "numericValue": 393.5 },
+    "cumulative-layout-shift": { "numericValue": 0.00006320755552503081 }
+  },
+  "measurement_context": {
+    "form_factor": "mobile",
+    "trial_count": 3,
+    "aggregation": "median",
+    "field_data": false,
+    "inp_available": false
+  }
+}

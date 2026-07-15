@@ -1,0 +1,86 @@
+{
+  "cache_type": "sitemap",
+  "analyzed_at": "2026-07-15T01:20:37Z",
+  "domain": "www.fairlend.ca",
+  "site_root": "https://www.fairlend.ca",
+  "sitemap_urls": [
+    "https://www.fairlend.ca/sitemap.xml",
+    "https://www.fairlend.ca/pages-sitemap.xml",
+    "https://www.fairlend.ca/posts-sitemap.xml"
+  ],
+  "robots_references_sitemap": true,
+  "coverage_summary": {
+    "indexed_candidates": 17,
+    "missing_key_pages": 0
+  },
+  "recommendations": [
+    "Keep the sitemap focused on canonical 200-status URLs and refresh it when key pages change."
+  ],
+  "issues": [],
+  "status_summary": {
+    "200": 17
+  },
+  "non_200_urls": [],
+  "redirected_urls": [],
+  "noindex_urls": [],
+  "canonical_mismatch_urls": [],
+  "deprecated_tag_usage": {},
+  "lastmod": {
+    "unique_count": 2,
+    "all_identical": false,
+    "sample_values": [
+      "2026-07-09",
+      "2026-07-14"
+    ]
+  },
+  "score": 100,
+  "discovery_error": null,
+  "page_urls": [
+    "https://www.fairlend.ca/",
+    "https://www.fairlend.ca/affordable-sustainable-rental-housing",
+    "https://www.fairlend.ca/borrowers",
+    "https://www.fairlend.ca/borrowers/institutional-mortgage",
+    "https://www.fairlend.ca/borrowers/private-mortgage-financing",
+    "https://www.fairlend.ca/construction-draw-financing",
+    "https://www.fairlend.ca/contact",
+    "https://www.fairlend.ca/disclosures",
+    "https://www.fairlend.ca/en/brokerage/privacy-policy",
+    "https://www.fairlend.ca/garden-suite-financing-gta",
+    "https://www.fairlend.ca/garden-suite",
+    "https://www.fairlend.ca/investing",
+    "https://www.fairlend.ca/investing/private-mortgage-lending",
+    "https://www.fairlend.ca/multiplex-financing-gta",
+    "https://www.fairlend.ca/partners",
+    "https://www.fairlend.ca/posts",
+    "https://www.fairlend.ca/terms"
+  ],
+  "sitemap_file_count": 3,
+  "sitemap_files": [
+    {
+      "url": "https://www.fairlend.ca/sitemap.xml",
+      "status": 200,
+      "root_tag": "sitemapindex",
+      "url_count": 0,
+      "child_sitemap_count": 2,
+      "parse_error": null
+    },
+    {
+      "url": "https://www.fairlend.ca/pages-sitemap.xml",
+      "status": 200,
+      "root_tag": "urlset",
+      "url_count": 17,
+      "child_sitemap_count": 0,
+      "parse_error": null
+    },
+    {
+      "url": "https://www.fairlend.ca/posts-sitemap.xml",
+      "status": 200,
+      "root_tag": "urlset",
+      "url_count": 0,
+      "child_sitemap_count": 0,
+      "parse_error": null
+    }
+  ],
+  "collection_errors": [],
+  "checked_url_count": 17
+}

@@ -1,7 +1,11 @@
+import type { CSSProperties } from 'react'
+
 import { GardenSuiteOpportunityBadge } from '@/components/GardenSuiteOpportunityBadge'
 import { cn } from '@/utilities/ui'
 
 import { fairlendRouteSelectorAssets } from './assets'
+import { FairlendRouteReveal } from './FairlendRouteReveal.client'
+import './route-reveal.css'
 import { FairlendRouteCard } from './route-card'
 import {
   fairlendRouteChoices,
@@ -18,7 +22,6 @@ import type {
 import {
   fairlendRouteHeaderTextVariants,
   fairlendRouteOriginDotVariants,
-  fairlendRouteSelectorLayerVariants,
   fairlendRouteSelectorTokenStyles,
   fairlendRouteSelectorVariants,
   type FairlendRouteSelectorStyle,
@@ -58,7 +61,7 @@ export function FairlendRouteSelector({
     <section
       className={cn(
         fairlendRouteSelectorVariants(),
-        'py-10 lg:py-10 xl:min-h-[720px] xl:overflow-visible xl:px-[clamp(18px,2vw,34px)] xl:py-8',
+        'py-10 lg:py-10 xl:min-h-[720px] xl:px-[clamp(18px,2vw,34px)] xl:py-8',
         className,
       )}
       data-fairlend-route-selector
@@ -71,16 +74,7 @@ export function FairlendRouteSelector({
       }
       {...props}
     >
-      <div
-        aria-hidden="true"
-        className={cn(
-          fairlendRouteSelectorLayerVariants({ layer: 'map' }),
-          'opacity-[0.825] contrast-[1.022]',
-        )}
-      />
-      <div aria-hidden="true" className={fairlendRouteSelectorLayerVariants({ layer: 'paper' })} />
-
-      <div className="relative z-10 mx-auto flex h-full w-full max-w-none flex-col">
+      <div className="relative mx-auto flex h-full w-full max-w-none flex-col">
         <div className="grid shrink-0 items-end gap-6 lg:grid-cols-[minmax(0,0.92fr)_minmax(280px,0.58fr)] lg:gap-[clamp(28px,4vw,56px)] xl:grid-cols-[minmax(0,1.58fr)_minmax(300px,0.42fr)]">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left [&_*]:text-center lg:[&_*]:text-left">
             <span className={fairlendRouteOriginDotVariants()} />
@@ -105,7 +99,7 @@ export function FairlendRouteSelector({
         </div>
 
         <div className="mt-6 grid w-full items-stretch gap-4 xl:mt-5 xl:grid-cols-[minmax(400px,0.92fr)_minmax(0,1.48fr)] xl:grid-rows-[auto_16px_283px_16px_143px_16px_155px] xl:gap-x-4 xl:gap-y-0 xl:overflow-visible">
-          {routes.map((route) => (
+          {routes.map((route, index) => (
             <FairlendRouteCard
               className={cn(
                 fairlendRouteDesktopPlacement[route.id],
@@ -115,6 +109,7 @@ export function FairlendRouteSelector({
                 route.span === 'wide' && 'xl:col-span-2',
               )}
               key={route.id}
+              data-route-reveal-card
               layout={
                 route.id === featuredRoute?.id
                   ? 'featured'
@@ -124,6 +119,7 @@ export function FairlendRouteSelector({
               }
               route={route}
               selected={route.id === selectedRouteId}
+              style={{ '--route-reveal-delay': `${index * 55}ms` } as CSSProperties}
             />
           ))}
 
@@ -134,6 +130,7 @@ export function FairlendRouteSelector({
         </div>
 
         {helpBanner ? <FairlendRouteHelpBanner className="mt-5" content={helpBanner} /> : null}
+        <FairlendRouteReveal />
       </div>
     </section>
   )
@@ -158,7 +155,6 @@ export {
   fairlendRouteHelpTextVariants,
   fairlendRouteIconBadgeSurfaceVariants,
   fairlendRouteOriginDotVariants,
-  fairlendRouteSelectorLayerVariants,
   fairlendRouteSelectorTokenStyles,
   fairlendRouteSelectorTokens,
   fairlendRouteSelectorVariants,

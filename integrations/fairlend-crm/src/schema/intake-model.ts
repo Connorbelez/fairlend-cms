@@ -24,6 +24,10 @@ import {
   VIEW_IDS,
 } from 'src/constants/data-model';
 import { APPLICATION_UNIVERSAL_IDENTIFIER } from 'src/constants/universal-identifiers';
+import {
+  PARTNER_CONTACT_FIELD_IDS,
+  PARTNER_CONTACT_OBJECT_ID,
+} from 'src/schema/partner-entity-ids';
 
 export type IntakeObjectKind =
   | 'mortgage'
@@ -62,7 +66,7 @@ type IntakeDefinition = {
 type FieldSpec = {
   name: string;
   label: string;
-  type?: 'text' | 'dateTime' | 'boolean' | 'address' | 'rawJson';
+  type?: 'text' | 'date' | 'dateTime' | 'number' | 'boolean' | 'address' | 'rawJson';
   description?: string;
   existingId?: string;
   isUnique?: boolean;
@@ -186,6 +190,33 @@ const partnerFields: readonly FieldSpec[] = [
   { name: 'amount', label: 'Amount' },
   { name: 'projectContext', label: 'Project Context', displayedMaxRows: 8 },
   { name: 'scenarioContext', label: 'Scenario Context', displayedMaxRows: 8 },
+  { name: 'nextAction', label: 'Next Action', displayedMaxRows: 4 },
+  { name: 'lastContactAt', label: 'Last Contact At', type: 'dateTime' },
+  { name: 'lastContactSummary', label: 'Last Contact Summary', displayedMaxRows: 6 },
+  { name: 'followUpCount', label: 'Follow-up Count', type: 'number' },
+  { name: 'primaryHook', label: 'Primary Hook', displayedMaxRows: 8 },
+  { name: 'fitEvidence', label: 'Fit Evidence', displayedMaxRows: 10 },
+  { name: 'opennessSignal', label: 'Partner-openness Signal', displayedMaxRows: 8 },
+  { name: 'contactRoute', label: 'Primary Contact Route', displayedMaxRows: 6 },
+  { name: 'sourceUrls', label: 'Research Source URLs', displayedMaxRows: 10 },
+  { name: 'verificationDate', label: 'Research Verified On', type: 'date' },
+  { name: 'proposedOffer', label: 'Proposed Offer', displayedMaxRows: 10 },
+  { name: 'firstCta', label: 'First CTA', displayedMaxRows: 8 },
+  { name: 'objectionsAndRisks', label: 'Objections / Claims to Avoid', displayedMaxRows: 10 },
+  { name: 'activityRecencyNotes', label: 'Activity / Recency Notes', displayedMaxRows: 8 },
+  { name: 'activationDate', label: 'Activation / Session Date', type: 'dateTime' },
+  { name: 'activationContext', label: 'Pilot / Episode / Program / Event Context', displayedMaxRows: 10 },
+  { name: 'convertedAt', label: 'Converted At', type: 'dateTime' },
+  { name: 'conversionOutcome', label: 'Conversion Outcome', displayedMaxRows: 8 },
+  { name: 'reengageAt', label: 'Re-engage At', type: 'dateTime' },
+  { name: 'pauseReason', label: 'Pause Reason', displayedMaxRows: 6 },
+  { name: 'declineReason', label: 'Decline Reason', displayedMaxRows: 6 },
+  { name: 'decisionMakerCount', label: 'Verified Decision-makers', type: 'number' },
+  { name: 'companyMatchKey', label: 'Company Match Key', isUIEditable: false },
+  { name: 'companySourceUrls', label: 'Company Verification Sources', displayedMaxRows: 8 },
+  { name: 'companyVerifiedOn', label: 'Company Verified On', type: 'date' },
+  { name: 'companyResearchNotes', label: 'Company Research Notes', displayedMaxRows: 10 },
+  { name: 'peopleResearchSummary', label: 'Decision-maker Research Summary', displayedMaxRows: 10 },
 ];
 
 const consultationFields: readonly FieldSpec[] = [
@@ -309,7 +340,12 @@ const definitions: Record<IntakeObjectKind, IntakeDefinition> = {
       option('INACTIVE', 'Inactive', 6, 'gray'),
     ],
     specificFields: partnerFields,
-    operationsFields: ['name', 'workflowStatus', 'priority', 'partnerType', 'partnerRole', 'companyName', 'contactName', 'email', 'phone', 'capturedAt', 'submittedAt', 'nextActionAt'],
+    operationsFields: [
+      'name', 'partnerCategory', 'partnershipStage', 'priority', 'engagementHealth',
+      'owner', 'partnerRole', 'companyName', 'company', 'person', 'decisionMakerCount',
+      'companyVerificationStatus', 'primaryDecisionMakerStatus', 'responseStatus', 'lastContactAt', 'nextActionAt',
+      'nextAction', 'campaign', 'followUpCount',
+    ],
     supportsDrafts: true,
     supportsWorkflowView: true,
   },
@@ -391,6 +427,126 @@ const consultationMilestoneOptions = [
   option('SCHEDULED', 'Scheduled', 2, 'yellow'), option('COMPLETED', 'Completed', 3, 'green'),
 ];
 
+export const PARTNER_CATEGORY_OPTIONS = [
+  option('BUILDER_PROFESSIONAL', 'Builders & Early-file Professionals', 0, 'blue'),
+  option('PODCAST_MEDIA', 'Podcasts & Media', 1, 'purple'),
+  option('INVESTOR_GROUP', 'Investor Groups & Associations', 2, 'green'),
+  option('MEETUP_COMMUNITY', 'Meetups & Recurring Communities', 3, 'orange'),
+  option('TRADE_SHOW_EVENT', 'Trade Shows & Events', 4, 'yellow'),
+  option('OTHER', 'Other Partnership', 5, 'gray'),
+] as const;
+
+export const PARTNERSHIP_STAGE_OPTIONS = [
+  option('RESEARCHED', 'Researched', 0, 'gray'),
+  option('QUALIFIED', 'Qualified', 1, 'blue'),
+  option('BUILDER_OUTREACH_READY', 'Outreach Ready', 2, 'yellow'),
+  option('BUILDER_CONTACTED', 'Contacted', 3, 'purple'),
+  option('BUILDER_DISCOVERY', 'Discovery', 4, 'orange'),
+  option('BUILDER_FILE_PILOT_PROPOSED', 'File Pilot Proposed', 5, 'blue'),
+  option('BUILDER_PILOT_ACTIVE', 'Pilot Active', 6, 'purple'),
+  option('BUILDER_PARTNER_ONBOARDING', 'Partner Onboarding', 7, 'orange'),
+  option('BUILDER_ACTIVE_PARTNER', 'Active Partner', 8, 'green'),
+  option('MEDIA_PITCH_READY', 'Pitch Ready', 9, 'yellow'),
+  option('MEDIA_PITCHED', 'Pitched', 10, 'purple'),
+  option('MEDIA_EDITORIAL_REVIEW', 'Editorial Review', 11, 'orange'),
+  option('MEDIA_BOOKED', 'Booked', 12, 'blue'),
+  option('MEDIA_RECORDED', 'Recorded', 13, 'purple'),
+  option('MEDIA_PUBLISHED', 'Published', 14, 'green'),
+  option('MEDIA_RECURRING_PARTNER', 'Recurring Media Partner', 15, 'green'),
+  option('COMMUNITY_PROGRAM_PROPOSED', 'Program Proposed', 16, 'yellow'),
+  option('COMMUNITY_ORGANIZER_REVIEW', 'Organizer Review', 17, 'orange'),
+  option('COMMUNITY_SESSION_SCHEDULED', 'Session Scheduled', 18, 'blue'),
+  option('COMMUNITY_PROMOTION_ACTIVE', 'Promotion Active', 19, 'purple'),
+  option('COMMUNITY_DELIVERED', 'Delivered', 20, 'green'),
+  option('COMMUNITY_FOLLOW_UP', 'Member Follow-up', 21, 'orange'),
+  option('COMMUNITY_RECURRING_PARTNER', 'Recurring Community Partner', 22, 'green'),
+  option('EVENT_PROSPECTUS_REVIEWED', 'Prospectus Reviewed', 23, 'yellow'),
+  option('EVENT_CONTACTED', 'Event Contacted', 24, 'purple'),
+  option('EVENT_ACTIVATION_SUBMITTED', 'Speaking / Activation Submitted', 25, 'blue'),
+  option('EVENT_NEGOTIATION', 'Negotiation', 26, 'orange'),
+  option('EVENT_BOOKED', 'Event Booked', 27, 'blue'),
+  option('EVENT_PRE_EVENT', 'Pre-event', 28, 'purple'),
+  option('EVENT_DELIVERED', 'Event Delivered', 29, 'green'),
+  option('EVENT_POST_EVENT_CONVERSION', 'Post-event Conversion', 30, 'orange'),
+  option('EVENT_RECURRING_PARTNER', 'Recurring Event Partner', 31, 'green'),
+  option('NURTURE', 'Nurture', 32, 'gray'),
+  option('REENGAGEMENT', 'Re-engagement', 33, 'yellow'),
+  option('PAUSED', 'Paused', 34, 'gray'),
+  option('DECLINED', 'Declined', 35, 'red'),
+  option('CONVERTED', 'Converted', 36, 'green'),
+] as const;
+
+export const PARTNER_OPERATIONAL_SELECTS = [
+  { name: 'partnerCategory', label: 'Partner Category', options: PARTNER_CATEGORY_OPTIONS, defaultValue: 'OTHER' },
+  { name: 'partnershipStage', label: 'Partnership Stage', options: PARTNERSHIP_STAGE_OPTIONS, defaultValue: 'RESEARCHED' },
+  {
+    name: 'engagementHealth', label: 'Engagement Health', defaultValue: 'ACTIVE', options: [
+      option('ACTIVE', 'Active', 0, 'green'), option('AWAITING_RESPONSE', 'Awaiting Response', 1, 'blue'),
+      option('NEEDS_VERIFICATION', 'Needs Verification', 2, 'yellow'), option('STALE', 'Stale', 3, 'orange'),
+      option('PAUSED', 'Paused', 4, 'gray'), option('NURTURE', 'Nurture', 5, 'purple'),
+      option('DECLINED', 'Declined', 6, 'red'), option('CONVERTED', 'Converted', 7, 'green'),
+    ],
+  },
+  {
+    name: 'responseStatus', label: 'External Response', defaultValue: 'NOT_CONTACTED', options: [
+      option('NOT_CONTACTED', 'Not Contacted', 0, 'gray'), option('AWAITING_RESPONSE', 'Awaiting Response', 1, 'yellow'),
+      option('RESPONDED', 'Responded', 2, 'green'), option('NO_RESPONSE', 'No Response', 3, 'orange'),
+      option('DO_NOT_CONTACT', 'Do Not Contact', 4, 'red'),
+    ],
+  },
+  {
+    name: 'lastContactChannel', label: 'Last Contact Channel', defaultValue: 'NONE', options: [
+      option('NONE', 'None', 0, 'gray'), option('EMAIL', 'Email', 1, 'blue'),
+      option('LINKEDIN', 'LinkedIn', 2, 'purple'), option('PHONE', 'Phone', 3, 'green'),
+      option('CONTACT_FORM', 'Contact Form', 4, 'yellow'), option('EVENT', 'Event / In Person', 5, 'orange'),
+      option('OTHER', 'Other', 6, 'gray'),
+    ],
+  },
+  {
+    name: 'proposalReviewStatus', label: 'Proposal / Program Review', defaultValue: 'NOT_STARTED', options: [
+      option('NOT_STARTED', 'Not Started', 0, 'gray'), option('READY_TO_SUBMIT', 'Ready to Submit', 1, 'yellow'),
+      option('SUBMITTED', 'Submitted', 2, 'blue'), option('UNDER_REVIEW', 'Under Review', 3, 'orange'),
+      option('REVISION_REQUESTED', 'Revision Requested', 4, 'purple'), option('APPROVED', 'Approved', 5, 'green'),
+      option('DECLINED', 'Declined', 6, 'red'),
+    ],
+  },
+  {
+    name: 'activationType', label: 'Activation Type', defaultValue: 'NONE', options: [
+      option('NONE', 'None', 0, 'gray'), option('FILE_PILOT', 'File Pilot', 1, 'blue'),
+      option('EDITORIAL_EPISODE', 'Editorial Episode', 2, 'purple'), option('MEMBER_PROGRAM', 'Member Program', 3, 'green'),
+      option('MEETUP_SESSION', 'Meetup Session', 4, 'orange'), option('EVENT_ACTIVATION', 'Event Activation', 5, 'yellow'),
+    ],
+  },
+  {
+    name: 'activationStatus', label: 'Activation Status', defaultValue: 'NOT_PROPOSED', options: [
+      option('NOT_PROPOSED', 'Not Proposed', 0, 'gray'), option('PROPOSED', 'Proposed', 1, 'yellow'),
+      option('UNDER_REVIEW', 'Under Review', 2, 'orange'), option('SCHEDULED', 'Scheduled / Booked', 3, 'blue'),
+      option('PROMOTION_ACTIVE', 'Promotion Active', 4, 'purple'), option('IN_PROGRESS', 'In Progress', 5, 'orange'),
+      option('DELIVERED', 'Delivered', 6, 'green'), option('PUBLISHED', 'Published', 7, 'green'),
+      option('COMPLETED', 'Completed', 8, 'green'), option('CANCELLED', 'Cancelled', 9, 'red'),
+    ],
+  },
+  {
+    name: 'activityRecencyStatus', label: 'Activity / Recency Status', defaultValue: 'CURRENT', options: [
+      option('CURRENT', 'Current', 0, 'green'), option('VERIFY_BEFORE_OUTREACH', 'Verify Before Outreach', 1, 'yellow'),
+      option('POSSIBLY_PAUSED', 'Possibly Paused', 2, 'orange'), option('STALE', 'Stale', 3, 'red'),
+      option('NOT_APPLICABLE', 'Not Applicable', 4, 'gray'),
+    ],
+  },
+  {
+    name: 'companyVerificationStatus', label: 'Company Verification', defaultValue: 'UNVERIFIED', options: [
+      option('VERIFIED', 'Verified', 0, 'green'), option('NEEDS_REVERIFY', 'Needs Re-verification', 1, 'yellow'),
+      option('UNVERIFIED', 'Unverified', 2, 'gray'), option('NO_LEGAL_ENTITY_FOUND', 'No Legal Entity Found', 3, 'orange'),
+    ],
+  },
+  {
+    name: 'primaryDecisionMakerStatus', label: 'Primary Decision-maker', defaultValue: 'UNVERIFIED', options: [
+      option('VERIFIED', 'Verified', 0, 'green'), option('NEEDS_REVERIFY', 'Needs Re-verification', 1, 'yellow'),
+      option('UNVERIFIED', 'Unverified', 2, 'gray'), option('PUBLIC_DETAILS_UNAVAILABLE', 'Public Details Unavailable', 3, 'orange'),
+    ],
+  },
+] as const;
+
 const legacyConsultationFieldIds: Record<string, string> = {
   name: CONSULTATION_FIELD_IDS.name,
   status: CONSULTATION_FIELD_IDS.status,
@@ -430,7 +586,7 @@ export const getCampaignTouchRelationFieldId = (kind: IntakeObjectKind): string 
   intakeUid(`field:campaignTouch:${definitions[kind].nameSingular}`);
 
 export const getStandardRelationFieldId = (
-  standardObject: 'person' | 'company',
+  standardObject: 'person' | 'company' | 'workspaceMember',
   kind: IntakeObjectKind,
 ): string => standardObject === 'person' && kind === 'consultation'
   ? STANDARD_OBJECT_RELATION_FIELD_IDS.personConsultations
@@ -450,7 +606,9 @@ const fieldFromSpec = (kind: IntakeObjectKind, spec: FieldSpec): ObjectField => 
   };
 
   switch (spec.type) {
+    case 'date': return { ...common, type: FieldType.DATE } as ObjectField;
     case 'dateTime': return { ...common, type: FieldType.DATE_TIME } as ObjectField;
+    case 'number': return { ...common, type: FieldType.NUMBER } as ObjectField;
     case 'boolean': return { ...common, type: FieldType.BOOLEAN } as ObjectField;
     case 'address': return { ...common, type: FieldType.ADDRESS } as ObjectField;
     case 'rawJson': return { ...common, type: FieldType.RAW_JSON } as ObjectField;
@@ -545,12 +703,30 @@ const buildRelations = (kind: IntakeObjectKind): ObjectField[] => {
   if (kind === 'partner') {
     relations.push(relationField({
       kind,
+      name: 'owner',
+      label: 'Partnership Owner',
+      targetObjectId: STANDARD_OBJECT_UNIVERSAL_IDENTIFIERS.workspaceMember.universalIdentifier,
+      targetFieldId: getStandardRelationFieldId('workspaceMember', kind),
+      relationType: RelationType.MANY_TO_ONE,
+    }));
+    relations.push(relationField({
+      kind,
       name: 'constructionApplications',
       label: 'Construction Applications',
       targetObjectId: definitions.construction.objectId,
       targetFieldId: getIntakeFieldId('construction', 'referringPartner'),
       relationType: RelationType.ONE_TO_MANY,
     }));
+    relations.push({
+      universalIdentifier: getIntakeFieldId('partner', 'decisionMakerLinks'),
+      type: FieldType.RELATION,
+      name: 'decisionMakerLinks',
+      label: 'Verified Decision-makers',
+      isNullable: true,
+      relationTargetObjectMetadataUniversalIdentifier: PARTNER_CONTACT_OBJECT_ID,
+      relationTargetFieldMetadataUniversalIdentifier: PARTNER_CONTACT_FIELD_IDS.partnerLead,
+      universalSettings: { relationType: RelationType.ONE_TO_MANY },
+    } as ObjectField);
   }
 
   if (kind === 'construction') {
@@ -601,6 +777,12 @@ export const buildIntakeObjectConfig = (kind: IntakeObjectKind): ObjectConfig =>
     ...definition.specificFields.map((spec) => fieldFromSpec(kind, spec)),
   ];
 
+  if (kind === 'partner') {
+    for (const field of PARTNER_OPERATIONAL_SELECTS) {
+      fields.push(selectField(kind, field.name, field.label, field.options, field.defaultValue));
+    }
+  }
+
   if (kind === 'mortgage' || kind === 'lender' || kind === 'construction' || kind === 'partner') {
     fields.push(selectField(kind, 'consultationMilestone', 'Consultation Milestone', consultationMilestoneOptions, 'NONE'));
   }
@@ -625,18 +807,23 @@ export const buildIntakeObjectConfig = (kind: IntakeObjectKind): ObjectConfig =>
 
 export const buildStandardRelationConfig = (
   kind: IntakeObjectKind,
-  standardObject: 'person' | 'company',
+  standardObject: 'person' | 'company' | 'workspaceMember',
 ): FieldConfig => {
   const definition = definitions[kind];
   return {
     universalIdentifier: getStandardRelationFieldId(standardObject, kind),
     type: FieldType.RELATION,
     objectUniversalIdentifier: STANDARD_OBJECT_UNIVERSAL_IDENTIFIERS[standardObject].universalIdentifier,
-    name: `fairlend${definition.namePlural[0].toUpperCase()}${definition.namePlural.slice(1)}`,
+    name: standardObject === 'workspaceMember'
+      ? 'ownedFairlendPartnerLeads'
+      : `fairlend${definition.namePlural[0].toUpperCase()}${definition.namePlural.slice(1)}`,
     label: `FairLend ${definition.labelPlural}`,
     isNullable: true,
     relationTargetObjectMetadataUniversalIdentifier: definition.objectId,
-    relationTargetFieldMetadataUniversalIdentifier: getIntakeFieldId(kind, standardObject),
+    relationTargetFieldMetadataUniversalIdentifier: getIntakeFieldId(
+      kind,
+      standardObject === 'workspaceMember' ? 'owner' : standardObject,
+    ),
     universalSettings: { relationType: RelationType.ONE_TO_MANY },
   } as FieldConfig;
 };
@@ -664,6 +851,9 @@ export const getAllPromotedFieldNames = (kind: IntakeObjectKind): string[] => {
     'person',
     'company',
   ];
+  if (kind === 'partner') {
+    names.push(...PARTNER_OPERATIONAL_SELECTS.map((field) => field.name), 'owner', 'decisionMakerLinks');
+  }
   if (kind === 'mortgage' || kind === 'lender' || kind === 'construction' || kind === 'partner') names.push('consultationMilestone');
   return [...new Set(names)];
 };
@@ -695,14 +885,14 @@ export const buildIntakeViewConfig = (kind: IntakeObjectKind, viewKind: IntakeVi
         universalIdentifier: intakeUid(`view-filter:${kind}:drafts:captureStatus`),
         fieldMetadataUniversalIdentifier: getIntakeFieldId(kind, 'captureStatus'),
         operand: ViewFilterOperand.IS,
-        value: 'DRAFT',
+        value: ['DRAFT'],
       }]
     : viewKind === 'operations' && definition.supportsDrafts
       ? [{
           universalIdentifier: intakeUid(`view-filter:${kind}:operations:captureStatus`),
           fieldMetadataUniversalIdentifier: getIntakeFieldId(kind, 'captureStatus'),
           operand: ViewFilterOperand.IS_NOT,
-          value: 'DRAFT',
+          value: ['DRAFT'],
         }]
       : undefined;
 

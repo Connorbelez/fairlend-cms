@@ -60,7 +60,8 @@ export function HeroLifecycleColumns(): ReactElement {
             className="partner-hero-lifecycle__image"
             fill
             priority={index === 0}
-            sizes="(max-width: 560px) 62vw, (max-width: 1024px) 82vw, 42vw"
+            quality={60}
+            sizes="(max-width: 560px) 62vw, (max-width: 1024px) 82vw, 25vw"
             src={column.src}
             style={{ objectPosition: column.position }}
           />

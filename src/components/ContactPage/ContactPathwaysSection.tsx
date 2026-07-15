@@ -8,10 +8,10 @@ export function ContactPathwaysSection() {
     <section aria-labelledby="contact-pathways-title" className="contact-pathways">
       <div className="contact-pathways__story">
         <div>
-          <p className="contact-kicker">Find the right desk</p>
-          <h2 id="contact-pathways-title">Four desks. One clean handoff.</h2>
+          <p className="contact-kicker">Find your route</p>
+          <h2 id="contact-pathways-title">Four ways we can help. One clean handoff.</h2>
           <p>
-            Start with the route closest to your file. Each desk explains the fit, evidence, and
+            Start with the route closest to your file. Each page explains the fit, evidence, and
             likely next step before you send an inquiry.
           </p>
         </div>
@@ -33,7 +33,7 @@ export function ContactPathwaysSection() {
         </figure>
       </div>
 
-      <div className="contact-pathways__ledger" aria-label="FairLend financing desks">
+      <div className="contact-pathways__ledger" aria-label="FairLend financing options">
         {contactPathways.map((pathway, index) => (
           <ContactPathwayLink index={index} key={pathway.href} pathway={pathway} />
         ))}

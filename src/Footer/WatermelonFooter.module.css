@@ -23,14 +23,12 @@
   isolation: isolate;
 }
 
-.skyline::before {
+.skylineImage {
   position: absolute;
   z-index: 1;
   inset: 0;
-  background-image: url('/assets/footer/fairlend-toronto-waterfront.webp');
-  background-position: center bottom;
-  background-size: cover;
-  content: '';
+  object-fit: cover;
+  object-position: center bottom;
 }
 
 .wordmark {
@@ -101,11 +99,13 @@
   transition: opacity 350ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.skyline[data-pointer-active='true'] .wordmark::after {
+.skyline:hover .wordmark::after,
+.skyline:focus-within .wordmark::after {
   opacity: 0.78;
 }
 
-.skyline[data-pointer-active='true'] .signalGlow {
+.skyline:hover .signalGlow,
+.skyline:focus-within .signalGlow {
   opacity: 1;
 }
 

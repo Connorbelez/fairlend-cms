@@ -11,6 +11,7 @@
     "crm:twenty:reconcile": "cross-env NODE_OPTIONS=--no-deprecation tsx src/scripts/reconcileTwentyLeads.ts",
     "crm:twenty:migrate": "cross-env NODE_OPTIONS=--no-deprecation TWENTY_RECONCILE_ALL=true tsx src/scripts/reconcileTwentyLeads.ts",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
+    "profile:route-selector": "node scripts/profile-route-selector.mjs",
     "ci": "pnpm build",
     "dev": "portless",
     "dev:server": "cross-env NODE_OPTIONS=--no-deprecation next dev",

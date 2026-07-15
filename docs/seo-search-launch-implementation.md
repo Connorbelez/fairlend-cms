@@ -36,25 +36,33 @@ This document maps the code-owned items from the July 14, 2026 search-indexing l
 
 ### IndexNow
 
-- `INDEXNOW_KEY` is served from `/indexnow-key.txt` only when a valid 8–128 character key is configured.
+- A stable public IndexNow verification key is served from `/indexnow-key.txt`; `INDEXNOW_KEY` is an optional rotation override.
 - Published Pages and Posts enqueue notifications after publish, material published updates, unpublish, and delete events.
 - Notifications always use the final `www` canonical URL and include `keyLocation`.
 - A durable `fairlend_indexnow_events` table deduplicates document versions and records URL, change type, collection/document, version timestamp, deployment, response status, retry count, and error.
-- Transient `429` and `5xx` responses retry with bounded exponential backoff. Drafts, autosaves, previews, staging deployments, and unchanged versions do not notify.
+- Transient `429` and `5xx` responses retry with bounded exponential backoff and a five-second timeout per attempt. Drafts, autosaves, previews, staging deployments, and unchanged versions do not notify.
+
+### Technical SEO hardening
+
+- Apex-host traffic now receives one permanent redirect directly to the final HTTPS `www` URL.
+- The two intentional noindex resource placeholders are retired with permanent redirects, and live navigation now links directly to their complete replacement pages.
+- Every source-controlled page sitemap entry has a source-authored `lastmod`; CMS-only pages retain Payload `updatedAt`, and the posts archive advances when a real published post changes.
+- Global response headers now add HSTS, MIME-sniffing protection, a strict referrer policy, framing protection, a permissions policy, and a CSP with a bounded, privacy-sanitized report endpoint. CSP defaults to report-only; set `CSP_ENFORCE=true` only after a clean preview canary. Reports include a stable violation fingerprint and deployment metadata so logs can be aggregated by directive, blocked source, and release.
+- `X-Powered-By` is disabled before Payload wraps the Next.js configuration.
+- HSTS `includeSubDomains` and preload were evaluated and intentionally withheld: wildcard and nested FairLend DNS names do not all present valid TLS, and `autodiscover.fairlend.ca` could not be proven HTTPS-safe. Re-evaluate only after an authoritative subdomain inventory and TLS remediation. `HSTS_INCLUDE_SUBDOMAINS=true` and `HSTS_PRELOAD=true` are explicit post-remediation rollout controls; configuration rejects preload without `includeSubDomains`.
 
 ## Production deployment steps
 
-1. Generate one random IndexNow key containing 8–128 letters, numbers, or hyphens.
-2. Set `INDEXNOW_KEY` in the Vercel Production environment only. Do not set `INDEXNOW_ENABLED`; production enables automatically when the key is valid.
-3. Confirm `NEXT_PUBLIC_SERVER_URL=https://www.fairlend.ca`.
-4. Deploy normally so Payload runs `20260714_140000_search_readiness` before the application build.
-5. Run the automated release gate:
+1. Leave `INDEXNOW_KEY` unset to use the checked-in public key, or set a valid 8–128 character replacement in the Vercel Production environment when rotating it. Do not set `INDEXNOW_ENABLED`; production enables automatically.
+2. Confirm `NEXT_PUBLIC_SERVER_URL=https://www.fairlend.ca`.
+3. Deploy normally so Payload runs `20260714_140000_search_readiness` before the application build.
+4. Run the automated release gate:
 
    ```sh
    pnpm audit:seo https://www.fairlend.ca
    ```
 
-6. If the gate reports a failure, use the individual checks below to inspect it:
+5. If the gate reports a failure, use the individual checks below to inspect it:
 
    ```sh
    curl -I https://www.fairlend.ca/fairlend-landing-hero # expect 404
@@ -66,9 +74,9 @@ This document maps the code-owned items from the July 14, 2026 search-indexing l
    curl https://www.fairlend.ca/indexnow-key.txt
    ```
 
-7. Confirm removed QA/demo URLs return `404` or `410`, and confirm no sitemap URL redirects, returns `noindex`, or declares a different canonical.
-8. Validate the homepage and contact-page JSON-LD in Google Rich Results Test and Schema.org Validator.
-9. Confirm Vercel Firewall/WAF allows current Googlebot, Bingbot, Applebot, DuckDuckBot, and OAI-SearchBot traffic.
+6. Confirm removed QA/demo URLs return `404` or `410`, and confirm no sitemap URL redirects, returns `noindex`, or declares a different canonical.
+7. Validate the homepage and contact-page JSON-LD in Google Rich Results Test and Schema.org Validator.
+8. Confirm Vercel Firewall/WAF allows current Googlebot, Bingbot, Applebot, DuckDuckBot, and OAI-SearchBot traffic.
 
 ## Account/operator work still required
 

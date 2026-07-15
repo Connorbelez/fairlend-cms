@@ -1,6 +1,7 @@
 import {
   ContactComplianceSection,
   ContactHeroSection,
+  ContactOfficeSection,
   ContactPathwaysSection,
 } from '@/components/ContactPage'
 import { FairlendLandingRail } from '@/components/FairlendLandingRail'
@@ -39,6 +40,9 @@ export default function ContactPage() {
         </FairlendLandingRail>
         <FairlendLandingRail gutterTexture="grid-noise">
           <ContactPathwaysSection />
+        </FairlendLandingRail>
+        <FairlendLandingRail gutterTexture="groovepaper">
+          <ContactOfficeSection />
         </FairlendLandingRail>
         <FairlendLandingRail gutterTexture="groovepaper">
           <ContactComplianceSection />

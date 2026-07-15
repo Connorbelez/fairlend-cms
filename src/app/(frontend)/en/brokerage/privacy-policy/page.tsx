@@ -1,7 +1,10 @@
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 
+import { FAIRLEND_OFFICE } from '@/components/FairlendOfficeMap/data'
+import { JsonLd } from '@/components/SEO/JsonLd'
 import { buildFairlendMetadata } from '@/utilities/seo'
+import { buildBreadcrumbJsonLd, buildWebPageJsonLd } from '@/utilities/structuredData'
 
 type PolicyBlock = {
   level?: 0 | 1
@@ -10,12 +13,13 @@ type PolicyBlock = {
 }
 
 const policyUrl = '/en/brokerage/privacy-policy'
+const pageDescription =
+  "Read Fairlend Management Inc.'s privacy policy for mortgage administration, brokerage, website privacy, consent, disclosure, retention, and contact rights."
 
 export const dynamic = 'force-static'
 
 export const metadata = buildFairlendMetadata({
-  description:
-    'Read the Fairlend Management Inc. privacy policy for mortgage administration, brokerage activities, website privacy, consent, disclosure, retention, and contact rights.',
+  description: pageDescription,
   path: policyUrl,
   title: 'Privacy Policy | Fairlend Management Inc.',
 })
@@ -423,7 +427,7 @@ const policyBlocks = [
   },
   {
     type: 'paragraph',
-    text: '**Elie Soberano**\nPrincipal Broker – Privacy Officer\n#M08001537\nFairlend Management Inc.\nUnit #2 - 890 Sheppard Avenue\nNorth York, Ontario M3H 6B9\nBy phone: 647-439-1232\nBy e-mail: elie@fairlend.ca',
+    text: `**Elie Soberano**\nPrincipal Broker – Privacy Officer\n#M08001537\nFairlend Management Inc.\n${FAIRLEND_OFFICE.addressLine}\n${FAIRLEND_OFFICE.addressLocality}, Ontario ${FAIRLEND_OFFICE.postalCode}\nBy phone: 647-439-1232\nBy e-mail: elie@fairlend.ca`,
   },
   {
     type: 'paragraph',
@@ -593,6 +597,20 @@ function renderPolicyBlocks(blocks: PolicyBlock[]) {
 export default function FairlendPrivacyPolicyPage() {
   return (
     <main className="min-h-svh bg-[#f8f7f5] text-[#090909]">
+      <JsonLd
+        data={[
+          buildBreadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: 'Privacy Policy', path: policyUrl },
+          ]),
+          buildWebPageJsonLd({
+            dateModified: '2026-07-14',
+            description: pageDescription,
+            name: 'Privacy Policy | Fairlend Management Inc.',
+            path: policyUrl,
+          }),
+        ]}
+      />
       <section className="border-b border-black/10 bg-[linear-gradient(135deg,#ffffff_0%,#f8f7f5_54%,rgb(150_236_24/13%)_100%)] px-5 pt-24 pb-14 sm:px-8 lg:px-12 lg:pt-32 lg:pb-20">
         <div className="mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-[minmax(0,0.72fr)_minmax(280px,0.28fr)] lg:items-end">
           <div>

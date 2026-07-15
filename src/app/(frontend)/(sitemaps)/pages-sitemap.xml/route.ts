@@ -4,27 +4,8 @@ import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
 
 import { getCanonicalOrigin } from '@/utilities/seo'
-import { FAIRLEND_SITEMAP_EXCLUDED_PAGE_SLUGS } from '@/lib/fairlend-routes'
-
-const staticIndexableRoutes = [
-  '/',
-  '/affordable-sustainable-rental-housing',
-  '/borrowers',
-  '/borrowers/institutional-mortgage',
-  '/borrowers/private-mortgage-financing',
-  '/construction-draw-financing',
-  '/contact',
-  '/disclosures',
-  '/en/brokerage/privacy-policy',
-  '/garden-suite-financing-gta',
-  '/garden-suite',
-  '/investing',
-  '/investing/private-mortgage-lending',
-  '/multiplex-financing-gta',
-  '/partners',
-  '/posts',
-  '/terms',
-]
+import { FAIRLEND_DEMO_POST_SLUGS } from '@/lib/fairlend-posts'
+import { buildPagesSitemapEntries } from '@/lib/pages-sitemap'
 
 const getPagesSitemap = unstable_cache(
   async () => {
@@ -49,33 +30,41 @@ const getPagesSitemap = unstable_cache(
       },
     })
 
-    const staticSitemap = staticIndexableRoutes.map((route) => ({
-      loc: route === '/' ? `${SITE_URL}/` : `${SITE_URL}${route}`,
-    }))
+    const latestPostResult = await payload.find({
+      collection: 'posts',
+      overrideAccess: false,
+      draft: false,
+      depth: 0,
+      limit: 1,
+      sort: '-updatedAt',
+      where: {
+        and: [
+          {
+            _status: {
+              equals: 'published',
+            },
+          },
+          {
+            slug: {
+              not_in: [...FAIRLEND_DEMO_POST_SLUGS],
+            },
+          },
+        ],
+      },
+      select: {
+        updatedAt: true,
+      },
+    })
 
-    const sitemap = results.docs
-      ? results.docs
-          .filter(
-            (page) => Boolean(page?.slug) && !FAIRLEND_SITEMAP_EXCLUDED_PAGE_SLUGS.has(page.slug),
-          )
-          .map((page) => {
-            return {
-              loc: page?.slug === 'home' ? `${SITE_URL}/` : `${SITE_URL}/${page?.slug}`,
-              lastmod: page.updatedAt,
-            }
-          })
-      : []
+    const latestPostUpdatedAt = latestPostResult.docs[0]?.updatedAt
 
-    return Array.from(
-      [...staticSitemap, ...sitemap]
-        .reduce((entries, entry) => {
-          entries.set(entry.loc, entry)
-          return entries
-        }, new Map<string, { lastmod?: string; loc: string }>())
-        .values(),
-    )
+    return buildPagesSitemapEntries({
+      cmsPages: results.docs,
+      latestPostUpdatedAt,
+      siteUrl: SITE_URL,
+    })
   },
-  ['pages-sitemap-v3'],
+  ['pages-sitemap-v4'],
   {
     tags: ['pages-sitemap'],
   },

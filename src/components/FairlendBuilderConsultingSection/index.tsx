@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import {
   ArrowRight,
@@ -17,28 +15,15 @@ import {
   SlidersHorizontal,
   TriangleAlert,
 } from 'lucide-react'
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  type ComponentType,
-  type CSSProperties,
-  type SVGProps,
-} from 'react'
+import { type ComponentType, type CSSProperties, type SVGProps } from 'react'
 
 import { FairlendPaperSection, FairlendPaperShell } from '@/components/FairlendMarketingPrimitives'
 import { BackgroundImageTexture } from '@/components/ui/bg-image-texture'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import {
-  CircleDollarSignIcon,
-  type CircleDollarSignIconHandle,
-} from '@/components/ui/circle-dollar-sign'
-import { HammerIcon, type HammerIconHandle } from '@/components/ui/hammer'
-import { HomeIcon, type HomeIconHandle } from '@/components/ui/home'
-import { MapPinHouseIcon, type MapPinHouseIconHandle } from '@/components/ui/map-pin-house'
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 import { cn } from '@/utilities/ui'
 
+import { EquationVariableIcon } from './EquationVariableIcon.client'
 import { FairlendBuilderConsultingMotion } from './Motion.client'
 import { torontoLuxury2019Model } from './model'
 
@@ -460,101 +445,6 @@ function ActionCard({
         style={{ '--connector-offset': `${index * 13}px` } as CSSProperties}
       />
     </div>
-  )
-}
-
-type AnimatedEquationIconHandle =
-  | CircleDollarSignIconHandle
-  | HammerIconHandle
-  | HomeIconHandle
-  | MapPinHouseIconHandle
-
-function EquationVariableIcon({ variableKey }: { variableKey: EquationVariableKey }) {
-  const iconRef = useRef<AnimatedEquationIconHandle>(null)
-  const wrapperRef = useRef<HTMLSpanElement>(null)
-  const intervalRef = useRef<number | null>(null)
-  const replayTimeoutRef = useRef<number | null>(null)
-
-  const replayAnimation = useCallback(() => {
-    iconRef.current?.stopAnimation()
-    if (replayTimeoutRef.current) window.clearTimeout(replayTimeoutRef.current)
-    replayTimeoutRef.current = window.setTimeout(() => {
-      iconRef.current?.startAnimation()
-    }, 60)
-  }, [])
-
-  useEffect(() => {
-    const target = wrapperRef.current
-    if (!target || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-
-    const stopLoop = () => {
-      if (intervalRef.current) window.clearInterval(intervalRef.current)
-      intervalRef.current = null
-    }
-
-    const startLoop = () => {
-      replayAnimation()
-      stopLoop()
-      intervalRef.current = window.setInterval(replayAnimation, 3200)
-    }
-
-    const handleScrollReplay = () => {
-      replayAnimation()
-    }
-
-    window.addEventListener('fairlend-builder-equation-icons-replay', handleScrollReplay)
-
-    if (!('IntersectionObserver' in window)) {
-      startLoop()
-      return () => {
-        window.removeEventListener('fairlend-builder-equation-icons-replay', handleScrollReplay)
-        stopLoop()
-        if (replayTimeoutRef.current) window.clearTimeout(replayTimeoutRef.current)
-      }
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) {
-          startLoop()
-        } else {
-          stopLoop()
-          iconRef.current?.stopAnimation()
-        }
-      },
-      { threshold: 0.42 },
-    )
-
-    observer.observe(target)
-
-    return () => {
-      observer.disconnect()
-      window.removeEventListener('fairlend-builder-equation-icons-replay', handleScrollReplay)
-      stopLoop()
-      if (replayTimeoutRef.current) window.clearTimeout(replayTimeoutRef.current)
-    }
-  }, [replayAnimation])
-
-  const iconProps = {
-    className: 'builder-equation-card__animated-icon-inner',
-    onMouseEnter: replayAnimation,
-    size: 18,
-  }
-
-  return (
-    <span className="builder-equation-card__animated-icon" aria-hidden="true" ref={wrapperRef}>
-      {variableKey === 'land' ? (
-        <MapPinHouseIcon {...iconProps} ref={iconRef} />
-      ) : variableKey === 'build' ? (
-        <HammerIcon {...iconProps} ref={iconRef} />
-      ) : variableKey === 'soft' ? (
-        <PencilRuler className={iconProps.className} size={iconProps.size} />
-      ) : variableKey === 'home' ? (
-        <HomeIcon {...iconProps} ref={iconRef} />
-      ) : (
-        <CircleDollarSignIcon {...iconProps} ref={iconRef} />
-      )}
-    </span>
   )
 }
 
@@ -1561,7 +1451,6 @@ function BuilderConsultingStyles() {
 
       .builder-swap-text [data-builder-state] {
         grid-area: 1 / 1;
-        will-change: transform;
       }
 
       .builder-swap-text [data-builder-state="problem"] {
@@ -1764,7 +1653,6 @@ function BuilderConsultingStyles() {
         position: absolute;
         inset: 0;
         height: 200%;
-        will-change: transform;
       }
 
       .builder-bottom-strip__layer {
@@ -1936,7 +1824,6 @@ function BuilderConsultingStyles() {
         .builder-left-track {
           position: relative;
           height: 100%;
-          will-change: transform;
         }
 
         .builder-copy {
@@ -1946,12 +1833,10 @@ function BuilderConsultingStyles() {
           height: 100%;
           align-content: start;
           width: 100%;
-          will-change: clip-path, transform;
         }
 
         .builder-copy--problem {
           z-index: 4;
-          clip-path: inset(0);
           opacity: 1;
           pointer-events: auto;
           visibility: visible;
@@ -1960,7 +1845,6 @@ function BuilderConsultingStyles() {
         .builder-copy--solution {
           z-index: 5;
           padding-top: clamp(0.8rem, 1.4vw, 1.4rem);
-          clip-path: inset(0 0 100% 0);
           opacity: 0;
           pointer-events: none;
           visibility: hidden;
@@ -3023,7 +2907,6 @@ function BuilderConsultingStyles() {
         .builder-left-track {
           position: relative;
           height: 100%;
-          will-change: transform;
         }
 
         .builder-copy {
@@ -3034,12 +2917,10 @@ function BuilderConsultingStyles() {
           height: 100%;
           align-content: start;
           padding: 0.5rem 0 0 0.25rem;
-          will-change: clip-path, transform;
         }
 
         .builder-copy--problem {
           z-index: 4;
-          clip-path: inset(0);
           opacity: 1;
           pointer-events: auto;
           visibility: visible;
@@ -3048,7 +2929,6 @@ function BuilderConsultingStyles() {
         .builder-copy--solution {
           z-index: 5;
           padding-top: 0.5rem;
-          clip-path: inset(0 0 100% 0);
           opacity: 0;
           pointer-events: none;
           visibility: hidden;
@@ -3403,18 +3283,15 @@ function BuilderConsultingStyles() {
           inset: 0;
           display: grid;
           align-content: start;
-          will-change: clip-path, opacity, transform;
         }
 
         .builder-mobile-copy-panel--problem {
           z-index: 4;
-          clip-path: inset(0);
           opacity: 1;
         }
 
         .builder-mobile-copy-panel--solution {
           z-index: 5;
-          clip-path: inset(0 0 100% 0);
           opacity: 0;
           visibility: hidden;
         }
@@ -3944,7 +3821,6 @@ function BuilderConsultingStyles() {
         grid-area: 1 / 1;
         opacity: 0;
         transform: translateY(115%);
-        will-change: opacity, transform;
       }
 
       .builder-swap-text [data-builder-year="2019"] {
@@ -3955,7 +3831,6 @@ function BuilderConsultingStyles() {
       .builder-copy--2019,
       .builder-mobile-copy-panel--2019 {
         z-index: 4;
-        clip-path: inset(0);
         opacity: 1;
         pointer-events: auto;
         visibility: visible;
@@ -3966,7 +3841,6 @@ function BuilderConsultingStyles() {
       .builder-mobile-copy-panel--2023,
       .builder-mobile-copy-panel--2026 {
         z-index: 5;
-        clip-path: inset(0 0 100% 0);
         opacity: 0;
         pointer-events: none;
         visibility: hidden;
@@ -4006,11 +3880,11 @@ function BuilderConsultingStyles() {
 
       .builder-equation-line--emerging {
         height: 0;
+        max-height: 0;
         margin-top: 0;
         overflow: hidden;
         opacity: 0;
         transform: translateY(1.15rem);
-        will-change: clip-path, opacity, transform;
       }
 
       .builder-equation-label {
@@ -4092,7 +3966,6 @@ function BuilderConsultingStyles() {
         display: grid;
         place-items: center;
         pointer-events: none;
-        will-change: clip-path, opacity, transform;
       }
 
       .builder-equation-narrative__card {
@@ -4147,7 +4020,6 @@ function BuilderConsultingStyles() {
         width: 100%;
         height: 200%;
         grid-template-rows: repeat(2, minmax(0, 1fr));
-        will-change: transform;
       }
 
       .builder-equation-narrative__message {
@@ -4737,14 +4609,152 @@ function BuilderConsultingStyles() {
         }
       }
 
+      .builder-motion-phases {
+        display: none;
+      }
+
+      .builder-consulting[data-builder-motion-ready='true'] {
+        min-height: 300svh;
+        overflow: clip;
+      }
+
+      .builder-consulting[data-builder-motion-ready='true'] .builder-editorial-shell {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        height: 100svh;
+      }
+
+      .builder-consulting[data-builder-motion-ready='true'] .builder-motion-phases {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        display: grid;
+        grid-template-rows: repeat(3, minmax(0, 1fr));
+        pointer-events: none;
+      }
+
+      .builder-consulting[data-builder-motion-ready='true'] [data-builder-phase-marker] {
+        display: block;
+        min-height: 1px;
+      }
+
+      .builder-consulting[data-builder-motion-ready='true'] .builder-copy,
+      .builder-consulting[data-builder-motion-ready='true'] .builder-mobile-copy-panel {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(12px);
+        transition:
+          opacity 380ms cubic-bezier(0.22, 1, 0.36, 1),
+          transform 380ms cubic-bezier(0.22, 1, 0.36, 1),
+          visibility 0s linear 380ms;
+        visibility: hidden;
+      }
+
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2019'] .builder-copy--2019,
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2023'] .builder-copy--2023,
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026'] .builder-copy--2026,
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2019'] .builder-mobile-copy-panel--2019,
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2023'] .builder-mobile-copy-panel--2023,
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026'] .builder-mobile-copy-panel--2026 {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+        transition-delay: 0ms;
+        visibility: visible;
+      }
+
+      .builder-consulting[data-builder-motion-ready='true'] .builder-swap-text [data-builder-year] {
+        opacity: 0;
+        transform: translateY(12px);
+        transition:
+          opacity 380ms cubic-bezier(0.22, 1, 0.36, 1),
+          transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2019'] [data-builder-year='2019'],
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2023'] [data-builder-year='2023'],
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026'] [data-builder-year='2026'] {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .builder-consulting[data-builder-motion-ready='true'] .builder-bottom-strip__track,
+      .builder-consulting[data-builder-motion-ready='true'] .builder-equation-narrative__track,
+      .builder-consulting[data-builder-motion-ready='true'] .builder-equation-line--emerging,
+      .builder-consulting[data-builder-motion-ready='true'] .builder-equation-narrative {
+        transition:
+          opacity 380ms cubic-bezier(0.22, 1, 0.36, 1),
+          transform 380ms cubic-bezier(0.22, 1, 0.36, 1),
+          max-height 380ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2019'] {
+        --builder-progress: 1;
+      }
+
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2023'] {
+        --builder-progress: 0;
+      }
+
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026'] {
+        --builder-progress: 1;
+      }
+
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2023'] .builder-equation-line--primary,
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026'] .builder-equation-line--primary {
+        --row-tone: 0;
+      }
+
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2023'] .builder-bottom-strip__track {
+        transform: translateY(-33.333333%);
+      }
+
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026'] .builder-bottom-strip__track {
+        transform: translateY(-66.666667%);
+      }
+
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2023'] .builder-equation-narrative__track,
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026'] .builder-equation-narrative__track {
+        transform: translateY(-50%);
+      }
+
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026'] .builder-equation-narrative {
+        opacity: 0;
+        transform: translateY(-12px);
+      }
+
+      .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026'] .builder-equation-line--emerging {
+        height: auto;
+        max-height: 14rem;
+        margin-top: clamp(0.36rem, 0.52vw, 0.58rem);
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 1023px) {
+        .builder-consulting[data-builder-motion-ready='true'] {
+          min-height: 270svh;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--primary {
+          display: none;
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .builder-cta {
           transition: none;
         }
 
-        .builder-equation-narrative,
-        .builder-equation-narrative__track {
-          will-change: auto;
+        .builder-consulting[data-builder-motion-ready='true'] *,
+        .builder-consulting[data-builder-motion-ready='true'] *::before,
+        .builder-consulting[data-builder-motion-ready='true'] *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
         }
       }
     `}</style>
@@ -4757,6 +4767,7 @@ export function FairlendBuilderConsultingSection() {
       aria-label="Builder Consulting"
       className="builder-consulting relative isolate scroll-mt-[88px]"
       data-builder-consulting
+      data-builder-phase="2019"
       id="builder-consulting"
     >
       <BuilderConsultingStyles />
@@ -4785,6 +4796,12 @@ export function FairlendBuilderConsultingSection() {
           <MobileScrollState />
         </div>
       </FairlendPaperShell>
+
+      <div aria-hidden="true" className="builder-motion-phases">
+        {timelineYears.map((year) => (
+          <span data-builder-phase-marker={year} key={year} />
+        ))}
+      </div>
     </FairlendPaperSection>
   )
 }

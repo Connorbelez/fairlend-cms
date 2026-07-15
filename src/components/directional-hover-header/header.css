@@ -1072,13 +1072,13 @@
   }
 
   .mkt-dhh-mobile-toggle {
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
     border-radius: 10px;
   }
 
   .mkt-dhh-back {
-    min-height: 38px;
+    min-height: 44px;
     font-size: 0.94rem;
   }
 
@@ -1103,11 +1103,11 @@
   .mkt-dhh-hero-consult {
     position: absolute;
     top: 50%;
-    right: 52px;
+    right: 60px;
     z-index: 3;
     display: flex;
-    width: 34px;
-    height: 34px;
+    width: 44px;
+    height: 44px;
     align-items: center;
     justify-content: center;
     gap: 0;
@@ -1118,9 +1118,9 @@
   }
 
   .mkt-dhh-hero-consult > span:first-child {
-    width: 24px;
-    height: 24px;
-    flex-basis: 24px;
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
   }
 
   .mkt-dhh-hero-consult > span:last-child {
@@ -1159,8 +1159,8 @@
   }
 
   .mkt-dhh-mobile-toggle {
-    width: 34px;
-    height: 34px;
+    width: 44px;
+    height: 44px;
     border-radius: 9px;
   }
 
@@ -1169,15 +1169,15 @@
   }
 
   .mkt-dhh-hero-consult {
-    right: 46px;
-    width: 30px;
-    height: 30px;
+    right: 58px;
+    width: 44px;
+    height: 44px;
   }
 
   .mkt-dhh-hero-consult > span:first-child {
-    width: 22px;
-    height: 22px;
-    flex-basis: 22px;
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
   }
 
   .mkt-dhh-action-mobile {

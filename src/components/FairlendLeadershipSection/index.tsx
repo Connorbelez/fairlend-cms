@@ -20,6 +20,10 @@ import {
   FairlendPaperSection,
   FairlendPaperShell,
 } from '@/components/FairlendMarketingPrimitives'
+import { fairlendPrincipalBrokerClaims } from '@/lib/fairlend-claims'
+
+import { LeadershipMotion } from './LeadershipMotion.client'
+import './leadership-motion.css'
 
 const leadershipPortraitAsset = '/assets/elie-headshot.webp'
 const leadershipSceneAsset = '/assets/fairlend-principal-broker-background-halftone-key.webp'
@@ -27,19 +31,19 @@ const leadershipSceneAsset = '/assets/fairlend-principal-broker-background-halft
 const leadershipProof = [
   {
     detail: 'Across mortgage brokerage, private lending, and investment finance.',
-    disclaimer: '*Principal-broker experience.',
+    disclaimer: `*${fairlendPrincipalBrokerClaims.experienceDisclosure}`,
     Icon: ShieldCheck,
     label: 'Years experience',
     qualifier: '*',
-    value: '28+',
+    value: fairlendPrincipalBrokerClaims.experienceValue,
   },
   {
     detail: 'Lifetime funded deals by Principal Broker.',
-    disclaimer: '*Principal-broker lifetime volume; final figure to be verified.',
+    disclaimer: `*${fairlendPrincipalBrokerClaims.volumeDisclosure}`,
     Icon: Landmark,
     label: 'Principal Broker volume',
     qualifier: '*',
-    value: '$2B+',
+    value: fairlendPrincipalBrokerClaims.volumeValue,
   },
   {
     detail: 'Relationships across borrowers, lenders, brokers, and investors.',
@@ -1177,6 +1181,7 @@ export function FairlendLeadershipSection() {
       `}</style>
 
       <FairlendPaperShell className="leadership-shell">
+        <LeadershipMotion />
         <h2 id="fairlend-leadership-title" className="sr-only">
           Leadership
         </h2>
@@ -1225,10 +1230,11 @@ export function FairlendLeadershipSection() {
               </div>
             </div>
 
-            <div className="leadership-visual-panel" aria-hidden="true" data-leadership-visual>
+            <div className="leadership-visual-panel" data-leadership-visual>
               <Image
                 className="leadership-scene-image"
                 alt=""
+                aria-hidden="true"
                 decoding="async"
                 fill
                 priority={false}
@@ -1238,7 +1244,7 @@ export function FairlendLeadershipSection() {
               <div className="leadership-portrait-card">
                 <div className="leadership-portrait-media">
                   <Image
-                    alt=""
+                    alt="Portrait of Elie Soberano, FairLend founder and principal broker"
                     decoding="async"
                     fill
                     priority={false}

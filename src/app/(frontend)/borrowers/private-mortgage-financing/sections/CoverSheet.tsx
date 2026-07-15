@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { Suspense, type ReactElement } from 'react'
 import { ArrowDownRight } from 'lucide-react'
 
@@ -24,7 +25,9 @@ export function CoverSheet(): ReactElement {
       </svg>
 
       <div className="pm-cover__copy">
-        <p className="pm-label pm-label--dark">Private mortgage financing</p>
+        <p className="pm-label pm-label--dark">
+          <Link href="/borrowers">Borrower overview</Link> / Private mortgage financing
+        </p>
         <h1 id="pm-cover-title">Get a clear private mortgage answer before your deadline.</h1>
         <p className="pm-cover__lede">
           If a bank timeline, renewal problem, closing date, debt pressure, or equity need has you
