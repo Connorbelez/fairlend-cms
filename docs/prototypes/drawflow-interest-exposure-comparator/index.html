@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en-CA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Interactive product prototype for comparing construction draw schedules." />
+    <title>DrawFlow Cost Comparison — FairLend</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#workspace">Skip to comparison workspace</a>
+
+    <header class="app-header">
+      <a class="brand" href="#workspace" aria-label="FairLend DrawFlow home">
+        <span class="brand-word">fairlend</span>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="product-name">DrawFlow <b>Cost Comparison</b></span>
+      </a>
+      <div class="header-actions">
+        <button class="icon-button" id="helpButton" type="button" aria-haspopup="dialog">
+          <span aria-hidden="true">?</span><span class="desktop-label">Methodology</span>
+        </button>
+        <button class="quiet-button" id="saveButton" type="button">Save result</button>
+        <button class="avatar" type="button" aria-label="Open account menu">CB</button>
+      </div>
+    </header>
+
+    <main id="workspace">
+      <section class="workflow-head" aria-labelledby="page-title">
+        <div>
+          <div class="eyebrow"><span class="signal-dot"></span> Modeled comparison · Not a loan quote</div>
+          <h1 id="page-title">See when your construction financing starts costing you.</h1>
+          <p>Compare the same project under a conventional three-draw schedule and a milestone-based DrawFlow schedule.</p>
+        </div>
+        <ol class="stepper" aria-label="Comparison steps">
+          <li class="active" data-step-indicator="1"><button type="button" data-go-step="1"><b>01</b><span>Project</span></button></li>
+          <li data-step-indicator="2"><button type="button" data-go-step="2"><b>02</b><span>Schedule</span></button></li>
+          <li data-step-indicator="3"><button type="button" data-go-step="3"><b>03</b><span>Compare</span></button></li>
+        </ol>
+      </section>
+
+      <div class="workspace-grid">
+        <section class="work-panel" aria-live="polite">
+          <form id="comparisonForm" novalidate>
+            <div class="step-panel active" data-step="1">
+              <div class="panel-heading">
+                <div>
+                  <span class="section-number">01 / PROJECT FILE</span>
+                  <h2>Build and financing</h2>
+                </div>
+                <span class="status-tag"><span></span> Example data loaded</span>
+              </div>
+
+              <div class="input-section">
+                <div class="subheading">
+                  <h3>Choose the build</h3>
+                  <p>We’ll generate an editable milestone schedule from this project type.</p>
+                </div>
+                <div class="project-picker" role="radiogroup" aria-label="Project type">
+                  <label class="project-option">
+                    <input type="radio" name="projectType" value="Full build" />
+                    <span class="project-icon" aria-hidden="true">⌂</span>
+                    <span><b>Full build</b><small>Single-family ground-up</small></span>
+                  </label>
+                  <label class="project-option selected">
+                    <input type="radio" name="projectType" value="Multiplex build" checked />
+                    <span class="project-icon" aria-hidden="true">▦</span>
+                    <span><b>Multiplex</b><small>Four-unit conversion</small></span>
+                  </label>
+                  <label class="project-option">
+                    <input type="radio" name="projectType" value="Renovation" />
+                    <span class="project-icon" aria-hidden="true">⌁</span>
+                    <span><b>Renovation</b><small>Structural + interior</small></span>
+                  </label>
+                  <label class="project-option">
+                    <input type="radio" name="projectType" value="Garden suite" />
+                    <span class="project-icon" aria-hidden="true">⌂</span>
+                    <span><b>Garden suite</b><small>Detached accessory unit</small></span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="input-section two-column-fields">
+                <div class="subheading full-width">
+                  <h3>Set the scope</h3>
+                  <p>Use your current working budget and construction dates.</p>
+                </div>
+                <label class="field">
+                  <span>Construction budget</span>
+                  <span class="input-shell"><i>$</i><input id="budget" name="budget" type="number" min="100000" step="25000" value="1250000" required /></span>
+                  <small>Total eligible project cost in CAD</small>
+                </label>
+                <label class="field">
+                  <span>Available working capital</span>
+                  <span class="input-shell"><i>$</i><input id="capital" name="capital" type="number" min="0" step="10000" value="290000" required /></span>
+                  <small>Cash available before reimbursement</small>
+                </label>
+                <label class="field">
+                  <span>Construction start</span>
+                  <span class="input-shell"><input id="startDate" name="startDate" type="date" value="2026-03-16" required /></span>
+                </label>
+                <label class="field">
+                  <span>Planned completion</span>
+                  <span class="input-shell"><input id="completionDate" name="completionDate" type="date" value="2026-10-30" required /></span>
+                </label>
+              </div>
+
+              <div class="input-section financing-section">
+                <div class="subheading full-width">
+                  <h3>Set the financing</h3>
+                  <p>These assumptions are applied equally to both schedules.</p>
+                </div>
+                <label class="field compact-field"><span>Annual interest rate</span><span class="input-shell suffix"><input id="rate" name="rate" type="number" min="0.1" max="30" step="0.05" value="9.25" required /><i>%</i></span></label>
+                <label class="field compact-field"><span>Fee per draw</span><span class="input-shell"><i>$</i><input id="fee" name="fee" type="number" min="0" step="50" value="500" required /></span></label>
+                <label class="field compact-field"><span>Review + release lag</span><span class="input-shell suffix"><input id="lag" name="lag" type="number" min="0" max="60" step="1" value="8" required /><i>days</i></span></label>
+              </div>
+
+              <button class="advanced-toggle" type="button" aria-expanded="false" aria-controls="advancedFields">
+                <span><b>Advanced assumptions</b><small>Reserve, holdback, accrual method and horizon</small></span><span aria-hidden="true">＋</span>
+              </button>
+              <div class="advanced-fields" id="advancedFields" hidden>
+                <label class="field compact-field"><span>Minimum cash reserve</span><span class="input-shell"><i>$</i><input id="reserve" type="number" min="0" step="5000" value="25000" /></span></label>
+                <label class="field compact-field"><span>Holdback</span><span class="input-shell suffix"><input id="holdback" type="number" min="0" max="25" step="0.5" value="10" /><i>%</i></span></label>
+                <label class="field compact-field"><span>Accrual</span><span class="input-shell select-shell"><select id="accrual"><option>Simple daily</option><option>Daily compounding</option></select></span></label>
+                <label class="field compact-field"><span>Comparison horizon</span><span class="input-shell"><input id="horizon" type="date" value="2026-12-15" /></span></label>
+              </div>
+
+              <div class="form-footer">
+                <p><span aria-hidden="true">ⓘ</span> Generated assumptions are shown for review before any result.</p>
+                <button class="primary-button" type="button" data-next-step="2"><span>Review schedule</span><b aria-hidden="true">→</b></button>
+              </div>
+            </div>
+
+            <div class="step-panel" data-step="2">
+              <div class="panel-heading">
+                <div><span class="section-number">02 / SCHEDULE REVIEW</span><h2>Check the work plan</h2></div>
+                <button class="text-button" type="button" data-go-step="1">Edit project inputs</button>
+              </div>
+              <div class="assumption-banner">
+                <span class="banner-icon" aria-hidden="true">✦</span>
+                <div><b>Multiplex template · v1.3</b><p>We generated six milestone groups from your $1.25M budget. Dates and allocations are editable before comparison.</p></div>
+                <span>MODELED</span>
+              </div>
+              <div class="schedule-summary" aria-label="Schedule summary">
+                <div><small>Duration</small><strong>33 weeks</strong></div>
+                <div><small>Milestones</small><strong>6 groups</strong></div>
+                <div><small>Conventional policy</small><strong>33 / 67 / 100%</strong></div>
+                <div><small>Review lag</small><strong>8 days</strong></div>
+              </div>
+              <div class="milestone-table-wrap">
+                <table class="milestone-table">
+                  <caption class="sr-only">Editable project milestone schedule</caption>
+                  <thead><tr><th scope="col">Milestone</th><th scope="col">Timing</th><th scope="col">Eligible cost</th><th scope="col">Weight</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead>
+                  <tbody>
+                    <tr><td><span class="row-code">01</span><b>Site, demo & mobilization</b></td><td>Mar 16 – Apr 10</td><td>$125,000</td><td><span class="weight-bar"><i style="width:10%"></i></span>10%</td><td><button type="button" aria-label="Edit site, demo and mobilization">•••</button></td></tr>
+                    <tr><td><span class="row-code">02</span><b>Structure & envelope</b></td><td>Apr 13 – May 29</td><td>$300,000</td><td><span class="weight-bar"><i style="width:24%"></i></span>24%</td><td><button type="button" aria-label="Edit structure and envelope">•••</button></td></tr>
+                    <tr><td><span class="row-code">03</span><b>Mechanical rough-ins</b></td><td>Jun 01 – Jul 03</td><td>$225,000</td><td><span class="weight-bar"><i style="width:18%"></i></span>18%</td><td><button type="button" aria-label="Edit mechanical rough-ins">•••</button></td></tr>
+                    <tr><td><span class="row-code">04</span><b>Drywall & interior build</b></td><td>Jul 06 – Aug 21</td><td>$262,500</td><td><span class="weight-bar"><i style="width:21%"></i></span>21%</td><td><button type="button" aria-label="Edit drywall and interior build">•••</button></td></tr>
+                    <tr><td><span class="row-code">05</span><b>Finishes & fixtures</b></td><td>Aug 24 – Oct 02</td><td>$237,500</td><td><span class="weight-bar"><i style="width:19%"></i></span>19%</td><td><button type="button" aria-label="Edit finishes and fixtures">•••</button></td></tr>
+                    <tr><td><span class="row-code">06</span><b>Close-out & occupancy</b></td><td>Oct 05 – Oct 30</td><td>$100,000</td><td><span class="weight-bar"><i style="width:8%"></i></span>8%</td><td><button type="button" aria-label="Edit close-out and occupancy">•••</button></td></tr>
+                  </tbody>
+                  <tfoot><tr><td colspan="2">Eligible construction budget</td><td>$1,250,000</td><td>100%</td><td></td></tr></tfoot>
+                </table>
+              </div>
+              <div class="policy-card">
+                <div><span class="strategy-mark conventional" aria-hidden="true"></span><div><b>Conventional baseline</b><p>Three releases when eligible work reaches 33%, 67% and 100%, plus the same 8-day review lag.</p></div></div>
+                <button type="button" id="policyButton">View policy</button>
+              </div>
+              <div class="form-footer split-footer">
+                <button class="back-button" type="button" data-go-step="1">← Back</button>
+                <label class="confirmation"><input id="confirmSchedule" type="checkbox" checked /><span>I’ve reviewed the generated dates and assumptions.</span></label>
+                <button class="primary-button" type="submit"><span>Run comparison</span><b aria-hidden="true">→</b></button>
+              </div>
+            </div>
+          </form>
+
+          <div class="step-panel result-panel" data-step="3">
+            <div class="result-loading" id="resultLoading" hidden>
+              <span class="loading-mark" aria-hidden="true"></span><h2>Building the event ledger…</h2><p>Applying the same project costs, rate and horizon to both schedules.</p>
+            </div>
+            <div id="resultContent">
+              <div class="result-topline">
+                <div><span class="section-number">03 / MODELED COMPARISON</span><h2>Your draw timing changes both cost and cash pressure.</h2></div>
+                <div class="result-actions"><button type="button" class="icon-only" aria-label="Print comparison">⌁</button><button type="button" class="share-button" id="shareButton">Share result</button></div>
+              </div>
+
+              <div class="outcome-banner" id="outcomeBanner">
+                <div class="outcome-kicker"><span>↓</span> MODELED FINANCING-COST DIFFERENCE</div>
+                <div class="outcome-value"><strong id="differenceValue">$12,840</strong><span><b id="differencePercent">24.1% lower</b> under the stated assumptions</span></div>
+                <p id="outcomeExplanation">Smaller, milestone-timed releases reduce interest exposure enough to offset three additional draw fees.</p>
+              </div>
+
+              <div class="result-tabs" role="tablist" aria-label="Comparison result views">
+                <button role="tab" aria-selected="true" data-result-tab="timeline">Timeline</button>
+                <button role="tab" aria-selected="false" data-result-tab="exposure">Interest exposure</button>
+                <button role="tab" aria-selected="false" data-result-tab="cash">Working capital</button>
+                <button role="tab" aria-selected="false" data-result-tab="draws">Draw schedule</button>
+              </div>
+
+              <div class="result-view active" data-result-view="timeline">
+                <div class="chart-card">
+                  <div class="chart-heading"><div><h3>Same project. Different release timing.</h3><p>Both strategies share one date axis and the same eligibility and release lag.</p></div><div class="legend"><span><i class="legend-line conventional"></i>Conventional</span><span><i class="legend-line drawflow"></i>DrawFlow</span></div></div>
+                  <div class="timeline-axis" aria-hidden="true"><span>MAR 16</span><span>MAY</span><span>JUL</span><span>SEP</span><span>OCT 30</span><span>DEC 15</span></div>
+                  <div class="timeline-visual" role="img" aria-label="Shared project timeline. Conventional strategy has three releases. DrawFlow strategy has six smaller releases aligned to milestones.">
+                    <div class="axis-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                    <div class="timeline-row milestone-row"><b>ELIGIBLE WORK</b><div class="milestone-track"><span style="--left:1%;--width:13%">Site</span><span style="--left:14%;--width:21%">Structure</span><span style="--left:35%;--width:16%">Rough-ins</span><span style="--left:51%;--width:19%">Interior</span><span style="--left:70%;--width:17%">Finishes</span><span style="--left:87%;--width:9%">Close</span></div></div>
+                    <div class="timeline-row"><b><i class="strategy-mark conventional"></i>CONVENTIONAL</b><div class="draw-track conventional"><span style="--left:34%"><i>$417k</i></span><span style="--left:68%"><i>$417k</i></span><span style="--left:95%"><i>$416k</i></span></div></div>
+                    <div class="timeline-row"><b><i class="strategy-mark drawflow"></i>DRAWFLOW</b><div class="draw-track drawflow"><span style="--left:14%"><i>$125k</i></span><span style="--left:35%"><i>$300k</i></span><span style="--left:51%"><i>$225k</i></span><span style="--left:70%"><i>$263k</i></span><span style="--left:87%"><i>$238k</i></span><span style="--left:96%"><i>$99k</i></span></div></div>
+                    <div class="horizon-marker"><span>HORIZON<br /><b>Dec 15</b></span></div>
+                  </div>
+                  <div class="chart-note"><span aria-hidden="true">↳</span><p><b>What changed?</b> DrawFlow releases reimburse completed milestone groups. The conventional schedule waits for each 33% threshold, creating larger unreimbursed-cost peaks.</p></div>
+                </div>
+              </div>
+
+              <div class="result-view" data-result-view="exposure">
+                <div class="chart-card exposure-card">
+                  <div class="chart-heading"><div><h3>Interest-bearing principal over time</h3><p>Interest begins only after each release. Approved or eligible capacity is not included.</p></div><span class="unit-label">RELEASED PRINCIPAL · CAD</span></div>
+                  <svg class="exposure-chart" viewBox="0 0 900 300" role="img" aria-labelledby="exposureTitle exposureDesc">
+                    <title id="exposureTitle">Released principal exposure by strategy</title><desc id="exposureDesc">A stepped chart comparing conventional and DrawFlow released principal from March to December.</desc>
+                    <g class="chart-grid"><line x1="70" y1="32" x2="870" y2="32"/><line x1="70" y1="100" x2="870" y2="100"/><line x1="70" y1="168" x2="870" y2="168"/><line x1="70" y1="236" x2="870" y2="236"/></g>
+                    <g class="chart-y"><text x="8" y="36">$1.25M</text><text x="20" y="104">$830k</text><text x="20" y="172">$415k</text><text x="45" y="240">$0</text></g>
+                    <path class="area conventional-area" d="M70 236 H344 V168 H612 V100 H826 V32 H870 V236 Z"/><path class="step conventional-step" d="M70 236 H344 V168 H612 V100 H826 V32 H870"/>
+                    <path class="area drawflow-area" d="M70 236 H184 V215 H352 V164 H480 V127 H628 V84 H744 V47 H834 V32 H870 V236 Z"/><path class="step drawflow-step" d="M70 236 H184 V215 H352 V164 H480 V127 H628 V84 H744 V47 H834 V32 H870"/>
+                    <g class="chart-x"><text x="70" y="274">MAR</text><text x="290" y="274">MAY</text><text x="500" y="274">JUL</text><text x="700" y="274">SEP</text><text x="830" y="274">DEC</text></g>
+                  </svg>
+                  <div class="chart-table-link"><button type="button" data-show-accessible-table="exposureTable">View accessible data table</button></div>
+                  <div id="exposureTable" hidden><table class="data-table"><caption>Interest exposure summary</caption><thead><tr><th>Strategy</th><th>Modeled interest</th><th>Peak principal</th><th>Draw count</th></tr></thead><tbody><tr><th>Conventional</th><td id="tableBaseInterest">$51,780</td><td>$1,250,000</td><td>3</td></tr><tr><th>DrawFlow</th><td id="tableDrawInterest">$37,440</td><td>$1,250,000</td><td>6</td></tr></tbody></table></div>
+                </div>
+              </div>
+
+              <div class="result-view" data-result-view="cash">
+                <div class="chart-card cash-card">
+                  <div class="chart-heading"><div><h3>Working-capital pressure</h3><p>Peak eligible project spend not yet reimbursed.</p></div><span class="unit-label">UNREIMBURSED COST · CAD</span></div>
+                  <div class="cash-comparison">
+                    <article><span class="strategy-name"><i class="strategy-mark conventional"></i>Conventional</span><strong id="basePeakCash">$421,000</strong><small>Peak unreimbursed exposure</small><div class="capital-meter"><i style="width:69%"></i><span style="left:69%"></span></div><p class="warning-line" id="cashWarning"><b>$131,000 additional cash required</b> to reach the next draw threshold.</p></article>
+                    <article><span class="strategy-name"><i class="strategy-mark drawflow"></i>DrawFlow</span><strong id="drawPeakCash">$244,000</strong><small>Peak unreimbursed exposure</small><div class="capital-meter drawflow-meter"><i style="width:40%"></i><span style="left:48%"></span></div><p class="success-line"><b>$46,000 buffer remains</b> above modeled project spend.</p></article>
+                  </div>
+                  <div class="meter-legend"><span><i class="available"></i>$290k working capital</span><span><i class="reserve"></i>$25k minimum reserve</span></div>
+                </div>
+              </div>
+
+              <div class="result-view" data-result-view="draws">
+                <div class="chart-card">
+                  <div class="chart-heading"><div><h3>Release schedule</h3><p>Eligibility, review and release are shown separately.</p></div><button class="download-button" type="button">Download CSV</button></div>
+                  <div class="draw-tables">
+                    <table class="data-table"><caption>Conventional draw schedule</caption><thead><tr><th>Draw</th><th>Eligible</th><th>Release</th><th>Amount</th></tr></thead><tbody><tr><td>01</td><td>May 22</td><td>May 30</td><td>$416,667</td></tr><tr><td>02</td><td>Aug 13</td><td>Aug 21</td><td>$416,667</td></tr><tr><td>03</td><td>Oct 30</td><td>Nov 07</td><td>$416,666</td></tr></tbody></table>
+                    <table class="data-table"><caption>DrawFlow release schedule</caption><thead><tr><th>Draw</th><th>Eligible</th><th>Release</th><th>Amount</th></tr></thead><tbody><tr><td>01</td><td>Apr 10</td><td>Apr 18</td><td>$125,000</td></tr><tr><td>02</td><td>May 29</td><td>Jun 06</td><td>$300,000</td></tr><tr><td>03</td><td>Jul 03</td><td>Jul 11</td><td>$225,000</td></tr><tr><td>04</td><td>Aug 21</td><td>Aug 29</td><td>$262,500</td></tr><tr><td>05</td><td>Oct 02</td><td>Oct 10</td><td>$237,500</td></tr><tr><td>06</td><td>Oct 30</td><td>Nov 07</td><td>$100,000</td></tr></tbody></table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="metrics-grid" aria-label="Comparison summary metrics">
+                <article><small>MODELED INTEREST</small><div><span>Conventional <b id="baseInterest">$51,780</b></span><span>DrawFlow <b id="drawInterest">$37,440</b></span></div><strong id="interestDelta">$14,340 less</strong></article>
+                <article><small>DRAW FEES</small><div><span>3 draws <b id="baseFees">$1,500</b></span><span>6 draws <b id="drawFees">$3,000</b></span></div><strong id="feeDelta">$1,500 more</strong></article>
+                <article class="primary-metric"><small>TOTAL MODELED COST</small><div><span>Conventional <b id="baseCost">$53,280</b></span><span>DrawFlow <b id="drawCost">$40,440</b></span></div><strong id="costDelta">$12,840 lower</strong></article>
+                <article><small>PEAK UNREIMBURSED</small><div><span>Conventional <b>$421,000</b></span><span>DrawFlow <b>$244,000</b></span></div><strong>$177,000 lower</strong></article>
+              </div>
+
+              <section class="stress-card" aria-labelledby="stress-title">
+                <div class="stress-heading"><div><span class="section-number">STRESS TEST</span><h3 id="stress-title">What if the rate changes?</h3><p>Change one assumption at a time. Your primary result remains anchored to 9.25%.</p></div><div class="stress-result"><small>AT <b id="stressRateLabel">10.25%</b></small><strong id="stressDifference">$14,228</strong><span>modeled cost difference</span></div></div>
+                <label class="range-field"><span class="sr-only">Stress test interest rate</span><input id="stressRate" type="range" min="6" max="14" value="10.25" step="0.25" /><span class="range-labels"><i>6%</i><i>9.25% primary</i><i>14%</i></span></label>
+              </section>
+
+              <section class="assumptions-card">
+                <button type="button" class="assumptions-toggle" aria-expanded="false" aria-controls="assumptionsBody"><span><b>Assumptions & disclosures</b><small>Multiplex · $1.25M · 33 weeks · 9.25% · 8-day lag · Simple daily</small></span><span aria-hidden="true">＋</span></button>
+                <div id="assumptionsBody" hidden>
+                  <dl><div><dt>Comparison</dt><dd>Modeled example; not an observed client outcome</dd></div><div><dt>Baseline</dt><dd>Three draws at 33.33%, 66.67% and 100% eligible cost</dd></div><div><dt>Common terms</dt><dd>9.25% annual rate, Actual/365 simple daily interest, $500 per draw</dd></div><div><dt>Cash policy</dt><dd>$290,000 starting working capital, $25,000 minimum reserve, 10% holdback</dd></div><div><dt>Horizon</dt><dd>December 15, 2026; no interest accrues before release</dd></div><div><dt>Engine</dt><dd>DrawFlow comparator 0.9.0 · policy 1.2 · calculated July 15, 2026</dd></div></dl>
+                  <p>Figures are modeled estimates based on the assumptions shown. They are not a commitment, approval, loan quote, or guarantee of savings or availability. Actual costs and timing depend on project progress, evidence, lender review and final financing terms.</p>
+                </div>
+              </section>
+              <div class="result-footer"><button class="back-button" type="button" data-go-step="1">← Change inputs</button><div><button class="quiet-button" type="button">Email this result</button><button class="primary-button" type="button"><span>Review with FairLend</span><b aria-hidden="true">→</b></button></div></div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="file-rail" aria-labelledby="file-summary-title">
+          <div class="file-card">
+            <div class="file-card-head"><div><span class="file-label">LIVE PROJECT FILE</span><h2 id="file-summary-title">Toronto multiplex</h2></div><span class="file-code">DF–0264</span></div>
+            <div class="mini-building" aria-hidden="true"><div class="building-lines"></div><span>4 UNIT<br />CONVERSION</span></div>
+            <dl class="file-facts"><div><dt>Project budget</dt><dd id="railBudget">$1,250,000</dd></div><div><dt>Working capital</dt><dd id="railCapital">$290,000</dd></div><div><dt>Build window</dt><dd>Mar 16 — Oct 30</dd></div><div><dt>Comparison horizon</dt><dd>Dec 15, 2026</dd></div></dl>
+            <div class="rail-assumptions"><span>COMMON ASSUMPTIONS</span><p><b id="railRate">9.25%</b> annual · Actual/365</p><p><b id="railFee">$500</b> per draw · 8-day lag</p><p>10% holdback · Simple daily</p></div>
+            <div class="rail-status"><span class="status-icon">✓</span><div><b>Inputs ready</b><small>All required assumptions are explicit.</small></div></div>
+          </div>
+          <p class="privacy-note"><span aria-hidden="true">⌾</span> Your calculation runs without contact details. Saving or sharing asks for consent.</p>
+        </aside>
+      </div>
+    </main>
+
+    <dialog id="infoDialog">
+      <div class="dialog-head"><span class="section-number">COMPARISON METHOD</span><button type="button" data-close-dialog aria-label="Close dialog">×</button></div>
+      <h2>One project, two draw strategies.</h2>
+      <p>The model holds project costs, dates, rate, horizon, working capital and review lag constant. Only the draw strategy changes.</p>
+      <ol><li><b>Eligibility first.</b> Work must be completed before it can be reimbursed.</li><li><b>Interest after release.</b> Undrawn and merely approved funds do not accrue interest.</li><li><b>Total cost is the headline.</b> Interest and draw fees are shown together.</li><li><b>Infeasibility is visible.</b> The model never silently adds borrower cash.</li></ol>
+      <button class="primary-button" type="button" data-close-dialog><span>Got it</span><b aria-hidden="true">✓</b></button>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    <script src="./calculator-core.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

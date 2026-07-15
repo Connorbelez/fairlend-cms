@@ -18,7 +18,8 @@
     "test:watch": "vitest",
     "test:unit": "vitest run --config vitest.unit.config.ts",
     "validate:partner-corpus": "node scripts/validate-partner-research-corpus.mjs",
-    "build:partner-entity-manifest": "node scripts/build-partner-entity-manifest.mjs"
+    "build:partner-entity-manifest": "node scripts/build-partner-entity-manifest.mjs",
+    "build:partner-outreach-manifest": "node scripts/build-partner-outreach-manifest.mjs"
   },
   "devDependencies": {
     "@types/node": "^24.7.2",
