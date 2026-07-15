@@ -329,6 +329,16 @@ function DossierParcelSketch() {
           width={1536}
         />
       </div>
+      <dl className="bm-dossier-mini-stats">
+        <div>
+          <dt>Housing form</dt>
+          <dd>Multiplex + laneway option</dd>
+        </div>
+        <div>
+          <dt>First decision</dt>
+          <dd>Can the site carry the scope?</dd>
+        </div>
+      </dl>
     </div>
   )
 }
@@ -455,12 +465,18 @@ function DossierTabCard({ tab }: { tab: (typeof dossierTabs)[number] }) {
       data-bm-dossier-tab={tab.id}
       data-bm-dossier-code={tab.code}
     >
+      <BackgroundImageTexture
+        className="bm-dossier-tab-texture"
+        opacity={0.3}
+        variant="groovepaper"
+      />
       <div className="bm-dossier-tab-top">
         <span className="bm-dossier-tab-code">{tab.code}</span>
-        <span className="bm-dossier-tab-label">{tab.title}</span>
+        <span className="bm-dossier-tab-label">{tab.label}</span>
       </div>
       <div className="bm-dossier-tab-body">
-        {tab.id === 'parcel' ? null : <p className="bm-dossier-tab-summary">{tab.summary}</p>}
+        <h3>{tab.title}</h3>
+        <p>{tab.summary}</p>
         {tab.id === 'parcel' ? <DossierParcelSketch /> : null}
         {tab.id === 'budget' ? <DossierBudgetSheet /> : null}
         {tab.id === 'permit' ? <DossierPermitMatrix /> : null}
