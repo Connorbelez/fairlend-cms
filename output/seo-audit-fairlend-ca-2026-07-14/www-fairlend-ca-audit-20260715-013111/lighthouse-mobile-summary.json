@@ -1,0 +1,61 @@
+{
+  "trials": [
+    {
+      "fetchTime": "2026-07-15T01:21:38.776Z",
+      "score": 35,
+      "seo": 100,
+      "best_practices": 96,
+      "lcp_ms": 9631.267350000002,
+      "tbt_ms": 2783.5,
+      "cls": 0.00006320755552503081,
+      "fcp_ms": 3552.5069399999998,
+      "main_thread_ms": 12501.643999999942,
+      "js_execution_ms": 8096.431999999963,
+      "total_bytes": 1934277,
+      "unused_js_bytes": 392296,
+      "unused_css_bytes": 121777
+    },
+    {
+      "fetchTime": "2026-07-15T01:24:32.769Z",
+      "score": 59,
+      "seo": 100,
+      "best_practices": 96,
+      "lcp_ms": 8911.29405,
+      "tbt_ms": 329.5,
+      "cls": 0.00006320755552503081,
+      "fcp_ms": 3272.69745,
+      "main_thread_ms": 3586.203999999986,
+      "js_execution_ms": 1636.0399999999863,
+      "total_bytes": 1933353,
+      "unused_js_bytes": 392536,
+      "unused_css_bytes": 121777
+    },
+    {
+      "fetchTime": "2026-07-15T01:27:46.395Z",
+      "score": 56.00000000000001,
+      "seo": 100,
+      "best_practices": 96,
+      "lcp_ms": 9438.567149999999,
+      "tbt_ms": 393.5,
+      "cls": 0.00006320755552503081,
+      "fcp_ms": 3496.18905,
+      "main_thread_ms": 4375.275999999983,
+      "js_execution_ms": 1370.4560000000054,
+      "total_bytes": 1933161,
+      "unused_js_bytes": 392521,
+      "unused_css_bytes": 121777
+    }
+  ],
+  "median": {
+    "score": 56.00000000000001,
+    "lcp_ms": 9438.567149999999,
+    "tbt_ms": 393.5,
+    "cls": 0.00006320755552503081,
+    "fcp_ms": 3496.18905,
+    "main_thread_ms": 4375.275999999983,
+    "js_execution_ms": 1636.0399999999863,
+    "total_bytes": 1933353,
+    "unused_js_bytes": 392521,
+    "unused_css_bytes": 121777
+  }
+}

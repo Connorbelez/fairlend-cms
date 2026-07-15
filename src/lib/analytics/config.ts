@@ -1,5 +1,6 @@
 export const analyticsConsentStorageKey = 'fairlend.analytics-consent.v1'
 export const analyticsConsentCookieName = 'fairlend_analytics_consent'
+export const analyticsConsentStateEventName = 'fairlend:consent-state'
 
 export type AnalyticsConsent = {
   analytics: boolean
@@ -24,9 +25,8 @@ export const analyticsConfig = {
   requireConsent: booleanEnv(process.env.NEXT_PUBLIC_ANALYTICS_REQUIRE_CONSENT, true),
 
   googleAdsId: cleanEnv(process.env.NEXT_PUBLIC_GOOGLE_ADS_ID),
-  googleAdsLeadConversionLabel: cleanEnv(
-    process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL,
-  ),
+  googleAdsLeadConversionLabel: cleanEnv(process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL),
+  gaManagedByGtm: booleanEnv(process.env.NEXT_PUBLIC_GA_MANAGED_BY_GTM, false),
   gaMeasurementId: cleanEnv(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID),
   gtmId: cleanEnv(process.env.NEXT_PUBLIC_GTM_ID),
 
@@ -47,10 +47,10 @@ export const hasMarketingDestination =
   analyticsConfig.enabled &&
   Boolean(
     analyticsConfig.googleAdsId ||
-      analyticsConfig.gtmId ||
-      analyticsConfig.linkedinPartnerId ||
-      analyticsConfig.metaPixelId ||
-      analyticsConfig.microsoftUetTagId,
+    analyticsConfig.gtmId ||
+    analyticsConfig.linkedinPartnerId ||
+    analyticsConfig.metaPixelId ||
+    analyticsConfig.microsoftUetTagId,
   )
 
 export const hasGoogleDestination =
@@ -58,4 +58,3 @@ export const hasGoogleDestination =
   Boolean(analyticsConfig.gaMeasurementId || analyticsConfig.googleAdsId || analyticsConfig.gtmId)
 
 export const hasConfiguredAnalytics = hasAnalyticsDestination || hasMarketingDestination
-

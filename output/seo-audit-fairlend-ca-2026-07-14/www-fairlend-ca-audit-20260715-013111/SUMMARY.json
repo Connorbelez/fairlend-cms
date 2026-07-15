@@ -1,0 +1,79 @@
+{
+  "cache_type": "audit-scores",
+  "analyzed_at": "2026-07-15T01:31:11Z",
+  "domain": "www.fairlend.ca",
+  "homepage_url": "https://www.fairlend.ca/",
+  "business_type": "hybrid appointment-only local office and Ontario service-area financial business",
+  "industry": "Ontario private mortgage brokerage and mortgage administration",
+  "overall_score": 79,
+  "category_scores": {
+    "technical": 85,
+    "content": 74,
+    "on_page": 82,
+    "schema": 98,
+    "performance": 56,
+    "geo": 74,
+    "images": 80
+  },
+  "supplemental_scores": {
+    "eeat": 77,
+    "sxo": 72,
+    "visual_conversion": 72,
+    "local_seo": 44,
+    "content_cluster_maturity": 28,
+    "backlink_health": null
+  },
+  "key_findings": [
+    "All 17 sitemap URLs are 200, indexable, self-canonical, and server rendered with valid JSON-LD.",
+    "Five core YMYL pages now have licensed review, current dates, primary sources, and citation-ready answer blocks.",
+    "Mobile Lighthouse median is 56 with 9.44 second LCP; first-party render and hydration cost dominate.",
+    "The posts hub has 39 main-content words and the post sitemap has zero URLs.",
+    "The mobile consent panel obscures authority proof and the application entry.",
+    "FSRA records include Unit 2 while the website and local schema do not."
+  ],
+  "priority_issues": [
+    {
+      "severity": "high",
+      "category": "performance",
+      "issue": "Three mobile Lighthouse trials produced a median score of 56 and median LCP of 9.44 seconds."
+    },
+    {
+      "severity": "high",
+      "category": "content",
+      "issue": "No published editorial corpus exists; /posts has 39 main-content words and posts-sitemap.xml has zero URLs."
+    },
+    {
+      "severity": "high",
+      "category": "content",
+      "issue": "Garden-suite, multiplex, borrower, and investor hub pages are thin and lack the full review/source/internal-link layer."
+    },
+    {
+      "severity": "high",
+      "category": "visual",
+      "issue": "The first-visit mobile consent panel covers authority proof and the application tabs."
+    },
+    {
+      "severity": "high",
+      "category": "local",
+      "issue": "The official Unit 2 address is inconsistent and FinancialService schema omits address and geo."
+    },
+    {
+      "severity": "medium",
+      "category": "technical",
+      "issue": "Critical-CH causes a likely document restart; the HTTP apex takes two redirects; 404 metadata is contradictory; CSP remains report-only."
+    }
+  ],
+  "recommendations": [
+    "Reduce homepage hydration, DOM, unused JS/CSS, and below-fold client work.",
+    "Publish a reviewed private-mortgage resource cluster and expand thin YMYL pages.",
+    "Keep the application entry discoverable when the mobile consent panel is present.",
+    "Normalize Unit 2 and add PostalAddress/GeoCoordinates to FinancialService schema.",
+    "Configure GSC, GA4, CrUX/PageSpeed, GBP, Moz, and Bing evidence sources."
+  ],
+  "limitations": [
+    "No Google Search Console, GA4, CrUX, GBP, Moz, Bing Webmaster, or DataForSEO credentials were available.",
+    "Performance evidence is Lighthouse lab data, not field CWV; INP is unavailable and was not inferred from TBT.",
+    "Backlink health is intentionally unscored because the evidence set is insufficient.",
+    "Public search absence is directional and does not prove deindexing or entity absence."
+  ]
+}

@@ -8,15 +8,12 @@ import {
   type DynamicArrowTarget,
 } from '@/components/dynamic-arrow'
 
+import { getFairlendApplicationElement } from './application-target'
+
 const HERO_CANVAS_SELECTOR = '[data-toronto-hero-canvas]'
-const APPLICATION_FORM_SELECTOR = '[data-testid="fairlend-application-form"]'
 
 function getHeroCanvas() {
   return document.querySelector<HTMLElement>(HERO_CANVAS_SELECTOR)
-}
-
-function getApplicationForm() {
-  return document.querySelector<HTMLElement>(APPLICATION_FORM_SELECTOR)
 }
 
 export function FairlendApplicationArrow() {
@@ -29,7 +26,7 @@ export function FairlendApplicationArrow() {
 
   const arrowTarget = useMemo<DynamicArrowTarget>(
     () => ({
-      getElement: getApplicationForm,
+      getElement: getFairlendApplicationElement,
       type: 'element',
     }),
     [],

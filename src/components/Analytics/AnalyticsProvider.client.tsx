@@ -2,9 +2,9 @@
 
 import Script from 'next/script'
 import { usePathname, useSearchParams } from 'next/navigation'
-import posthog from 'posthog-js'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
+import { getFairlendApplicationElement } from '@/components/FairlendLandingHero/application-target'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -19,6 +19,7 @@ import { Switch } from '@/components/ui/switch'
 import {
   analyticsConfig,
   analyticsConsentCookieName,
+  analyticsConsentStateEventName,
   analyticsConsentStorageKey,
   hasConfiguredAnalytics,
   hasGoogleDestination,
@@ -41,8 +42,21 @@ declare global {
   }
 }
 
+type PostHogClient = (typeof import('posthog-js'))['default']
+
+let posthogClient: PostHogClient | null = null
 let posthogInitialized = false
+let posthogLoadPromise: Promise<PostHogClient> | null = null
 const internalAnalyticsStorageKey = 'fairlend.analytics-internal.v1'
+
+function loadPostHog(): Promise<PostHogClient> {
+  posthogLoadPromise ??= import('posthog-js').then(({ default: client }) => {
+    posthogClient = client
+    return client
+  })
+
+  return posthogLoadPromise
+}
 
 const deniedConsent: AnalyticsConsent = {
   analytics: false,
@@ -124,6 +138,15 @@ function isReplayBlockedPath(pathname: string): boolean {
   )
 }
 
+function focusHomepageApplication(): boolean {
+  const application = getFairlendApplicationElement()
+  if (!application) return false
+
+  application.scrollIntoView({ block: 'nearest' })
+  application.focus({ preventScroll: true })
+  return true
+}
+
 export function AnalyticsProvider(): React.ReactElement | null {
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -133,11 +156,34 @@ export function AnalyticsProvider(): React.ReactElement | null {
   const [consent, setConsent] = useState<AnalyticsConsent>(deniedConsent)
   const [isPreferencesOpen, setIsPreferencesOpen] = useState(false)
   const [draftConsent, setDraftConsent] = useState<AnalyticsConsent>(deniedConsent)
+  const [posthogReady, setPosthogReady] = useState(false)
+  const hasSignaledGoogleAnalyticsReady = useRef(false)
+  const shouldFocusApplicationAfterConsentRef = useRef(false)
 
   const effectiveConsent = useMemo<AnalyticsConsent>(() => {
     if (!analyticsConfig.requireConsent) return grantedConsent
     return consent
   }, [consent])
+
+  const shouldShowBanner =
+    analyticsConfig.enabled &&
+    hasConfiguredAnalytics &&
+    hasLoadedPreference &&
+    analyticsConfig.requireConsent &&
+    !hasStoredPreference
+
+  useEffect(() => {
+    document.documentElement.toggleAttribute('data-fairlend-consent-pending', shouldShowBanner)
+    window.dispatchEvent(
+      new CustomEvent(analyticsConsentStateEventName, {
+        detail: { pending: shouldShowBanner },
+      }),
+    )
+
+    return () => {
+      document.documentElement.removeAttribute('data-fairlend-consent-pending')
+    }
+  }, [shouldShowBanner])
 
   useEffect(() => {
     queueMicrotask(() => {
@@ -174,85 +220,112 @@ export function AnalyticsProvider(): React.ReactElement | null {
       }
 
     window.gtag('consent', 'update', getGoogleConsentPayload(effectiveConsent))
+
+    if (!effectiveConsent.analytics) {
+      hasSignaledGoogleAnalyticsReady.current = false
+      return
+    }
+
+    if (
+      analyticsConfig.gaManagedByGtm &&
+      analyticsConfig.gtmId &&
+      !hasSignaledGoogleAnalyticsReady.current
+    ) {
+      window.dataLayer.push({ event: 'fairlend_analytics_ready' })
+      hasSignaledGoogleAnalyticsReady.current = true
+    }
   }, [effectiveConsent, hasLoadedPreference])
 
   useEffect(() => {
     if (!hasLoadedPreference || !analyticsConfig.posthogKey) return
 
     if (!effectiveConsent.analytics) {
-      if (posthogInitialized) {
-        posthog.opt_out_capturing()
-        posthog.stopSessionRecording()
-        posthog.reset()
+      if (posthogInitialized && posthogClient) {
+        posthogClient.opt_out_capturing()
+        posthogClient.stopSessionRecording()
+        posthogClient.reset()
       }
       return
     }
 
-    if (!posthogInitialized) {
-      posthog.init(analyticsConfig.posthogKey, {
-        api_host: analyticsConfig.posthogHost,
-        autocapture: true,
-        before_send: (event) => sanitizePostHogEvent(event),
-        capture_exceptions: true,
-        capture_pageleave: true,
-        capture_pageview: false,
-        capture_performance: {
-          web_vitals: true,
-          web_vitals_allowed_metrics: ['LCP', 'CLS', 'INP', 'FCP'],
-        },
-        defaults: '2026-05-30',
-        disable_session_recording: isReplayBlockedPath(window.location.pathname),
-        loaded: (client) => {
-          window.posthog = client
-          const isInternalUser = window.localStorage.getItem(internalAnalyticsStorageKey) === 'true'
-          client.register({
-            $internal_or_test_user: isInternalUser,
-            deployment_environment: 'production',
-            is_internal_user: isInternalUser,
-            schema_version: 1,
-          })
-          if (analyticsConfig.debug) client.debug()
-        },
-        mask_all_element_attributes: false,
-        mask_all_text: false,
-        mask_personal_data_properties: true,
-        person_profiles: 'identified_only',
-        property_denylist: [
-          'address',
-          'amount',
-          'email',
-          'firstName',
-          'lastName',
-          'message',
-          'name',
-          'notes',
-          'phone',
-        ],
-        session_recording: {
-          maskAllInputs: true,
-          maskTextSelector:
-            'input, textarea, [contenteditable="true"], [data-analytics-sensitive], .fl-mortgage-fields, .bp-form-content, .contact-form__message',
-          blockSelector:
-            '[data-analytics-replay-block], [data-document-upload], [data-account-surface]',
-          recordBody: false,
-          recordHeaders: false,
-        },
-      })
-      // posthog-js queues captures before its remote configuration finishes loading. Expose the
-      // initialized client immediately so first-render journey effects cannot race `loaded`.
-      window.posthog = posthog
-      posthogInitialized = true
-    } else {
-      posthog.opt_in_capturing()
-      posthog.startSessionRecording()
+    let cancelled = false
+
+    void loadPostHog().then((posthog) => {
+      if (cancelled) return
+
+      if (!posthogInitialized) {
+        posthog.init(analyticsConfig.posthogKey, {
+          api_host: analyticsConfig.posthogHost,
+          autocapture: true,
+          before_send: (event) => sanitizePostHogEvent(event),
+          capture_exceptions: true,
+          capture_pageleave: true,
+          capture_pageview: false,
+          capture_performance: {
+            web_vitals: true,
+            web_vitals_allowed_metrics: ['LCP', 'CLS', 'INP', 'FCP'],
+          },
+          defaults: '2026-05-30',
+          disable_session_recording: isReplayBlockedPath(window.location.pathname),
+          loaded: (client) => {
+            window.posthog = client
+            const isInternalUser =
+              window.localStorage.getItem(internalAnalyticsStorageKey) === 'true'
+            client.register({
+              $internal_or_test_user: isInternalUser,
+              deployment_environment: 'production',
+              is_internal_user: isInternalUser,
+              schema_version: 1,
+            })
+            if (analyticsConfig.debug) client.debug()
+          },
+          mask_all_element_attributes: false,
+          mask_all_text: false,
+          mask_personal_data_properties: true,
+          person_profiles: 'identified_only',
+          property_denylist: [
+            'address',
+            'amount',
+            'email',
+            'firstName',
+            'lastName',
+            'message',
+            'name',
+            'notes',
+            'phone',
+          ],
+          session_recording: {
+            maskAllInputs: true,
+            maskTextSelector:
+              'input, textarea, [contenteditable="true"], [data-analytics-sensitive], .fl-mortgage-fields, .bp-form-content, .contact-form__message',
+            blockSelector:
+              '[data-analytics-replay-block], [data-document-upload], [data-account-surface]',
+            recordBody: false,
+            recordHeaders: false,
+          },
+        })
+        // PostHog queues captures before remote configuration finishes loading. Expose the
+        // initialized client immediately so first-render journey effects cannot race `loaded`.
+        window.posthog = posthog
+        posthogInitialized = true
+      } else {
+        posthog.opt_in_capturing()
+        posthog.startSessionRecording()
+      }
+
+      setPosthogReady(true)
+    })
+
+    return () => {
+      cancelled = true
     }
   }, [effectiveConsent.analytics, hasLoadedPreference])
 
   useEffect(() => {
-    if (!effectiveConsent.analytics || !posthogInitialized) return
-    if (isReplayBlockedPath(pathname)) posthog.stopSessionRecording()
-    else posthog.startSessionRecording()
-  }, [effectiveConsent.analytics, pathname])
+    if (!effectiveConsent.analytics || !posthogReady || !posthogClient) return
+    if (isReplayBlockedPath(pathname)) posthogClient.stopSessionRecording()
+    else posthogClient.startSessionRecording()
+  }, [effectiveConsent.analytics, pathname, posthogReady])
 
   useEffect(() => {
     if (!hasLoadedPreference || !hasConfiguredAnalytics) return
@@ -263,14 +336,9 @@ export function AnalyticsProvider(): React.ReactElement | null {
       internalFlag === '1' ||
       (internalFlag !== '0' && window.localStorage.getItem(internalAnalyticsStorageKey) === 'true')
 
-    window.dataLayer?.push({
-      event: 'page_view',
-      ...pageProperties,
-    })
-
     if (effectiveConsent.analytics) {
-      if (analyticsConfig.posthogKey && posthogInitialized) {
-        posthog.capture('$pageview', {
+      if (analyticsConfig.posthogKey && posthogReady && posthogClient) {
+        posthogClient.capture('$pageview', {
           $current_url: pageProperties.page_location,
           page_path: pageProperties.page_path,
           page_type: pageProperties.page_type,
@@ -292,6 +360,7 @@ export function AnalyticsProvider(): React.ReactElement | null {
     effectiveConsent.marketing,
     hasLoadedPreference,
     pathname,
+    posthogReady,
     searchParamsString,
   ])
 
@@ -300,16 +369,16 @@ export function AnalyticsProvider(): React.ReactElement | null {
     const internalFlag = searchParams.get('analytics_internal')
     if (internalFlag === '1') {
       window.localStorage.setItem(internalAnalyticsStorageKey, 'true')
-      if (posthogInitialized) {
-        posthog.register({ $internal_or_test_user: true, is_internal_user: true })
+      if (posthogReady && posthogClient) {
+        posthogClient.register({ $internal_or_test_user: true, is_internal_user: true })
       }
     } else if (internalFlag === '0') {
       window.localStorage.removeItem(internalAnalyticsStorageKey)
-      if (posthogInitialized) {
-        posthog.register({ $internal_or_test_user: false, is_internal_user: false })
+      if (posthogReady && posthogClient) {
+        posthogClient.register({ $internal_or_test_user: false, is_internal_user: false })
       }
     }
-  }, [hasLoadedPreference, searchParams])
+  }, [hasLoadedPreference, posthogReady, searchParams])
 
   useEffect(() => {
     if (!effectiveConsent.analytics) return
@@ -360,73 +429,42 @@ export function AnalyticsProvider(): React.ReactElement | null {
     if (wasAnalyticsGranted && !nextConsent.analytics) {
       void revokeStoredAnalyticsIdentities()
     }
+
+    shouldFocusApplicationAfterConsentRef.current = Boolean(getFairlendApplicationElement())
+    if (!isPreferencesOpen && shouldFocusApplicationAfterConsentRef.current) {
+      queueMicrotask(() => {
+        focusHomepageApplication()
+        shouldFocusApplicationAfterConsentRef.current = false
+      })
+    }
   }
 
   if (!analyticsConfig.enabled || !hasConfiguredAnalytics || !hasLoadedPreference) {
     return null
   }
 
-  const shouldShowBanner = analyticsConfig.requireConsent && !hasStoredPreference
-
   return (
     <>
       <FairlendCampaignJourneyTracker enabled={effectiveConsent.analytics} />
-      {hasGoogleDestination && (
-        <Script id="fairlend-google-consent-default" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            window.gtag = window.gtag || gtag;
-            gtag('consent', 'default', {
-              ad_storage: 'denied',
-              ad_user_data: 'denied',
-              ad_personalization: 'denied',
-              analytics_storage: 'denied',
-              wait_for_update: 500
-            });
-          `}
-        </Script>
-      )}
-
-      {analyticsConfig.gtmId && (effectiveConsent.analytics || effectiveConsent.marketing) && (
-        <Script id="fairlend-gtm" strategy="afterInteractive">
-          {`
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer',${JSON.stringify(analyticsConfig.gtmId)});
-          `}
-        </Script>
-      )}
-
-      {(analyticsConfig.gaMeasurementId && effectiveConsent.analytics) ||
-      (analyticsConfig.googleAdsId && effectiveConsent.marketing) ? (
+      {!analyticsConfig.gaManagedByGtm &&
+      analyticsConfig.googleAdsId &&
+      effectiveConsent.marketing ? (
         <>
-          <Script
-            id="fairlend-google-tag-src"
-            src={`https://www.googletagmanager.com/gtag/js?id=${
-              analyticsConfig.gaMeasurementId || analyticsConfig.googleAdsId
-            }`}
-            strategy="afterInteractive"
-          />
-          <Script id="fairlend-google-tag-init" strategy="afterInteractive">
+          {!analyticsConfig.gaMeasurementId ? (
+            <Script
+              id="fairlend-google-ads-tag-src"
+              src={`https://www.googletagmanager.com/gtag/js?id=${analyticsConfig.googleAdsId}`}
+              strategy="afterInteractive"
+            />
+          ) : null}
+          <Script id="fairlend-google-ads-tag-init" strategy="afterInteractive">
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               window.gtag = window.gtag || gtag;
               gtag('js', new Date());
               gtag('consent', 'update', ${JSON.stringify(getGoogleConsentPayload(effectiveConsent))});
-              ${
-                analyticsConfig.gaMeasurementId && effectiveConsent.analytics
-                  ? `gtag('config', ${JSON.stringify(analyticsConfig.gaMeasurementId)}, { send_page_view: false });`
-                  : ''
-              }
-              ${
-                analyticsConfig.googleAdsId && effectiveConsent.marketing
-                  ? `gtag('config', ${JSON.stringify(analyticsConfig.googleAdsId)}, { send_page_view: false });`
-                  : ''
-              }
+              gtag('config', ${JSON.stringify(analyticsConfig.googleAdsId)}, { send_page_view: false });
             `}
           </Script>
         </>
@@ -487,31 +525,42 @@ export function AnalyticsProvider(): React.ReactElement | null {
 
       {shouldShowBanner && (
         <div
+          aria-describedby="fairlend-consent-description"
+          aria-labelledby="fairlend-consent-title"
           className={cn(
-            'fixed bottom-2 left-1/2 z-[70] flex w-[calc(100vw-1rem)] max-w-3xl -translate-x-1/2 flex-col gap-2.5 overflow-hidden rounded-lg border border-[#d8c7b6] bg-[#fffdf8] p-3 text-[#101010] shadow-[0_18px_60px_rgb(8_9_10/18%)] sm:bottom-3 sm:w-[calc(100vw-3rem)] sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:p-4',
+            'fixed bottom-[max(0.5rem,env(safe-area-inset-bottom))] left-1/2 z-[70] flex w-[calc(100vw-1rem)] max-w-3xl -translate-x-1/2 flex-col gap-2.5 overflow-hidden rounded-lg border border-[#d8c7b6] bg-[#fffdf8] p-3 text-[#101010] shadow-[0_18px_60px_rgb(8_9_10/18%)] sm:bottom-3 sm:w-[calc(100vw-3rem)] sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:p-4',
           )}
+          data-fairlend-consent-banner
           role="dialog"
-          aria-label="Cookie preferences"
         >
           <div className="min-w-0 max-w-2xl">
-            <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-[#4f6f10] sm:text-sm">
+            <p
+              className="text-xs font-extrabold uppercase tracking-[0.14em] text-[#4f6f10] sm:text-sm"
+              id="fairlend-consent-title"
+            >
               Privacy preferences
             </p>
-            <p className="mt-1 break-words text-xs leading-5 font-semibold text-[#34403d] sm:text-sm sm:leading-6">
+            <p
+              className="mt-1 break-words text-xs leading-5 font-semibold text-[#34403d] sm:text-sm sm:leading-6"
+              id="fairlend-consent-description"
+            >
               Optional analytics and advertising stay off unless you allow them.
             </p>
           </div>
-          <div className="grid w-full shrink-0 grid-cols-2 gap-2 sm:w-auto sm:grid-cols-3">
+          <div className="grid w-full shrink-0 grid-cols-3 gap-2 sm:w-auto">
             <Button
+              aria-label="Reject optional cookies"
               className="min-h-11 w-full rounded-md border-[#08090a] bg-[#fffdf9] text-[#08090a] hover:bg-[#f7f6f1] hover:text-[#08090a]"
               onClick={() => setAndPersistConsent(deniedConsent)}
               type="button"
               variant="outline"
             >
-              Reject optional
+              <span className="sm:hidden">Reject</span>
+              <span className="hidden sm:inline">Reject optional</span>
             </Button>
             <Button
-              className="order-3 col-span-2 min-h-11 w-full rounded-md sm:order-none sm:col-span-1"
+              aria-label="Manage cookie preferences"
+              className="min-h-11 w-full rounded-md"
               onClick={() => {
                 setDraftConsent(consent)
                 setIsPreferencesOpen(true)
@@ -522,18 +571,28 @@ export function AnalyticsProvider(): React.ReactElement | null {
               Manage
             </Button>
             <Button
+              aria-label="Accept all cookies"
               className="min-h-11 w-full rounded-md"
               onClick={() => setAndPersistConsent(grantedConsent)}
               type="button"
             >
-              Accept all
+              <span className="sm:hidden">Accept</span>
+              <span className="hidden sm:inline">Accept all</span>
             </Button>
           </div>
         </div>
       )}
 
       <Dialog open={isPreferencesOpen} onOpenChange={setIsPreferencesOpen}>
-        <DialogContent className="rounded-lg border-[#d8c7b6] bg-[#fffdf8]">
+        <DialogContent
+          className="rounded-lg border-[#d8c7b6] bg-[#fffdf8]"
+          onCloseAutoFocus={(event) => {
+            if (!shouldFocusApplicationAfterConsentRef.current) return
+            event.preventDefault()
+            shouldFocusApplicationAfterConsentRef.current = false
+            focusHomepageApplication()
+          }}
+        >
           <DialogHeader>
             <DialogTitle>Privacy preferences</DialogTitle>
             <DialogDescription>

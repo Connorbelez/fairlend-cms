@@ -20,7 +20,12 @@ import {
   buildWebPageJsonLd,
   getSchemaNodeId,
 } from '@/utilities/structuredData'
-import { getPayloadDescription, getPayloadPostPath, getPayloadTitle } from '@/utilities/seo'
+import {
+  fairlendNotFoundMetadata,
+  getPayloadDescription,
+  getPayloadPostPath,
+  getPayloadTitle,
+} from '@/utilities/seo'
 import { FAIRLEND_DEMO_POST_SLUGS, isFairlendDemoPostSlug } from '@/lib/fairlend-posts'
 import PageClient from './page.client'
 
@@ -147,6 +152,8 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
   const post = await queryPostBySlug({ slug: decodedSlug })
+
+  if (!post) return fairlendNotFoundMetadata
 
   return generateMeta({ collection: 'posts', doc: post })
 }

@@ -191,6 +191,7 @@ function MegaMenuPanel({
                           {...item.link}
                           className="mkt-dhh-menu-item"
                           data-mega-menu-item="true"
+                          prefetch={false}
                         >
                           <span className="mkt-dhh-menu-item-label">{item.label}</span>
                           {item.description && (

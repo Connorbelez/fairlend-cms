@@ -65,7 +65,7 @@ export function DrawFlowInterestBadge({
             <TooltipTrigger asChild>
               <button
                 aria-label="Save up to 50% interest with DrawFlow. Learn how DrawFlow works."
-                className={`${offsetCalloutClassName} min-h-9 items-center border-[#08090a] bg-[#9DFF00] px-2.5 py-1.5 shadow-[3px_3px_0_#08090a] transition-transform duration-200 hover:-translate-y-0.5 focus-visible:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#08090a]`}
+                className={`${offsetCalloutClassName} min-h-9 items-center border-[#08090a] bg-[#9DFF00] px-2.5 py-1.5 shadow-[3px_3px_0_#08090a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#08090a]`}
                 type="button"
               >
                 <OffsetCalloutCorner />
@@ -73,7 +73,7 @@ export function DrawFlowInterestBadge({
               </button>
             </TooltipTrigger>
             <TooltipContent
-              className="w-[300px] border-[#9DFF00]/60 bg-[#08090a] p-3 shadow-[4px_4px_0_#9DFF00]"
+              className="w-[300px] !animate-none border-[#9DFF00]/60 bg-[#08090a] p-3 shadow-[4px_4px_0_#9DFF00]"
               collisionPadding={16}
               side="bottom"
               sideOffset={10}
@@ -91,7 +91,7 @@ export function DrawFlowInterestBadge({
             <PopoverTrigger asChild>
               <button
                 aria-label="Learn how DrawFlow can reduce interest paid"
-                className="grid size-6 shrink-0 place-items-center rounded-full border border-[#08090a] bg-[#fbfaf7] text-[#08090a] transition-colors hover:bg-[#08090a] hover:text-[#9DFF00] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#08090a]"
+                className="grid size-6 shrink-0 place-items-center rounded-full border border-[#08090a] bg-[#fbfaf7] text-[#08090a] hover:bg-[#08090a] hover:text-[#9DFF00] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#08090a]"
                 type="button"
               >
                 <Info aria-hidden="true" className="size-3.5" strokeWidth={2.4} />
@@ -99,7 +99,7 @@ export function DrawFlowInterestBadge({
             </PopoverTrigger>
             <PopoverContent
               align="end"
-              className="w-[min(320px,calc(100vw-2rem))] border-[#9DFF00]/60 bg-[#08090a] p-3 shadow-[4px_4px_0_#9DFF00]"
+              className="w-[min(320px,calc(100vw-2rem))] !animate-none border-[#9DFF00]/60 bg-[#08090a] p-3 shadow-[4px_4px_0_#9DFF00]"
               collisionPadding={16}
               side="bottom"
               sideOffset={10}

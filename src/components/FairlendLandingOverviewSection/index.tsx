@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import type { CSSProperties } from 'react'
 import { ArrowRight, Heart, ShieldCheck, TrendingUp, UsersRound } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -43,12 +42,6 @@ const overviewCloudKeys = [
 
 type OverviewCloudLayerProps = {
   className: string
-  delay: string
-  driftDuration: string
-  driftX: string
-  driftY: string
-  enterX: string
-  enterY: string
   height: number
   src: string
   width: number
@@ -266,7 +259,7 @@ function ExpertiseCard({
   return (
     <article
       className={cn(
-        'grid min-h-0 grid-cols-[44px_minmax(0,1fr)] grid-rows-none items-center gap-x-3 border border-[#08090a] bg-[#9DFF00] px-4 py-4 text-left shadow-[3px_3px_0_#08090a] transition-transform duration-200 hover:-translate-y-0.5 md:min-h-[148px] md:grid-cols-none md:grid-rows-[42px_auto_1fr] md:items-start md:gap-x-0 md:px-[10px] md:py-[18px]',
+        'grid min-h-0 grid-cols-[44px_minmax(0,1fr)] grid-rows-none items-center gap-x-3 border border-[#08090a] bg-[#9DFF00] px-4 py-4 text-left shadow-[3px_3px_0_#08090a] md:min-h-[148px] md:grid-cols-none md:grid-rows-[42px_auto_1fr] md:items-start md:gap-x-0 md:px-[10px] md:py-[18px]',
         styles.expertiseCard,
       )}
       data-overview-expertise-card
@@ -316,9 +309,8 @@ function FinanceCopy({ copy, emphasis }: { copy: string; emphasis: FinanceCopyEm
       <strong className="font-semibold text-[#08090a]">
         <Highlighter
           action={emphasis.action}
-          animationDuration={isHighlight ? 720 : 860}
+          animate={false}
           color={isHighlight ? 'rgba(150, 236, 24, 0.52)' : '#96ec18'}
-          isView
           iterations={isHighlight ? 1 : 2}
           padding={isHighlight ? 2 : 1}
           strokeWidth={isHighlight ? 2.2 : 2.6}
@@ -361,7 +353,7 @@ function FinanceCard({
         <div className="absolute inset-3 translate-x-1 translate-y-1 rotate-[0.8deg] border border-[#08090a]/28 bg-[#d8d7d0]" />
         <div
           className={cn(
-            'relative z-10 flex h-full flex-1 flex-col border border-[#08090a] bg-[#f8f7f5] p-[15px] transition-transform duration-300 ease-out',
+            'relative z-10 flex h-full flex-1 flex-col border border-[#08090a] bg-[#f8f7f5] p-[15px]',
             styles.financeDossierSheet,
           )}
         >
@@ -394,8 +386,7 @@ function FinanceCard({
           ) : null}
           {callout === 'mli-select-readiness' ? <MliSelectReadinessBadge className="mb-4" /> : null}
           <span className="mt-auto flex items-center justify-between border-t border-[#08090a]/25 pt-3 text-[10px] font-extrabold tracking-[0.09em] uppercase">
-            Open deal file{' '}
-            <ArrowRight className="size-5 text-[#72b900] transition-transform group-hover:translate-x-1" />
+            Open deal file <ArrowRight className="size-5 text-[#72b900]" />
           </span>
         </div>
       </Link>
@@ -403,35 +394,10 @@ function FinanceCard({
   )
 }
 
-function OverviewCloudLayer({
-  className,
-  delay,
-  driftDuration,
-  driftX,
-  driftY,
-  enterX,
-  enterY,
-  height,
-  src,
-  width,
-}: OverviewCloudLayerProps) {
+function OverviewCloudLayer({ className, height, src, width }: OverviewCloudLayerProps) {
   return (
-    <span
-      aria-hidden="true"
-      className={cn('fairlend-toronto-cloud absolute block', className)}
-      data-overview-cloud
-      style={
-        {
-          '--cloud-delay': delay,
-          '--cloud-drift-duration': driftDuration,
-          '--cloud-drift-x': driftX,
-          '--cloud-drift-y': driftY,
-          '--cloud-enter-x': enterX,
-          '--cloud-enter-y': enterY,
-        } as CSSProperties
-      }
-    >
-      <span className="fairlend-toronto-cloud-drift block">
+    <span aria-hidden="true" className={cn('absolute block', className)} data-overview-cloud>
+      <span className="block">
         <Image
           alt=""
           className="block h-auto w-full select-none object-contain opacity-[0.58] [filter:contrast(1.04)_brightness(1.04)] [-webkit-user-drag:none]"
@@ -493,20 +459,10 @@ export function FairlendLandingOverviewSection() {
     <section
       aria-label="FairLend company and finance overview"
       className="relative isolate overflow-x-clip bg-[#fbfaf7] px-5 py-10 text-[#08090a] [font-family:var(--font-inter),Arial,sans-serif] sm:px-8 lg:min-h-[100svh] lg:px-[49px] lg:py-[58px]"
-      data-fairlend-motion="landing-overview"
+      data-fairlend-section="landing-overview"
       data-testid="fairlend-landing-overview-section"
       id="overview"
     >
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-20 overflow-hidden">
-        <span
-          className="absolute top-[34%] left-0 block h-px w-full origin-left bg-[#9DFF00]/80 opacity-0 mix-blend-multiply"
-          data-overview-scan="x"
-        />
-        <span
-          className="absolute top-0 left-[58%] hidden h-full w-px origin-top bg-[#9DFF00]/70 opacity-0 mix-blend-multiply lg:block"
-          data-overview-scan="y"
-        />
-      </div>
       <div className="mx-auto grid w-full max-w-[1672px] gap-12 lg:min-h-[calc(100svh-116px)] lg:grid-cols-2 lg:gap-0 2xl:grid-cols-[minmax(0,1fr)_660px]">
         <div
           className="relative isolate flex min-h-[760px] min-w-0 flex-col overflow-hidden lg:sticky lg:top-[58px] lg:h-[calc(100svh-116px)] lg:min-h-[calc(100svh-116px)] lg:self-start"
@@ -541,9 +497,8 @@ export function FairlendLandingOverviewSection() {
                 <strong className="font-extrabold">
                   <Highlighter
                     action="underline"
-                    animationDuration={950}
+                    animate={false}
                     color="#96ec18"
-                    isView
                     iterations={3}
                     padding={3}
                     strokeWidth={3}
@@ -555,9 +510,8 @@ export function FairlendLandingOverviewSection() {
                 <strong className="font-extrabold">
                   <Highlighter
                     action="highlight"
-                    animationDuration={760}
+                    animate={false}
                     color="rgba(150, 236, 24, 0.52)"
-                    isView
                     iterations={2}
                     padding={4}
                     strokeWidth={2.4}
@@ -569,9 +523,8 @@ export function FairlendLandingOverviewSection() {
                 <strong className="font-extrabold">
                   <Highlighter
                     action="highlight"
-                    animationDuration={800}
+                    animate={false}
                     color="rgba(150, 236, 24, 0.56)"
-                    isView
                     iterations={2}
                     padding={4}
                     strokeWidth={2.4}
@@ -583,9 +536,8 @@ export function FairlendLandingOverviewSection() {
                 <strong className="font-extrabold">
                   <Highlighter
                     action="highlight"
-                    animationDuration={860}
+                    animate={false}
                     color="rgba(150, 236, 24, 0.62)"
-                    isView
                     iterations={2}
                     padding={4}
                     strokeWidth={2.6}
@@ -605,9 +557,8 @@ export function FairlendLandingOverviewSection() {
                 <strong className="font-extrabold">
                   <Highlighter
                     action="underline"
-                    animationDuration={900}
+                    animate={false}
                     color="#96ec18"
-                    isView
                     iterations={2}
                     padding={2}
                     strokeWidth={2.8}
@@ -623,9 +574,8 @@ export function FairlendLandingOverviewSection() {
                 <strong className="font-extrabold">
                   <Highlighter
                     action="underline"
-                    animationDuration={1000}
+                    animate={false}
                     color="#96ec18"
-                    isView
                     iterations={2}
                     padding={3}
                     strokeWidth={3.2}

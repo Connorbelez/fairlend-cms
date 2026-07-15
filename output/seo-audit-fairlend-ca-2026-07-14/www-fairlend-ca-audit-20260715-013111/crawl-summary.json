@@ -1,0 +1,920 @@
+{
+  "pages_crawled": 55,
+  "status_counts": {
+    "200": 55
+  },
+  "blocked_urls": [],
+  "remaining_queue": 0,
+  "depth_counts": [
+    {
+      "depth": 0,
+      "count": 1
+    },
+    {
+      "depth": 1,
+      "count": 36
+    },
+    {
+      "depth": 2,
+      "count": 16
+    },
+    {
+      "depth": 3,
+      "count": 2
+    }
+  ],
+  "noindex_count": 38,
+  "noindex_urls": [
+    "https://www.fairlend.ca/intake?intent=consultation&source=talk-to-expert-cta",
+    "https://www.fairlend.ca/start/builder",
+    "https://www.fairlend.ca/intake?intent=mortgage&source=property-types-residential-mortgage",
+    "https://www.fairlend.ca/intake",
+    "https://www.fairlend.ca/intake?intent=mortgage&source=route-selector-private-mortgage",
+    "https://www.fairlend.ca/intake?intent=mortgage&source=route-selector-heloc",
+    "https://www.fairlend.ca/intake?intent=mortgage&source=route-selector-residential-mortgages",
+    "https://www.fairlend.ca/intake?intent=build&projectScope=garden-laneway-suites&source=route-selector-garden-laneway-suites",
+    "https://www.fairlend.ca/intake?intent=consultation&source=route-selector-helper-book-consultation",
+    "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-residential-mortgages",
+    "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-heloc",
+    "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-bridge-loans",
+    "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-residential-refinancing",
+    "https://www.fairlend.ca/intake?intent=build&projectScope=renovation-financing&source=landing-overview-renovation-financing",
+    "https://www.fairlend.ca/intake?intent=build&projectScope=multiplex-financing&source=landing-overview-multiplex-financing",
+    "https://www.fairlend.ca/intake?intent=build&projectScope=garden-laneway-suites&source=landing-overview-garden-laneway-suites",
+    "https://www.fairlend.ca/intake?intent=build&projectScope=mli-select-insured-housing&source=landing-overview-mli-select-insured-housing",
+    "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-acquisition-existing-rental-properties",
+    "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-refinancing-existing-rental-properties",
+    "https://www.fairlend.ca/intake?intent=consultation&source=build-model-consultation",
+    "https://www.fairlend.ca/intake?intent=build&source=builder-consulting-cta",
+    "https://www.fairlend.ca/intake?intent=consultation&source=reference-footer-apply-now",
+    "https://www.fairlend.ca/intake?intent=partner-apply&source=partner-apply-cta",
+    "https://www.fairlend.ca/intake?intent=partner-project&source=partner-bring-project-cta",
+    "https://www.fairlend.ca/intake?intent=partner-scenario&source=partner-scenario-cta",
+    "https://www.fairlend.ca/intake?intent=invest&source=investor-managed-platform",
+    "https://www.fairlend.ca/intake?intent=invest&source=investor-opportunities-review",
+    "https://www.fairlend.ca/intake?intent=invest&source=investor-process-cta",
+    "https://www.fairlend.ca/intake?intent=consultation&source=investor-process-review",
+    "https://www.fairlend.ca/intake?intent=invest&source=investor-fit",
+    "https://www.fairlend.ca/intake?intent=invest&source=investor-final-cta",
+    "https://www.fairlend.ca/intake?intent=consultation&source=investor-final-review",
+    "https://www.fairlend.ca/intake?intent=build&source=construction-draw-financing",
+    "https://www.fairlend.ca/intake?intent=build&source=multiplex-financing-gta",
+    "https://www.fairlend.ca/intake?intent=contact&source=multiplex-question",
+    "https://www.fairlend.ca/intake?intent=build&source=garden-suite-financing-gta",
+    "https://www.fairlend.ca/intake?intent=build&source=garden-suite-eligibility",
+    "https://www.fairlend.ca/intake?intent=build&source=affordable-sustainable-rental-housing"
+  ],
+  "indexable_records": [
+    {
+      "url": "https://www.fairlend.ca/",
+      "depth": 0,
+      "canonical": "https://www.fairlend.ca",
+      "title": "FairLend Mortgage | Private Real Estate Financing Ontario",
+      "h1_count": 1,
+      "word_count": 4786,
+      "schema_types": [
+        "AdministrativeArea",
+        "Answer",
+        "City",
+        "ContactPoint",
+        "EducationalOccupationalCredential",
+        "FAQPage",
+        "FinancialService",
+        "GovernmentOrganization",
+        "OpeningHoursSpecification",
+        "Organization",
+        "Person",
+        "Question",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "url": "https://www.fairlend.ca/borrowers",
+      "depth": 1,
+      "canonical": "https://www.fairlend.ca/borrowers",
+      "title": "Mortgage Financing for Ontario Borrowers and Builders",
+      "h1_count": 1,
+      "word_count": 399,
+      "schema_types": [
+        "AdministrativeArea",
+        "BreadcrumbList",
+        "City",
+        "ContactPoint",
+        "EducationalOccupationalCredential",
+        "FinancialService",
+        "GovernmentOrganization",
+        "ListItem",
+        "OpeningHoursSpecification",
+        "Organization",
+        "Person",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "url": "https://www.fairlend.ca/investing",
+      "depth": 1,
+      "canonical": "https://www.fairlend.ca/investing",
+      "title": "Private Mortgage Investing in Ontario | FairLend",
+      "h1_count": 1,
+      "word_count": 306,
+      "schema_types": [
+        "AdministrativeArea",
+        "BreadcrumbList",
+        "City",
+        "ContactPoint",
+        "EducationalOccupationalCredential",
+        "FinancialService",
+        "GovernmentOrganization",
+        "ListItem",
+        "OpeningHoursSpecification",
+        "Organization",
+        "Person",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "url": "https://www.fairlend.ca/partners",
+      "depth": 1,
+      "canonical": "https://www.fairlend.ca/partners",
+      "title": "FairLend Partner Program | Southern Ontario Build Financing",
+      "h1_count": 1,
+      "word_count": 2122,
+      "schema_types": [
+        "AdministrativeArea",
+        "BreadcrumbList",
+        "City",
+        "ContactPoint",
+        "EducationalOccupationalCredential",
+        "FinancialService",
+        "GovernmentOrganization",
+        "ListItem",
+        "OpeningHoursSpecification",
+        "Organization",
+        "Person",
+        "Service",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "url": "https://www.fairlend.ca/borrowers/institutional-mortgage",
+      "depth": 1,
+      "canonical": "https://www.fairlend.ca/borrowers/institutional-mortgage",
+      "title": "Institutional Mortgage Financing Ontario | FairLend",
+      "h1_count": 1,
+      "word_count": 1371,
+      "schema_types": [
+        "AdministrativeArea",
+        "BreadcrumbList",
+        "City",
+        "ContactPoint",
+        "EducationalOccupationalCredential",
+        "FinancialService",
+        "GovernmentOrganization",
+        "ListItem",
+        "OpeningHoursSpecification",
+        "Organization",
+        "Person",
+        "Service",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "url": "https://www.fairlend.ca/investing/private-mortgage-lending",
+      "depth": 1,
+      "canonical": "https://www.fairlend.ca/investing/private-mortgage-lending",
+      "title": "Private Mortgage Investing Ontario | FairLend",
+      "h1_count": 1,
+      "word_count": 2803,
+      "schema_types": [
+        "AdministrativeArea",
+        "BreadcrumbList",
+        "City",
+        "ContactPoint",
+        "EducationalOccupationalCredential",
+        "FinancialService",
+        "GovernmentOrganization",
+        "ListItem",
+        "OpeningHoursSpecification",
+        "Organization",
+        "Person",
+        "Service",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "url": "https://www.fairlend.ca/construction-draw-financing",
+      "depth": 1,
+      "canonical": "https://www.fairlend.ca/construction-draw-financing",
+      "title": "Construction Draw Financing | DrawFlow",
+      "h1_count": 1,
+      "word_count": 695,
+      "schema_types": [
+        "AdministrativeArea",
+        "BreadcrumbList",
+        "City",
+        "ContactPoint",
+        "EducationalOccupationalCredential",
+        "FinancialService",
+        "GovernmentOrganization",
+        "ListItem",
+        "OpeningHoursSpecification",
+        "Organization",
+        "Person",
+        "Service",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "url": "https://www.fairlend.ca/multiplex-financing-gta",
+      "depth": 1,
+      "canonical": "https://www.fairlend.ca/multiplex-financing-gta",
+      "title": "Multiplex Financing GTA | FairLend",
+      "h1_count": 1,
+      "word_count": 401,
+      "schema_types": [
+        "AdministrativeArea",
+        "BreadcrumbList",
+        "City",
+        "ContactPoint",
+        "EducationalOccupationalCredential",
+        "FinancialService",
+        "GovernmentOrganization",
+        "ListItem",
+        "OpeningHoursSpecification",
+        "Organization",
+        "Person",
+        "Service",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "url": "https://www.fairlend.ca/garden-suite-financing-gta",
+      "depth": 1,
+      "canonical": "https://www.fairlend.ca/garden-suite-financing-gta",
+      "title": "Garden Suite Financing GTA | FairLend",
+      "h1_count": 1,
+      "word_count": 365,
+      "schema_types": [
+        "AdministrativeArea",
+        "BreadcrumbList",
+        "City",
+        "ContactPoint",
+        "EducationalOccupationalCredential",
+        "FinancialService",
+        "GovernmentOrganization",
+        "ListItem",
+        "OpeningHoursSpecification",
+        "Organization",
+        "Person",
+        "Service",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "url": "https://www.fairlend.ca/borrowers/private-mortgage-financing",
+      "depth": 1,
+      "canonical": "https://www.fairlend.ca/borrowers/private-mortgage-financing",
+      "title": "Private Mortgage Financing Ontario | FairLend",
+      "h1_count": 1,
+      "word_count": 1862,
+      "schema_types": [
+        "AdministrativeArea",
+        "BreadcrumbList",
+        "City",
+        "ContactPoint",
+        "EducationalOccupationalCredential",
+        "FinancialService",
+        "GovernmentOrganization",
+        "ListItem",
+        "OpeningHoursSpecification",
+        "Organization",
+        "Person",
+        "Service",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "url": "https://www.fairlend.ca/en/brokerage/privacy-policy",
+      "depth": 1,
+      "canonical": "https://www.fairlend.ca/en/brokerage/privacy-policy",
+      "title": "Privacy Policy | Fairlend Management Inc.",
+      "h1_count": 1,
+      "word_count": 5219,
+      "schema_types": [
+        "AdministrativeArea",
+        "BreadcrumbList",
+        "City",
+        "ContactPoint",
+        "EducationalOccupationalCredential",
+        "FinancialService",
+        "GovernmentOrganization",
+        "ListItem",
+        "OpeningHoursSpecification",
+        "Organization",
+        "Person",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "url": "https://www.fairlend.ca/posts",
+      "depth": 1,
+      "canonical": "https://www.fairlend.ca/posts",
+      "title": "FairLend Resources | Mortgage Financing Guides",
+      "h1_count": 1,
+      "word_count": 194,
+      "schema_types": [
+        "AdministrativeArea",
+        "BreadcrumbList",
+        "City",
+        "ContactPoint",
+        "EducationalOccupationalCredential",
+        "FinancialService",
+        "GovernmentOrganization",
+        "ListItem",
+        "OpeningHoursSpecification",
+        "Organization",
+        "Person",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "url": "https://www.fairlend.ca/contact",
+      "depth": 1,
+      "canonical": "https://www.fairlend.ca/contact",
+      "title": "Contact FairLend Mortgage | Ontario Private Financing",
+      "h1_count": 1,
+      "word_count": 485,
+      "schema_types": [
+        "AdministrativeArea",
+        "BreadcrumbList",
+        "City",
+        "ContactPage",
+        "ContactPoint",
+        "EducationalOccupationalCredential",
+        "FinancialService",
+        "GovernmentOrganization",
+        "ListItem",
+        "OpeningHoursSpecification",
+        "Organization",
+        "Person",
+        "WebSite"
+      ]
+    },
+    {
+      "url": "https://www.fairlend.ca/disclosures",
+      "depth": 1,
+      "canonical": "https://www.fairlend.ca/disclosures",
+      "title": "Regulatory and Website Disclosures | FairLend Mortgage",
+      "h1_count": 1,
+      "word_count": 308,
+      "schema_types": [
+        "AdministrativeArea",
+        "BreadcrumbList",
+        "City",
+        "ContactPoint",
+        "EducationalOccupationalCredential",
+        "FinancialService",
+        "GovernmentOrganization",
+        "ListItem",
+        "OpeningHoursSpecification",
+        "Organization",
+        "Person",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "url": "https://www.fairlend.ca/terms",
+      "depth": 1,
+      "canonical": "https://www.fairlend.ca/terms",
+      "title": "Website Terms of Use | Fairlend Management Inc.",
+      "h1_count": 1,
+      "word_count": 598,
+      "schema_types": [
+        "AdministrativeArea",
+        "BreadcrumbList",
+        "City",
+        "ContactPoint",
+        "EducationalOccupationalCredential",
+        "FinancialService",
+        "GovernmentOrganization",
+        "ListItem",
+        "OpeningHoursSpecification",
+        "Organization",
+        "Person",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "url": "https://www.fairlend.ca/garden-suite",
+      "depth": 2,
+      "canonical": "https://www.fairlend.ca/garden-suite",
+      "title": "Garden Suite Eligibility Review | FairLend",
+      "h1_count": 1,
+      "word_count": 311,
+      "schema_types": [
+        "AdministrativeArea",
+        "BreadcrumbList",
+        "City",
+        "ContactPoint",
+        "EducationalOccupationalCredential",
+        "FinancialService",
+        "GovernmentOrganization",
+        "ListItem",
+        "OpeningHoursSpecification",
+        "Organization",
+        "Person",
+        "Service",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "url": "https://www.fairlend.ca/affordable-sustainable-rental-housing",
+      "depth": 2,
+      "canonical": "https://www.fairlend.ca/affordable-sustainable-rental-housing",
+      "title": "Sustainable Rental Housing Financing | FairLend",
+      "h1_count": 1,
+      "word_count": 560,
+      "schema_types": [
+        "AdministrativeArea",
+        "BreadcrumbList",
+        "City",
+        "ContactPoint",
+        "EducationalOccupationalCredential",
+        "FinancialService",
+        "GovernmentOrganization",
+        "ListItem",
+        "OpeningHoursSpecification",
+        "Organization",
+        "Person",
+        "Service",
+        "WebPage",
+        "WebSite"
+      ]
+    }
+  ],
+  "canonical_mismatches": [
+    {
+      "url": "https://www.fairlend.ca/intake?intent=consultation&source=talk-to-expert-cta",
+      "final_url": "https://www.fairlend.ca/intake?intent=consultation&source=talk-to-expert-cta",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=property-types-residential-mortgage",
+      "final_url": "https://www.fairlend.ca/intake?intent=mortgage&source=property-types-residential-mortgage",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=route-selector-private-mortgage",
+      "final_url": "https://www.fairlend.ca/intake?intent=mortgage&source=route-selector-private-mortgage",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=route-selector-heloc",
+      "final_url": "https://www.fairlend.ca/intake?intent=mortgage&source=route-selector-heloc",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=route-selector-residential-mortgages",
+      "final_url": "https://www.fairlend.ca/intake?intent=mortgage&source=route-selector-residential-mortgages",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&projectScope=garden-laneway-suites&source=route-selector-garden-laneway-suites",
+      "final_url": "https://www.fairlend.ca/intake?intent=build&projectScope=garden-laneway-suites&source=route-selector-garden-laneway-suites",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=consultation&source=route-selector-helper-book-consultation",
+      "final_url": "https://www.fairlend.ca/intake?intent=consultation&source=route-selector-helper-book-consultation",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-residential-mortgages",
+      "final_url": "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-residential-mortgages",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-heloc",
+      "final_url": "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-heloc",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-bridge-loans",
+      "final_url": "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-bridge-loans",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-residential-refinancing",
+      "final_url": "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-residential-refinancing",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&projectScope=renovation-financing&source=landing-overview-renovation-financing",
+      "final_url": "https://www.fairlend.ca/intake?intent=build&projectScope=renovation-financing&source=landing-overview-renovation-financing",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&projectScope=multiplex-financing&source=landing-overview-multiplex-financing",
+      "final_url": "https://www.fairlend.ca/intake?intent=build&projectScope=multiplex-financing&source=landing-overview-multiplex-financing",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&projectScope=garden-laneway-suites&source=landing-overview-garden-laneway-suites",
+      "final_url": "https://www.fairlend.ca/intake?intent=build&projectScope=garden-laneway-suites&source=landing-overview-garden-laneway-suites",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&projectScope=mli-select-insured-housing&source=landing-overview-mli-select-insured-housing",
+      "final_url": "https://www.fairlend.ca/intake?intent=build&projectScope=mli-select-insured-housing&source=landing-overview-mli-select-insured-housing",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-acquisition-existing-rental-properties",
+      "final_url": "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-acquisition-existing-rental-properties",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-refinancing-existing-rental-properties",
+      "final_url": "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-refinancing-existing-rental-properties",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=consultation&source=build-model-consultation",
+      "final_url": "https://www.fairlend.ca/intake?intent=consultation&source=build-model-consultation",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&source=builder-consulting-cta",
+      "final_url": "https://www.fairlend.ca/intake?intent=build&source=builder-consulting-cta",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=consultation&source=reference-footer-apply-now",
+      "final_url": "https://www.fairlend.ca/intake?intent=consultation&source=reference-footer-apply-now",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=partner-apply&source=partner-apply-cta",
+      "final_url": "https://www.fairlend.ca/intake?intent=partner-apply&source=partner-apply-cta",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=partner-project&source=partner-bring-project-cta",
+      "final_url": "https://www.fairlend.ca/intake?intent=partner-project&source=partner-bring-project-cta",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=partner-scenario&source=partner-scenario-cta",
+      "final_url": "https://www.fairlend.ca/intake?intent=partner-scenario&source=partner-scenario-cta",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=invest&source=investor-managed-platform",
+      "final_url": "https://www.fairlend.ca/intake?intent=invest&source=investor-managed-platform",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=invest&source=investor-opportunities-review",
+      "final_url": "https://www.fairlend.ca/intake?intent=invest&source=investor-opportunities-review",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=invest&source=investor-process-cta",
+      "final_url": "https://www.fairlend.ca/intake?intent=invest&source=investor-process-cta",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=consultation&source=investor-process-review",
+      "final_url": "https://www.fairlend.ca/intake?intent=consultation&source=investor-process-review",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=invest&source=investor-fit",
+      "final_url": "https://www.fairlend.ca/intake?intent=invest&source=investor-fit",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=invest&source=investor-final-cta",
+      "final_url": "https://www.fairlend.ca/intake?intent=invest&source=investor-final-cta",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=consultation&source=investor-final-review",
+      "final_url": "https://www.fairlend.ca/intake?intent=consultation&source=investor-final-review",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&source=construction-draw-financing",
+      "final_url": "https://www.fairlend.ca/intake?intent=build&source=construction-draw-financing",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&source=multiplex-financing-gta",
+      "final_url": "https://www.fairlend.ca/intake?intent=build&source=multiplex-financing-gta",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=contact&source=multiplex-question",
+      "final_url": "https://www.fairlend.ca/intake?intent=contact&source=multiplex-question",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&source=garden-suite-financing-gta",
+      "final_url": "https://www.fairlend.ca/intake?intent=build&source=garden-suite-financing-gta",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&source=garden-suite-eligibility",
+      "final_url": "https://www.fairlend.ca/intake?intent=build&source=garden-suite-eligibility",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&source=affordable-sustainable-rental-housing",
+      "final_url": "https://www.fairlend.ca/intake?intent=build&source=affordable-sustainable-rental-housing",
+      "canonical": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow"
+    }
+  ],
+  "missing_canonical": [],
+  "missing_h1": [
+    {
+      "url": "https://www.fairlend.ca/intake?intent=consultation&source=talk-to-expert-cta",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/start/builder",
+      "meta_robots": "noindex, follow",
+      "title": "Builder Intake | FairLend",
+      "word_count": 120
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=property-types-residential-mortgage",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=route-selector-private-mortgage",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=route-selector-heloc",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=route-selector-residential-mortgages",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&projectScope=garden-laneway-suites&source=route-selector-garden-laneway-suites",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=consultation&source=route-selector-helper-book-consultation",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-residential-mortgages",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-heloc",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-bridge-loans",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-residential-refinancing",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&projectScope=renovation-financing&source=landing-overview-renovation-financing",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&projectScope=multiplex-financing&source=landing-overview-multiplex-financing",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&projectScope=garden-laneway-suites&source=landing-overview-garden-laneway-suites",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&projectScope=mli-select-insured-housing&source=landing-overview-mli-select-insured-housing",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-acquisition-existing-rental-properties",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=mortgage&source=landing-overview-refinancing-existing-rental-properties",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=consultation&source=build-model-consultation",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&source=builder-consulting-cta",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=consultation&source=reference-footer-apply-now",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=partner-apply&source=partner-apply-cta",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=partner-project&source=partner-bring-project-cta",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=partner-scenario&source=partner-scenario-cta",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=invest&source=investor-managed-platform",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=invest&source=investor-opportunities-review",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=invest&source=investor-process-cta",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=consultation&source=investor-process-review",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=invest&source=investor-fit",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=invest&source=investor-final-cta",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=consultation&source=investor-final-review",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&source=construction-draw-financing",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&source=multiplex-financing-gta",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=contact&source=multiplex-question",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&source=garden-suite-financing-gta",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&source=garden-suite-eligibility",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    },
+    {
+      "url": "https://www.fairlend.ca/intake?intent=build&source=affordable-sustainable-rental-housing",
+      "meta_robots": "noindex, follow",
+      "title": "FairLend Request Desk",
+      "word_count": 119
+    }
+  ],
+  "errors": []
+}

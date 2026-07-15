@@ -1,6 +1,5 @@
 import type { CSSProperties } from 'react'
 import { ArrowUpRight } from 'lucide-react'
-import Image from 'next/image'
 
 import { FairlendConsultationBookingDialog } from '@/components/FairlendConsultationBooking/FairlendConsultationBookingDialog.client'
 import { FairlendBuildPropertyTypes } from '@/components/FairlendBuildPropertyTypes'
@@ -14,7 +13,14 @@ import { cn } from '@/utilities/ui'
 
 import { FairlendApplicationArrow } from './FairlendApplicationArrow.client'
 import { FairlendApplicationForm } from './FairlendApplicationForm.client'
-import { torontoCloudLayers, torontoHeroAssets } from './toronto-scene-assets'
+import { FairlendSkylineCanvas } from './FairlendSkylineCanvas.client'
+import { FairlendApplicationReturnCta } from './FairlendApplicationReturnCta.client'
+import { torontoCloudLayers } from './toronto-scene-assets'
+
+const TORONTO_SKYLINE_MOBILE_SRC =
+  '/_next/image?url=%2Fassets%2Ffairlend%2Ftoronto-hero-16x10%2Ftoronto-skyline-waterfront-16x10.webp&w=1200&q=55'
+const TORONTO_SKYLINE_DESKTOP_SRC =
+  '/_next/image?url=%2Fassets%2Ffairlend%2Ftoronto-hero-16x10%2Ftoronto-skyline-waterfront-16x10.webp&w=1920&q=55'
 
 const proofStats = [
   {
@@ -60,7 +66,7 @@ function BookConsultationButton({ mobileDocked = false }: { mobileDocked?: boole
       className={cn(
         'fairlend-toronto-copy group h-[55px] items-center gap-[12px] rounded-[9px] bg-[#96ec18] py-0 pr-5 pl-[18px] text-[17px] leading-none font-normal text-[#101010] shadow-[0_10px_24px_rgb(118_205_0/12%)] outline-none transition-[background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-[#a4fb20] hover:shadow-[0_14px_32px_rgb(118_205_0/18%)] focus-visible:ring-2 focus-visible:ring-[#111] focus-visible:ring-offset-4 focus-visible:ring-offset-[#f8f7f5] max-md:h-12 max-md:w-[min(100%,455px)] max-md:justify-between max-md:px-4 max-md:text-[15px]',
         mobileDocked
-          ? 'hidden hero-mobile:relative hero-mobile:z-10 hero-mobile:mt-0 hero-mobile:inline-flex hero-mobile:h-[46px] hero-mobile:w-full hero-mobile:min-w-0 hero-mobile:gap-1.5 hero-mobile:rounded-[8px] hero-mobile:px-2.5 hero-mobile:text-[11px] hero-mobile:leading-none'
+          ? 'hidden hero-mobile:relative hero-mobile:z-10 hero-mobile:mt-0 hero-mobile:inline-flex hero-mobile:h-[46px] hero-mobile:w-full hero-mobile:min-w-0 hero-mobile:gap-1.5 hero-mobile:rounded-[8px] hero-mobile:px-2.5 hero-mobile:text-xs hero-mobile:leading-none'
           : 'inline-flex hero-mobile:hidden',
       )}
       leadershipCta={false}
@@ -90,7 +96,7 @@ function HeroTalkToExpertButton({ mobileDocked = false }: { mobileDocked?: boole
       className={cn(
         'fairlend-toronto-copy h-[55px] rounded-[9px] bg-[#111] px-[18px] py-0 text-[#f8f7f5] shadow-[0_10px_24px_rgb(17_17_17/12%)] hover:bg-[#050607] hover:shadow-[0_14px_32px_rgb(17_17_17/18%)] focus-visible:outline-[#111] focus-visible:outline-offset-4 [&>span:first-child]:bg-[#96ec18] [&>span:first-child]:text-[#111] [&>span:first-child]:shadow-none [&>span:last-child>span:first-child]:text-[#b8c6cc] [&>span:last-child>span:last-child]:text-[15px]',
         mobileDocked
-          ? 'hidden hero-mobile:relative hero-mobile:z-10 hero-mobile:flex hero-mobile:h-[46px] hero-mobile:w-full hero-mobile:min-w-0 hero-mobile:justify-start hero-mobile:gap-1.5 hero-mobile:rounded-[8px] hero-mobile:px-2.5 hero-mobile:[&>span:first-child]:size-[24px] hero-mobile:[&>span:first-child>svg]:size-[14px] hero-mobile:[&>span:last-child]:min-w-0 hero-mobile:[&>span:last-child>span:first-child]:hidden hero-mobile:[&>span:last-child>span:last-child]:text-[11px] hero-mobile:[&>span:last-child>span:last-child]:leading-none'
+          ? 'hidden hero-mobile:relative hero-mobile:z-10 hero-mobile:flex hero-mobile:h-[46px] hero-mobile:w-full hero-mobile:min-w-0 hero-mobile:justify-start hero-mobile:gap-1.5 hero-mobile:rounded-[8px] hero-mobile:px-2.5 hero-mobile:[&>span:first-child]:size-[24px] hero-mobile:[&>span:first-child>svg]:size-[14px] hero-mobile:[&>span:last-child]:min-w-0 hero-mobile:[&>span:last-child>span:first-child]:hidden hero-mobile:[&>span:last-child>span:last-child]:text-xs hero-mobile:[&>span:last-child>span:last-child]:leading-none'
           : 'max-md:w-[min(100%,455px)] max-md:justify-start hero-mobile:hidden',
       )}
       eyebrow="Talk to an expert"
@@ -165,7 +171,7 @@ function MobileAuthorityBar() {
   const statValueClassName =
     'whitespace-nowrap text-[clamp(22px,7.4vw,30px)] leading-[0.82] font-normal tracking-[-0.04em] text-[#050506] [font-family:var(--font-dm-serif-display),Georgia,serif]'
   const statLabelClassName =
-    'min-h-[30px] text-[8px] leading-[1.06] font-bold tracking-[0.08em] text-[#141414]/72 uppercase hero-compact:text-[7px]'
+    'min-h-[42px] text-xs leading-[1.08] font-bold tracking-[0.04em] text-[#141414]/72 uppercase'
 
   return (
     <aside
@@ -180,10 +186,8 @@ function MobileAuthorityBar() {
       />
       <div className="relative">
         <div className="flex items-center justify-between border-b border-[#08090a] pb-2">
-          <p className="m-0 text-[9px] font-extrabold tracking-[0.16em] uppercase hero-compact:text-[8px]">
-            Authority file
-          </p>
-          <span className="border border-[#72b900] px-1.5 py-1 text-[7px] leading-none font-extrabold tracking-[0.12em] text-[#5e9800] uppercase">
+          <p className="m-0 text-xs font-extrabold tracking-[0.12em] uppercase">Authority file</p>
+          <span className="border border-[#72b900] px-1.5 py-1 text-xs leading-none font-extrabold tracking-[0.08em] text-[#5e9800] uppercase">
             Verified
           </span>
         </div>
@@ -199,10 +203,10 @@ function MobileAuthorityBar() {
               <dd className="order-1 flex items-baseline gap-1">
                 <strong className={statValueClassName}>
                   {stat.value}
-                  <sup className="align-top text-[8px] tracking-normal">{stat.qualifier}</sup>
+                  <sup className="align-top text-xs tracking-normal">{stat.qualifier}</sup>
                 </strong>
                 {'prefix' in stat ? (
-                  <span className="text-[11px] leading-none font-bold tracking-[-0.02em] text-[#050506]">
+                  <span className="text-xs leading-none font-bold tracking-[-0.02em] text-[#050506]">
                     {stat.prefix}
                   </span>
                 ) : null}
@@ -210,7 +214,7 @@ function MobileAuthorityBar() {
             </div>
           ))}
         </dl>
-        <p className="mt-2.5 border-t border-[#08090a]/25 pt-2 text-[8px] leading-[1.15] font-medium tracking-[0.01em] text-[#141414]/65">
+        <p className="mt-2.5 border-t border-[#08090a]/25 pt-2 text-xs leading-[1.3] font-medium tracking-[0.01em] text-[#141414]/70">
           *Career funded-mortgage volume uses internal funded-file records; experience and volume
           reviewed {fairlendPrincipalBrokerClaims.asOfDate}. Commitment timing varies by complete
           file.
@@ -257,15 +261,11 @@ function CloudLayer({
         data-toronto-cloud-scroll
       >
         <span className="fairlend-toronto-cloud-drift block">
-          <Image
-            alt=""
-            className="block h-auto w-full select-none object-contain opacity-[0.82] [filter:contrast(0.76)_brightness(1.16)] [-webkit-user-drag:none]"
-            decoding="async"
-            fetchPriority="low"
+          <FairlendSkylineCanvas
+            className="select-none opacity-[0.82] [filter:contrast(0.76)_brightness(1.16)]"
+            desktopSrc={src}
             height={height}
-            loading="lazy"
-            sizes="(max-width: 768px) 35vw, 28vw"
-            src={src}
+            mobileSrc={src}
             width={width}
           />
         </span>
@@ -282,16 +282,16 @@ function TorontoScene() {
       data-testid="toronto-hero-scene"
     >
       <div className="absolute inset-0 mx-auto h-full w-full max-w-full overflow-hidden">
-        <Image
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 block h-full w-full object-cover opacity-[0.42] mix-blend-multiply max-md:hidden"
-          decoding="async"
-          height={941}
-          preload
-          sizes="100vw"
-          src="/assets/fairlend-toronto-contour-map.webp"
-          width={1672}
+        <link
+          as="image"
+          href="/assets/fairlend-toronto-contour-map.webp"
+          media="(min-width: 769px)"
+          rel="preload"
+          type="image/webp"
+        />
+        <div
+          className="absolute inset-0 hidden h-full w-full bg-cover bg-center opacity-[0.42] mix-blend-multiply md:block"
+          style={{ backgroundImage: "url('/assets/fairlend-toronto-contour-map.webp')" }}
         />
 
         {torontoCloudLayers
@@ -305,16 +305,26 @@ function TorontoScene() {
           data-toronto-skyline
         >
           <div data-toronto-skyline-scroll>
-            <Image
-              alt=""
-              className="block h-auto w-full select-none object-contain opacity-[0.88] [filter:contrast(0.86)_brightness(1.13)] [-webkit-user-drag:none]"
-              decoding="async"
+            <link
+              as="image"
               fetchPriority="high"
-              height={1000}
-              priority
-              sizes="(max-width: 576px) 260vw, (max-width: 768px) 178vw, (max-width: 1024px) 122vw, (min-width: 1536px) 83vw, 1280px"
-              src={torontoHeroAssets.skyline}
-              width={1600}
+              href={TORONTO_SKYLINE_MOBILE_SRC}
+              media="(max-width: 768px)"
+              rel="preload"
+              type="image/webp"
+            />
+            <link
+              as="image"
+              fetchPriority="high"
+              href={TORONTO_SKYLINE_DESKTOP_SRC}
+              media="(min-width: 769px)"
+              rel="preload"
+              type="image/webp"
+            />
+            <FairlendSkylineCanvas
+              className="opacity-[0.88]"
+              desktopSrc={TORONTO_SKYLINE_DESKTOP_SRC}
+              mobileSrc={TORONTO_SKYLINE_MOBILE_SRC}
             />
           </div>
         </div>
@@ -460,17 +470,18 @@ export function FairlendLandingHero() {
           <ProofStats />
 
           <FairlendApplicationArrow />
+          <FairlendApplicationReturnCta />
 
           <div
             className="contents hero-mobile:relative hero-mobile:z-10 hero-mobile:mt-1 hero-mobile:grid hero-mobile:w-full hero-mobile:max-w-[455px] hero-mobile:grid-cols-2 hero-mobile:gap-2"
             data-toronto-mobile-application
           >
+            <FairlendApplicationForm />
             <BookConsultationButton mobileDocked />
             <HeroTalkToExpertButton mobileDocked />
             <div className="hidden hero-mobile:col-span-2 hero-mobile:block">
               <MobileAuthorityBar />
             </div>
-            <FairlendApplicationForm />
           </div>
         </div>
       </section>

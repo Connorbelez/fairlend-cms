@@ -1,4 +1,5 @@
 import { FairlendOfficeMap } from '@/components/FairlendOfficeMap'
+import { FAIRLEND_OFFICE } from '@/components/FairlendOfficeMap/data'
 
 export function ContactOfficeSection() {
   return (
@@ -9,7 +10,8 @@ export function ContactOfficeSection() {
           <h2 id="contact-office-title">Meet with us in Toronto.</h2>
           <p>
             For an in-person working session, arrange a time with our team before visiting. We’ll
-            review the property, capital need, timing, and constraints at 890 Sheppard Avenue West.
+            review the property, capital need, timing, and constraints at{' '}
+            {FAIRLEND_OFFICE.addressLine}.
           </p>
         </div>
 

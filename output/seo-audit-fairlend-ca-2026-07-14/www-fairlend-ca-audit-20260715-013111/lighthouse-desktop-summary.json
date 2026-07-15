@@ -1,0 +1,18 @@
+{
+  "desktop": {
+    "fetchTime": "2026-07-15T01:22:11.689Z",
+    "score": 56.00000000000001,
+    "seo": 100,
+    "best_practices": 96,
+    "lcp_ms": 2345.71352,
+    "tbt_ms": 611.1520249999996,
+    "cls": 0,
+    "fcp_ms": 841.01757,
+    "main_thread_ms": 3005.9789999999693,
+    "js_execution_ms": 934.8179999999902,
+    "total_bytes": 2075440,
+    "unused_js_bytes": 412543,
+    "unused_css_bytes": 121777,
+    "image_savings_bytes": 0
+  }
+}

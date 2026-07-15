@@ -9,11 +9,8 @@ export const GTA_UNDERWRITING_MARKET_SNAPSHOT = {
   id: 'gta-2026-07-14',
   snapshotDate: '2026-07-14',
   assumptions: {
-    averageConstructionDraw: 0.5,
     capitalizationRate: 0.05,
-    constructionInterestRate: 0.1,
     constructionLoanToCost: 0.8,
-    constructionTermYears: 1,
     contingencyRate: 0.08,
     dispositionCostRate: 0.04,
     landClosingCostRate: 0.025,
@@ -58,11 +55,8 @@ export const GTA_UNDERWRITING_MARKET_SNAPSHOT = {
 } as const
 
 export type BuildModelAssumptions = {
-  averageConstructionDraw: number
   capitalizationRate: number
-  constructionInterestRate: number
   constructionLoanToCost: number
-  constructionTermYears: number
   contingencyRate: number
   dispositionCostRate: number
   landClosingCostRate: number
