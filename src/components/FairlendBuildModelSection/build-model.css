@@ -596,7 +596,7 @@
   grid-template-rows: auto minmax(0, 1fr);
   min-width: 0;
   border: 1px solid var(--bm-line-strong);
-  border-radius: 10px;
+  border-radius: 0;
   background: var(--bm-card-surface);
   color: var(--bm-ink-deep);
   padding: 12px;
@@ -682,7 +682,7 @@
   min-height: 24px;
   place-items: center;
   border: 1px solid var(--bm-line-strong);
-  border-radius: 999px;
+  border-radius: 0;
   background: var(--bm-card-surface-soft);
   color: var(--bm-signal);
   font-size: 9px;
@@ -747,7 +747,7 @@
   min-height: 134px;
   aspect-ratio: 2.52 / 1;
   border: 1px solid var(--bm-line-strong);
-  border-radius: 8px;
+  border-radius: 0;
   background: color-mix(in oklch, var(--bm-blueprint) 8%, var(--bm-card-surface));
   overflow: hidden;
 }
@@ -792,7 +792,7 @@
 .bm-permit-row,
 .bm-takeout-note {
   border: 1px solid var(--bm-line);
-  border-radius: 8px;
+  border-radius: 0;
   background: var(--bm-card-surface-soft);
   padding: 10px;
 }
@@ -921,7 +921,7 @@
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   border: 1px solid var(--bm-line);
-  border-radius: 8px;
+  border-radius: 0;
   overflow: hidden;
 }
 
@@ -970,7 +970,7 @@
   min-height: 44px;
   place-items: center;
   border: 1px solid var(--bm-line);
-  border-radius: 8px;
+  border-radius: 0;
   background: var(--bm-card-surface-soft);
   color: var(--bm-muted);
   font-family: 'Oxanium', ui-monospace, monospace;
@@ -1145,7 +1145,7 @@
   justify-content: space-between;
   gap: 14px;
   border: 1.5px solid var(--bm-ink-deep);
-  border-radius: 10px;
+  border-radius: 0;
   background: var(--bm-action-surface);
   color: var(--bm-action-text);
   padding: 13px 14px 13px 16px;
@@ -1203,7 +1203,7 @@
   width: 30px;
   height: 30px;
   border: 1px solid var(--bm-action-line);
-  border-radius: 999px;
+  border-radius: 0;
 }
 
 .bm-board-cta .arrow-box svg {
