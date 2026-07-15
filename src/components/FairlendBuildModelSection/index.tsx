@@ -4,10 +4,12 @@ import {
   ArrowRight,
   CalendarDays,
   CircleDollarSign,
+  FileText,
   FileCheck2,
   House,
   Layers3,
   LogOut,
+  SlidersHorizontal,
   UserRound,
   type LucideIcon,
 } from 'lucide-react'
@@ -706,12 +708,21 @@ function StationStep({ station }: { station: Station }) {
 
 function DrawFlowStep() {
   return (
-    <ScrollStep state={drawFlowState}>
+    <ScrollStep state={drawFlowState} className="bm-drawflow-step">
       <section className="bm-drawflow" aria-labelledby="bm-drawflow-title">
-        <span className="bm-df-label">
-          <span className="pip" />
-          Powered by DrawFlow
+        <span className="bm-df-revision" aria-hidden="true">
+          <span>FL-LOCREDIT</span>
+          <span>REV-01</span>
+          <span>05.14.2026</span>
         </span>
+        <span className="bm-df-corner-cross" aria-hidden="true" />
+        <div className="bm-df-meta">
+          <span className="bm-df-label">
+            <span className="pip" aria-hidden="true" />
+            Powered by DrawFlow
+          </span>
+          <span className="bm-df-dossier">Technical financing dossier</span>
+        </div>
         <h3 className="bm-df-head" id="bm-drawflow-title">
           A milestone <em>line of credit</em> for your build.
         </h3>
@@ -719,25 +730,29 @@ function DrawFlowStep() {
           More draws. Less interest. <b>Fund the work, not the wait.</b>
         </p>
 
-        <div
-          className="bm-milestones"
-          role="img"
-          aria-label="Milestone draw track: foundation, framing, roof, windows, mechanical, plumbing, electrical, drywall, flooring"
-        >
-          {milestoneNodes.map((node, index) => (
-            <span
-              className={[
-                'bm-milestone',
-                index < 5 ? 'done' : '',
-                node === 'Plumbing' ? 'active' : '',
-              ]
-                .filter(Boolean)
-                .join(' ')}
-              key={`bm-ms-${node}`}
-            >
-              {node}
-            </span>
-          ))}
+        <div className="bm-df-milestone-block">
+          <span className="bm-df-section-label">Construction milestones</span>
+          <div
+            className="bm-milestones"
+            role="img"
+            aria-label="Milestone draw track: foundation, framing, roof, windows, mechanical, plumbing, electrical, drywall, flooring"
+          >
+            {milestoneNodes.map((node, index) => (
+              <span
+                className={[
+                  'bm-milestone',
+                  index < 5 ? 'done' : '',
+                  node === 'Plumbing' ? 'active' : '',
+                  node === 'Flooring' ? 'bm-milestone--continuation' : '',
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+                key={`bm-ms-${node}`}
+              >
+                {node}
+              </span>
+            ))}
+          </div>
         </div>
 
         <div className="bm-df-compare">
@@ -753,33 +768,62 @@ function DrawFlowStep() {
 
         <div className="bm-df-saved">
           <span className="amt">≈ $12,000</span>
-          <span className="lbl">— Illustrative interest saved over a typical build.</span>
-          <span className="caveat">*Illustrative only. Every project differs.</span>
+          <span className="lbl">
+            <strong>Illustrative interest saved</strong>
+            <span>over a typical build.</span>
+          </span>
+          <span className="caveat">
+            *Illustrative only.
+            <br /> Every project
+            <br /> differs.
+          </span>
         </div>
 
         <div className="bm-df-flex">
           <article className="bm-tile">
-            <span className="tile-title">Your schedule, not ours</span>
-            <p>
-              Build your own draw schedule. Tie releases to the milestones that match how your
-              project actually goes up.
-            </p>
+            <span className="tile-icon" aria-hidden="true">
+              <CalendarDays />
+            </span>
+            <div className="tile-copy">
+              <span className="tile-title">
+                Your schedule,
+                <br /> not ours
+              </span>
+              <p>
+                Build your own draw schedule. Tie releases to the milestones that match how your
+                project actually goes up.
+              </p>
+            </div>
           </article>
           <article className="bm-tile">
-            <span className="tile-title">Modify it mid-build</span>
-            <p>
-              Builds don&apos;t always go as planned. Adjust the draw schedule as the work shifts so
-              capital is there when you need it, and not costing interest when you don&apos;t.
-            </p>
+            <span className="tile-icon" aria-hidden="true">
+              <SlidersHorizontal />
+            </span>
+            <div className="tile-copy">
+              <span className="tile-title">
+                Modify it
+                <br /> mid-build
+              </span>
+              <p>
+                Builds don&apos;t always go as planned. Adjust the draw schedule as the work shifts so
+                capital is there when you need it, and not costing interest when you don&apos;t.
+              </p>
+            </div>
           </article>
         </div>
 
         <div className="bm-df-more">
-          <p>
-            <b>More than capital.</b> Complimentary access to our Southern Ontario build specialists and a deep
-            supplier &amp; trade network. When a project needs one, we can refer an experienced
-            building project manager to work alongside the financing team.
-          </p>
+          <span className="tile-icon" aria-hidden="true">
+            <FileText />
+          </span>
+          <div className="tile-copy">
+            <b>More than capital.</b>
+            <p>
+              Complimentary access to our Southern Ontario build specialists and a deep supplier
+              &amp; trade network. When a project needs one, we can refer an experienced building
+              project manager to work alongside the financing team.
+            </p>
+          </div>
         </div>
 
       </section>
