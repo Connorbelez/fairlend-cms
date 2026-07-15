@@ -42,13 +42,15 @@ function getStackOrder(rows: readonly FairlendHeroOfferingRow[], activeIndex: nu
 }
 
 function getStackStyles(stackPosition: number, total: number) {
-  // Subtle deck peek: mostly vertical, tiny x drift, almost no rotate
+  // Keep deck motion on the compositor. Animating top/left here caused a small
+  // layout shift on every ambient card rotation even though the deck itself is
+  // absolutely positioned.
   return {
-    left: stackPosition * 5,
     opacity: stackPosition === 0 ? 1 : Math.max(0.55, 1 - stackPosition * 0.14),
     rotate: stackPosition * 0.6,
     scale: 1 - stackPosition * 0.012,
-    top: stackPosition * 7,
+    x: stackPosition * 5,
+    y: stackPosition * 7,
     zIndex: total - stackPosition,
   }
 }
@@ -235,12 +237,11 @@ export function FairlendHeroOfferingsMorph({
                   animate={
                     layout === 'stack'
                       ? {
-                          left: stackStyles?.left ?? 0,
                           opacity: stackStyles?.opacity ?? 1,
                           rotate: stackStyles?.rotate ?? 0,
                           scale: stackStyles?.scale ?? 1,
-                          top: stackStyles?.top ?? 0,
-                          x: 0,
+                          x: stackStyles?.x ?? 0,
+                          y: stackStyles?.y ?? 0,
                           zIndex: stackStyles?.zIndex ?? 1,
                         }
                       : {
@@ -248,6 +249,7 @@ export function FairlendHeroOfferingsMorph({
                           rotate: 0,
                           scale: 1,
                           x: 0,
+                          y: 0,
                         }
                   }
                   className={cn(
@@ -285,6 +287,7 @@ export function FairlendHeroOfferingsMorph({
                             rotate: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
                             scale: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
                             x: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+                            y: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
                             default: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
                           }
                   }

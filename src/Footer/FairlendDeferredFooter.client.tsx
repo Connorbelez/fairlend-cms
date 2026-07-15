@@ -37,7 +37,7 @@ export function FairlendDeferredFooter() {
   }, [shouldRender])
 
   return (
-    <div ref={anchorRef} style={shouldRender ? undefined : { minHeight: '560px' }}>
+    <div ref={anchorRef} style={{ minHeight: '560px' }}>
       {shouldRender ? (
         <Suspense fallback={null}>
           <DeferredWatermelonFooter />

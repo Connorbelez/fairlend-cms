@@ -1,19 +1,19 @@
 'use client'
 
+import type { ReactNode } from 'react'
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 
 import { FairlendLandingRail } from '@/components/FairlendLandingRail'
 import { loadDeferredHomeStyles } from '@/components/loadDeferredHomeStyles.client'
 
-const DeferredRouteSelector = lazy(
-  () =>
-    import('@/components/FairlendRouteSelector').then(
-      ({ FairlendRouteSelector }) => ({ default: FairlendRouteSelector }),
-    ),
+const DeferredRouteSelector = lazy(() =>
+  import('@/components/FairlendRouteSelector').then(({ FairlendRouteSelector }) => ({
+    default: FairlendRouteSelector,
+  })),
 )
 
 /** Loads the route selector on first scroll or once its reserved space enters the viewport. */
-export function FairlendDeferredRouteSelector() {
+export function FairlendDeferredRouteSelector({ fallback }: { fallback: ReactNode }) {
   const anchorRef = useRef<HTMLDivElement>(null)
   const [shouldRender, setShouldRender] = useState(false)
 
@@ -49,10 +49,12 @@ export function FairlendDeferredRouteSelector() {
         ref={anchorRef}
       >
         {shouldRender ? (
-          <Suspense fallback={null}>
+          <Suspense fallback={fallback}>
             <DeferredRouteSelector />
           </Suspense>
-        ) : null}
+        ) : (
+          fallback
+        )}
       </div>
     </FairlendLandingRail>
   )
