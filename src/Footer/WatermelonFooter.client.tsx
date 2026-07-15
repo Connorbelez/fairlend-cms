@@ -1,9 +1,9 @@
 import { buildFairlendConsultationHref } from '@/lib/fairlend-intake'
 import { Phone } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import { FooterNewsletter } from './FooterNewsletter.client'
+import { FooterSkyline } from './FooterSkyline.client'
 import styles from './WatermelonFooter.module.css'
 
 const consultationHref = buildFairlendConsultationHref('reference-footer-apply-now')
@@ -67,25 +67,7 @@ const footerColumns = [
 export function WatermelonFooter() {
   return (
     <footer className={styles.footer}>
-      <section aria-label="Toronto after dark" className={styles.skyline}>
-        <Image
-          alt=""
-          aria-hidden="true"
-          className={styles.skylineImage}
-          fill
-          loading="lazy"
-          quality={55}
-          sizes="100vw"
-          src="/assets/footer/fairlend-toronto-waterfront.webp"
-        />
-        <div aria-hidden="true" className={styles.wordmark} data-text="FAIRLEND">
-          FAIRLEND
-        </div>
-        <div aria-hidden="true" className={styles.signalGlow} />
-        <span className="sr-only">
-          Toronto waterfront at night, rendered in monochrome halftone
-        </span>
-      </section>
+      <FooterSkyline />
 
       <div className={styles.content}>
         <div className={styles.primaryRow}>

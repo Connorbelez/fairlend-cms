@@ -314,6 +314,15 @@ describe('FairLend CRM data model', () => {
             Verified: '2026-07-15',
           },
           personalizedOutreachDossier: 'Risk: do not imply financing approval or exclusivity.',
+          sourceDocuments: ['docs/research/fairlend-personalized-multichannel-outreach-2026-07-15.md'],
+          personalizedOutreachChannels: {
+            email: 'Subject: one anonymized file',
+            linkedIn: 'Connection note',
+            phoneAndForm: 'Phone opener',
+            followUps: 'Day 7: send the map',
+            asset: 'Budget-to-draw worksheet',
+            guardrails: 'Do not imply approval.',
+          },
         },
       },
     ], '5dcb0871-7dfe-4fb5-b81d-5c674a143551');
@@ -327,6 +336,16 @@ describe('FairLend CRM data model', () => {
       nextActionAt: '2026-07-15T21:00:00.000Z',
     });
     expect(records[0].objectionsAndRisks).toContain('Risk:');
+    expect(records[0]).toMatchObject({
+      activationContext: 'Risk: do not imply financing approval or exclusivity.',
+      outreachEmail: 'Subject: one anonymized file',
+      outreachLinkedIn: 'Connection note',
+      outreachPhoneAndForm: 'Phone opener',
+      outreachFollowUps: 'Day 7: send the map',
+      outreachAsset: 'Budget-to-draw worksheet',
+      outreachGuardrails: 'Do not imply approval.',
+      outreachDossierSources: 'docs/research/fairlend-personalized-multichannel-outreach-2026-07-15.md',
+    });
 
     expect(() => buildPartnerProspectUpserts([
       {

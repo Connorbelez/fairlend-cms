@@ -16,7 +16,7 @@ FairLend already has most of the downstream workflow:
 
 - `POST /api/leads` persists draft, started, and submitted leads and syncs them to Twenty.
 - Lead IDs are stable UUIDs, and intake payloads already route mortgage, construction, investor, partner, consultation, and general inquiries.
-- `POST /api/consultations/book` validates availability, creates a booking, mirrors it as a submitted lead, and syncs it to Google Calendar and Twenty.
+- A custom consultation service can validate availability, create a booking, mirror it as a submitted lead, and sync it to Google Calendar and Twenty. The current public UI now hands off to Microsoft Bookings, so the production agent flow needs an explicit Microsoft Bookings adapter or an intentional decision to revive the custom service.
 - The construction intake already captures project stage, project costs, requested loan, equity, experience, project team, and permit information.
 - Twenty already receives a normalized operational record and can remain the staff workflow surface.
 
@@ -29,7 +29,7 @@ Example conversation:
 1. User: “Help me see whether FairLend could finance my Toronto laneway build.”
 2. The agent calls public product and calculator tools and explains an illustrative range without collecting identity.
 3. The user asks to save the scenario. The agent starts WorkOS `service_auth` using the user-provided email, or standard OAuth if the client does not support agent registration.
-4. The user opens a FairLend-owned URL and signs in or signs up. The claim screen states which agent is requesting access, the requested permissions, and the exact draft it will create.
+4. The user opens a FairLend-owned URL and signs in or signs up. The claim screen states which agent is requesting access, the requested permissions, and the exact draft it will create. Any claim, MFA, or one-time code stays on the WorkOS/FairLend surface and is never pasted into ChatGPT.
 5. The agent creates a draft and fills only facts supplied or confirmed by the user. Every field records its source.
 6. The agent returns a missing-information checklist and may obtain an indicative, conditional rate range based on self-attested information. No credit report is accessed.
 7. The user explicitly confirms before the agent books a consultation or submits the completed file for FairLend review.
@@ -71,7 +71,7 @@ FairLend Application Service (versioned domain API)
         +-- idempotency and field provenance
         |
         +--> existing lead persistence --> Payload admin mirror --> Twenty
-        +--> existing consultation service --> Google Calendar --> Twenty
+        +--> booking adapter --> Microsoft Bookings or custom Google flow --> Twenty
         +--> rate/pricing adapters
         +--> encrypted document storage
 
@@ -102,12 +102,12 @@ The resource server must validate issuer, signature, expiry, audience/resource, 
 When WorkOS enables Agent Registration for the FairLend environment:
 
 - Reverse-proxy the generated WorkOS document at `https://fairlend.ca/auth.md`.
-- Support `service_auth` first. The agent may initiate with an email, but receives no trusted application permissions until the user completes the FairLend-owned claim ceremony.
+- Support `service_auth` first. The agent may initiate with an email, but receives no trusted application permissions until the user completes the FairLend-owned claim ceremony. This is agent-initiated onboarding with a human claim, not silent ChatGPT account creation.
 - Let the claim page offer sign-in or sign-up. The authenticated email must match the claimed email.
 - Map the WorkOS registration subject to a FairLend customer and preserve the delegated user from the token `act` claim in every audit event.
 - Do not enable useful anonymous write scopes in v1. Anonymous access should be limited to public product discovery and generic calculations that do not require a credential anyway.
 
-Do not depend on the agent provider supporting WorkOS identity assertions. The user-claimed flow and standard OAuth path preserve interoperability.
+Do not depend on the agent provider supporting WorkOS identity assertions. WorkOS's open protocol describes provider-issued ID-JAGs, but current OpenAI Apps documentation describes OAuth account linking and does not document ChatGPT issuing ID-JAGs or consuming `auth.md`. The user-claimed flow and standard OAuth path preserve interoperability.
 
 ### Initial scopes
 
@@ -257,6 +257,8 @@ DrawFlow can become a particularly strong agent offering: a builder or borrower 
 This is product architecture, not legal advice. FairLend's Principal Broker and privacy counsel should approve the final disclosures, consent text, record retention, advertising labels, and staff workflow before launch.
 
 - A mortgage professional should not request a credit report without prior consent. Credit authorization needs a distinct, retained consent event; it must never be inferred from “continue” or from creating an account.
+- Current OpenAI app rules prohibit collecting credentials, authentication information, and government identifiers through an app. Passwords, API keys, MFA/OTP/claim codes, SINs, and identity documents must remain on FairLend/WorkOS-owned secure pages and outside MCP arguments/results.
+- OpenAI policy treats credit decisions as high impact. The model may assist with communication, calculations, and drafting, but a human must review personalized eligibility, pre-approval, loan terms, lender submission, and decisions.
 - Collect only information needed for the stated step. The account-claim screen must identify the agent, purpose, requested scopes, data uses, downstream disclosure, retention, and withdrawal path in plain language.
 - Any indicative range must be clear, accurate, dated, assumption-based, and visibly not a pre-approval, commitment, rate hold, or guarantee.
 - A true pre-approval is a staff/lender artifact with a maximum amount, rate, validity period, and conditions. It remains preliminary and does not guarantee funding.
@@ -320,11 +322,14 @@ This is product architecture, not legal advice. FairLend's Principal Broker and 
 - WorkOS, [auth.md for apps](https://workos.com/auth-md/docs/apps)
 - Model Context Protocol, [Authorization](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization)
 - Model Context Protocol, [Tool annotations schema](https://modelcontextprotocol.io/specification/2025-11-25/schema)
-- OpenAI API, [remote MCP tools and approval controls](https://platform.openai.com/docs/api-reference/responses)
+- OpenAI, [Apps SDK authentication](https://developers.openai.com/apps-sdk/build/auth)
+- OpenAI, [MCP tools and approval controls](https://developers.openai.com/api/docs/guides/tools-connectors-mcp)
+- OpenAI, [Apps SDK security and privacy](https://developers.openai.com/apps-sdk/guides/security-privacy)
+- OpenAI, [App submission guidelines](https://developers.openai.com/apps-sdk/app-guidelines)
+- OpenAI, [Usage policies](https://openai.com/policies/usage-policies/)
 - FSRA, [Mortgage application process](https://www.fsrao.ca/consumers/mortgage-brokering/mortgage-application-process)
 - FSRA, [Mortgage brokerage disclosure requirements](https://www.fsrao.ca/industry/mortgage-brokering/compliance-and-other-resources/mortgage-brokerage-disclosure-requirements)
 - FSRA, [Mortgage industry advertising requirements](https://www.fsrao.ca/industry/mortgage-brokering/compliance-and-other-resources/mortgage-industry-public-relations-and-advertising-requirements)
 - FSRA, [Documenting a suitability assessment](https://www.fsrao.ca/industry/mortgage-brokering/compliance-and-other-resources/need-know-how-document-suitability-assessment)
 - Office of the Privacy Commissioner of Canada, [Businesses and personal information](https://www.priv.gc.ca/en/privacy-topics/information-and-advice-for-individuals/your-privacy-rights/businesses-and-your-personal-information/)
 - Ontario, [Consumer Reporting Act](https://www.ontario.ca/laws/statute/90c33)
-
