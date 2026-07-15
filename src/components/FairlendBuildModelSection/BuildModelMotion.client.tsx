@@ -21,7 +21,8 @@ export function BuildModelMotion() {
     const titles = Array.from(section.querySelectorAll<HTMLElement>('[data-bm-board-title]'))
     const boardCtas = Array.from(section.querySelectorAll<HTMLAnchorElement>('[data-bm-board-cta]'))
     const primaryCta = section.querySelector<HTMLElement>('[data-bm-primary-cta]')
-    const chips = Array.from(section.querySelectorAll<HTMLElement>('[data-bm-variable]'))
+    const bandItems = Array.from(section.querySelectorAll<HTMLElement>('[data-bm-variable]'))
+    const contextBands = Array.from(section.querySelectorAll<HTMLElement>('[data-bm-context-band]'))
     const progress = Array.from(section.querySelectorAll<HTMLElement>('[data-bm-progress]'))
     const dossierTabs = Array.from(section.querySelectorAll<HTMLElement>('[data-bm-dossier-card]'))
     const steps = Array.from(section.querySelectorAll<HTMLElement>('.bm-scroll-step'))
@@ -112,10 +113,23 @@ export function BuildModelMotion() {
       titles.forEach((title) => swapText(title, step.dataset.bmTitle ?? 'Property to equity'))
       section.dataset.paletteTheme = paletteTheme
 
-      chips.forEach((chip) => {
-        const isActive = activeVariables.includes(chip.dataset.bmVariable ?? '')
-        chip.classList.toggle('is-active', isActive)
-        chip.classList.toggle('is-lime', stepId === 'drawflow' && isActive)
+      contextBands.forEach((band) => {
+        band.dataset.bmVisibleCount = String(activeVariables.length)
+      })
+
+      bandItems.forEach((item) => {
+        const activePosition = activeVariables.indexOf(item.dataset.bmVariable ?? '')
+        const isActive = activePosition >= 0
+
+        item.classList.toggle('is-active', isActive)
+        item.hidden = !isActive
+        item.setAttribute('aria-hidden', String(!isActive))
+
+        if (isActive) {
+          item.dataset.bmPosition = String(activePosition + 1)
+        } else {
+          delete item.dataset.bmPosition
+        }
       })
 
       progress.forEach((item) => {

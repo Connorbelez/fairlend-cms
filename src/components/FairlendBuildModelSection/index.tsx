@@ -39,6 +39,7 @@ const variables = [
   'Professional path',
   'Permit & MLI readiness',
   'Exit',
+  'Recovery',
 ] as const
 
 const dossierTabs = [
@@ -93,50 +94,36 @@ const variableDetails = {
   Land: {
     description: 'Lot, form, frontage, and the first buildable-area pass.',
     icon: House,
-    presentation: 'ledger',
   },
   Scope: {
     description: 'Housing form: Multiplex + laneway option.',
     icon: Layers3,
-    presentation: 'ledger',
   },
   Capital: {
     description: 'First decision: Can the site carry the scope?',
     icon: CircleDollarSign,
-    presentation: 'ledger',
   },
   'Draw schedule': {
     description: 'Milestone releases',
     icon: CalendarDays,
-    presentation: 'utility',
   },
   'Professional path': {
     description: 'Project team',
     icon: UserRound,
-    presentation: 'utility',
   },
   'Permit & MLI readiness': {
     description: 'Approval file',
     icon: FileCheck2,
-    presentation: 'utility',
   },
   Exit: {
     description: 'Takeout path',
     icon: LogOut,
-    presentation: 'utility',
   },
-} as const satisfies Record<
-  BuildVariable,
-  { description: string; icon: LucideIcon; presentation: 'ledger' | 'utility' }
->
-
-const ledgerVariables = variables.filter(
-  (variable) => variableDetails[variable].presentation === 'ledger',
-)
-
-const utilityVariables = variables.filter(
-  (variable) => variableDetails[variable].presentation === 'utility',
-)
+  Recovery: {
+    description: 'Coordinated build recovery',
+    icon: SlidersHorizontal,
+  },
+} as const satisfies Record<BuildVariable, { description: string; icon: LucideIcon }>
 
 type BoardState = {
   id: string
@@ -181,7 +168,8 @@ const stations = [
     theme: 'electric-lime',
     num: '01',
     name: 'Plan',
-    headline: 'Work with FairLend to test whether the site and project economics support a financeable build.',
+    headline:
+      'Work with FairLend to test whether the site and project economics support a financeable build.',
     body: 'Before you commit more capital to land or design, FairLend works with you to review the acquisition basis, zoning and housing form, unit mix, buildable area, hard and soft costs, contingency, timeline, expected value, and intended exit.',
     comparison: {
       selfManaged:
@@ -235,7 +223,7 @@ const stations = [
     status: '04 / Takeout',
     count: '04',
     title: 'CMHC-insured takeout',
-    variables: ['Exit', 'Permit & MLI readiness'],
+    variables: ['Permit & MLI readiness', 'Exit'],
     dossierTab: 'takeout',
     theme: 'ivory',
     num: '04',
@@ -255,7 +243,7 @@ const stations = [
     status: '05 / Build recovery',
     count: '05',
     title: 'Recovery path',
-    variables: ['Capital', 'Draw schedule', 'Professional path'],
+    variables: ['Capital', 'Draw schedule', 'Recovery'],
     dossierTab: 'recovery',
     theme: 'builder-blueprint',
     num: '05',
@@ -288,7 +276,7 @@ const thesisState = {
   status: 'Builder Consulting',
   count: '→',
   title: 'Outcome',
-  variables,
+  variables: ['Permit & MLI readiness', 'Exit'],
   dossierTab: 'takeout',
   theme: 'forest',
 } as const satisfies BoardState
@@ -491,11 +479,7 @@ function BuildModelBoard({ className }: { className?: string }) {
       aria-label="Build model status and consultation shortcut"
     >
       <div className="bm-board">
-        <BackgroundImageTexture
-          className="bm-board-texture"
-          opacity={0.18}
-          variant="groovepaper"
-        />
+        <BackgroundImageTexture className="bm-board-texture" opacity={0.18} variant="groovepaper" />
         <div className="bm-board-inner">
           <div className="bm-board-header">
             <span className="bm-board-authority">Authority file</span>
@@ -521,40 +505,36 @@ function BuildModelBoard({ className }: { className?: string }) {
             </div>
 
             <div className="bm-board-equation">
-              <div className="bm-board-chips" aria-label="Core build variables">
-                {ledgerVariables.map((variable) => {
+              <div
+                className="bm-board-context-band"
+                data-bm-context-band
+                data-bm-visible-count={introState.variables.length}
+                aria-label="Current build file priorities"
+              >
+                {variables.map((variable) => {
                   const detail = variableDetails[variable]
                   const VariableIcon = detail.icon
+                  const initialPosition = (
+                    introState.variables as readonly BuildVariable[]
+                  ).indexOf(variable)
+                  const isInitiallyActive = initialPosition >= 0
 
                   return (
                     <span
-                      className="bm-board-chip"
+                      aria-hidden={!isInitiallyActive}
+                      aria-label={`${variable}: ${detail.description}`}
+                      className={
+                        isInitiallyActive
+                          ? 'bm-board-context-item is-active'
+                          : 'bm-board-context-item'
+                      }
+                      data-bm-position={isInitiallyActive ? initialPosition + 1 : undefined}
                       data-bm-variable={variable}
-                      key={`bm-board-${variable}`}
-                    >
-                      <span className="bm-board-chip-icon" aria-hidden="true">
-                        <VariableIcon />
-                      </span>
-                      <strong>{variable}</strong>
-                      <small>{detail.description}</small>
-                    </span>
-                  )
-                })}
-              </div>
-              <div className="bm-board-utilities" aria-label="Build file utilities">
-                {utilityVariables.map((variable) => {
-                  const detail = variableDetails[variable]
-                  const VariableIcon = detail.icon
-
-                  return (
-                    <span
-                      className="bm-board-utility"
-                      data-bm-variable={variable}
+                      hidden={!isInitiallyActive}
                       key={`bm-board-${variable}`}
                     >
                       <VariableIcon aria-hidden="true" />
                       <strong>{variable}</strong>
-                      <small>{detail.description}</small>
                     </span>
                   )
                 })}
@@ -805,8 +785,8 @@ function DrawFlowStep() {
                 <br /> mid-build
               </span>
               <p>
-                Builds don&apos;t always go as planned. Adjust the draw schedule as the work shifts so
-                capital is there when you need it, and not costing interest when you don&apos;t.
+                Builds don&apos;t always go as planned. Adjust the draw schedule as the work shifts
+                so capital is there when you need it, and not costing interest when you don&apos;t.
               </p>
             </div>
           </article>
@@ -825,7 +805,6 @@ function DrawFlowStep() {
             </p>
           </div>
         </div>
-
       </section>
     </ScrollStep>
   )
@@ -888,9 +867,9 @@ export function FairlendBuildModelSection() {
             <VariableRibbon />
 
             <p className="bm-shared-lead">
-              Instead of finding and coordinating every party yourself, bring FairLend the
-              property, plan, or early idea. We help assemble the right team and keep the project,
-              financing, draws, and takeout moving through one coordinated plan.
+              Instead of finding and coordinating every party yourself, bring FairLend the property,
+              plan, or early idea. We help assemble the right team and keep the project, financing,
+              draws, and takeout moving through one coordinated plan.
             </p>
 
             <AudiencePaths />
