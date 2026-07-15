@@ -105,10 +105,11 @@ export function BuildModelMotion() {
       }
       activeStepId = stepId ?? ''
       activeDossierTabId = dossierTabId
+      section.dataset.bmActiveStep = activeStepId
 
       statuses.forEach((status) => swapText(status, step.dataset.bmStatus ?? 'Model open'))
       counts.forEach((count) => swapText(count, step.dataset.bmCount ?? '03'))
-      titles.forEach((title) => swapText(title, step.dataset.bmTitle ?? 'Property to equation'))
+      titles.forEach((title) => swapText(title, step.dataset.bmTitle ?? 'Property to equity'))
       section.dataset.paletteTheme = paletteTheme
 
       chips.forEach((chip) => {
@@ -223,6 +224,7 @@ export function BuildModelMotion() {
       stateObserver.disconnect()
       section.classList.remove('is-motion-ready')
       delete section.dataset.paletteTheme
+      delete section.dataset.bmActiveStep
     }
   }, [])
 
