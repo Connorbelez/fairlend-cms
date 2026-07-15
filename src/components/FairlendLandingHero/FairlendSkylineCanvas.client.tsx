@@ -30,6 +30,7 @@ export function FairlendSkylineCanvas({
 
     const image = new Image()
     image.decoding = 'async'
+    image.fetchPriority = 'low'
     image.src = window.matchMedia('(max-width: 768px)').matches ? mobileSrc : desktopSrc
 
     let isCancelled = false
@@ -39,6 +40,8 @@ export function FairlendSkylineCanvas({
       if (!context) return
       context.clearRect(0, 0, canvas.width, canvas.height)
       context.drawImage(image, 0, 0, canvas.width, canvas.height)
+      canvas.dataset.fairlendCanvasReady = 'true'
+      canvas.style.removeProperty('opacity')
     }
 
     if (image.complete) draw()
@@ -53,9 +56,13 @@ export function FairlendSkylineCanvas({
   return (
     <canvas
       aria-hidden="true"
-      className={cn('block h-auto w-full', className)}
+      className={cn(
+        'block h-auto w-full transition-opacity duration-700 ease-out motion-reduce:transition-none',
+        className,
+      )}
       height={height}
       ref={canvasRef}
+      style={{ opacity: 0 }}
       width={width}
     />
   )

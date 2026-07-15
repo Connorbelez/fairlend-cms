@@ -33,6 +33,7 @@
 @source '../../components/FairlendLandingOverviewSection/index.tsx';
 @source '../../components/FairlendLandingRail/FairlendRailCrossDots.tsx';
 @source '../../components/FairlendLandingRail/index.tsx';
+@source '../../components/FairlendStaticHomepageFallbacks.tsx';
 @source '../../components/GardenSuiteOpportunityBadge.tsx';
 @source '../../components/FairlendOfficeMap/data.ts';
 @source '../../components/FairlendTalkToExpertCta.tsx';

@@ -59,6 +59,10 @@ type TorontoCloudLayerProps = {
   zIndex: number
 }
 
+function getOptimizedCloudSrc(src: string, width: 384 | 640): string {
+  return `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=55`
+}
+
 function BookConsultationButton({ mobileDocked = false }: { mobileDocked?: boolean }) {
   return (
     <FairlendConsultationBookingDialog
@@ -263,9 +267,9 @@ function CloudLayer({
         <span className="fairlend-toronto-cloud-drift block">
           <FairlendSkylineCanvas
             className="select-none opacity-[0.82] [filter:contrast(0.76)_brightness(1.16)]"
-            desktopSrc={src}
+            desktopSrc={getOptimizedCloudSrc(src, 640)}
             height={height}
-            mobileSrc={src}
+            mobileSrc={getOptimizedCloudSrc(src, 384)}
             width={width}
           />
         </span>
@@ -282,13 +286,6 @@ function TorontoScene() {
       data-testid="toronto-hero-scene"
     >
       <div className="absolute inset-0 mx-auto h-full w-full max-w-full overflow-hidden">
-        <link
-          as="image"
-          href="/assets/fairlend-toronto-contour-map.webp"
-          media="(min-width: 769px)"
-          rel="preload"
-          type="image/webp"
-        />
         <div
           className="absolute inset-0 hidden h-full w-full bg-cover bg-center opacity-[0.42] mix-blend-multiply md:block"
           style={{ backgroundImage: "url('/assets/fairlend-toronto-contour-map.webp')" }}
@@ -305,22 +302,6 @@ function TorontoScene() {
           data-toronto-skyline
         >
           <div data-toronto-skyline-scroll>
-            <link
-              as="image"
-              fetchPriority="high"
-              href={TORONTO_SKYLINE_MOBILE_SRC}
-              media="(max-width: 768px)"
-              rel="preload"
-              type="image/webp"
-            />
-            <link
-              as="image"
-              fetchPriority="high"
-              href={TORONTO_SKYLINE_DESKTOP_SRC}
-              media="(min-width: 769px)"
-              rel="preload"
-              type="image/webp"
-            />
             <FairlendSkylineCanvas
               className="opacity-[0.88]"
               desktopSrc={TORONTO_SKYLINE_DESKTOP_SRC}
@@ -351,11 +332,9 @@ export function FairlendLandingHero() {
         <style>{`
           @keyframes fairlendTorontoTitleLineIn {
             from {
-              opacity: 0.68;
               transform: translate3d(0, 0.12em, 0);
             }
             to {
-              opacity: 1;
               transform: translate3d(0, 0, 0);
             }
           }
@@ -402,7 +381,7 @@ export function FairlendLandingHero() {
               animation: fairlendTorontoTitleLineIn 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
               animation-delay: calc(var(--toronto-delay, 20ms) + (var(--line-index, 0) * 55ms));
               backface-visibility: hidden;
-              will-change: opacity, transform;
+              will-change: transform;
             }
             [data-fairlend-motion='toronto-hero'] .fairlend-toronto-copy {
               animation: fairlendTorontoCopySettle 360ms cubic-bezier(0.16, 1, 0.3, 1) both;

@@ -105,6 +105,18 @@ export function FairlendFrontendRootLayout({
     >
       <head>
         <link href={FAIRLEND_LOGO_SRC} rel="icon" type="image/svg+xml" />
+        <link
+          href={`${getCanonicalOrigin()}/llms.txt`}
+          rel="alternate"
+          title="FairLend LLM site index"
+          type="text/plain"
+        />
+        <link
+          href={`${getCanonicalOrigin()}/llms-full.txt`}
+          rel="alternate"
+          title="Complete FairLend machine-readable site brief"
+          type="text/plain"
+        />
         <GoogleTagManagerHead />
       </head>
       <body>

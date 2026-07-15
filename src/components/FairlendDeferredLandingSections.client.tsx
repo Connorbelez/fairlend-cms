@@ -92,12 +92,14 @@ const DEFERRED_SECTION_ROOT_MARGIN = '500px 0px'
 type DeferredLandingRailProps = {
   component: ComponentType
   estimatedHeight: number
+  fallback: ReactElement
   label: string
 }
 
 function DeferredLandingRail({
   component: Component,
   estimatedHeight,
+  fallback,
   label,
 }: DeferredLandingRailProps): ReactElement {
   const anchorRef = useRef<HTMLDivElement>(null)
@@ -129,17 +131,22 @@ function DeferredLandingRail({
     return () => observer.disconnect()
   }, [shouldRender])
 
+  // Keep the reservation through the lazy-module handoff. Dropping it as
+  // soon as `shouldRender` flips makes the null Suspense fallback collapse
+  // the rail, which can pull every later observer into range at once.
   return (
     <div
       data-fairlend-deferred-rail={label}
       ref={anchorRef}
-      style={shouldRender ? undefined : { minHeight: `${estimatedHeight}px` }}
+      style={{ minHeight: `${estimatedHeight}px` }}
     >
       {shouldRender ? (
-        <Suspense fallback={null}>
+        <Suspense fallback={fallback}>
           <Component />
         </Suspense>
-      ) : null}
+      ) : (
+        fallback
+      )}
     </div>
   )
 }
@@ -148,24 +155,49 @@ function DeferredLandingRail({
  * Loads each below-fold experience independently as it approaches the viewport.
  * Generic touch and wheel events intentionally do not wake the entire homepage.
  */
-export function FairlendDeferredLandingSections(): ReactElement {
+export function FairlendDeferredLandingSections({
+  buildModelFallback,
+  builderConsultingFallback,
+  ethosFallback,
+  faqFallback,
+  teamFallback,
+}: {
+  buildModelFallback: ReactElement
+  builderConsultingFallback: ReactElement
+  ethosFallback: ReactElement
+  faqFallback: ReactElement
+  teamFallback: ReactElement
+}): ReactElement {
   return (
     <div data-fairlend-deferred-sections>
       <DeferredLandingRail
         component={BuildModelRail}
         estimatedHeight={980}
+        fallback={buildModelFallback}
         label="Build financing model"
       />
       <DeferredLandingRail
         component={BuilderConsultingRail}
         estimatedHeight={900}
+        fallback={builderConsultingFallback}
         label="Builder consulting"
       />
-      <DeferredLandingRail component={TeamRail} estimatedHeight={1450} label="FairLend team" />
-      <DeferredLandingRail component={EthosRail} estimatedHeight={900} label="FairLend ethos" />
+      <DeferredLandingRail
+        component={TeamRail}
+        estimatedHeight={1450}
+        fallback={teamFallback}
+        label="FairLend team"
+      />
+      <DeferredLandingRail
+        component={EthosRail}
+        estimatedHeight={900}
+        fallback={ethosFallback}
+        label="FairLend ethos"
+      />
       <DeferredLandingRail
         component={FaqRail}
-        estimatedHeight={900}
+        estimatedHeight={1500}
+        fallback={faqFallback}
         label="Frequently asked questions"
       />
     </div>

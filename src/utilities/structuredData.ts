@@ -210,6 +210,62 @@ export const buildServiceJsonLd = ({
   url: getCanonicalUrl(path),
 })
 
+export const buildHomepageOfferCatalogJsonLd = (): JsonLdObject => {
+  const offers = [
+    {
+      description:
+        'Acquisition, construction, milestone-draw, completion, and takeout planning for Ontario building projects.',
+      name: 'Construction financing',
+      path: '/construction-draw-financing',
+    },
+    {
+      description:
+        'Private and institutional residential mortgage options, including bridge, renewal, refinance, and home-equity financing.',
+      name: 'Residential mortgages',
+      path: '/borrowers',
+    },
+    {
+      description:
+        'Feasibility, permit-path, construction-financing, draw, and takeout coordination for garden and laneway suites in the GTA.',
+      name: 'Garden and laneway suite financing',
+      path: '/garden-suite-financing-gta',
+    },
+    {
+      description:
+        'Professionally underwritten and administered private mortgage opportunities for eligible investors.',
+      name: 'Private mortgage investing',
+      path: '/investing/private-mortgage-lending',
+    },
+    {
+      description:
+        'Specialist financing support and defined referral routes for brokers, builders, consultants, and professional advisors.',
+      name: 'FairLend partner program',
+      path: '/partners',
+    },
+  ] as const
+
+  return {
+    '@context': 'https://schema.org',
+    '@id': getSchemaNodeId('/', 'offer-catalog'),
+    '@type': 'ItemList',
+    itemListElement: offers.map((offer, index) => ({
+      '@type': 'ListItem',
+      item: {
+        '@id': getSchemaNodeId(offer.path, 'service'),
+        '@type': 'Service',
+        areaServed: defaultAreaServed,
+        description: offer.description,
+        name: offer.name,
+        provider: { '@id': organizationId() },
+        url: getCanonicalUrl(offer.path),
+      },
+      position: index + 1,
+    })),
+    name: 'FairLend financing and partnership routes',
+    numberOfItems: offers.length,
+  }
+}
+
 export const buildArticleJsonLd = ({
   authorNames = [],
   dateModified,
