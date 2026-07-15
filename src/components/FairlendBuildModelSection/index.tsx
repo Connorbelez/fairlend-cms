@@ -1,18 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import {
-  ArrowRight,
-  CalendarDays,
-  CircleDollarSign,
-  FileText,
-  FileCheck2,
-  House,
-  Layers3,
-  LogOut,
-  SlidersHorizontal,
-  UserRound,
-  type LucideIcon,
-} from 'lucide-react'
+import { ArrowRight, CalendarDays, FileText, SlidersHorizontal } from 'lucide-react'
 import type { ReactNode } from 'react'
 
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
@@ -89,41 +77,6 @@ const dossierTabs = [
 
 type DossierTabId = (typeof dossierTabs)[number]['id']
 type BuildVariable = (typeof variables)[number]
-
-const variableDetails = {
-  Land: {
-    description: 'Lot, form, frontage, and the first buildable-area pass.',
-    icon: House,
-  },
-  Scope: {
-    description: 'Housing form: Multiplex + laneway option.',
-    icon: Layers3,
-  },
-  Capital: {
-    description: 'First decision: Can the site carry the scope?',
-    icon: CircleDollarSign,
-  },
-  'Draw schedule': {
-    description: 'Milestone releases',
-    icon: CalendarDays,
-  },
-  'Professional path': {
-    description: 'Project team',
-    icon: UserRound,
-  },
-  'Permit & MLI readiness': {
-    description: 'Approval file',
-    icon: FileCheck2,
-  },
-  Exit: {
-    description: 'Takeout path',
-    icon: LogOut,
-  },
-  Recovery: {
-    description: 'Coordinated build recovery',
-    icon: SlidersHorizontal,
-  },
-} as const satisfies Record<BuildVariable, { description: string; icon: LucideIcon }>
 
 type BoardState = {
   id: string
@@ -521,39 +474,16 @@ function BuildModelBoard({ className }: { className?: string }) {
             </div>
 
             <div className="bm-board-equation">
-              <div
-                className="bm-board-context-band"
-                data-bm-context-band
-                data-bm-visible-count={introState.variables.length}
-                aria-label="Current build file priorities"
-              >
-                {variables.map((variable) => {
-                  const detail = variableDetails[variable]
-                  const VariableIcon = detail.icon
-                  const initialPosition = (
-                    introState.variables as readonly BuildVariable[]
-                  ).indexOf(variable)
-                  const isInitiallyActive = initialPosition >= 0
-
-                  return (
-                    <span
-                      aria-hidden={!isInitiallyActive}
-                      aria-label={`${variable}: ${detail.description}`}
-                      className={
-                        isInitiallyActive
-                          ? 'bm-board-context-item is-active'
-                          : 'bm-board-context-item'
-                      }
-                      data-bm-position={isInitiallyActive ? initialPosition + 1 : undefined}
-                      data-bm-variable={variable}
-                      hidden={!isInitiallyActive}
-                      key={`bm-board-${variable}`}
-                    >
-                      <VariableIcon aria-hidden="true" />
-                      <strong>{variable}</strong>
-                    </span>
-                  )
-                })}
+              <div className="bm-board-chips" aria-label="Build variables">
+                {variables.map((variable) => (
+                  <span
+                    className="bm-board-chip"
+                    data-bm-variable={variable}
+                    key={`bm-board-${variable}`}
+                  >
+                    {variable}
+                  </span>
+                ))}
               </div>
               <div className="bm-progress" aria-label="Build model progress">
                 {progressItems.map((item) => (
