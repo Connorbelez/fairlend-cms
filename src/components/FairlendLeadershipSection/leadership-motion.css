@@ -805,6 +805,18 @@
   }
 }
 
+@media (max-width: 720px) {
+  .leadership-model-section[data-leadership-motion-state='ready']
+    [data-leadership-proof-detail],
+  .leadership-model-section[data-leadership-motion-state='entered']
+    [data-leadership-proof-detail] {
+    animation: none;
+    filter: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .leadership-model-section[data-leadership-motion-state] *,
   .leadership-model-section[data-leadership-motion-state] *::before,

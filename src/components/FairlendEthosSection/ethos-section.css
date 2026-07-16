@@ -1750,11 +1750,18 @@
   }
 
   .fairlend-ethos__office-address {
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
   }
 
-  .fairlend-ethos__office-address p {
+  .fairlend-ethos__office-address p,
+  .fairlend-ethos__office-address address,
+  .fairlend-ethos__office-address a {
     grid-column: 1 / -1;
+  }
+
+  .fairlend-ethos__office-address a {
+    justify-self: start;
   }
 
   .fairlend-ethos__proof-ledger {

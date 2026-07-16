@@ -901,6 +901,7 @@ function BuilderConsultingStyles() {
           linear-gradient(180deg, rgb(255 253 247) 0%, rgb(249 243 234) 100%);
         color: var(--builder-forest);
         font-family: var(--font-inter), ui-sans-serif, sans-serif;
+        scroll-margin-top: calc(var(--fairlend-public-header-height, 72px) + 1rem);
       }
 
       .builder-desktop {
@@ -4962,6 +4963,87 @@ function BuilderConsultingStyles() {
         }
       }
 
+      @media (max-width: 767px) {
+        .builder-consulting[data-builder-motion-ready='true'] .builder-editorial-shell {
+          top: var(--fairlend-public-header-height, 72px);
+          height: calc(100svh - var(--fairlend-public-header-height, 72px));
+          min-height: 0;
+          grid-template-rows: 2px minmax(0, 1fr);
+          padding: 0.75rem 0.75rem 1rem;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true'] .builder-mobile {
+          min-height: 0;
+          padding: 0.75rem 0 0;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true'] .builder-mobile-state--scroll {
+          height: 100%;
+          min-height: 0;
+          overflow: hidden;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2023']
+          .builder-mobile-copy-window,
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-mobile-copy-window {
+          min-height: clamp(12.75rem, 55vw, 14.5rem);
+        }
+
+        .builder-consulting[data-builder-motion-ready='true'] .builder-mobile-stage {
+          min-height: 0;
+          margin-top: 0;
+          overflow-x: hidden;
+          overflow-y: auto;
+          padding-bottom: 0.25rem;
+          scrollbar-color: var(--builder-forest) transparent;
+          scrollbar-width: thin;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true'] .builder-mobile-equation-board {
+          overflow: visible;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true']
+          .builder-mobile-state--scroll
+          .builder-equation-cell--profit {
+          grid-template-columns: 1rem minmax(0, 1fr);
+          column-gap: 0.25rem;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true']
+          .builder-mobile-state--scroll
+          .builder-outcome-card--compact {
+          min-height: 4rem;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--emerging
+          .builder-equation-label em,
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--emerging
+          .builder-equation-card__static-label,
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--emerging
+          .builder-equation-card__hint {
+          display: block !important;
+          overflow: visible;
+          text-overflow: clip;
+          white-space: normal;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--emerging
+          .builder-equation-card--compact {
+          min-height: 3.5rem;
+        }
+
+        .builder-consulting[data-builder-motion-ready='true'][data-builder-phase='2026']
+          .builder-equation-line--emerging {
+          max-height: 60rem;
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .builder-cta {
           transition: none;
@@ -4982,7 +5064,7 @@ export function FairlendBuilderConsultingSection() {
   return (
     <FairlendPaperSection
       aria-label="Builder Consulting"
-      className="builder-consulting relative isolate scroll-mt-[88px]"
+      className="builder-consulting relative isolate"
       data-builder-consulting
       data-builder-phase="2019"
       id="builder-consulting"

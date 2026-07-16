@@ -221,10 +221,17 @@
   }
 
   .fairlend-office-map__address {
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
   }
 
-  .fairlend-office-map__address p {
+  .fairlend-office-map__address p,
+  .fairlend-office-map__address address,
+  .fairlend-office-map__address a {
     grid-column: 1 / -1;
+  }
+
+  .fairlend-office-map__address a {
+    justify-self: start;
   }
 }
