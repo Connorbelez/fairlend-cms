@@ -886,8 +886,8 @@
   .fairlend-team__statement {
     width: 100%;
     min-height: 0;
-    margin: -126px 0 0;
-    padding: 0 0 64px 34%;
+    margin: 0;
+    padding: 32px 0 64px;
   }
 
   .fairlend-team__title {
@@ -900,14 +900,22 @@
   }
 
   .fairlend-team__spine {
-    top: 688px;
-    bottom: 56px;
-    left: 28px;
+    display: none;
   }
 
   .fairlend-team__members {
     margin-top: 0;
     padding-left: 34px;
+  }
+
+  .fairlend-team__members::before {
+    position: absolute;
+    top: 34px;
+    bottom: 40px;
+    left: 8px;
+    width: 2px;
+    background: var(--team-signal);
+    content: '';
   }
 
   .fairlend-team__member {
