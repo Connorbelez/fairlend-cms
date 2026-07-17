@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lossless, navigable field-manual edition of the supplied source documents.">
+  <title>Source Document Field Manual</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23193753'/%3E%3Cpath d='M17 19h30v7H17zm0 12h22v7H17zm0 12h30v7H17z' fill='%23d4a73a'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      var saved = localStorage.getItem("convex-field-manual-theme");
+      if (saved) document.documentElement.dataset.theme = saved;
+    })();
+  </script>
+  <style>
+    :root {
+      --bg: #f3efe7;
+      --paper: #fffdf8;
+      --paper-alt: #f8f3e9;
+      --ink: #17263a;
+      --ink-soft: #536174;
+      --ink-faint: #7f8995;
+      --navy: #193753;
+      --navy-soft: #dfe8ef;
+      --gold: #b0812b;
+      --gold-soft: #f4ead4;
+      --sage: #55745e;
+      --sage-soft: #e3ece5;
+      --rust: #a84c2f;
+      --rust-soft: #f4e3dc;
+      --border: rgba(23, 38, 58, 0.14);
+      --border-strong: rgba(23, 38, 58, 0.26);
+      --shadow: 0 22px 70px rgba(30, 42, 56, 0.11);
+      --font-display: "Newsreader", Georgia, serif;
+      --font-body: "IBM Plex Sans", ui-sans-serif, sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+      color-scheme: light;
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #101821;
+      --paper: #17222d;
+      --paper-alt: #1c2935;
+      --ink: #edf1f2;
+      --ink-soft: #b4c0c7;
+      --ink-faint: #87969f;
+      --navy: #8eb6d2;
+      --navy-soft: #223848;
+      --gold: #d4ad5e;
+      --gold-soft: #3a3022;
+      --sage: #91b39a;
+      --sage-soft: #25382c;
+      --rust: #df8c6f;
+      --rust-soft: #412c27;
+      --border: rgba(230, 239, 243, 0.12);
+      --border-strong: rgba(230, 239, 243, 0.23);
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+      color-scheme: dark;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #101821;
+        --paper: #17222d;
+        --paper-alt: #1c2935;
+        --ink: #edf1f2;
+        --ink-soft: #b4c0c7;
+        --ink-faint: #87969f;
+        --navy: #8eb6d2;
+        --navy-soft: #223848;
+        --gold: #d4ad5e;
+        --gold-soft: #3a3022;
+        --sage: #91b39a;
+        --sage-soft: #25382c;
+        --rust: #df8c6f;
+        --rust-soft: #412c27;
+        --border: rgba(230, 239, 243, 0.12);
+        --border-strong: rgba(230, 239, 243, 0.23);
+        --shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+        color-scheme: dark;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        linear-gradient(rgba(43, 59, 75, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(43, 59, 75, 0.035) 1px, transparent 1px),
+        radial-gradient(circle at 12% 0%, var(--gold-soft), transparent 28rem),
+        var(--bg);
+      background-size: 32px 32px, 32px 32px, auto, auto;
+      color: var(--ink);
+      font-family: var(--font-body);
+      line-height: 1.68;
+      overflow-wrap: break-word;
+    }
+
+    a { color: var(--navy); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:hover { color: var(--rust); }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    .reading-progress {
+      position: fixed;
+      z-index: 1000;
+      inset: 0 auto auto 0;
+      height: 3px;
+      width: 0;
+      background: var(--gold);
+      transition: width 80ms linear;
+    }
+
+    .masthead {
+      position: relative;
+      border-bottom: 1px solid var(--border);
+      padding: 56px max(24px, calc((100vw - 1480px) / 2)) 42px;
+      overflow: hidden;
+    }
+    .masthead::after {
+      content: "FIELD MANUAL / 2026";
+      position: absolute;
+      right: max(24px, calc((100vw - 1480px) / 2));
+      top: 26px;
+      color: var(--ink-faint);
+      font: 500 10px/1 var(--font-mono);
+      letter-spacing: 0.18em;
+    }
+    .eyebrow, .section-kicker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--gold);
+      font: 600 11px/1.3 var(--font-mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before, .section-kicker::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: currentColor;
+    }
+    .masthead h1 {
+      max-width: 960px;
+      margin: 18px 0 14px;
+      font: 600 clamp(42px, 6vw, 84px)/0.98 var(--font-display);
+      letter-spacing: -0.035em;
+    }
+    .masthead .lede {
+      max-width: 820px;
+      margin: 0;
+      color: var(--ink-soft);
+      font: 400 clamp(18px, 2vw, 23px)/1.55 var(--font-display);
+    }
+
+    .metric-band {
+      display: grid;
+      grid-template-columns: 1.2fr repeat(4, minmax(120px, 0.7fr));
+      gap: 1px;
+      max-width: 1480px;
+      margin: 32px auto 0;
+      border: 1px solid var(--border);
+      background: var(--border);
+      box-shadow: var(--shadow);
+    }
+    .metric {
+      min-width: 0;
+      padding: 20px 22px;
+      background: var(--paper);
+    }
+    .metric--primary {
+      background: var(--navy);
+      color: var(--paper);
+    }
+    :root[data-theme="dark"] .metric--primary { color: #101821; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .metric--primary { color: #101821; }
+    }
+    .metric__value {
+      display: block;
+      font: 600 26px/1 var(--font-display);
+      font-variant-numeric: tabular-nums;
+    }
+    .metric__label {
+      display: block;
+      margin-top: 8px;
+      color: var(--ink-faint);
+      font: 500 9px/1.3 var(--font-mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .metric--primary .metric__label { color: currentColor; opacity: 0.72; }
+
+    .toolbar {
+      position: sticky;
+      z-index: 300;
+      top: 0;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px max(20px, calc((100vw - 1480px) / 2));
+      background: color-mix(in srgb, var(--bg) 91%, transparent);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(16px);
+    }
+    .segmented, .toolbar__actions {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .segmented button, .icon-button, .search-button {
+      min-height: 36px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--paper);
+      cursor: pointer;
+      font: 500 11px/1 var(--font-mono);
+      transition: border-color 140ms, background 140ms, transform 140ms;
+    }
+    .segmented button:hover, .icon-button:hover, .search-button:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
+    }
+    .segmented button[aria-pressed="true"] {
+      border-color: var(--navy);
+      background: var(--navy);
+      color: var(--paper);
+    }
+    :root[data-theme="dark"] .segmented button[aria-pressed="true"] { color: #101821; }
+    .search-cluster {
+      display: flex;
+      align-items: center;
+      min-width: min(360px, 34vw);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--paper);
+      overflow: hidden;
+    }
+    .search-cluster input {
+      min-width: 0;
+      flex: 1;
+      height: 36px;
+      border: 0;
+      outline: 0;
+      padding: 0 4px 0 14px;
+      background: transparent;
+      color: var(--ink);
+      font-size: 12px;
+    }
+    .search-button {
+      min-height: 30px;
+      margin-right: 3px;
+      border: 0;
+      background: var(--gold-soft);
+      color: var(--gold);
+    }
+
+    .shell {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 52px;
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 44px 24px 100px;
+    }
+    .toc {
+      position: sticky;
+      top: 74px;
+      align-self: start;
+      max-height: calc(100dvh - 96px);
+      overflow-y: auto;
+      padding: 6px 12px 24px 0;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-strong) transparent;
+    }
+    .toc__title {
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--ink-faint);
+      font: 600 9px/1.4 var(--font-mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .toc a {
+      display: block;
+      margin: 2px 0;
+      padding: 5px 8px;
+      border-left: 2px solid transparent;
+      border-radius: 0 5px 5px 0;
+      color: var(--ink-soft);
+      font-size: 11px;
+      line-height: 1.35;
+      text-decoration: none;
+    }
+    .toc a[data-level="1"] {
+      margin-top: 14px;
+      color: var(--ink);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .toc a[data-level="3"] { padding-left: 18px; font-size: 10px; }
+    .toc a:hover { background: var(--paper-alt); color: var(--ink); }
+    .toc a.active {
+      border-left-color: var(--gold);
+      background: var(--gold-soft);
+      color: var(--ink);
+    }
+
+    main { min-width: 0; }
+    .integrity-panel {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 34px;
+    }
+    .integrity-card {
+      min-width: 0;
+      padding: 16px 18px;
+      border: 1px solid var(--border);
+      background: var(--paper);
+    }
+    .integrity-card__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .integrity-card strong { font-size: 13px; }
+    .integrity-status {
+      flex: 0 0 auto;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: var(--gold-soft);
+      color: var(--gold);
+      font: 600 9px/1.4 var(--font-mono);
+      text-transform: uppercase;
+    }
+    .integrity-status.verified { background: var(--sage-soft); color: var(--sage); }
+    .integrity-status.failed { background: var(--rust-soft); color: var(--rust); }
+    .integrity-card code {
+      display: block;
+      margin-top: 9px;
+      overflow: hidden;
+      color: var(--ink-faint);
+      font: 400 9px/1.4 var(--font-mono);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .document {
+      min-width: 0;
+      margin-bottom: 56px;
+      border: 1px solid var(--border);
+      background: var(--paper);
+      box-shadow: 0 18px 60px rgba(25, 40, 58, 0.07);
+    }
+    .document[hidden] { display: none; }
+    .document__head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: end;
+      padding: 34px 42px 28px;
+      border-bottom: 1px solid var(--border);
+      background: var(--paper-alt);
+    }
+    .document__head h2 {
+      margin: 7px 0 0;
+      font: 600 clamp(28px, 4vw, 48px)/1.05 var(--font-display);
+      letter-spacing: -0.02em;
+    }
+    .document__meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .doc-badge {
+      padding: 5px 8px;
+      border: 1px solid var(--border);
+      color: var(--ink-soft);
+      background: var(--paper);
+      font: 500 9px/1.2 var(--font-mono);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .markdown-body {
+      min-width: 0;
+      padding: 44px clamp(24px, 5vw, 72px) 72px;
+      font-size: 16px;
+    }
+    .markdown-body > * { max-width: 900px; margin-left: auto; margin-right: auto; }
+    .markdown-body > .table-scroll,
+    .markdown-body > .diagram-shell,
+    .markdown-body > pre { max-width: 1120px; }
+    .markdown-body h1,
+    .markdown-body h2,
+    .markdown-body h3,
+    .markdown-body h4 {
+      position: relative;
+      color: var(--ink);
+      font-family: var(--font-display);
+      font-weight: 600;
+      line-height: 1.13;
+      letter-spacing: -0.018em;
+      scroll-margin-top: 84px;
+    }
+    .markdown-body h1 {
+      margin-top: 0;
+      margin-bottom: 30px;
+      font-size: clamp(36px, 5vw, 64px);
+    }
+    .markdown-body h2 {
+      margin-top: 72px;
+      padding-top: 26px;
+      border-top: 1px solid var(--border);
+      font-size: clamp(28px, 3vw, 42px);
+    }
+    .markdown-body h2::before {
+      content: attr(data-index);
+      position: absolute;
+      left: -42px;
+      top: 34px;
+      color: var(--gold);
+      font: 500 9px/1 var(--font-mono);
+      letter-spacing: 0.1em;
+    }
+    .markdown-body h3 { margin-top: 45px; font-size: 25px; }
+    .markdown-body h4 { margin-top: 32px; font-size: 20px; }
+    .markdown-body p { margin-top: 0; margin-bottom: 18px; color: var(--ink-soft); }
+    .markdown-body strong { color: var(--ink); }
+    .markdown-body ul, .markdown-body ol {
+      margin: 0 auto 22px;
+      padding-left: 1.5em;
+      color: var(--ink-soft);
+    }
+    .markdown-body li { margin: 7px 0; padding-left: 0.25em; }
+    .markdown-body li::marker { color: var(--gold); font-weight: 600; }
+    .markdown-body blockquote {
+      margin-top: 32px;
+      margin-bottom: 32px;
+      padding: 22px 28px;
+      border-left: 4px solid var(--gold);
+      background: var(--gold-soft);
+      color: var(--ink);
+      font: 500 20px/1.55 var(--font-display);
+    }
+    .markdown-body blockquote p { margin: 0; color: inherit; }
+    .markdown-body hr {
+      margin-top: 58px;
+      margin-bottom: 58px;
+      border: 0;
+      border-top: 1px solid var(--border);
+    }
+    .markdown-body :not(pre) > code {
+      padding: 2px 5px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      background: var(--paper-alt);
+      color: var(--rust);
+      font: 500 0.84em/1.4 var(--font-mono);
+      overflow-wrap: anywhere;
+    }
+    .markdown-body pre {
+      margin-top: 24px;
+      margin-bottom: 28px;
+      padding: 20px 22px;
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--navy);
+      background: #12202c;
+      color: #e8eef1;
+      font: 400 12px/1.7 var(--font-mono);
+      tab-size: 2;
+    }
+    .markdown-body pre code { font: inherit; white-space: pre; }
+
+    .table-scroll {
+      margin-top: 30px;
+      margin-bottom: 36px;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      background: var(--paper);
+    }
+    table {
+      width: 100%;
+      min-width: 660px;
+      border-collapse: collapse;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      padding: 12px 15px;
+      border-bottom: 2px solid var(--border-strong);
+      background: var(--navy);
+      color: var(--paper);
+      font: 600 10px/1.35 var(--font-mono);
+      letter-spacing: 0.06em;
+      text-align: left;
+      text-transform: uppercase;
+    }
+    :root[data-theme="dark"] th { color: #101821; }
+    td {
+      min-width: 120px;
+      padding: 13px 15px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: var(--ink-soft);
+    }
+    tbody tr:nth-child(even) { background: var(--paper-alt); }
+    tbody tr:hover { background: var(--gold-soft); }
+    td:first-child { color: var(--ink); font-weight: 500; }
+
+    .diagram-shell {
+      position: relative;
+      margin-top: 32px;
+      margin-bottom: 42px;
+      border: 1px solid var(--border);
+      background: var(--paper-alt);
+    }
+    .diagram-shell__hint {
+      margin: 0;
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--ink-faint);
+      font: 500 9px/1.4 var(--font-mono);
+      letter-spacing: 0.04em;
+    }
+    .mermaid-wrap { position: relative; min-height: 380px; overflow: hidden; }
+    .zoom-controls {
+      position: absolute;
+      z-index: 20;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      padding: 4px;
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--paper) 92%, transparent);
+      backdrop-filter: blur(10px);
+    }
+    .zoom-controls button {
+      width: 29px;
+      height: 29px;
+      padding: 0;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--ink-soft);
+      cursor: pointer;
+      font: 600 11px/1 var(--font-mono);
+    }
+    .zoom-controls button:hover { border-color: var(--border); background: var(--paper-alt); color: var(--ink); }
+    .zoom-label { min-width: 42px; color: var(--ink-faint); font: 500 9px/1 var(--font-mono); text-align: center; }
+    .mermaid-viewport {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: min(72vh, 760px);
+      min-height: 380px;
+      overflow: hidden;
+      cursor: grab;
+      touch-action: none;
+    }
+    .mermaid-viewport:active { cursor: grabbing; }
+    .mermaid-canvas {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-origin: 0 0;
+      will-change: transform;
+    }
+    .mermaid-canvas svg { display: block; max-width: none !important; height: auto; }
+    .mermaid .node rect, .mermaid .node polygon, .mermaid .node path { stroke-width: 1.4px !important; }
+    .mermaid .edgeLabel { background: var(--paper) !important; color: var(--ink) !important; }
+    .mermaid .label, .mermaid text { font-family: var(--font-body) !important; }
+
+    .loading {
+      padding: 100px 24px;
+      color: var(--ink-faint);
+      font: 500 12px/1.5 var(--font-mono);
+      text-align: center;
+    }
+    .error-card {
+      padding: 24px;
+      border: 1px solid var(--rust);
+      background: var(--rust-soft);
+      color: var(--rust);
+    }
+    .back-top {
+      position: fixed;
+      z-index: 250;
+      right: 20px;
+      bottom: 20px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: var(--paper);
+      color: var(--ink);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 160ms, transform 160ms;
+    }
+    .back-top.visible { opacity: 1; pointer-events: auto; }
+    .back-top:hover { transform: translateY(-2px); }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .masthead > *, .metric-band, .integrity-panel, .document {
+      animation: rise 520ms both;
+      animation-delay: calc(var(--i, 0) * 70ms);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
+    }
+
+    @media (max-width: 1050px) {
+      .metric-band { grid-template-columns: repeat(2, 1fr); }
+      .metric--primary { grid-column: 1 / -1; }
+      .shell { grid-template-columns: 1fr; gap: 22px; padding-top: 0; }
+      .toc {
+        position: sticky;
+        z-index: 240;
+        top: 61px;
+        display: flex;
+        gap: 3px;
+        align-items: center;
+        max-height: none;
+        margin: 0 -24px;
+        padding: 8px 24px;
+        overflow-x: auto;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        scrollbar-width: none;
+      }
+      .toc::-webkit-scrollbar { display: none; }
+      .toc__title { display: none; }
+      .toc a, .toc a[data-level="1"], .toc a[data-level="3"] {
+        flex: 0 0 auto;
+        margin: 0;
+        padding: 6px 9px;
+        border-left: 0;
+        border-bottom: 2px solid transparent;
+        border-radius: 4px 4px 0 0;
+        font-size: 9px;
+        white-space: nowrap;
+        text-transform: none;
+      }
+      .toc a.active { border-left: 0; border-bottom-color: var(--gold); }
+      .markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4 { scroll-margin-top: 118px; }
+    }
+
+    @media (max-width: 760px) {
+      .masthead { padding: 50px 18px 30px; }
+      .masthead::after { right: 18px; top: 18px; font-size: 8px; }
+      .metric-band { margin-top: 24px; grid-template-columns: 1fr 1fr; }
+      .metric { padding: 16px; }
+      .metric--primary { grid-column: 1 / -1; }
+      .toolbar {
+        align-items: stretch;
+        flex-direction: column;
+        padding: 9px 14px;
+      }
+      .segmented { overflow-x: auto; }
+      .segmented button { flex: 0 0 auto; }
+      .toolbar__actions { justify-content: space-between; }
+      .search-cluster { min-width: 0; flex: 1; }
+      .shell { padding-right: 14px; padding-left: 14px; }
+      .toc { top: 104px; margin: 0 -14px; padding-right: 14px; padding-left: 14px; }
+      .integrity-panel { grid-template-columns: 1fr; }
+      .document__head { grid-template-columns: 1fr; padding: 26px 20px 20px; }
+      .document__meta { justify-content: flex-start; }
+      .markdown-body { padding: 30px 20px 52px; font-size: 15px; }
+      .markdown-body h2::before { display: none; }
+      .markdown-body h2 { margin-top: 58px; }
+      .mermaid-viewport { height: min(66vh, 600px); min-height: 320px; }
+      .zoom-label { display: none; }
+      .zoom-controls button { width: 26px; height: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="reading-progress" id="reading-progress"></div>
+
+  <header class="masthead" id="top">
+    <div class="eyebrow" id="manual-eyebrow"></div>
+    <h1 id="manual-title"></h1>
+    <p class="lede" id="manual-lede"></p>
+    <div class="metric-band" style="--i:2">
+      <div class="metric metric--primary">
+        <span class="metric__value" id="metric-primary-value"></span>
+        <span class="metric__label" id="metric-primary-label"></span>
+      </div>
+      <div class="metric"><span class="metric__value" id="metric-words"></span><span class="metric__label">Source words</span></div>
+      <div class="metric"><span class="metric__value" id="metric-sections"></span><span class="metric__label">Ordered sections</span></div>
+      <div class="metric"><span class="metric__value" id="metric-diagrams"></span><span class="metric__label">Decision diagrams</span></div>
+      <div class="metric"><span class="metric__value" id="metric-bytes"></span><span class="metric__label">Verified source bytes</span></div>
+    </div>
+  </header>
+
+  <div class="toolbar" aria-label="Document controls">
+    <div class="segmented" id="document-views" role="group" aria-label="Visible documents"></div>
+    <div class="toolbar__actions">
+      <div class="search-cluster">
+        <input id="page-search" type="search" placeholder="Find text in the manual…" aria-label="Find text">
+        <button class="search-button" id="find-next" type="button">Find next</button>
+      </div>
+      <button class="icon-button" id="theme-toggle" type="button" title="Toggle theme">Theme</button>
+    </div>
+  </div>
+
+  <div class="shell">
+    <nav class="toc" id="toc" aria-label="On this page">
+      <div class="toc__title">On this page</div>
+    </nav>
+
+    <main id="reader">
+      <section class="integrity-panel" id="integrity-panel" aria-label="Source integrity"></section>
+      <div id="documents"></div>
+    </main>
+  </div>
+
+  <button class="back-top" id="back-top" type="button" aria-label="Back to top">↑</button>
+
+  <script type="module">
+    import { marked } from "https://cdn.jsdelivr.net/npm/marked@15/lib/marked.esm.js";
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+
+    var config = {"title":"FairLend Opportunity Scout\nJuly 17, 2026.","description":"Complete visual edition of the verified community-response and journalist-story opportunity report.","eyebrow":"Community + media intelligence","lede":"The complete, unabridged source document—rendered as a navigable field manual with every source line retained.","primaryLabel":"Automation report","metrics":{"words":3471,"sections":15,"diagrams":0,"bytes":26831},"documents":[{"key":"fairlend-community-media-opportunity-report-2026-07-17-0","title":"FairLend Community + Media Opportunity Report — 2026-07-17 01:24 ET","shortTitle":"FairLend Community + Media Op…","kicker":"Document 01 / source record","markdown":"# FairLend Community + Media Opportunity Report — 2026-07-17 01:24 ET\n\n## Executive summary\n\n- Qualified community questions: 4\n- Live journalist/source requests: 0\n- Journalist story leads: 2\n- Highest-priority action: Have a licensed FairLend mortgage professional manually rewrite and approve A1's DSCR framework as a no-link, non-promotional answer while the Toronto thread remains active.\n- Run notes: Searched current Reddit discussions through web search plus canonical Reddit HTML/JSON, subreddit rules JSON, Sourcee housing and Canada request feeds, Qwoted-oriented and `#journorequest` query families, and current FSRA, FCAC, TransUnion, CMHC, Ontario, and FairLend pages. Direct Reddit search/API requests from the shell were blocked by network security, but each shortlisted thread and its public JSON were opened and verified independently. Sourcee exposed current request summaries but not reliable per-request timestamps, deadlines, or reporter identity for in-scope requests; authenticated LinkedIn/X content was not bypassed. Prior-run deduplication was unavailable because this is the first run.\n\n## A. Community questions to answer\n\n### A1. Using DSCR before a GTA rental-property offer — Score: 89/100 — Act by: while active\n\n- **Thread:** [Any Toronto investors here using DSCR when evaluating rental properties?](https://www.reddit.com/r/TorontoRealEstate/comments/1ux6bjb/any_toronto_investors_here_using_dscr_when/)\n- **Source:** r/TorontoRealEstate; posted 2026-07-15 09:45 ET by `u/Friendly_Taro2371`; about 40 hours old; 2 comments, public, unlocked, and unarchived when verified.\n- **Question:** A GTA investor asks whether to calculate DSCR before making an offer or wait for a lender, and how financing decisions should react to changed rates and carrying costs.\n- **Why FairLend can help:** FairLend's supported expertise includes Ontario/GTA rental and multiplex financing, capital-stack analysis, lender policy, takeout planning, and MLI Select mechanics.\n- **What is missing from existing replies:** Two brief comments assert that satisfactory Ontario ratios are unavailable or mainly found in expensive multiplexes. Neither distinguishes 2–4-unit residential rental-income qualification from 5+ unit DCR underwriting or gives a defensible pre-offer sensitivity framework.\n- **Compliance/moderation check:** Moderate individualized-investment risk and moderate promotional risk. The public rules endpoint exposes no community-specific rules, so Reddit's sitewide spam rule applies. Keep the answer educational, distinguish financing qualification from investment merit, disclose the Ontario brokerage relationship, make no property recommendation, and include no link or solicitation.\n- **Recommended response:** Answer without link\n- **Optional FairLend resource:** None — no current public FairLend page or tool directly answers this pre-offer DSCR distinction.\n- **SEO/content signal:** Strong content gap around “DSCR before making an offer,” “wait until speaking with a lender,” and why 2–4-unit residential files differ from 5+ unit rental underwriting. This supports a GTA rental-property DSCR stress-test/checklist rather than another generic mortgage calculator.\n\n**Draft response**\n\n\u003e Yes—run the property math before making an offer, but treat DSCR as a sensitivity test rather than a universal pass/fail number.\n\u003e\n\u003e The first distinction is property type. For a non-owner-occupied 2–4-unit property, many residential lenders qualify the borrower using GDS/TDS plus their permitted rental-income method, not the commercial-style DCR used for 5+ unit files. CMHC's current Income Property guidance, for example, allows either up to 50% of gross rent or a net-rental-income approach, while lenders may apply their own rules. For 5+ units, DCR becomes a central underwriting measure, but the threshold and expense treatment vary by lender, term, and program.\n\u003e\n\u003e Before getting attached to a GTA deal, I would model expected rent, rent 5–10% lower, and higher vacancy/repairs. Use effective rent after incentives and realistic taxes, insurance, utilities, management, maintenance, and replacement reserves—not just rent minus the mortgage payment. Then stress the debt payment at the lender's underwriting rate.\n\u003e\n\u003e MLI Select can improve financing flexibility for eligible 5+ unit projects, but it does not rescue weak operating economics or replace lender underwriting. I work with an Ontario brokerage that structures rental and construction files; confirm the applicable income and expense rules before waiving a financing condition. This is financing education, not a recommendation to buy a specific property.\n\n**Evidence used**\n\n- [CMHC: Income Property](https://www.cmhc-schl.gc.ca/professionals/project-funding-and-mortgage-financing/mortgage-loan-insurance/mortgage-loan-insurance-homeownership-programs/income-property) — supports 2–4-unit eligibility and gross-rent or net-rental-income qualification approaches.\n- [CMHC: Standard Rental Housing](https://www.cmhc-schl.gc.ca/professionals/project-funding-and-mortgage-financing/mortgage-loan-insurance/multi-unit-insurance/standard-rental-housing) — supports DCR-centered underwriting for properties with five or more rental units.\n- [CMHC: MLI Select](https://www.cmhc-schl.gc.ca/professionals/project-funding-and-mortgage-financing/mortgage-loan-insurance/multi-unit-insurance/mliselect) — supports the program reference and eligibility caveat.\n\n### A2. What to ask a bank before a first mortgage — Score: 81/100 — Act by: while active\n\n- **Thread:** [FTHB + 1st Mortgage; What to ask](https://www.reddit.com/r/TorontoRealEstate/comments/1uv204k/fthb_1st_mortgage_what_to_ask/)\n- **Source:** r/TorontoRealEstate; posted 2026-07-13 01:03 ET by `u/M-Sear`; about four days old; 6 comments, public, unlocked, and unarchived when verified.\n- **Question:** A Toronto condo buyer purchasing with their parents asks what to ask the bank beyond prepayment privileges before an August closing.\n- **Why FairLend can help:** FairLend is qualified to explain Ontario institutional-mortgage policy fit, contract economics, lender conditions, charge structure, and the difference between a low quoted rate and a suitable mortgage.\n- **What is missing from existing replies:** Replies cover negotiation, rate holds, penalties, and legal title at a high level, but not a compact comparison checklist covering penalty calculations, portability, standard versus collateral charge, cash-back clawbacks, funding conditions, and co-borrower obligations.\n- **Compliance/moderation check:** Moderate promotional risk. The subreddit exposes no community-specific rules through its public rules endpoint, so Reddit's sitewide spam rule applies. Disclose the brokerage relationship, give educational information only, leave ownership/title advice to the buyer's lawyer, and include no link or solicitation.\n- **Recommended response:** Answer without link\n- **Optional FairLend resource:** [Institutional Mortgage Financing Ontario](https://www.fairlend.ca/borrowers/institutional-mortgage) — directly explains why rate, penalties, portability, amortization, fees, and qualification rules must be compared together; keep it out of the Reddit reply unless a moderator or poster explicitly requests a resource.\n- **SEO/content signal:** Durable question: “What should I ask the bank besides prepayment options?” Existing FairLend content answers the ingredients but lacks a clearly titled first-mortgage meeting checklist.\n\n**Draft response**\n\n\u003e Ask for the full mortgage economics and exit rules, not just the rate. I work with an Ontario mortgage brokerage, and I would bring this checklist to the meeting:\n\u003e\n\u003e - Is the rate fixed or variable, and if variable, does the payment change when prime changes?\n\u003e - How long is the rate held, what conditions remain, and when must the appraisal and income documents be accepted?\n\u003e - Exactly how is the penalty calculated if you sell, refinance, or switch before maturity? Ask for a dollar example using today's balance.\n\u003e - Is the mortgage portable, and what restrictions apply if the next property or mortgage amount differs?\n\u003e - Is the registration a standard charge or collateral charge, and what transfer/discharge costs could that create later?\n\u003e - Are there cash-back clawbacks, restricted-refinance terms, bona-fide-sales clauses, or other product limitations?\n\u003e - What are the closing, appraisal, administration, and discharge fees?\n\u003e\n\u003e Because you are buying with your parents, separately ask your real-estate lawyer who will be on title and on the mortgage, what each person is liable for, and how a future sale or buyout would work. That part is legal advice, not something the bank or Reddit should settle for you. Get every answer and remaining approval condition in writing before comparing offers.\n\n**Evidence used**\n\n- [FCAC: Choosing a mortgage that is right for you](https://www.canada.ca/en/financial-consumer-agency/services/mortgages/choose-mortgage.html) — supports comparing term, penalties, portability, and standard versus collateral charges.\n- [FSRA: Shopping for a mortgage](https://www.fsrao.ca/consumers/mortgage-brokering/shopping-mortgage) — supports asking how a recommendation fits the borrower's circumstances and requiring plain-language risk disclosure.\n\n### A3. Will multiple mortgage applications tank a credit score? — Score: 74/100 — Act by: while active\n\n- **Thread:** [Mortgage Renewal/ Refinance](https://www.reddit.com/r/MortgagesCanada/comments/1uvorjl/mortgage_renewal_refinance/)\n- **Source:** r/MortgagesCanada; posted 2026-07-13 17:24 ET by `u/djeegee`; about three days old; 6 comments, public, unlocked, and unarchived when verified.\n- **Question:** A first-time renewing borrower asks whether approaching every bank and a broker will create seven hard inquiries that signal desperation and damage their credit.\n- **Why FairLend can help:** Mortgage application sequencing, broker submissions, lender shopping, and product comparison fall directly within FairLend's brokerage expertise.\n- **What is missing from existing replies:** Several comments assert a universal 45-day grouping rule. TransUnion's current Canadian guidance is more careful: most scoring models account for clustered home-loan shopping, multiple score models exist, and inquiries may still appear and have a small impact.\n- **Compliance/moderation check:** High moderation sensitivity, low advice risk. The subreddit bans advertising, DMs, phone/email details, links to one's own site, and copy-pasted AI answers; it prefers factual input from qualified people. A licensed human must rewrite this draft in their own voice, disclose their role, include no link, and make no solicitation.\n- **Recommended response:** Answer without link; human-authored rewrite required\n- **Optional FairLend resource:** [Institutional Mortgage Financing Ontario](https://www.fairlend.ca/borrowers/institutional-mortgage) — relevant to whole-offer comparison, but the subreddit expressly prohibits linking one's own site, so do not post it.\n- **SEO/content signal:** Durable misconception: “Do seven mortgage pulls equal seven score hits?” FairLend has an explicit content gap around inquiry consent, broker submission sequencing, and rate-shopping myths.\n\n**Draft response**\n\n\u003e Shopping around does not automatically mean seven mortgage inquiries will be treated as seven separate signs of “desperation,” but I would not rely on a universal 45-day promise either. TransUnion Canada says most scoring models account for multiple inquiries made within a specific period while shopping for a home loan; it also says lenders use different scoring tools and that the inquiries can still appear on your file.\n\u003e\n\u003e A practical approach is to ask each bank whether it can give an indicative quote before a hard pull, then authorize full applications only for the short list you would genuinely use. If you work with a broker, ask which lenders they intend to submit to and require your consent before additional submissions. Compare your current lender's written renewal offer with the broker's best complete option and any direct-bank option that fills a real gap.\n\u003e\n\u003e Also compare more than rate: penalty calculation, portability, prepayment privileges, fees, charge type, and refinance restrictions can outweigh a small rate difference. I work with an Ontario mortgage brokerage; this is general process guidance, not a prediction of how a particular lender's score model will treat your file.\n\n**Evidence used**\n\n- [TransUnion Canada: Frequently asked credit questions](https://www.transunion.ca/customer-support/faq) — supports the qualified explanation of mortgage-shopping inquiries and the existence of multiple scoring models.\n- [FCAC: Choosing a mortgage that is right for you](https://www.canada.ca/en/financial-consumer-agency/services/mortgages/choose-mortgage.html) — supports comparing mortgage flexibility and total contract terms, not rate alone.\n\n### A4. When to approach lenders for a large GTA renovation — Score: 72/100 — Act by: while active\n\n- **Thread:** [Construction mortgage for GTA reno](https://www.reddit.com/r/homebuildingcanada/comments/1uq6ewy/construction_mortgage_for_gta_reno/)\n- **Source:** r/homebuildingcanada; posted 2026-07-07 16:06 ET by `u/xyx114060`; about nine days old; 5 comments, public, unlocked, and unarchived when verified.\n- **Question:** A GTA owner with an approximately $1 million renovation budget and a $300,000 borrowing need asks for private-lender recommendations and whether lender work should begin before construction.\n- **Why FairLend can help:** This is an exact match for FairLend's GTA construction-financing, private-mortgage, budget, draw, liquidity-gap, and exit-planning expertise.\n- **What is missing from existing replies:** Replies name providers and broadly say private lenders do not pre-approve. FairLend can add the materially different point that route and file-readiness work should start now even if a firm commitment depends on final plans, permits, valuation, budget, and draw conditions; it can also explain why the borrower should compare institutional, equity, and private structures before assuming private money is required.\n- **Compliance/moderation check:** High promotional risk, moderate file-specific risk. The subreddit bans business or website advertising and requires on-topic, civil participation. Give a framework only, disclose the brokerage relationship, do not name FairLend, link, quote a rate, recommend a specific lender, or invite contact.\n- **Recommended response:** Answer without link\n- **Optional FairLend resource:** [Construction Draw Financing](https://www.fairlend.ca/construction-draw-financing) — directly explains milestones, evidence, review, release, and working-capital contingency; do not post it because the subreddit bans business/website advertising.\n- **SEO/content signal:** Durable GTA phrasing: “Would it be better to get approval from lenders now before construction begins?” The live page answers draw mechanics but could add a lender-readiness timeline for major renovations.\n\n**Draft response**\n\n\u003e Start the lender-fit and file-readiness work now, but expect a firm construction or private-mortgage commitment only when the project is defined well enough to underwrite. I work with an Ontario mortgage brokerage that finances construction files; the key is to compare routes before assuming private money is necessary.\n\u003e\n\u003e For a renovation of this size, prepare a scope, line-item budget, contingency, schedule, permit status, builder contract or tender evidence, current mortgage statement, source of your cash contribution, and both current and as-completed valuation support. Then map the draw stages: what work must be completed first, what evidence is required, who inspects it, how long review and release may take, and how much working capital you need between paying trades and receiving a draw.\n\u003e\n\u003e Compare an increase/refinance with the current lender, a secured line or other institutional route where available, and a private construction structure on total cost and execution fit—not rate alone. For private terms, review lender, brokerage, legal, appraisal, inspection, renewal, default, and payout costs plus the exit plan. Do not assume interest is charged only on advanced funds or that every lender handles pre-approval the same way; those are commitment-specific terms.\n\n**Evidence used**\n\n- [FSRA: Private mortgages](https://www.fsrao.ca/privatemortgage) — supports the higher-cost, shorter-term, and risk questions borrowers should ask about private mortgages.\n- [FSRA: Working with a mortgage professional](https://www.fsrao.ca/consumers/mortgage-brokering/working-mortgage-professional) — supports written disclosure of risks, costs, conflicts, and total borrowing cost.\n\n## B. Live journalist/source requests\n\nNo public journalist/source request met all three gates of direct FairLend expertise fit, verified reporter/publication identity, and a still-live verifiable deadline. No pitch was drafted.\n\n## C. Journalist story leads from community discussions\n\n### C1. Softer GTA rents may turn takeout financing into the next supply constraint — Score: 92/100\n\n- **Community evidence:** [More rentals under construction today than what was built from 2010–2020 combined](https://www.reddit.com/r/TorontoRealEstate/comments/1uy69mu/more_rentals_under_construction_today_than_what/) (posted July 16 at 11:34 ET; 125 comments when verified); [CMHC reports annual rate of housing starts in June down six per cent from May](https://www.reddit.com/r/canadahousing/comments/1uyc1lx/cmhc_reports_annual_rate_of_housing_starts_in/) (posted July 16 at 15:02 ET; 24 comments when verified).\n- **Observed pattern:** Two high-activity discussions juxtapose a large rental-construction pipeline with softer demand, rent pressure, slowing starts, construction cost, and lender-covenant concerns. The discussion is anecdotal and includes unsupported forecasts, but the financing mechanism—effective rent affecting DCR, valuation, and construction-to-takeout proceeds—is a credible reporting lead.\n- **Why it may matter now:** CMHC's 2026 outlook says strong Toronto rental starts partly offset slower condominium starts while higher vacancies and lower rent growth challenge future rental supply. Official CMHC and Statistics Canada releases also provide current multi-unit insurance and construction-cost context that can test whether the pressure is pipeline-wide or project-specific.\n- **What is known vs. unverified:** The threads, activity, and stated concerns are verified. The Reddit poster's claims of more than 200,000 units, a 15% rent decline, and a two-year condo slump are not verified and must not be repeated as facts. A softer pro forma does not by itself prove covenant breach, refinance failure, cancellation, or systemic distress.\n- **Reporting path:** Use CMHC's South Central Ontario tables to measure starts, completions, and units under construction by tenure/type; obtain rent, vacancy, absorption, and insured multi-unit data; use Statistics Canada's BCPI with its scope limitations; interview rental developers, lenders, appraisers, quantity surveyors, and CMHC; then model how effective-rent and cap-rate changes alter DCR and takeout proceeds for representative—not identifiable—projects.\n- **FairLend contribution:** FairLend could explain construction-to-takeout mechanics, DCR headroom, effective-rent versus asking-rent treatment, capital gaps, and MLI Select constraints. After privacy and sample-size review, it could contribute a de-identified sensitivity framework or aggregate observations, but should not promise proprietary prevalence data it has not yet documented.\n- **Suggested journalist framing:** “Toronto's rental-construction wave is arriving as rent growth softens; for some projects, the next supply constraint may be takeout-financing math rather than approvals.”\n- **Risk check:** Reddit is a tip sheet, not statistical evidence. Verify every pipeline and rent figure independently; separate purpose-built rental from condominiums and 2–4-unit properties; avoid naming borrowers or projects; and publish no FairLend file data without consent, de-identification, methodology, and a privacy-safe sample.\n\n### C2. Mortgage shoppers compare rates before they understand the contract — Score: 84/100\n\n- **Community evidence:** [Toronto first-time buyer asks what to ask the bank](https://www.reddit.com/r/TorontoRealEstate/comments/1uv204k/fthb_1st_mortgage_what_to_ask/) (July 13); [first renewal shopper worries about multiple credit pulls](https://www.reddit.com/r/MortgagesCanada/comments/1uvorjl/mortgage_renewal_refinance/) (July 13); [Ontario borrower receives an incumbent-lender counteroffer after another approval](https://www.reddit.com/r/PersonalFinanceCanada/comments/1uwh2se/first_time_mortgage_refinance_current_lender_now/) (July 14).\n- **Observed pattern:** Three fresh anecdotal threads show borrowers focusing first on rate-shopping while remaining unsure about inquiry sequencing, approval/commitment status, switching costs, penalties, lender-retention tactics, and non-rate contract features.\n- **Why it may matter now:** CMHC's 2026 Mortgage Consumer Survey reports that 88% of mortgage consumers search rates online and 72% use online payment calculators. That establishes heavy digital comparison behaviour, while the Reddit threads offer current anecdotal leads about what those tools and quotes may not explain.\n- **What is known vs. unverified:** It is verified that these three public discussions exist, are current, and contain the stated questions. They do not establish how common confusion is, whether any lender or broker acted improperly, or whether the commenters' legal and credit-scoring claims are correct.\n- **Reporting path:** Analyze the CMHC survey methodology and, if available, underlying tables; request aggregate mortgage-brokering complaint and disclosure data from FSRA; ask FCAC which non-rate contract terms consumers most often misunderstand; interview lenders, brokers, real-estate lawyers, and consumer advocates; and compare a sample of anonymized commitments for penalty formulas, portability, charge type, cash-back clawbacks, and transfer costs.\n- **FairLend contribution:** Elie Soberano could explain the operational difference between a quote, approval, commitment, renewal, transfer, and refinance; identify the contract clauses that change total cost; and, only after privacy review, help design an anonymized taxonomy of questions or commitment features observed in real files.\n- **Suggested journalist framing:** “The mortgage rate is the easiest number to compare—and often the least complete description of what switching, selling, or refinancing will cost.”\n- **Risk check:** Reddit is self-selected anecdotal evidence, not prevalence data. Do not identify or contact posters without consent, infer misconduct, publish file details, or use FairLend aggregates unless they are permissioned, de-identified, methodologically documented, and large enough to protect privacy.\n\n## D. Content-demand ledger\n\n| Audience phrase/question | Intent | Geography | Frequency this run | Existing FairLend answer? | Recommended content action |\n|---|---|---|---:|---|---|\n| “Are you calculating DSCR before making an offer?” | Rental-property pre-offer financing screen | GTA | 1 | No direct pre-offer tool or checklist | Create a decision tool/checklist |\n| “What should I ask the bank besides prepayment options?” | First-mortgage lender comparison | Toronto/GTA | 1 | Partial: institutional-mortgage page | Add FAQ section to the relevant page |\n| “Will seven mortgage credit hits tank my score?” | Renewal shopping and inquiry sequencing | Canada/Ontario | 1 | Partial: lender-fit discussion, no direct inquiry answer | Add FAQ section to the relevant page |\n| “Would it be better to get approval before construction begins?” | Major-renovation financing readiness | GTA | 1 | Yes: construction-draw and private-mortgage pages | Improve existing page |\n| “Am I obligated after approval if my current lender counters?” | Renewal/transfer process and commitment status | Ontario | 1 | Partial; legal interpretation appropriately absent | Investigate as an editorial feature |\n| Rate first, full mortgage terms second | Whole-offer comparison | Ontario/GTA | 3 | Partial across institutional and private pages | Create a decision tool/checklist |\n| “What happens to the financing math if rents soften?” | Construction-to-takeout and DCR sensitivity | GTA/Ontario | 2 discussions | Partial: MLI Select and construction pages | Collect data |\n\n## E. Needs manual verification\n\nNone. Leads without a verifiable timestamp, reporter identity, canonical request, deadline, or replyability status were excluded rather than promoted.\n\n## F. Rejected high-surface-area leads\n\n1. [Ticker News residential-market commentator request](https://www.sourcebottle.com/query.asp?iid=61\u0026qid=159775) — deadline is July 31, 2026 at 5:00 p.m. EDT, but the requester is unnamed and Ticker's official process ties interview confirmation to a licence purchase, creating a pay-to-appear/promotional risk rather than a clean editorial opportunity.\n2. [First Time Mortgage Refinance — incumbent lender counteroffer](https://www.reddit.com/r/PersonalFinanceCanada/comments/1uwh2se/first_time_mortgage_refinance_current_lender_now/) — rejected as a community-answer target because the core question asks for a legal conclusion about signed documents; retained only as an anecdotal story lead.\n3. [Mortgage renewal while behind on city property taxes](https://www.reddit.com/r/MortgagesCanada/comments/1uvmiw4/mortgage_renewal_coming_up_behind_on_city/) — rejected because it involves active financial distress and potential enforcement consequences where public file-specific advice could cause harm.\n4. [Blended term mortgage](https://www.reddit.com/r/AskMortgageCanada/comments/1uujcgo/blended_term_mortgage/) — rejected because the file-specific insurer/product mechanics were already addressed in depth and a useful answer would require more private contract detail.\n5. [Sourcee Canada request feed](https://www.sourcee.app/locations/canada/journo-requests) — the MoneySense irregular-income request sought first-person self-employed consumer experience, not mortgage-broker expertise; other housing requests lacked a verifiable reporter, deadline, or subject fit.\n\n## G. No-op status\n\nNot applicable: four verified community opportunities and two verified anecdotal journalist story leads met the action threshold. The automation took no external action.\n","expected":"7996915491ad1f2c9498b239c5430a65cc25369a4af95c5f84dd6b7ac37c5bb5","lines":176,"words":3471,"bytes":26831,"url":"2026-07-17.md"}]};
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>\"]/g, function (character) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;" }[character];
+      });
+    }
+
+    function hydratePage() {
+      document.title = config.title;
+      document.querySelector('meta[name="description"]').content = config.description;
+      document.getElementById("manual-eyebrow").textContent = config.eyebrow;
+      document.getElementById("manual-title").innerHTML = escapeHtml(config.title).replace(/\n/g, "<br>");
+      document.getElementById("manual-lede").textContent = config.lede;
+      document.getElementById("metric-primary-value").textContent = config.documents.length + (config.documents.length === 1 ? " complete document" : " complete documents");
+      document.getElementById("metric-primary-label").textContent = config.primaryLabel;
+      document.getElementById("metric-words").textContent = config.metrics.words.toLocaleString();
+      document.getElementById("metric-sections").textContent = config.metrics.sections.toLocaleString();
+      document.getElementById("metric-diagrams").textContent = config.metrics.diagrams.toLocaleString();
+      document.getElementById("metric-bytes").textContent = config.metrics.bytes.toLocaleString();
+
+      var views = document.getElementById("document-views");
+      views.innerHTML = '<button type="button" data-view="all" aria-pressed="true">Complete edition</button>' + config.documents.map(function (source) {
+        return '<button type="button" data-view="' + escapeHtml(source.key) + '" aria-pressed="false">' + escapeHtml(source.shortTitle) + '</button>';
+      }).join("");
+
+      document.getElementById("integrity-panel").innerHTML = config.documents.map(function (source) {
+        return '<div class="integrity-card"><div class="integrity-card__top"><strong>' + escapeHtml(source.title) + ' source</strong><span class="integrity-status" id="' + escapeHtml(source.key) + '-status">Checking</span></div><code>' + escapeHtml(source.expected) + '</code></div>';
+      }).join("");
+
+      document.getElementById("documents").innerHTML = config.documents.map(function (source, index) {
+        return '<article class="document" data-doc="' + escapeHtml(source.key) + '" style="--i:' + (index + 4) + '"><header class="document__head"><div><div class="section-kicker">' + escapeHtml(source.kicker) + '</div><h2>' + escapeHtml(source.title) + '</h2></div><div class="document__meta"><span class="doc-badge">' + source.lines.toLocaleString() + ' lines</span><span class="doc-badge">' + source.words.toLocaleString() + ' words</span><a class="doc-badge" href="' + escapeHtml(source.url) + '">Raw source</a></div></header><div class="markdown-body" id="' + escapeHtml(source.key) + '-content"><div class="loading">Loading the complete source artifact…</div></div></article>';
+      }).join("");
+    }
+
+    hydratePage();
+    var sources = config.documents.map(function (source) {
+      source.target = document.getElementById(source.key + "-content");
+      return source;
+    });
+
+    var currentView = "all";
+    var observer;
+
+    marked.setOptions({ gfm: true, breaks: false });
+
+    function slugify(text, prefix, seen) {
+      var base = prefix + "-" + text.toLowerCase()
+        .replace(/<[^>]+>/g, "")
+        .replace(/&[a-z]+;/g, " ")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 72);
+      if (!base) base = prefix + "-section";
+      var count = seen.get(base) || 0;
+      seen.set(base, count + 1);
+      return count ? base + "-" + (count + 1) : base;
+    }
+
+    async function sha256(textValue) {
+      var data = new TextEncoder().encode(textValue);
+      var hash = await crypto.subtle.digest("SHA-256", data);
+      return Array.from(new Uint8Array(hash)).map(function (byte) {
+        return byte.toString(16).padStart(2, "0");
+      }).join("");
+    }
+
+    function decorateMarkdown(container, key) {
+      var seen = new Map();
+      var index = 0;
+      container.querySelectorAll("h1, h2, h3, h4").forEach(function (heading) {
+        heading.id = slugify(heading.textContent, key, seen);
+        heading.dataset.doc = key;
+        if (heading.tagName === "H2") {
+          index += 1;
+          heading.dataset.index = String(index).padStart(2, "0");
+        }
+      });
+
+      container.querySelectorAll("table").forEach(function (table) {
+        if (table.parentElement.classList.contains("table-scroll")) return;
+        var wrapper = document.createElement("div");
+        wrapper.className = "table-scroll";
+        table.parentNode.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
+      });
+
+      container.querySelectorAll("a[href^='http']").forEach(function (link) {
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+      });
+    }
+
+    function diagramMarkup(source, number) {
+      var shell = document.createElement("section");
+      shell.className = "diagram-shell";
+      shell.dataset.source = source;
+      shell.dataset.diagram = String(number);
+      shell.innerHTML =
+        '<p class="diagram-shell__hint">Interactive decision model · Ctrl/Cmd + wheel to zoom · drag to pan · click or expand for full size</p>' +
+        '<div class="mermaid-wrap">' +
+          '<div class="zoom-controls">' +
+            '<button type="button" data-action="in" title="Zoom in">+</button>' +
+            '<button type="button" data-action="out" title="Zoom out">−</button>' +
+            '<button type="button" data-action="fit" title="Fit diagram">↻</button>' +
+            '<button type="button" data-action="one" title="Actual size">1:1</button>' +
+            '<button type="button" data-action="expand" title="Open full size">⛶</button>' +
+            '<span class="zoom-label">…</span>' +
+          '</div>' +
+          '<div class="mermaid-viewport"><div class="mermaid mermaid-canvas"></div></div>' +
+        '</div>';
+      return shell;
+    }
+
+    function getTheme() {
+      var explicit = document.documentElement.dataset.theme;
+      if (explicit) return explicit;
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+
+    function mermaidTheme() {
+      var dark = getTheme() === "dark";
+      return {
+        primaryColor: dark ? "#223848" : "#dfe8ef",
+        primaryBorderColor: dark ? "#8eb6d2" : "#193753",
+        primaryTextColor: dark ? "#edf1f2" : "#17263a",
+        secondaryColor: dark ? "#25382c" : "#e3ece5",
+        secondaryBorderColor: dark ? "#91b39a" : "#55745e",
+        secondaryTextColor: dark ? "#edf1f2" : "#17263a",
+        tertiaryColor: dark ? "#3a3022" : "#f4ead4",
+        tertiaryBorderColor: dark ? "#d4ad5e" : "#b0812b",
+        tertiaryTextColor: dark ? "#edf1f2" : "#17263a",
+        lineColor: dark ? "#87969f" : "#536174",
+        fontFamily: "IBM Plex Sans",
+        fontSize: "16px",
+        noteBkgColor: dark ? "#1c2935" : "#fffdf8",
+        noteTextColor: dark ? "#edf1f2" : "#17263a",
+        noteBorderColor: dark ? "#d4ad5e" : "#b0812b"
+      };
+    }
+
+    async function renderDiagrams() {
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: "strict",
+        theme: "base",
+        look: "classic",
+        flowchart: { htmlLabels: true, curve: "basis", padding: 18 },
+        themeVariables: mermaidTheme()
+      });
+
+      var codeBlocks = Array.from(document.querySelectorAll("pre > code.language-mermaid"));
+      codeBlocks.forEach(function (code, index) {
+        var shell = diagramMarkup(code.textContent.trim(), index + 1);
+        code.parentElement.replaceWith(shell);
+      });
+
+      var shells = Array.from(document.querySelectorAll(".diagram-shell"));
+      for (var i = 0; i < shells.length; i += 1) {
+        var shell = shells[i];
+        var canvas = shell.querySelector(".mermaid-canvas");
+        try {
+          var rendered = await mermaid.render("field-manual-diagram-" + i, shell.dataset.source);
+          canvas.innerHTML = rendered.svg;
+          wireDiagram(shell);
+        } catch (error) {
+          canvas.innerHTML = '<div class="error-card">Diagram render failed. The original Mermaid source remains available in the raw document.</div>';
+          console.error(error);
+        }
+      }
+    }
+
+    function wireDiagram(shell) {
+      var viewport = shell.querySelector(".mermaid-viewport");
+      var canvas = shell.querySelector(".mermaid-canvas");
+      var svg = canvas.querySelector("svg");
+      var label = shell.querySelector(".zoom-label");
+      var state = { scale: 1, x: 0, y: 0, dragging: false, moved: false, px: 0, py: 0 };
+      var min = 0.12;
+      var max = 6;
+
+      function dimensions() {
+        var viewBox = svg && svg.viewBox && svg.viewBox.baseVal;
+        return {
+          width: viewBox && viewBox.width ? viewBox.width : (svg.getBoundingClientRect().width || 900),
+          height: viewBox && viewBox.height ? viewBox.height : (svg.getBoundingClientRect().height || 600)
+        };
+      }
+      function apply() {
+        canvas.style.transform = "translate(" + state.x + "px," + state.y + "px) scale(" + state.scale + ")";
+        label.textContent = Math.round(state.scale * 100) + "%";
+      }
+      function fit() {
+        var size = dimensions();
+        var availableW = Math.max(240, viewport.clientWidth - 54);
+        var availableH = Math.max(240, viewport.clientHeight - 54);
+        state.scale = Math.min(1.6, availableW / size.width, availableH / size.height);
+        state.x = (viewport.clientWidth - size.width * state.scale) / 2;
+        state.y = (viewport.clientHeight - size.height * state.scale) / 2;
+        apply();
+      }
+      function zoom(factor, clientX, clientY) {
+        var rect = viewport.getBoundingClientRect();
+        var pointX = (clientX || rect.left + rect.width / 2) - rect.left;
+        var pointY = (clientY || rect.top + rect.height / 2) - rect.top;
+        var old = state.scale;
+        state.scale = Math.max(min, Math.min(max, state.scale * factor));
+        state.x = pointX - (pointX - state.x) * state.scale / old;
+        state.y = pointY - (pointY - state.y) * state.scale / old;
+        apply();
+      }
+      function one() {
+        var size = dimensions();
+        state.scale = 1;
+        state.x = (viewport.clientWidth - size.width) / 2;
+        state.y = (viewport.clientHeight - size.height) / 2;
+        apply();
+      }
+      function expand() {
+        var styles = "body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f3efe7;color:#17263a;font-family:sans-serif;padding:24px;box-sizing:border-box}svg{max-width:none;width:auto;height:auto}";
+        var popup = window.open("", "_blank", "noopener");
+        if (!popup) return;
+        popup.document.write("<!doctype html><html><head><title>Decision diagram</title><style>" + styles + "</style></head><body>" + svg.outerHTML + "</body></html>");
+        popup.document.close();
+      }
+
+      shell.querySelectorAll("[data-action]").forEach(function (button) {
+        button.addEventListener("click", function (event) {
+          event.stopPropagation();
+          var action = button.dataset.action;
+          if (action === "in") zoom(1.18);
+          if (action === "out") zoom(0.84);
+          if (action === "fit") fit();
+          if (action === "one") one();
+          if (action === "expand") expand();
+        });
+      });
+      viewport.addEventListener("wheel", function (event) {
+        event.preventDefault();
+        if (event.ctrlKey || event.metaKey) {
+          zoom(event.deltaY < 0 ? 1.12 : 0.89, event.clientX, event.clientY);
+        } else {
+          state.x -= event.deltaX;
+          state.y -= event.deltaY;
+          apply();
+        }
+      }, { passive: false });
+      viewport.addEventListener("pointerdown", function (event) {
+        state.dragging = true;
+        state.moved = false;
+        state.px = event.clientX;
+        state.py = event.clientY;
+        viewport.setPointerCapture(event.pointerId);
+      });
+      viewport.addEventListener("pointermove", function (event) {
+        if (!state.dragging) return;
+        var dx = event.clientX - state.px;
+        var dy = event.clientY - state.py;
+        if (Math.abs(dx) + Math.abs(dy) > 4) state.moved = true;
+        state.x += dx;
+        state.y += dy;
+        state.px = event.clientX;
+        state.py = event.clientY;
+        apply();
+      });
+      viewport.addEventListener("pointerup", function (event) {
+        state.dragging = false;
+        viewport.releasePointerCapture(event.pointerId);
+        if (!state.moved) expand();
+      });
+      viewport.addEventListener("dblclick", function (event) {
+        event.preventDefault();
+        fit();
+      });
+      window.addEventListener("resize", fit);
+      requestAnimationFrame(fit);
+    }
+
+    function buildToc() {
+      var toc = document.getElementById("toc");
+      toc.querySelectorAll("a").forEach(function (link) { link.remove(); });
+      var selector = currentView === "all"
+        ? ".document:not([hidden]) .markdown-body h1, .document:not([hidden]) .markdown-body h2, .document:not([hidden]) .markdown-body h3"
+        : '.document[data-doc="' + currentView + '"] .markdown-body h1, .document[data-doc="' + currentView + '"] .markdown-body h2, .document[data-doc="' + currentView + '"] .markdown-body h3';
+      var headings = Array.from(document.querySelectorAll(selector));
+      headings.forEach(function (heading) {
+        var link = document.createElement("a");
+        link.href = "#" + heading.id;
+        link.dataset.level = heading.tagName.slice(1);
+        link.textContent = heading.textContent;
+        toc.appendChild(link);
+      });
+
+      if (observer) observer.disconnect();
+      observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          toc.querySelectorAll("a").forEach(function (link) {
+            link.classList.toggle("active", link.getAttribute("href") === "#" + entry.target.id);
+          });
+          var active = toc.querySelector("a.active");
+          if (active && window.innerWidth <= 1050) active.scrollIntoView({ block: "nearest", inline: "center" });
+        });
+      }, { rootMargin: "-18% 0px -72% 0px", threshold: 0 });
+      headings.forEach(function (heading) { observer.observe(heading); });
+    }
+
+    function setView(view) {
+      currentView = view;
+      document.querySelectorAll("[data-view]").forEach(function (button) {
+        button.setAttribute("aria-pressed", String(button.dataset.view === view));
+      });
+      document.querySelectorAll(".document").forEach(function (doc) {
+        doc.hidden = view !== "all" && doc.dataset.doc !== view;
+      });
+      buildToc();
+      window.scrollTo({ top: document.querySelector(".shell").offsetTop - 66, behavior: "smooth" });
+    }
+
+    async function loadSource(source) {
+      var markdown = source.markdown;
+      if (typeof markdown !== "string") {
+        var response = await fetch(source.url, { cache: "no-store" });
+        if (!response.ok) throw new Error("Unable to load " + source.url + ": " + response.status);
+        markdown = await response.text();
+      }
+      source.target.innerHTML = marked.parse(markdown);
+      decorateMarkdown(source.target, source.key);
+      var actual = await sha256(markdown);
+      var status = document.getElementById(source.key + "-status");
+      var matches = actual === source.expected;
+      status.textContent = matches ? "Verified exact" : "Hash mismatch";
+      status.classList.add(matches ? "verified" : "failed");
+    }
+
+    async function init() {
+      try {
+        await Promise.all(sources.map(loadSource));
+        await renderDiagrams();
+        buildToc();
+        if (location.hash) {
+          requestAnimationFrame(function () {
+            var target = document.querySelector(location.hash);
+            if (target) target.scrollIntoView();
+          });
+        }
+      } catch (error) {
+        document.getElementById("reader").insertAdjacentHTML("afterbegin", '<div class="error-card">The complete source documents could not be rendered. Open the raw-source links or reload the page.</div>');
+        console.error(error);
+      }
+    }
+
+    document.querySelectorAll("[data-view]").forEach(function (button) {
+      button.addEventListener("click", function () { setView(button.dataset.view); });
+    });
+    document.getElementById("theme-toggle").addEventListener("click", function () {
+      var next = getTheme() === "dark" ? "light" : "dark";
+      localStorage.setItem("convex-field-manual-theme", next);
+      location.reload();
+    });
+    function findNext() {
+      var query = document.getElementById("page-search").value.trim();
+      if (query) window.find(query, false, false, true, false, true, false);
+    }
+    document.getElementById("find-next").addEventListener("click", findNext);
+    document.getElementById("page-search").addEventListener("keydown", function (event) {
+      if (event.key === "Enter") findNext();
+    });
+    document.getElementById("back-top").addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    window.addEventListener("scroll", function () {
+      var maxScroll = document.documentElement.scrollHeight - innerHeight;
+      var ratio = maxScroll > 0 ? scrollY / maxScroll : 0;
+      document.getElementById("reading-progress").style.width = (ratio * 100) + "%";
+      document.getElementById("back-top").classList.toggle("visible", scrollY > 700);
+    }, { passive: true });
+
+    init();
+  </script>
+</body>
+</html>

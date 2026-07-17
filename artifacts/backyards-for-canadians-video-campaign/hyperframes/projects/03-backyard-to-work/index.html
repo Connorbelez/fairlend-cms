@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=1080,height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="campaign.css" />
+    <style>
+      #scene1{z-index:1}#scene2{z-index:2;opacity:0}#scene3{z-index:3;opacity:0}#scene4{z-index:4;opacity:0}
+      .lawn-sign{width:820px;padding:54px 50px;background:#fffdf9;border:6px solid #08090a;box-shadow:24px 24px 0 #96ec18;position:relative}
+      .lawn-sign::before,.lawn-sign::after{content:"";position:absolute;bottom:-440px;width:22px;height:440px;background:#08090a}.lawn-sign::before{left:120px}.lawn-sign::after{right:120px}
+      .pin{position:absolute;width:34px;height:34px;border-radius:50%;background:#96ec18;border:5px solid #030405;box-shadow:0 0 24px rgba(150,236,24,.75);opacity:0;transform:scale(0)}
+      .stage-card{height:170px;border:2px solid rgba(255,255,255,.26);background:rgba(255,255,255,.05);display:grid;grid-template-columns:100px 1fr 64px;align-items:center;padding:0 28px;opacity:0}
+      .stage-card .num{font:700 28px/1 "IBM Plex Mono",monospace;color:#96ec18}.stage-card .name{font:400 68px/1 "League Gothic",sans-serif;text-transform:uppercase}.stage-card .state{width:30px;height:30px;border-radius:50%;border:3px solid rgba(255,255,255,.35)}
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="backyard-to-work" data-start="0" data-duration="20" data-width="1080" data-height="1920" data-fps="30">
+      <section id="scene1" class="scene paper"><div class="frame"></div><div class="rail" data-layout-allow-overlap><span>Founding homeowner</span><span>01 / 04</span></div>
+        <div class="safe" style="display:flex;align-items:center;justify-content:center">
+          <div id="sign" class="lawn-sign"><div class="mono" style="font-size:24px;margin-bottom:28px">Toronto / campaign pledge</div><div class="headline" style="font-size:150px">I’m putting my backyard to work for <span class="lime-bg">Toronto.</span></div><div class="route" style="margin-top:42px"><div id="route1" class="route-fill"></div><div id="dot1" class="route-dot"></div></div></div>
+        </div>
+      </section>
+      <section id="scene2" class="scene ink"><div class="frame"></div><div class="rail" data-layout-allow-overlap><span>One point becomes a movement</span><span>02 / 04</span></div>
+        <img id="map" data-layout-allow-overflow src="assets/brand/toronto-map.webp" style="position:absolute;left:-110px;top:250px;width:1300px;height:1080px;object-fit:contain;filter:saturate(.25) contrast(1.12)" />
+        <div id="pin-1" class="pin" style="left:330px;top:720px"></div><div id="pin-2" class="pin" style="left:510px;top:610px"></div><div id="pin-3" class="pin" style="left:700px;top:770px"></div><div id="pin-4" class="pin" style="left:590px;top:900px"></div><div id="pin-5" class="pin" style="left:810px;top:660px"></div>
+        <div class="safe" style="display:flex;flex-direction:column;justify-content:flex-end"><div id="movement-title" class="headline" style="font-size:176px">A movement can start with <span class="lime">one backyard.</span></div><div class="route" style="margin-top:38px"><div id="route2" class="route-fill"></div><div id="dot2" class="route-dot"></div></div></div>
+      </section>
+      <section id="scene3" class="scene blueprint"><div class="frame"></div><div class="rail" data-layout-allow-overlap><span>Verified stage rail</span><span>03 / 04</span></div>
+        <div class="safe" style="display:flex;flex-direction:column;justify-content:center;gap:18px"><div id="stage-title" class="headline" style="font-size:150px;margin-bottom:24px">Move the file.<br /><span class="lime">Move the project.</span></div>
+          <div class="stage-card"><div class="num">01</div><div class="name">Pledged</div><div class="state"></div></div>
+          <div class="stage-card"><div class="num">02</div><div class="name">Reviewed</div><div class="state"></div></div>
+          <div class="stage-card"><div class="num">03</div><div class="name">Financed</div><div class="state"></div></div>
+          <div class="stage-card"><div class="num">04</div><div class="name">Building</div><div class="state"></div></div>
+          <div class="stage-card"><div class="num">05</div><div class="name">Home</div><div class="state"></div></div>
+        </div>
+      </section>
+      <section id="scene4" class="scene paper"><div class="frame"></div><div class="rail" data-layout-allow-overlap><span>Backyards for Canadians</span><span>04 / 04</span></div>
+        <div class="safe" style="display:grid;grid-template-rows:1fr auto;gap:40px"><div style="position:relative"><img id="final-map" src="assets/brand/toronto-map-secondary.webp" class="asset" /><div id="home-one" style="position:absolute;right:40px;bottom:80px;background:#08090a;color:#fffdf9;padding:26px 30px;box-shadow:14px 14px 0 #96ec18"><div class="mono lime" style="font-size:20px">Verified outcome</div><div class="headline" style="font-size:118px">Home +1</div></div></div><div><div id="final-title" class="headline" style="font-size:174px">Put yours <span class="lime-bg">on the map.</span></div><div class="mono" style="display:flex;justify-content:space-between;font-size:25px;margin-top:38px"><span>Backyards for Canadians</span><span>FairLend</span></div></div></div><div class="disclosure">AI-generated voice • OpenAI TTS</div>
+      </section>
+      <div id="wipe-a" class="wipe" style="background:#96ec18"></div><div id="wipe-b" class="wipe" style="background:#002949"></div>
+      <audio id="voice-movement" class="clip" data-start="0" data-duration="9.24" data-track-index="10" src="assets/audio/03-backyard-to-work.wav"></audio>
+      <div id="cg-0" class="caption"><span>A MOVEMENT CAN START WITH ONE BACKYARD.</span></div><div id="cg-1" class="caption"><span>PLEDGE IT. REVIEW IT. FINANCE IT. BUILD IT.</span></div><div id="cg-2" class="caption"><span>PUT ONE MORE TORONTO HOME ON THE MAP.</span></div>
+    </div>
+    <script>
+      window.__timelines=window.__timelines||{};var tl=gsap.timeline({paused:true});
+      tl.from("#sign",{y:540,rotation:-5,opacity:0,duration:.8,ease:"expo.out"},.18);tl.to("#route1",{width:"100%",duration:.8,ease:"power2.inOut"},1.05);tl.to("#dot1",{x:944,duration:.8,ease:"power2.inOut"},1.05);
+      tl.to("#scene1",{y:-1920,duration:.5,ease:"power3.inOut"},4.25);tl.fromTo("#scene2",{y:1920,opacity:1},{y:0,opacity:1,duration:.5,ease:"power3.inOut"},4.25);tl.set("#scene1",{visibility:"hidden"},4.76);
+      tl.from("#map",{scale:.75,opacity:0,duration:.85,ease:"sine.out"},4.38);[1,2,3,4,5].forEach(function(i){tl.to("#pin-"+i,{opacity:1,scale:1,duration:.2,ease:"back.out(1.7)"},4.75+i*.22)});tl.from("#movement-title",{x:-120,opacity:0,duration:.62,ease:"expo.out"},5.72);tl.to("#route2",{width:"100%",duration:.9,ease:"power2.inOut"},6.1);tl.to("#dot2",{x:944,duration:.9,ease:"power2.inOut"},6.1);
+      tl.set("#wipe-a",{x:-1080},9.0);tl.set("#wipe-b",{x:-1080},9.0);tl.to("#wipe-a",{x:0,duration:.26,ease:"power3.inOut"},9.0);tl.to("#wipe-b",{x:0,duration:.26,ease:"power3.inOut"},9.06);tl.set("#scene2",{opacity:0,visibility:"hidden"},9.22);tl.set("#scene3",{opacity:1,visibility:"visible"},9.22);tl.to("#wipe-a",{x:1080,duration:.26,ease:"power3.inOut"},9.3);tl.to("#wipe-b",{x:1080,duration:.26,ease:"power3.inOut"},9.36);
+      tl.from("#stage-title",{x:-90,opacity:0,duration:.55,ease:"expo.out"},9.34);tl.to(".stage-card",{opacity:1,x:0,duration:.32,stagger:.16,ease:"power3.out",startAt:{x:80}},9.72);tl.to(".stage-card .state",{backgroundColor:"#96ec18",borderColor:"#96ec18",duration:.18,stagger:.16,ease:"power2.out"},10.05);
+      tl.to("#scene3",{y:-1920,duration:.52,ease:"power3.inOut"},14.15);tl.fromTo("#scene4",{y:1920,opacity:1},{y:0,opacity:1,visibility:"visible",duration:.52,ease:"power3.inOut"},14.15);tl.set("#scene3",{visibility:"hidden"},14.68);tl.from("#final-map",{scale:.82,opacity:0,duration:.78,ease:"sine.out"},14.3);tl.from("#home-one",{scale:1.35,rotation:5,opacity:0,duration:.35,ease:"power4.out"},15.05);tl.from("#final-title",{y:80,opacity:0,duration:.55,ease:"expo.out"},15.52);
+      var groups=[{s:0,e:4.1},{s:4.35,e:6.45},{s:6.5,e:9.0}];groups.forEach(function(g,i){var el="#cg-"+i;tl.set(el,{visibility:"visible"},g.s);tl.fromTo(el,{opacity:0,y:18},{opacity:1,y:0,duration:.16,ease:"power3.out"},g.s);tl.to(el,{opacity:0,scale:.97,duration:.12,ease:"power2.in"},g.e-.12);tl.set(el,{opacity:0,visibility:"hidden"},g.e)});
+      tl.to("#scene4",{opacity:0,duration:.65,ease:"power2.in"},19.35);tl.set("#scene4",{visibility:"hidden"},20);window.__timelines["backyard-to-work"]=tl;
+    </script>
+  </body>
+</html>

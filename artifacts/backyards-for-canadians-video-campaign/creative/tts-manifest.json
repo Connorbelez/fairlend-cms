@@ -1,0 +1,45 @@
+[
+  {
+    "id": "01-neighbours-not-tourists",
+    "voice": "marin",
+    "speed": 1.04,
+    "instructions": "Neutral Canadian English. Direct, intelligent, and socially urgent. Begin with a dry pattern-interrupt, then warm slightly on 'front door for a neighbour'. Finish with grounded conviction, not an announcer voice.",
+    "input": "Toronto doesn’t need another weekend listing. It needs a front door for a neighbour. Your backyard could create one. FairLend. Build wealth. House a neighbour."
+  },
+  {
+    "id": "02-canada-needs-hosts",
+    "voice": "marin",
+    "speed": 1.08,
+    "instructions": "Neutral Canadian English. Fast, clever social hook with a crisp pause after 'hosts'. Play the word redefinition confidently, without sarcasm. Land the last line warmly.",
+    "input": "Canada needs hosts. Just not the Airbnb kind. Host a household. Grow a neighbourhood."
+  },
+  {
+    "id": "03-backyard-to-work",
+    "voice": "marin",
+    "speed": 1.02,
+    "instructions": "Neutral Canadian English. Movement-building energy with clear rhythmic verbs. Sound optimistic, civic, and practical. Avoid political rally cadence.",
+    "input": "A movement can start with one backyard. Pledge it. Review it. Finance it. Build it. Then put one more Toronto home on the map. Backyards for Canadians."
+  },
+  {
+    "id": "04-build-wealth-build-housing",
+    "voice": "marin",
+    "speed": 0.96,
+    "instructions": "Neutral Canadian English. Calm financial credibility, precise diction, no hype. Give equal weight to income and housing. Slow slightly through the coordinated process and make the final call to action reassuring.",
+    "input": "A garden suite can do two jobs at once: create long-term rental income and create a legal Toronto home. FairLend coordinates the property review, project plan, financing, construction draws, and takeout. Every property is different. Start with a qualified review."
+  },
+  {
+    "id": "05-one-more-home",
+    "voice": "marin",
+    "speed": 0.98,
+    "instructions": "Neutral Canadian English. Measured, visual storytelling. Treat each short process phrase as a deliberate step. Finish with tangible optimism, never sentimentality.",
+    "input": "Every new home begins as unused space. Then a plan. A permit. A build. A front door. One backyard becomes one more Toronto home. See what yours could become."
+  },
+  {
+    "id": "06-stakeholder-campaign",
+    "voice": "marin",
+    "speed": 1.02,
+    "instructions": "Neutral Canadian English. Senior strategy presentation: assured, concise, and commercially sharp. Vary pace between provocation, operating model, and recommendation. Avoid trailer voice and avoid overselling. Emphasize qualified origination, verified stages, and the final recommendation.",
+    "input": "Toronto has a housing problem hiding in plain sight: thousands of backyards with the potential to become legal, long-term homes. FairLend can turn that latent space into a movement—and a qualified origination engine. The platform is Backyards for Canadians. Its public provocation, Homes for neighbours, not tourists, earns attention in one second. The viral hook, Canada needs hosts—just not the Airbnb kind, reframes the homeowner as a city-builder. Then the campaign converts attention into action. Build wealth. Build housing. explains the owner economics without promising returns. One backyard. One more Toronto home. proves progress, block by block. Every channel has a job: film creates debate; paid social qualifies; search captures intent; calculators and property reviews create utility; signs, maps, and project milestones make participation visible. The funnel is simple: attention, identification, property review, financing, construction, advocacy. Success is not views. It is qualified reviews and real projects advancing through verified stages. FairLend coordinates property review, design, permits, builders, financing, draws, and takeout—so homeowners do not need to become developers. This is not charity. It is a credible way to do well and do good: dependable long-term income, less turnover, and one more home for Toronto. Launch with three films, six social units, founding homeowners, partner kits, and visible proof. Build wealth. House a neighbour. Put Toronto’s backyards to work."
+  }
+]
+

@@ -15,7 +15,6 @@ import {
   GoogleTagManagerHead,
 } from '@/components/Analytics'
 import { FairlendConsultationBookingModalInterceptor } from '@/components/FairlendConsultationBooking/FairlendConsultationBookingModalInterceptor.client'
-import { FAIRLEND_LOGO_SRC } from '@/components/Logo/Logo'
 import { JsonLd } from '@/components/SEO/JsonLd'
 import { Toaster } from '@/components/ui/sonner'
 import { Footer } from '@/Footer/Component'
@@ -23,7 +22,7 @@ import { FairlendDeferredFooter } from '@/Footer/FairlendDeferredFooter.client'
 import { Providers } from '@/providers'
 import { defaultTheme } from '@/providers/Theme/shared'
 import { cn } from '@/utilities/ui'
-import { fairlendSeo, getCanonicalOrigin } from '@/utilities/seo'
+import { fairlendIcons, fairlendSeo, getCanonicalOrigin } from '@/utilities/seo'
 import {
   fairlendOrganizationJsonLd,
   fairlendPrincipalBrokerJsonLd,
@@ -104,7 +103,6 @@ export function FairlendFrontendRootLayout({
       suppressHydrationWarning
     >
       <head>
-        <link href={FAIRLEND_LOGO_SRC} rel="icon" type="image/svg+xml" />
         <link
           href={`${getCanonicalOrigin()}/llms.txt`}
           rel="alternate"
@@ -145,6 +143,7 @@ export function FairlendFrontendRootLayout({
 
 export const fairlendFrontendMetadata: Metadata = {
   description: fairlendSeo.defaultDescription,
+  icons: fairlendIcons,
   metadataBase: new URL(getCanonicalOrigin()),
   openGraph: {
     locale: fairlendSeo.locale,
