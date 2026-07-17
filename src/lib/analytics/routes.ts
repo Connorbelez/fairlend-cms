@@ -7,6 +7,7 @@ export type FairlendPageType =
   | 'construction_product'
   | 'investing'
   | 'partner'
+  | 'booking'
   | 'intake'
   | 'contact'
   | 'resource'
@@ -20,6 +21,10 @@ export function classifyFairlendRoute(input: string): {
 } {
   const page_path = sanitizeAnalyticsPath(input)
   if (page_path === '/') return { content_group: 'marketing', page_path, page_type: 'home' }
+  const bookingRoute = page_path.match(/^\/booking\/(partners|lenders|borrowers|builders)$/)
+  if (bookingRoute) {
+    return { content_group: bookingRoute[1], page_path, page_type: 'booking' }
+  }
   if (page_path === '/borrowers') {
     return { content_group: 'borrowers', page_path, page_type: 'borrower_hub' }
   }

@@ -18,6 +18,8 @@ import { trackFairlendEvent } from '@/lib/analytics/events'
 import { getFairlendMicrosoftBookingsUrl } from '@/lib/fairlend-bookings'
 import { cn } from '@/utilities/ui'
 
+import { MicrosoftBookingsEmbed } from './MicrosoftBookingsEmbed.client'
+
 const bookingHighlights = [
   {
     copy: 'Bookings writes confirmed appointments to the FairLend Outlook calendar.',
@@ -147,13 +149,11 @@ export function FairlendConsultationBookingDialog({
             </div>
 
             <div className="min-h-[680px] bg-white">
-              <iframe
-                allow="clipboard-write"
-                className="h-[78svh] min-h-[680px] w-full border-0 bg-white"
+              <MicrosoftBookingsEmbed
+                className="h-[78svh] min-h-[680px] w-full"
                 loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                src={bookingsUrl}
                 title="FairLend Microsoft Bookings consultation scheduler"
+                url={bookingsUrl}
               />
             </div>
           </div>
