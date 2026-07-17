@@ -1,0 +1,13 @@
+gate,requirement,status,evidence
+1,Live OpenSEO/DataForSEO keyword evidence retrieved and cost-logged,pass,research-package.json spendEvents; run-manifest.json
+2,Each of four workstreams has at least one defensible cluster,pass,keyword-clusters.csv; research-slices/*.md
+3,"Persona, trigger, lifecycle, geography, and funnel classifications complete",pass,keyword-universe.csv; research-package.json
+4,"Lead Capture and Authority Build scores separate, null-aware, and auditable",pass,keyword-universe.csv; score-rationale.csv; executive-strategy.md
+5,Live SERP sample changes or validates a page boundary,pass,serp-evidence.csv; public SERP fallback validates four boundaries while paid failures remain logged
+6,"Commercial, search, and authority competitors distinguished",pass,competitor-landscape.csv
+7,AI questions separate from volume-bearing keywords and AI surfaces truthfully covered,pass,ai-question-opportunities.csv; ai-discovery-coverage.csv; volumeClaimed=false
+8,Every existing URL has a disposition and greenfield opportunities are mapped without content,pass,existing-url-dispositions.csv; greenfield-page-map.md; page-opportunities.csv; content-briefs/
+9,Required evidence and compliance gates explicit,pass,evidence-acquisition-register.csv; claims-and-compliance-register.csv
+10,DrawFlow 50% claim remains provisional,pass,claim-drawflow-fifty-percent; case-study-evidence-template.md
+11,"No prohibited site, CMS, source, platform, or account mutation",pass,mutation-audit.md; manifest.mutations=[]; only authorized provider spend and research outputs
+12,Full production research scope and cost estimated,pass,full-scale-research-estimate.md
