@@ -1,0 +1,716 @@
+{
+  "generatedAt": "2026-07-17T06:46:01.345Z",
+  "market": {
+    "country": "Canada",
+    "language": "en",
+    "serpLocation": "Toronto, Ontario, Canada"
+  },
+  "project": {
+    "id": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+    "domain": "fairlend.ca"
+  },
+  "scope": "Research/proposal only; no content production or external mutation.",
+  "discovery": {
+    "seeds": 6,
+    "rawRows": 756,
+    "relevantDeduplicatedDiscoveryRows": 45,
+    "exactKeywordsRequested": 102,
+    "exactRowsReturned": 29,
+    "normalizedUniverse": 130,
+    "runs": [
+      {
+        "seed": "multiplex development feasibility Toronto",
+        "rowCount": 150,
+        "source": "ideas",
+        "usedFallback": true,
+        "file": "01-multiplex-feasibility.json"
+      },
+      {
+        "seed": "MLI Select requirements",
+        "rowCount": 150,
+        "source": "ideas",
+        "usedFallback": true,
+        "file": "02-mli-requirements.json"
+      },
+      {
+        "seed": "garden suite cost Toronto",
+        "rowCount": 150,
+        "source": "ideas",
+        "usedFallback": true,
+        "file": "03-garden-suite-cost.json"
+      },
+      {
+        "seed": "garden suite permit Toronto",
+        "rowCount": 150,
+        "source": "ideas",
+        "usedFallback": true,
+        "file": "04-garden-suite-permits.json"
+      },
+      {
+        "seed": "construction financing requirements Ontario",
+        "rowCount": 150,
+        "source": "ideas",
+        "usedFallback": true,
+        "file": "05-construction-financing-requirements.json"
+      },
+      {
+        "seed": "construction loan draw schedule",
+        "rowCount": 6,
+        "source": "suggestions",
+        "usedFallback": true,
+        "file": "06-construction-draw-schedule.json"
+      }
+    ]
+  },
+  "serp": {
+    "successfulQueries": 3,
+    "persistedItems": 60,
+    "itemTypeCounts": [
+      {
+        "type": "organic",
+        "count": 45
+      },
+      {
+        "type": "ai_overview",
+        "count": 3
+      },
+      {
+        "type": "people_also_ask",
+        "count": 3
+      },
+      {
+        "type": "related_searches",
+        "count": 3
+      },
+      {
+        "type": "video",
+        "count": 2
+      },
+      {
+        "type": "discussions_and_forums",
+        "count": 1
+      },
+      {
+        "type": "knowledge_graph",
+        "count": 1
+      },
+      {
+        "type": "google_reviews",
+        "count": 1
+      },
+      {
+        "type": "images",
+        "count": 1
+      }
+    ],
+    "organicDomains": [
+      {
+        "domain": "assets.cmhc-schl.gc.ca",
+        "count": 2
+      },
+      {
+        "domain": "buildersontario.com",
+        "count": 2
+      },
+      {
+        "domain": "www.cmhc-schl.gc.ca",
+        "count": 2
+      },
+      {
+        "domain": "www.reddit.com",
+        "count": 2
+      },
+      {
+        "domain": "bridge.broker",
+        "count": 1
+      },
+      {
+        "domain": "buildingadvisor.com",
+        "count": 1
+      },
+      {
+        "domain": "buildingexpert.ca",
+        "count": 1
+      },
+      {
+        "domain": "dhcd.maryland.gov",
+        "count": 1
+      },
+      {
+        "domain": "gardensuitehome.ca",
+        "count": 1
+      },
+      {
+        "domain": "gardensuitestoronto.com",
+        "count": 1
+      },
+      {
+        "domain": "hillmount.ca",
+        "count": 1
+      },
+      {
+        "domain": "konstruction.ca",
+        "count": 1
+      },
+      {
+        "domain": "landsignal.ai",
+        "count": 1
+      },
+      {
+        "domain": "legault-dubois.ca",
+        "count": 1
+      },
+      {
+        "domain": "lendcity.ca",
+        "count": 1
+      },
+      {
+        "domain": "maserat.ca",
+        "count": 1
+      },
+      {
+        "domain": "mbc.homes",
+        "count": 1
+      },
+      {
+        "domain": "mutualsavings.com",
+        "count": 1
+      },
+      {
+        "domain": "newhomesalberta.ca",
+        "count": 1
+      },
+      {
+        "domain": "propertymetrics.com",
+        "count": 1
+      },
+      {
+        "domain": "renotec.ca",
+        "count": 1
+      },
+      {
+        "domain": "sb-llp.com",
+        "count": 1
+      },
+      {
+        "domain": "storeys.com",
+        "count": 1
+      },
+      {
+        "domain": "vigohouse.ca",
+        "count": 1
+      },
+      {
+        "domain": "wowa.ca",
+        "count": 1
+      },
+      {
+        "domain": "www.adventuresincre.com",
+        "count": 1
+      },
+      {
+        "domain": "www.aspirepeakproperties.com",
+        "count": 1
+      },
+      {
+        "domain": "www.bvmcontracting.com",
+        "count": 1
+      },
+      {
+        "domain": "www.canadaici.com",
+        "count": 1
+      },
+      {
+        "domain": "www.clockshark.com",
+        "count": 1
+      },
+      {
+        "domain": "www.cmls.ca",
+        "count": 1
+      },
+      {
+        "domain": "www.exitrealtymatrix.com",
+        "count": 1
+      },
+      {
+        "domain": "www.facebook.com",
+        "count": 1
+      },
+      {
+        "domain": "www.gta-homes.com",
+        "count": 1
+      },
+      {
+        "domain": "www.loghome.com",
+        "count": 1
+      },
+      {
+        "domain": "www.mcap.com",
+        "count": 1
+      },
+      {
+        "domain": "www.pinterest.com",
+        "count": 1
+      },
+      {
+        "domain": "www.procore.com",
+        "count": 1
+      },
+      {
+        "domain": "www.rbcroyalbank.com",
+        "count": 1
+      },
+      {
+        "domain": "www.richviewcapital.com",
+        "count": 1
+      },
+      {
+        "domain": "www.youtube.com",
+        "count": 1
+      }
+    ],
+    "bulkCallOutputLost": true
+  },
+  "budget": {
+    "startingProviderBalance": 0.56756,
+    "hardCeiling": 0.44756,
+    "actualSpend": 0.44716,
+    "unusedHardCeiling": 0.0004,
+    "endingProviderBalance": 0.12039999999999995,
+    "protectedReserve": 0.12
+  },
+  "clusters": [
+    {
+      "id": "mli-select-requirements",
+      "name": "MLI Select requirements, scoring, and takeout readiness",
+      "priority": "P1",
+      "keywordCount": 20,
+      "numericMetricCount": 3,
+      "volumeUnavailableCount": 17,
+      "highestObservedVolume": 30,
+      "highestObservedKeyword": "cmhc mli select requirements",
+      "liveSerpStatus": "validated-on-one-representative-query",
+      "proposedPageType": "Primary-source-backed program guide + eligibility checklist + scenario calculator",
+      "funnelCoverage": [
+        "awareness-research",
+        "feasibility-consideration",
+        "buying-signal"
+      ],
+      "boundaryDecision": "Confirm the final page boundary with a live SERP before content production."
+    },
+    {
+      "id": "garden-suite-cost-feasibility",
+      "name": "Garden-suite cost, feasibility, permits, rent, and ROI",
+      "priority": "P1",
+      "keywordCount": 25,
+      "numericMetricCount": 8,
+      "volumeUnavailableCount": 17,
+      "highestObservedVolume": 590,
+      "highestObservedKeyword": "garden suites toronto",
+      "liveSerpStatus": "validated-on-one-representative-query",
+      "proposedPageType": "Local feasibility guide + cost model + permit/source navigator",
+      "funnelCoverage": [
+        "feasibility-consideration",
+        "awareness-research",
+        "buying-signal"
+      ],
+      "boundaryDecision": "One Toronto cost/feasibility hub can support permits, ROI, rent, financing, and municipality-specific child resources without cloning city pages."
+    },
+    {
+      "id": "draw-schedule-cash-flow",
+      "name": "Construction draw schedules, cash-flow gaps, and DrawFlow",
+      "priority": "P1",
+      "keywordCount": 12,
+      "numericMetricCount": 6,
+      "volumeUnavailableCount": 6,
+      "highestObservedVolume": 10,
+      "highestObservedKeyword": "construction loan draw schedule",
+      "liveSerpStatus": "validated-on-one-representative-query",
+      "proposedPageType": "Explainer + worked schedule + downloadable template + comparison + video",
+      "funnelCoverage": [
+        "awareness-research",
+        "feasibility-consideration"
+      ],
+      "boundaryDecision": "Explain conventional draw mechanics first; introduce DrawFlow only at the cash-flow comparison and qualification stage."
+    },
+    {
+      "id": "municipal-permits-zoning",
+      "name": "Toronto/GTA permits, zoning, and development-application navigation",
+      "priority": "P1",
+      "keywordCount": 7,
+      "numericMetricCount": 4,
+      "volumeUnavailableCount": 3,
+      "highestObservedVolume": 2400,
+      "highestObservedKeyword": "toronto building permit",
+      "liveSerpStatus": "not-yet-validated",
+      "proposedPageType": "Municipal source navigator + step-by-step readiness checklist",
+      "funnelCoverage": [
+        "awareness-research"
+      ],
+      "boundaryDecision": "Confirm the final page boundary with a live SERP before content production."
+    },
+    {
+      "id": "multiplex-feasibility",
+      "name": "Multiplex feasibility, conversion, and 5+ unit boundary",
+      "priority": "P2",
+      "keywordCount": 13,
+      "numericMetricCount": 0,
+      "volumeUnavailableCount": 13,
+      "highestObservedVolume": null,
+      "highestObservedKeyword": null,
+      "liveSerpStatus": "not-yet-validated",
+      "proposedPageType": "Feasibility guide + property-screening checklist + 2–4 versus 5+ decision tree",
+      "funnelCoverage": [
+        "awareness-research"
+      ],
+      "boundaryDecision": "Keep 2–4-unit municipal multiplex education separate from the 5+ unit MLI/takeout path; cross-link with a decision tree."
+    },
+    {
+      "id": "modular-prefab-financing",
+      "name": "Modular/prefabricated construction financing",
+      "priority": "P2",
+      "keywordCount": 3,
+      "numericMetricCount": 1,
+      "volumeUnavailableCount": 2,
+      "highestObservedVolume": 10,
+      "highestObservedKeyword": "modular construction financing",
+      "liveSerpStatus": "not-yet-validated",
+      "proposedPageType": "Financing-readiness guide for off-site deposits and takeout compatibility",
+      "funnelCoverage": [
+        "feasibility-consideration"
+      ],
+      "boundaryDecision": "Confirm the final page boundary with a live SERP before content production."
+    },
+    {
+      "id": "rental-conversion-takeout",
+      "name": "Rental conversion, stabilization, and construction-to-takeout planning",
+      "priority": "P2",
+      "keywordCount": 3,
+      "numericMetricCount": 0,
+      "volumeUnavailableCount": 3,
+      "highestObservedVolume": null,
+      "highestObservedKeyword": null,
+      "liveSerpStatus": "not-yet-validated",
+      "proposedPageType": "End-to-end conversion and takeout roadmap",
+      "funnelCoverage": [
+        "feasibility-consideration"
+      ],
+      "boundaryDecision": "Confirm the final page boundary with a live SERP before content production."
+    },
+    {
+      "id": "builder-capital-readiness",
+      "name": "Builder working capital and project-readiness",
+      "priority": "P2",
+      "keywordCount": 11,
+      "numericMetricCount": 2,
+      "volumeUnavailableCount": 9,
+      "highestObservedVolume": 10,
+      "highestObservedKeyword": "builder financing construction",
+      "liveSerpStatus": "not-yet-validated",
+      "proposedPageType": "Builder-readiness guide + document checklist + qualification pathway",
+      "funnelCoverage": [
+        "feasibility-consideration",
+        "buying-signal"
+      ],
+      "boundaryDecision": "Confirm the final page boundary with a live SERP before content production."
+    },
+    {
+      "id": "construction-financing-readiness",
+      "name": "Construction-financing requirements and process",
+      "priority": "P2",
+      "keywordCount": 36,
+      "numericMetricCount": 20,
+      "volumeUnavailableCount": 16,
+      "highestObservedVolume": 140,
+      "highestObservedKeyword": "construction loans canada",
+      "liveSerpStatus": "not-yet-validated",
+      "proposedPageType": "Requirements guide + budget/document checklist + financing process map",
+      "funnelCoverage": [
+        "feasibility-consideration",
+        "awareness-research",
+        "buying-signal"
+      ],
+      "boundaryDecision": "Confirm the final page boundary with a live SERP before content production."
+    }
+  ],
+  "topOpportunities": [
+    {
+      "keyword": "toronto building permit",
+      "clusterId": "municipal-permits-zoning",
+      "funnelStage": "awareness-research",
+      "searchVolume": 2400,
+      "keywordDifficulty": 2,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 100
+    },
+    {
+      "keyword": "toronto zoning",
+      "clusterId": "municipal-permits-zoning",
+      "funnelStage": "awareness-research",
+      "searchVolume": 1600,
+      "keywordDifficulty": 0,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 100
+    },
+    {
+      "keyword": "toronto zoning bylaw",
+      "clusterId": "municipal-permits-zoning",
+      "funnelStage": "awareness-research",
+      "searchVolume": 1600,
+      "keywordDifficulty": 0,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 100
+    },
+    {
+      "keyword": "development applications toronto",
+      "clusterId": "municipal-permits-zoning",
+      "funnelStage": "awareness-research",
+      "searchVolume": 1900,
+      "keywordDifficulty": 0,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 99
+    },
+    {
+      "keyword": "garden suites toronto",
+      "clusterId": "garden-suite-cost-feasibility",
+      "funnelStage": "feasibility-consideration",
+      "searchVolume": 590,
+      "keywordDifficulty": 5,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 97
+    },
+    {
+      "keyword": "toronto garden suites",
+      "clusterId": "garden-suite-cost-feasibility",
+      "funnelStage": "feasibility-consideration",
+      "searchVolume": 210,
+      "keywordDifficulty": 5,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 94
+    },
+    {
+      "keyword": "construction loans canada",
+      "clusterId": "construction-financing-readiness",
+      "funnelStage": "feasibility-consideration",
+      "searchVolume": 140,
+      "keywordDifficulty": 0,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 91
+    },
+    {
+      "keyword": "construction loans in canada",
+      "clusterId": "construction-financing-readiness",
+      "funnelStage": "feasibility-consideration",
+      "searchVolume": 140,
+      "keywordDifficulty": 0,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 91
+    },
+    {
+      "keyword": "garden suite mississauga",
+      "clusterId": "garden-suite-cost-feasibility",
+      "funnelStage": "feasibility-consideration",
+      "searchVolume": 90,
+      "keywordDifficulty": 0,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 90
+    },
+    {
+      "keyword": "garden suites ontario",
+      "clusterId": "garden-suite-cost-feasibility",
+      "funnelStage": "feasibility-consideration",
+      "searchVolume": 50,
+      "keywordDifficulty": 0,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 90
+    },
+    {
+      "keyword": "construction loan toronto",
+      "clusterId": "construction-financing-readiness",
+      "funnelStage": "feasibility-consideration",
+      "searchVolume": 90,
+      "keywordDifficulty": 0,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 87
+    },
+    {
+      "keyword": "construction loans toronto",
+      "clusterId": "construction-financing-readiness",
+      "funnelStage": "feasibility-consideration",
+      "searchVolume": 90,
+      "keywordDifficulty": 0,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 87
+    },
+    {
+      "keyword": "canadian construction loans",
+      "clusterId": "construction-financing-readiness",
+      "funnelStage": "feasibility-consideration",
+      "searchVolume": 140,
+      "keywordDifficulty": 2,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 83
+    },
+    {
+      "keyword": "commercial construction loan",
+      "clusterId": "construction-financing-readiness",
+      "funnelStage": "feasibility-consideration",
+      "searchVolume": 110,
+      "keywordDifficulty": 0,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 83
+    },
+    {
+      "keyword": "construction financing canada",
+      "clusterId": "construction-financing-readiness",
+      "funnelStage": "feasibility-consideration",
+      "searchVolume": 140,
+      "keywordDifficulty": 17,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 80
+    },
+    {
+      "keyword": "new construction financing",
+      "clusterId": "construction-financing-readiness",
+      "funnelStage": "feasibility-consideration",
+      "searchVolume": 50,
+      "keywordDifficulty": 8,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 74
+    },
+    {
+      "keyword": "garden suite cost toronto",
+      "clusterId": "garden-suite-cost-feasibility",
+      "funnelStage": "awareness-research",
+      "searchVolume": 20,
+      "keywordDifficulty": null,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 73
+    },
+    {
+      "keyword": "toronto garden suite bylaw",
+      "clusterId": "garden-suite-cost-feasibility",
+      "funnelStage": "awareness-research",
+      "searchVolume": 20,
+      "keywordDifficulty": null,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 73
+    },
+    {
+      "keyword": "cost of garden suite toronto",
+      "clusterId": "garden-suite-cost-feasibility",
+      "funnelStage": "awareness-research",
+      "searchVolume": 10,
+      "keywordDifficulty": null,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 69
+    },
+    {
+      "keyword": "can i build a garden suite in toronto",
+      "clusterId": "garden-suite-cost-feasibility",
+      "funnelStage": "awareness-research",
+      "searchVolume": null,
+      "keywordDifficulty": null,
+      "metricsStatus": "exact-request-returned-no-row",
+      "opportunityScore": 66
+    },
+    {
+      "keyword": "garden suite calculator toronto",
+      "clusterId": "garden-suite-cost-feasibility",
+      "funnelStage": "awareness-research",
+      "searchVolume": null,
+      "keywordDifficulty": null,
+      "metricsStatus": "exact-request-returned-no-row",
+      "opportunityScore": 66
+    },
+    {
+      "keyword": "garden suite permit requirements toronto",
+      "clusterId": "garden-suite-cost-feasibility",
+      "funnelStage": "awareness-research",
+      "searchVolume": null,
+      "keywordDifficulty": null,
+      "metricsStatus": "exact-request-returned-no-row",
+      "opportunityScore": 66
+    },
+    {
+      "keyword": "garden suite permit toronto",
+      "clusterId": "garden-suite-cost-feasibility",
+      "funnelStage": "awareness-research",
+      "searchVolume": null,
+      "keywordDifficulty": null,
+      "metricsStatus": "exact-request-returned-no-row",
+      "opportunityScore": 66
+    },
+    {
+      "keyword": "garden suite zoning toronto",
+      "clusterId": "garden-suite-cost-feasibility",
+      "funnelStage": "awareness-research",
+      "searchVolume": null,
+      "keywordDifficulty": null,
+      "metricsStatus": "exact-request-returned-no-row",
+      "opportunityScore": 66
+    },
+    {
+      "keyword": "how much does a garden suite cost in toronto",
+      "clusterId": "garden-suite-cost-feasibility",
+      "funnelStage": "awareness-research",
+      "searchVolume": null,
+      "keywordDifficulty": null,
+      "metricsStatus": "exact-request-returned-no-row",
+      "opportunityScore": 66
+    },
+    {
+      "keyword": "multiplex building permit toronto",
+      "clusterId": "municipal-permits-zoning",
+      "funnelStage": "awareness-research",
+      "searchVolume": null,
+      "keywordDifficulty": null,
+      "metricsStatus": "exact-request-returned-no-row",
+      "opportunityScore": 66
+    },
+    {
+      "keyword": "multiplex zoning toronto",
+      "clusterId": "municipal-permits-zoning",
+      "funnelStage": "awareness-research",
+      "searchVolume": null,
+      "keywordDifficulty": null,
+      "metricsStatus": "exact-request-returned-no-row",
+      "opportunityScore": 66
+    },
+    {
+      "keyword": "toronto garden suite permit cost",
+      "clusterId": "garden-suite-cost-feasibility",
+      "funnelStage": "awareness-research",
+      "searchVolume": null,
+      "keywordDifficulty": null,
+      "metricsStatus": "exact-request-returned-no-row",
+      "opportunityScore": 66
+    },
+    {
+      "keyword": "toronto multiplex zoning",
+      "clusterId": "municipal-permits-zoning",
+      "funnelStage": "awareness-research",
+      "searchVolume": null,
+      "keywordDifficulty": null,
+      "metricsStatus": "exact-row-returned-volume-unavailable",
+      "opportunityScore": 66
+    },
+    {
+      "keyword": "cmhc mli select requirements",
+      "clusterId": "mli-select-requirements",
+      "funnelStage": "awareness-research",
+      "searchVolume": 30,
+      "keywordDifficulty": null,
+      "metricsStatus": "numeric-discovery-metric",
+      "opportunityScore": 65
+    }
+  ],
+  "caveats": [
+    "Discovery metrics are Canada-level; local relevance comes from exact local wording and Toronto SERP validation.",
+    "Discovery calls used the keyword-ideas fallback and contain severe noise; only explicitly relevant rows were retained.",
+    "Exact keyword metrics returned 29 of 102 requested rows and returned null search volume for all 29; absence or null is unavailable, not zero.",
+    "Close variants are not additive. Observed search volume is directional and must not be summed into a traffic forecast.",
+    "One paid four-query SERP call completed at the provider but its response was lost after caller exit 137; no unseen result is used.",
+    "Opportunity scores are a prioritization heuristic, not a ranking, traffic, lead, or revenue forecast."
+  ]
+}

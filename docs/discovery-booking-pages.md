@@ -11,6 +11,8 @@ FairLend’s post-outreach discovery flow uses one statically rendered page shel
 
 Each service is a public 30-minute online discovery call hosted by Elie Soberano. The customer cannot choose a staff member. Microsoft Bookings controls live availability, timezone selection, confirmation, rescheduling, and cancellation.
 
+The four services were reconciled against the live Microsoft Bookings admin with Computer Use on July 17, 2026. Each service is present exactly once, displays the matching persona-specific description, is configured as a 30-minute online meeting, is assigned to Elie Soberano, and exposes the same published service URL used by its application route. No duplicate service or settings rewrite was required.
+
 ## Application architecture
 
 - `src/app/(frontend)/booking/[bookingtype]/page.tsx` statically generates the four allowed routes and rejects unsupported slugs.

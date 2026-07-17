@@ -1,0 +1,89 @@
+{
+  "runId": "fairlend-openseo-expansion-2026-07-17",
+  "researchDate": "2026-07-17",
+  "scope": "Secondary and higher-funnel keyword, SERP, content-asset, source, and distribution research for a minimal-authority GTA financial-services domain.",
+  "authorization": {
+    "researchOnly": true,
+    "contentProduction": false,
+    "cmsMutation": false,
+    "siteMutation": false,
+    "externalPlatformMutation": false,
+    "savedKeywordMutation": false
+  },
+  "provider": {
+    "system": "OpenSEO",
+    "version": "0.0.28",
+    "commit": "8460df1f2947661f07c0d751e855703dd268023f",
+    "provider": "DataForSEO v3",
+    "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+    "domain": "fairlend.ca",
+    "keywordLocationCode": 2124,
+    "serpLocationCode": 1002451,
+    "languageCode": "en"
+  },
+  "budget": {
+    "currency": "USD",
+    "startingBalance": 0.56756,
+    "hardCeiling": 0.44756,
+    "actualSpend": 0.44716,
+    "unusedCeiling": 0.0004,
+    "protectedReserve": 0.12,
+    "endingBalance": 0.1204
+  },
+  "evidenceCounts": {
+    "discoverySeeds": 6,
+    "rawDiscoveryRows": 756,
+    "retainedDiscoveryRows": 45,
+    "exactKeywordsRequested": 102,
+    "exactRowsReturned": 29,
+    "normalizedKeywords": 130,
+    "clusters": 9,
+    "successfulPersistedSerps": 3,
+    "persistedSerpItems": 60,
+    "questions": 40,
+    "assetProposals": 16,
+    "requirementsBriefs": 7
+  },
+  "failures": [
+    {
+      "type": "provider-account-snapshot-malformed",
+      "resolution": "Call cost reconciled from a later finite balance snapshot; source row retained."
+    },
+    {
+      "type": "bulk-serp-caller-exit-137",
+      "costUsd": 0.052,
+      "resolution": "Marked completed-output-lost; no unseen result used; subsequent SERPs split into single-query calls."
+    },
+    {
+      "type": "exact-metrics-incomplete-null-volume",
+      "resolution": "29 of 102 exact rows returned and all had null volume; missing/null explicitly classified as unavailable."
+    }
+  ],
+  "artifacts": [
+    {"path": "README.md", "role": "operator index"},
+    {"path": "executive-findings.md", "role": "decision brief"},
+    {"path": "keyword-universe.csv", "role": "normalized keyword evidence"},
+    {"path": "cluster-opportunities.csv", "role": "cluster and page-boundary decisions"},
+    {"path": "content-asset-map.csv", "role": "proposal-only content/tool portfolio"},
+    {"path": "question-bank.csv", "role": "answer-target backlog"},
+    {"path": "serp-evidence.csv", "role": "persisted live Toronto SERP elements"},
+    {"path": "distribution-plan.csv", "role": "video, community, partner, and AI distribution requirements"},
+    {"path": "primary-source-pack.md", "role": "official source and freshness gates"},
+    {"path": "methodology-and-limitations.md", "role": "reproduction and caveats"},
+    {"path": "spend-ledger.csv", "role": "provider spend audit"},
+    {"path": "research-summary.json", "role": "machine-readable summary"},
+    {"path": "mutation-audit.md", "role": "scope and non-actions"},
+    {"path": "content-briefs/garden-suite-cost-feasibility.md", "role": "requirements brief"},
+    {"path": "content-briefs/mli-select-requirements.md", "role": "requirements brief"},
+    {"path": "content-briefs/construction-draw-toolkit.md", "role": "requirements brief"},
+    {"path": "content-briefs/toronto-permit-zoning-navigator.md", "role": "requirements brief"},
+    {"path": "content-briefs/construction-financing-readiness.md", "role": "requirements brief"},
+    {"path": "content-briefs/multiplex-feasibility.md", "role": "requirements brief"},
+    {"path": "content-briefs/video-and-community-system.md", "role": "requirements brief"}
+  ],
+  "reproduction": {
+    "governedRunRoot": "/Users/connor/Dev/llm_wiki/.scratch/fairlend-openseo-expansion-2026-07-17/workspace/run",
+    "normalizer": "/Users/connor/Dev/llm_wiki/.scratch/fairlend-openseo-expansion-2026-07-17/workspace/normalize-expansion.mjs",
+    "priorPackage": "/Users/connor/Dev/fairlend-cms/output/seo-research/fairlend-openseo-trial-2026-07-16"
+  }
+}
