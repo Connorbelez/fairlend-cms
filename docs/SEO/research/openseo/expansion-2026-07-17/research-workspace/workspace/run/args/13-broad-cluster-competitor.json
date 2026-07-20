@@ -1,0 +1,18 @@
+{
+  "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+  "keywords": [
+    "garden suites toronto",
+    "mli select",
+    "construction loans canada",
+    "toronto building permit",
+    "development applications toronto",
+    "toronto zoning",
+    "construction financing canada"
+  ],
+  "resultTypes": ["organic", "featured_snippet", "local_pack"],
+  "excludeDomains": ["fairlend.ca"],
+  "includeSubdomains": true,
+  "sortBy": "visibility",
+  "limit": 1,
+  "offset": 0
+}

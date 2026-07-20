@@ -2,7 +2,10 @@ import { getPayload } from 'payload'
 import config from '../../src/payload.config.js'
 
 export const testUser = {
+  bio: 'Maintains FairLend test content and administrative workflows.',
   email: 'dev@payloadcms.com',
+  name: 'FairLend Test Author',
+  officialTitle: 'Test Content Administrator',
   password: 'test',
 }
 

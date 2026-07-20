@@ -14,6 +14,7 @@ import * as migration_20260714_130000_twenty_intake_model from './20260714_13000
 import * as migration_20260714_140000_search_readiness from './20260714_140000_search_readiness'
 import * as migration_20260714_150000_campaign_journey_analytics from './20260714_150000_campaign_journey_analytics'
 import * as migration_20260714_160000_posthog_analytics_consent from './20260714_160000_posthog_analytics_consent'
+import * as migration_20260720_120000_blog_author_attribution from './20260720_120000_blog_author_attribution'
 
 export const migrations = [
   {
@@ -95,5 +96,10 @@ export const migrations = [
     up: migration_20260714_160000_posthog_analytics_consent.up,
     down: migration_20260714_160000_posthog_analytics_consent.down,
     name: '20260714_160000_posthog_analytics_consent',
+  },
+  {
+    up: migration_20260720_120000_blog_author_attribution.up,
+    down: migration_20260720_120000_blog_author_attribution.down,
+    name: '20260720_120000_blog_author_attribution',
   },
 ]

@@ -1,0 +1,71 @@
+{
+  "snapshotId": "public-serp-snapshot-2026-07-16",
+  "capturedAt": "2026-07-16T23:40:00-04:00",
+  "method": "Live public web-search sampling after the paid OpenSEO SERP endpoint returned four charged provider failures. Result order is intentionally not represented as a stable rank.",
+  "queries": [
+    {
+      "keyword": "multiplex construction financing Toronto",
+      "queryTarget": "Toronto, Ontario, Canada",
+      "searcherLocation": null,
+      "device": null,
+      "resultUrls": [
+        "https://www.vanplex.ca/toronto-multiplex/financing/",
+        "https://www.plexora.ca/",
+        "https://www.omj.ca/",
+        "https://www.reddit.com/r/toronto/comments/14cpx3p"
+      ],
+      "features": ["commercial-specialist-pages", "integrated-design-finance-build-page", "community-result"],
+      "interpretation": "An exact multiplex-financing result and integrated multiplex specialists support a five-plus/MLI commercial boundary separate from generic construction-draw intent; official unit-count evidence remains mandatory."
+    },
+    {
+      "keyword": "garden suite financing Toronto",
+      "queryTarget": "Toronto, Ontario, Canada",
+      "searcherLocation": null,
+      "device": null,
+      "resultUrls": [
+        "https://gardensuitehome.ca/finance/",
+        "https://www.atella.ca/",
+        "https://leedwaygroup.com/city-of-toronto-garden-suite-rebate-and-loan-program/",
+        "https://www.equitablebank.ca/docs/default-source/alternative-mortgages-library/feature-sheets/laneway-house-mortgage.pdf?sfvrsn=ec76a727_3",
+        "https://www.reddit.com/r/TorontoRealEstate/comments/143k53f/has_anyone_seen_a_house_in_toronto_that_has_a/"
+      ],
+      "features": ["dedicated-financing-pages", "lender-product-pdf", "community-question"],
+      "interpretation": "Dedicated financing pages validate a combined Toronto garden-and-laneway financing opportunity; the sample does not justify separate garden and laneway money pages."
+    },
+    {
+      "keyword": "construction draw financing Ontario",
+      "queryTarget": "Toronto, Ontario, Canada",
+      "searcherLocation": null,
+      "device": null,
+      "resultUrls": [
+        "https://www.tordon.com/construction-mortgage",
+        "https://insightlawfirm.ca/construction-draw-mortgage-in-ontario/",
+        "https://www.omj.ca/",
+        "https://www.canadaguaranty.ca/progress-draw-advantage/",
+        "https://www.rbcroyalbank.com/mortgages/building-your-own-house.html"
+      ],
+      "features": ["commercial-product-pages", "process-explainer", "insurer-and-bank-authorities"],
+      "interpretation": "Commercial pages and process explainers support one builder-financing money page plus an informational draw-mechanics resource; distressed rescue remains a separate low-confidence requirement."
+    },
+    {
+      "keyword": "mortgage broker for realtors Toronto",
+      "queryTarget": "Toronto, Ontario, Canada",
+      "searcherLocation": null,
+      "device": null,
+      "resultUrls": [
+        "https://lendsimpl.ca/mortgage-broker-realtors-toronto",
+        "https://firstsourcemortgage.ca/",
+        "https://www.trilend.com/brokers/",
+        "https://www.fsrao.ca/industry/mortgage-brokering/compliance-and-other-resources/mortgage-brokerage-disclosure-requirements"
+      ],
+      "features": ["exact-audience-partner-page", "broker-intake-pages", "regulatory-authority"],
+      "interpretation": "The exact-audience partner page and regulator result support a distinct partner conversion path, but absent exact keyword metrics makes it an authority-led rather than volume-led opportunity."
+    }
+  ],
+  "limitations": [
+    "The public search surface does not expose provider task receipts or a reproducible Google rank position.",
+    "The searcher location and device are not exposed; Toronto and Ontario appear only as query modifiers and intended targets.",
+    "The sample validates intent and page-type boundaries, not traffic forecasts.",
+    "OpenSEO's paid Toronto SERP request remains preserved separately as failed evidence rather than being overwritten."
+  ]
+}

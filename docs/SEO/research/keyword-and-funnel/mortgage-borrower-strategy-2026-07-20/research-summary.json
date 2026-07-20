@@ -1,0 +1,234 @@
+{
+  "generatedAt": "2026-07-20",
+  "market": "Ontario; Toronto/GTA only where materially distinct",
+  "account": "c.beleznay@humanfeedback.com",
+  "counts": {
+    "keywords": 160,
+    "keywordValidationRows": 160,
+    "clusters": 18,
+    "questions": 120,
+    "evidence": 16,
+    "segments": 8,
+    "layers": 5
+  },
+  "firstParty": {
+    "gsc": {
+      "clicks": 2,
+      "impressions": 67,
+      "ctr": 0.03,
+      "averagePosition": 31.2,
+      "exactKeywordRowsObserved": 1,
+      "keywordRowsNotObserved": 159,
+      "privatePage": {
+        "clicks": 0,
+        "impressions": 14,
+        "averagePosition": 10.07
+      }
+    },
+    "ga4": {
+      "dateRange": "2026-06-22/2026-07-19",
+      "sessions": 18,
+      "engagedSessions": 14,
+      "organicSessions": 3,
+      "organicEngagedSessions": 2,
+      "organicEngagementRate": 0.6667,
+      "organicAverageEngagementSeconds": 77,
+      "organicEvents": 23,
+      "keyEvents": 0
+    }
+  },
+  "metricStatus": "market volume/CPC/difficulty unavailable-not-zero",
+  "rankingStatus": "three representative cluster-primary ranking URLs per keyword; exact long-tail positions unavailable",
+  "qa": [
+    {
+      "gate": "retained-keyword-count",
+      "status": "PASS",
+      "detail": "Expected 160; found 160"
+    },
+    {
+      "gate": "segment-coverage",
+      "status": "PASS",
+      "detail": "All 8 segments present"
+    },
+    {
+      "gate": "layer-coverage",
+      "status": "PASS",
+      "detail": "Every segment covers all 5 layers"
+    },
+    {
+      "gate": "unique-normalized-query",
+      "status": "PASS",
+      "detail": "Every retained query is globally unique"
+    },
+    {
+      "gate": "exactly-one-cluster",
+      "status": "PASS",
+      "detail": "Every keyword maps to exactly one defined cluster"
+    },
+    {
+      "gate": "one-primary-layer",
+      "status": "PASS",
+      "detail": "Every keyword has exactly one valid primary layer"
+    },
+    {
+      "gate": "cluster-owner-unique",
+      "status": "PASS",
+      "detail": "Every page cluster has one unique canonical path"
+    },
+    {
+      "gate": "cluster-required-fields",
+      "status": "PASS",
+      "detail": "All page briefs contain execution, evidence, confidence, and validation fields"
+    },
+    {
+      "gate": "market-metrics-not-fabricated",
+      "status": "PASS",
+      "detail": "Unavailable metrics remain blank and distinct from zero"
+    },
+    {
+      "gate": "investor-intent-excluded",
+      "status": "PASS",
+      "detail": "Investor-only intent excluded"
+    },
+    {
+      "gate": "question-coverage",
+      "status": "PASS",
+      "detail": "120 questions; 3 per segment-layer"
+    },
+    {
+      "gate": "ranking-evidence-present",
+      "status": "PASS",
+      "detail": "Every keyword carries three current segment/cluster ranking references with scoped claim"
+    },
+    {
+      "gate": "keyword-validation-row-coverage",
+      "status": "PASS",
+      "detail": "Demand and ranking validation contains exactly one row per retained keyword"
+    },
+    {
+      "gate": "gsc-unobserved-distinct-from-zero",
+      "status": "PASS",
+      "detail": "Missing GSC query observations are explicitly not observed, never zero"
+    }
+  ],
+  "competitiveLandscape": {
+    "observedAt": "2026-07-20",
+    "exactQueries": 160,
+    "resultReferences": 800,
+    "uniqueDomains": 221,
+    "topDomains": [
+      {
+        "domain": "fsrao.ca",
+        "appearances": 80,
+        "top1": 29,
+        "type": "government / regulator"
+      },
+      {
+        "domain": "wealthnorth.ca",
+        "appearances": 38,
+        "top1": 7,
+        "type": "direct lender, brokerage, or specialist"
+      },
+      {
+        "domain": "ratehub.ca",
+        "appearances": 36,
+        "top1": 7,
+        "type": "comparison publisher / finance media"
+      },
+      {
+        "domain": "canada.ca",
+        "appearances": 32,
+        "top1": 10,
+        "type": "government / regulator"
+      },
+      {
+        "domain": "lendworth.ca",
+        "appearances": 32,
+        "top1": 5,
+        "type": "direct lender, brokerage, or specialist"
+      },
+      {
+        "domain": "turnedaway.ca",
+        "appearances": 27,
+        "top1": 7,
+        "type": "direct lender, brokerage, or specialist"
+      },
+      {
+        "domain": "ratecore.ca",
+        "appearances": 26,
+        "top1": 5,
+        "type": "direct lender, brokerage, or specialist"
+      },
+      {
+        "domain": "nerdwallet.com",
+        "appearances": 20,
+        "top1": 3,
+        "type": "comparison publisher / finance media"
+      },
+      {
+        "domain": "legalclarity.org",
+        "appearances": 16,
+        "top1": 3,
+        "type": "legal / professional authority"
+      },
+      {
+        "domain": "ontario.ca",
+        "appearances": 15,
+        "top1": 3,
+        "type": "government / regulator"
+      }
+    ],
+    "qa": [
+      {
+        "gate": "keyword-strategy-coverage",
+        "status": "PASS",
+        "detail": "Expected 160; found 160"
+      },
+      {
+        "gate": "unique-keyword-strategy",
+        "status": "PASS",
+        "detail": "Exactly one strategy row per keyword ID"
+      },
+      {
+        "gate": "exact-query-winner-coverage",
+        "status": "PASS",
+        "detail": "Every keyword has at least three current winner references"
+      },
+      {
+        "gate": "cluster-coverage",
+        "status": "PASS",
+        "detail": "All 18 canonical clusters have competitive rollups"
+      },
+      {
+        "gate": "canonical-owner-integrity",
+        "status": "PASS",
+        "detail": "Strategies preserve the source-of-truth owner"
+      },
+      {
+        "gate": "strategy-required-fields",
+        "status": "PASS",
+        "detail": "Every keyword has a complete outranking prescription"
+      },
+      {
+        "gate": "evidence-scope",
+        "status": "PASS",
+        "detail": "Every row carries date, geography, and confidence"
+      },
+      {
+        "gate": "no-fabricated-authority-metrics",
+        "status": "PASS",
+        "detail": "Traffic and backlink metrics remain unavailable, never invented"
+      },
+      {
+        "gate": "borrower-intent-only",
+        "status": "PASS",
+        "detail": "Investor-only intent remains excluded"
+      },
+      {
+        "gate": "all-cannibalization-boundaries-preserved",
+        "status": "PASS",
+        "detail": "Every cluster retains its canonical boundary"
+      }
+    ]
+  }
+}

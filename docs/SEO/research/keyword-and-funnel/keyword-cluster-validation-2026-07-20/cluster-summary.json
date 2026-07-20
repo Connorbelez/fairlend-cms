@@ -1,0 +1,1411 @@
+{
+  "runDate": "2026-07-20",
+  "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+  "counts": {
+    "keywords": 160,
+    "services": 16,
+    "clusters": 32,
+    "pagesToCreate": 24,
+    "pagesToUpdate": 8,
+    "p0": 10,
+    "p1": 18,
+    "p2": 4
+  },
+  "saveKeywordsCalled": false,
+  "metricPolicy": "Unknown values remain unknown; no fresh paid calls.",
+  "clusters": [
+    {
+      "clusterId": "residential-mortgages-research-decision",
+      "serviceId": "residential-mortgages",
+      "serviceName": "Residential Mortgages",
+      "clusterType": "Research / decision",
+      "primaryKeyword": "how much mortgage can I afford in Ontario",
+      "secondaryKeywords": [
+        "how do mortgages work in Ontario",
+        "mortgage on residential property",
+        "Ontario mortgage down payment requirements",
+        "mortgage broker vs bank Ontario",
+        "fixed vs variable mortgage Ontario"
+      ],
+      "intent": "Informational + commercial investigation",
+      "funnelStages": [
+        "awareness-education",
+        "project-feasibility",
+        "planning-comparison"
+      ],
+      "targetPath": "/resources/mortgage-affordability-ontario",
+      "targetStatus": "proposed-create",
+      "priority": "P2",
+      "keywordCount": 6,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 39,
+      "avgAuthorityScore": 81,
+      "pageType": "Affordability guide + worked scenarios",
+      "requiredSections": [
+        "Plain-language mortgage mechanics",
+        "Affordability and down-payment scenarios",
+        "Broker versus bank decision framework",
+        "Fixed versus variable trade-offs",
+        "Pre-approval documentation checklist",
+        "Links to institutional and private options"
+      ],
+      "internalLinks": [
+        "/borrowers/residential-mortgage-financing",
+        "/borrowers"
+      ],
+      "boundary": "Keep broad residential intent at the hub; route institutional, private, HELOC, and refinance terms to their dedicated owners.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "residential-mortgages-qualification-rescue",
+      "serviceId": "residential-mortgages",
+      "serviceName": "Residential Mortgages",
+      "clusterType": "Qualification / rescue",
+      "primaryKeyword": "residential mortgage broker Ontario",
+      "secondaryKeywords": [
+        "mortgage pre approval Ontario",
+        "mortgage declined Ontario options",
+        "urgent mortgage approval Ontario"
+      ],
+      "intent": "Transactional + urgent",
+      "funnelStages": [
+        "financing-qualification",
+        "immediate-transaction-problem"
+      ],
+      "targetPath": "/borrowers/residential-mortgage-financing",
+      "targetStatus": "proposed-create",
+      "priority": "P2",
+      "keywordCount": 4,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 87,
+      "avgAuthorityScore": 40,
+      "pageType": "Residential mortgage service page",
+      "requiredSections": [
+        "Plain-language mortgage mechanics",
+        "Affordability and down-payment scenarios",
+        "Broker versus bank decision framework",
+        "Fixed versus variable trade-offs",
+        "Pre-approval documentation checklist",
+        "Links to institutional and private options"
+      ],
+      "internalLinks": [
+        "/resources/mortgage-affordability-ontario",
+        "/borrowers"
+      ],
+      "boundary": "Keep broad residential intent at the hub; route institutional, private, HELOC, and refinance terms to their dedicated owners.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "private-mortgages-research-decision",
+      "serviceId": "private-mortgages",
+      "serviceName": "Private Mortgages",
+      "clusterType": "Research / decision",
+      "primaryKeyword": "private mortgage costs Ontario",
+      "secondaryKeywords": [
+        "what is a private mortgage in Ontario",
+        "how private mortgage lending works Ontario",
+        "private mortgage appraisal requirements Ontario",
+        "private mortgage vs B lender Ontario",
+        "private mortgage vs second mortgage Ontario"
+      ],
+      "intent": "Informational + commercial investigation",
+      "funnelStages": [
+        "awareness-education",
+        "project-feasibility",
+        "planning-comparison"
+      ],
+      "targetPath": "/resources/private-mortgage-costs-ontario",
+      "targetStatus": "proposed-create",
+      "priority": "P0",
+      "keywordCount": 6,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 2,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 38,
+      "avgAuthorityScore": 81,
+      "pageType": "Cost, appraisal, and exit-strategy guide",
+      "requiredSections": [
+        "Private mortgage mechanics and use cases",
+        "Interest, lender fee, broker fee, and legal-cost model",
+        "Appraisal and loan-to-value requirements",
+        "Private versus B-lender comparison",
+        "Exit strategy and renewal risks",
+        "Bank-decline recovery CTA"
+      ],
+      "internalLinks": [
+        "/borrowers/private-mortgage-financing",
+        "/investing/private-mortgage-lending"
+      ],
+      "boundary": "Borrower intent stays separate from private-mortgage investing; use explicit Borrow and Invest navigation labels.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "private-mortgages-qualification-rescue",
+      "serviceId": "private-mortgages",
+      "serviceName": "Private Mortgages",
+      "clusterType": "Qualification / rescue",
+      "primaryKeyword": "private mortgage lenders Ontario",
+      "secondaryKeywords": [
+        "private mortgage broker Ontario",
+        "bank declined mortgage private lender Ontario",
+        "urgent private mortgage Ontario"
+      ],
+      "intent": "Transactional + urgent",
+      "funnelStages": [
+        "financing-qualification",
+        "immediate-transaction-problem"
+      ],
+      "targetPath": "/borrowers/private-mortgage-financing",
+      "targetStatus": "existing-update",
+      "priority": "P0",
+      "keywordCount": 4,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 14,
+      "avgLeadScore": 86,
+      "avgAuthorityScore": 39,
+      "pageType": "Private mortgage money page",
+      "requiredSections": [
+        "Private mortgage mechanics and use cases",
+        "Interest, lender fee, broker fee, and legal-cost model",
+        "Appraisal and loan-to-value requirements",
+        "Private versus B-lender comparison",
+        "Exit strategy and renewal risks",
+        "Bank-decline recovery CTA"
+      ],
+      "internalLinks": [
+        "/resources/private-mortgage-costs-ontario",
+        "/investing/private-mortgage-lending"
+      ],
+      "boundary": "Borrower intent stays separate from private-mortgage investing; use explicit Borrow and Invest navigation labels.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "institutional-mortgages-research-decision",
+      "serviceId": "institutional-mortgages",
+      "serviceName": "Institutional Mortgages",
+      "clusterType": "Research / decision",
+      "primaryKeyword": "institutional mortgage lenders Ontario",
+      "secondaryKeywords": [
+        "what is an institutional mortgage Canada",
+        "A lender mortgage requirements Ontario",
+        "institutional mortgage qualification Canada",
+        "institutional vs private mortgage Ontario",
+        "bank vs monoline mortgage lender Canada"
+      ],
+      "intent": "Informational + commercial investigation",
+      "funnelStages": [
+        "awareness-education",
+        "project-feasibility",
+        "planning-comparison"
+      ],
+      "targetPath": "/resources/institutional-mortgage-requirements-ontario",
+      "targetStatus": "proposed-create",
+      "priority": "P2",
+      "keywordCount": 6,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 38,
+      "avgAuthorityScore": 80,
+      "pageType": "Institutional lender requirements guide",
+      "requiredSections": [
+        "Bank, credit union, trust, and monoline definitions",
+        "Income, credit, debt-service, equity, and property criteria",
+        "A-lender versus private comparison",
+        "Bank versus monoline comparison",
+        "Graduation path from alternative credit",
+        "Application checklist and next-step CTA"
+      ],
+      "internalLinks": [
+        "/borrowers/institutional-mortgage",
+        "/borrowers"
+      ],
+      "boundary": "Preserve /borrowers/institutional-mortgage; do not create the previously proposed -financing variant.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "institutional-mortgages-qualification-rescue",
+      "serviceId": "institutional-mortgages",
+      "serviceName": "Institutional Mortgages",
+      "clusterType": "Qualification / rescue",
+      "primaryKeyword": "institutional mortgage broker Ontario",
+      "secondaryKeywords": [
+        "best institutional mortgage options Ontario",
+        "switch private mortgage to institutional lender",
+        "institutional mortgage closing deadline Ontario"
+      ],
+      "intent": "Transactional + urgent",
+      "funnelStages": [
+        "financing-qualification",
+        "immediate-transaction-problem"
+      ],
+      "targetPath": "/borrowers/institutional-mortgage",
+      "targetStatus": "existing-update",
+      "priority": "P2",
+      "keywordCount": 4,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 86,
+      "avgAuthorityScore": 39,
+      "pageType": "Institutional mortgage service page",
+      "requiredSections": [
+        "Bank, credit union, trust, and monoline definitions",
+        "Income, credit, debt-service, equity, and property criteria",
+        "A-lender versus private comparison",
+        "Bank versus monoline comparison",
+        "Graduation path from alternative credit",
+        "Application checklist and next-step CTA"
+      ],
+      "internalLinks": [
+        "/resources/institutional-mortgage-requirements-ontario",
+        "/borrowers"
+      ],
+      "boundary": "Preserve /borrowers/institutional-mortgage; do not create the previously proposed -financing variant.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "heloc-research-decision",
+      "serviceId": "heloc",
+      "serviceName": "Home Equity Line of Credit (HELOC)",
+      "clusterType": "Research / decision",
+      "primaryKeyword": "what is a HELOC in Canada",
+      "secondaryKeywords": [
+        "how does a HELOC work in Ontario",
+        "how much HELOC can I get Ontario",
+        "HELOC equity requirements Ontario",
+        "HELOC vs refinance Ontario",
+        "HELOC vs home equity loan Canada"
+      ],
+      "intent": "Informational + commercial investigation",
+      "funnelStages": [
+        "awareness-education",
+        "project-feasibility",
+        "planning-comparison"
+      ],
+      "targetPath": "/resources/heloc-ontario-guide",
+      "targetStatus": "proposed-create",
+      "priority": "P1",
+      "keywordCount": 6,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 38,
+      "avgAuthorityScore": 80,
+      "pageType": "HELOC limit and alternatives guide",
+      "requiredSections": [
+        "Revolving-credit mechanics",
+        "Combined loan-to-value and equity examples",
+        "Variable-rate and payment risks",
+        "HELOC versus refinance versus home-equity loan",
+        "Renovation and investment use cases",
+        "Qualification checklist and service CTA"
+      ],
+      "internalLinks": [
+        "/borrowers/heloc",
+        "/borrowers/residential-refinancing"
+      ],
+      "boundary": "Own general HELOC intent here; assign renovation-specific comparisons to renovation and refinancing economics to refinance.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "heloc-qualification-rescue",
+      "serviceId": "heloc",
+      "serviceName": "Home Equity Line of Credit (HELOC)",
+      "clusterType": "Qualification / rescue",
+      "primaryKeyword": "HELOC broker Ontario",
+      "secondaryKeywords": [
+        "home equity line of credit lender Ontario",
+        "HELOC declined alternatives Ontario",
+        "urgent home equity financing Ontario"
+      ],
+      "intent": "Transactional + urgent",
+      "funnelStages": [
+        "financing-qualification",
+        "immediate-transaction-problem"
+      ],
+      "targetPath": "/borrowers/heloc",
+      "targetStatus": "proposed-create",
+      "priority": "P1",
+      "keywordCount": 4,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 86,
+      "avgAuthorityScore": 39,
+      "pageType": "HELOC service page",
+      "requiredSections": [
+        "Revolving-credit mechanics",
+        "Combined loan-to-value and equity examples",
+        "Variable-rate and payment risks",
+        "HELOC versus refinance versus home-equity loan",
+        "Renovation and investment use cases",
+        "Qualification checklist and service CTA"
+      ],
+      "internalLinks": [
+        "/resources/heloc-ontario-guide",
+        "/borrowers/residential-refinancing"
+      ],
+      "boundary": "Own general HELOC intent here; assign renovation-specific comparisons to renovation and refinancing economics to refinance.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "bridge-loans-research-decision",
+      "serviceId": "bridge-loans",
+      "serviceName": "Bridge Loans",
+      "clusterType": "Research / decision",
+      "primaryKeyword": "what is bridge financing in Canada",
+      "secondaryKeywords": [
+        "how does a bridge loan work Ontario",
+        "bridge loan eligibility Ontario",
+        "bridge financing cost Ontario",
+        "bridge loan vs HELOC Ontario",
+        "bridge loan vs private mortgage Ontario"
+      ],
+      "intent": "Informational + commercial investigation",
+      "funnelStages": [
+        "awareness-education",
+        "project-feasibility",
+        "planning-comparison"
+      ],
+      "targetPath": "/resources/bridge-financing-ontario-guide",
+      "targetStatus": "proposed-create",
+      "priority": "P1",
+      "keywordCount": 6,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 38,
+      "avgAuthorityScore": 80,
+      "pageType": "Bridge mechanics and cost guide",
+      "requiredSections": [
+        "Purchase-before-sale mechanics",
+        "Firm-sale and no-firm-sale scenarios",
+        "Interest, fee, and term examples",
+        "Bridge versus HELOC versus private mortgage",
+        "Required documents and security",
+        "Closing-deadline intake CTA"
+      ],
+      "internalLinks": [
+        "/borrowers/bridge-financing",
+        "/borrowers"
+      ],
+      "boundary": "Use bridge only for time-bound transaction gaps; longer-term equity access belongs to HELOC/refinance.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "bridge-loans-qualification-rescue",
+      "serviceId": "bridge-loans",
+      "serviceName": "Bridge Loans",
+      "clusterType": "Qualification / rescue",
+      "primaryKeyword": "bridge financing real estate Canada",
+      "secondaryKeywords": [
+        "bridge mortgage lender Ontario",
+        "urgent bridge financing Ontario",
+        "bridge loan without firm sale Ontario"
+      ],
+      "intent": "Transactional + urgent",
+      "funnelStages": [
+        "financing-qualification",
+        "immediate-transaction-problem"
+      ],
+      "targetPath": "/borrowers/bridge-financing",
+      "targetStatus": "proposed-create",
+      "priority": "P1",
+      "keywordCount": 4,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 87,
+      "avgAuthorityScore": 40,
+      "pageType": "Bridge financing service page",
+      "requiredSections": [
+        "Purchase-before-sale mechanics",
+        "Firm-sale and no-firm-sale scenarios",
+        "Interest, fee, and term examples",
+        "Bridge versus HELOC versus private mortgage",
+        "Required documents and security",
+        "Closing-deadline intake CTA"
+      ],
+      "internalLinks": [
+        "/resources/bridge-financing-ontario-guide",
+        "/borrowers"
+      ],
+      "boundary": "Use bridge only for time-bound transaction gaps; longer-term equity access belongs to HELOC/refinance.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "residential-refinancing-research-decision",
+      "serviceId": "residential-refinancing",
+      "serviceName": "Residential Refinancing",
+      "clusterType": "Research / decision",
+      "primaryKeyword": "how mortgage refinancing works Ontario",
+      "secondaryKeywords": [
+        "what is cash out refinance Canada",
+        "mortgage refinance break even Ontario",
+        "how much equity to refinance Ontario",
+        "refinance vs renew mortgage Ontario",
+        "refinance vs HELOC Ontario"
+      ],
+      "intent": "Informational + commercial investigation",
+      "funnelStages": [
+        "awareness-education",
+        "project-feasibility",
+        "planning-comparison"
+      ],
+      "targetPath": "/resources/mortgage-refinancing-ontario-guide",
+      "targetStatus": "proposed-create",
+      "priority": "P1",
+      "keywordCount": 6,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 38,
+      "avgAuthorityScore": 80,
+      "pageType": "Refinance economics and decision guide",
+      "requiredSections": [
+        "Rate-and-term and cash-out mechanics",
+        "Penalty and break-even worksheet",
+        "Equity and qualification thresholds",
+        "Refinance versus renewal versus HELOC",
+        "Debt-consolidation and renovation use cases",
+        "Urgent/private refinance path"
+      ],
+      "internalLinks": [
+        "/borrowers/residential-refinancing",
+        "/borrowers/heloc"
+      ],
+      "boundary": "Renewal-only rate shopping stays informational; equity access and debt restructuring convert on the refinance page.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "residential-refinancing-qualification-rescue",
+      "serviceId": "residential-refinancing",
+      "serviceName": "Residential Refinancing",
+      "clusterType": "Qualification / rescue",
+      "primaryKeyword": "mortgage refinance broker Ontario",
+      "secondaryKeywords": [
+        "residential refinance lender Ontario",
+        "urgent mortgage refinance Ontario",
+        "refinance after bank decline Ontario"
+      ],
+      "intent": "Transactional + urgent",
+      "funnelStages": [
+        "financing-qualification",
+        "immediate-transaction-problem"
+      ],
+      "targetPath": "/borrowers/residential-refinancing",
+      "targetStatus": "proposed-create",
+      "priority": "P1",
+      "keywordCount": 4,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 86,
+      "avgAuthorityScore": 39,
+      "pageType": "Residential refinance service page",
+      "requiredSections": [
+        "Rate-and-term and cash-out mechanics",
+        "Penalty and break-even worksheet",
+        "Equity and qualification thresholds",
+        "Refinance versus renewal versus HELOC",
+        "Debt-consolidation and renovation use cases",
+        "Urgent/private refinance path"
+      ],
+      "internalLinks": [
+        "/resources/mortgage-refinancing-ontario-guide",
+        "/borrowers/heloc"
+      ],
+      "boundary": "Renewal-only rate shopping stays informational; equity access and debt restructuring convert on the refinance page.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "renovation-financing-research-decision",
+      "serviceId": "renovation-financing",
+      "serviceName": "Renovation Financing",
+      "clusterType": "Research / decision",
+      "primaryKeyword": "home renovation financing Ontario",
+      "secondaryKeywords": [
+        "home renovation financing options Canada",
+        "how renovation loans work Ontario",
+        "renovation loan eligibility Ontario",
+        "HELOC vs refinance for renovations",
+        "renovation loan vs construction mortgage"
+      ],
+      "intent": "Informational + commercial investigation",
+      "funnelStages": [
+        "awareness-education",
+        "project-feasibility",
+        "planning-comparison"
+      ],
+      "targetPath": "/resources/home-renovation-financing-ontario",
+      "targetStatus": "proposed-create",
+      "priority": "P1",
+      "keywordCount": 6,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 38,
+      "avgAuthorityScore": 81,
+      "pageType": "Renovation financing options guide",
+      "requiredSections": [
+        "Renovation loan structures",
+        "Budget, scope, contingency, and appraisal inputs",
+        "HELOC versus refinance versus construction mortgage",
+        "Purchase-plus-improvements workflow",
+        "Draw and contractor-payment planning",
+        "Cost-overrun rescue CTA"
+      ],
+      "internalLinks": [
+        "/borrowers/renovation-financing",
+        "/borrowers"
+      ],
+      "boundary": "Routine home improvements stay here; ground-up or major staged construction belongs to construction financing.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "renovation-financing-qualification-rescue",
+      "serviceId": "renovation-financing",
+      "serviceName": "Renovation Financing",
+      "clusterType": "Qualification / rescue",
+      "primaryKeyword": "renovation financing lender Ontario",
+      "secondaryKeywords": [
+        "purchase plus improvements mortgage Ontario",
+        "renovation cost overrun financing Ontario",
+        "urgent home improvement loan Ontario"
+      ],
+      "intent": "Transactional + urgent",
+      "funnelStages": [
+        "financing-qualification",
+        "immediate-transaction-problem"
+      ],
+      "targetPath": "/borrowers/renovation-financing",
+      "targetStatus": "proposed-create",
+      "priority": "P1",
+      "keywordCount": 4,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 86,
+      "avgAuthorityScore": 39,
+      "pageType": "Renovation financing service page",
+      "requiredSections": [
+        "Renovation loan structures",
+        "Budget, scope, contingency, and appraisal inputs",
+        "HELOC versus refinance versus construction mortgage",
+        "Purchase-plus-improvements workflow",
+        "Draw and contractor-payment planning",
+        "Cost-overrun rescue CTA"
+      ],
+      "internalLinks": [
+        "/resources/home-renovation-financing-ontario",
+        "/borrowers"
+      ],
+      "boundary": "Routine home improvements stay here; ground-up or major staged construction belongs to construction financing.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "construction-financing-research-decision",
+      "serviceId": "construction-financing",
+      "serviceName": "Construction Financing / DrawFlow",
+      "clusterType": "Research / decision",
+      "primaryKeyword": "construction loan draw schedule",
+      "secondaryKeywords": [
+        "how construction financing works Ontario",
+        "what is a construction draw mortgage",
+        "construction financing equity requirements Ontario",
+        "construction loan vs conventional mortgage",
+        "private vs institutional construction financing"
+      ],
+      "intent": "Informational + commercial investigation",
+      "funnelStages": [
+        "awareness-education",
+        "project-feasibility",
+        "planning-comparison"
+      ],
+      "targetPath": "/resources/construction-loan-draw-schedule",
+      "targetStatus": "proposed-create",
+      "priority": "P0",
+      "keywordCount": 6,
+      "observedVolume": 10,
+      "numericMetricCount": 1,
+      "gscKeywordImpressions": 3,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 39,
+      "avgAuthorityScore": 81,
+      "pageType": "Draw-schedule toolkit + cash-flow model",
+      "requiredSections": [
+        "Draw milestones and inspection sequence",
+        "Worked sources-and-uses schedule",
+        "Holdbacks, contingency, and borrower working capital",
+        "Conventional draws versus DrawFlow timing",
+        "Stopped-draw diagnosis and lender replacement",
+        "Downloadable readiness checklist"
+      ],
+      "internalLinks": [
+        "/construction-draw-financing",
+        "/multiplex-financing-gta"
+      ],
+      "boundary": "Generic draw mechanics canonicalize here; property-specific multiplex/garden and program-specific MLI queries stay in their own clusters.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "construction-financing-qualification-rescue",
+      "serviceId": "construction-financing",
+      "serviceName": "Construction Financing / DrawFlow",
+      "clusterType": "Qualification / rescue",
+      "primaryKeyword": "construction financing Ontario",
+      "secondaryKeywords": [
+        "construction mortgage lender Toronto",
+        "stopped construction draw financing Ontario",
+        "construction lender replacement Ontario"
+      ],
+      "intent": "Transactional + urgent",
+      "funnelStages": [
+        "financing-qualification",
+        "immediate-transaction-problem"
+      ],
+      "targetPath": "/construction-draw-financing",
+      "targetStatus": "existing-update",
+      "priority": "P0",
+      "keywordCount": 4,
+      "observedVolume": 10,
+      "numericMetricCount": 1,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 3,
+      "avgLeadScore": 88,
+      "avgAuthorityScore": 41,
+      "pageType": "Construction draw financing service page",
+      "requiredSections": [
+        "Draw milestones and inspection sequence",
+        "Worked sources-and-uses schedule",
+        "Holdbacks, contingency, and borrower working capital",
+        "Conventional draws versus DrawFlow timing",
+        "Stopped-draw diagnosis and lender replacement",
+        "Downloadable readiness checklist"
+      ],
+      "internalLinks": [
+        "/resources/construction-loan-draw-schedule",
+        "/multiplex-financing-gta"
+      ],
+      "boundary": "Generic draw mechanics canonicalize here; property-specific multiplex/garden and program-specific MLI queries stay in their own clusters.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "multiplex-financing-research-decision",
+      "serviceId": "multiplex-financing",
+      "serviceName": "Multi-plex Financing",
+      "clusterType": "Research / decision",
+      "primaryKeyword": "how to finance a fourplex in Toronto",
+      "secondaryKeywords": [
+        "what is multiplex financing Ontario",
+        "Toronto multiplex financing feasibility",
+        "sixplex financing requirements Ontario",
+        "fourplex vs five unit financing Canada",
+        "multiplex construction loan vs MLI Select"
+      ],
+      "intent": "Informational + commercial investigation",
+      "funnelStages": [
+        "awareness-education",
+        "project-feasibility",
+        "planning-comparison"
+      ],
+      "targetPath": "/resources/toronto-multiplex-financing-guide",
+      "targetStatus": "proposed-create",
+      "priority": "P1",
+      "keywordCount": 6,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 38,
+      "avgAuthorityScore": 80,
+      "pageType": "Multiplex feasibility and unit-boundary guide",
+      "requiredSections": [
+        "Two-to-four versus five-plus financing boundary",
+        "Site, unit mix, budget, rent, and equity model",
+        "Construction-to-takeout sequence",
+        "Conventional versus MLI Select decision",
+        "Fourplex and sixplex scenarios",
+        "Project-review CTA"
+      ],
+      "internalLinks": [
+        "/multiplex-financing-gta",
+        "/mli-select"
+      ],
+      "boundary": "Do not let the service page become an MLI Select requirements guide; link to the MLI cluster for program detail.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "multiplex-financing-qualification-rescue",
+      "serviceId": "multiplex-financing",
+      "serviceName": "Multi-plex Financing",
+      "clusterType": "Qualification / rescue",
+      "primaryKeyword": "multiplex financing Toronto",
+      "secondaryKeywords": [
+        "fourplex mortgage lender Ontario",
+        "multiplex construction financing gap Ontario",
+        "urgent fourplex acquisition financing"
+      ],
+      "intent": "Transactional + urgent",
+      "funnelStages": [
+        "financing-qualification",
+        "immediate-transaction-problem"
+      ],
+      "targetPath": "/multiplex-financing-gta",
+      "targetStatus": "existing-update",
+      "priority": "P1",
+      "keywordCount": 4,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 86,
+      "avgAuthorityScore": 39,
+      "pageType": "Multiplex financing service page",
+      "requiredSections": [
+        "Two-to-four versus five-plus financing boundary",
+        "Site, unit mix, budget, rent, and equity model",
+        "Construction-to-takeout sequence",
+        "Conventional versus MLI Select decision",
+        "Fourplex and sixplex scenarios",
+        "Project-review CTA"
+      ],
+      "internalLinks": [
+        "/resources/toronto-multiplex-financing-guide",
+        "/mli-select"
+      ],
+      "boundary": "Do not let the service page become an MLI Select requirements guide; link to the MLI cluster for program detail.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "garden-laneway-suites-research-decision",
+      "serviceId": "garden-laneway-suites",
+      "serviceName": "Garden & Laneway Suite Financing",
+      "clusterType": "Research / decision",
+      "primaryKeyword": "garden suites Toronto",
+      "secondaryKeywords": [
+        "what is a garden suite Toronto",
+        "can I build a garden suite Toronto",
+        "garden suite cost Toronto",
+        "garden suite vs laneway house Toronto",
+        "HELOC vs construction loan for garden suite"
+      ],
+      "intent": "Informational + commercial investigation",
+      "funnelStages": [
+        "awareness-education",
+        "project-feasibility",
+        "planning-comparison"
+      ],
+      "targetPath": "/garden-suite",
+      "targetStatus": "existing-update",
+      "priority": "P0",
+      "keywordCount": 6,
+      "observedVolume": 590,
+      "numericMetricCount": 1,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 13,
+      "avgLeadScore": 38,
+      "avgAuthorityScore": 81,
+      "pageType": "Garden-suite eligibility and feasibility hub",
+      "requiredSections": [
+        "Toronto eligibility, access, servicing, and permit inputs",
+        "Cost, contingency, rent, and equity model",
+        "Garden suite versus laneway house",
+        "HELOC versus construction draw comparison",
+        "Working-capital and draw-readiness checklist",
+        "Financing-page and intake links"
+      ],
+      "internalLinks": [
+        "/garden-suite-financing-gta",
+        "/construction-draw-financing"
+      ],
+      "boundary": "Maintain two pages only with strict roles: /garden-suite owns eligibility/feasibility; /garden-suite-financing-gta owns lender qualification and transaction intent.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "garden-laneway-suites-qualification-rescue",
+      "serviceId": "garden-laneway-suites",
+      "serviceName": "Garden & Laneway Suite Financing",
+      "clusterType": "Qualification / rescue",
+      "primaryKeyword": "garden suite financing Toronto",
+      "secondaryKeywords": [
+        "laneway suite construction loan Toronto",
+        "garden suite financing shortfall Toronto",
+        "urgent laneway house financing Toronto"
+      ],
+      "intent": "Transactional + urgent",
+      "funnelStages": [
+        "financing-qualification",
+        "immediate-transaction-problem"
+      ],
+      "targetPath": "/garden-suite-financing-gta",
+      "targetStatus": "existing-update",
+      "priority": "P0",
+      "keywordCount": 4,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 86,
+      "avgAuthorityScore": 39,
+      "pageType": "Garden-suite financing service page",
+      "requiredSections": [
+        "Toronto eligibility, access, servicing, and permit inputs",
+        "Cost, contingency, rent, and equity model",
+        "Garden suite versus laneway house",
+        "HELOC versus construction draw comparison",
+        "Working-capital and draw-readiness checklist",
+        "Financing-page and intake links"
+      ],
+      "internalLinks": [
+        "/garden-suite",
+        "/construction-draw-financing"
+      ],
+      "boundary": "Maintain two pages only with strict roles: /garden-suite owns eligibility/feasibility; /garden-suite-financing-gta owns lender qualification and transaction intent.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "mli-select-research-decision",
+      "serviceId": "mli-select",
+      "serviceName": "MLI Select Insured Housing",
+      "clusterType": "Research / decision",
+      "primaryKeyword": "MLI Select",
+      "secondaryKeywords": [
+        "MLI Select points system",
+        "MLI Select requirements",
+        "MLI Select affordability criteria",
+        "MLI Select vs conventional financing",
+        "MLI Select vs standard rental housing insurance"
+      ],
+      "intent": "Informational + commercial investigation",
+      "funnelStages": [
+        "awareness-education",
+        "project-feasibility",
+        "planning-comparison"
+      ],
+      "targetPath": "/resources/mli-select-requirements-points",
+      "targetStatus": "proposed-create",
+      "priority": "P0",
+      "keywordCount": 6,
+      "observedVolume": 1600,
+      "numericMetricCount": 1,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 38,
+      "avgAuthorityScore": 81,
+      "pageType": "CMHC-backed program guide + points model",
+      "requiredSections": [
+        "Primary-source program definition",
+        "Affordability, energy, and accessibility points",
+        "Property and borrower eligibility",
+        "Conventional versus MLI Select comparison",
+        "Submission and approved-lender workflow",
+        "Scenario model and financing review CTA"
+      ],
+      "internalLinks": [
+        "/mli-select",
+        "/multiplex-financing-gta"
+      ],
+      "boundary": "Consolidate overlapping affordable-sustainable-rental-housing content into this architecture; keep multiplex focused on the property strategy.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "mli-select-qualification-rescue",
+      "serviceId": "mli-select",
+      "serviceName": "MLI Select Insured Housing",
+      "clusterType": "Qualification / rescue",
+      "primaryKeyword": "MLI Select financing",
+      "secondaryKeywords": [
+        "CMHC MLI Select lender Ontario",
+        "urgent MLI Select financing review",
+        "MLI Select takeout financing deadline"
+      ],
+      "intent": "Transactional + urgent",
+      "funnelStages": [
+        "financing-qualification",
+        "immediate-transaction-problem"
+      ],
+      "targetPath": "/mli-select",
+      "targetStatus": "proposed-create",
+      "priority": "P0",
+      "keywordCount": 4,
+      "observedVolume": 20,
+      "numericMetricCount": 1,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 87,
+      "avgAuthorityScore": 40,
+      "pageType": "MLI Select advisory/service page",
+      "requiredSections": [
+        "Primary-source program definition",
+        "Affordability, energy, and accessibility points",
+        "Property and borrower eligibility",
+        "Conventional versus MLI Select comparison",
+        "Submission and approved-lender workflow",
+        "Scenario model and financing review CTA"
+      ],
+      "internalLinks": [
+        "/resources/mli-select-requirements-points",
+        "/multiplex-financing-gta"
+      ],
+      "boundary": "Consolidate overlapping affordable-sustainable-rental-housing content into this architecture; keep multiplex focused on the property strategy.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "rental-acquisition-research-decision",
+      "serviceId": "rental-acquisition",
+      "serviceName": "Existing Rental Property Acquisition Financing",
+      "clusterType": "Research / decision",
+      "primaryKeyword": "rental property down payment Ontario",
+      "secondaryKeywords": [
+        "how rental property financing works Ontario",
+        "investment property mortgage rules Ontario",
+        "rental income mortgage qualification Ontario",
+        "commercial vs residential rental property mortgage",
+        "rental property mortgage vs HELOC"
+      ],
+      "intent": "Informational + commercial investigation",
+      "funnelStages": [
+        "awareness-education",
+        "project-feasibility",
+        "planning-comparison"
+      ],
+      "targetPath": "/resources/rental-property-financing-ontario",
+      "targetStatus": "proposed-create",
+      "priority": "P1",
+      "keywordCount": 6,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 38,
+      "avgAuthorityScore": 80,
+      "pageType": "Rental acquisition financing guide",
+      "requiredSections": [
+        "Down payment and equity structures",
+        "Rental-income treatment and debt service",
+        "Residential versus commercial boundary",
+        "Portfolio and entity considerations",
+        "HELOC and bridge acquisition strategies",
+        "Live closing review CTA"
+      ],
+      "internalLinks": [
+        "/borrowers/rental-property-acquisition-financing",
+        "/borrowers/rental-property-refinancing"
+      ],
+      "boundary": "Purchase and acquisition intent stays here; existing-asset equity extraction belongs to rental refinancing.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "rental-acquisition-qualification-rescue",
+      "serviceId": "rental-acquisition",
+      "serviceName": "Existing Rental Property Acquisition Financing",
+      "clusterType": "Qualification / rescue",
+      "primaryKeyword": "rental property financing Ontario",
+      "secondaryKeywords": [
+        "investment property mortgage broker Ontario",
+        "rental property closing financing Ontario",
+        "urgent rental acquisition bridge loan"
+      ],
+      "intent": "Transactional + urgent",
+      "funnelStages": [
+        "financing-qualification",
+        "immediate-transaction-problem"
+      ],
+      "targetPath": "/borrowers/rental-property-acquisition-financing",
+      "targetStatus": "proposed-create",
+      "priority": "P1",
+      "keywordCount": 4,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 86,
+      "avgAuthorityScore": 39,
+      "pageType": "Rental acquisition service page",
+      "requiredSections": [
+        "Down payment and equity structures",
+        "Rental-income treatment and debt service",
+        "Residential versus commercial boundary",
+        "Portfolio and entity considerations",
+        "HELOC and bridge acquisition strategies",
+        "Live closing review CTA"
+      ],
+      "internalLinks": [
+        "/resources/rental-property-financing-ontario",
+        "/borrowers/rental-property-refinancing"
+      ],
+      "boundary": "Purchase and acquisition intent stays here; existing-asset equity extraction belongs to rental refinancing.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "rental-refinancing-research-decision",
+      "serviceId": "rental-refinancing",
+      "serviceName": "Existing Rental Property Refinancing",
+      "clusterType": "Research / decision",
+      "primaryKeyword": "how to refinance a rental property Ontario",
+      "secondaryKeywords": [
+        "cash out refinance rental property Canada",
+        "rental property refinance equity requirements",
+        "rental income refinance qualification Ontario",
+        "rental mortgage renewal vs refinance",
+        "rental property refinance vs HELOC"
+      ],
+      "intent": "Informational + commercial investigation",
+      "funnelStages": [
+        "awareness-education",
+        "project-feasibility",
+        "planning-comparison"
+      ],
+      "targetPath": "/resources/rental-property-refinancing-ontario",
+      "targetStatus": "proposed-create",
+      "priority": "P1",
+      "keywordCount": 6,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 38,
+      "avgAuthorityScore": 80,
+      "pageType": "Rental refinance and portfolio guide",
+      "requiredSections": [
+        "Cash-out and rate-and-term refinance mechanics",
+        "Equity, rent, and portfolio qualification",
+        "Renewal versus refinance decision",
+        "HELOC and portfolio-lender alternatives",
+        "Use-of-proceeds and tax-advice boundary",
+        "Lender-replacement CTA"
+      ],
+      "internalLinks": [
+        "/borrowers/rental-property-refinancing",
+        "/borrowers/rental-property-acquisition-financing"
+      ],
+      "boundary": "Keep acquisition closing terms out of this cluster; this page begins after the property is already owned.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "rental-refinancing-qualification-rescue",
+      "serviceId": "rental-refinancing",
+      "serviceName": "Existing Rental Property Refinancing",
+      "clusterType": "Qualification / rescue",
+      "primaryKeyword": "refinance rental property Ontario",
+      "secondaryKeywords": [
+        "rental portfolio refinance lender Ontario",
+        "urgent rental property refinance Ontario",
+        "rental mortgage lender replacement Ontario"
+      ],
+      "intent": "Transactional + urgent",
+      "funnelStages": [
+        "financing-qualification",
+        "immediate-transaction-problem"
+      ],
+      "targetPath": "/borrowers/rental-property-refinancing",
+      "targetStatus": "proposed-create",
+      "priority": "P1",
+      "keywordCount": 4,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 86,
+      "avgAuthorityScore": 39,
+      "pageType": "Rental refinance service page",
+      "requiredSections": [
+        "Cash-out and rate-and-term refinance mechanics",
+        "Equity, rent, and portfolio qualification",
+        "Renewal versus refinance decision",
+        "HELOC and portfolio-lender alternatives",
+        "Use-of-proceeds and tax-advice boundary",
+        "Lender-replacement CTA"
+      ],
+      "internalLinks": [
+        "/resources/rental-property-refinancing-ontario",
+        "/borrowers/rental-property-acquisition-financing"
+      ],
+      "boundary": "Keep acquisition closing terms out of this cluster; this page begins after the property is already owned.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "private-mortgage-investing-research-decision",
+      "serviceId": "private-mortgage-investing",
+      "serviceName": "Private Mortgage Investing",
+      "clusterType": "Research / decision",
+      "primaryKeyword": "how private mortgage investing works Ontario",
+      "secondaryKeywords": [
+        "private mortgage investment risks Canada",
+        "private mortgage investment returns Ontario",
+        "private mortgage due diligence checklist",
+        "direct private mortgage vs MIC",
+        "private mortgage fund vs direct lending"
+      ],
+      "intent": "Informational + commercial investigation",
+      "funnelStages": [
+        "awareness-education",
+        "project-feasibility",
+        "planning-comparison"
+      ],
+      "targetPath": "/resources/private-mortgage-investing-ontario",
+      "targetStatus": "proposed-create",
+      "priority": "P0",
+      "keywordCount": 6,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 38,
+      "avgAuthorityScore": 80,
+      "pageType": "Investor risk and structure guide",
+      "requiredSections": [
+        "Direct, fractional, MIC, and fund structures",
+        "Return drivers and fee layers",
+        "Lien position, LTV, appraisal, and security",
+        "Default, liquidity, concentration, and servicing risks",
+        "Due-diligence checklist",
+        "Qualified-investor opportunity CTA"
+      ],
+      "internalLinks": [
+        "/investing/private-mortgage-lending",
+        "/borrowers/private-mortgage-financing"
+      ],
+      "boundary": "Investor terms never target the borrower page; reciprocal links must be audience-labeled.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "private-mortgage-investing-qualification-rescue",
+      "serviceId": "private-mortgage-investing",
+      "serviceName": "Private Mortgage Investing",
+      "clusterType": "Qualification / rescue",
+      "primaryKeyword": "private mortgage investing Ontario",
+      "secondaryKeywords": [
+        "invest in private mortgages Ontario",
+        "private mortgage investment opportunities Ontario",
+        "private mortgage fund opportunities Canada"
+      ],
+      "intent": "Transactional + urgent",
+      "funnelStages": [
+        "financing-qualification",
+        "immediate-transaction-problem"
+      ],
+      "targetPath": "/investing/private-mortgage-lending",
+      "targetStatus": "existing-update",
+      "priority": "P0",
+      "keywordCount": 4,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 5,
+      "gscPageImpressions": 14,
+      "avgLeadScore": 90,
+      "avgAuthorityScore": 43,
+      "pageType": "Private mortgage investing opportunity page",
+      "requiredSections": [
+        "Direct, fractional, MIC, and fund structures",
+        "Return drivers and fee layers",
+        "Lien position, LTV, appraisal, and security",
+        "Default, liquidity, concentration, and servicing risks",
+        "Due-diligence checklist",
+        "Qualified-investor opportunity CTA"
+      ],
+      "internalLinks": [
+        "/resources/private-mortgage-investing-ontario",
+        "/borrowers/private-mortgage-financing"
+      ],
+      "boundary": "Investor terms never target the borrower page; reciprocal links must be audience-labeled.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "partner-program-research-decision",
+      "serviceId": "partner-program",
+      "serviceName": "Partner / Referral Program",
+      "clusterType": "Research / decision",
+      "primaryKeyword": "mortgage referral fee rules Ontario",
+      "secondaryKeywords": [
+        "how mortgage referral programs work Ontario",
+        "who can refer a mortgage client Ontario",
+        "mortgage referral program requirements Ontario",
+        "mortgage referral program vs co brokering",
+        "construction financing referral partner"
+      ],
+      "intent": "Informational + commercial investigation",
+      "funnelStages": [
+        "awareness-education",
+        "project-feasibility",
+        "planning-comparison"
+      ],
+      "targetPath": "/resources/mortgage-referral-program-ontario",
+      "targetStatus": "proposed-create",
+      "priority": "P1",
+      "keywordCount": 6,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 38,
+      "avgAuthorityScore": 80,
+      "pageType": "Referral rules and handoff guide",
+      "requiredSections": [
+        "Eligible partner types",
+        "Referral versus co-brokering boundary",
+        "Disclosure and compensation considerations",
+        "Required file information and handoff process",
+        "Status communication and client experience",
+        "Refer-a-file CTA"
+      ],
+      "internalLinks": [
+        "/partners",
+        "/borrowers"
+      ],
+      "boundary": "Referral-program intent belongs here; builder consulting targets the project owner or delivery team, not the introducer.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "partner-program-qualification-rescue",
+      "serviceId": "partner-program",
+      "serviceName": "Partner / Referral Program",
+      "clusterType": "Qualification / rescue",
+      "primaryKeyword": "mortgage broker referral program Ontario",
+      "secondaryKeywords": [
+        "mortgage referral partner Ontario",
+        "refer a declined mortgage client Ontario",
+        "urgent construction financing referral"
+      ],
+      "intent": "Transactional + urgent",
+      "funnelStages": [
+        "financing-qualification",
+        "immediate-transaction-problem"
+      ],
+      "targetPath": "/partners",
+      "targetStatus": "existing-update",
+      "priority": "P1",
+      "keywordCount": 4,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 5,
+      "avgLeadScore": 86,
+      "avgAuthorityScore": 39,
+      "pageType": "Partner/referral program page",
+      "requiredSections": [
+        "Eligible partner types",
+        "Referral versus co-brokering boundary",
+        "Disclosure and compensation considerations",
+        "Required file information and handoff process",
+        "Status communication and client experience",
+        "Refer-a-file CTA"
+      ],
+      "internalLinks": [
+        "/resources/mortgage-referral-program-ontario",
+        "/borrowers"
+      ],
+      "boundary": "Referral-program intent belongs here; builder consulting targets the project owner or delivery team, not the introducer.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "builder-consulting-research-decision",
+      "serviceId": "builder-consulting",
+      "serviceName": "Builder Consulting",
+      "clusterType": "Research / decision",
+      "primaryKeyword": "construction finance advisory Ontario",
+      "secondaryKeywords": [
+        "what does a builder financing consultant do",
+        "development feasibility consultant Toronto",
+        "construction budget review for financing",
+        "builder financing consultant vs mortgage broker",
+        "development capital stack consultant Ontario"
+      ],
+      "intent": "Informational + commercial investigation",
+      "funnelStages": [
+        "awareness-education",
+        "project-feasibility",
+        "planning-comparison"
+      ],
+      "targetPath": "/resources/builder-financing-readiness-ontario",
+      "targetStatus": "proposed-create",
+      "priority": "P1",
+      "keywordCount": 6,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 38,
+      "avgAuthorityScore": 80,
+      "pageType": "Builder capital-readiness guide",
+      "requiredSections": [
+        "Project feasibility and sources-and-uses",
+        "Capital stack and lender-fit strategy",
+        "Budget, contingency, and schedule pressure test",
+        "Draw evidence and working-capital readiness",
+        "Takeout and exit planning",
+        "Strategy-review CTA linked to /start/builder"
+      ],
+      "internalLinks": [
+        "/builder-consulting",
+        "/borrowers"
+      ],
+      "boundary": "The noindex /start/builder route remains the conversion endpoint, not the organic landing page.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    },
+    {
+      "clusterId": "builder-consulting-qualification-rescue",
+      "serviceId": "builder-consulting",
+      "serviceName": "Builder Consulting",
+      "clusterType": "Qualification / rescue",
+      "primaryKeyword": "builder financing consultant Toronto",
+      "secondaryKeywords": [
+        "construction financing strategy consultant Ontario",
+        "stalled construction project financing consultant",
+        "urgent builder capital shortfall Ontario"
+      ],
+      "intent": "Transactional + urgent",
+      "funnelStages": [
+        "financing-qualification",
+        "immediate-transaction-problem"
+      ],
+      "targetPath": "/builder-consulting",
+      "targetStatus": "proposed-create",
+      "priority": "P1",
+      "keywordCount": 4,
+      "observedVolume": 0,
+      "numericMetricCount": 0,
+      "gscKeywordImpressions": 0,
+      "gscPageImpressions": 0,
+      "avgLeadScore": 86,
+      "avgAuthorityScore": 39,
+      "pageType": "Builder consulting service page",
+      "requiredSections": [
+        "Project feasibility and sources-and-uses",
+        "Capital stack and lender-fit strategy",
+        "Budget, contingency, and schedule pressure test",
+        "Draw evidence and working-capital readiness",
+        "Takeout and exit planning",
+        "Strategy-review CTA linked to /start/builder"
+      ],
+      "internalLinks": [
+        "/resources/builder-financing-readiness-ontario",
+        "/borrowers"
+      ],
+      "boundary": "The noindex /start/builder route remains the conversion endpoint, not the organic landing page.",
+      "confidence": "Directional page boundary; representative service SERP validated, pairwise overlap unavailable."
+    }
+  ]
+}
+

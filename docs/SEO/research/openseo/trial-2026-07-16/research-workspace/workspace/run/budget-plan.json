@@ -1,0 +1,14 @@
+{
+  "currency": "USD",
+  "includedBalance": 1,
+  "hardCeiling": 0.9,
+  "externalReserve": 0.1,
+  "envelopes": {
+    "tracer": 0.05,
+    "five-plus-unit-multiplex-mli-select": 0.2,
+    "garden-laneway-suite-financing": 0.2,
+    "drawflow-builder-financing": 0.2,
+    "b2b-partner-referral": 0.1,
+    "verification-reserve": 0.15
+  }
+}

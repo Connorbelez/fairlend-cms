@@ -11,6 +11,8 @@ import RichText from '@/components/RichText'
 import type { Post } from '@/payload-types'
 
 import { JsonLd } from '@/components/SEO/JsonLd'
+import { FairlendLandingRail } from '@/components/FairlendLandingRail'
+import { PostAttribution } from '@/components/PostAttribution'
 import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import {
@@ -27,6 +29,7 @@ import {
   getPayloadTitle,
 } from '@/utilities/seo'
 import { FAIRLEND_DEMO_POST_SLUGS, isFairlendDemoPostSlug } from '@/lib/fairlend-posts'
+import { getPostAuthors } from '@/utilities/postAuthors'
 import PageClient from './page.client'
 
 export const dynamic = 'force-static'
@@ -76,13 +79,13 @@ export default async function Post({ params: paramsPromise }: Args) {
   const path = getPayloadPostPath(post)
   const title = getPayloadTitle(post)
   const description = getPayloadDescription(post)
-  const authorNames =
-    post.populatedAuthors
-      ?.map((author) => author.name?.trim())
-      .filter((name): name is string => Boolean(name)) || []
+  const authors = getPostAuthors(post)
+  const personAuthors = authors
+    .filter((author) => !author.isOrganization)
+    .map(({ bio, name, officialTitle }) => ({ bio, name, officialTitle }))
 
   return (
-    <article className="pt-16 pb-16">
+    <article className="fairlend-landing-page min-h-svh bg-[#f8f7f5] text-[#08090a]">
       <PageClient />
 
       {/* Allows redirects for valid pages too */}
@@ -104,7 +107,7 @@ export default async function Post({ params: paramsPromise }: Args) {
             path,
           }),
           buildArticleJsonLd({
-            authorNames,
+            authors: personAuthors,
             dateModified: post.updatedAt,
             datePublished: post.publishedAt || post.createdAt,
             description,
@@ -112,37 +115,44 @@ export default async function Post({ params: paramsPromise }: Args) {
             path,
             title,
           }),
-          ...authorNames.map((name) => buildPersonJsonLd({ name })),
+          ...personAuthors.map((author) => buildPersonJsonLd(author)),
         ]}
       />
-      {!isMoneyPage ? <PostHero post={post} /> : null}
-
       {isMoneyPage ? (
         <div className="money-page-document">
           <RenderBlocks blocks={post.moneyPageLayout} />
         </div>
       ) : (
-        <div className="flex flex-col items-center gap-4 pt-8">
-          <div className="container">
-            {post.content ? (
-              <RichText
-                className="max-w-[48rem] mx-auto"
-                data={post.content}
-                enableGutter={false}
-              />
-            ) : null}
-          </div>
-        </div>
+        <>
+          <FairlendLandingRail gutterTexture="fabric-of-squares">
+            <PostHero post={post} />
+          </FairlendLandingRail>
+          <FairlendLandingRail gutterTexture="inflicted">
+            <div className="mx-auto max-w-[86rem] px-5 py-14 sm:px-8 sm:py-20 lg:px-14 lg:py-24">
+              {post.content ? (
+                <RichText
+                  className="mx-auto max-w-[48rem]"
+                  data={post.content}
+                  enableGutter={false}
+                  variant="journal"
+                />
+              ) : null}
+            </div>
+          </FairlendLandingRail>
+        </>
       )}
 
-      {post.relatedPosts && post.relatedPosts.length > 0 ? (
-        <div className="container">
-          <RelatedPosts
-            className="mt-12 max-w-[52rem] mx-auto lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
-            docs={post.relatedPosts.filter((post) => typeof post === 'object')}
-          />
+      <FairlendLandingRail gutterTexture="groovepaper">
+        <div className="mx-auto max-w-[86rem] px-5 py-14 sm:px-8 sm:py-20 lg:px-14 lg:py-24">
+          <PostAttribution post={post} />
+          {post.relatedPosts && post.relatedPosts.length > 0 ? (
+            <RelatedPosts
+              className="mx-auto mt-16 max-w-[64rem] sm:mt-20"
+              docs={post.relatedPosts.filter((post) => typeof post === 'object')}
+            />
+          ) : null}
         </div>
-      ) : null}
+      </FairlendLandingRail>
     </article>
   )
 }

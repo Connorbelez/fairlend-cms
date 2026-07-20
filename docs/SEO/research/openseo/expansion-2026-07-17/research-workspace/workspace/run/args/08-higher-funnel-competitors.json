@@ -1,0 +1,18 @@
+{
+  "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+  "keywords": [
+    "can i build a multiplex in toronto",
+    "cmhc mli select requirements",
+    "garden suite cost toronto",
+    "garden suite permit toronto",
+    "construction loan requirements canada",
+    "construction loan draw schedule",
+    "construction financing for first time developer"
+  ],
+  "resultTypes": ["organic", "featured_snippet", "local_pack"],
+  "excludeDomains": ["fairlend.ca"],
+  "includeSubdomains": true,
+  "sortBy": "visibility",
+  "limit": 30,
+  "offset": 0
+}

@@ -1,0 +1,75 @@
+{
+  "capturedAt": "2026-07-17T03:30:15.431Z",
+  "balance": 1,
+  "total": 1,
+  "statistics": {
+    "day": {
+      "total": 0,
+      "totalSerp": 0,
+      "totalDataForSeoLabs": 0
+    },
+    "minute": {
+      "total": 0,
+      "totalSerp": 0,
+      "totalDataForSeoLabs": 0
+    }
+  },
+  "price": {
+    "serpOrganicLiveAdvanced": [
+      {
+        "cost_type": "per_request",
+        "cost": 0.002
+      }
+    ],
+    "labsKeywordOverview": [
+      {
+        "cost_type": "per_result",
+        "cost": 0.00012
+      },
+      {
+        "cost_type": "per_request",
+        "cost": 0.012
+      }
+    ],
+    "labsRelatedKeywords": [
+      {
+        "cost_type": "per_result",
+        "cost": 0.00012
+      },
+      {
+        "cost_type": "per_request",
+        "cost": 0.012
+      }
+    ],
+    "labsKeywordSuggestions": [
+      {
+        "cost_type": "per_result",
+        "cost": 0.00012
+      },
+      {
+        "cost_type": "per_request",
+        "cost": 0.012
+      }
+    ],
+    "labsKeywordIdeas": [
+      {
+        "cost_type": "per_result",
+        "cost": 0.00012
+      },
+      {
+        "cost_type": "per_request",
+        "cost": 0.012
+      }
+    ],
+    "labsSerpCompetitors": [
+      {
+        "cost_type": "per_result",
+        "cost": 0.00012
+      },
+      {
+        "cost_type": "per_request",
+        "cost": 0.012
+      }
+    ]
+  }
+}

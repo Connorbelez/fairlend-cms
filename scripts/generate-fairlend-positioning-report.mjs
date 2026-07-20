@@ -7,11 +7,11 @@ const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const workspace = resolve(scriptDirectory, '..');
 const sourcePath = resolve(
   workspace,
-  'docs/research/fairlend-customer-choice-and-competitive-positioning-2026-07-15.md',
+  'docs/SEO/research/competitive/fairlend-customer-choice-and-competitive-positioning-2026-07-15.md',
 );
 const outputDirectory = resolve(
   workspace,
-  'docs/prototypes/fairlend-competitive-positioning-report',
+  'docs/SEO/visual-reports/competitive-positioning-2026-07-15',
 );
 const outputPath = resolve(outputDirectory, 'index.html');
 const diagramDirectory = resolve(process.env.HOME, '.agent/diagrams');

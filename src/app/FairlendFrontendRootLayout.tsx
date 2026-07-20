@@ -11,6 +11,7 @@ import React, { Suspense } from 'react'
 
 import {
   AnalyticsProvider,
+  FairlendVercelTelemetry,
   GoogleTagManagerBody,
   GoogleTagManagerHead,
 } from '@/components/Analytics'
@@ -132,6 +133,7 @@ export function FairlendFrontendRootLayout({
           </FrontendChrome>
           <FairlendConsultationBookingModalInterceptor />
           <Suspense fallback={null}>
+            <FairlendVercelTelemetry />
             <AnalyticsProvider />
           </Suspense>
           <Toaster richColors />

@@ -1,0 +1,22 @@
+checkId,checkName,expected,actual,status,notes
+QA-001,keyword record count,85,85,PASS,Header excluded.
+QA-002,unique normalized keywords,85,85,PASS,No normalized keyword is assigned twice.
+QA-003,funnel layers represented,5,5,PASS,L1 through L5 are all present.
+QA-004,L1 keyword count,at-least-1,12,PASS,Awareness and education coverage.
+QA-005,L2 keyword count,at-least-1,16,PASS,Project feasibility coverage.
+QA-006,L3 keyword count,at-least-1,15,PASS,Planning and comparison coverage.
+QA-007,L4 keyword count,at-least-1,29,PASS,Validated construction demand makes qualification the largest layer.
+QA-008,L5 keyword count,at-least-1,13,PASS,Immediate transaction and rescue coverage.
+QA-009,keywords with observed volume,report-only,46,PASS,Values are dated evidence snapshots.
+QA-010,keywords with unknown volume,report-only,39,PASS,Blank values remain unknown and are never converted to zero.
+QA-011,keywords with canonical target,85,85,PASS,Every retained keyword has one targetPath.
+QA-012,canonical page clusters,12,12,PASS,All keyword target paths exist in page-cluster-map.csv.
+QA-013,duplicate normalized keywords,0,0,PASS,Case-normalized exact duplicate check.
+QA-014,missing priority values,0,0,PASS,Every record is P0 P1 or P2.
+QA-015,missing evidence source,0,0,PASS,Every record has a source date and source file.
+QA-016,existing route clusters,report-only,6,PASS,Verified route files for calculators borrowers garden suite garden financing construction draw and multiplex financing.
+QA-017,proposed route clusters,report-only,5,PASS,New pages require implementation and indexation QA.
+QA-018,CMS route requiring confirmation,report-only,1,PASS,Confirm or create the canonical /mli-select route before publishing dependent links.
+QA-019,ambiguous high-volume safeguards,at-least-1,1,PASS,Singular garden suite is marked ambiguous-secondary.
+QA-020,authority-led safeguards,at-least-1,7,PASS,Municipal and program terms use primary-source or authority-led constraints.
+

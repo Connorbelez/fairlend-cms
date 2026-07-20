@@ -1,6 +1,8 @@
 export const analyticsConsentStorageKey = 'fairlend.analytics-consent.v1'
 export const analyticsConsentCookieName = 'fairlend_analytics_consent'
 export const analyticsConsentStateEventName = 'fairlend:consent-state'
+export const analyticsEventName = 'fairlend:analytics-event'
+export const analyticsInternalStorageKey = 'fairlend.analytics-internal.v1'
 
 export type AnalyticsConsent = {
   analytics: boolean

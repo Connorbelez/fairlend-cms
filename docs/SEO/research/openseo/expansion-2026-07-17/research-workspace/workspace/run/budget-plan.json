@@ -1,0 +1,14 @@
+{
+  "currency": "USD",
+  "includedBalance": 0.56756,
+  "hardCeiling": 0.44756,
+  "externalReserve": 0.12,
+  "envelopes": {
+    "expansion-higher-funnel": 0.44756
+  },
+  "notes": [
+    "Continuation of the 2026-07-16 FairLend OpenSEO trial.",
+    "The external reserve preserves the original USD 0.10 account reserve plus USD 0.02 for the prior cost-undisclosed SERP retry.",
+    "No site, CMS, analytics, search-console, business-profile, or saved-keyword mutation is authorized."
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "runDate": "2026-07-19",
+  "property": "sc-domain:fairlend.ca",
+  "ga4PropertyId": "502729166",
+  "market": "Ontario; Toronto/GTA where explicit",
+  "counts": {
+    "services": 16,
+    "keywords": 160,
+    "keywordsPerService": 10,
+    "keywordsPerFunnelStage": 32,
+    "questions": 68,
+    "serpValidations": 16,
+    "answerSocratesObservations": 64
+  },
+  "funnelStages": [
+    "awareness-education",
+    "project-feasibility",
+    "planning-comparison",
+    "financing-qualification",
+    "immediate-transaction-problem"
+  ],
+  "priorities": {
+    "P0": [
+      "private-mortgages",
+      "construction-financing",
+      "garden-laneway-suites",
+      "mli-select",
+      "private-mortgage-investing"
+    ],
+    "P1": [
+      "heloc",
+      "bridge-loans",
+      "residential-refinancing",
+      "renovation-financing",
+      "multiplex-financing",
+      "rental-acquisition",
+      "rental-refinancing",
+      "partner-program",
+      "builder-consulting"
+    ],
+    "P2": [
+      "residential-mortgages",
+      "institutional-mortgages"
+    ]
+  },
+  "firstParty": {
+    "gsc": {
+      "clicks": 2,
+      "impressions": 67,
+      "ctr": 0.03,
+      "averagePosition": 31.2,
+      "dateRange": "2026-07-14/2026-07-17"
+    },
+    "ga4": {
+      "sessions": 14,
+      "activeUsers": 5,
+      "organicSessions": 2,
+      "organicEngagedSessions": 1,
+      "keyEvents": 0,
+      "dateRange": "2026-06-21/2026-07-18"
+    }
+  },
+  "answerSocrates": {
+    "seed": "Ontario real estate financing",
+    "country": "Canada",
+    "language": "English",
+    "questionsAfterPaa": 59,
+    "trendCardMonthlyChange": "+44%",
+    "metricAccess": "unavailable-free-tier"
+  },
+  "metricPolicy": "Blank metric cells are unknown, not zero. Only exact historical repository observations retain numerical values.",
+  "clusterConfidence": "directional-with-representative-serp-validation"
+}

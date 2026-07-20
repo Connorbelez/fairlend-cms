@@ -1,6 +1,11 @@
 'use client'
 
-import { analyticsConfig, analyticsConsentStorageKey, type AnalyticsConsent } from './config'
+import {
+  analyticsConfig,
+  analyticsConsentStorageKey,
+  analyticsEventName,
+  type AnalyticsConsent,
+} from './config'
 import { classifyFairlendRoute } from './routes'
 import {
   getRemovedAnalyticsPropertyKeys,
@@ -152,7 +157,7 @@ export function trackFairlendEvent<K extends FairlendEventName>(
   }
   const eventPayload = { event: eventName, ...safeProperties }
 
-  window.dispatchEvent(new CustomEvent('fairlend:analytics-event', { detail: eventPayload }))
+  window.dispatchEvent(new CustomEvent(analyticsEventName, { detail: eventPayload }))
   if (currentConsent.analytics || currentConsent.marketing) window.dataLayer?.push(eventPayload)
   if (currentConsent.analytics) {
     window.posthog?.capture?.(eventName, safeProperties)
