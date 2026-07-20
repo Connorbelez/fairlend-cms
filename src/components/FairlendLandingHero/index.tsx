@@ -45,6 +45,9 @@ const proofStats = [
   },
 ] as const
 
+const authorityCredential =
+  'Ex-RBC Quantitative Technical Analyst; co-founded a HITL Reinforcement Learning firm.'
+
 type TorontoCloudLayerProps = {
   className: string
   cloudKey: string
@@ -121,7 +124,7 @@ function ProofStats() {
   return (
     <aside
       aria-label="FairLend proof points"
-      className="animate-authority-variant-two delight-proof absolute top-[18%] right-[4.4%] z-10 hidden w-[294px] border border-[#08090a] bg-[#f8f7f5]/96 p-4 shadow-[8px_8px_0_#96ec18] xl:block"
+      className="animate-authority-variant-two delight-proof absolute top-[18%] right-[4.4%] z-10 hidden w-[294px] border border-[#08090a] bg-[#f8f7f5]/96 p-4 shadow-[8px_8px_0_#96ec18] lg:block"
     >
       <span
         aria-hidden="true"
@@ -138,6 +141,9 @@ function ProofStats() {
           VERIFIED
         </span>
       </div>
+      <p className="relative m-0 border-b border-[#08090a]/25 py-3 text-xs leading-[1.4] font-bold tracking-[0.02em]">
+        {authorityCredential}
+      </p>
       <div className="relative divide-y divide-[#08090a]/25">
         {proofStats.map((stat) => (
           <div
@@ -192,6 +198,9 @@ function MobileAuthorityBar() {
             Verified
           </span>
         </div>
+        <p className="m-0 border-b border-[#08090a]/25 py-2.5 text-xs leading-[1.35] font-bold tracking-[0.01em]">
+          {authorityCredential}
+        </p>
         <dl className="grid grid-cols-3 divide-x divide-[#08090a]/25 pt-2.5">
           {proofStats.map((stat) => (
             <div
