@@ -1,0 +1,70 @@
+{
+  "snapshotId": "live-site-snapshot-2026-07-16",
+  "capturedAt": "2026-07-16T22:03:00-04:00",
+  "sourceObservations": [
+    {
+      "id": "source-observation-live-robots-2026-07-16",
+      "sourceType": "live-site",
+      "sourceTitle": "FairLend robots policy",
+      "sourceLocator": "https://www.fairlend.ca/robots.txt",
+      "capturedAt": "2026-07-16T22:03:00-04:00",
+      "observationAnchor": "complete-response",
+      "excerpt": "Public crawling was allowed while admin, API, and preview paths were restricted; the sitemap index and children were declared.",
+      "confidence": "high"
+    },
+    {
+      "id": "source-observation-live-pages-sitemap-2026-07-16",
+      "sourceType": "live-site",
+      "sourceTitle": "FairLend pages sitemap",
+      "sourceLocator": "https://www.fairlend.ca/pages-sitemap.xml",
+      "capturedAt": "2026-07-16T22:03:00-04:00",
+      "observationAnchor": "urlset",
+      "excerpt": "The sitemap advertised 17 HTTPS page URLs with last-modified dates; sitemap membership did not prove canonical or indexation state.",
+      "confidence": "high"
+    },
+    {
+      "id": "source-observation-live-posts-sitemap-2026-07-16",
+      "sourceType": "live-site",
+      "sourceTitle": "FairLend posts sitemap",
+      "sourceLocator": "https://www.fairlend.ca/posts-sitemap.xml",
+      "capturedAt": "2026-07-16T22:03:00-04:00",
+      "observationAnchor": "empty-urlset",
+      "excerpt": "The posts sitemap was valid and contained zero post URLs.",
+      "confidence": "high"
+    },
+    {
+      "id": "source-observation-live-home-response-2026-07-16",
+      "sourceType": "live-site",
+      "sourceTitle": "FairLend homepage response snapshot",
+      "sourceLocator": "https://www.fairlend.ca/",
+      "capturedAt": "2026-07-16T22:03:00-04:00",
+      "observationAnchor": "http-and-crawler-response",
+      "excerpt": "The apex redirected to the www host; Googlebot, Bingbot, Applebot, and OAI-SearchBot received successful homepage responses.",
+      "confidence": "high"
+    }
+  ],
+  "siteInventory": [
+    {"id":"site-home","url":"https://www.fairlend.ca/","sitemap":"pages","lastmod":"2026-07-14","expectedCanonical":null,"httpStatus":null,"indexability":"unknown","sourceObservationRefs":["source-observation-live-pages-sitemap-2026-07-16"]},
+    {"id":"site-affordable-sustainable-rental-housing","url":"https://www.fairlend.ca/affordable-sustainable-rental-housing","sitemap":"pages","lastmod":"2026-07-09","expectedCanonical":null,"httpStatus":null,"indexability":"unknown","sourceObservationRefs":["source-observation-live-pages-sitemap-2026-07-16"]},
+    {"id":"site-borrowers","url":"https://www.fairlend.ca/borrowers","sitemap":"pages","lastmod":"2026-07-14","expectedCanonical":null,"httpStatus":null,"indexability":"unknown","sourceObservationRefs":["source-observation-live-pages-sitemap-2026-07-16"]},
+    {"id":"site-institutional-mortgage","url":"https://www.fairlend.ca/borrowers/institutional-mortgage","sitemap":"pages","lastmod":"2026-07-14","expectedCanonical":null,"httpStatus":null,"indexability":"unknown","sourceObservationRefs":["source-observation-live-pages-sitemap-2026-07-16"]},
+    {"id":"site-private-mortgage-financing","url":"https://www.fairlend.ca/borrowers/private-mortgage-financing","sitemap":"pages","lastmod":"2026-07-14","expectedCanonical":null,"httpStatus":null,"indexability":"unknown","sourceObservationRefs":["source-observation-live-pages-sitemap-2026-07-16"]},
+    {"id":"site-construction-draw-financing","url":"https://www.fairlend.ca/construction-draw-financing","sitemap":"pages","lastmod":"2026-07-09","expectedCanonical":null,"httpStatus":null,"indexability":"unknown","sourceObservationRefs":["source-observation-live-pages-sitemap-2026-07-16"]},
+    {"id":"site-contact","url":"https://www.fairlend.ca/contact","sitemap":"pages","lastmod":"2026-07-14","expectedCanonical":null,"httpStatus":null,"indexability":"unknown","sourceObservationRefs":["source-observation-live-pages-sitemap-2026-07-16"]},
+    {"id":"site-disclosures","url":"https://www.fairlend.ca/disclosures","sitemap":"pages","lastmod":"2026-07-14","expectedCanonical":null,"httpStatus":null,"indexability":"unknown","sourceObservationRefs":["source-observation-live-pages-sitemap-2026-07-16"]},
+    {"id":"site-privacy-policy","url":"https://www.fairlend.ca/en/brokerage/privacy-policy","sitemap":"pages","lastmod":"2026-07-14","expectedCanonical":null,"httpStatus":null,"indexability":"unknown","sourceObservationRefs":["source-observation-live-pages-sitemap-2026-07-16"]},
+    {"id":"site-garden-suite-financing-gta","url":"https://www.fairlend.ca/garden-suite-financing-gta","sitemap":"pages","lastmod":"2026-07-14","expectedCanonical":null,"httpStatus":null,"indexability":"unknown","sourceObservationRefs":["source-observation-live-pages-sitemap-2026-07-16"]},
+    {"id":"site-garden-suite","url":"https://www.fairlend.ca/garden-suite","sitemap":"pages","lastmod":"2026-07-09","expectedCanonical":null,"httpStatus":null,"indexability":"unknown","sourceObservationRefs":["source-observation-live-pages-sitemap-2026-07-16"]},
+    {"id":"site-investing","url":"https://www.fairlend.ca/investing","sitemap":"pages","lastmod":"2026-07-14","expectedCanonical":null,"httpStatus":null,"indexability":"unknown","sourceObservationRefs":["source-observation-live-pages-sitemap-2026-07-16"]},
+    {"id":"site-private-mortgage-lending","url":"https://www.fairlend.ca/investing/private-mortgage-lending","sitemap":"pages","lastmod":"2026-07-14","expectedCanonical":null,"httpStatus":null,"indexability":"unknown","sourceObservationRefs":["source-observation-live-pages-sitemap-2026-07-16"]},
+    {"id":"site-multiplex-financing-gta","url":"https://www.fairlend.ca/multiplex-financing-gta","sitemap":"pages","lastmod":"2026-07-09","expectedCanonical":null,"httpStatus":null,"indexability":"unknown","sourceObservationRefs":["source-observation-live-pages-sitemap-2026-07-16"]},
+    {"id":"site-partners","url":"https://www.fairlend.ca/partners","sitemap":"pages","lastmod":"2026-07-14","expectedCanonical":null,"httpStatus":null,"indexability":"unknown","sourceObservationRefs":["source-observation-live-pages-sitemap-2026-07-16"]},
+    {"id":"site-posts","url":"https://www.fairlend.ca/posts","sitemap":"pages","lastmod":"2026-07-14","expectedCanonical":null,"httpStatus":null,"indexability":"unknown","sourceObservationRefs":["source-observation-live-pages-sitemap-2026-07-16"]},
+    {"id":"site-terms","url":"https://www.fairlend.ca/terms","sitemap":"pages","lastmod":"2026-07-14","expectedCanonical":null,"httpStatus":null,"indexability":"unknown","sourceObservationRefs":["source-observation-live-pages-sitemap-2026-07-16"]}
+  ],
+  "notes": [
+    "Sitemap membership and lastmod were observed live on 2026-07-16.",
+    "HTTP status, indexability, and canonical state remain unknown in this live inventory because sitemap membership alone does not prove those properties; the separately dated audit snapshot preserves its earlier crawl findings.",
+    "No OpenSEO or DataForSEO request was used to create this snapshot."
+  ]
+}

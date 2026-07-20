@@ -1,6 +1,7 @@
 import type { Metadata } from 'next/types'
 
 import { FairlendJournalArchive } from '@/components/FairlendJournalArchive'
+import { FairlendLandingRail } from '@/components/FairlendLandingRail'
 import { Pagination } from '@/components/Pagination'
 import { FAIRLEND_DEMO_POST_SLUGS } from '@/lib/fairlend-posts'
 import { buildFairlendMetadata, fairlendNotFoundMetadata } from '@/utilities/seo'
@@ -32,11 +33,20 @@ export default async function Page({ params: paramsPromise }: Args) {
   return (
     <>
       <PageClient />
-      <FairlendJournalArchive posts={posts.docs} showFeatured={false} />
-      <div className="container bg-[#f8f7f5] pb-20">
-        {posts?.page && posts?.totalPages > 1 && (
-          <Pagination page={posts.page} totalPages={posts.totalPages} />
-        )}
+      <div className="fairlend-landing-page min-h-svh bg-[#f8f7f5]">
+        <FairlendJournalArchive
+          currentPage={posts.page || sanitizedPageNumber}
+          posts={posts.docs}
+          showFeatured={false}
+          totalDocs={posts.totalDocs}
+        />
+        {posts.page && posts.totalPages > 1 ? (
+          <FairlendLandingRail gutterTexture="groovepaper">
+            <div className="mx-auto max-w-[86rem] px-5 py-10 sm:px-8 sm:py-14 lg:px-14">
+              <Pagination page={posts.page} totalPages={posts.totalPages} />
+            </div>
+          </FairlendLandingRail>
+        ) : null}
       </div>
     </>
   )

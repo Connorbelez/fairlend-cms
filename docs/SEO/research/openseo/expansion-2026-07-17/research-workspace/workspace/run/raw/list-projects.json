@@ -1,0 +1,21 @@
+{
+  "capturedAt": "2026-07-17T06:31:46.411Z",
+  "tool": "list_projects",
+  "args": {},
+  "data": {
+    "projects": [
+      {
+        "id": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+        "name": "FairLend",
+        "domain": "fairlend.ca",
+        "locationCode": 2124,
+        "languageCode": "en",
+        "url": "http://127.0.0.1:3001/p/7a3d4821-d03c-4be6-aaba-293df92d8ca8"
+      }
+    ],
+    "meta": {
+      "organizationId": "delegated-local-admin",
+      "url": "http://127.0.0.1:3001/"
+    }
+  }
+}

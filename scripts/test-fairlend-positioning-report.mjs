@@ -6,11 +6,11 @@ import { JSDOM } from 'jsdom';
 const workspace = resolve(import.meta.dirname, '..');
 const sourcePath = resolve(
   workspace,
-  'docs/research/fairlend-customer-choice-and-competitive-positioning-2026-07-15.md',
+  'docs/SEO/research/competitive/fairlend-customer-choice-and-competitive-positioning-2026-07-15.md',
 );
 const outputPath = resolve(
   workspace,
-  'docs/prototypes/fairlend-competitive-positioning-report/index.html',
+  'docs/SEO/visual-reports/competitive-positioning-2026-07-15/index.html',
 );
 
 const [source, html] = await Promise.all([

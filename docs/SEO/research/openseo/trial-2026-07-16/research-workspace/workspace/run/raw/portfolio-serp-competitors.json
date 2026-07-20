@@ -1,0 +1,517 @@
+{
+  "capturedAt": "2026-07-17T03:35:21.621Z",
+  "tool": "find_serp_competitors",
+  "args": {
+    "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+    "keywords": [
+      "mli select",
+      "multiplex construction financing",
+      "garden suite financing",
+      "laneway suite financing",
+      "construction financing",
+      "construction draw mortgage",
+      "mortgage broker for realtors"
+    ],
+    "resultTypes": [
+      "organic",
+      "featured_snippet",
+      "local_pack"
+    ],
+    "excludeDomains": [
+      "fairlend.ca"
+    ],
+    "includeSubdomains": true,
+    "sortBy": "visibility",
+    "limit": 30,
+    "offset": 0
+  },
+  "data": {
+    "competitors": [
+      {
+        "se_type": "google",
+        "domain": "www.cmhc-schl.gc.ca",
+        "avg_position": 1,
+        "median_position": 1,
+        "rating": 99,
+        "etv": 486.4,
+        "keywords_count": 1,
+        "visibility": 1,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            1
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "legault-dubois.ca",
+        "avg_position": 3,
+        "median_position": 3,
+        "rating": 97,
+        "etv": 155.68,
+        "keywords_count": 1,
+        "visibility": 0.8,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            3
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "buildingexpert.ca",
+        "avg_position": 4,
+        "median_position": 4,
+        "rating": 96,
+        "etv": 105.44,
+        "keywords_count": 1,
+        "visibility": 0.7,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            4
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "www.mcap.com",
+        "avg_position": 5,
+        "median_position": 5,
+        "rating": 95,
+        "etv": 75.03999999999999,
+        "keywords_count": 1,
+        "visibility": 0.6,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            5
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "www.canadaici.com",
+        "avg_position": 6,
+        "median_position": 6,
+        "rating": 94,
+        "etv": 54.08,
+        "keywords_count": 1,
+        "visibility": 0.5,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            6
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "sb-llp.com",
+        "avg_position": 7,
+        "median_position": 7,
+        "rating": 93,
+        "etv": 40.96,
+        "keywords_count": 1,
+        "visibility": 0.4,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            7
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "bldfinancial.ca",
+        "avg_position": 8,
+        "median_position": 8,
+        "rating": 92,
+        "etv": 31.52,
+        "keywords_count": 1,
+        "visibility": 0.3,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            8
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "www.cmls.ca",
+        "avg_position": 10,
+        "median_position": 10,
+        "rating": 90,
+        "etv": 18.08,
+        "keywords_count": 1,
+        "visibility": 0.1,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            10
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "www.reddit.com",
+        "avg_position": 11,
+        "median_position": 11,
+        "rating": 89,
+        "etv": 14.56,
+        "keywords_count": 1,
+        "visibility": 0.05,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            11
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "www.youtube.com",
+        "avg_position": 12,
+        "median_position": 12,
+        "rating": 88,
+        "etv": 12,
+        "keywords_count": 1,
+        "visibility": 0.05,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            12
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "lendcity.ca",
+        "avg_position": 13,
+        "median_position": 13,
+        "rating": 87,
+        "etv": 9.44,
+        "keywords_count": 1,
+        "visibility": 0.05,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            13
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "www.kraftmortgages.ca",
+        "avg_position": 14,
+        "median_position": 14,
+        "rating": 86,
+        "etv": 8.959999999999999,
+        "keywords_count": 1,
+        "visibility": 0.05,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            14
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "constructionsmcl.com",
+        "avg_position": 15,
+        "median_position": 15,
+        "rating": 85,
+        "etv": 8.16,
+        "keywords_count": 1,
+        "visibility": 0.05,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            15
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "newhomesalberta.ca",
+        "avg_position": 16,
+        "median_position": 16,
+        "rating": 84,
+        "etv": 6.88,
+        "keywords_count": 1,
+        "visibility": 0.05,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            16
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "www.aspirepeakproperties.com",
+        "avg_position": 17,
+        "median_position": 17,
+        "rating": 83,
+        "etv": 6.88,
+        "keywords_count": 1,
+        "visibility": 0.05,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            17
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "rateshop.ca",
+        "avg_position": 18,
+        "median_position": 18,
+        "rating": 82,
+        "etv": 5.28,
+        "keywords_count": 1,
+        "visibility": 0.05,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            18
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "www.peakhillcapital.com",
+        "avg_position": 19,
+        "median_position": 19,
+        "rating": 81,
+        "etv": 4.32,
+        "keywords_count": 1,
+        "visibility": 0.05,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            19
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "www.gta-homes.com",
+        "avg_position": 22,
+        "median_position": 22,
+        "rating": 78,
+        "etv": 3.52,
+        "keywords_count": 1,
+        "visibility": 0,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            22
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "www.facebook.com",
+        "avg_position": 23,
+        "median_position": 23,
+        "rating": 77,
+        "etv": 3.36,
+        "keywords_count": 1,
+        "visibility": 0,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            23
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "www.uccmortgageco.com",
+        "avg_position": 24,
+        "median_position": 24,
+        "rating": 76,
+        "etv": 3.36,
+        "keywords_count": 1,
+        "visibility": 0,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            24
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "greenbirchcapital.com",
+        "avg_position": 25,
+        "median_position": 25,
+        "rating": 75,
+        "etv": 3.36,
+        "keywords_count": 1,
+        "visibility": 0,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            25
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "citadelmortgages.ca",
+        "avg_position": 26,
+        "median_position": 26,
+        "rating": 74,
+        "etv": 3.36,
+        "keywords_count": 1,
+        "visibility": 0,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            26
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "www.platinumcondodeals.com",
+        "avg_position": 28,
+        "median_position": 28,
+        "rating": 72,
+        "etv": 3.36,
+        "keywords_count": 1,
+        "visibility": 0,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            28
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "www.mmgmortgages.ca",
+        "avg_position": 29,
+        "median_position": 29,
+        "rating": 71,
+        "etv": 3.36,
+        "keywords_count": 1,
+        "visibility": 0,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            29
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "redleafhomes.ca",
+        "avg_position": 30,
+        "median_position": 30,
+        "rating": 70,
+        "etv": 3.36,
+        "keywords_count": 1,
+        "visibility": 0,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            30
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "janetteroch.ca",
+        "avg_position": 31,
+        "median_position": 31,
+        "rating": 69,
+        "etv": 3.36,
+        "keywords_count": 1,
+        "visibility": 0,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            31
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "www.vanplex.ca",
+        "avg_position": 32,
+        "median_position": 32,
+        "rating": 68,
+        "etv": 3.36,
+        "keywords_count": 1,
+        "visibility": 0,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            32
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "tfnrealty.com",
+        "avg_position": 33,
+        "median_position": 33,
+        "rating": 67,
+        "etv": 3.36,
+        "keywords_count": 1,
+        "visibility": 0,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            33
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "calgaryreihub.com",
+        "avg_position": 34,
+        "median_position": 34,
+        "rating": 66,
+        "etv": 3.36,
+        "keywords_count": 1,
+        "visibility": 0,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            34
+          ]
+        }
+      },
+      {
+        "se_type": "google",
+        "domain": "allseasoninspection.com",
+        "avg_position": 35,
+        "median_position": 35,
+        "rating": 65,
+        "etv": 3.36,
+        "keywords_count": 1,
+        "visibility": 0,
+        "relevant_serp_items": 1,
+        "keywords_positions": {
+          "mli select": [
+            35
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "organizationId": "delegated-local-admin",
+      "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+      "url": "http://127.0.0.1:3001/p/7a3d4821-d03c-4be6-aaba-293df92d8ca8/domain"
+    }
+  }
+}

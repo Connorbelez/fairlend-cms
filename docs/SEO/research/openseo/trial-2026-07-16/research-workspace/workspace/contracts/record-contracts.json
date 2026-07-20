@@ -1,0 +1,124 @@
+{
+  "contractVersion": "1.0.0",
+  "manifest": {
+    "requiredFields": ["runId", "status", "market", "budget", "authorization", "mutations", "contentBoundary", "tools", "sourceObservationRefs"],
+    "enumFields": {"status": "runStatus", "contentBoundary": "contentBoundary"},
+    "fieldSchemas": {
+      "runId": {"type": "string", "nonEmpty": true, "format": "stable-id"},
+      "status": {"type": "string", "nonEmpty": true},
+      "market": {"type": "object", "closed": true, "properties": {"country": {"type": "string", "nonEmpty": true}, "language": {"type": "string", "nonEmpty": true}, "primaryLocation": {"type": "string", "nonEmpty": true}, "secondaryLocation": {"type": "string", "nonEmpty": true}}},
+      "budget": {"type": "object", "closed": true, "properties": {"currency": {"type": "string", "nonEmpty": true}, "hardCeiling": {"type": "number", "minimum": 0}, "spent": {"type": "number", "minimum": 0}, "committed": {"type": "number", "minimum": 0}, "remaining": {"type": "number", "minimum": 0}}},
+      "authorization": {"type": "object", "closed": true, "properties": {"siteMode": {"type": "string", "nonEmpty": true}, "cmsMode": {"type": "string", "nonEmpty": true}, "repositorySourceMode": {"type": "string", "nonEmpty": true}, "platformMode": {"type": "string", "nonEmpty": true}, "externalAccountMode": {"type": "string", "nonEmpty": true}, "allowedWrites": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true}}}},
+      "mutations": {"type": "array", "maxItems": 0},
+      "contentBoundary": {"type": "string", "nonEmpty": true},
+      "tools": {"type": "array", "uniqueItems": true, "items": {"type": "object", "closed": true, "properties": {"name": {"type": "string", "nonEmpty": true}, "version": {"type": "string", "nonEmpty": true}, "commit": {"type": "string", "nonEmpty": true}}}},
+      "sourceObservationRefs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}
+    },
+    "referenceFields": {"sourceObservationRefs": {"target": "sourceObservations", "cardinality": "many", "minimum": 1}}
+  },
+  "collections": {
+    "sourceObservations": {
+      "requiredFields": ["id", "sourceType", "sourceTitle", "sourceLocator", "capturedAt", "observationAnchor", "excerpt", "confidence"],
+      "enumFields": {"sourceType": "sourceType", "confidence": "confidence"},
+      "timestampFields": ["capturedAt"],
+      "nonEmptyStringFields": ["sourceTitle", "sourceLocator", "observationAnchor", "excerpt"],
+      "fieldSchemas": {
+        "id": {"type": "string", "nonEmpty": true, "format": "stable-id"}, "sourceType": {"type": "string", "nonEmpty": true}, "sourceTitle": {"type": "string", "nonEmpty": true}, "sourceLocator": {"type": "string", "nonEmpty": true, "format": "source-locator"}, "capturedAt": {"type": "string", "nonEmpty": true}, "observationAnchor": {"type": "string", "nonEmpty": true}, "excerpt": {"type": "string", "nonEmpty": true}, "confidence": {"type": "string", "nonEmpty": true}
+      }
+    },
+    "siteInventory": {
+      "requiredFields": ["id", "url", "sitemap", "lastmod", "expectedCanonical", "httpStatus", "indexability", "sourceObservationRefs"],
+      "enumFields": {"indexability": "indexability"},
+      "fieldSchemas": {
+        "id": {"type": "string", "nonEmpty": true, "format": "stable-id"}, "url": {"type": "string", "nonEmpty": true, "format": "http-url"}, "sitemap": {"type": "string", "nonEmpty": true}, "lastmod": {"type": "string", "nonEmpty": true, "format": "date", "nullable": true}, "expectedCanonical": {"type": "string", "nonEmpty": true, "format": "http-url", "nullable": true}, "httpStatus": {"type": "integer", "minimum": 100, "maximum": 599, "nullable": true}, "indexability": {"type": "string", "nonEmpty": true}, "sourceObservationRefs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}
+      },
+      "referenceFields": {"sourceObservationRefs": {"target": "sourceObservations", "cardinality": "many", "minimum": 1}}
+    },
+    "auditFindings": {
+      "requiredFields": ["id", "category", "severity", "status", "finding", "observedAt", "sourceObservationRefs"],
+      "enumFields": {"category": "auditCategory", "severity": "auditSeverity", "status": "auditStatus"},
+      "timestampFields": ["observedAt"],
+      "fieldSchemas": {
+        "id": {"type": "string", "nonEmpty": true, "format": "stable-id"}, "category": {"type": "string", "nonEmpty": true}, "severity": {"type": "string", "nonEmpty": true}, "status": {"type": "string", "nonEmpty": true}, "finding": {"type": "string", "nonEmpty": true}, "observedAt": {"type": "string", "nonEmpty": true}, "sourceObservationRefs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}
+      },
+      "referenceFields": {"sourceObservationRefs": {"target": "sourceObservations", "cardinality": "many", "minimum": 1}}
+    },
+    "keywords": {
+      "requiredFields": ["id", "query", "normalizedQuery", "seedConcept", "clusterId", "persona", "personaDetail", "personaTier", "financingTrigger", "lifecycleStages", "funnelHeadline", "funnelStage", "geography", "intent", "relevanceDisposition", "exclusionReason", "observedAt", "metrics", "serpFeatures", "leadCaptureScore", "authorityBuildScore", "confidence", "sourceObservationRefs"],
+      "enumFields": {"persona": "persona", "personaTier": "personaTier", "financingTrigger": "financingTrigger", "funnelHeadline": "funnelHeadline", "funnelStage": "funnelStage", "geography": "geography", "intent": "intent", "relevanceDisposition": "relevanceDisposition", "exclusionReason": "exclusionReason", "confidence": "confidence", "metrics.dataStatus": "dataStatus"},
+      "arrayEnumFields": {"lifecycleStages": "lifecycleStage"},
+      "timestampFields": ["observedAt"],
+      "fieldSchemas": {
+        "id": {"type": "string", "nonEmpty": true, "format": "stable-id"}, "query": {"type": "string", "nonEmpty": true}, "normalizedQuery": {"type": "string", "nonEmpty": true}, "seedConcept": {"type": "string", "nonEmpty": true, "format": "stable-id"}, "clusterId": {"type": "string", "nonEmpty": true, "format": "stable-id"}, "persona": {"type": "string", "nonEmpty": true}, "personaDetail": {"type": "string", "nonEmpty": true, "nullable": true}, "personaTier": {"type": "string", "nonEmpty": true}, "financingTrigger": {"type": "string", "nonEmpty": true}, "lifecycleStages": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true}}, "funnelHeadline": {"type": "string", "nonEmpty": true}, "funnelStage": {"type": "string", "nonEmpty": true}, "geography": {"type": "string", "nonEmpty": true}, "intent": {"type": "string", "nonEmpty": true}, "relevanceDisposition": {"type": "string", "nonEmpty": true}, "exclusionReason": {"type": "string", "nonEmpty": true}, "observedAt": {"type": "string", "nonEmpty": true},
+        "metrics": {"type": "object", "closed": true, "properties": {"dataStatus": {"type": "string", "nonEmpty": true}, "monthlySearches": {"type": "integer", "minimum": 0, "nullable": true}, "cpc": {"type": "number", "minimum": 0, "nullable": true}, "paidCompetition": {"type": "number", "minimum": 0, "maximum": 1, "nullable": true}, "difficulty": {"type": "number", "minimum": 0, "maximum": 100, "nullable": true}, "trend": {"type": "array", "uniqueItems": true, "items": {"type": "object", "closed": true, "properties": {"year": {"type": "integer", "minimum": 2000, "maximum": 2100}, "month": {"type": "integer", "minimum": 1, "maximum": 12}, "monthlySearches": {"type": "integer", "minimum": 0}}}}}},
+        "serpFeatures": {"type": "array", "uniqueItems": true, "items": {"type": "string", "nonEmpty": true}}, "confidence": {"type": "string", "nonEmpty": true}, "sourceObservationRefs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}
+      },
+      "referenceFields": {"clusterId": {"target": "clusters", "cardinality": "one"}, "sourceObservationRefs": {"target": "sourceObservations", "cardinality": "many", "minimum": 1}},
+      "scoreObjectFields": ["leadCaptureScore", "authorityBuildScore"]
+    },
+    "clusters": {
+      "requiredFields": ["id", "name", "workstream", "primaryKeywordId", "keywordIds", "pageBoundaryStatus", "confidence", "sourceObservationRefs"],
+      "enumFields": {"workstream": "workstream", "pageBoundaryStatus": "pageBoundaryStatus", "confidence": "confidence"},
+      "fieldSchemas": {"id": {"type": "string", "nonEmpty": true, "format": "stable-id"}, "name": {"type": "string", "nonEmpty": true}, "workstream": {"type": "string", "nonEmpty": true}, "primaryKeywordId": {"type": "string", "nonEmpty": true, "format": "stable-id"}, "keywordIds": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}, "pageBoundaryStatus": {"type": "string", "nonEmpty": true}, "confidence": {"type": "string", "nonEmpty": true}, "sourceObservationRefs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}},
+      "referenceFields": {"primaryKeywordId": {"target": "keywords", "cardinality": "one"}, "keywordIds": {"target": "keywords", "cardinality": "many", "minimum": 1}, "sourceObservationRefs": {"target": "sourceObservations", "cardinality": "many", "minimum": 1}}
+    },
+    "serpEvidence": {
+      "requiredFields": ["id", "queryId", "location", "device", "observedAt", "dataStatus", "resultUrls", "features", "interpretation", "confidence", "sourceObservationRefs"],
+      "enumFields": {"device": "device", "dataStatus": "serpDataStatus", "confidence": "confidence"},
+      "timestampFields": ["observedAt"],
+      "fieldSchemas": {"id": {"type": "string", "nonEmpty": true, "format": "stable-id"}, "queryId": {"type": "string", "nonEmpty": true, "format": "stable-id"}, "location": {"type": "string", "nonEmpty": true}, "device": {"type": "string", "nonEmpty": true}, "observedAt": {"type": "string", "nonEmpty": true}, "dataStatus": {"type": "string", "nonEmpty": true}, "resultUrls": {"type": "array", "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "http-url"}}, "features": {"type": "array", "uniqueItems": true, "items": {"type": "string", "nonEmpty": true}}, "interpretation": {"type": "string", "nonEmpty": true}, "confidence": {"type": "string", "nonEmpty": true}, "sourceObservationRefs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}},
+      "referenceFields": {"queryId": {"target": "keywords", "cardinality": "one"}, "sourceObservationRefs": {"target": "sourceObservations", "cardinality": "many", "minimum": 1}}
+    },
+    "competitors": {
+      "requiredFields": ["id", "name", "competitorType", "domain", "relevantClusterIds", "observation", "confidence", "sourceObservationRefs"],
+      "enumFields": {"competitorType": "competitorType", "confidence": "confidence"},
+      "fieldSchemas": {"id": {"type": "string", "nonEmpty": true, "format": "stable-id"}, "name": {"type": "string", "nonEmpty": true}, "competitorType": {"type": "string", "nonEmpty": true}, "domain": {"type": "string", "nonEmpty": true, "format": "hostname"}, "relevantClusterIds": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}, "observation": {"type": "string", "nonEmpty": true}, "confidence": {"type": "string", "nonEmpty": true}, "sourceObservationRefs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}},
+      "referenceFields": {"relevantClusterIds": {"target": "clusters", "cardinality": "many", "minimum": 1}, "sourceObservationRefs": {"target": "sourceObservations", "cardinality": "many", "minimum": 1}}
+    },
+    "pageOpportunities": {
+      "requiredFields": ["id", "topic", "persona", "personaDetail", "personaTier", "financingTrigger", "clusterIds", "lifecycleStages", "funnelHeadline", "funnelStage", "intent", "urlDisposition", "existingUrl", "proposedUrl", "pageType", "primaryConversion", "qualificationExpectations", "localEvidence", "competitorIds", "aiQuestionIds", "internalLinkRole", "requiredOriginalEvidence", "claimIds", "cannibalizationDependencies", "leadCaptureScore", "authorityBuildScore", "confidence", "recommendedPriority", "nextHumanDecision", "sourceObservationRefs"],
+      "enumFields": {"persona": "persona", "personaTier": "personaTier", "financingTrigger": "financingTrigger", "funnelHeadline": "funnelHeadline", "funnelStage": "funnelStage", "intent": "intent", "urlDisposition": "urlDisposition", "pageType": "pageType", "primaryConversion": "primaryConversion", "confidence": "confidence", "recommendedPriority": "recommendedPriority"},
+      "arrayEnumFields": {"lifecycleStages": "lifecycleStage"},
+      "nonEmptyStringArrayFields": ["qualificationExpectations"],
+      "fieldSchemas": {
+        "id": {"type": "string", "nonEmpty": true, "format": "stable-id"}, "topic": {"type": "string", "nonEmpty": true}, "persona": {"type": "string", "nonEmpty": true}, "personaDetail": {"type": "string", "nonEmpty": true, "nullable": true}, "personaTier": {"type": "string", "nonEmpty": true}, "financingTrigger": {"type": "string", "nonEmpty": true}, "clusterIds": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}, "lifecycleStages": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true}}, "funnelHeadline": {"type": "string", "nonEmpty": true}, "funnelStage": {"type": "string", "nonEmpty": true}, "intent": {"type": "string", "nonEmpty": true}, "urlDisposition": {"type": "string", "nonEmpty": true}, "existingUrl": {"type": "string", "nonEmpty": true, "format": "http-url", "nullable": true}, "proposedUrl": {"type": "string", "nonEmpty": true, "format": "root-relative-url", "nullable": true}, "pageType": {"type": "string", "nonEmpty": true}, "primaryConversion": {"type": "string", "nonEmpty": true}, "qualificationExpectations": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true}}, "localEvidence": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}, "competitorIds": {"type": "array", "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}, "aiQuestionIds": {"type": "array", "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}, "internalLinkRole": {"type": "string", "nonEmpty": true}, "requiredOriginalEvidence": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true}}, "claimIds": {"type": "array", "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}, "cannibalizationDependencies": {"type": "array", "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}, "leadCaptureScore": {"type": "number", "minimum": 0, "maximum": 100}, "authorityBuildScore": {"type": "number", "minimum": 0, "maximum": 100}, "confidence": {"type": "string", "nonEmpty": true}, "recommendedPriority": {"type": "string", "nonEmpty": true}, "nextHumanDecision": {"type": "string", "nonEmpty": true}, "sourceObservationRefs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}
+      },
+      "referenceFields": {"clusterIds": {"target": "clusters", "cardinality": "many", "minimum": 1}, "localEvidence": {"target": "sourceObservations", "cardinality": "many", "minimum": 1}, "competitorIds": {"target": "competitors", "cardinality": "many"}, "aiQuestionIds": {"target": "aiQuestions", "cardinality": "many"}, "claimIds": {"target": "claims", "cardinality": "many"}, "cannibalizationDependencies": {"target": "siteInventory", "cardinality": "many"}, "sourceObservationRefs": {"target": "sourceObservations", "cardinality": "many", "minimum": 1}},
+      "numericScoreFields": ["leadCaptureScore", "authorityBuildScore"]
+    },
+    "aiQuestions": {
+      "requiredFields": ["id", "question", "clusterId", "sourceKind", "volumeClaimed", "requiredEvidence", "confidence", "sourceObservationRefs"],
+      "enumFields": {"sourceKind": "aiQuestionSourceKind", "confidence": "confidence"},
+      "fieldSchemas": {"id": {"type": "string", "nonEmpty": true, "format": "stable-id"}, "question": {"type": "string", "nonEmpty": true}, "clusterId": {"type": "string", "nonEmpty": true, "format": "stable-id"}, "sourceKind": {"type": "string", "nonEmpty": true}, "volumeClaimed": {"type": "boolean"}, "requiredEvidence": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true}}, "confidence": {"type": "string", "nonEmpty": true}, "sourceObservationRefs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}},
+      "referenceFields": {"clusterId": {"target": "clusters", "cardinality": "one"}, "sourceObservationRefs": {"target": "sourceObservations", "cardinality": "many", "minimum": 1}}
+    },
+    "claims": {
+      "requiredFields": ["id", "claim", "status", "allowedUsage", "requiredEvidence", "owner", "reviewBy", "confidence", "sourceObservationRefs"],
+      "enumFields": {"status": "claimStatus", "allowedUsage": "claimAllowedUsage", "confidence": "confidence"},
+      "nullableTimestampFields": ["reviewBy"],
+      "fieldSchemas": {"id": {"type": "string", "nonEmpty": true, "format": "stable-id"}, "claim": {"type": "string", "nonEmpty": true}, "status": {"type": "string", "nonEmpty": true}, "allowedUsage": {"type": "string", "nonEmpty": true}, "requiredEvidence": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true}}, "owner": {"type": "string", "nonEmpty": true}, "reviewBy": {"type": "string", "nonEmpty": true, "nullable": true}, "confidence": {"type": "string", "nonEmpty": true}, "sourceObservationRefs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}},
+      "referenceFields": {"sourceObservationRefs": {"target": "sourceObservations", "cardinality": "many", "minimum": 1}}
+    },
+    "briefs": {
+      "requiredFields": ["id", "opportunityId", "contentBoundary", "pagePurpose", "audience", "problemTrigger", "sectionRequirements", "ctaSpecification", "internalLinkRequirements", "schemaOpportunities", "approvalRequirements", "successMeasures", "confidence", "sourceObservationRefs"],
+      "enumFields": {"contentBoundary": "contentBoundary", "confidence": "confidence"},
+      "fieldSchemas": {"id": {"type": "string", "nonEmpty": true, "format": "stable-id"}, "opportunityId": {"type": "string", "nonEmpty": true, "format": "stable-id"}, "contentBoundary": {"type": "string", "nonEmpty": true}, "pagePurpose": {"type": "string", "nonEmpty": true}, "audience": {"type": "string", "nonEmpty": true}, "problemTrigger": {"type": "string", "nonEmpty": true}, "sectionRequirements": {"type": "array", "minItems": 1, "items": {"type": "object", "closed": true, "properties": {"id": {"type": "string", "nonEmpty": true, "format": "stable-id"}, "headingRequirement": {"type": "string", "nonEmpty": true}, "questions": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true}}, "evidenceNeeded": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true}}}}}, "ctaSpecification": {"type": "string", "nonEmpty": true}, "internalLinkRequirements": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true}}, "schemaOpportunities": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true}}, "approvalRequirements": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true}}, "successMeasures": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true}}, "confidence": {"type": "string", "nonEmpty": true}, "sourceObservationRefs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}},
+      "referenceFields": {"opportunityId": {"target": "pageOpportunities", "cardinality": "one"}, "sourceObservationRefs": {"target": "sourceObservations", "cardinality": "many", "minimum": 1}}
+    },
+    "spendEvents": {
+      "requiredFields": ["id", "provider", "operation", "providerTaskIds", "workstream", "requestedRowCount", "returnedRowCount", "estimatedCost", "actualCost", "currency", "occurredAt", "status", "retryCount", "sourceObservationRefs"],
+      "enumFields": {"workstream": "spendWorkstream", "status": "spendStatus"},
+      "timestampFields": ["occurredAt"],
+      "fieldSchemas": {"id": {"type": "string", "nonEmpty": true, "format": "stable-id"}, "provider": {"type": "string", "nonEmpty": true}, "operation": {"type": "string", "nonEmpty": true}, "providerTaskIds": {"type": "array", "uniqueItems": true, "items": {"type": "string", "nonEmpty": true}}, "workstream": {"type": "string", "nonEmpty": true}, "requestedRowCount": {"type": "integer", "minimum": 0}, "returnedRowCount": {"type": "integer", "minimum": 0}, "estimatedCost": {"type": "number", "minimum": 0}, "actualCost": {"type": "number", "minimum": 0, "nullable": true}, "currency": {"type": "string", "nonEmpty": true}, "occurredAt": {"type": "string", "nonEmpty": true}, "status": {"type": "string", "nonEmpty": true}, "retryCount": {"type": "integer", "minimum": 0}, "sourceObservationRefs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "nonEmpty": true, "format": "stable-id"}}},
+      "referenceFields": {"sourceObservationRefs": {"target": "sourceObservations", "cardinality": "many"}}
+    }
+  },
+  "scoreContracts": {
+    "leadCaptureScore": {"intentUrgency": 25, "qualifiedLeadFit": 20, "strategicFit": 15, "localFit": 10, "commercialEvidence": 10, "attainability": 10, "conversionClarity": 5, "evidenceConfidence": 5},
+    "authorityBuildScore": {"researchDemand": 20, "topicalImportance": 15, "aiCitationOpportunity": 15, "originalExpertise": 15, "internalLinkValue": 10, "linkworthiness": 10, "attainability": 10, "evidenceConfidence": 5}
+  },
+  "personaTierAssignments": {
+    "homeowner-citizen-developer": "tier-1", "landlord-property-converter": "tier-1", "bank-declined-viable-project-borrower": "tier-1", "multiplex-opportunity-purchaser": "tier-1", "build-to-hold-mli-select-developer": "tier-1", "builder-seeking-flexible-construction-financing": "tier-1", "garden-laneway-suite-homeowner": "tier-1", "single-family-builder-entering-multiplex": "tier-2", "first-time-small-scale-developer": "tier-2", "experienced-rental-investor-developer": "tier-2", "brrrr-value-add-major-construction-investor": "tier-2", "build-to-sell-developer": "tier-2", "owner-occupier-house-hacker": "tier-2", "multigenerational-family-developer": "tier-2", "landowner-builder-investor-partner": "tier-2", "capital-constrained-multi-project-builder": "tier-2", "construction-draw-cash-flow-borrower": "tier-2", "stalled-partially-completed-project-owner": "tier-2", "modular-prefabricated-developer": "tier-2", "non-profit-community-affordable-housing-sponsor": "tier-2", "mortgage-broker-referral-partner": "tier-2", "realtor-referral-partner": "tier-2", "professional-referral-partner": "tier-2"
+  },
+  "funnelHeadlineByStage": {"awareness-education": "research", "project-feasibility": "research", "planning-comparison": "research", "financing-qualification": "buying-signal", "immediate-transaction-problem": "buying-signal"}
+}

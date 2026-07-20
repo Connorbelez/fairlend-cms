@@ -1,0 +1,58 @@
+{
+  "capturedAt": "2026-07-17T03:34:45.171Z",
+  "tool": "get_serp_results",
+  "args": {
+    "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+    "queries": [
+      {
+        "keyword": "multiplex construction financing Toronto",
+        "locationCode": 1002451,
+        "languageCode": "en"
+      },
+      {
+        "keyword": "garden suite financing Toronto",
+        "locationCode": 1002451,
+        "languageCode": "en"
+      },
+      {
+        "keyword": "construction draw financing Ontario",
+        "locationCode": 1002451,
+        "languageCode": "en"
+      },
+      {
+        "keyword": "mortgage broker for realtors Toronto",
+        "locationCode": 1002451,
+        "languageCode": "en"
+      }
+    ]
+  },
+  "data": {
+    "results": [
+      {
+        "keyword": "multiplex construction financing Toronto",
+        "ok": false,
+        "error": "Internal SE Server Error."
+      },
+      {
+        "keyword": "garden suite financing Toronto",
+        "ok": false,
+        "error": "Internal SE Server Error."
+      },
+      {
+        "keyword": "construction draw financing Ontario",
+        "ok": false,
+        "error": "Internal SE Server Error."
+      },
+      {
+        "keyword": "mortgage broker for realtors Toronto",
+        "ok": false,
+        "error": "Internal SE Server Error."
+      }
+    ],
+    "meta": {
+      "organizationId": "delegated-local-admin",
+      "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+      "url": "http://127.0.0.1:3001/p/7a3d4821-d03c-4be6-aaba-293df92d8ca8/keywords"
+    }
+  }
+}

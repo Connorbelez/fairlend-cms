@@ -1,0 +1,94 @@
+{
+  "generatedAt": "2026-07-20T15:50:30.737Z",
+  "observedAt": "2026-07-20",
+  "masterPath": "docs/SEO/master-report/fairlend-seo-master-report-2026-07-20/fairlend-seo-master-report.md",
+  "masterBytes": 3906404,
+  "masterSha256": "1156996c69b5b89c6c347eb09553e69655aad2c8aee92234732fcf4141abeb1e",
+  "sourceDirectories": [
+    "docs/SEO/research/keyword-and-funnel/landing-services-funnel-2026-07-19",
+    "docs/SEO/research/keyword-and-funnel/keyword-cluster-validation-2026-07-20",
+    "docs/SEO/research/keyword-and-funnel/mortgage-borrower-strategy-2026-07-20"
+  ],
+  "sourceArtifacts": 38,
+  "embeddedArtifacts": 37,
+  "sourceBytes": 2415716,
+  "parsedCsvRows": 1357,
+  "counts": {
+    "serviceFunnelKeywords": 160,
+    "landingServiceClusters": 32,
+    "borrowerKeywords": 160,
+    "borrowerClusters": 18,
+    "perKeywordStrategies": 160,
+    "liveSerpReferences": 800,
+    "competitorDomains": 221,
+    "borrowerQuestions": 120,
+    "contentOutlines": 18
+  },
+  "qa": [
+    {
+      "gate": "source-artifact-inventory",
+      "status": "PASS",
+      "detail": "38 source artifacts inventoried across three workstream directories."
+    },
+    {
+      "gate": "embedded-source-coverage",
+      "status": "PASS",
+      "detail": "37 canonical Markdown/CSV/JSON/text artifacts are identified by path and SHA-256 in the master."
+    },
+    {
+      "gate": "service-keyword-coverage",
+      "status": "PASS",
+      "detail": "All 160 landing-service funnel keyword rows included."
+    },
+    {
+      "gate": "landing-cluster-coverage",
+      "status": "PASS",
+      "detail": "All 32 landing-service cluster rows included."
+    },
+    {
+      "gate": "borrower-keyword-coverage",
+      "status": "PASS",
+      "detail": "All 160 borrower keyword IDs and queries included."
+    },
+    {
+      "gate": "per-keyword-strategy-coverage",
+      "status": "PASS",
+      "detail": "All 160 keyword-level outrank plans included."
+    },
+    {
+      "gate": "canonical-outline-coverage",
+      "status": "PASS",
+      "detail": "All 18 canonical page owners have complete production outlines."
+    },
+    {
+      "gate": "serp-reference-coverage",
+      "status": "PASS",
+      "detail": "All 800 captured ranking URLs included."
+    },
+    {
+      "gate": "competitor-domain-coverage",
+      "status": "PASS",
+      "detail": "All 221 observed competitor domains included."
+    },
+    {
+      "gate": "question-coverage",
+      "status": "PASS",
+      "detail": "All 120 borrower questions included."
+    },
+    {
+      "gate": "canonical-owner-integrity",
+      "status": "PASS",
+      "detail": "Every borrower keyword retains the canonical owner defined by its cluster."
+    },
+    {
+      "gate": "market-metric-honesty",
+      "status": "PASS",
+      "detail": "Unavailable search volume/CPC/difficulty remains explicitly unavailable-not-zero."
+    },
+    {
+      "gate": "html-derivative-provenance",
+      "status": "PASS",
+      "detail": "HTML presentation derivatives are inventoried without duplicating source code as research prose."
+    }
+  ]
+}

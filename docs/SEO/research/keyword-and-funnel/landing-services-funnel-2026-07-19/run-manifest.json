@@ -1,0 +1,181 @@
+{
+  "runId": "fairlend-landing-services-funnel-2026-07-19",
+  "createdAt": "2026-07-20T03:00:00Z",
+  "repository": "/Users/connor/Dev/fairlend-cms",
+  "sources": [
+    {
+      "id": "landing-page-inventory",
+      "type": "repository",
+      "path": "src/app/(home)/page.tsx and referenced landing components",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "gsc-query-2026-07-19",
+      "type": "authenticated-console",
+      "property": "sc-domain:fairlend.ca",
+      "reportRange": "2026-07-14/2026-07-17",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "ga4-2026-07-19",
+      "type": "authenticated-console",
+      "account": "366481383",
+      "property": "502729166",
+      "reportRange": "2026-06-21/2026-07-18",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "answer-socrates-2026-07-19",
+      "type": "authenticated-browser",
+      "url": "https://answersocrates.com/",
+      "seed": "Ontario real estate financing",
+      "locale": "Canada / English",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "google-keyword-planner",
+      "type": "authenticated-console",
+      "account": "359-082-4317",
+      "status": "blocked-by-campaign-and-payment-onboarding-no-mutation-made",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "prior-open-seo-live-metric",
+      "type": "repository-artifact",
+      "paths": [
+        "output/seo-research/fairlend-openseo-trial-2026-07-16",
+        "output/seo-research/fairlend-openseo-expansion-2026-07-17"
+      ],
+      "observedAt": "2026-07-16/2026-07-17"
+    },
+    {
+      "id": "serp-residential-mortgages",
+      "type": "live-serp",
+      "query": "residential mortgage broker Ontario",
+      "url": "https://www.fsrao.ca/consumers/mortgage-brokering/mortgage-application-process",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "serp-private-mortgages",
+      "type": "live-serp",
+      "query": "private mortgage lenders Ontario",
+      "url": "https://bestrefinance.ca/",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "serp-institutional-mortgages",
+      "type": "live-serp",
+      "query": "institutional mortgage broker Ontario",
+      "url": "https://www.money-solutions.ca/about/",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "serp-heloc",
+      "type": "live-serp",
+      "query": "HELOC broker Ontario",
+      "url": "https://lendsimpl.ca/heloc",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "serp-bridge-loans",
+      "type": "live-serp",
+      "query": "bridge financing real estate Canada",
+      "url": "https://www.cmls.ca/brokers/download-resource?id=171",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "serp-residential-refinancing",
+      "type": "live-serp",
+      "query": "mortgage refinance broker Ontario",
+      "url": "https://bestrefinance.ca/",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "serp-renovation-financing",
+      "type": "live-serp",
+      "query": "renovation financing lender Ontario",
+      "url": "https://renfi.ca/",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "serp-construction-financing",
+      "type": "live-serp",
+      "query": "construction financing Ontario",
+      "url": "https://www.tordon.com/construction-mortgage",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "serp-multiplex-financing",
+      "type": "live-serp",
+      "query": "multiplex financing Toronto",
+      "url": "https://www.vanplex.ca/toronto-multiplex/financing/",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "serp-garden-laneway-suites",
+      "type": "live-serp",
+      "query": "garden suite financing Toronto",
+      "url": "https://www.equitablebank.ca/docs/default-source/alternative-mortgages-library/feature-sheets/laneway-house-mortgage.pdf?sfvrsn=ec76a727_3",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "serp-mli-select",
+      "type": "live-serp",
+      "query": "MLI Select financing",
+      "url": "https://www.cmhc-schl.gc.ca/professionals/project-funding-and-mortgage-financing/mortgage-loan-insurance/multi-unit-insurance/mliselect",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "serp-rental-acquisition",
+      "type": "live-serp",
+      "query": "rental property financing Ontario",
+      "url": "https://mortgageontario.ca/investment-properties",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "serp-rental-refinancing",
+      "type": "live-serp",
+      "query": "refinance rental property Ontario",
+      "url": "https://greenhousemortgage.ca/services/investment-properties",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "serp-private-mortgage-investing",
+      "type": "live-serp",
+      "query": "private mortgage investing Ontario",
+      "url": "https://www.centumcf.com/private-lender-mortgages",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "serp-partner-program",
+      "type": "live-serp",
+      "query": "mortgage broker referral program Ontario",
+      "url": "https://circle-connect.ca/",
+      "observedAt": "2026-07-19"
+    },
+    {
+      "id": "serp-builder-consulting",
+      "type": "live-serp",
+      "query": "builder financing consultant Toronto",
+      "url": "https://grewaladvisory.ca/builder-financing",
+      "observedAt": "2026-07-19"
+    }
+  ],
+  "mutations": {
+    "productionFiles": 0,
+    "analyticsSettings": 0,
+    "searchConsoleSettings": 0,
+    "adCampaigns": 0,
+    "billingChanges": 0,
+    "repositoryArtifacts": 12,
+    "cacheFiles": 2
+  },
+  "qa": {
+    "expectedServices": 16,
+    "expectedKeywords": 160,
+    "expectedStages": 5,
+    "expectedQuestions": 68,
+    "expectedSerpRows": 16,
+    "expectedAnswerSocratesRows": 64
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "capturedAt": "2026-07-17T03:30:35.638Z",
+  "tool": "get_keyword_metrics",
+  "args": {
+    "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+    "keywords": [
+      "multiplex construction financing Toronto"
+    ],
+    "locationCode": 2124,
+    "languageCode": "en",
+    "includeMonthlyTrends": true,
+    "includeClickstreamData": false,
+    "sortBy": "search_volume"
+  },
+  "data": {
+    "keywords": [],
+    "meta": {
+      "organizationId": "delegated-local-admin",
+      "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+      "url": "http://127.0.0.1:3001/p/7a3d4821-d03c-4be6-aaba-293df92d8ca8/keywords"
+    }
+  }
+}

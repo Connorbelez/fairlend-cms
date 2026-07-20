@@ -1,0 +1,18 @@
+serviceId,serviceName,landingSource,keywordCount,funnelStagesCovered,questionCount,serpValidated,gscPageEvidence,status
+residential-mortgages,Residential Mortgages,FairlendLandingOverviewSection + route selector,10,5,8,yes,0,PASS
+private-mortgages,Private Mortgages,route selector subservice,10,5,4,yes,14,PASS
+institutional-mortgages,Institutional Mortgages,route selector subservice,10,5,4,yes,0,PASS
+heloc,Home Equity Line of Credit (HELOC),overview catalog + route selector subservice,10,5,4,yes,0,PASS
+bridge-loans,Bridge Loans,overview catalog,10,5,4,yes,0,PASS
+residential-refinancing,Residential Refinancing,overview catalog,10,5,4,yes,0,PASS
+renovation-financing,Renovation Financing,overview catalog,10,5,4,yes,0,PASS
+construction-financing,Construction Financing / DrawFlow,route selector service,10,5,4,yes,3,PASS
+multiplex-financing,Multi-plex Financing,overview catalog,10,5,4,yes,0,PASS
+garden-laneway-suites,Garden & Laneway Suite Financing,overview catalog + backyard-rental route,10,5,4,yes,13,PASS
+mli-select,MLI Select Insured Housing,overview catalog,10,5,4,yes,0,PASS
+rental-acquisition,Existing Rental Property Acquisition Financing,overview catalog,10,5,4,yes,0,PASS
+rental-refinancing,Existing Rental Property Refinancing,overview catalog,10,5,4,yes,0,PASS
+private-mortgage-investing,Private Mortgage Investing,route selector service,10,5,4,yes,14,PASS
+partner-program,Partner / Referral Program,route selector service,10,5,4,yes,5,PASS
+builder-consulting,Builder Consulting,dedicated homepage section,10,5,4,yes,0,PASS
+

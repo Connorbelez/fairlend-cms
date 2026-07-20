@@ -1,0 +1,71 @@
+{
+  "capturedAt": "2026-07-17T06:41:21.401Z",
+  "tool": "find_serp_competitors",
+  "args": {
+    "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+    "keywords": [
+      "garden suites toronto",
+      "mli select",
+      "construction loans canada",
+      "toronto building permit",
+      "development applications toronto",
+      "toronto zoning",
+      "construction financing canada"
+    ],
+    "resultTypes": [
+      "organic",
+      "featured_snippet",
+      "local_pack"
+    ],
+    "excludeDomains": [
+      "fairlend.ca"
+    ],
+    "includeSubdomains": true,
+    "sortBy": "visibility",
+    "limit": 1,
+    "offset": 0
+  },
+  "data": {
+    "competitors": [
+      {
+        "se_type": "google",
+        "domain": "www.youtube.com",
+        "avg_position": 12.285714285714286,
+        "median_position": 12,
+        "rating": 614,
+        "etv": 57.896,
+        "keywords_count": 7,
+        "visibility": 0.8500000000000001,
+        "relevant_serp_items": 7,
+        "keywords_positions": {
+          "toronto zoning": [
+            14
+          ],
+          "toronto building permit": [
+            13
+          ],
+          "mli select": [
+            12
+          ],
+          "garden suites toronto": [
+            8
+          ],
+          "development applications toronto": [
+            20
+          ],
+          "construction loans canada": [
+            8
+          ],
+          "construction financing canada": [
+            11
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "organizationId": "delegated-local-admin",
+      "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+      "url": "http://127.0.0.1:3001/p/7a3d4821-d03c-4be6-aaba-293df92d8ca8/domain"
+    }
+  }
+}

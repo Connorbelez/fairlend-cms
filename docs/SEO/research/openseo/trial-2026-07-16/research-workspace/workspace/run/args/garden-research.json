@@ -1,0 +1,9 @@
+{
+  "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+  "seeds": [
+    {"seed": "garden suite financing Toronto", "locationCode": 2124, "languageCode": "en"},
+    {"seed": "laneway suite financing Toronto", "locationCode": 2124, "languageCode": "en"}
+  ],
+  "resultLimit": 150,
+  "includeClickstreamData": false
+}
