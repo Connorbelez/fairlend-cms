@@ -45,9 +45,6 @@ const proofStats = [
   },
 ] as const
 
-const authorityCredential =
-  'Ex-RBC Quantitative Technical Analyst; co-founded a HITL Reinforcement Learning firm.'
-
 type TorontoCloudLayerProps = {
   className: string
   cloudKey: string
@@ -124,26 +121,13 @@ function ProofStats() {
   return (
     <aside
       aria-label="FairLend proof points"
-      className="animate-authority-variant-two delight-proof absolute top-[18%] right-[4.4%] z-10 hidden w-[294px] border border-[#08090a] bg-[#f8f7f5]/96 p-4 shadow-[8px_8px_0_#96ec18] lg:block"
+      className="animate-authority-variant-two delight-proof absolute top-[18%] right-[4.4%] z-10 hidden w-[294px] border border-[#08090a] bg-[#f8f7f5]/96 p-4 shadow-[8px_8px_0_#96ec18] xl:block"
     >
       <span
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-[0.34] mix-blend-multiply"
         style={{ backgroundImage: "url('/textures/grid-noise.png')" }}
       />
-      <div className="relative flex items-center justify-between pb-3">
-        <span
-          aria-hidden="true"
-          className="authority-rule absolute inset-x-0 bottom-0 h-px bg-[#08090a]"
-        />
-        <p className="m-0 text-[10px] font-extrabold tracking-[0.16em] uppercase">Authority file</p>
-        <span className="delight-stamp border border-[#72b900] px-2 py-1 text-[8px] font-extrabold tracking-[0.12em] text-[#72b900] opacity-60 transition-[transform,opacity] duration-300">
-          VERIFIED
-        </span>
-      </div>
-      <p className="relative m-0 border-b border-[#08090a]/25 py-3 text-xs leading-[1.4] font-bold tracking-[0.02em]">
-        {authorityCredential}
-      </p>
       <div className="relative divide-y divide-[#08090a]/25">
         {proofStats.map((stat) => (
           <div
@@ -183,7 +167,7 @@ function MobileAuthorityBar() {
   return (
     <aside
       aria-label="FairLend authority points"
-      className="fairlend-toronto-copy relative isolate hidden w-full overflow-hidden rounded-[9px] border border-[#08090a] bg-[#f8f7f5]/96 p-3 shadow-[6px_6px_0_#96ec18] hero-compact:p-2.5 hero-mobile:block"
+      className="fairlend-toronto-copy relative isolate block w-full overflow-hidden rounded-[9px] border border-[#08090a] bg-[#f8f7f5]/96 p-3 shadow-[6px_6px_0_#96ec18] hero-compact:p-2.5 xl:hidden"
       style={{ '--toronto-delay': '420ms' } as CSSProperties}
     >
       <span
@@ -192,15 +176,6 @@ function MobileAuthorityBar() {
         style={{ backgroundImage: "url('/textures/grid-noise.png')" }}
       />
       <div className="relative">
-        <div className="flex items-center justify-between border-b border-[#08090a] pb-2">
-          <p className="m-0 text-xs font-extrabold tracking-[0.12em] uppercase">Authority file</p>
-          <span className="border border-[#72b900] px-1.5 py-1 text-xs leading-none font-extrabold tracking-[0.08em] text-[#5e9800] uppercase">
-            Verified
-          </span>
-        </div>
-        <p className="m-0 border-b border-[#08090a]/25 py-2.5 text-xs leading-[1.35] font-bold tracking-[0.01em]">
-          {authorityCredential}
-        </p>
         <dl className="grid grid-cols-3 divide-x divide-[#08090a]/25 pt-2.5">
           {proofStats.map((stat) => (
             <div
@@ -469,7 +444,7 @@ export function FairlendLandingHero() {
             <FairlendApplicationForm />
             <BookConsultationButton mobileDocked />
             <HeroTalkToExpertButton mobileDocked />
-            <div className="hidden hero-mobile:col-span-2 hero-mobile:block">
+            <div className="block xl:hidden hero-mobile:col-span-2">
               <MobileAuthorityBar />
             </div>
           </div>

@@ -202,6 +202,18 @@
     }
   }
 
+  @keyframes autocompleteMenuIn {
+    from {
+      opacity: 0;
+      transform: translateY(-6px) scale(0.985);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
   @keyframes heroFoliageGrowIn {
     from {
       opacity: 0;
@@ -2023,6 +2035,12 @@
     z-index: 20 !important;
   }
 
+  [data-fairlend-motion='toronto-hero']
+    [data-toronto-mobile-application]:has([data-autocomplete-open='true']) {
+    /* Keep the risen card and its autocomplete menu above the offering deck. */
+    z-index: 40 !important;
+  }
+
   [data-fairlend-motion='toronto-hero'] [data-toronto-mobile-application] .fairlend-toronto-copy {
     animation: none !important;
     opacity: 1 !important;
@@ -2031,6 +2049,26 @@
   [data-fairlend-motion='toronto-hero'] [data-testid='fairlend-application-form'] {
     max-width: calc(100vw - 40px) !important;
     overflow: hidden !important;
+  }
+
+  /* When the address autocomplete opens, let the suggestion menu escape the
+     card bounds and rise the card so the menu clears the docked CTAs below. */
+  [data-fairlend-motion='toronto-hero']
+    [data-testid='fairlend-application-form'][data-autocomplete-open='true'] {
+    overflow: visible !important;
+  }
+
+  @media (max-width: 1023px), (max-width: 1279px) and (orientation: portrait) {
+    /* Baseline so the autocomplete rise below interpolates instead of jumping
+       (top computes as `auto` by default, which is not transitionable). */
+    [data-fairlend-motion='toronto-hero'] [data-testid='fairlend-application-form'] {
+      top: 0;
+    }
+
+    [data-fairlend-motion='toronto-hero']
+      [data-testid='fairlend-application-form'][data-autocomplete-open='true'] {
+      top: calc(-1 * clamp(160px, 34svh, 264px));
+    }
   }
 
   [data-fairlend-motion='toronto-hero'] [data-testid='fairlend-application-form'] [role='tablist'] {

@@ -276,7 +276,7 @@ export function GoogleAddressAutocomplete({
 
         {isOpen ? (
           <div
-            className="absolute top-[calc(100%+8px)] right-0 left-0 z-50 overflow-hidden rounded-xl border border-slate-200 bg-white text-left shadow-[0_20px_44px_rgb(15_23_42/16%)]"
+            className="absolute top-[calc(100%+8px)] right-0 left-0 z-50 max-h-[min(264px,42svh)] origin-top overflow-x-hidden overflow-y-auto overscroll-contain rounded-xl border border-slate-200 bg-white text-left shadow-[0_20px_44px_rgb(15_23_42/16%)] motion-safe:animate-[autocompleteMenuIn_200ms_cubic-bezier(0.22,1,0.36,1)_both]"
             data-slot="autocomplete-menu"
           >
             {isLoading || isResolving ? (
