@@ -3,7 +3,7 @@
 import { ArrowRight, LoaderCircle, MapPin } from 'lucide-react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useRouter } from 'next/navigation'
-import { FormEvent, useCallback, useRef, useState } from 'react'
+import { FormEvent, useCallback, useEffect, useRef, useState } from 'react'
 
 import { GoogleAddressAutocomplete } from '@/components/address/GoogleAddressAutocomplete'
 import { Button } from '@/components/ui/button'
@@ -184,15 +184,31 @@ export function FairlendApplicationForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submittedTab, setSubmittedTab] = useState<FormTab | null>(null)
   const [isAddressAutocompleteOpen, setIsAddressAutocompleteOpen] = useState(false)
+  const [isCompactViewport, setIsCompactViewport] = useState(false)
+  const [applicationCardElement, setApplicationCardElement] = useState<HTMLElement | null>(null)
   const activeInputRef = useRef<HTMLInputElement>(null)
 
   const activeMeta = TAB_META[activeTab]
-  const shouldLiftForAutocomplete = activeTab !== 'invest' && isAddressAutocompleteOpen
+  const shouldPlaceBuildAutocompleteAboveCard = activeTab === 'build' && isCompactViewport
+  const shouldLiftForAutocomplete =
+    activeTab !== 'invest' &&
+    isAddressAutocompleteOpen &&
+    !shouldPlaceBuildAutocompleteAboveCard
   const showDirectSuccess =
     submittedTab === activeTab && (activeTab === 'invest' || activeTab === 'mortgage')
   const hasContactError = submitError === CONTACT_REQUIRED_ERROR
   const shouldAskForMortgageBalance =
     activeTab === 'mortgage' && MORTGAGE_PRODUCTS_REQUIRING_BALANCE.has(values.mortgage.product)
+
+  useEffect(() => {
+    const compactViewport = window.matchMedia('(max-width: 1279px)')
+    const syncCompactViewport = () => setIsCompactViewport(compactViewport.matches)
+
+    syncCompactViewport()
+    compactViewport.addEventListener('change', syncCompactViewport)
+
+    return () => compactViewport.removeEventListener('change', syncCompactViewport)
+  }, [])
 
   const handleSelectTab = useCallback(
     (value: FormTab) => {
@@ -400,15 +416,18 @@ export function FairlendApplicationForm() {
         shouldLiftForAutocomplete &&
           'bottom-[calc(5.45%+var(--hero-stats-height,0px)+clamp(78px,7vw,124px))] hero-tablet-landscape:bottom-[calc(clamp(34px,5svh,64px)+clamp(78px,7vw,124px))] hero-tablet-landscape-short:bottom-[calc(18px+clamp(60px,9vw,96px))] hero-landscape:bottom-[calc(clamp(18px,1.8vw,32px)+clamp(78px,7vw,124px))] hero-tablet:bottom-auto hero-portrait-wide:bottom-auto hero-mobile:bottom-auto',
       )}
-      data-autocomplete-open={shouldLiftForAutocomplete ? 'true' : 'false'}
+      data-active-tab={activeTab}
+      data-autocomplete-open={isAddressAutocompleteOpen ? 'true' : 'false'}
+      data-autocomplete-placement={shouldPlaceBuildAutocompleteAboveCard ? 'above-card' : 'below-input'}
       data-testid="fairlend-application-form"
       id={fairlendApplicationId}
+      ref={setApplicationCardElement}
       tabIndex={-1}
     >
       <FairlendApplicationIntentTabs
         className={cn(
           'rounded-[inherit] hero-landscape:bg-transparent',
-          shouldLiftForAutocomplete ? 'overflow-visible' : 'overflow-hidden',
+          isAddressAutocompleteOpen ? 'overflow-visible' : 'overflow-hidden',
         )}
         onValueChange={handleSelectTab}
         reduceMotion={shouldReduceMotion ?? false}
@@ -486,6 +505,12 @@ export function FairlendApplicationForm() {
                               id="fairlend-build"
                               inputClassName="h-[clamp(48px,3.25vw,54px)] w-full min-w-0 border-0 bg-transparent p-0 text-[15px] text-[#15201f] shadow-none placeholder:text-[#586562] focus-visible:ring-0 focus-visible:shadow-none focus-visible:outline-none hero-tablet:h-11 hero-tablet:text-[clamp(13px,1.85vw,15px)] hero-mobile:h-11 hero-mobile:text-[clamp(12px,3.4vw,14px)] hero-landscape:h-[56px] hero-landscape:px-[16px] hero-landscape:text-[20px] hero-landscape:font-medium hero-landscape:placeholder:text-[#586562]"
                               inputMode="text"
+                              menuAnchor={applicationCardElement}
+                              menuPlacement={
+                                shouldPlaceBuildAutocompleteAboveCard
+                                  ? 'above-anchor'
+                                  : 'below-input'
+                              }
                               name="buildAddress"
                               onChange={(nextValue) => {
                                 clearTransientStatus()

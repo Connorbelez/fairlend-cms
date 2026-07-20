@@ -1127,7 +1127,7 @@
     margin-top: 0;
   }
 
-  .fairlend-hero-application-card[data-autocomplete-open='true'] {
+  .fairlend-hero-application-card[data-active-tab='mortgage'][data-autocomplete-open='true'] {
     bottom: calc(clamp(190px, 22svh, 260px) + clamp(78px, 7vw, 124px));
   }
 }
@@ -1139,7 +1139,7 @@
     min-width: 410px;
   }
 
-  .fairlend-hero-application-card[data-autocomplete-open='true'] {
+  .fairlend-hero-application-card[data-active-tab='mortgage'][data-autocomplete-open='true'] {
     bottom: calc(clamp(130px, 20svh, 170px) + clamp(60px, 9vw, 96px));
   }
 }
@@ -2051,22 +2051,21 @@
     overflow: hidden !important;
   }
 
-  /* When the address autocomplete opens, let the suggestion menu escape the
-     card bounds and rise the card so the menu clears the docked CTAs below. */
+  /* Keep the autocomplete layer above the card. Compact Build suggestions are
+     portaled above the stationary card; Mortgage retains its existing lift. */
   [data-fairlend-motion='toronto-hero']
     [data-testid='fairlend-application-form'][data-autocomplete-open='true'] {
     overflow: visible !important;
   }
 
   @media (max-width: 1023px), (max-width: 1279px) and (orientation: portrait) {
-    /* Baseline so the autocomplete rise below interpolates instead of jumping
-       (top computes as `auto` by default, which is not transitionable). */
+    /* Mortgage still rises to make room for its below-input suggestions. */
     [data-fairlend-motion='toronto-hero'] [data-testid='fairlend-application-form'] {
       top: 0;
     }
 
     [data-fairlend-motion='toronto-hero']
-      [data-testid='fairlend-application-form'][data-autocomplete-open='true'] {
+      [data-testid='fairlend-application-form'][data-active-tab='mortgage'][data-autocomplete-open='true'] {
       top: calc(-1 * clamp(160px, 34svh, 264px));
     }
   }
