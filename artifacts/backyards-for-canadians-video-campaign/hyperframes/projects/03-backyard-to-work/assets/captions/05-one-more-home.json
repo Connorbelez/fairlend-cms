@@ -1,0 +1,30 @@
+[
+  {
+    "text": "Every new home begins as unused space.",
+    "startMs": 0,
+    "endMs": 2080,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "Then a plan, a permit, a build, a front door.",
+    "startMs": 2500,
+    "endMs": 5460,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "One backyard becomes one more Toronto home.",
+    "startMs": 5840,
+    "endMs": 8280,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "See what yours could become.",
+    "startMs": 8640,
+    "endMs": 9920,
+    "timestampMs": null,
+    "confidence": null
+  }
+]

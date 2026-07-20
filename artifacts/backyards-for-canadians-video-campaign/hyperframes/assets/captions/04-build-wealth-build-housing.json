@@ -1,0 +1,51 @@
+[
+  {
+    "text": "A garden suite can do two jobs at once,",
+    "startMs": 0,
+    "endMs": 2380,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "create long-term rental income",
+    "startMs": 2580,
+    "endMs": 4200,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "and create a legal Toronto home.",
+    "startMs": 4200,
+    "endMs": 6020,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "FairLend coordinates the property review,",
+    "startMs": 6580,
+    "endMs": 8440,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "project plan, financing, construction draws and takeout.",
+    "startMs": 8820,
+    "endMs": 12860,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "Every property is different.",
+    "startMs": 13200,
+    "endMs": 14480,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "Start with a qualified review.",
+    "startMs": 14960,
+    "endMs": 16420,
+    "timestampMs": null,
+    "confidence": null
+  }
+]

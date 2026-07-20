@@ -12,6 +12,33 @@ export const fairlendSeo = {
   titleTemplate: '%s | FairLend Mortgage',
 } as const
 
+/**
+ * Stable, square brand icons used by browsers and search engines.
+ *
+ * Google Search requires a 1:1 favicon. Keep the general-purpose FairLend logo
+ * out of this list because its 244x240 viewBox is not square.
+ */
+export const fairlendIcons = {
+  icon: [
+    {
+      sizes: 'any',
+      type: 'image/svg+xml',
+      url: '/favicon.svg',
+    },
+    {
+      sizes: '48x48',
+      type: 'image/x-icon',
+      url: '/favicon.ico',
+    },
+  ],
+  shortcut: [
+    {
+      type: 'image/x-icon',
+      url: '/favicon.ico',
+    },
+  ],
+} satisfies Metadata['icons']
+
 export const fairlendNotFoundMetadata: Metadata = {
   description: 'The requested FairLend page could not be found.',
   title: 'Page Not Found | FairLend',

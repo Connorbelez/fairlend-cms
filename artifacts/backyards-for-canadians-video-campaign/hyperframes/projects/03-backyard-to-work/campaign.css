@@ -1,0 +1,37 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #08090a; }
+@font-face { font-family: "Newsreader"; src: local("Georgia"); font-weight: 400 700; }
+body { font-family: "Newsreader", serif; color: #08090a; }
+.scene { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; }
+.paper { background-color: #f8f7f5; }
+.ink { background-color: #030405; color: #fffdf9; }
+.blueprint { background-color: #002949; color: #fffdf9; }
+.paper::before, .ink::before, .blueprint::before {
+  content: ""; position: absolute; inset: 0; opacity: .22; pointer-events: none;
+  background-image: linear-gradient(rgba(8,9,10,.08) 1px, rgba(8,9,10,0) 1px), linear-gradient(90deg, rgba(8,9,10,.08) 1px, rgba(8,9,10,0) 1px), url("assets/brand/paper-texture.png");
+  background-size: 72px 72px, 72px 72px, cover; background-blend-mode: multiply;
+}
+.ink::before, .blueprint::before { opacity: .11; background-image: linear-gradient(rgba(255,255,255,.12) 1px, rgba(255,255,255,0) 1px), linear-gradient(90deg, rgba(255,255,255,.12) 1px, rgba(255,255,255,0) 1px), url("assets/brand/paper-texture.png"); background-blend-mode: screen; }
+.frame { position: absolute; inset: 36px; border: 2px solid rgba(8,9,10,.14); pointer-events: none; z-index: 20; }
+.ink .frame, .blueprint .frame { border-color: rgba(255,255,255,.18); }
+.rail { position: absolute; top: 58px; left: 64px; right: 64px; display: flex; justify-content: space-between; z-index: 21; font: 700 22px/1 "IBM Plex Mono", monospace; letter-spacing: .13em; text-transform: uppercase; color: #494944; }
+.ink .rail, .blueprint .rail { color: #96ec18; }
+.headline { font-family: "League Gothic", sans-serif; font-weight: 400; font-size: 210px; line-height: .84; letter-spacing: -.025em; text-transform: uppercase; }
+.display-xl { font-size: 260px; }
+.serif { font-family: "Newsreader", serif; font-size: 60px; line-height: 1.02; letter-spacing: -.025em; }
+.mono { font-family: "IBM Plex Mono", monospace; text-transform: uppercase; letter-spacing: .1em; }
+.lime { color: #96ec18; }
+.lime-bg { color: #203500; background: #96ec18; padding: 0 16px; }
+.route { height: 14px; background: rgba(8,9,10,.14); position: relative; }
+.ink .route, .blueprint .route { background: rgba(255,255,255,.14); }
+.route-fill { position: absolute; inset: 0 auto 0 0; width: 0; background: #96ec18; box-shadow: 0 0 25px rgba(150,236,24,.65); }
+.route-dot { position: absolute; width: 30px; height: 30px; top: -8px; left: -15px; border-radius: 50%; background: #96ec18; border: 5px solid #f8f7f5; box-shadow: 0 0 18px rgba(150,236,24,.7); }
+.ink .route-dot, .blueprint .route-dot { border-color: #030405; }
+.stamp { display: inline-flex; border: 5px solid currentColor; padding: 12px 18px 9px; font: 700 27px/1 "IBM Plex Mono", monospace; letter-spacing: .1em; text-transform: uppercase; }
+.caption { position: absolute; left: 70px; right: 70px; bottom: 122px; display: flex; justify-content: center; z-index: 80; opacity: 0; visibility: hidden; }
+.caption > span { max-width: 900px; background: #08090a; color: #fffdf9; padding: 15px 22px 12px; font: 700 31px/1.1 "IBM Plex Mono", monospace; text-transform: uppercase; text-align: center; box-shadow: 10px 10px 0 #96ec18; }
+.ink .caption > span, .blueprint .caption > span { background: #f8f7f5; color: #08090a; }
+.disclosure { position: absolute; right: 54px; bottom: 44px; z-index: 90; font: 500 16px/1 "IBM Plex Mono", monospace; text-transform: uppercase; letter-spacing: .09em; opacity: .58; }
+.wipe { position: absolute; inset: 0; width: 1080px; height: 1920px; z-index: 70; pointer-events: none; transform: translateX(-1080px); }
+.safe { position: absolute; inset: 170px 68px 180px; }
+.asset { display: block; width: 100%; height: 100%; object-fit: contain; }

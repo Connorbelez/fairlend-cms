@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080,height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="campaign.css" />
+    <style>
+      #scene1 { z-index: 1; }
+      #scene2 { z-index: 2; opacity: 0; }
+      #scene3 { z-index: 3; opacity: 0; }
+      #scene4 { z-index: 4; opacity: 0; }
+      .bag-tag { width: 760px; border: 5px solid #fffdf9; padding: 36px; transform: rotate(-3deg); position: relative; }
+      .bag-tag::after { content: ""; position: absolute; width: 58px; height: 58px; right: 34px; top: 34px; border-radius: 50%; border: 6px solid #96ec18; }
+      .suitcase { width: 560px; height: 410px; border: 24px solid #fffdf9; border-radius: 30px; position: relative; }
+      .suitcase::before { content: ""; position: absolute; width: 190px; height: 86px; border: 20px solid #fffdf9; border-bottom: 0; left: 160px; top: -110px; border-radius: 20px 20px 0 0; }
+      .wheel { position: absolute; bottom: -55px; width: 55px; height: 55px; border-radius: 50%; background: #96ec18; }
+      .door { width: 390px; height: 690px; border: 26px solid #08090a; position: relative; }
+      .door::after { content: ""; position: absolute; right: 48px; top: 330px; width: 34px; height: 34px; border-radius: 50%; background: #96ec18; box-shadow: 0 0 24px rgba(150,236,24,.7); }
+      .strike { position: absolute; left: 50px; right: 50px; height: 26px; top: 50%; background: #96ec18; transform: rotate(-5deg) scaleX(0); transform-origin: left; }
+      .contrast-card { padding: 20px 24px; background: rgba(255,253,249,.92); border: 3px solid #08090a; box-shadow: 10px 10px 0 rgba(150,236,24,.9); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="neighbours-not-tourists" data-start="0" data-duration="15" data-width="1080" data-height="1920" data-fps="30">
+      <section id="scene1" class="scene ink">
+        <div class="frame"></div><div class="rail"><span>Toronto / hosting signal</span><span>01 / 04</span></div>
+        <div class="safe" style="display:flex;flex-direction:column;justify-content:center;gap:70px">
+          <div id="tag" class="bag-tag">
+            <div class="mono lime" style="font-size:25px;margin-bottom:22px">Destination / Toronto</div>
+            <div class="headline" style="font-size:154px">2 nights.</div>
+            <div class="mono" style="font-size:27px;margin-top:18px">Weekend listing / Booking ref. 0084</div>
+          </div>
+          <div id="suitcase" class="suitcase" style="align-self:center"><div class="wheel" style="left:45px"></div><div class="wheel" style="right:45px"></div></div>
+          <div id="opening" class="headline" style="font-size:134px">Toronto doesn’t need another <span class="lime">weekend listing.</span></div>
+        </div>
+      </section>
+
+      <section id="scene2" class="scene paper">
+        <div class="frame"></div><div class="rail"><span>Redefine what we host</span><span>02 / 04</span></div>
+        <img id="contrast-art" src="assets/generated/campaign-hosting-contrast.png" class="asset" style="object-fit:cover" />
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,253,249,.02) 32%,rgba(8,9,10,.08) 58%,rgba(8,9,10,.82) 100%)"></div>
+        <div class="safe" style="display:flex;flex-direction:column;justify-content:space-between">
+          <div id="redirect-title" class="headline" style="font-size:136px;max-width:850px">Redirect<br /><span class="lime-bg">hosting.</span></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:end">
+            <div id="old-host" class="contrast-card"><div class="mono" style="font-size:20px">Short stay</div><div class="headline" style="font-size:76px;text-decoration:line-through;text-decoration-color:#96ec18;text-decoration-thickness:12px">Tourist</div></div>
+            <div id="new-host" class="contrast-card"><div class="mono" style="font-size:20px">Long-term home</div><div class="headline" style="font-size:72px">Neighbour</div></div>
+          </div>
+          <div id="split-route" style="position:absolute;left:44px;right:44px;bottom:325px;height:12px;background:#96ec18;transform-origin:left;box-shadow:0 0 25px rgba(150,236,24,.7)"></div>
+        </div>
+      </section>
+
+      <section id="scene3" class="scene blueprint">
+        <div class="frame"></div><div class="rail"><span>Property route / illustrative</span><span>03 / 04</span></div>
+        <div class="safe" style="display:grid;grid-template-rows:1fr auto;gap:44px">
+          <div style="position:relative;border:2px solid rgba(255,255,255,.24);overflow:hidden">
+            <img id="parcel" class="asset" src="assets/brand/parcel-sketch.webp" style="object-fit:cover;opacity:.85" />
+            <div id="parcel-highlight" style="position:absolute;right:125px;top:110px;width:300px;height:350px;border:9px solid #96ec18;box-shadow:0 0 25px rgba(150,236,24,.65)"></div>
+            <div id="plan-stamp" class="stamp" style="position:absolute;left:56px;top:62px;transform:rotate(-3deg);background:#fffdf9;color:#08090a">Backyard potential</div>
+          </div>
+          <div>
+            <div id="create-one" class="headline" style="font-size:156px">Your backyard could <span class="lime">create one.</span></div>
+            <div class="route" style="margin-top:46px"><div id="route3" class="route-fill"></div><div id="dot3" class="route-dot"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="scene4" class="scene ink">
+        <div class="frame"></div><div class="rail"><span>Backyards for Canadians</span><span>04 / 04</span></div>
+        <div class="safe" style="display:flex;flex-direction:column;justify-content:center">
+          <div id="final-line" class="headline" style="font-size:144px;letter-spacing:-.02em">Homes for<br /><span class="lime">neighbours.</span><br /><span style="position:relative;display:inline-block">Not tourists.<span id="final-strike" class="strike"></span></span></div>
+          <div id="cta" style="margin-top:78px">
+            <div class="route"><div id="route4" class="route-fill"></div><div id="dot4" class="route-dot"></div></div>
+            <div class="mono" style="display:flex;justify-content:space-between;font-size:25px;margin-top:26px"><span>Build wealth. House a neighbour.</span><span class="lime">FairLend</span></div>
+          </div>
+        </div>
+        <div class="disclosure">AI-generated voice • OpenAI TTS</div>
+      </section>
+
+      <div id="wipe-a" class="wipe" style="background:#96ec18"></div><div id="wipe-b" class="wipe" style="background:#08090a"></div>
+      <audio id="voice-neighbours" class="clip" data-start="0" data-duration="8.38" data-track-index="10" src="assets/audio/01-neighbours-not-tourists.wav"></audio>
+      <div id="cg-0" class="caption"><span>TORONTO DOESN’T NEED ANOTHER WEEKEND LISTING.</span></div>
+      <div id="cg-1" class="caption"><span>IT NEEDS A FRONT DOOR FOR A NEIGHBOUR.</span></div>
+      <div id="cg-2" class="caption"><span>YOUR BACKYARD COULD CREATE ONE.</span></div>
+      <div id="cg-3" class="caption"><span>BUILD WEALTH. HOUSE A NEIGHBOUR.</span></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({paused:true});
+      tl.from("#tag", {x:-150,opacity:0,rotation:-9,duration:.55,ease:"expo.out"}, .16);
+      tl.from("#suitcase", {y:220,opacity:0,duration:.42,ease:"power4.out"}, .38);
+      tl.from("#opening", {x:-80,opacity:0,duration:.7,ease:"sine.out"}, .78);
+      tl.to("#scene1", {x:-1080,duration:.42,ease:"power3.inOut"}, 3.18);
+      tl.fromTo("#scene2", {x:1080,opacity:1},{x:0,opacity:1,duration:.42,ease:"power3.inOut"}, 3.18);
+      tl.set("#scene1", {visibility:"hidden"}, 3.61);
+      tl.from("#contrast-art", {scale:1.08,opacity:0,duration:.75,ease:"sine.out"},3.24);
+      tl.from("#redirect-title", {x:-90,opacity:0,duration:.52,ease:"expo.out"},3.42);
+      tl.from("#old-host", {x:-90,opacity:0,duration:.46,ease:"expo.out"},3.32);
+      tl.from("#new-host", {x:110,opacity:0,duration:.58,ease:"power2.out"},3.48);
+      tl.fromTo("#split-route", {scaleX:0},{scaleX:1,duration:.62,ease:"power4.inOut"},4.12);
+      tl.set("#wipe-a", {x:-1080}, 7.08); tl.set("#wipe-b", {x:-1080}, 7.08);
+      tl.to("#wipe-a", {x:0,duration:.25,ease:"power3.inOut"},7.1);
+      tl.to("#wipe-b", {x:0,duration:.25,ease:"power3.inOut"},7.16);
+      tl.set("#scene2", {opacity:0,visibility:"hidden"},7.3); tl.set("#scene3", {opacity:1,visibility:"visible"},7.3);
+      tl.to("#wipe-a", {x:1080,duration:.25,ease:"power3.inOut"},7.38);
+      tl.to("#wipe-b", {x:1080,duration:.25,ease:"power3.inOut"},7.44);
+      tl.from("#parcel", {scale:1.12,opacity:0,duration:.75,ease:"sine.out"},7.34);
+      tl.from("#plan-stamp", {scale:1.35,opacity:0,duration:.28,ease:"power4.out"},7.72);
+      tl.fromTo("#parcel-highlight", {scale:0},{scale:1,duration:.5,ease:"back.out(1.35)"},8.05);
+      tl.from("#create-one", {y:80,opacity:0,duration:.58,ease:"expo.out"},8.35);
+      tl.to("#route3", {width:"100%",duration:.72,ease:"power2.inOut"},8.62); tl.to("#dot3", {x:944,duration:.72,ease:"power2.inOut"},8.62);
+      tl.to("#scene3", {filter:"blur(7px)",scale:1.025,opacity:0,duration:.45,ease:"power2.inOut"},11.05);
+      tl.fromTo("#scene4", {filter:"blur(7px)",scale:.98,opacity:0},{filter:"blur(0px)",scale:1,opacity:1,visibility:"visible",duration:.48,ease:"power2.inOut"},11.12);
+      tl.set("#scene3", {visibility:"hidden"},11.51);
+      tl.from("#final-line", {x:-120,opacity:0,duration:.6,ease:"expo.out"},11.28);
+      tl.to("#final-strike", {scaleX:1,duration:.42,ease:"power4.inOut"},12.02);
+      tl.from("#cta", {y:45,opacity:0,duration:.48,ease:"sine.out"},12.34);
+      tl.to("#route4", {width:"100%",duration:.72,ease:"power2.inOut"},12.55); tl.to("#dot4", {x:944,duration:.72,ease:"power2.inOut"},12.55);
+      var groups=[{s:0,e:2.1},{s:2.4,e:3.85},{s:4.2,e:5.7},{s:6,e:8.25}];
+      groups.forEach(function(g,i){var el="#cg-"+i;tl.set(el,{visibility:"visible"},g.s);tl.fromTo(el,{opacity:0,y:18},{opacity:1,y:0,duration:.16,ease:"power3.out"},g.s);tl.to(el,{opacity:0,scale:.97,duration:.12,ease:"power2.in"},g.e-.12);tl.set(el,{opacity:0,visibility:"hidden"},g.e);});
+      tl.to("#scene4", {opacity:0,duration:.55,ease:"power2.in"},14.45); tl.set("#scene4", {visibility:"hidden"},15);
+      window.__timelines["neighbours-not-tourists"] = tl;
+    </script>
+  </body>
+</html>

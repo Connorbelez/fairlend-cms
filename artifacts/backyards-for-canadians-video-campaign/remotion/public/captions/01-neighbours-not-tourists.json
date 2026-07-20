@@ -1,0 +1,30 @@
+[
+  {
+    "text": "Toronto doesn't need another weekend listing.",
+    "startMs": 0,
+    "endMs": 2060,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "It needs a front door for a neighbour.",
+    "startMs": 2440,
+    "endMs": 3820,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "Your backyard could create one.",
+    "startMs": 4220,
+    "endMs": 5640,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "Fair land, build wealth, house a neighbour.",
+    "startMs": 5980,
+    "endMs": 8160,
+    "timestampMs": null,
+    "confidence": null
+  }
+]

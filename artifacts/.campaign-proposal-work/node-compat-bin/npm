@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /Users/connor/.npm/_npx/52027bd8fc0022aa/node_modules/node/bin/node /opt/homebrew/lib/node_modules/npm/bin/npm-cli.js "$@"

@@ -100,6 +100,13 @@ export function FairlendBuilderConsultingMotion() {
         )
       })
 
+      if (isPhone) {
+        const mobileDashboard = section.querySelector<HTMLElement>(
+          '[data-builder-mobile-dashboard]',
+        )
+        if (mobileDashboard) mobileDashboard.scrollTop = 0
+      }
+
       window.dispatchEvent(new CustomEvent('fairlend-builder-equation-icons-replay'))
     }
 

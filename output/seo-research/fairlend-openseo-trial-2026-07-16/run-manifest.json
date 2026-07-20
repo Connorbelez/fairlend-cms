@@ -1,0 +1,434 @@
+{
+  "runId": "fairlend-openseo-trial-run-2026-07-16",
+  "generatedAt": "2026-07-16T23:50:00-04:00",
+  "executionDate": "2026-07-16",
+  "status": "complete",
+  "contractVersion": "1.0.0",
+  "repositories": {
+    "llmWiki": {
+      "path": "/Users/connor/Dev/llm_wiki",
+      "baselineCommit": "b9733bce4b74909a2b3285a13829c8ef0e96d403"
+    },
+    "fairlendCms": {
+      "path": "/Users/connor/Dev/fairlend-cms",
+      "baselineCommit": "e8e08964234109c54eaa8d56ea7c2a55b1d6e98f",
+      "mode": "research-output-only"
+    },
+    "openSeo": {
+      "path": "/Users/connor/Dev/open-seo",
+      "commit": "8460df1f2947661f07c0d751e855703dd268023f",
+      "version": "0.0.28"
+    }
+  },
+  "tools": [
+    {
+      "name": "OpenSEO",
+      "version": "0.0.28",
+      "commit": "8460df1f2947661f07c0d751e855703dd268023f"
+    },
+    {
+      "name": "DataForSEO API",
+      "version": "v3",
+      "commit": "provider-managed-2026-07-16"
+    },
+    {
+      "name": "Codex SEO Universal SEO Analysis Skill",
+      "version": "1.9.6",
+      "commit": "v1.9.6-codex.5"
+    },
+    {
+      "name": "FairLend research contracts",
+      "version": "1.0.0",
+      "commit": "b9733bce4b74909a2b3285a13829c8ef0e96d403"
+    }
+  ],
+  "market": {
+    "keywordMetrics": {
+      "locationCode": 2124,
+      "location": "Canada",
+      "languageCode": "en"
+    },
+    "paidSerpAttempt": {
+      "locationCode": 1002451,
+      "location": "Toronto,Toronto,Ontario,Canada",
+      "languageCode": "en",
+      "device": "not-requested-or-exposed"
+    },
+    "publicSerpFallback": {
+      "queryTarget": "Toronto, Ontario, Canada",
+      "searcherLocationExposed": false,
+      "stableRankExposed": false,
+      "deviceExposed": false
+    }
+  },
+  "methodology": {
+    "tool": "Codex SEO Universal SEO Analysis Skill",
+    "version": "1.9.6",
+    "sourceObservationRef": "source-codex-seo-methodology",
+    "author": "AgriciDaniel",
+    "notFairWorkflowStatus": "unproven-no-installed-artifact-identifies-as-notfair",
+    "methodsInvoked": [
+      "keyword-research",
+      "keyword-clustering",
+      "dual-score-opportunity-planning",
+      "serp-and-intent-page-boundaries",
+      "seo-geo-ai-answer-readiness",
+      "greenfield-information-architecture",
+      "requirements-only-content-briefing",
+      "mblaa-regulatory-claim-gating"
+    ]
+  },
+  "budget": {
+    "currency": "USD",
+    "includedBalance": 1,
+    "hardCeiling": 0.9,
+    "externalReserve": 0.1,
+    "startingProviderBalance": 1,
+    "endingProviderBalance": 0.5675600000000001,
+    "spent": 0.43244,
+    "committed": 0.45244,
+    "hardCeilingRemaining": 0.44756,
+    "accountBalanceRemaining": 0.5675600000000001,
+    "envelopes": {
+      "tracer": 0.05,
+      "five-plus-unit-multiplex-mli-select": 0.2,
+      "garden-laneway-suite-financing": 0.2,
+      "drawflow-builder-financing": 0.2,
+      "b2b-partner-referral": 0.1,
+      "verification-reserve": 0.15
+    }
+  },
+  "paidOperations": [
+    {
+      "id": "spend-tracer-initial",
+      "provider": "DataForSEO via OpenSEO",
+      "operation": "keyword-overview-live",
+      "providerTaskIds": [],
+      "workstream": "tracer",
+      "requestedRowCount": 1,
+      "returnedRowCount": 0,
+      "estimatedCost": 0.01212,
+      "actualCost": 0.012,
+      "currency": "USD",
+      "occurredAt": "2026-07-17T03:30:35.638Z",
+      "status": "returned",
+      "retryCount": 0,
+      "sourceObservationRefs": [
+        "source-openseo-tracer-initial"
+      ]
+    },
+    {
+      "id": "spend-tracer-retry",
+      "provider": "DataForSEO via OpenSEO",
+      "operation": "keyword-overview-live",
+      "providerTaskIds": [],
+      "workstream": "tracer",
+      "requestedRowCount": 3,
+      "returnedRowCount": 3,
+      "estimatedCost": 0.01236,
+      "actualCost": 0.01236,
+      "currency": "USD",
+      "occurredAt": "2026-07-17T03:31:31.222Z",
+      "status": "returned",
+      "retryCount": 1,
+      "sourceObservationRefs": [
+        "source-openseo-tracer-metrics"
+      ]
+    },
+    {
+      "id": "spend-five-plus-expansion",
+      "provider": "DataForSEO via OpenSEO",
+      "operation": "research-keywords-live",
+      "providerTaskIds": [],
+      "workstream": "five-plus-unit-multiplex-mli-select",
+      "requestedRowCount": 300,
+      "returnedRowCount": 300,
+      "estimatedCost": 0.18,
+      "actualCost": 0.10848,
+      "currency": "USD",
+      "occurredAt": "2026-07-17T03:32:04.843Z",
+      "status": "returned",
+      "retryCount": 0,
+      "sourceObservationRefs": [
+        "source-openseo-five-plus-research"
+      ]
+    },
+    {
+      "id": "spend-garden-expansion",
+      "provider": "DataForSEO via OpenSEO",
+      "operation": "research-keywords-live",
+      "providerTaskIds": [],
+      "workstream": "garden-laneway-suite-financing",
+      "requestedRowCount": 300,
+      "returnedRowCount": 300,
+      "estimatedCost": 0.18,
+      "actualCost": 0.108,
+      "currency": "USD",
+      "occurredAt": "2026-07-17T03:32:43.843Z",
+      "status": "returned",
+      "retryCount": 0,
+      "sourceObservationRefs": [
+        "source-openseo-garden-research"
+      ]
+    },
+    {
+      "id": "spend-drawflow-expansion",
+      "provider": "DataForSEO via OpenSEO",
+      "operation": "research-keywords-live",
+      "providerTaskIds": [],
+      "workstream": "drawflow-builder-financing",
+      "requestedRowCount": 300,
+      "returnedRowCount": 300,
+      "estimatedCost": 0.18,
+      "actualCost": 0.108,
+      "currency": "USD",
+      "occurredAt": "2026-07-17T03:33:12.044Z",
+      "status": "returned",
+      "retryCount": 0,
+      "sourceObservationRefs": [
+        "source-openseo-drawflow-research"
+      ]
+    },
+    {
+      "id": "spend-b2b-expansion",
+      "provider": "DataForSEO via OpenSEO",
+      "operation": "research-keywords-live",
+      "providerTaskIds": [],
+      "workstream": "b2b-partner-referral",
+      "requestedRowCount": 150,
+      "returnedRowCount": 150,
+      "estimatedCost": 0.09,
+      "actualCost": 0.054,
+      "currency": "USD",
+      "occurredAt": "2026-07-17T03:33:46.586Z",
+      "status": "returned",
+      "retryCount": 0,
+      "sourceObservationRefs": [
+        "source-openseo-b2b-research"
+      ]
+    },
+    {
+      "id": "spend-representative-serp-batch",
+      "provider": "DataForSEO via OpenSEO",
+      "operation": "organic-live-advanced",
+      "providerTaskIds": [],
+      "workstream": "verification-reserve",
+      "requestedRowCount": 4,
+      "returnedRowCount": 0,
+      "estimatedCost": 0.08,
+      "actualCost": 0.014,
+      "currency": "USD",
+      "occurredAt": "2026-07-17T03:34:45.171Z",
+      "status": "failed",
+      "retryCount": 0,
+      "sourceObservationRefs": [
+        "source-openseo-serp-failures"
+      ]
+    },
+    {
+      "id": "spend-mli-competitors",
+      "provider": "DataForSEO via OpenSEO",
+      "operation": "serp-competitors-live",
+      "providerTaskIds": [],
+      "workstream": "verification-reserve",
+      "requestedRowCount": 30,
+      "returnedRowCount": 30,
+      "estimatedCost": 0.0156,
+      "actualCost": 0.0156,
+      "currency": "USD",
+      "occurredAt": "2026-07-17T03:35:21.621Z",
+      "status": "returned",
+      "retryCount": 0,
+      "sourceObservationRefs": [
+        "source-openseo-mli-competitors"
+      ]
+    },
+    {
+      "id": "spend-serp-retry-failed",
+      "provider": "DataForSEO via OpenSEO",
+      "operation": "organic-live-advanced",
+      "providerTaskIds": [],
+      "workstream": "verification-reserve",
+      "requestedRowCount": 1,
+      "returnedRowCount": 0,
+      "estimatedCost": 0.02,
+      "actualCost": null,
+      "currency": "USD",
+      "occurredAt": "2026-07-17T03:39:12.027Z",
+      "status": "failed",
+      "retryCount": 1,
+      "sourceObservationRefs": [
+        "source-openseo-serp-retry-failure"
+      ]
+    }
+  ],
+  "artifactIndex": [
+    {
+      "relativePath": "README.md",
+      "kind": "markdown",
+      "role": "human-entrypoint",
+      "recordCount": null
+    },
+    {
+      "relativePath": "research-package.json",
+      "kind": "json",
+      "role": "contract-valid-canonical-core",
+      "recordCount": null
+    },
+    {
+      "relativePath": "run-manifest.json",
+      "kind": "json",
+      "role": "run-and-artifact-manifest",
+      "recordCount": null
+    },
+    {
+      "relativePath": "keyword-universe.csv",
+      "kind": "csv",
+      "role": "keyword-records",
+      "recordCount": 46
+    },
+    {
+      "relativePath": "keyword-clusters.csv",
+      "kind": "csv",
+      "role": "cluster-records",
+      "recordCount": 12
+    },
+    {
+      "relativePath": "score-rationale.csv",
+      "kind": "csv",
+      "role": "keyword-and-page-score-rationales",
+      "recordCount": 58
+    },
+    {
+      "relativePath": "serp-evidence.csv",
+      "kind": "csv",
+      "role": "serp-observations",
+      "recordCount": 8
+    },
+    {
+      "relativePath": "competitor-landscape.csv",
+      "kind": "csv",
+      "role": "competitor-observations",
+      "recordCount": 15
+    },
+    {
+      "relativePath": "page-opportunities.csv",
+      "kind": "csv",
+      "role": "page-opportunity-records",
+      "recordCount": 12
+    },
+    {
+      "relativePath": "existing-url-dispositions.csv",
+      "kind": "csv",
+      "role": "complete-existing-url-decisions",
+      "recordCount": 17
+    },
+    {
+      "relativePath": "ai-question-opportunities.csv",
+      "kind": "csv",
+      "role": "non-volume-question-records",
+      "recordCount": 30
+    },
+    {
+      "relativePath": "ai-discovery-coverage.csv",
+      "kind": "csv",
+      "role": "ai-surface-coverage",
+      "recordCount": 9
+    },
+    {
+      "relativePath": "opportunity-scenarios.csv",
+      "kind": "csv",
+      "role": "demand-and-lead-quality-scenarios",
+      "recordCount": 5
+    },
+    {
+      "relativePath": "evidence-acquisition-register.csv",
+      "kind": "csv",
+      "role": "missing-evidence-and-approval-gates",
+      "recordCount": 119
+    },
+    {
+      "relativePath": "claims-and-compliance-register.csv",
+      "kind": "csv",
+      "role": "claim-status-and-compliance-gates",
+      "recordCount": 13
+    },
+    {
+      "relativePath": "success-gates.csv",
+      "kind": "csv",
+      "role": "contract-success-gates",
+      "recordCount": 12
+    },
+    {
+      "relativePath": "executive-strategy.md",
+      "kind": "markdown",
+      "role": "executive-decision-summary",
+      "recordCount": null
+    },
+    {
+      "relativePath": "methodology-and-limitations.md",
+      "kind": "markdown",
+      "role": "methodology-and-limitations",
+      "recordCount": null
+    },
+    {
+      "relativePath": "greenfield-page-map.md",
+      "kind": "markdown",
+      "role": "proposal-only-information-architecture",
+      "recordCount": null
+    },
+    {
+      "relativePath": "case-study-evidence-template.md",
+      "kind": "markdown",
+      "role": "blank-drawflow-evidence-template",
+      "recordCount": null
+    },
+    {
+      "relativePath": "full-scale-research-estimate.md",
+      "kind": "markdown",
+      "role": "production-research-estimate",
+      "recordCount": null
+    },
+    {
+      "relativePath": "mutation-audit.md",
+      "kind": "markdown",
+      "role": "mutation-boundary-audit",
+      "recordCount": null
+    },
+    {
+      "relativePath": "content-briefs/",
+      "kind": "directory",
+      "role": "requirements-only-content-briefs",
+      "recordCount": 12
+    },
+    {
+      "relativePath": "research-slices/",
+      "kind": "directory",
+      "role": "workstream-research-slices",
+      "recordCount": 4
+    }
+  ],
+  "failures": [
+    "The first exact long-tail metric tracer returned no row; a three-term retry returned three live rows.",
+    "Four Toronto OpenSEO SERP tasks failed with Internal SE Server Error after a USD 0.014 charge.",
+    "One serial Canada-location SERP retry timed out without an explicit cost receipt; its USD 0.02 estimate remains committed because an unchanged immediate balance does not prove zero cost.",
+    "A public-search-observed query-target sample supplied intent/page-boundary evidence without overwriting provider failures or claiming searcher location, device, or stable rank.",
+    "The competitor endpoint returned 30 domains only for MLI Select and no coverage for six other requested keywords.",
+    "The installed methodology artifact identifies as AgriciDaniel's Codex SEO Universal SEO Analysis Skill v1.9.6, not NotFair; NotFair-specific workflow provenance remains unproven."
+  ],
+  "authorization": {
+    "siteMode": "read-only",
+    "cmsMode": "read-only",
+    "repositorySourceMode": "read-only",
+    "platformMode": "read-only",
+    "externalAccountMode": "read-only",
+    "allowedWrites": [
+      "research-artifacts"
+    ]
+  },
+  "prohibitedMutations": [],
+  "allowedWrites": [
+    "/Users/connor/Dev/fairlend-cms/output/seo-research/fairlend-openseo-trial-2026-07-16",
+    "/Users/connor/Dev/llm_wiki/.scratch/fairlend-openseo-trial/workspace"
+  ]
+}
