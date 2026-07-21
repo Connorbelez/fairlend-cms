@@ -69,7 +69,7 @@ describe('FairLend production readiness guards', () => {
       backoffice: { href: '/#questions' },
       borrowers: { href: '/borrowers' },
       bridgeLoans: {
-        href: '/intake?intent=mortgage&source=header-nav-bridge-loans',
+        href: '/construction-financing?intent=mortgage&source=header-nav-bridge-loans',
       },
       builderResource: { href: '/construction-draw-financing' },
       constructionFinancing: { href: '/construction-draw-financing' },
@@ -78,7 +78,7 @@ describe('FairLend production readiness guards', () => {
       ethos: { href: '/#ethos' },
       gardenLanewaySuites: { href: '/garden-suite-financing-gta' },
       home: { href: '/' },
-      intake: { href: '/intake' },
+      intake: { href: '/construction-financing' },
       institutionalMortgages: { href: '/borrowers/institutional-mortgage' },
       investing: { href: '/investing' },
       leadership: { href: '/#leadership' },
@@ -88,19 +88,19 @@ describe('FairLend production readiness guards', () => {
       privateMortgageLending: { href: '/investing/private-mortgage-lending' },
       privateMortgages: { href: '/borrowers/private-mortgage-financing' },
       rentalPropertyAcquisition: {
-        href: '/intake?intent=mortgage&source=header-nav-acquisition-existing-rental-properties',
+        href: '/construction-financing?intent=mortgage&source=header-nav-acquisition-existing-rental-properties',
       },
       rentalPropertyRefinance: {
-        href: '/intake?intent=mortgage&source=header-nav-refinancing-existing-rental-properties',
+        href: '/construction-financing?intent=mortgage&source=header-nav-refinancing-existing-rental-properties',
       },
       renovationFinancing: {
-        href: '/intake?intent=build&projectScope=renovation-financing&source=header-nav-renovation-financing',
+        href: '/construction-financing?intent=build&projectScope=renovation-financing&source=header-nav-renovation-financing',
       },
       resources: { href: '/posts' },
       residentialMortgages: {
-        href: '/intake?intent=mortgage&source=header-nav-residential-mortgages',
+        href: '/construction-financing?intent=mortgage&source=header-nav-residential-mortgages',
       },
-      startFile: { href: '/intake' },
+      startFile: { href: '/construction-financing' },
     })
   })
 
@@ -114,12 +114,12 @@ describe('FairLend production readiness guards', () => {
     )
 
     expect(rentalCards.map(({ href }) => href)).toEqual([
-      '/intake?intent=mortgage&source=landing-overview-acquisition-existing-rental-properties',
-      '/intake?intent=mortgage&source=landing-overview-refinancing-existing-rental-properties',
+      '/construction-financing?intent=mortgage&source=landing-overview-acquisition-existing-rental-properties',
+      '/construction-financing?intent=mortgage&source=landing-overview-refinancing-existing-rental-properties',
     ])
     expect(rentalHeaderColumn?.items.map(({ link }) => link.href)).toEqual([
-      '/intake?intent=mortgage&source=header-nav-acquisition-existing-rental-properties',
-      '/intake?intent=mortgage&source=header-nav-refinancing-existing-rental-properties',
+      '/construction-financing?intent=mortgage&source=header-nav-acquisition-existing-rental-properties',
+      '/construction-financing?intent=mortgage&source=header-nav-refinancing-existing-rental-properties',
     ])
   })
 
@@ -197,7 +197,7 @@ describe('FairLend production readiness guards', () => {
           capturedAt: '2026-07-07T12:00:00.000Z',
           formName: 'drawflow-intake',
           outcome: 'successful_intake',
-          pagePaths: ['/', '/intake'],
+          pagePaths: ['/', '/construction-financing'],
           scanId: 'scan-123',
         },
       ],

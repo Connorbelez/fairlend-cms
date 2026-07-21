@@ -41,7 +41,7 @@ for (const event of events) {
     distinctId: 'fairlend-internal-schema-seed',
     event,
     properties: {
-      $current_url: 'https://www.fairlend.ca/intake',
+      $current_url: 'https://www.fairlend.ca/construction-financing',
       $internal_or_test_user: true,
       $insert_id: `fairlend-schema-v1-${event}`,
       analytics: true,
@@ -55,7 +55,7 @@ for (const event of events) {
       is_internal_user: true,
       journey_type: 'mortgage_private',
       marketing: false,
-      page_path: '/intake',
+      page_path: '/construction-financing',
       page_type: 'intake',
       schema_version: 1,
       source: 'posthog_schema_seed',

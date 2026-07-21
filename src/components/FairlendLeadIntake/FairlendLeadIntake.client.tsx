@@ -867,7 +867,9 @@ export function FairlendLeadIntake({
             documentStatus: values.documentStatus,
             exitPlan: values.exitPlan,
             grossRentalIncome: values.grossRentalIncome,
-            page: isInstitutionalMortgage ? '/borrowers/institutional-mortgage' : '/intake',
+            page: isInstitutionalMortgage
+              ? '/borrowers/institutional-mortgage'
+              : '/construction-financing',
             mortgageProduct: isMortgageIntent ? resolvedMortgageProduct : undefined,
             numberOfUnits: values.numberOfUnits,
             occupancyStatus: values.occupancyStatus,

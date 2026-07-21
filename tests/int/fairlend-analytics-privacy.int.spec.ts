@@ -10,9 +10,9 @@ import {
 
 describe('FairLend analytics privacy contract', () => {
   it('removes query strings and fragments from URLs', () => {
-    expect(sanitizeAnalyticsPath('https://fairlend.ca/intake?email=a%40b.ca#contact')).toBe(
-      '/intake',
-    )
+    expect(
+      sanitizeAnalyticsPath('https://fairlend.ca/construction-financing?email=a%40b.ca#contact'),
+    ).toBe('/construction-financing')
   })
 
   it('drops PII, financial values, database identifiers, objects, and unexpected numeric values', () => {
@@ -24,11 +24,11 @@ describe('FairLend analytics privacy contract', () => {
         leadId: 'd9428888-122b-4b64-b9fe-88e9d0e34966',
         loan_amount: 500_000,
         metadata: { nested: 'object' },
-        page_path: '/intake?propertyValue=1000000',
+        page_path: '/construction-financing?propertyValue=1000000',
         source: 'homepage',
         step_number: 2,
       }),
-    ).toEqual({ page_path: '/intake', source: 'homepage', step_number: 2 })
+    ).toEqual({ page_path: '/construction-financing', source: 'homepage', step_number: 2 })
   })
 
   it('allows only bounded campaign values and rejects contact-like values', () => {

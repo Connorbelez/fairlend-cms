@@ -12,15 +12,27 @@ import { fairlendSecurityHeaders, headers } from '../../security-headers'
 const repoRoot = process.cwd()
 
 describe('technical SEO configuration', () => {
-  it('canonicalizes the apex host in one permanent redirect and retires noindex shells', async () => {
+  it('canonicalizes the apex host and permanently redirects retired routes', async () => {
+    if (!redirects) throw new Error('Next.js redirects configuration is missing')
+
     const rules = await redirects()
 
-    expect(rules.slice(0, 3)).toEqual([
+    expect(rules.slice(0, 5)).toEqual([
       {
         destination: 'https://www.fairlend.ca/:path*',
         has: [{ type: 'host', value: 'fairlend.ca' }],
         permanent: true,
         source: '/:path*',
+      },
+      {
+        destination: '/construction-financing',
+        permanent: true,
+        source: '/intake',
+      },
+      {
+        destination: '/construction-financing/:path*',
+        permanent: true,
+        source: '/intake/:path*',
       },
       {
         destination: '/multiplex-financing-gta',
@@ -38,8 +50,10 @@ describe('technical SEO configuration', () => {
   it('publishes a truthful lastmod for every source-controlled sitemap URL', () => {
     const paths = staticIndexableRoutes.map(({ path }) => path)
 
-    expect(staticIndexableRoutes).toHaveLength(17)
+    expect(staticIndexableRoutes).toHaveLength(18)
     expect(new Set(paths)).toHaveLength(paths.length)
+    expect(paths).toContain('/construction-financing')
+    expect(paths).not.toContain('/intake')
     expect(paths).not.toContain('/cmhc-mli-select-multiplex-financing')
     expect(paths).not.toContain('/resources/construction-draws-small-builders')
 
@@ -61,7 +75,7 @@ describe('technical SEO configuration', () => {
       siteUrl: 'https://www.fairlend.ca/',
     })
 
-    expect(entries).toHaveLength(18)
+    expect(entries).toHaveLength(19)
     expect(entries.find(({ loc }) => loc === 'https://www.fairlend.ca/')).toEqual({
       lastmod: '2026-07-14',
       loc: 'https://www.fairlend.ca/',
@@ -76,6 +90,8 @@ describe('technical SEO configuration', () => {
   })
 
   it('applies the complete response-security baseline globally', async () => {
+    if (!headers) throw new Error('Next.js headers configuration is missing')
+
     const configuredHeaders = await headers()
     const byName = new Map(fairlendSecurityHeaders.map(({ key, value }) => [key, value]))
 

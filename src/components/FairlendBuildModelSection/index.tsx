@@ -408,10 +408,16 @@ function DossierTakeoutPlan() {
   )
 }
 
-function DossierTabCard({ tab }: { tab: (typeof dossierTabs)[number] }) {
+function DossierTabCard({
+  active,
+  tab,
+}: {
+  active: boolean
+  tab: (typeof dossierTabs)[number]
+}) {
   return (
     <article
-      className={['bm-dossier-tab', tab.id === introState.dossierTab ? 'is-active' : '']
+      className={['bm-dossier-tab', active ? 'is-active' : '']
         .filter(Boolean)
         .join(' ')}
       data-bm-dossier-card
@@ -441,7 +447,19 @@ function DossierTabCard({ tab }: { tab: (typeof dossierTabs)[number] }) {
   )
 }
 
-function BuildModelBoard({ className }: { className?: string }) {
+function BuildModelBoard({
+  className,
+  includeIntroProgress = true,
+  initialState = introState,
+}: {
+  className?: string
+  includeIntroProgress?: boolean
+  initialState?: BoardState
+}) {
+  const visibleProgressItems = includeIntroProgress
+    ? progressItems
+    : progressItems.filter((item) => item.id !== introState.id)
+
   return (
     <aside
       className={['bm-board-wrap', className].filter(Boolean).join(' ')}
@@ -457,23 +475,27 @@ function BuildModelBoard({ className }: { className?: string }) {
           <div className="bm-board-header">
             <span className="bm-board-authority">Authority file</span>
             <span aria-hidden="true" className="bm-board-status" data-bm-board-status>
-              {introState.status}
+              {initialState.status}
             </span>
             <span aria-hidden="true" className="bm-board-count" data-bm-board-count>
-              {introState.count}
+              {initialState.count}
             </span>
           </div>
           <div className="bm-board-visual" aria-hidden="true">
             <div className="bm-board-title">
               <span className="bm-board-active" data-bm-board-title>
-                {introState.title}
+                {initialState.title}
               </span>
               <span className="bm-board-verified">Verified</span>
             </div>
 
             <div className="bm-dossier-stack" data-bm-dossier-stack>
               {dossierTabs.map((tab) => (
-                <DossierTabCard key={tab.id} tab={tab} />
+                <DossierTabCard
+                  active={tab.id === initialState.dossierTab}
+                  key={tab.id}
+                  tab={tab}
+                />
               ))}
             </div>
 
@@ -481,7 +503,12 @@ function BuildModelBoard({ className }: { className?: string }) {
               <div className="bm-board-chips" aria-label="Build variables">
                 {variables.map((variable) => (
                   <span
-                    className="bm-board-chip"
+                    className={[
+                      'bm-board-chip',
+                      initialState.variables.includes(variable) ? 'is-active' : '',
+                    ]
+                      .filter(Boolean)
+                      .join(' ')}
                     data-bm-variable={variable}
                     key={`bm-board-${variable}`}
                   >
@@ -490,9 +517,14 @@ function BuildModelBoard({ className }: { className?: string }) {
                 ))}
               </div>
               <div className="bm-progress" aria-label="Build model progress">
-                {progressItems.map((item) => (
+                {visibleProgressItems.map((item) => (
                   <span
-                    className="bm-progress-item"
+                    className={[
+                      'bm-progress-item',
+                      item.id === initialState.id ? 'is-active' : '',
+                    ]
+                      .filter(Boolean)
+                      .join(' ')}
                     data-bm-progress={item.id}
                     key={`bm-progress-${item.id}`}
                   >
@@ -783,65 +815,78 @@ function ThesisStrip() {
   )
 }
 
-export function FairlendBuildModelSection() {
+export function FairlendBuildModelSection({
+  startWithDrawFlow = false,
+}: {
+  startWithDrawFlow?: boolean
+} = {}) {
+  const initialState = startWithDrawFlow ? drawFlowState : introState
+
   return (
     <section
       className="build-model"
-      aria-labelledby="fairlend-build-model-title"
+      aria-labelledby={startWithDrawFlow ? 'bm-drawflow-title' : 'fairlend-build-model-title'}
       data-fairlend-motion="build-model"
-      data-palette-theme="ivory"
+      data-palette-theme={initialState.theme}
+      data-starts-with-drawflow={startWithDrawFlow ? '' : undefined}
       data-testid="fairlend-build-model-section"
       id="build-model"
     >
       <BuildModelMotion />
 
       <div className="bm-scroll-grid">
-        <BuildModelBoard className="bm-board-wrap--desktop" />
+        <BuildModelBoard
+          className="bm-board-wrap--desktop"
+          includeIntroProgress={!startWithDrawFlow}
+          initialState={initialState}
+        />
 
         <div className="bm-scroll-copy">
-          <ScrollStep state={introState} className="bm-scroll-intro">
-            <span className="bm-kicker">
-              <span className="num">03</span>
-              <span className="slash">/</span>
-              Our Build Model
-            </span>
-            <h2 className="bm-headline" id="fairlend-build-model-title">
-              Your complete path from site selection to CMHC takeout.
-            </h2>
-            <p className="bm-lead">
-              We bring financing and development expertise together—helping you secure permits, plan
-              construction, access trusted contractors and suppliers, keep the build on track, and
-              arrange construction and takeout financing.
-            </p>
-
-            <VariableRibbon />
-
-            <p className="bm-shared-lead">
-              Instead of finding and coordinating every party yourself, bring FairLend the property,
-              plan, or early idea. We help assemble the right team and keep the project, financing,
-              draws, and takeout moving through one coordinated plan.
-            </p>
-
-            <AudiencePaths />
-
-            <div className="bm-cta-row" data-bm-primary-cta>
-              <Link
-                className="bm-cta"
-                data-analytics-build-model-cta=""
-                data-analytics-cta-id="build-model-consultation"
-                data-analytics-cta-location="build-model-footer"
-                href={ctaHref}
-              >
-                Book a free consultation
-                <span className="arrow-box" aria-hidden="true">
-                  <ArrowRight />
-                </span>
-              </Link>
-              <p className="bm-cta-micro">
-                Bring a property, plan, or early idea — your first conversation is on us.
+          {!startWithDrawFlow ? (
+            <ScrollStep state={introState} className="bm-scroll-intro">
+              <span className="bm-kicker">
+                <span className="num">03</span>
+                <span className="slash">/</span>
+                Our Build Model
+              </span>
+              <h2 className="bm-headline" id="fairlend-build-model-title">
+                Your complete path from site selection to CMHC takeout.
+              </h2>
+              <p className="bm-lead">
+                We bring financing and development expertise together—helping you secure permits,
+                plan construction, access trusted contractors and suppliers, keep the build on track,
+                and arrange construction and takeout financing.
               </p>
-            </div>
-          </ScrollStep>
+
+              <VariableRibbon />
+
+              <p className="bm-shared-lead">
+                Instead of finding and coordinating every party yourself, bring FairLend the
+                property, plan, or early idea. We help assemble the right team and keep the project,
+                financing, draws, and takeout moving through one coordinated plan.
+              </p>
+
+              <AudiencePaths />
+
+              <div className="bm-cta-row" data-bm-primary-cta>
+                <Link
+                  className="bm-cta"
+                  data-analytics-build-model-cta=""
+                  data-analytics-cta-id="build-model-consultation"
+                  data-analytics-cta-location="build-model-footer"
+                  href={ctaHref}
+                >
+                  Book a free consultation
+                  <span className="arrow-box" aria-hidden="true">
+                    <ArrowRight />
+                  </span>
+                </Link>
+                <p className="bm-cta-micro">
+                  Bring a property, plan, or early idea — your first conversation is on us.
+                </p>
+              </div>
+            </ScrollStep>
+          ) : null}
 
           <DrawFlowStep />
 

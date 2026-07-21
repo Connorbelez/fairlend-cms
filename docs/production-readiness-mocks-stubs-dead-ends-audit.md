@@ -29,7 +29,7 @@ Frontend pages:
 - `/fairlend-landing-hero` - `src/app/(frontend)/fairlend-landing-hero/page.tsx`
 - `/garden-suite` - `src/app/(frontend)/garden-suite/page.tsx`
 - `/garden-suite-financing-gta` - `src/app/(frontend)/garden-suite-financing-gta/page.tsx`
-- `/intake` - `src/app/(frontend)/intake/page.tsx`
+- `/construction-financing` - `src/app/(frontend)/construction-financing/page.tsx`
 - `/investing/private-mortgage-lending` - `src/app/(frontend)/investing/private-mortgage-lending/page.tsx`
 - `/multiplex-financing-gta` - `src/app/(frontend)/multiplex-financing-gta/page.tsx`
 - `/partners` - `src/app/(frontend)/partners/page.tsx`
@@ -268,7 +268,7 @@ Evidence:
 
 - `/api/leads` persists through `upsertFairlendLead`: `src/app/(frontend)/api/leads/route.ts:15`
 - Lead SQL requires `DATABASE_URL` or `POSTGRES_URL`: `src/lib/fairlend-leads.ts:309`, `src/lib/fairlend-leads.ts:312`
-- Homepage form continues to `/intake` even if initial lead save fails: `src/components/FairlendLandingHero/FairlendApplicationForm.client.tsx:221`, `src/components/FairlendLandingHero/FairlendApplicationForm.client.tsx:225`, `src/components/FairlendLandingHero/FairlendApplicationForm.client.tsx:245`
+- Homepage form continues to `/construction-financing` even if initial lead save fails: `src/components/FairlendLandingHero/FairlendApplicationForm.client.tsx:221`, `src/components/FairlendLandingHero/FairlendApplicationForm.client.tsx:225`, `src/components/FairlendLandingHero/FairlendApplicationForm.client.tsx:245`
 - DrawFlow intake silently returns `null` on save failure: `src/components/DrawflowIntake/DrawflowIntake.client.tsx:1808`, `src/components/DrawflowIntake/DrawflowIntake.client.tsx:1827`, `src/components/DrawflowIntake/DrawflowIntake.client.tsx:1833`
 
 Impact: forms are real, not stubs, but production data capture depends on DB env. Some flows intentionally allow continuation after a failed draft save.
@@ -427,9 +427,9 @@ Findings:
 - No functional stub found.
 - Copy issue: hero title and "No lane labels" panel read like internal/prototype copy.
 
-### `/intake`
+### `/construction-financing`
 
-Source: `src/app/(frontend)/intake/page.tsx`
+Source: `src/app/(frontend)/construction-financing/page.tsx`
 
 Sections reviewed:
 
@@ -603,7 +603,7 @@ Sections reviewed:
 
 Findings:
 
-- Not a stub. It renders the same `DrawflowIntake` used by build-intent `/intake`.
+- Not a stub. It renders the same `DrawflowIntake` used by build-intent `/construction-financing`.
 - Lead persistence depends on DB env and draft-save failures can be silent.
 
 ## API/Route Audit

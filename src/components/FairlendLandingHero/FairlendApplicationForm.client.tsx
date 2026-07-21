@@ -29,6 +29,7 @@ import { buildFairlendIntakeHref, fairlendProjectScopeOptions } from '@/lib/fair
 import { cn } from '@/utilities/ui'
 
 import { fairlendApplicationId } from './application-target'
+import { DrawFlowTaglineCallout } from './DrawFlowTaglineCallout'
 import {
   FairlendApplicationIntentTabs,
   fairlendApplicationIntents,
@@ -112,7 +113,7 @@ const applicationPanelVariants = {
 const TAB_META: Record<FormTab, { description: string; heading: string; submitLabel: string }> = {
   build: {
     description: 'Tell us where you are building.',
-    heading: 'Start your application',
+    heading: 'See if your property qualifies',
     submitLabel: 'Start build application',
   },
   invest: {
@@ -638,6 +639,9 @@ export function FairlendApplicationForm() {
       ref={setApplicationCardElement}
       tabIndex={-1}
     >
+      {activeTab === 'build' ? (
+        <DrawFlowTaglineCallout className="absolute top-0 left-0 z-20 -translate-x-3 -translate-y-[calc(100%-6px)]" />
+      ) : null}
       <FairlendApplicationIntentTabs
         className={cn(
           'rounded-[inherit] hero-landscape:bg-transparent',

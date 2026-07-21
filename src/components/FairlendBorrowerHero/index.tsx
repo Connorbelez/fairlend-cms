@@ -13,7 +13,7 @@ import './borrower-hero.css'
  * Section 1 — Hero.
  *
  * Conversion hero: serif H1 thesis on the left and the live private-mortgage
- * review on the right. The same intake component powers `/intake`, so answers,
+ * review on the right. The same intake component powers `/construction-financing`, so answers,
  * autosave, validation, submission, and success behavior stay identical.
  *
  * Copy locked from the page section breakdown.

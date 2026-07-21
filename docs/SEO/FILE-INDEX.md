@@ -2,7 +2,7 @@
 
 Generated from the canonical `docs/SEO` tree. Run `node scripts/research/build-seo-docs-index.mjs` after changing the corpus.
 
-**Indexed files:** 317  
+**Indexed files:** 318
 **Generated:** 2026-07-20
 
 ## Category counts
@@ -17,7 +17,7 @@ Generated from the canonical `docs/SEO` tree. Run `node scripts/research/build-s
 | [references/](references/) | 5 |
 | [research/](research/) | 201 |
 | [strategy/](strategy/) | 54 |
-| [synthesis/](synthesis/) | 4 |
+| [synthesis/](synthesis/) | 5 |
 | [visual-reports/](visual-reports/) | 26 |
 
 ## Complete inventory
@@ -48,7 +48,7 @@ Generated from the canonical `docs/SEO` tree. Run `node scripts/research/build-s
 | [measurement-and-indexing/analytics-setup.md](measurement-and-indexing/analytics-setup.md) | Markdown · report or documentation | 14,192 |
 | [measurement-and-indexing/analytics-vendor-status.md](measurement-and-indexing/analytics-vendor-status.md) | Markdown · report or documentation | 3,010 |
 | [measurement-and-indexing/fairlend-indexing-engine-source-notes.md](measurement-and-indexing/fairlend-indexing-engine-source-notes.md) | Markdown · report or documentation | 28,389 |
-| [measurement-and-indexing/fairlend-search-indexing-launch-runbook.md](measurement-and-indexing/fairlend-search-indexing-launch-runbook.md) | Markdown · report or documentation | 37,192 |
+| [measurement-and-indexing/fairlend-search-indexing-launch-runbook.md](measurement-and-indexing/fairlend-search-indexing-launch-runbook.md) | Markdown · report or documentation | 37,340 |
 | [MIGRATION-MAP.md](MIGRATION-MAP.md) | Markdown · report or documentation | 3,017 |
 | [README.md](README.md) | Markdown · report or documentation | 11,343 |
 | [references/payload-seo-operator-official-sources.md](references/payload-seo-operator-official-sources.md) | Markdown · report or documentation | 13,081 |
@@ -311,9 +311,10 @@ Generated from the canonical `docs/SEO` tree. Run `node scripts/research/build-s
 | [strategy/seo-organic-growth-operator-playbook.md](strategy/seo-organic-growth-operator-playbook.md) | Markdown · report or documentation | 95,994 |
 | [strategy/seo-search-launch-implementation.md](strategy/seo-search-launch-implementation.md) | Markdown · report or documentation | 7,756 |
 | [strategy/seo-stack-setup-status-2026-07-14.md](strategy/seo-stack-setup-status-2026-07-14.md) | Markdown · report or documentation | 10,328 |
-| [synthesis/.DS_Store](synthesis/.DS_Store) | FILE | 8,196 |
+| [synthesis/.DS_Store](synthesis/.DS_Store) | FILE | 10,244 |
 | [synthesis/GardenSuites/competitors.md](synthesis/GardenSuites/competitors.md) | Markdown · report or documentation | 770,477 |
 | [synthesis/GardenSuites/content.md](synthesis/GardenSuites/content.md) | Markdown · report or documentation | 221,028 |
+| [synthesis/GardenSuites/money-page-plan.md](synthesis/GardenSuites/money-page-plan.md) | Markdown · report or documentation | 73,490 |
 | [synthesis/GardenSuites/research.md](synthesis/GardenSuites/research.md) | Markdown · report or documentation | 631,873 |
 | [visual-reports/.DS_Store](visual-reports/.DS_Store) | FILE | 8,196 |
 | [visual-reports/community-media-opportunity-2026-07-17/.field-manual-build.json](visual-reports/community-media-opportunity-2026-07-17/.field-manual-build.json) | JSON · structured evidence or manifest | 136 |

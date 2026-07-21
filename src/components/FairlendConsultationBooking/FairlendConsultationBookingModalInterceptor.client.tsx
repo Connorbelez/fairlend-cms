@@ -14,7 +14,10 @@ export function getConsultationBookingSource(href: string, origin: string): stri
 
     if (url.origin !== origin) return null
 
-    if (url.pathname === '/intake' && url.searchParams.get('intent') === 'consultation') {
+    if (
+      url.pathname === '/construction-financing' &&
+      url.searchParams.get('intent') === 'consultation'
+    ) {
       return url.searchParams.get('source') || fallbackSource
     }
 

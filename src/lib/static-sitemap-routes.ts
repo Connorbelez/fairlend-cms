@@ -15,6 +15,7 @@ export const staticIndexableRoutes = [
   { lastmod: '2026-07-14', path: '/borrowers/institutional-mortgage' },
   { lastmod: '2026-07-14', path: '/borrowers/private-mortgage-financing' },
   { lastmod: '2026-07-09', path: '/construction-draw-financing' },
+  { lastmod: '2026-07-21', path: '/construction-financing' },
   { lastmod: '2026-07-14', path: '/contact' },
   { lastmod: '2026-07-14', path: '/disclosures' },
   { lastmod: '2026-07-14', path: '/en/brokerage/privacy-policy' },
