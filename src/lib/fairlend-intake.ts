@@ -195,7 +195,7 @@ export function buildFairlendIntakeHref({
     }
   }
 
-  return `/intake?${params.toString()}`
+  return `/construction-financing?${params.toString()}`
 }
 
 export function buildFairlendContactHref(source: string): string {

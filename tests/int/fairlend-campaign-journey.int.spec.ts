@@ -30,7 +30,7 @@ describe('FairLend campaign journey persistence and reporting', () => {
     })
     await recordFairlendCampaignJourneyEvent({
       attribution: successfulScan,
-      event: pageView('/intake', 'success-intake'),
+      event: pageView('/construction-financing', 'success-intake'),
     })
     await recordFairlendCampaignJourneyEvent({
       attribution: successfulScan,
@@ -41,7 +41,7 @@ describe('FairLend campaign journey persistence and reporting', () => {
         formName: 'Drawflow intake',
         intakeType: 'mortgage',
         leadId: randomUUID(),
-        pagePath: '/intake',
+        pagePath: '/construction-financing',
       },
     })
     await recordFairlendCampaignJourneyEvent({
@@ -66,7 +66,7 @@ describe('FairLend campaign journey persistence and reporting', () => {
       expect.arrayContaining([
         expect.objectContaining({ pagePath: '/', uniqueScanCount: 1 }),
         expect.objectContaining({ pagePath: '/borrowers', uniqueScanCount: 1 }),
-        expect.objectContaining({ pagePath: '/intake', uniqueScanCount: 1 }),
+        expect.objectContaining({ pagePath: '/construction-financing', uniqueScanCount: 1 }),
       ]),
     )
     expect(analytics.abandonments).toContainEqual(

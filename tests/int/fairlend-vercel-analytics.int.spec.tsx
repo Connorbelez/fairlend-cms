@@ -74,9 +74,9 @@ describe('FairLend Vercel telemetry', () => {
     vercelMocks.analyticsProps.mockClear()
     vercelMocks.speedInsightsProps.mockClear()
     vercelMocks.track.mockClear()
-    vercelMocks.pathname = '/intake'
+    vercelMocks.pathname = '/construction-financing'
     window.localStorage.clear()
-    window.history.replaceState({}, '', '/intake')
+    window.history.replaceState({}, '', '/construction-financing')
     setVisibility('visible')
   })
 
@@ -93,16 +93,16 @@ describe('FairLend Vercel telemetry', () => {
 
     const pageview = {
       type: 'pageview',
-      url: 'https://www.fairlend.ca/intake?email=borrower%40example.com#application',
+      url: 'https://www.fairlend.ca/construction-financing?email=borrower%40example.com#application',
     }
 
     expect(getBeforeSend(vercelMocks.analyticsProps)(pageview)).toEqual({
       type: 'pageview',
-      url: 'https://www.fairlend.ca/intake',
+      url: 'https://www.fairlend.ca/construction-financing',
     })
     expect(getBeforeSend(vercelMocks.speedInsightsProps)({ ...pageview, type: 'vital' })).toEqual({
       type: 'vital',
-      url: 'https://www.fairlend.ca/intake',
+      url: 'https://www.fairlend.ca/construction-financing',
     })
   })
 
@@ -148,9 +148,8 @@ describe('FairLend Vercel telemetry', () => {
     cleanup()
     vi.resetModules()
     vi.stubEnv('NEXT_PUBLIC_ANALYTICS_DISABLED', 'true')
-    const { FairlendVercelTelemetry: DisabledVercelTelemetry } = await import(
-      '@/components/Analytics/FairlendVercelTelemetry.client'
-    )
+    const { FairlendVercelTelemetry: DisabledVercelTelemetry } =
+      await import('@/components/Analytics/FairlendVercelTelemetry.client')
 
     render(<DisabledVercelTelemetry />)
     act(() => vi.advanceTimersByTime(90_000))

@@ -48,7 +48,7 @@ describe('FairlendLeadIntake component', () => {
     expect(JSON.parse(String(fetchMock.mock.calls[0]?.[1]?.body))).toMatchObject({
       email: 'casey@example.com',
       intake: {
-        page: '/intake',
+        page: '/construction-financing',
         requestedIntent: 'consultation',
         source: 'footer-book-consultation',
       },
@@ -83,7 +83,7 @@ describe('FairlendLeadIntake component', () => {
     })
 
     expect(screen.getByRole('link', { name: /request a consultation/i }).getAttribute('href')).toBe(
-      '/intake?intent=consultation&email=investor%40example.com&leadId=c5d894d3-6fa9-4766-8f90-f041ac97a68d&name=Investor+Lead&source=investor-final-cta-success-consultation',
+      '/construction-financing?intent=consultation&email=investor%40example.com&leadId=c5d894d3-6fa9-4766-8f90-f041ac97a68d&name=Investor+Lead&source=investor-final-cta-success-consultation',
     )
   })
 
@@ -122,9 +122,7 @@ describe('FairlendLeadIntake component', () => {
       expect(screen.getByRole('group', { name: 'Additional debt' })).toBeTruthy()
     })
     const additionalDebtGroup = within(screen.getByRole('group', { name: 'Additional debt' }))
-    expect(
-      additionalDebtGroup.getAllByRole('button').map((button) => button.textContent),
-    ).toEqual([
+    expect(additionalDebtGroup.getAllByRole('button').map((button) => button.textContent)).toEqual([
       'No additional debt',
       'Under $50K',
       '$50K-$100K',
@@ -217,7 +215,9 @@ describe('FairlendLeadIntake component', () => {
     expect(document.getElementById('mortgage-early-phone')).toBeNull()
     fireEvent.click(screen.getByRole('button', { name: /continue to property/i }))
 
-    await waitFor(() => expect(screen.getByRole('button', { name: 'Skip and submit' })).toBeTruthy())
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'Skip and submit' })).toBeTruthy(),
+    )
     fireEvent.click(screen.getByRole('button', { name: 'Skip and submit' }))
 
     await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1))
@@ -516,7 +516,9 @@ describe('FairlendLeadIntake component', () => {
         { name: '$500K-$1M' },
       ),
     )
-    fireEvent.click(screen.getByRole('button', { name: 'Other debt (unsecured or non-property debt)' }))
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Other debt (unsecured or non-property debt)' }),
+    )
     fireEvent.click(
       within(screen.getByRole('group', { name: 'Approximate other debt amount' })).getByRole(
         'button',

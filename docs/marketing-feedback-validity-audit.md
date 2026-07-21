@@ -51,7 +51,7 @@ All items that were marked `Still valid` or `Partially addressed` in the origina
 Static frontend pages currently present:
 
 - `/` via `src/app/(frontend)/page.tsx`
-- `/intake` via `src/app/(frontend)/intake/page.tsx`
+- `/construction-financing` via `src/app/(frontend)/construction-financing/page.tsx`
 - `/partners` via `src/app/(frontend)/partners/page.tsx`
 - `/borrowers/private-mortgage-financing` via `src/app/(frontend)/borrowers/private-mortgage-financing/page.tsx`
 - `/investing/private-mortgage-lending` via `src/app/(frontend)/investing/private-mortgage-lending/page.tsx`
@@ -111,7 +111,7 @@ Source DOCX paragraph refs: p001-p016.
 
 | Feedback | Status | Relevant current reference |
 | --- | --- | --- |
-| Missing licence numbers/footer on intake. Source p001, p016. | Addressed for `/intake` through shared layout/footer. | Layout renders footer for frontend routes at `src/app/(frontend)/layout.tsx:56`; footer renders registration disclosure at `src/Footer/WatermelonFooter.client.tsx:266-269`. |
+| Missing licence numbers/footer on intake. Source p001, p016. | Addressed for `/construction-financing` through shared layout/footer. | Layout renders footer for frontend routes at `src/app/(frontend)/layout.tsx:56`; footer renders registration disclosure at `src/Footer/WatermelonFooter.client.tsx:266-269`. |
 | Replace FairLend Capital globally. Source p002. | Resolved in implementation pass; see Implementation Resolution. | See Implementation Resolution. |
 | Fillable fields need stronger visibility/contrast. Source p003. | Resolved in implementation pass; see Implementation Resolution. | See Implementation Resolution. |
 | MLI Select / broker referral / owner-builder grouping should be adjusted. Source p004-p005. | Resolved in implementation pass; see Implementation Resolution. | See Implementation Resolution. |

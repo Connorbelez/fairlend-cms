@@ -25,7 +25,7 @@ const footerColumns = [
     links: [
       { label: 'Borrower Overview', href: '/borrowers' },
       { label: 'Multiplex Financing', href: '/multiplex-financing-gta' },
-      { label: 'How It Works', href: '/intake' },
+      { label: 'How It Works', href: '/construction-financing' },
       { label: 'Private Mortgage Guide', href: '/borrowers/private-mortgage-financing' },
       { label: 'Privacy Policy', href: '/en/brokerage/privacy-policy' },
       { label: 'Apply Now', href: consultationHref },

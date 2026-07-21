@@ -3,13 +3,14 @@ import { fairlendRouteSelectorAssets } from '@/components/FairlendRouteSelector/
 import { FairlendServiceSeo } from '@/components/SEO/FairlendRouteSeo'
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
 import { buildFairlendMetadata } from '@/utilities/seo'
+import type { Metadata } from 'next'
 
 export const dynamic = 'force-static'
 
 const pageDescription =
   'FairLend helps GTA owners, builders, and brokers pressure-test multiplex budgets, draw timing, private capital needs, and MLI Select readiness.'
 
-export const metadata = buildFairlendMetadata({
+export const metadata: Metadata = buildFairlendMetadata({
   description: pageDescription,
   path: '/multiplex-financing-gta',
   title: 'Multiplex Financing GTA | FairLend',
@@ -43,7 +44,7 @@ export default function MultiplexFinancingGtaPage() {
           },
           primaryCta: { href: intakeHref, label: 'Start multiplex review' },
           secondaryCta: {
-            href: '/intake?intent=contact&source=multiplex-question',
+            href: '/construction-financing?intent=contact&source=multiplex-question',
             label: 'Talk to FairLend',
           },
           proof: [

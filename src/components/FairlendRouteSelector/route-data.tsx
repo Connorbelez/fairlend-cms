@@ -46,7 +46,7 @@ export const fairlendRouteChoices = [
       'Finish and plan the takeout',
     ],
     ctaLabel: 'Get Approved',
-    href: '/intake',
+    href: '/construction-financing',
     icon: HardHat,
     illustration: fairlendRouteSelectorAssets.constructionBuilding,
     badge: 'Priority',

@@ -65,11 +65,14 @@ export function DrawFlowInterestBadge({
             <TooltipTrigger asChild>
               <button
                 aria-label="Save up to 50% interest with DrawFlow. Learn how DrawFlow works."
-                className={`${offsetCalloutClassName} min-h-9 items-center border-[#08090a] bg-[#9DFF00] px-2.5 py-1.5 shadow-[3px_3px_0_#08090a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#08090a]`}
+                className={`${offsetCalloutClassName} min-h-9 items-center gap-2 border-[#08090a] bg-[#9DFF00] py-1.5 pr-1.5 pl-2.5 shadow-[3px_3px_0_#08090a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#08090a]`}
                 type="button"
               >
                 <OffsetCalloutCorner />
                 <BadgeLabel compact={compact} />
+                <span className="grid size-6 shrink-0 place-items-center rounded-full border border-[#08090a] bg-[#fbfaf7] text-[#08090a]">
+                  <Info aria-hidden="true" className="size-3.5" strokeWidth={2.4} />
+                </span>
               </button>
             </TooltipTrigger>
             <TooltipContent
@@ -90,7 +93,7 @@ export function DrawFlowInterestBadge({
           <Popover>
             <PopoverTrigger asChild>
               <button
-                aria-label="Learn how DrawFlow can reduce interest paid"
+                aria-label="Learn how DrawFlow works"
                 className="grid size-6 shrink-0 place-items-center rounded-full border border-[#08090a] bg-[#fbfaf7] text-[#08090a] hover:bg-[#08090a] hover:text-[#9DFF00] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#08090a]"
                 type="button"
               >

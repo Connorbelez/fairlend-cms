@@ -15,6 +15,16 @@ export const redirects: NextConfig['redirects'] = async () => {
 
   const retiredResourceRedirects = [
     {
+      destination: '/construction-financing',
+      permanent: true,
+      source: '/intake',
+    },
+    {
+      destination: '/construction-financing/:path*',
+      permanent: true,
+      source: '/intake/:path*',
+    },
+    {
       destination: '/multiplex-financing-gta',
       permanent: true,
       source: '/cmhc-mli-select-multiplex-financing',

@@ -15,7 +15,7 @@ describe('consultation booking modal URL interception', () => {
   it('opens first-party consultation-intent links in the modal and preserves attribution', () => {
     expect(
       getConsultationBookingSource(
-        '/intake?intent=consultation&source=build-model-consultation',
+        '/construction-financing?intent=consultation&source=build-model-consultation',
         origin,
       ),
     ).toBe('build-model-consultation')
@@ -53,7 +53,9 @@ describe('consultation booking modal URL interception', () => {
   })
 
   it('does not intercept non-consultation or external destinations', () => {
-    expect(getConsultationBookingSource('/intake?intent=mortgage', origin)).toBeNull()
+    expect(
+      getConsultationBookingSource('/construction-financing?intent=mortgage', origin),
+    ).toBeNull()
     expect(
       getConsultationBookingSource('https://bookings.example.com/?intent=consultation', origin),
     ).toBeNull()
@@ -62,7 +64,7 @@ describe('consultation booking modal URL interception', () => {
   it('prevents navigation and opens the scheduler for a consultation CTA', async () => {
     render(
       <>
-        <Link href="/intake?intent=consultation&source=build-model-consultation">
+        <Link href="/construction-financing?intent=consultation&source=build-model-consultation">
           Book a free consultation
         </Link>
         <FairlendConsultationBookingModalInterceptor />

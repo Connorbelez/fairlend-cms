@@ -78,9 +78,10 @@ Use a `301` only if a removed URL already has legitimate backlinks or a true one
 2. Decide whether `/terms` should be searchable:
    - **Index it:** keep `index, follow`, give it a self-canonical, and include it in the sitemap.
    - **Do not index it:** use `noindex, follow` and leave it out of the sitemap.
-3. Keep `/search`, `/intake`, `/start/builder`, and workflow/landing variants out while they are `noindex`.
-4. Include only production HTTPS canonical URLs returning `200`.
-5. Emit `<lastmod>` only when primary content, important links, or structured data materially changed. Do not rewrite every timestamp on every deploy.
+3. Include the canonical `/construction-financing` route; keep `/search`, `/start/builder`, and other `noindex` workflow variants out.
+4. Confirm legacy `/intake` URLs redirect permanently to `/construction-financing` while preserving their query strings.
+5. Include only production HTTPS canonical URLs returning `200`.
+6. Emit `<lastmod>` only when primary content, important links, or structured data materially changed. Do not rewrite every timestamp on every deploy.
 
 Google treats a sitemap as a hint, not a command. It recommends absolute preferred-canonical URLs and ignores sitemap `priority` and `changefreq`. [Google sitemap construction guide](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap?hl=en) and [Google sitemap `lastmod` guidance](https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping)
 
