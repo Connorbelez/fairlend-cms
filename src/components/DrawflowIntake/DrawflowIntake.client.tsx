@@ -698,7 +698,10 @@ export function DrawflowIntake({
 function BuilderDrawflowIntake(): ReactElement {
   const searchParams = useSearchParams()
   const initialAddress = searchParams.get('address')?.trim() ?? ''
+  const initialEmail = searchParams.get('email')?.trim() ?? ''
   const initialLeadId = searchParams.get('leadId')?.trim() ?? null
+  const initialName = searchParams.get('name')?.trim() ?? ''
+  const initialPhone = searchParams.get('phone')?.trim() ?? ''
   const initialProjectScope = getFairlendProjectScopeLabel(searchParams.get('projectScope'))
   const source = searchParams.get('source')?.trim() || 'drawflow-intake'
   const [step, setStep] = useState<WizardStep>(() =>
@@ -707,6 +710,9 @@ function BuilderDrawflowIntake(): ReactElement {
   const [answers, setAnswers] = useState<IntakeAnswers>(() => ({
     ...defaultAnswers,
     address: initialAddress,
+    email: initialEmail,
+    name: initialName,
+    phone: initialPhone,
     projectScope: initialProjectScope,
   }))
   const [leadId, setLeadId] = useState<string | null>(initialLeadId)
@@ -733,7 +739,10 @@ function BuilderDrawflowIntake(): ReactElement {
     hasHydratedFromEntryRef.current = true
 
     const incomingAddress = searchParams.get('address')?.trim()
+    const incomingEmail = searchParams.get('email')?.trim()
     const incomingLeadId = searchParams.get('leadId')?.trim()
+    const incomingName = searchParams.get('name')?.trim()
+    const incomingPhone = searchParams.get('phone')?.trim()
     const incomingProjectScope = getFairlendProjectScopeLabel(searchParams.get('projectScope'))
 
     const timeout = window.setTimeout(() => {
@@ -745,13 +754,25 @@ function BuilderDrawflowIntake(): ReactElement {
             ...current,
             ...parsedAnswers,
             address: incomingAddress || current.address || parsedAnswers.address || '',
+            email: incomingEmail || current.email || parsedAnswers.email || '',
+            name: incomingName || current.name || parsedAnswers.name || '',
+            phone: incomingPhone || current.phone || parsedAnswers.phone || '',
             projectScope:
               incomingProjectScope || current.projectScope || parsedAnswers.projectScope || '',
           }))
-        } else if (incomingAddress || incomingProjectScope) {
+        } else if (
+          incomingAddress ||
+          incomingEmail ||
+          incomingName ||
+          incomingPhone ||
+          incomingProjectScope
+        ) {
           setAnswers((current) => ({
             ...current,
             address: incomingAddress || current.address,
+            email: incomingEmail || current.email,
+            name: incomingName || current.name,
+            phone: incomingPhone || current.phone,
             projectScope: incomingProjectScope || current.projectScope,
           }))
         }
@@ -763,10 +784,19 @@ function BuilderDrawflowIntake(): ReactElement {
           window.localStorage.setItem(leadIdStorageKey, nextLeadId)
         }
       } catch {
-        if (incomingAddress || incomingProjectScope) {
+        if (
+          incomingAddress ||
+          incomingEmail ||
+          incomingName ||
+          incomingPhone ||
+          incomingProjectScope
+        ) {
           setAnswers((current) => ({
             ...current,
             address: incomingAddress || current.address,
+            email: incomingEmail || current.email,
+            name: incomingName || current.name,
+            phone: incomingPhone || current.phone,
             projectScope: incomingProjectScope || current.projectScope,
           }))
         }
@@ -1044,12 +1074,18 @@ function BuilderDrawflowIntake(): ReactElement {
 function GardenSuiteHomeownerIntake(): ReactElement {
   const searchParams = useSearchParams()
   const initialAddress = searchParams.get('address')?.trim() ?? ''
+  const initialEmail = searchParams.get('email')?.trim() ?? ''
   const initialLeadId = searchParams.get('leadId')?.trim() ?? null
+  const initialName = searchParams.get('name')?.trim() ?? ''
+  const initialPhone = searchParams.get('phone')?.trim() ?? ''
   const source = searchParams.get('source')?.trim() || 'garden-suite-homeowner-intake'
   const [step, setStep] = useState<HomeownerStep>(1)
   const [answers, setAnswers] = useState<HomeownerIntakeAnswers>(() => ({
     ...defaultHomeownerAnswers,
     address: initialAddress,
+    email: initialEmail,
+    name: initialName,
+    phone: initialPhone,
   }))
   const [leadId, setLeadId] = useState<string | null>(initialLeadId)
   const [hasHydratedDraft, setHasHydratedDraft] = useState(false)
@@ -1061,7 +1097,10 @@ function GardenSuiteHomeownerIntake(): ReactElement {
 
   useEffect(() => {
     const incomingAddress = searchParams.get('address')?.trim() ?? ''
+    const incomingEmail = searchParams.get('email')?.trim() ?? ''
     const incomingLeadId = searchParams.get('leadId')?.trim() ?? null
+    const incomingName = searchParams.get('name')?.trim() ?? ''
+    const incomingPhone = searchParams.get('phone')?.trim() ?? ''
 
     const timeout = window.setTimeout(() => {
       try {
@@ -1073,7 +1112,18 @@ function GardenSuiteHomeownerIntake(): ReactElement {
             ...current,
             ...parsedAnswers,
             address: incomingAddress || parsedAnswers.address || current.address,
+            email: incomingEmail || parsedAnswers.email || current.email,
+            name: incomingName || parsedAnswers.name || current.name,
+            phone: incomingPhone || parsedAnswers.phone || current.phone,
             projectScope: gardenSuiteProjectScopeLabel,
+          }))
+        } else if (incomingAddress || incomingEmail || incomingName || incomingPhone) {
+          setAnswers((current) => ({
+            ...current,
+            address: incomingAddress || current.address,
+            email: incomingEmail || current.email,
+            name: incomingName || current.name,
+            phone: incomingPhone || current.phone,
           }))
         }
 
@@ -1084,8 +1134,14 @@ function GardenSuiteHomeownerIntake(): ReactElement {
           window.localStorage.setItem(homeownerLeadIdStorageKey, nextLeadId)
         }
       } catch {
-        if (incomingAddress) {
-          setAnswers((current) => ({ ...current, address: incomingAddress }))
+        if (incomingAddress || incomingEmail || incomingName || incomingPhone) {
+          setAnswers((current) => ({
+            ...current,
+            address: incomingAddress || current.address,
+            email: incomingEmail || current.email,
+            name: incomingName || current.name,
+            phone: incomingPhone || current.phone,
+          }))
         }
         if (incomingLeadId) {
           setLeadId(incomingLeadId)
@@ -1685,7 +1741,12 @@ function HomeownerPropertyStep({
             </p>
           ) : null}
 
-          <BrutalistCtaButton className="mt-[14px]" onClick={onContinue} size="compact" type="button">
+          <BrutalistCtaButton
+            className="mt-[14px]"
+            onClick={onContinue}
+            size="compact"
+            type="button"
+          >
             Continue
           </BrutalistCtaButton>
 
@@ -2795,10 +2856,7 @@ function toggleMultiValue(values: string[], value: string): string[] {
   return [...values.filter((item) => item !== 'None yet' && item !== 'Not sure'), value]
 }
 
-function validateHomeownerStep(
-  step: HomeownerStep,
-  answers: HomeownerIntakeAnswers,
-): string {
+function validateHomeownerStep(step: HomeownerStep, answers: HomeownerIntakeAnswers): string {
   if (step === 1) {
     if (!answers.siteControl) {
       return 'Choose your connection to the property.'
