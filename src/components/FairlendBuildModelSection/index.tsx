@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, CalendarDays, FileText, SlidersHorizontal } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import type { ReactNode } from 'react'
 
 import { buildFairlendIntakeHref } from '@/lib/fairlend-intake'
@@ -8,6 +8,7 @@ import { BackgroundImageTexture } from '@/components/ui/bg-image-texture'
 
 import { BuildModelMotion } from './BuildModelMotion.client'
 import { BuildSensitivityConsole } from './BuildSensitivityConsole.client'
+import { DrawFlowDossierCard } from './DrawFlowDossierCard'
 import './build-model.css'
 
 /* ------------------------------------------------------------------ */
@@ -244,18 +245,6 @@ const progressItems = [
   { id: 'contingency', label: 'Contingency' },
 ] as const
 
-const milestoneNodes = [
-  'Foundation',
-  'Framing',
-  'Roof',
-  'Windows',
-  'Mechanical',
-  'Plumbing',
-  'Electrical',
-  'Drywall',
-  'Flooring',
-] as const
-
 function stateData(state: BoardState) {
   return {
     'data-bm-step': state.id,
@@ -273,7 +262,7 @@ function DossierParcelSketch() {
     <div className="bm-parcel-canvas">
       <div className="bm-parcel-art">
         <Image
-          alt="Parcel feasibility sketch for a multiplex and laneway housing site"
+          alt="Toronto multiplex and laneway housing parcel feasibility plan for construction financing"
           className="bm-parcel-art-image"
           height={1024}
           priority
@@ -408,18 +397,10 @@ function DossierTakeoutPlan() {
   )
 }
 
-function DossierTabCard({
-  active,
-  tab,
-}: {
-  active: boolean
-  tab: (typeof dossierTabs)[number]
-}) {
+function DossierTabCard({ active, tab }: { active: boolean; tab: (typeof dossierTabs)[number] }) {
   return (
     <article
-      className={['bm-dossier-tab', active ? 'is-active' : '']
-        .filter(Boolean)
-        .join(' ')}
+      className={['bm-dossier-tab', active ? 'is-active' : ''].filter(Boolean).join(' ')}
       data-bm-dossier-card
       data-bm-dossier-tab={tab.id}
       data-bm-dossier-code={tab.code}
@@ -519,10 +500,7 @@ function BuildModelBoard({
               <div className="bm-progress" aria-label="Build model progress">
                 {visibleProgressItems.map((item) => (
                   <span
-                    className={[
-                      'bm-progress-item',
-                      item.id === initialState.id ? 'is-active' : '',
-                    ]
+                    className={['bm-progress-item', item.id === initialState.id ? 'is-active' : '']
                       .filter(Boolean)
                       .join(' ')}
                     data-bm-progress={item.id}
@@ -671,123 +649,7 @@ function StationStep({ station }: { station: Station }) {
 function DrawFlowStep() {
   return (
     <ScrollStep state={drawFlowState} className="bm-drawflow-step">
-      <section className="bm-drawflow" aria-labelledby="bm-drawflow-title">
-        <span className="bm-df-revision" aria-hidden="true">
-          <span>FL-LOCREDIT</span>
-          <span>REV-01</span>
-          <span>05.14.2026</span>
-        </span>
-        <span className="bm-df-corner-cross" aria-hidden="true" />
-        <div className="bm-df-meta">
-          <span className="bm-df-label">
-            <span className="pip" aria-hidden="true" />
-            Powered by DrawFlow
-          </span>
-          <span className="bm-df-dossier">Technical financing dossier</span>
-        </div>
-        <h3 className="bm-df-head" id="bm-drawflow-title">
-          A milestone <em>line of credit</em> for your build.
-        </h3>
-        <p className="bm-df-sub">
-          More draws. Less interest. <b>Fund the work, not the wait.</b>
-        </p>
-
-        <div className="bm-df-milestone-block">
-          <span className="bm-df-section-label">Construction milestones</span>
-          <div
-            className="bm-milestones"
-            role="img"
-            aria-label="Milestone draw track: foundation, framing, roof, windows, mechanical, plumbing, electrical, drywall, flooring"
-          >
-            {milestoneNodes.map((node, index) => (
-              <span
-                className={[
-                  'bm-milestone',
-                  index < 5 ? 'done' : '',
-                  node === 'Plumbing' ? 'active' : '',
-                  node === 'Flooring' ? 'bm-milestone--continuation' : '',
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
-                key={`bm-ms-${node}`}
-              >
-                {node}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="bm-df-compare">
-          <div className="bm-df-cmp">
-            <div className="bm-df-cmp-tag">Traditional</div>
-            <div className="bm-df-cmp-num">3 draws</div>
-          </div>
-          <div className="bm-df-cmp fairlend">
-            <div className="bm-df-cmp-tag">FairLend</div>
-            <div className="bm-df-cmp-num">up to 15 draws</div>
-          </div>
-        </div>
-
-        <div className="bm-df-saved">
-          <span className="amt">≈ $12,000</span>
-          <span className="lbl">
-            <strong>Illustrative interest saved</strong>
-            <span>over a typical build.</span>
-          </span>
-          <span className="caveat">
-            *Illustrative only.
-            <br /> Every project
-            <br /> differs.
-          </span>
-        </div>
-
-        <div className="bm-df-flex">
-          <article className="bm-tile">
-            <span className="tile-icon" aria-hidden="true">
-              <CalendarDays />
-            </span>
-            <div className="tile-copy">
-              <span className="tile-title">
-                Your schedule,
-                <br /> not ours
-              </span>
-              <p>
-                Build your own draw schedule. Tie releases to the milestones that match how your
-                project actually goes up.
-              </p>
-            </div>
-          </article>
-          <article className="bm-tile">
-            <span className="tile-icon" aria-hidden="true">
-              <SlidersHorizontal />
-            </span>
-            <div className="tile-copy">
-              <span className="tile-title">
-                Modify it
-                <br /> mid-build
-              </span>
-              <p>
-                Builds don&apos;t always go as planned. Adjust the draw schedule as the work shifts
-                so capital is there when you need it, and not costing interest when you don&apos;t.
-              </p>
-            </div>
-          </article>
-        </div>
-
-        <div className="bm-df-more">
-          <span className="tile-icon" aria-hidden="true">
-            <FileText />
-          </span>
-          <div className="tile-copy">
-            <b>More than capital.</b>
-            <p>
-              Complimentary access to our Southern Ontario build specialists and a deep supplier
-              &amp; trade network. When a project needs one, we can refer an experienced building
-              project manager to work alongside the financing team.
-            </p>
-          </div>
-        </div>
-      </section>
+      <DrawFlowDossierCard />
     </ScrollStep>
   )
 }
@@ -854,8 +716,8 @@ export function FairlendBuildModelSection({
               </h2>
               <p className="bm-lead">
                 We bring financing and development expertise together—helping you secure permits,
-                plan construction, access trusted contractors and suppliers, keep the build on track,
-                and arrange construction and takeout financing.
+                plan construction, access trusted contractors and suppliers, keep the build on
+                track, and arrange construction and takeout financing.
               </p>
 
               <VariableRibbon />

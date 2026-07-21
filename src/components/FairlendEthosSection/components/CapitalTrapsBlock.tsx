@@ -35,7 +35,7 @@ export function CapitalTrapsBlock({
 
         <figure className="fairlend-ethos__capital-audit-specimen">
           <Image
-            alt="Engraved compact condominium floor plan above an unfinished luxury single-family construction site"
+            alt="Compact condominium floor plan above an unfinished Toronto single-family construction site"
             fill
             loading="lazy"
             sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1080px) 52vw, 25rem"
@@ -84,7 +84,7 @@ export function CapitalTrapsBlock({
 
       <figure className="fairlend-ethos__capital-skyline">
         <Image
-          alt="Engraved Toronto skyline and active construction sites"
+          alt="Toronto skyline above active residential construction sites and housing development"
           fill
           loading="lazy"
           sizes="(max-width: 760px) 100vw, 62vw"

@@ -7,6 +7,8 @@ import {
 } from '@/utilities/structuredData'
 
 type FairlendServiceSeoProps = {
+  /** Overrides the default Home → current-page breadcrumb trail. */
+  breadcrumbTrail?: readonly { name: string; path: string }[]
   dateModified?: string
   description: string
   name: string
@@ -16,6 +18,7 @@ type FairlendServiceSeoProps = {
 }
 
 export function FairlendServiceSeo({
+  breadcrumbTrail,
   dateModified,
   description,
   name,
@@ -26,10 +29,12 @@ export function FairlendServiceSeo({
   return (
     <JsonLd
       data={[
-        buildBreadcrumbJsonLd([
-          { name: 'Home', path: '/' },
-          { name, path },
-        ]),
+        buildBreadcrumbJsonLd(
+          breadcrumbTrail ? [...breadcrumbTrail] : [
+            { name: 'Home', path: '/' },
+            { name, path },
+          ],
+        ),
         buildWebPageJsonLd({
           dateModified,
           description,

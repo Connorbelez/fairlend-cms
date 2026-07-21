@@ -39,7 +39,7 @@ export default function AffordableSustainableRentalHousingPage() {
           subtitle: pageDescription,
           image: {
             ...fairlendRouteSelectorAssets.investorSkyline,
-            alt: 'Sustainable rental housing financing illustration',
+            alt: 'Toronto rental housing skyline for sustainable multi-unit project financing',
           },
           primaryCta: { href: intakeHref, label: 'Review rental project' },
           secondaryCta: { href: '/multiplex-financing-gta', label: 'Multiplex financing' },

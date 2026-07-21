@@ -2,7 +2,7 @@
 
 Generated from the canonical `docs/SEO` tree. Run `node scripts/research/build-seo-docs-index.mjs` after changing the corpus.
 
-**Indexed files:** 318
+**Indexed files:** 322
 **Generated:** 2026-07-20
 
 ## Category counts
@@ -17,7 +17,7 @@ Generated from the canonical `docs/SEO` tree. Run `node scripts/research/build-s
 | [references/](references/) | 5 |
 | [research/](research/) | 201 |
 | [strategy/](strategy/) | 54 |
-| [synthesis/](synthesis/) | 5 |
+| [synthesis/](synthesis/) | 9 |
 | [visual-reports/](visual-reports/) | 26 |
 
 ## Complete inventory
@@ -312,9 +312,13 @@ Generated from the canonical `docs/SEO` tree. Run `node scripts/research/build-s
 | [strategy/seo-search-launch-implementation.md](strategy/seo-search-launch-implementation.md) | Markdown · report or documentation | 7,756 |
 | [strategy/seo-stack-setup-status-2026-07-14.md](strategy/seo-stack-setup-status-2026-07-14.md) | Markdown · report or documentation | 10,328 |
 | [synthesis/.DS_Store](synthesis/.DS_Store) | FILE | 10,244 |
+| [synthesis/GardenSuites/authority-page-copy.md](synthesis/GardenSuites/authority-page-copy.md) | Markdown · report or documentation | 51,523 |
+| [synthesis/GardenSuites/authority-page-plan.md](synthesis/GardenSuites/authority-page-plan.md) | Markdown · report or documentation | 74,904 |
 | [synthesis/GardenSuites/competitors.md](synthesis/GardenSuites/competitors.md) | Markdown · report or documentation | 770,477 |
-| [synthesis/GardenSuites/content.md](synthesis/GardenSuites/content.md) | Markdown · report or documentation | 221,028 |
-| [synthesis/GardenSuites/money-page-plan.md](synthesis/GardenSuites/money-page-plan.md) | Markdown · report or documentation | 73,490 |
+| [synthesis/GardenSuites/content.md](synthesis/GardenSuites/content.md) | Markdown · report or documentation | 221,329 |
+| [synthesis/GardenSuites/money-page-copy.md](synthesis/GardenSuites/money-page-copy.md) | Markdown · report or documentation | 37,645 |
+| [synthesis/GardenSuites/money-page-design-brief.md](synthesis/GardenSuites/money-page-design-brief.md) | Markdown · report or documentation | 19,857 |
+| [synthesis/GardenSuites/money-page-plan.md](synthesis/GardenSuites/money-page-plan.md) | Markdown · report or documentation | 73,478 |
 | [synthesis/GardenSuites/research.md](synthesis/GardenSuites/research.md) | Markdown · report or documentation | 631,873 |
 | [visual-reports/.DS_Store](visual-reports/.DS_Store) | FILE | 8,196 |
 | [visual-reports/community-media-opportunity-2026-07-17/.field-manual-build.json](visual-reports/community-media-opportunity-2026-07-17/.field-manual-build.json) | JSON · structured evidence or manifest | 136 |

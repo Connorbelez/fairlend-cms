@@ -22,6 +22,7 @@ type HeroSectionProps = {
   buttonText?: string
   heading?: string
   imageUrl?: string
+  imageAlt?: string
   navItems?: HeroNavItem[]
   tagline?: string
   videoUrl?: string
@@ -53,6 +54,7 @@ export function HeroSection({
   buttonText = 'Get Started',
   heading = 'Something you really want',
   imageUrl,
+  imageAlt,
   navItems = defaultNavItems,
   tagline = "You can't live without this product. I'm sure of it.",
   videoUrl,
@@ -162,7 +164,7 @@ export function HeroSection({
               {imageUrl ? (
                 // The original dynamic-arrow demo accepts arbitrary image URLs, so this remains a plain img.
                 <Image
-                  alt="Preview"
+                  alt={imageAlt?.trim() || `${heading} visual preview`}
                   className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${
                     showVideo ? 'pointer-events-none opacity-0' : 'opacity-100'
                   }`}

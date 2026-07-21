@@ -40,7 +40,7 @@ export default function ConstructionDrawFinancingPage() {
             'DrawFlow keeps the promise narrow on purpose: work first, evidence next, review after that, and fund release only once approved.',
           image: {
             ...fairlendRouteSelectorAssets.constructionBuilding,
-            alt: 'Construction draw financing process illustration',
+            alt: 'Toronto residential construction site illustrating milestone-based draw financing',
           },
           primaryCta: { href: intakeHref, label: 'Start draw review' },
           secondaryCta: {

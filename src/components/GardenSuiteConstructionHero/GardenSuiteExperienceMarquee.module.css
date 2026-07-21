@@ -1,0 +1,197 @@
+.marquee {
+  --marquee-ink: var(--gsc-forest-deep, #001f1b);
+  --marquee-blueprint: var(--gsc-forest, #002f28);
+  --marquee-ivory: var(--gsc-ivory, #f2ead5);
+  --marquee-lime: var(--gsc-lime, #cbff4a);
+  --marquee-rule: var(--gsc-rule, rgb(224 211 180 / 27%));
+
+  position: relative;
+  display: none;
+  width: 100%;
+  overflow: hidden;
+  border-block: 1px solid var(--marquee-rule);
+  background-color: var(--marquee-ink);
+  color: var(--marquee-ivory);
+  font-family: var(--font-inter), Arial, sans-serif;
+}
+
+.marquee::before,
+.marquee::after {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  width: 2rem;
+  pointer-events: none;
+  content: '';
+}
+
+.marquee::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--marquee-ink), transparent);
+}
+
+.marquee::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--marquee-ink), transparent);
+}
+
+.controls {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-inline: 1.25rem;
+  border-bottom: 1px solid var(--marquee-rule);
+  color: rgb(242 234 213 / 68%);
+  font-family: var(--font-oxanium), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.controls button {
+  min-height: 44px;
+  border: 0;
+  padding-inline: 0;
+  background: transparent;
+  color: var(--marquee-lime);
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+.controls button:focus-visible {
+  outline: 2px solid var(--marquee-lime);
+  outline-offset: 2px;
+}
+
+.viewport {
+  position: relative;
+  overflow: hidden;
+  padding-block: 0.75rem;
+  background-image:
+    linear-gradient(rgb(203 255 74 / 5%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(203 255 74 / 5%) 1px, transparent 1px);
+  background-size: 1.5rem 1.5rem;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: credential-marquee 24s linear infinite;
+}
+
+.marquee[data-paused='true'] .track,
+.marquee:hover .track {
+  animation-play-state: paused;
+}
+
+.list {
+  display: flex;
+  flex: none;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0 0.375rem;
+  list-style: none;
+}
+
+.credential {
+  position: relative;
+  display: grid;
+  flex: 0 0 clamp(14rem, 72vw, 18rem);
+  min-height: 7.75rem;
+  align-content: center;
+  padding: 1rem 1.125rem 0.9375rem;
+  overflow: hidden;
+  border: 1px solid rgb(242 234 213 / 42%);
+  background:
+    linear-gradient(135deg, rgb(203 255 74 / 8%), transparent 46%), var(--marquee-blueprint);
+  box-shadow: 0.1875rem 0.1875rem 0 var(--marquee-lime);
+}
+
+.credential::after {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  border-top: 1px solid rgb(203 255 74 / 72%);
+  border-right: 1px solid rgb(203 255 74 / 72%);
+  content: '';
+}
+
+.value,
+.label,
+.detail {
+  display: block;
+}
+
+.value {
+  color: var(--marquee-lime);
+  font-family: var(--font-oxanium), ui-monospace, monospace;
+  font-size: clamp(1.5rem, 6vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+
+.label {
+  margin-top: 0.5rem;
+  color: var(--marquee-ivory);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.detail {
+  margin-top: 0.625rem;
+  color: rgb(242 234 213 / 68%);
+  font-family: var(--font-oxanium), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+@keyframes credential-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 720px) {
+  .marquee {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    width: 100%;
+    animation: none;
+    will-change: auto;
+  }
+
+  .list:first-child {
+    width: 100%;
+    padding: 0.375rem 1.25rem 0.625rem;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+  }
+
+  .list[aria-hidden='true'] {
+    display: none;
+  }
+
+  .credential {
+    scroll-snap-align: start;
+  }
+}

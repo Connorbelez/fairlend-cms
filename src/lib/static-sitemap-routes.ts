@@ -19,7 +19,7 @@ export const staticIndexableRoutes = [
   { lastmod: '2026-07-14', path: '/contact' },
   { lastmod: '2026-07-14', path: '/disclosures' },
   { lastmod: '2026-07-14', path: '/en/brokerage/privacy-policy' },
-  { lastmod: '2026-07-14', path: '/garden-suite-financing-gta' },
+  { lastmod: '2026-07-27', path: '/garden-suite-financing-gta' },
   { lastmod: '2026-07-09', path: '/garden-suite' },
   { lastmod: '2026-07-14', path: '/investing' },
   { lastmod: '2026-07-14', path: '/investing/private-mortgage-lending' },

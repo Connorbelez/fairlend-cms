@@ -432,7 +432,10 @@ export interface Post {
  */
 export interface Media {
   id: number;
-  alt?: string | null;
+  /**
+   * Describe the image subject and relevant context in natural language. Include full names for identifiable people; avoid keyword stuffing.
+   */
+  alt: string;
   caption?: {
     root: {
       type: string;

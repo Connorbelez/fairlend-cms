@@ -53,7 +53,7 @@ export default function PostsError({
 
             <div className="relative min-h-[24rem] border-t border-[#08090a] bg-[#deded8] md:min-h-[36rem] md:border-t-0 md:border-l">
               <Image
-                alt="Engraved compass and site-plan instruments"
+                alt="Surveyor compass and architectural site plans marking the FairLend resource desk"
                 className="object-cover grayscale contrast-[1.08]"
                 fill
                 priority

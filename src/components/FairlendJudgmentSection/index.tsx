@@ -53,7 +53,7 @@ export function FairlendJudgmentSection() {
             data-fairlend-about-image
           >
             <Image
-              alt="FairLend underwriting desk with loan files, construction model, and approval review."
+              alt="FairLend Toronto mortgage underwriting desk with loan files, construction model and approval review"
               className="object-cover object-center grayscale"
               data-fairlend-about-photo
               fill

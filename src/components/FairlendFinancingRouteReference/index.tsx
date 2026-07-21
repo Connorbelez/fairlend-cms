@@ -353,7 +353,7 @@ function FairlendCredibilityStatsStrip({
 function FairlendFinancingRouteReference({
   className,
   illustrationSrc,
-  illustrationAlt = 'Isometric financing process route illustration',
+  illustrationAlt = 'Real estate financing roadmap from property review through mortgage funding',
   headerProps,
   copyPanelProps,
   inlineCtaProps,

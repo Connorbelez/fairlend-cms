@@ -23,6 +23,7 @@ type Service = {
   kicker: string
   title: string
   image: string
+  imageAlt: string
   width: number
   height: number
   icon: ElementType
@@ -38,6 +39,7 @@ const services: Service[] = [
     kicker: 'Capital Desk',
     title: 'Private Mortgage Investments',
     image: fairlendRouteSelectorAssets.investorSkyline.src,
+    imageAlt: fairlendRouteSelectorAssets.investorSkyline.alt,
     width: fairlendRouteSelectorAssets.investorSkyline.width,
     height: fairlendRouteSelectorAssets.investorSkyline.height,
     icon: Shield,
@@ -55,6 +57,7 @@ const services: Service[] = [
     kicker: 'Borrower Desk',
     title: 'Mortgage Financing',
     image: fairlendRouteSelectorAssets.privateMortgageHouse.src,
+    imageAlt: fairlendRouteSelectorAssets.privateMortgageHouse.alt,
     width: fairlendRouteSelectorAssets.privateMortgageHouse.width,
     height: fairlendRouteSelectorAssets.privateMortgageHouse.height,
     icon: Home,
@@ -74,6 +77,7 @@ const services: Service[] = [
     kicker: 'Construction Desk',
     title: 'Construction Financing',
     image: fairlendRouteSelectorAssets.constructionBuilding.src,
+    imageAlt: fairlendRouteSelectorAssets.constructionBuilding.alt,
     width: fairlendRouteSelectorAssets.constructionBuilding.width,
     height: fairlendRouteSelectorAssets.constructionBuilding.height,
     icon: Building2,
@@ -94,6 +98,7 @@ const services: Service[] = [
     kicker: 'Partner Desk',
     title: 'Partners',
     image: fairlendRouteSelectorAssets.partnerHandshake.src,
+    imageAlt: fairlendRouteSelectorAssets.partnerHandshake.alt,
     width: fairlendRouteSelectorAssets.partnerHandshake.width,
     height: fairlendRouteSelectorAssets.partnerHandshake.height,
     icon: Users,
@@ -879,7 +884,7 @@ function PosterServicePanel({ service, tone, layout, imageClassName, children }:
       </div>
       <div className={cn('poster-services-image', imageClassName)} aria-hidden="true">
         <Image
-          alt=""
+          alt={service.imageAlt}
           className="object-contain"
           decoding="async"
           fill
@@ -2112,6 +2117,7 @@ export function FairlendServicesSectionLegacy() {
           `}</style>
           <div
             className="pointer-events-none absolute inset-0 z-0 opacity-[0.09]"
+            aria-hidden="true"
             data-services-map
           >
             <Image
@@ -2233,7 +2239,7 @@ export function FairlendServicesSectionLegacy() {
 
                 <div className="services-card-media-shell" data-services-media-shell>
                   <Image
-                    alt=""
+                    alt={service.imageAlt}
                     className="object-contain"
                     decoding="async"
                     fill

@@ -8,6 +8,7 @@ export type TextureVariant =
   | 'inflicted'
   | 'debut-light'
   | 'groovepaper'
+  | 'paper-grain'
   | 'none'
 
 interface BackgroundImageTextureProps {
@@ -17,12 +18,31 @@ interface BackgroundImageTextureProps {
   children?: React.ReactNode
 }
 
-const textureMap: Record<Exclude<TextureVariant, 'none'>, string> = {
-  'fabric-of-squares': '/textures/fabric-of-squares.png',
-  'grid-noise': '/textures/grid-noise.png',
-  inflicted: '/textures/inflicted.png',
-  'debut-light': '/textures/debut-light.png',
-  groovepaper: '/textures/groovepaper.png',
+const textureMap: Record<Exclude<TextureVariant, 'none'>, React.CSSProperties> = {
+  'fabric-of-squares': {
+    backgroundImage: 'url(/textures/fabric-of-squares.png)',
+    backgroundRepeat: 'repeat',
+  },
+  'grid-noise': {
+    backgroundImage: 'url(/textures/grid-noise.png)',
+    backgroundRepeat: 'repeat',
+  },
+  inflicted: {
+    backgroundImage: 'url(/textures/inflicted.png)',
+    backgroundRepeat: 'repeat',
+  },
+  'debut-light': {
+    backgroundImage: 'url(/textures/debut-light.png)',
+    backgroundRepeat: 'repeat',
+  },
+  groovepaper: {
+    backgroundImage: 'url(/textures/groovepaper.png)',
+    backgroundRepeat: 'repeat',
+  },
+  'paper-grain': {
+    backgroundImage:
+      'repeating-linear-gradient(0deg, rgb(0 0 0 / 10%) 0, transparent 1px, transparent 3px), repeating-linear-gradient(90deg, rgb(0 0 0 / 10%) 0, transparent 1px, transparent 4px), repeating-linear-gradient(45deg, rgb(0 0 0 / 5%) 0, transparent 1px, transparent 5px)',
+  },
 }
 
 export function BackgroundImageTexture({
@@ -31,17 +51,16 @@ export function BackgroundImageTexture({
   className,
   children,
 }: BackgroundImageTextureProps) {
-  const textureUrl = variant !== 'none' ? textureMap[variant] : null
+  const textureStyle = variant !== 'none' ? textureMap[variant] : null
 
   return (
     <div className={cn('relative', className)}>
-      {textureUrl && (
+      {textureStyle && (
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
           style={{
-            backgroundImage: `url(${textureUrl})`,
-            backgroundRepeat: 'repeat',
+            ...textureStyle,
             opacity: `var(--background-image-texture-opacity, ${opacity})`,
           }}
         />

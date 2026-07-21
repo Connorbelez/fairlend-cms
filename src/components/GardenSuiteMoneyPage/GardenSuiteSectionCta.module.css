@@ -1,0 +1,117 @@
+.cta {
+  --section-cta-bg: var(--gs-white-paper, #fffdf9);
+  --section-cta-ink: var(--gs-ink, #071522);
+  --section-cta-rule: rgb(7 21 34 / 24%);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 28rem);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: end;
+  width: 100%;
+  margin: 0;
+  padding: clamp(2rem, 4vw, 4rem);
+  border-block: 1px solid var(--section-cta-rule);
+  background: var(--section-cta-bg);
+  color: var(--section-cta-ink);
+}
+
+.cta[data-density='compact'] {
+  grid-template-columns: minmax(0, 1fr) minmax(17rem, 24rem);
+  padding: 1.5rem 0 0;
+  border-bottom: 0;
+  border-top-color: var(--section-cta-rule);
+  background: transparent;
+}
+
+.cta[data-tone='warm'] {
+  --section-cta-bg: #f2efe7;
+}
+
+.cta[data-tone='ink'] {
+  --section-cta-bg: var(--gs-ink, #071522);
+  --section-cta-ink: var(--gs-white-paper, #fffdf9);
+  --section-cta-rule: rgb(255 253 249 / 28%);
+}
+
+.copy {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 62rem;
+}
+
+.copy > p {
+  margin: 0;
+  font-family: var(--font-oxanium), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.copy > h3 {
+  max-width: 24ch;
+  margin: 0;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(2rem, 3.2vw, 3.5rem);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.cta[data-density='compact'] .copy > h3 {
+  max-width: 30ch;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+
+.copy > span {
+  max-width: 66ch;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.action {
+  justify-self: end;
+  max-width: 28rem;
+  color: var(--gs-white-paper, #fffdf9) !important;
+  text-decoration: none;
+  --brutalist-cta-signal: var(--gs-lime, #96ec18);
+  --brutalist-cta-signal-hover: #adff35;
+  --brutalist-cta-surface: var(--gs-ink, #071522);
+  --brutalist-cta-surface-hover: #12283a;
+}
+
+.cta[data-tone='ink'] .action {
+  color: var(--gs-ink, #071522) !important;
+  --brutalist-cta-signal: var(--gs-ink, #071522);
+  --brutalist-cta-signal-hover: #183044;
+  --brutalist-cta-surface: var(--gs-lime, #96ec18);
+  --brutalist-cta-surface-hover: #adff35;
+}
+
+@media (max-width: 48rem) {
+  .cta,
+  .cta[data-density='compact'] {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .cta {
+    padding: 2rem 1.25rem;
+  }
+
+  .cta[data-density='compact'] {
+    padding: 1.5rem 0 0;
+  }
+
+  .action {
+    justify-self: stretch;
+    max-width: none;
+  }
+}

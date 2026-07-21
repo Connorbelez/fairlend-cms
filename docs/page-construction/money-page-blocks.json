@@ -1,0 +1,3385 @@
+{
+  "schemaVersion": 1,
+  "library": "FairLend money-page block library",
+  "generatedAt": "2026-07-21T04:43:51.854Z",
+  "sourceConfig": "docs/page-construction/money-page-blocks.config.json",
+  "curationSource": "docs/page-construction/money-page-blocks.curated.json",
+  "blocks": [
+    {
+      "id": "fairlend-application-cta",
+      "name": "Application CTA Form",
+      "category": "form",
+      "status": "production",
+      "reuseMode": "direct",
+      "purpose": "Capture a lightweight application identifier and move a visitor into the established application flow.",
+      "bestFor": [
+        "high-intent inline conversion",
+        "hero or route-reference application start"
+      ],
+      "contentSlots": [
+        "label",
+        "placeholder",
+        "field name",
+        "action label",
+        "submit handler"
+      ],
+      "variants": [
+        "default",
+        "compact"
+      ],
+      "aesthetic": {
+        "family": "FairLend shared money-page system",
+        "density": "medium",
+        "tone": "regulated, direct and technical",
+        "layout": "single-field application CTA",
+        "background": "inherited",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Inline form collapses within the route-reference composition without changing the conversion intent.",
+      "accessibility": [
+        "Uses the shared FairLend focus, semantic and responsive conventions."
+      ],
+      "constraints": [],
+      "compatibleNeighbors": [
+        "hero",
+        "solution",
+        "cta"
+      ],
+      "technical": {
+        "key": "src/components/FairlendFinancingRouteReference/index.tsx#FairlendApplicationCta",
+        "sourcePath": "src/components/FairlendFinancingRouteReference/index.tsx",
+        "exportName": "FairlendApplicationCta",
+        "exportSignature": "function FairlendApplicationCta({ className, inputClassName, buttonClassName, label = 'Start your application', placeholder = 'Property address', name = 'property-address', actionLabel = 'Start application', density, onSubmit, }: ApplicationCtaProps) {",
+        "clientComponent": false,
+        "imports": [
+          "@/components/ui/button",
+          "@/components/ui/card",
+          "@/components/ui/input",
+          "@/components/ui/separator",
+          "@/lib/fairlend-claims",
+          "@/utilities/ui",
+          "class-variance-authority",
+          "lucide-react",
+          "next/image",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [
+          "ApplicationCtaProps",
+          "CredibilityStatsStripProps",
+          "FinancingRouteCopyPanelProps",
+          "FinancingRouteHeaderProps",
+          "FinancingRouteWrapperProps"
+        ],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "size-6",
+          "items-center",
+          "gap-5",
+          "font-black",
+          "text-5xl",
+          "leading-none",
+          "text-lg",
+          "flex-wrap",
+          "gap-x-4",
+          "gap-y-2",
+          "gap-6",
+          "text-xs",
+          "leading-tight",
+          "mb-4",
+          "mt-8",
+          "mt-6",
+          "text-2xl",
+          "mt-5",
+          "text-xl",
+          "font-bold"
+        ],
+        "detectedCallsites": [],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-borrower-consultation",
+      "name": "Fairlend Borrower Consultation",
+      "category": "cta",
+      "status": "candidate",
+      "reuseMode": "reference-only",
+      "purpose": "Close a private-mortgage narrative with consultation conversion and deadline context.",
+      "bestFor": [
+        "urgent consultation close",
+        "private-mortgage conversion"
+      ],
+      "contentSlots": [
+        "fixed heading",
+        "fixed supporting copy",
+        "consultation CTA"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "FairLend private-mortgage conversion dossier",
+        "density": "medium",
+        "tone": "urgent but accountable",
+        "layout": "route-specific editorial conversion block",
+        "background": "mixed",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Responsive implementation exists, but must be verified outside its original private-mortgage composition.",
+      "accessibility": [
+        "Semantic section structure is present in the source implementation."
+      ],
+      "constraints": [
+        "Hard-coded private-mortgage copy and data.",
+        "No current production page call site was detected; use as a pattern unless extracted and parameterized."
+      ],
+      "compatibleNeighbors": [],
+      "technical": {
+        "key": "src/components/FairlendBorrowerConsultation/index.tsx#FairlendBorrowerConsultation",
+        "sourcePath": "src/components/FairlendBorrowerConsultation/index.tsx",
+        "exportName": "FairlendBorrowerConsultation",
+        "exportSignature": "export function FairlendBorrowerConsultation(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "./ConsultationForm.client",
+          "@/components/FairlendBorrowerCta",
+          "@/lib/fairlend-intake",
+          "lucide-react",
+          "react"
+        ],
+        "styleImports": [
+          "./borrower-consultation.css"
+        ],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "borrower-consultation"
+        ],
+        "detectedCallsites": [],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-borrower-cta",
+      "name": "Borrower CTA",
+      "category": "cta",
+      "status": "production",
+      "reuseMode": "direct",
+      "purpose": "Render the canonical FairLend money-page action with consistent link behaviour and hierarchy.",
+      "bestFor": [
+        "primary conversion",
+        "secondary route navigation",
+        "inline text action"
+      ],
+      "contentSlots": [
+        "label",
+        "href",
+        "anchor or Next Link props"
+      ],
+      "variants": [
+        "primary",
+        "secondary",
+        "text",
+        "large",
+        "medium",
+        "hide arrow"
+      ],
+      "aesthetic": {
+        "family": "FairLend shared money-page system",
+        "density": "medium",
+        "tone": "regulated, direct and technical",
+        "layout": "lime or outlined action button",
+        "background": "inherited",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Maintains a minimum touch target and permits wrapping only at the surrounding layout level.",
+      "accessibility": [
+        "Uses the shared FairLend focus, semantic and responsive conventions."
+      ],
+      "constraints": [],
+      "compatibleNeighbors": [
+        "hero",
+        "process",
+        "faq",
+        "cta"
+      ],
+      "technical": {
+        "key": "src/components/FairlendBorrowerCta/index.tsx#FairlendBorrowerCta",
+        "sourcePath": "src/components/FairlendBorrowerCta/index.tsx",
+        "exportName": "FairlendBorrowerCta",
+        "exportSignature": "export function FairlendBorrowerCta({ as = 'link', variant = 'primary', size = 'lg', label, href, className, hideArrow = false, ...rest }: AnchorProps | LinkProps): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "@/utilities/ui",
+          "lucide-react",
+          "next/link",
+          "react"
+        ],
+        "styleImports": [
+          "./fairlend-borrower-cta.css"
+        ],
+        "propTypeNames": [
+          "AnchorProps"
+        ],
+        "localExportedTypes": [
+          "BorrowerCtaSize",
+          "BorrowerCtaVariant"
+        ],
+        "classPrefixes": [
+          "fairlend-borrower-cta"
+        ],
+        "detectedCallsites": [
+          "src/components/FairlendBorrowerConsultation/index.tsx",
+          "src/components/FairlendBorrowerProcess/index.tsx",
+          "src/components/FairlendBorrowerScenarios/index.tsx",
+          "src/components/FairlendBorrowerSolution/index.tsx",
+          "src/components/FairlendFeedbackContentPage/index.tsx",
+          "src/components/FairlendInvestorFinalCta/index.tsx",
+          "src/components/FairlendInvestorFit/index.tsx",
+          "src/components/FairlendInvestorManagedPlatform/index.tsx",
+          "src/components/FairlendInvestorOpportunities/index.tsx",
+          "src/components/FairlendInvestorProcess/index.tsx",
+          "src/components/FairlendPartnerProgram/index.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-borrower-differentiators",
+      "name": "Fairlend Borrower Differentiators",
+      "category": "comparison",
+      "status": "candidate",
+      "reuseMode": "reference-only",
+      "purpose": "Explain the full economics and decision factors behind a private mortgage rather than presenting only rate.",
+      "bestFor": [
+        "total-cost comparison",
+        "commercial objection handling"
+      ],
+      "contentSlots": [
+        "fixed comparison axes",
+        "fixed explanatory copy"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "FairLend private-mortgage conversion dossier",
+        "density": "medium",
+        "tone": "urgent but accountable",
+        "layout": "route-specific editorial conversion block",
+        "background": "mixed",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Responsive implementation exists, but must be verified outside its original private-mortgage composition.",
+      "accessibility": [
+        "Semantic section structure is present in the source implementation."
+      ],
+      "constraints": [
+        "Hard-coded private-mortgage copy and data.",
+        "No current production page call site was detected; use as a pattern unless extracted and parameterized."
+      ],
+      "compatibleNeighbors": [],
+      "technical": {
+        "key": "src/components/FairlendBorrowerDifferentiators/index.tsx#FairlendBorrowerDifferentiators",
+        "sourcePath": "src/components/FairlendBorrowerDifferentiators/index.tsx",
+        "exportName": "FairlendBorrowerDifferentiators",
+        "exportSignature": "export function FairlendBorrowerDifferentiators(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "lucide-react",
+          "react"
+        ],
+        "styleImports": [
+          "./borrower-differentiators.css"
+        ],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "borrower-differentiators"
+        ],
+        "detectedCallsites": [],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-borrower-faq",
+      "name": "Fairlend Borrower Faq",
+      "category": "faq",
+      "status": "candidate",
+      "reuseMode": "reference-only",
+      "purpose": "Resolve private-mortgage objections through a dedicated accordion question register.",
+      "bestFor": [
+        "private-mortgage FAQ",
+        "late-stage objection handling"
+      ],
+      "contentSlots": [
+        "fixed question groups"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "FairLend private-mortgage conversion dossier",
+        "density": "medium",
+        "tone": "urgent but accountable",
+        "layout": "route-specific editorial conversion block",
+        "background": "mixed",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Responsive implementation exists, but must be verified outside its original private-mortgage composition.",
+      "accessibility": [
+        "Semantic section structure is present in the source implementation."
+      ],
+      "constraints": [
+        "Hard-coded private-mortgage copy and data.",
+        "No current production page call site was detected; use as a pattern unless extracted and parameterized."
+      ],
+      "compatibleNeighbors": [],
+      "technical": {
+        "key": "src/components/FairlendBorrowerFaq/index.tsx#FairlendBorrowerFaq",
+        "sourcePath": "src/components/FairlendBorrowerFaq/index.tsx",
+        "exportName": "FairlendBorrowerFaq",
+        "exportSignature": "export function FairlendBorrowerFaq(): ReactElement {",
+        "clientComponent": true,
+        "imports": [
+          "@/components/ui/accordion",
+          "lucide-react",
+          "react"
+        ],
+        "styleImports": [
+          "./borrower-faq.css"
+        ],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "borrower-faq"
+        ],
+        "detectedCallsites": [],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-borrower-hero",
+      "name": "Fairlend Borrower Hero",
+      "category": "hero",
+      "status": "candidate",
+      "reuseMode": "reference-only",
+      "purpose": "Open a deadline-driven private-mortgage page with embedded intake and decision proof.",
+      "bestFor": [
+        "urgent borrower acquisition",
+        "private-mortgage lead capture"
+      ],
+      "contentSlots": [
+        "fixed eyebrow",
+        "fixed heading",
+        "fixed proof signals",
+        "embedded intake"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "FairLend private-mortgage conversion dossier",
+        "density": "medium",
+        "tone": "urgent but accountable",
+        "layout": "route-specific editorial conversion block",
+        "background": "mixed",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Responsive implementation exists, but must be verified outside its original private-mortgage composition.",
+      "accessibility": [
+        "Semantic section structure is present in the source implementation."
+      ],
+      "constraints": [
+        "Hard-coded private-mortgage copy and data.",
+        "No current production page call site was detected; use as a pattern unless extracted and parameterized."
+      ],
+      "compatibleNeighbors": [],
+      "technical": {
+        "key": "src/components/FairlendBorrowerHero/index.tsx#FairlendBorrowerHero",
+        "sourcePath": "src/components/FairlendBorrowerHero/index.tsx",
+        "exportName": "FairlendBorrowerHero",
+        "exportSignature": "export function FairlendBorrowerHero(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "./dossier-data",
+          "@/components/FairlendLeadIntake/FairlendLeadIntake.client",
+          "react"
+        ],
+        "styleImports": [
+          "./borrower-hero.css"
+        ],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "borrower-hero"
+        ],
+        "detectedCallsites": [],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-borrower-problem",
+      "name": "Fairlend Borrower Problem",
+      "category": "problem",
+      "status": "candidate",
+      "reuseMode": "reference-only",
+      "purpose": "Reframe a fast financing approval as insufficient without complete cost and exit clarity.",
+      "bestFor": [
+        "risk agitation",
+        "cost-and-exit education"
+      ],
+      "contentSlots": [
+        "fixed problem statement",
+        "fixed cost equation"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "FairLend private-mortgage conversion dossier",
+        "density": "medium",
+        "tone": "urgent but accountable",
+        "layout": "route-specific editorial conversion block",
+        "background": "mixed",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Responsive implementation exists, but must be verified outside its original private-mortgage composition.",
+      "accessibility": [
+        "Semantic section structure is present in the source implementation."
+      ],
+      "constraints": [
+        "Hard-coded private-mortgage copy and data.",
+        "No current production page call site was detected; use as a pattern unless extracted and parameterized."
+      ],
+      "compatibleNeighbors": [],
+      "technical": {
+        "key": "src/components/FairlendBorrowerProblem/index.tsx#FairlendBorrowerProblem",
+        "sourcePath": "src/components/FairlendBorrowerProblem/index.tsx",
+        "exportName": "FairlendBorrowerProblem",
+        "exportSignature": "export function FairlendBorrowerProblem(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "react"
+        ],
+        "styleImports": [
+          "./borrower-problem.css"
+        ],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "borrower-problem"
+        ],
+        "detectedCallsites": [],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-borrower-process",
+      "name": "Fairlend Borrower Process",
+      "category": "process",
+      "status": "candidate",
+      "reuseMode": "reference-only",
+      "purpose": "Visualize the private-mortgage route from initial review through a credible exit.",
+      "bestFor": [
+        "exit-first process",
+        "multi-stage mortgage explanation"
+      ],
+      "contentSlots": [
+        "fixed process steps",
+        "fixed CTA"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "FairLend private-mortgage conversion dossier",
+        "density": "medium",
+        "tone": "urgent but accountable",
+        "layout": "route-specific editorial conversion block",
+        "background": "mixed",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Responsive implementation exists, but must be verified outside its original private-mortgage composition.",
+      "accessibility": [
+        "Semantic section structure is present in the source implementation."
+      ],
+      "constraints": [
+        "Hard-coded private-mortgage copy and data.",
+        "No current production page call site was detected; use as a pattern unless extracted and parameterized."
+      ],
+      "compatibleNeighbors": [],
+      "technical": {
+        "key": "src/components/FairlendBorrowerProcess/index.tsx#FairlendBorrowerProcess",
+        "sourcePath": "src/components/FairlendBorrowerProcess/index.tsx",
+        "exportName": "FairlendBorrowerProcess",
+        "exportSignature": "export function FairlendBorrowerProcess(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "@/components/FairlendBorrowerCta",
+          "@/lib/fairlend-intake",
+          "lucide-react",
+          "react"
+        ],
+        "styleImports": [
+          "./borrower-process.css"
+        ],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "borrower-process"
+        ],
+        "detectedCallsites": [],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-borrower-scenarios",
+      "name": "Fairlend Borrower Scenarios",
+      "category": "qualification",
+      "status": "candidate",
+      "reuseMode": "reference-only",
+      "purpose": "Route visitors through scenarios where private financing may fit.",
+      "bestFor": [
+        "self-qualification",
+        "scenario routing"
+      ],
+      "contentSlots": [
+        "fixed scenarios",
+        "fixed CTA"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "FairLend private-mortgage conversion dossier",
+        "density": "medium",
+        "tone": "urgent but accountable",
+        "layout": "route-specific editorial conversion block",
+        "background": "mixed",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Responsive implementation exists, but must be verified outside its original private-mortgage composition.",
+      "accessibility": [
+        "Semantic section structure is present in the source implementation."
+      ],
+      "constraints": [
+        "Hard-coded private-mortgage copy and data.",
+        "No current production page call site was detected; use as a pattern unless extracted and parameterized."
+      ],
+      "compatibleNeighbors": [],
+      "technical": {
+        "key": "src/components/FairlendBorrowerScenarios/index.tsx#FairlendBorrowerScenarios",
+        "sourcePath": "src/components/FairlendBorrowerScenarios/index.tsx",
+        "exportName": "FairlendBorrowerScenarios",
+        "exportSignature": "export function FairlendBorrowerScenarios(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "@/components/FairlendBorrowerCta",
+          "@/lib/fairlend-intake",
+          "lucide-react",
+          "react"
+        ],
+        "styleImports": [
+          "./borrower-scenarios.css"
+        ],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "borrower-scenarios"
+        ],
+        "detectedCallsites": [],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-borrower-solution",
+      "name": "Fairlend Borrower Solution",
+      "category": "solution",
+      "status": "candidate",
+      "reuseMode": "reference-only",
+      "purpose": "Present private-mortgage structures around the borrower's next move and exit path.",
+      "bestFor": [
+        "solution framing",
+        "product-route explanation"
+      ],
+      "contentSlots": [
+        "fixed solution cards",
+        "fixed CTA"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "FairLend private-mortgage conversion dossier",
+        "density": "medium",
+        "tone": "urgent but accountable",
+        "layout": "route-specific editorial conversion block",
+        "background": "mixed",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Responsive implementation exists, but must be verified outside its original private-mortgage composition.",
+      "accessibility": [
+        "Semantic section structure is present in the source implementation."
+      ],
+      "constraints": [
+        "Hard-coded private-mortgage copy and data.",
+        "No current production page call site was detected; use as a pattern unless extracted and parameterized."
+      ],
+      "compatibleNeighbors": [],
+      "technical": {
+        "key": "src/components/FairlendBorrowerSolution/index.tsx#FairlendBorrowerSolution",
+        "sourcePath": "src/components/FairlendBorrowerSolution/index.tsx",
+        "exportName": "FairlendBorrowerSolution",
+        "exportSignature": "export function FairlendBorrowerSolution(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "@/components/FairlendBorrowerCta",
+          "@/lib/fairlend-intake",
+          "lucide-react",
+          "react"
+        ],
+        "styleImports": [
+          "./borrower-solution.css"
+        ],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "borrower-solution"
+        ],
+        "detectedCallsites": [],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-borrower-trust-proof",
+      "name": "Fairlend Borrower Trust Proof",
+      "category": "proof",
+      "status": "candidate",
+      "reuseMode": "reference-only",
+      "purpose": "Establish principal-broker judgment, local context and operating standards.",
+      "bestFor": [
+        "expertise proof",
+        "regulated-service trust"
+      ],
+      "contentSlots": [
+        "fixed reviewer proof",
+        "fixed standards"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "FairLend private-mortgage conversion dossier",
+        "density": "medium",
+        "tone": "urgent but accountable",
+        "layout": "route-specific editorial conversion block",
+        "background": "mixed",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Responsive implementation exists, but must be verified outside its original private-mortgage composition.",
+      "accessibility": [
+        "Semantic section structure is present in the source implementation."
+      ],
+      "constraints": [
+        "Hard-coded private-mortgage copy and data.",
+        "No current production page call site was detected; use as a pattern unless extracted and parameterized."
+      ],
+      "compatibleNeighbors": [],
+      "technical": {
+        "key": "src/components/FairlendBorrowerTrustProof/index.tsx#FairlendBorrowerTrustProof",
+        "sourcePath": "src/components/FairlendBorrowerTrustProof/index.tsx",
+        "exportName": "FairlendBorrowerTrustProof",
+        "exportSignature": "export function FairlendBorrowerTrustProof(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "lucide-react",
+          "react"
+        ],
+        "styleImports": [
+          "./borrower-trust-proof.css"
+        ],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "borrower-trust"
+        ],
+        "detectedCallsites": [],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-build-model-section",
+      "name": "Fairlend Build Model Section",
+      "category": "calculator",
+      "status": "production",
+      "reuseMode": "direct",
+      "purpose": "Explain FairLend's build model and DrawFlow through an interactive technical financing dossier.",
+      "bestFor": [
+        "DrawFlow mechanism",
+        "construction financing differentiation",
+        "builder economics"
+      ],
+      "contentSlots": [
+        "embedded build-model states",
+        "DrawFlow comparison",
+        "sensitivity console"
+      ],
+      "variants": [
+        "full build-model introduction",
+        "start with DrawFlow"
+      ],
+      "aesthetic": {
+        "family": "DrawFlow technical financing dossier",
+        "density": "high",
+        "tone": "technical and evidentiary",
+        "layout": "scroll-driven model board and narrative",
+        "background": "mixed",
+        "visualWeight": "dominant"
+      },
+      "responsiveBehavior": "Provides separate desktop board and mobile narrative states; preserve its motion leaf boundaries.",
+      "accessibility": [
+        "Uses the shared FairLend focus, semantic and responsive conventions."
+      ],
+      "constraints": [
+        "Content and claims are substantially embedded in the component.",
+        "Heavy visual block; use once per page and do not place beside another dominant interactive section."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "proof",
+        "case-study",
+        "cta"
+      ],
+      "technical": {
+        "key": "src/components/FairlendBuildModelSection/index.tsx#FairlendBuildModelSection",
+        "sourcePath": "src/components/FairlendBuildModelSection/index.tsx",
+        "exportName": "FairlendBuildModelSection",
+        "exportSignature": "export function FairlendBuildModelSection({ startWithDrawFlow = false, }: { startWithDrawFlow?: boolean } = {}) {",
+        "clientComponent": false,
+        "imports": [
+          "./BuildModelMotion.client",
+          "./BuildSensitivityConsole.client",
+          "@/components/ui/bg-image-texture",
+          "@/lib/fairlend-intake",
+          "lucide-react",
+          "next/image",
+          "next/link",
+          "react"
+        ],
+        "styleImports": [
+          "./build-model.css"
+        ],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "bm-parcel-canvas",
+          "bm-parcel-art",
+          "bm-parcel-art-image",
+          "bm-dossier-mini-stats",
+          "bm-budget-sheet",
+          "bm-budget-total",
+          "bm-budget-ledger",
+          "bm-permit-matrix",
+          "bm-permit-row",
+          "bm-permit-index",
+          "bm-dossier-draw",
+          "bm-dossier-draw-head",
+          "bm-dossier-draw-line",
+          "bm-takeout-file",
+          "bm-takeout-routes",
+          "bm-takeout-note",
+          "bm-dossier-tab-texture",
+          "bm-dossier-tab-top",
+          "bm-dossier-tab-code",
+          "bm-dossier-tab-label"
+        ],
+        "detectedCallsites": [
+          "src/components/DrawflowIntake/DrawflowIntake.client.tsx",
+          "src/components/FairlendDeferredLandingSections.client.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-builder-consulting-section",
+      "name": "Fairlend Builder Consulting Section",
+      "category": "calculator",
+      "status": "production",
+      "reuseMode": "extend",
+      "purpose": "Model builder/project economics through an editorial pro-forma and scenario timeline.",
+      "bestFor": [
+        "development feasibility",
+        "builder consulting",
+        "project economics"
+      ],
+      "contentSlots": [
+        "embedded project types",
+        "embedded years",
+        "equation variables",
+        "scenario explanations"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "FairLend builder pro-forma workbook",
+        "density": "high",
+        "tone": "analytical and advisory",
+        "layout": "scroll-driven equation workspace",
+        "background": "mixed",
+        "visualWeight": "dominant"
+      },
+      "responsiveBehavior": "Existing responsive behaviour must be preserved while adding typed content slots or variants.",
+      "accessibility": [
+        "Preserve current semantics, focus behaviour and reduced-motion handling when extending."
+      ],
+      "constraints": [
+        "Large component with embedded data and bespoke motion; add typed scenario inputs before using different project copy.",
+        "Use once per page."
+      ],
+      "compatibleNeighbors": [
+        "qualification",
+        "answer",
+        "cta"
+      ],
+      "technical": {
+        "key": "src/components/FairlendBuilderConsultingSection/index.tsx#FairlendBuilderConsultingSection",
+        "sourcePath": "src/components/FairlendBuilderConsultingSection/index.tsx",
+        "exportName": "FairlendBuilderConsultingSection",
+        "exportSignature": "export function FairlendBuilderConsultingSection() {",
+        "clientComponent": false,
+        "imports": [
+          "./EquationVariableIcon.client",
+          "./Motion.client",
+          "./model",
+          "@/components/FairlendMarketingPrimitives",
+          "@/components/ui/bg-image-texture",
+          "@/components/ui/card",
+          "@/lib/fairlend-intake",
+          "@/utilities/ui",
+          "lucide-react",
+          "next/link",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "builder-eyebrow",
+          "builder-headline",
+          "builder-subheadline",
+          "builder-action-block",
+          "builder-state-label",
+          "builder-question-list",
+          "builder-action-card-wrap",
+          "builder-action-card",
+          "builder-action-icon",
+          "size-4",
+          "builder-equation-card",
+          "builder-outcome-card",
+          "builder-risk-labels",
+          "builder-equation-cell",
+          "builder-equation-line",
+          "builder-equation-lines",
+          "sr-only",
+          "builder-equation-narrative",
+          "builder-mobile-equation-board",
+          "builder-footnote"
+        ],
+        "detectedCallsites": [
+          "src/components/FairlendDeferredLandingSections.client.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-credibility-stats-strip",
+      "name": "Credibility Stats Strip",
+      "category": "proof",
+      "status": "production",
+      "reuseMode": "direct",
+      "purpose": "Show compact licence, turnaround, or capability proof beneath a financing-route composition.",
+      "bestFor": [
+        "hero-adjacent trust",
+        "route proof"
+      ],
+      "contentSlots": [
+        "icon and label statistics"
+      ],
+      "variants": [
+        "default supplied statistics",
+        "custom statistics"
+      ],
+      "aesthetic": {
+        "family": "FairLend shared money-page system",
+        "density": "medium",
+        "tone": "regulated, direct and technical",
+        "layout": "horizontal credibility strip",
+        "background": "inherited",
+        "visualWeight": "medium"
+      },
+      "responsiveBehavior": "Responsive behaviour is contained by the shared component and its documented variants.",
+      "accessibility": [
+        "Uses the shared FairLend focus, semantic and responsive conventions."
+      ],
+      "constraints": [],
+      "compatibleNeighbors": [
+        "hero",
+        "solution",
+        "answer"
+      ],
+      "technical": {
+        "key": "src/components/FairlendFinancingRouteReference/index.tsx#FairlendCredibilityStatsStrip",
+        "sourcePath": "src/components/FairlendFinancingRouteReference/index.tsx",
+        "exportName": "FairlendCredibilityStatsStrip",
+        "exportSignature": "function FairlendCredibilityStatsStrip({ className, stats = defaultStats, }: CredibilityStatsStripProps) {",
+        "clientComponent": false,
+        "imports": [
+          "@/components/ui/button",
+          "@/components/ui/card",
+          "@/components/ui/input",
+          "@/components/ui/separator",
+          "@/lib/fairlend-claims",
+          "@/utilities/ui",
+          "class-variance-authority",
+          "lucide-react",
+          "next/image",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [
+          "ApplicationCtaProps",
+          "CredibilityStatsStripProps",
+          "FinancingRouteCopyPanelProps",
+          "FinancingRouteHeaderProps",
+          "FinancingRouteWrapperProps"
+        ],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "size-6",
+          "items-center",
+          "gap-5",
+          "font-black",
+          "text-5xl",
+          "leading-none",
+          "text-lg",
+          "flex-wrap",
+          "gap-x-4",
+          "gap-y-2",
+          "gap-6",
+          "text-xs",
+          "leading-tight",
+          "mb-4",
+          "mt-8",
+          "mt-6",
+          "text-2xl",
+          "mt-5",
+          "text-xl",
+          "font-bold"
+        ],
+        "detectedCallsites": [],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-editorial-review",
+      "name": "Fairlend Editorial Review",
+      "category": "editorial",
+      "status": "production",
+      "reuseMode": "direct",
+      "purpose": "Publish licensed reviewer identity, review date, methodology and primary sources for YMYL content.",
+      "bestFor": [
+        "mortgage guidance",
+        "YMYL trust",
+        "source transparency"
+      ],
+      "contentSlots": [
+        "date modified",
+        "methodology",
+        "primary sources",
+        "class name"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "FairLend editorial evidence card",
+        "density": "medium",
+        "tone": "regulated, direct and technical",
+        "layout": "reviewer and source split",
+        "background": "light",
+        "visualWeight": "medium"
+      },
+      "responsiveBehavior": "Responsive behaviour is contained by the shared component and its documented variants.",
+      "accessibility": [
+        "Uses the shared FairLend focus, semantic and responsive conventions."
+      ],
+      "constraints": [],
+      "compatibleNeighbors": [
+        "answer",
+        "faq",
+        "cta"
+      ],
+      "technical": {
+        "key": "src/components/SEO/FairlendEditorialReview.tsx#FairlendEditorialReview",
+        "sourcePath": "src/components/SEO/FairlendEditorialReview.tsx",
+        "exportName": "FairlendEditorialReview",
+        "exportSignature": "export function FairlendEditorialReview({ className, dateModified = fairlendPrincipalBrokerClaims.asOfDate, methodology = fairlendPrincipalBrokerClaims.methodology, sources, }: FairlendEditorialReviewProps) {",
+        "clientComponent": false,
+        "imports": [
+          "@/components/FairlendRegistrationDisclosure",
+          "@/components/ui/card",
+          "@/lib/fairlend-claims",
+          "@/utilities/ui",
+          "lucide-react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [
+          "FairlendEditorialReviewProps"
+        ],
+        "localExportedTypes": [
+          "FairlendEditorialSource"
+        ],
+        "classPrefixes": [
+          "gap-6",
+          "items-center",
+          "gap-2",
+          "font-extrabold",
+          "size-4",
+          "mt-3",
+          "text-3xl",
+          "leading-none",
+          "font-semibold",
+          "text-sm",
+          "leading-6",
+          "mt-1",
+          "text-xs",
+          "leading-5",
+          "font-bold",
+          "mt-4",
+          "border-l-2",
+          "pl-3",
+          "font-medium",
+          "border-t"
+        ],
+        "detectedCallsites": [
+          "src/app/(frontend)/borrowers/institutional-mortgage/page.tsx",
+          "src/app/(frontend)/borrowers/private-mortgage-financing/page.tsx",
+          "src/app/(frontend)/investing/private-mortgage-lending/page.tsx",
+          "src/components/FairlendFeedbackContentPage/index.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-faq-section",
+      "name": "Fairlend Faq Section",
+      "category": "faq",
+      "status": "production",
+      "reuseMode": "extend",
+      "purpose": "Render the global FairLend FAQ groups and their existing JSON-LD payload.",
+      "bestFor": [
+        "global FAQ",
+        "homepage objection handling"
+      ],
+      "contentSlots": [
+        "fixed global FAQ groups"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "FairLend shared money-page system",
+        "density": "medium",
+        "tone": "regulated, direct and technical",
+        "layout": "content-dependent shared block",
+        "background": "inherited",
+        "visualWeight": "medium"
+      },
+      "responsiveBehavior": "Existing responsive behaviour must be preserved while adding typed content slots or variants.",
+      "accessibility": [
+        "Preserve current semantics, focus behaviour and reduced-motion handling when extending."
+      ],
+      "constraints": [
+        "FAQ content and JSON-LD are coupled to the global data module.",
+        "Add typed question groups and schema controls before using page-specific commercial FAQs."
+      ],
+      "compatibleNeighbors": [
+        "editorial",
+        "cta"
+      ],
+      "technical": {
+        "key": "src/components/FairlendFaqSection/index.tsx#FairlendFaqSection",
+        "sourcePath": "src/components/FairlendFaqSection/index.tsx",
+        "exportName": "FairlendFaqSection",
+        "exportSignature": "export function FairlendFaqSection(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "./FairlendFaqSection.client",
+          "./data",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [],
+        "detectedCallsites": [
+          "src/components/FairlendDeferredLandingSections.client.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-feedback-content-page",
+      "name": "Fairlend Feedback Content Page",
+      "category": "page-composer",
+      "status": "production",
+      "reuseMode": "composer",
+      "purpose": "Assemble a static editorial money/service page from a typed hero, proof, answer, content-section, editorial and final-CTA configuration.",
+      "bestFor": [
+        "SEO service pages",
+        "fast money-page assembly",
+        "server-rendered informational-commercial pages"
+      ],
+      "contentSlots": [
+        "eyebrow",
+        "title",
+        "subtitle",
+        "image",
+        "primary CTA",
+        "secondary CTA",
+        "hero footer (supporting lines, CTA microcopy, text links, disclosures)",
+        "proof items",
+        "geo answer",
+        "panel/checklist/steps/table/faq/custom-content sections",
+        "section anchors and inline section CTAs",
+        "editorial review",
+        "final note",
+        "final microcopy"
+      ],
+      "variants": [
+        "panels section",
+        "checklist section",
+        "steps section",
+        "table section",
+        "faq section",
+        "custom content section",
+        "section CTA with optional secondary",
+        "geo-answer comparison",
+        "editorial review",
+        "final CTA"
+      ],
+      "aesthetic": {
+        "family": "FairLend cream-and-forest editorial money page",
+        "density": "medium",
+        "tone": "direct, evidence-led and local",
+        "layout": "large split hero followed by configurable editorial sections",
+        "background": "light",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Hero collapses to one column; proof, panel, checklist and steps grids reflow at their registered breakpoints; tables scroll horizontally below their minimum width.",
+      "accessibility": [
+        "Uses the shared FairLend focus, semantic and responsive conventions."
+      ],
+      "constraints": [
+        "Section bodies support typed panel, checklist, steps, table, faq and custom-content variants; choose the typed slot that matches the section contract before using the custom-content escape hatch.",
+        "The faq variant renders visible HTML only and never emits FAQPage structured data.",
+        "Use typed extensions for comparison, process, case-study or custom-section slots instead of escaping into duplicated page markup."
+      ],
+      "compatibleNeighbors": [
+        "seo"
+      ],
+      "technical": {
+        "key": "src/components/FairlendFeedbackContentPage/index.tsx#FairlendFeedbackContentPage",
+        "sourcePath": "src/components/FairlendFeedbackContentPage/index.tsx",
+        "exportName": "FairlendFeedbackContentPage",
+        "exportSignature": "export function FairlendFeedbackContentPage({ config }: { config: FeedbackPageConfig }) {",
+        "clientComponent": false,
+        "imports": [
+          "@/components/FairlendBorrowerCta",
+          "@/components/SEO/FairlendEditorialReview",
+          "@/components/SEO/FairlendGeoAnswerBlock",
+          "@/components/ui/card",
+          "@/utilities/ui",
+          "lucide-react",
+          "next/image",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [
+          "FairlendGeoAnswerBlockProps"
+        ],
+        "localExportedTypes": [
+          "FeedbackPageConfig",
+          "FeedbackPageFaqItem",
+          "FeedbackPagePanel",
+          "FeedbackPageSection",
+          "FeedbackPageSectionCta",
+          "FeedbackPageTable",
+          "FeedbackPageTableRow"
+        ],
+        "classPrefixes": [
+          "fairlend-feedback-page",
+          "min-h-svh",
+          "overflow-hidden",
+          "border-b",
+          "inset-0",
+          "mx-auto",
+          "gap-10",
+          "px-5",
+          "py-16",
+          "flex-col",
+          "justify-center",
+          "font-black",
+          "mt-5",
+          "font-serif",
+          "font-semibold",
+          "mt-7",
+          "mt-9",
+          "flex-wrap",
+          "gap-3",
+          "mt-6"
+        ],
+        "detectedCallsites": [
+          "src/app/(frontend)/affordable-sustainable-rental-housing/page.tsx",
+          "src/app/(frontend)/construction-draw-financing/page.tsx",
+          "src/app/(frontend)/garden-suite-financing-gta/page.tsx",
+          "src/app/(frontend)/garden-suite/page.tsx",
+          "src/app/(frontend)/multiplex-financing-gta/page.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-financing-route-copy-panel",
+      "name": "Financing Route Copy Panel",
+      "category": "solution",
+      "status": "production",
+      "reuseMode": "direct",
+      "purpose": "Present route-specific positioning, explanatory copy and an optional application CTA inside the financing-route system.",
+      "bestFor": [
+        "financing-route explanation",
+        "hero or high-intent solution framing"
+      ],
+      "contentSlots": [
+        "eyebrow",
+        "title",
+        "subtitle",
+        "description",
+        "application CTA"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "FairLend shared money-page system",
+        "density": "medium",
+        "tone": "regulated, direct and technical",
+        "layout": "editorial copy panel",
+        "background": "inherited",
+        "visualWeight": "medium"
+      },
+      "responsiveBehavior": "Responsive behaviour is contained by the shared component and its documented variants.",
+      "accessibility": [
+        "Uses the shared FairLend focus, semantic and responsive conventions."
+      ],
+      "constraints": [],
+      "compatibleNeighbors": [
+        "hero",
+        "proof",
+        "cta"
+      ],
+      "technical": {
+        "key": "src/components/FairlendFinancingRouteReference/index.tsx#FairlendFinancingRouteCopyPanel",
+        "sourcePath": "src/components/FairlendFinancingRouteReference/index.tsx",
+        "exportName": "FairlendFinancingRouteCopyPanel",
+        "exportSignature": "function FairlendFinancingRouteCopyPanel({ className, eyebrow, title = 'The Financing Route', subtitle = 'Financing for multiplex, single family, and land', description = 'Permit planning, acquisition, construction, completion, and long-term capital guidance.', cta, }: FinancingRouteCopyPanelProps) {",
+        "clientComponent": false,
+        "imports": [
+          "@/components/ui/button",
+          "@/components/ui/card",
+          "@/components/ui/input",
+          "@/components/ui/separator",
+          "@/lib/fairlend-claims",
+          "@/utilities/ui",
+          "class-variance-authority",
+          "lucide-react",
+          "next/image",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [
+          "ApplicationCtaProps",
+          "CredibilityStatsStripProps",
+          "FinancingRouteCopyPanelProps",
+          "FinancingRouteHeaderProps",
+          "FinancingRouteWrapperProps"
+        ],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "size-6",
+          "items-center",
+          "gap-5",
+          "font-black",
+          "text-5xl",
+          "leading-none",
+          "text-lg",
+          "flex-wrap",
+          "gap-x-4",
+          "gap-y-2",
+          "gap-6",
+          "text-xs",
+          "leading-tight",
+          "mb-4",
+          "mt-8",
+          "mt-6",
+          "text-2xl",
+          "mt-5",
+          "text-xl",
+          "font-bold"
+        ],
+        "detectedCallsites": [],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-financing-route-header",
+      "name": "Financing Route Header",
+      "category": "page-shell",
+      "status": "production",
+      "reuseMode": "direct",
+      "purpose": "Render the indexed system header and descriptor for a financing-route block.",
+      "bestFor": [
+        "numbered financing-route sections",
+        "technical page-system continuity"
+      ],
+      "contentSlots": [
+        "index",
+        "section label",
+        "step label",
+        "brand",
+        "descriptor"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "FairLend shared money-page system",
+        "density": "medium",
+        "tone": "regulated, direct and technical",
+        "layout": "technical ledger header",
+        "background": "inherited",
+        "visualWeight": "low"
+      },
+      "responsiveBehavior": "Responsive behaviour is contained by the shared component and its documented variants.",
+      "accessibility": [
+        "Uses the shared FairLend focus, semantic and responsive conventions."
+      ],
+      "constraints": [],
+      "compatibleNeighbors": [
+        "hero",
+        "solution",
+        "comparison"
+      ],
+      "technical": {
+        "key": "src/components/FairlendFinancingRouteReference/index.tsx#FairlendFinancingRouteHeader",
+        "sourcePath": "src/components/FairlendFinancingRouteReference/index.tsx",
+        "exportName": "FairlendFinancingRouteHeader",
+        "exportSignature": "function FairlendFinancingRouteHeader({ className, index = '00 /', sectionLabel = 'The FairLend Model', stepLabel = '00 of 05 / The Financing Route', brand = 'FairLend', descriptor = 'Brokerage & Investment Company', }: FinancingRouteHeaderProps) {",
+        "clientComponent": false,
+        "imports": [
+          "@/components/ui/button",
+          "@/components/ui/card",
+          "@/components/ui/input",
+          "@/components/ui/separator",
+          "@/lib/fairlend-claims",
+          "@/utilities/ui",
+          "class-variance-authority",
+          "lucide-react",
+          "next/image",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [
+          "ApplicationCtaProps",
+          "CredibilityStatsStripProps",
+          "FinancingRouteCopyPanelProps",
+          "FinancingRouteHeaderProps",
+          "FinancingRouteWrapperProps"
+        ],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "size-6",
+          "items-center",
+          "gap-5",
+          "font-black",
+          "text-5xl",
+          "leading-none",
+          "text-lg",
+          "flex-wrap",
+          "gap-x-4",
+          "gap-y-2",
+          "gap-6",
+          "text-xs",
+          "leading-tight",
+          "mb-4",
+          "mt-8",
+          "mt-6",
+          "text-2xl",
+          "mt-5",
+          "text-xl",
+          "font-bold"
+        ],
+        "detectedCallsites": [],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-financing-route-reference",
+      "name": "Financing Route Reference",
+      "category": "hero",
+      "status": "production",
+      "reuseMode": "direct",
+      "purpose": "Compose a financing-route hero/feature from header, copy, illustration, inline application CTA and credibility proof.",
+      "bestFor": [
+        "money-page hero",
+        "financing route introduction",
+        "high-intent conversion"
+      ],
+      "contentSlots": [
+        "illustration",
+        "header props",
+        "copy panel props",
+        "inline CTA props",
+        "credibility statistics"
+      ],
+      "variants": [
+        "with inline CTA",
+        "without inline CTA",
+        "custom illustration class"
+      ],
+      "aesthetic": {
+        "family": "FairLend financing-route technical editorial",
+        "density": "medium",
+        "tone": "confident and technical",
+        "layout": "split copy and illustration with evidence footer",
+        "background": "light",
+        "visualWeight": "dominant"
+      },
+      "responsiveBehavior": "Split composition stacks while the inline CTA and credibility strip adapt at registered breakpoints.",
+      "accessibility": [
+        "Uses the shared FairLend focus, semantic and responsive conventions."
+      ],
+      "constraints": [],
+      "compatibleNeighbors": [
+        "answer",
+        "qualification",
+        "proof"
+      ],
+      "technical": {
+        "key": "src/components/FairlendFinancingRouteReference/index.tsx#FairlendFinancingRouteReference",
+        "sourcePath": "src/components/FairlendFinancingRouteReference/index.tsx",
+        "exportName": "FairlendFinancingRouteReference",
+        "exportSignature": "function FairlendFinancingRouteReference({ className, illustrationSrc, illustrationAlt = 'Real estate financing roadmap from property review through mortgage funding', headerProps, copyPanelProps, inlineCtaProps, statsStripProps, illustrationClassName, ...props }: FinancingRouteWrapperProps) {",
+        "clientComponent": false,
+        "imports": [
+          "@/components/ui/button",
+          "@/components/ui/card",
+          "@/components/ui/input",
+          "@/components/ui/separator",
+          "@/lib/fairlend-claims",
+          "@/utilities/ui",
+          "class-variance-authority",
+          "lucide-react",
+          "next/image",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [
+          "ApplicationCtaProps",
+          "CredibilityStatsStripProps",
+          "FinancingRouteCopyPanelProps",
+          "FinancingRouteHeaderProps",
+          "FinancingRouteWrapperProps"
+        ],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "size-6",
+          "items-center",
+          "gap-5",
+          "font-black",
+          "text-5xl",
+          "leading-none",
+          "text-lg",
+          "flex-wrap",
+          "gap-x-4",
+          "gap-y-2",
+          "gap-6",
+          "text-xs",
+          "leading-tight",
+          "mb-4",
+          "mt-8",
+          "mt-6",
+          "text-2xl",
+          "mt-5",
+          "text-xl",
+          "font-bold"
+        ],
+        "detectedCallsites": [],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-geo-answer-block",
+      "name": "GEO Answer Block",
+      "category": "answer",
+      "status": "production",
+      "reuseMode": "direct",
+      "purpose": "Publish an answer-first, citation-ready passage with an optional accessible comparison table.",
+      "bestFor": [
+        "featured-snippet answer",
+        "AI citation passage",
+        "definition and comparison"
+      ],
+      "contentSlots": [
+        "eyebrow",
+        "question",
+        "answer",
+        "comparison caption",
+        "comparison columns",
+        "comparison rows"
+      ],
+      "variants": [
+        "answer only",
+        "answer with comparison"
+      ],
+      "aesthetic": {
+        "family": "FairLend editorial evidence card",
+        "density": "medium",
+        "tone": "regulated, direct and technical",
+        "layout": "answer passage with optional table",
+        "background": "light",
+        "visualWeight": "medium"
+      },
+      "responsiveBehavior": "Text remains fluid; comparison table becomes horizontally scrollable below its minimum width.",
+      "accessibility": [
+        "Uses the shared FairLend focus, semantic and responsive conventions."
+      ],
+      "constraints": [],
+      "compatibleNeighbors": [
+        "hero",
+        "qualification",
+        "comparison",
+        "editorial"
+      ],
+      "technical": {
+        "key": "src/components/SEO/FairlendGeoAnswerBlock.tsx#FairlendGeoAnswerBlock",
+        "sourcePath": "src/components/SEO/FairlendGeoAnswerBlock.tsx",
+        "exportName": "FairlendGeoAnswerBlock",
+        "exportSignature": "export function FairlendGeoAnswerBlock({ answer, className, comparison, eyebrow = 'Quick answer', question, }: FairlendGeoAnswerBlockProps) {",
+        "clientComponent": false,
+        "imports": [
+          "@/components/ui/card",
+          "@/utilities/ui",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [
+          "FairlendGeoAnswerBlockProps"
+        ],
+        "localExportedTypes": [
+          "FairlendGeoAnswerBlockProps",
+          "FairlendGeoComparisonRow"
+        ],
+        "classPrefixes": [
+          "font-extrabold",
+          "mt-3",
+          "text-3xl",
+          "font-semibold",
+          "mt-5",
+          "text-base",
+          "leading-7",
+          "mt-7",
+          "overflow-x-auto",
+          "border-collapse",
+          "text-left",
+          "text-sm",
+          "border-b",
+          "px-4",
+          "py-3",
+          "text-xs",
+          "text-white",
+          "border-t",
+          "align-top",
+          "leading-6"
+        ],
+        "detectedCallsites": [
+          "src/app/(frontend)/borrowers/institutional-mortgage/page.tsx",
+          "src/app/(frontend)/borrowers/private-mortgage-financing/page.tsx",
+          "src/app/(frontend)/investing/private-mortgage-lending/page.tsx",
+          "src/components/FairlendFeedbackContentPage/index.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-inline-application-cta",
+      "name": "Inline Application CTA",
+      "category": "form",
+      "status": "production",
+      "reuseMode": "direct",
+      "purpose": "Place the compact application CTA over or beside a route illustration at large breakpoints.",
+      "bestFor": [
+        "hero illustration conversion",
+        "desktop inline application start"
+      ],
+      "contentSlots": [
+        "application CTA props",
+        "class name"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "FairLend shared money-page system",
+        "density": "medium",
+        "tone": "regulated, direct and technical",
+        "layout": "compact floating application form",
+        "background": "inherited",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Responsive behaviour is contained by the shared component and its documented variants.",
+      "accessibility": [
+        "Uses the shared FairLend focus, semantic and responsive conventions."
+      ],
+      "constraints": [
+        "Designed as a supporting route-reference element; ensure a mobile conversion path remains visible."
+      ],
+      "compatibleNeighbors": [
+        "hero",
+        "cta"
+      ],
+      "technical": {
+        "key": "src/components/FairlendFinancingRouteReference/index.tsx#FairlendInlineApplicationCta",
+        "sourcePath": "src/components/FairlendFinancingRouteReference/index.tsx",
+        "exportName": "FairlendInlineApplicationCta",
+        "exportSignature": "function FairlendInlineApplicationCta({ className, density = 'compact', ...props }: ApplicationCtaProps) {",
+        "clientComponent": false,
+        "imports": [
+          "@/components/ui/button",
+          "@/components/ui/card",
+          "@/components/ui/input",
+          "@/components/ui/separator",
+          "@/lib/fairlend-claims",
+          "@/utilities/ui",
+          "class-variance-authority",
+          "lucide-react",
+          "next/image",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [
+          "ApplicationCtaProps",
+          "CredibilityStatsStripProps",
+          "FinancingRouteCopyPanelProps",
+          "FinancingRouteHeaderProps",
+          "FinancingRouteWrapperProps"
+        ],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "size-6",
+          "items-center",
+          "gap-5",
+          "font-black",
+          "text-5xl",
+          "leading-none",
+          "text-lg",
+          "flex-wrap",
+          "gap-x-4",
+          "gap-y-2",
+          "gap-6",
+          "text-xs",
+          "leading-tight",
+          "mb-4",
+          "mt-8",
+          "mt-6",
+          "text-2xl",
+          "mt-5",
+          "text-xl",
+          "font-bold"
+        ],
+        "detectedCallsites": [],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-landing-rail",
+      "name": "Landing Rail",
+      "category": "page-shell",
+      "status": "production",
+      "reuseMode": "direct",
+      "purpose": "Provide the canonical FairLend framed page canvas, side gutters and selectable texture.",
+      "bestFor": [
+        "full money-page shell",
+        "editorial financing dossiers"
+      ],
+      "contentSlots": [
+        "children",
+        "wrapper class",
+        "content class",
+        "gutter texture"
+      ],
+      "variants": [
+        "fabric-of-squares",
+        "grid-noise",
+        "inflicted",
+        "debut-light",
+        "groovepaper"
+      ],
+      "aesthetic": {
+        "family": "FairLend shared money-page system",
+        "density": "medium",
+        "tone": "regulated, direct and technical",
+        "layout": "framed full-page content rail",
+        "background": "inherited",
+        "visualWeight": "low"
+      },
+      "responsiveBehavior": "Responsive behaviour is contained by the shared component and its documented variants.",
+      "accessibility": [
+        "Uses the shared FairLend focus, semantic and responsive conventions."
+      ],
+      "constraints": [],
+      "compatibleNeighbors": [
+        "page-composer",
+        "hero"
+      ],
+      "technical": {
+        "key": "src/components/FairlendLandingRail/index.tsx#FairlendLandingRail",
+        "sourcePath": "src/components/FairlendLandingRail/index.tsx",
+        "exportName": "FairlendLandingRail",
+        "exportSignature": "export function FairlendLandingRail({ children, className, contentClassName, gutterTexture, ...props }: FairlendLandingRailProps) {",
+        "clientComponent": false,
+        "imports": [
+          "./FairlendRailCrossDots",
+          "@/utilities/ui",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [
+          "FairlendLandingRailProps"
+        ],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "fairlend-landing-gutter"
+        ],
+        "detectedCallsites": [
+          "src/app/(frontend)/borrowers/institutional-mortgage/page.tsx",
+          "src/app/(frontend)/borrowers/private-mortgage-financing/page.tsx",
+          "src/app/(frontend)/contact/page.tsx",
+          "src/app/(frontend)/investing/private-mortgage-lending/page.tsx",
+          "src/app/(frontend)/partners/page.tsx",
+          "src/app/(frontend)/posts/[slug]/page.tsx",
+          "src/app/(frontend)/posts/error.tsx",
+          "src/app/(frontend)/posts/loading.tsx",
+          "src/app/(frontend)/posts/page.tsx",
+          "src/app/(frontend)/posts/page/[pageNumber]/page.tsx",
+          "src/app/(home)/page.tsx",
+          "src/blocks/MoneyPage/Component.tsx",
+          "src/components/DrawflowIntake/DrawflowIntake.client.tsx",
+          "src/components/FairlendDeferredLandingSections.client.tsx",
+          "src/components/FairlendJournalArchive/index.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-lead-intake",
+      "name": "Lead Intake",
+      "category": "form",
+      "status": "production",
+      "reuseMode": "direct",
+      "purpose": "Run the established FairLend lead-intake workflow with intent, product, source and page/hero variants.",
+      "bestFor": [
+        "mortgage lead capture",
+        "construction/build intake",
+        "investor intake",
+        "contact conversion"
+      ],
+      "contentSlots": [
+        "intent override",
+        "source override",
+        "mortgage product",
+        "mortgage variant",
+        "investor variant",
+        "rental transaction"
+      ],
+      "variants": [
+        "page",
+        "hero",
+        "private mortgage",
+        "institutional mortgage",
+        "residential mortgage",
+        "rental property",
+        "build",
+        "invest",
+        "contact"
+      ],
+      "aesthetic": {
+        "family": "FairLend shared money-page system",
+        "density": "medium",
+        "tone": "regulated, direct and technical",
+        "layout": "progressive conversion form",
+        "background": "inherited",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Client-side wizard and standard forms adapt to their container; preserve existing field, error and consent behaviour.",
+      "accessibility": [
+        "Existing labels, validation, consent and focus behaviour are part of the interface."
+      ],
+      "constraints": [
+        "Client component with sensitive-data and analytics controls; never fork or duplicate the intake implementation.",
+        "Wrap with Suspense where the existing call pattern requires search parameters."
+      ],
+      "compatibleNeighbors": [
+        "hero",
+        "cta",
+        "faq"
+      ],
+      "technical": {
+        "key": "src/components/FairlendLeadIntake/FairlendLeadIntake.client.tsx#FairlendLeadIntake",
+        "sourcePath": "src/components/FairlendLeadIntake/FairlendLeadIntake.client.tsx",
+        "exportName": "FairlendLeadIntake",
+        "exportSignature": "export function FairlendLeadIntake({ intentOverride, investorVariant = 'page', mortgageProduct = 'private', mortgageVariant = 'page', rentalPropertyTransaction, sourceOverride, }: FairlendLeadIntakeProps = {}) {",
+        "clientComponent": true,
+        "imports": [
+          "./MortgageChoiceOption.client",
+          "@/components/address/GoogleAddressAutocomplete",
+          "@/components/ui/button",
+          "@/components/ui/card",
+          "@/components/ui/field",
+          "@/components/ui/frame",
+          "@/components/ui/input",
+          "@/components/ui/radio-group",
+          "@/components/ui/select",
+          "@/components/ui/textarea",
+          "@/lib/analytics/events",
+          "@/lib/fairlend-bookings",
+          "@/lib/fairlend-claims",
+          "@/lib/fairlend-intake",
+          "@/lib/fairlend-mortgage",
+          "lucide-react",
+          "next/image",
+          "next/link",
+          "next/navigation",
+          "react"
+        ],
+        "styleImports": [
+          "./lead-intake.css"
+        ],
+        "propTypeNames": [
+          "FairlendLeadIntakeProps"
+        ],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "fl-intake-page",
+          "fl-intake-shell",
+          "fl-intake-card",
+          "fl-intake-card-header",
+          "fl-intake-success-mark",
+          "fl-intake-card-title",
+          "fl-intake-success-body",
+          "fl-intake-next-strip",
+          "fl-intake-card-footer",
+          "fl-intake-submit",
+          "fl-intake-secondary-action",
+          "fl-intake-card-topline",
+          "fl-intake-card-description",
+          "fl-intake-card-content",
+          "fl-intake-field-group",
+          "fl-intake-form-section",
+          "fl-intake-section-heading",
+          "fl-intake-field",
+          "fl-intake-label",
+          "fl-intake-input"
+        ],
+        "detectedCallsites": [
+          "src/app/(frontend)/borrowers/institutional-mortgage/sections/InstitutionalCover.tsx",
+          "src/app/(frontend)/borrowers/private-mortgage-financing/sections/CoverSheet.tsx",
+          "src/components/FairlendBorrowerHero/index.tsx",
+          "src/components/FairlendInvestorHero/index.tsx",
+          "src/components/FairlendLeadIntake/FairlendIntakeRouter.client.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-registration-disclosure",
+      "name": "Registration Disclosure",
+      "category": "proof",
+      "status": "production",
+      "reuseMode": "direct",
+      "purpose": "Render FairLend's authorized legal name and licence disclosure consistently.",
+      "bestFor": [
+        "hero licence disclosure",
+        "contact disclosure",
+        "full regulatory disclosure"
+      ],
+      "contentSlots": [
+        "variant",
+        "class name",
+        "HTML section attributes"
+      ],
+      "variants": [
+        "hero",
+        "contact",
+        "full"
+      ],
+      "aesthetic": {
+        "family": "FairLend shared money-page system",
+        "density": "medium",
+        "tone": "regulated, direct and technical",
+        "layout": "compact legal disclosure",
+        "background": "inherited",
+        "visualWeight": "low"
+      },
+      "responsiveBehavior": "Responsive behaviour is contained by the shared component and its documented variants.",
+      "accessibility": [
+        "Uses the shared FairLend focus, semantic and responsive conventions."
+      ],
+      "constraints": [],
+      "compatibleNeighbors": [
+        "hero",
+        "form",
+        "cta",
+        "editorial"
+      ],
+      "technical": {
+        "key": "src/components/FairlendRegistrationDisclosure.tsx#FairlendRegistrationDisclosure",
+        "sourcePath": "src/components/FairlendRegistrationDisclosure.tsx",
+        "exportName": "FairlendRegistrationDisclosure",
+        "exportSignature": "export function FairlendRegistrationDisclosure({ className, variant, ...props }: FairlendRegistrationDisclosureProps) {",
+        "clientComponent": false,
+        "imports": [
+          "@/utilities/ui",
+          "class-variance-authority",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [
+          "FairlendRegistrationDisclosureProps"
+        ],
+        "localExportedTypes": [],
+        "classPrefixes": [],
+        "detectedCallsites": [
+          "src/app/(frontend)/disclosures/page.tsx",
+          "src/app/(frontend)/garden-suite-financing-gta/page.tsx",
+          "src/components/ContactPage/ContactComplianceSection.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-section-transition",
+      "name": "Section Transition",
+      "category": "transition",
+      "status": "production",
+      "reuseMode": "direct",
+      "purpose": "Create a controlled visual buffer between incompatible light FairLend section surfaces.",
+      "bestFor": [
+        "cross-family section transition",
+        "spacing and gradient handoff"
+      ],
+      "contentSlots": [
+        "size",
+        "class name",
+        "HTML div attributes"
+      ],
+      "variants": [
+        "comfortable",
+        "spacious"
+      ],
+      "aesthetic": {
+        "family": "FairLend shared money-page system",
+        "density": "medium",
+        "tone": "regulated, direct and technical",
+        "layout": "decorative gradient spacer",
+        "background": "inherited",
+        "visualWeight": "low"
+      },
+      "responsiveBehavior": "Responsive behaviour is contained by the shared component and its documented variants.",
+      "accessibility": [
+        "Always aria-hidden because it carries no content."
+      ],
+      "constraints": [],
+      "compatibleNeighbors": [
+        "hero",
+        "answer",
+        "comparison",
+        "process",
+        "proof"
+      ],
+      "technical": {
+        "key": "src/components/FairlendSectionTransition.tsx#FairlendSectionTransition",
+        "sourcePath": "src/components/FairlendSectionTransition.tsx",
+        "exportName": "FairlendSectionTransition",
+        "exportSignature": "export function FairlendSectionTransition({ className, size = 'comfortable', ...props }: FairlendSectionTransitionProps) {",
+        "clientComponent": false,
+        "imports": [
+          "@/utilities/ui",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [
+          "FairlendSectionTransitionProps"
+        ],
+        "localExportedTypes": [],
+        "classPrefixes": [],
+        "detectedCallsites": [
+          "src/components/FairlendOpportunityCanvas/index.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-service-seo",
+      "name": "Service SEO Graph",
+      "category": "seo",
+      "status": "production",
+      "reuseMode": "direct",
+      "purpose": "Render the canonical WebPage, Service and Breadcrumb structured-data graph for a FairLend service route.",
+      "bestFor": [
+        "mortgage service page schema",
+        "money-page structured data"
+      ],
+      "contentSlots": [
+        "name",
+        "description",
+        "path",
+        "service type",
+        "date modified",
+        "principal-broker review flag",
+        "breadcrumb trail override"
+      ],
+      "variants": [
+        "with reviewer",
+        "without reviewer"
+      ],
+      "aesthetic": {
+        "family": "Non-visual SEO infrastructure",
+        "density": "low",
+        "tone": "structured data",
+        "layout": "non-visual",
+        "background": "transparent",
+        "visualWeight": "low"
+      },
+      "responsiveBehavior": "Non-visual server-rendered JSON-LD.",
+      "accessibility": [],
+      "constraints": [],
+      "compatibleNeighbors": [
+        "page-shell",
+        "page-composer"
+      ],
+      "technical": {
+        "key": "src/components/SEO/FairlendRouteSeo.tsx#FairlendServiceSeo",
+        "sourcePath": "src/components/SEO/FairlendRouteSeo.tsx",
+        "exportName": "FairlendServiceSeo",
+        "exportSignature": "export function FairlendServiceSeo({ breadcrumbTrail, dateModified, description, name, path, reviewedByPrincipalBroker, serviceType, }: FairlendServiceSeoProps) {",
+        "clientComponent": false,
+        "imports": [
+          "./JsonLd",
+          "@/utilities/structuredData"
+        ],
+        "styleImports": [],
+        "propTypeNames": [
+          "FairlendServiceSeoProps"
+        ],
+        "localExportedTypes": [],
+        "classPrefixes": [],
+        "detectedCallsites": [
+          "src/app/(frontend)/affordable-sustainable-rental-housing/page.tsx",
+          "src/app/(frontend)/booking/[bookingtype]/page.tsx",
+          "src/app/(frontend)/borrowers/institutional-mortgage/page.tsx",
+          "src/app/(frontend)/borrowers/private-mortgage-financing/page.tsx",
+          "src/app/(frontend)/construction-draw-financing/page.tsx",
+          "src/app/(frontend)/garden-suite-financing-gta/page.tsx",
+          "src/app/(frontend)/garden-suite/page.tsx",
+          "src/app/(frontend)/investing/private-mortgage-lending/page.tsx",
+          "src/app/(frontend)/multiplex-financing-gta/page.tsx",
+          "src/app/(frontend)/partners/page.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "fairlend-talk-to-expert-cta",
+      "name": "Talk-to-Expert CTA",
+      "category": "cta",
+      "status": "production",
+      "reuseMode": "direct",
+      "purpose": "Render the compact FairLend consultation action for human-assisted conversion.",
+      "bestFor": [
+        "secondary consultation CTA",
+        "expert escalation"
+      ],
+      "contentSlots": [
+        "eyebrow",
+        "label",
+        "href",
+        "link attributes"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "FairLend shared money-page system",
+        "density": "medium",
+        "tone": "regulated, direct and technical",
+        "layout": "compact pill consultation action",
+        "background": "inherited",
+        "visualWeight": "medium"
+      },
+      "responsiveBehavior": "Responsive behaviour is contained by the shared component and its documented variants.",
+      "accessibility": [
+        "Uses the shared FairLend focus, semantic and responsive conventions."
+      ],
+      "constraints": [],
+      "compatibleNeighbors": [
+        "qualification",
+        "faq",
+        "cta"
+      ],
+      "technical": {
+        "key": "src/components/FairlendTalkToExpertCta.tsx#FairlendTalkToExpertCta",
+        "sourcePath": "src/components/FairlendTalkToExpertCta.tsx",
+        "exportName": "FairlendTalkToExpertCta",
+        "exportSignature": "export function FairlendTalkToExpertCta({ className, eyebrow = 'Talk to an Expert', href = buildFairlendConsultationHref('talk-to-expert-cta'), label = 'Book a consultation', rel, target, ...props }: FairlendTalkToExpertCtaProps) {",
+        "clientComponent": false,
+        "imports": [
+          "@/lib/fairlend-intake",
+          "@/utilities/ui",
+          "lucide-react",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [
+          "FairlendTalkToExpertCtaProps"
+        ],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "items-center",
+          "justify-center",
+          "rounded-full",
+          "text-white",
+          "transition-transform",
+          "duration-260",
+          "flex-col",
+          "leading-none",
+          "font-semibold",
+          "tracking-wide",
+          "font-extrabold"
+        ],
+        "detectedCallsites": [
+          "src/Header/Component.client.tsx",
+          "src/components/FairlendLandingHero/index.tsx",
+          "src/components/directional-hover-header/header.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "feedback-page-checklist-section",
+      "name": "Feedback Page Checklist Section",
+      "category": "checklist",
+      "status": "production",
+      "reuseMode": "composer",
+      "purpose": "Render a section introduction followed by a responsive checklist of decision or evidence items.",
+      "bestFor": [
+        "document requirements",
+        "qualification checklist",
+        "failure modes",
+        "readiness signals"
+      ],
+      "contentSlots": [
+        "kicker",
+        "title",
+        "body",
+        "checklist items"
+      ],
+      "variants": [
+        "one to three-column checklist"
+      ],
+      "aesthetic": {
+        "family": "FairLend cream-and-forest editorial money page",
+        "density": "medium",
+        "tone": "practical and scannable",
+        "layout": "section lead above checklist grid",
+        "background": "light",
+        "visualWeight": "medium"
+      },
+      "responsiveBehavior": "Checklist reflows from one to three columns with consistent item height and icon treatment.",
+      "accessibility": [
+        "Uses list semantics and decorative icons."
+      ],
+      "constraints": [
+        "Embedded capability; items do not currently support per-item title/body pairs."
+      ],
+      "compatibleNeighbors": [
+        "qualification",
+        "process",
+        "content-grid"
+      ],
+      "technical": {
+        "virtual": true,
+        "parentBlockId": "fairlend-feedback-content-page"
+      }
+    },
+    {
+      "status": "production",
+      "reuseMode": "composer",
+      "aesthetic": {
+        "family": "FairLend cream-and-forest editorial money page",
+        "density": "medium",
+        "background": "light",
+        "tone": "direct and accountable",
+        "layout": "section lead above stacked questions and answers",
+        "visualWeight": "medium"
+      },
+      "accessibility": [],
+      "compatibleNeighbors": [
+        "answer",
+        "qualification"
+      ],
+      "technical": {
+        "virtual": true,
+        "parentBlockId": "fairlend-feedback-content-page"
+      },
+      "id": "feedback-page-faq-section",
+      "name": "Feedback Page FAQ Section",
+      "category": "faq",
+      "purpose": "Render a visible-HTML question register inside a Feedback Page section without emitting FAQPage structured data.",
+      "bestFor": [
+        "commercial money-page FAQs",
+        "visible objection handling"
+      ],
+      "contentSlots": [
+        "kicker",
+        "title",
+        "question",
+        "answer"
+      ],
+      "variants": [
+        "visible question list"
+      ],
+      "responsiveBehavior": "Questions and answers stack full width at all breakpoints.",
+      "constraints": [
+        "Embedded capability; never emits FAQPage markup; answers must stay visible HTML."
+      ]
+    },
+    {
+      "id": "feedback-page-final-cta",
+      "name": "Feedback Page Final CTA",
+      "category": "cta",
+      "status": "production",
+      "reuseMode": "composer",
+      "purpose": "Close a Feedback Page with a dark evidence note and repeat the configured primary action.",
+      "bestFor": [
+        "final conversion",
+        "risk-reversal close"
+      ],
+      "contentSlots": [
+        "final note",
+        "final microcopy",
+        "primary CTA"
+      ],
+      "variants": [
+        "CTA",
+        "decorative arrow when no CTA exists"
+      ],
+      "aesthetic": {
+        "family": "FairLend cream-and-forest editorial money page",
+        "density": "low",
+        "tone": "decisive and accountable",
+        "layout": "dark horizontal closing band",
+        "background": "dark",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Copy and action stack on small screens and align horizontally when space permits.",
+      "accessibility": [
+        "Uses the canonical Borrower CTA and readable text contrast."
+      ],
+      "constraints": [
+        "Embedded capability and tied to the parent primary CTA label/href."
+      ],
+      "compatibleNeighbors": [
+        "editorial",
+        "faq"
+      ],
+      "technical": {
+        "virtual": true,
+        "parentBlockId": "fairlend-feedback-content-page"
+      }
+    },
+    {
+      "id": "feedback-page-hero",
+      "name": "Feedback Page Hero",
+      "category": "hero",
+      "status": "production",
+      "reuseMode": "composer",
+      "purpose": "Render the configurable split hero embedded in FairlendFeedbackContentPage.",
+      "bestFor": [
+        "SEO money-page hero",
+        "service-page introduction"
+      ],
+      "contentSlots": [
+        "eyebrow",
+        "title",
+        "subtitle",
+        "image",
+        "primary CTA",
+        "secondary CTA",
+        "hero footer",
+        "proof strip"
+      ],
+      "variants": [
+        "with or without either CTA",
+        "with or without proof"
+      ],
+      "aesthetic": {
+        "family": "FairLend cream-and-forest editorial money page",
+        "density": "medium",
+        "tone": "direct and evidence-led",
+        "layout": "large split copy and illustration",
+        "background": "light",
+        "visualWeight": "dominant"
+      },
+      "responsiveBehavior": "Two-column hero stacks on smaller viewports; proof changes from rail to grid.",
+      "accessibility": [
+        "One H1 and explicit image alt text are supplied through the parent configuration."
+      ],
+      "constraints": [
+        "Embedded capability; use through FairlendFeedbackContentPage or extract while preserving all five parent call sites."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "qualification"
+      ],
+      "technical": {
+        "virtual": true,
+        "parentBlockId": "fairlend-feedback-content-page"
+      }
+    },
+    {
+      "id": "feedback-page-panel-section",
+      "name": "Feedback Page Panel Section",
+      "category": "content-grid",
+      "status": "production",
+      "reuseMode": "composer",
+      "purpose": "Render a section introduction beside a responsive grid of titled explanatory panels.",
+      "bestFor": [
+        "features",
+        "audiences",
+        "evidence categories",
+        "solution pillars"
+      ],
+      "contentSlots": [
+        "kicker",
+        "title",
+        "body",
+        "panel title",
+        "panel body",
+        "panel items"
+      ],
+      "variants": [
+        "two or three-column panel grid"
+      ],
+      "aesthetic": {
+        "family": "FairLend cream-and-forest editorial money page",
+        "density": "medium",
+        "tone": "structured and explanatory",
+        "layout": "section lead beside card grid",
+        "background": "light",
+        "visualWeight": "medium"
+      },
+      "responsiveBehavior": "Lead and panel grid stack; panels reflow from one to three columns.",
+      "accessibility": [
+        "Uses section, H2, H3 and list semantics through the parent composer."
+      ],
+      "constraints": [
+        "Embedded capability; panel body typography assumes short explanatory copy."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "checklist",
+        "comparison"
+      ],
+      "technical": {
+        "virtual": true,
+        "parentBlockId": "fairlend-feedback-content-page"
+      }
+    },
+    {
+      "id": "feedback-page-proof-strip",
+      "name": "Feedback Page Proof Strip",
+      "category": "proof",
+      "status": "production",
+      "reuseMode": "composer",
+      "purpose": "Render compact proof statements beneath the Feedback Page hero illustration.",
+      "bestFor": [
+        "hero proof",
+        "product claims",
+        "qualification signals"
+      ],
+      "contentSlots": [
+        "proof items"
+      ],
+      "variants": [
+        "one or more proof items"
+      ],
+      "aesthetic": {
+        "family": "FairLend cream-and-forest editorial money page",
+        "density": "medium",
+        "tone": "compact and declarative",
+        "layout": "responsive proof-card strip",
+        "background": "light",
+        "visualWeight": "medium"
+      },
+      "responsiveBehavior": "Proof items reflow between one and three columns according to the parent breakpoints.",
+      "accessibility": [
+        "Proof remains text content rather than image-only content."
+      ],
+      "constraints": [
+        "Embedded in the parent hero and not independently exportable."
+      ],
+      "compatibleNeighbors": [
+        "hero",
+        "answer"
+      ],
+      "technical": {
+        "virtual": true,
+        "parentBlockId": "fairlend-feedback-content-page"
+      }
+    },
+    {
+      "status": "production",
+      "reuseMode": "composer",
+      "aesthetic": {
+        "family": "FairLend cream-and-forest editorial money page",
+        "density": "medium",
+        "background": "light",
+        "tone": "ordered and instructional",
+        "layout": "section lead above numbered step grid",
+        "visualWeight": "medium"
+      },
+      "accessibility": [],
+      "compatibleNeighbors": [
+        "answer",
+        "qualification"
+      ],
+      "technical": {
+        "virtual": true,
+        "parentBlockId": "fairlend-feedback-content-page"
+      },
+      "id": "feedback-page-steps-section",
+      "name": "Feedback Page Steps Section",
+      "category": "process",
+      "purpose": "Render numbered process, mechanism or capital-stack stages inside a Feedback Page section.",
+      "bestFor": [
+        "process timelines",
+        "product mechanism stages",
+        "ordered capital or evidence stacks"
+      ],
+      "contentSlots": [
+        "kicker",
+        "title",
+        "body",
+        "step title",
+        "step body"
+      ],
+      "variants": [
+        "one or two-column numbered step grid"
+      ],
+      "responsiveBehavior": "Step grid reflows from one to two columns with stable numeral and title treatment.",
+      "constraints": [
+        "Embedded capability; steps reuse the panel title/body shape with automatic numbering."
+      ]
+    },
+    {
+      "status": "production",
+      "reuseMode": "composer",
+      "aesthetic": {
+        "family": "FairLend cream-and-forest editorial money page",
+        "density": "medium",
+        "background": "light",
+        "tone": "evidentiary and technical",
+        "layout": "section lead above bordered comparison table",
+        "visualWeight": "high"
+      },
+      "accessibility": [],
+      "compatibleNeighbors": [
+        "answer",
+        "qualification"
+      ],
+      "technical": {
+        "virtual": true,
+        "parentBlockId": "fairlend-feedback-content-page"
+      },
+      "id": "feedback-page-table-section",
+      "name": "Feedback Page Table Section",
+      "category": "comparison",
+      "purpose": "Render an accessible comparison or evidence table with an optional disclosure note inside a Feedback Page section.",
+      "bestFor": [
+        "financing-route comparison",
+        "worked proof comparisons",
+        "methodology and disclosure display"
+      ],
+      "contentSlots": [
+        "kicker",
+        "title",
+        "body",
+        "table anchor id",
+        "caption",
+        "label header",
+        "columns",
+        "rows",
+        "disclosure note"
+      ],
+      "variants": [
+        "comparison table with optional note"
+      ],
+      "responsiveBehavior": "Table scrolls horizontally below its minimum width; the note stays inline below.",
+      "constraints": [
+        "Embedded capability; publish claim disclosures in the note slot directly below the table."
+      ]
+    },
+    {
+      "id": "institutional-mortgage-decline-decoder",
+      "name": "Decline Decoder",
+      "category": "problem",
+      "status": "production",
+      "reuseMode": "extract-first",
+      "purpose": "Decode lender declines into specific policy, evidence, structure or timing responses.",
+      "bestFor": [
+        "decline recovery",
+        "diagnostic objection handling"
+      ],
+      "contentSlots": [
+        "heading",
+        "introduction",
+        "diagnostic findings",
+        "responses"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "Institutional mortgage policy-file dossier",
+        "density": "medium",
+        "tone": "analytical and policy-led",
+        "layout": "route-specific structured evidence block",
+        "background": "light",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Uses the institutional route's explicit desktop-to-mobile CSS composition.",
+      "accessibility": [
+        "Semantic sections, lists or table roles are present in the route implementation."
+      ],
+      "constraints": [
+        "Coupled to institutional-mortgage.css through im-* selectors.",
+        "Content is imported from the route-local data module or hard-coded in the block.",
+        "Extract styles and typed data before reuse; preserve the institutional route call site."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "editorial",
+        "faq"
+      ],
+      "technical": {
+        "key": "src/app/(frontend)/borrowers/institutional-mortgage/sections/DeclineDecoder.tsx#DeclineDecoder",
+        "sourcePath": "src/app/(frontend)/borrowers/institutional-mortgage/sections/DeclineDecoder.tsx",
+        "exportName": "DeclineDecoder",
+        "exportSignature": "export function DeclineDecoder(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "./data",
+          "lucide-react",
+          "next/image",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "im-decline"
+        ],
+        "detectedCallsites": [
+          "src/app/(frontend)/borrowers/institutional-mortgage/page.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "institutional-mortgage-fit-decision",
+      "name": "Fit Decision",
+      "category": "comparison",
+      "status": "production",
+      "reuseMode": "extract-first",
+      "purpose": "Compare two financing routes across equivalent decision fields and close with a suitability principle.",
+      "bestFor": [
+        "route comparison",
+        "commercial investigation"
+      ],
+      "contentSlots": [
+        "heading",
+        "introduction",
+        "comparison columns",
+        "comparison rows",
+        "decision note"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "Institutional mortgage policy-file dossier",
+        "density": "medium",
+        "tone": "analytical and policy-led",
+        "layout": "route-specific structured evidence block",
+        "background": "light",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Uses the institutional route's explicit desktop-to-mobile CSS composition.",
+      "accessibility": [
+        "Semantic sections, lists or table roles are present in the route implementation."
+      ],
+      "constraints": [
+        "Coupled to institutional-mortgage.css through im-* selectors.",
+        "Content is imported from the route-local data module or hard-coded in the block.",
+        "Extract styles and typed data before reuse; preserve the institutional route call site."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "editorial",
+        "faq"
+      ],
+      "technical": {
+        "key": "src/app/(frontend)/borrowers/institutional-mortgage/sections/FitDecision.tsx#FitDecision",
+        "sourcePath": "src/app/(frontend)/borrowers/institutional-mortgage/sections/FitDecision.tsx",
+        "exportName": "FitDecision",
+        "exportSignature": "export function FitDecision(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "./data",
+          "lucide-react",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "im-decision"
+        ],
+        "detectedCallsites": [
+          "src/app/(frontend)/borrowers/institutional-mortgage/page.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "institutional-mortgage-institutional-cover",
+      "name": "Institutional Cover",
+      "category": "hero",
+      "status": "production",
+      "reuseMode": "extract-first",
+      "purpose": "Open a mortgage money page with local imagery, qualification signals and embedded intake.",
+      "bestFor": [
+        "mortgage money-page hero",
+        "hero intake conversion"
+      ],
+      "contentSlots": [
+        "breadcrumb label",
+        "heading",
+        "lede",
+        "proof signals",
+        "skip link",
+        "embedded intake"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "Institutional mortgage policy-file dossier",
+        "density": "medium",
+        "tone": "analytical and policy-led",
+        "layout": "route-specific structured evidence block",
+        "background": "light",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Uses the institutional route's explicit desktop-to-mobile CSS composition.",
+      "accessibility": [
+        "Semantic sections, lists or table roles are present in the route implementation."
+      ],
+      "constraints": [
+        "Coupled to institutional-mortgage.css through im-* selectors.",
+        "Content is imported from the route-local data module or hard-coded in the block.",
+        "Extract styles and typed data before reuse; preserve the institutional route call site."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "editorial",
+        "faq"
+      ],
+      "technical": {
+        "key": "src/app/(frontend)/borrowers/institutional-mortgage/sections/InstitutionalCover.tsx#InstitutionalCover",
+        "sourcePath": "src/app/(frontend)/borrowers/institutional-mortgage/sections/InstitutionalCover.tsx",
+        "exportName": "InstitutionalCover",
+        "exportSignature": "export function InstitutionalCover(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "@/components/FairlendLeadIntake/FairlendLeadIntake.client",
+          "lucide-react",
+          "next/image",
+          "next/link",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "im-cover",
+          "im-system-label"
+        ],
+        "detectedCallsites": [
+          "src/app/(frontend)/borrowers/institutional-mortgage/page.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "institutional-mortgage-lender-fit-matrix",
+      "name": "Lender Fit Matrix",
+      "category": "qualification",
+      "status": "production",
+      "reuseMode": "extract-first",
+      "purpose": "Explain a multi-factor underwriting decision through a structured evidence matrix.",
+      "bestFor": [
+        "lender criteria",
+        "project qualification",
+        "evidence requirements"
+      ],
+      "contentSlots": [
+        "heading",
+        "introduction",
+        "factor cells",
+        "evidence labels",
+        "annotation"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "Institutional mortgage policy-file dossier",
+        "density": "medium",
+        "tone": "analytical and policy-led",
+        "layout": "route-specific structured evidence block",
+        "background": "light",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Uses the institutional route's explicit desktop-to-mobile CSS composition.",
+      "accessibility": [
+        "Semantic sections, lists or table roles are present in the route implementation."
+      ],
+      "constraints": [
+        "Coupled to institutional-mortgage.css through im-* selectors.",
+        "Content is imported from the route-local data module or hard-coded in the block.",
+        "Extract styles and typed data before reuse; preserve the institutional route call site."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "editorial",
+        "faq"
+      ],
+      "technical": {
+        "key": "src/app/(frontend)/borrowers/institutional-mortgage/sections/LenderFitMatrix.tsx#LenderFitMatrix",
+        "sourcePath": "src/app/(frontend)/borrowers/institutional-mortgage/sections/LenderFitMatrix.tsx",
+        "exportName": "LenderFitMatrix",
+        "exportSignature": "export function LenderFitMatrix(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "./data",
+          "lucide-react",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "im-fit"
+        ],
+        "detectedCallsites": [
+          "src/app/(frontend)/borrowers/institutional-mortgage/page.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "institutional-mortgage-matching-route",
+      "name": "Matching Route",
+      "category": "process",
+      "status": "production",
+      "reuseMode": "extract-first",
+      "purpose": "Present a numbered route from file normalization through closing with a visual source-to-fit network.",
+      "bestFor": [
+        "mortgage process",
+        "evidence-to-decision sequence"
+      ],
+      "contentSlots": [
+        "heading",
+        "introduction",
+        "ordered steps",
+        "network labels"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "Institutional mortgage policy-file dossier",
+        "density": "medium",
+        "tone": "analytical and policy-led",
+        "layout": "route-specific structured evidence block",
+        "background": "light",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Uses the institutional route's explicit desktop-to-mobile CSS composition.",
+      "accessibility": [
+        "Semantic sections, lists or table roles are present in the route implementation."
+      ],
+      "constraints": [
+        "Coupled to institutional-mortgage.css through im-* selectors.",
+        "Content is imported from the route-local data module or hard-coded in the block.",
+        "Extract styles and typed data before reuse; preserve the institutional route call site."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "editorial",
+        "faq"
+      ],
+      "technical": {
+        "key": "src/app/(frontend)/borrowers/institutional-mortgage/sections/MatchingRoute.tsx#MatchingRoute",
+        "sourcePath": "src/app/(frontend)/borrowers/institutional-mortgage/sections/MatchingRoute.tsx",
+        "exportName": "MatchingRoute",
+        "exportSignature": "export function MatchingRoute(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "./data",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "im-route"
+        ],
+        "detectedCallsites": [
+          "src/app/(frontend)/borrowers/institutional-mortgage/page.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "institutional-mortgage-question-register",
+      "name": "Institutional Question Register",
+      "category": "faq",
+      "status": "production",
+      "reuseMode": "extract-first",
+      "purpose": "Combine a late-stage CTA, disclaimer and accessible accordion FAQ.",
+      "bestFor": [
+        "money-page FAQ",
+        "late-stage conversion and objections"
+      ],
+      "contentSlots": [
+        "heading",
+        "introduction",
+        "CTA",
+        "disclaimer",
+        "questions and answers"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "Institutional mortgage policy-file dossier",
+        "density": "medium",
+        "tone": "analytical and policy-led",
+        "layout": "route-specific structured evidence block",
+        "background": "light",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Uses the institutional route's explicit desktop-to-mobile CSS composition.",
+      "accessibility": [
+        "Semantic sections, lists or table roles are present in the route implementation."
+      ],
+      "constraints": [
+        "Coupled to institutional-mortgage.css through im-* selectors.",
+        "Content is imported from the route-local data module or hard-coded in the block.",
+        "Extract styles and typed data before reuse; preserve the institutional route call site."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "editorial",
+        "faq"
+      ],
+      "technical": {
+        "key": "src/app/(frontend)/borrowers/institutional-mortgage/sections/QuestionRegister.tsx#QuestionRegister",
+        "sourcePath": "src/app/(frontend)/borrowers/institutional-mortgage/sections/QuestionRegister.tsx",
+        "exportName": "QuestionRegister",
+        "exportSignature": "export function QuestionRegister(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "./data",
+          "@/components/ui/accordion",
+          "lucide-react",
+          "next/link",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "im-questions"
+        ],
+        "detectedCallsites": [
+          "src/app/(frontend)/borrowers/institutional-mortgage/page.tsx",
+          "src/app/(frontend)/borrowers/private-mortgage-financing/page.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "institutional-mortgage-term-sheet",
+      "name": "Term Sheet",
+      "category": "comparison",
+      "status": "production",
+      "reuseMode": "extract-first",
+      "purpose": "Explain the fields borrowers should compare in a financing commitment or term sheet.",
+      "bestFor": [
+        "offer comparison",
+        "cost and condition education"
+      ],
+      "contentSlots": [
+        "eyebrow",
+        "heading",
+        "introduction",
+        "term rows",
+        "closing principle"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "Institutional mortgage policy-file dossier",
+        "density": "medium",
+        "tone": "analytical and policy-led",
+        "layout": "route-specific structured evidence block",
+        "background": "light",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Uses the institutional route's explicit desktop-to-mobile CSS composition.",
+      "accessibility": [
+        "Semantic sections, lists or table roles are present in the route implementation."
+      ],
+      "constraints": [
+        "Coupled to institutional-mortgage.css through im-* selectors.",
+        "Content is imported from the route-local data module or hard-coded in the block.",
+        "Extract styles and typed data before reuse; preserve the institutional route call site."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "editorial",
+        "faq"
+      ],
+      "technical": {
+        "key": "src/app/(frontend)/borrowers/institutional-mortgage/sections/TermSheet.tsx#TermSheet",
+        "sourcePath": "src/app/(frontend)/borrowers/institutional-mortgage/sections/TermSheet.tsx",
+        "exportName": "TermSheet",
+        "exportSignature": "export function TermSheet(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "./data",
+          "lucide-react",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "im-terms",
+          "im-system-label"
+        ],
+        "detectedCallsites": [
+          "src/app/(frontend)/borrowers/institutional-mortgage/page.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "private-mortgage-financing-cost-xray",
+      "name": "Cost Xray",
+      "category": "comparison",
+      "status": "production",
+      "reuseMode": "extract-first",
+      "purpose": "Compare rushed financing against a transparent plan across complete cost and risk fields.",
+      "bestFor": [
+        "total-cost comparison",
+        "risk disclosure",
+        "alternative comparison"
+      ],
+      "contentSlots": [
+        "heading",
+        "introduction",
+        "cost equation",
+        "comparison rows",
+        "closing note"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "Private mortgage technical file dossier",
+        "density": "medium",
+        "tone": "urgent, candid and risk-aware",
+        "layout": "route-specific structured evidence block",
+        "background": "mixed",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Uses the private-mortgage route's explicit desktop-to-mobile CSS composition.",
+      "accessibility": [
+        "Semantic sections, lists or table roles are present in the route implementation."
+      ],
+      "constraints": [
+        "Coupled to private-mortgage-financing.css through pm-* selectors.",
+        "Content is imported from the route-local data module or hard-coded in the block.",
+        "Extract styles and typed data before reuse; preserve the private-mortgage route call site."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "editorial",
+        "faq"
+      ],
+      "technical": {
+        "key": "src/app/(frontend)/borrowers/private-mortgage-financing/sections/CostXray.tsx#CostXray",
+        "sourcePath": "src/app/(frontend)/borrowers/private-mortgage-financing/sections/CostXray.tsx",
+        "exportName": "CostXray",
+        "exportSignature": "export function CostXray(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "./data",
+          "lucide-react",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "pm-xray",
+          "pm-label"
+        ],
+        "detectedCallsites": [
+          "src/app/(frontend)/borrowers/private-mortgage-financing/page.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "private-mortgage-financing-cover-sheet",
+      "name": "Private Mortgage Cover Sheet",
+      "category": "hero",
+      "status": "production",
+      "reuseMode": "extract-first",
+      "purpose": "Open an urgent mortgage page with decision questions, proof and embedded intake.",
+      "bestFor": [
+        "high-intent mortgage hero",
+        "deadline-driven intake"
+      ],
+      "contentSlots": [
+        "breadcrumb label",
+        "heading",
+        "lede",
+        "decision questions",
+        "proof points",
+        "embedded intake"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "Private mortgage technical file dossier",
+        "density": "medium",
+        "tone": "urgent, candid and risk-aware",
+        "layout": "route-specific structured evidence block",
+        "background": "mixed",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Uses the private-mortgage route's explicit desktop-to-mobile CSS composition.",
+      "accessibility": [
+        "Semantic sections, lists or table roles are present in the route implementation."
+      ],
+      "constraints": [
+        "Coupled to private-mortgage-financing.css through pm-* selectors.",
+        "Content is imported from the route-local data module or hard-coded in the block.",
+        "Extract styles and typed data before reuse; preserve the private-mortgage route call site."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "editorial",
+        "faq"
+      ],
+      "technical": {
+        "key": "src/app/(frontend)/borrowers/private-mortgage-financing/sections/CoverSheet.tsx#CoverSheet",
+        "sourcePath": "src/app/(frontend)/borrowers/private-mortgage-financing/sections/CoverSheet.tsx",
+        "exportName": "CoverSheet",
+        "exportSignature": "export function CoverSheet(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "./data",
+          "@/components/FairlendLeadIntake/FairlendLeadIntake.client",
+          "lucide-react",
+          "next/image",
+          "next/link",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "pm-cover",
+          "pm-label",
+          "pm-file-tab",
+          "pm-micro"
+        ],
+        "detectedCallsites": [
+          "src/app/(frontend)/borrowers/private-mortgage-financing/page.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "private-mortgage-financing-exit-route",
+      "name": "Exit Route",
+      "category": "process",
+      "status": "production",
+      "reuseMode": "extract-first",
+      "purpose": "Map a financing process backward from maturity and make the exit path explicit.",
+      "bestFor": [
+        "exit-first financing process",
+        "construction takeout path"
+      ],
+      "contentSlots": [
+        "eyebrow",
+        "heading",
+        "introduction",
+        "ordered process steps",
+        "exit options",
+        "closing note"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "Private mortgage technical file dossier",
+        "density": "medium",
+        "tone": "urgent, candid and risk-aware",
+        "layout": "route-specific structured evidence block",
+        "background": "mixed",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Uses the private-mortgage route's explicit desktop-to-mobile CSS composition.",
+      "accessibility": [
+        "Semantic sections, lists or table roles are present in the route implementation."
+      ],
+      "constraints": [
+        "Coupled to private-mortgage-financing.css through pm-* selectors.",
+        "Content is imported from the route-local data module or hard-coded in the block.",
+        "Extract styles and typed data before reuse; preserve the private-mortgage route call site."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "editorial",
+        "faq"
+      ],
+      "technical": {
+        "key": "src/app/(frontend)/borrowers/private-mortgage-financing/sections/ExitRoute.tsx#ExitRoute",
+        "sourcePath": "src/app/(frontend)/borrowers/private-mortgage-financing/sections/ExitRoute.tsx",
+        "exportName": "ExitRoute",
+        "exportSignature": "export function ExitRoute(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "./data",
+          "lucide-react",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "pm-route",
+          "pm-label",
+          "pm-micro"
+        ],
+        "detectedCallsites": [
+          "src/app/(frontend)/borrowers/private-mortgage-financing/page.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "private-mortgage-financing-incident-board",
+      "name": "Incident Board",
+      "category": "qualification",
+      "status": "production",
+      "reuseMode": "extract-first",
+      "purpose": "Route visitors by the incident or constraint that forced the financing decision.",
+      "bestFor": [
+        "scenario self-identification",
+        "urgent file routing"
+      ],
+      "contentSlots": [
+        "heading",
+        "introduction",
+        "scenario cards",
+        "review inputs"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "Private mortgage technical file dossier",
+        "density": "medium",
+        "tone": "urgent, candid and risk-aware",
+        "layout": "route-specific structured evidence block",
+        "background": "mixed",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Uses the private-mortgage route's explicit desktop-to-mobile CSS composition.",
+      "accessibility": [
+        "Semantic sections, lists or table roles are present in the route implementation."
+      ],
+      "constraints": [
+        "Coupled to private-mortgage-financing.css through pm-* selectors.",
+        "Content is imported from the route-local data module or hard-coded in the block.",
+        "Extract styles and typed data before reuse; preserve the private-mortgage route call site."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "editorial",
+        "faq"
+      ],
+      "technical": {
+        "key": "src/app/(frontend)/borrowers/private-mortgage-financing/sections/IncidentBoard.tsx#IncidentBoard",
+        "sourcePath": "src/app/(frontend)/borrowers/private-mortgage-financing/sections/IncidentBoard.tsx",
+        "exportName": "IncidentBoard",
+        "exportSignature": "export function IncidentBoard(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "./data",
+          "lucide-react",
+          "next/image",
+          "next/link",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "pm-incidents",
+          "pm-label"
+        ],
+        "detectedCallsites": [
+          "src/app/(frontend)/borrowers/private-mortgage-financing/page.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "private-mortgage-financing-judgment-desk",
+      "name": "Judgment Desk",
+      "category": "proof",
+      "status": "production",
+      "reuseMode": "extract-first",
+      "purpose": "Show professional judgment, whole-file review inputs, local context and operating standards.",
+      "bestFor": [
+        "expertise proof",
+        "review methodology",
+        "local service trust"
+      ],
+      "contentSlots": [
+        "heading",
+        "expert copy",
+        "review register",
+        "local proof",
+        "operating standards"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "Private mortgage technical file dossier",
+        "density": "medium",
+        "tone": "urgent, candid and risk-aware",
+        "layout": "route-specific structured evidence block",
+        "background": "mixed",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Uses the private-mortgage route's explicit desktop-to-mobile CSS composition.",
+      "accessibility": [
+        "Semantic sections, lists or table roles are present in the route implementation."
+      ],
+      "constraints": [
+        "Coupled to private-mortgage-financing.css through pm-* selectors.",
+        "Content is imported from the route-local data module or hard-coded in the block.",
+        "Extract styles and typed data before reuse; preserve the private-mortgage route call site."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "editorial",
+        "faq"
+      ],
+      "technical": {
+        "key": "src/app/(frontend)/borrowers/private-mortgage-financing/sections/JudgmentDesk.tsx#JudgmentDesk",
+        "sourcePath": "src/app/(frontend)/borrowers/private-mortgage-financing/sections/JudgmentDesk.tsx",
+        "exportName": "JudgmentDesk",
+        "exportSignature": "export function JudgmentDesk(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "./data",
+          "lucide-react",
+          "next/image",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "pm-judgment",
+          "pm-label",
+          "pm-micro"
+        ],
+        "detectedCallsites": [
+          "src/app/(frontend)/borrowers/private-mortgage-financing/page.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    },
+    {
+      "id": "private-mortgage-financing-question-register",
+      "name": "Private Mortgage Question Register",
+      "category": "faq",
+      "status": "production",
+      "reuseMode": "extract-first",
+      "purpose": "Resolve financing objections with an accessible question register and closing conversion path.",
+      "bestFor": [
+        "money-page FAQ",
+        "risk and suitability objections"
+      ],
+      "contentSlots": [
+        "heading",
+        "introduction",
+        "questions and answers",
+        "CTA",
+        "disclaimer"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "Private mortgage technical file dossier",
+        "density": "medium",
+        "tone": "urgent, candid and risk-aware",
+        "layout": "route-specific structured evidence block",
+        "background": "mixed",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Uses the private-mortgage route's explicit desktop-to-mobile CSS composition.",
+      "accessibility": [
+        "Semantic sections, lists or table roles are present in the route implementation."
+      ],
+      "constraints": [
+        "Coupled to private-mortgage-financing.css through pm-* selectors.",
+        "Content is imported from the route-local data module or hard-coded in the block.",
+        "Extract styles and typed data before reuse; preserve the private-mortgage route call site."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "editorial",
+        "faq"
+      ],
+      "technical": {
+        "key": "src/app/(frontend)/borrowers/private-mortgage-financing/sections/QuestionRegister.tsx#QuestionRegister",
+        "sourcePath": "src/app/(frontend)/borrowers/private-mortgage-financing/sections/QuestionRegister.tsx",
+        "exportName": "QuestionRegister",
+        "exportSignature": "export function QuestionRegister(): ReactElement {",
+        "clientComponent": false,
+        "imports": [
+          "./data",
+          "@/components/ui/accordion",
+          "lucide-react",
+          "next/link",
+          "react"
+        ],
+        "styleImports": [],
+        "propTypeNames": [],
+        "localExportedTypes": [],
+        "classPrefixes": [
+          "pm-questions",
+          "pm-label"
+        ],
+        "detectedCallsites": [
+          "src/app/(frontend)/borrowers/institutional-mortgage/page.tsx",
+          "src/app/(frontend)/borrowers/private-mortgage-financing/page.tsx"
+        ],
+        "scanStatus": "current"
+      }
+    }
+  ]
+}

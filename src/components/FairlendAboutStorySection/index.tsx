@@ -250,7 +250,7 @@ export function FairlendAboutStorySection(): ReactElement {
           </div>
 
           <Image
-            alt=""
+            alt="Toronto skyline reflecting FairLend local real estate financing expertise"
             className="about-skyline"
             data-about-skyline
             decoding="async"

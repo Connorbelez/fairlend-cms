@@ -184,6 +184,14 @@
   overflow-wrap: break-word;
 }
 
+.borrower-faq__answer p {
+  margin: 0;
+}
+
+.borrower-faq__answer p + p {
+  margin-top: 0.85em;
+}
+
 @media (max-width: 900px) {
   .borrower-faq__header,
   .borrower-faq__content {

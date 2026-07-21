@@ -39,7 +39,7 @@ export default function GardenSuitePage() {
             'A garden suite needs more than a good drawing. FairLend reviews the property, permit stage, mortgage and equity position, budget, projected rents, builder context, and GPS/site realities before the financing path is framed.',
           image: {
             ...fairlendBuildPropertyTypesAssets.singleFamily,
-            alt: 'Residential lot illustration for garden suite eligibility',
+            alt: 'Toronto residential lot with a detached home and rear garden suite',
           },
           primaryCta: { href: intakeHref, label: 'Start eligibility intake' },
           secondaryCta: { href: '/garden-suite-financing-gta', label: 'Financing page' },

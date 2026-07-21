@@ -87,7 +87,7 @@ export const PostHero: React.FC<{
               />
             ) : (
               <Image
-                alt="Engraved compass and site-plan instruments"
+                alt="Surveyor compass and architectural site plans in a FairLend mortgage working file"
                 className="object-cover grayscale contrast-[1.08]"
                 fill
                 priority

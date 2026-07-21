@@ -1,0 +1,37 @@
+{
+  "library": "FairLend money-page block library",
+  "projectRoot": "../..",
+  "output": "docs/page-construction/money-page-blocks.json",
+  "markdownOutput": "docs/page-construction/money-page-blocks.md",
+  "curation": "docs/page-construction/money-page-blocks.curated.json",
+  "callsiteRoots": [
+    "src"
+  ],
+  "includePaths": [
+    "src/app/(frontend)/borrowers/institutional-mortgage/sections",
+    "src/app/(frontend)/borrowers/private-mortgage-financing/sections",
+    "src/components/FairlendBorrowerConsultation/index.tsx",
+    "src/components/FairlendBorrowerCta/index.tsx",
+    "src/components/FairlendBorrowerDifferentiators/index.tsx",
+    "src/components/FairlendBorrowerFaq/index.tsx",
+    "src/components/FairlendBorrowerHero/index.tsx",
+    "src/components/FairlendBorrowerProblem/index.tsx",
+    "src/components/FairlendBorrowerProcess/index.tsx",
+    "src/components/FairlendBorrowerScenarios/index.tsx",
+    "src/components/FairlendBorrowerSolution/index.tsx",
+    "src/components/FairlendBorrowerTrustProof/index.tsx",
+    "src/components/FairlendBuildModelSection/index.tsx",
+    "src/components/FairlendBuilderConsultingSection/index.tsx",
+    "src/components/FairlendFaqSection/index.tsx",
+    "src/components/FairlendFeedbackContentPage/index.tsx",
+    "src/components/FairlendFinancingRouteReference/index.tsx",
+    "src/components/FairlendLandingRail/index.tsx",
+    "src/components/FairlendLeadIntake/FairlendLeadIntake.client.tsx",
+    "src/components/FairlendRegistrationDisclosure.tsx",
+    "src/components/FairlendSectionTransition.tsx",
+    "src/components/FairlendTalkToExpertCta.tsx",
+    "src/components/SEO/FairlendEditorialReview.tsx",
+    "src/components/SEO/FairlendGeoAnswerBlock.tsx",
+    "src/components/SEO/FairlendRouteSeo.tsx"
+  ]
+}

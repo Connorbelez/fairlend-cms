@@ -69,7 +69,7 @@ export function FairlendInvestorPrimer(): ReactElement {
           <figure className="investor-primer__dossier">
             <div className="investor-primer__dossier-image">
               <Image
-                alt="Engraved Toronto-area house illustrating mortgage documentation review"
+                alt="Toronto-area detached home in a documented private mortgage investment file"
                 fill
                 loading="lazy"
                 sizes="(max-width: 820px) 90vw, 36vw"

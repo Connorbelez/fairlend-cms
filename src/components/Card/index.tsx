@@ -76,6 +76,7 @@ export const Card: React.FC<CardProps> = (props) => {
         {!metaImage && isJournal ? (
           <Image
             alt=""
+            aria-hidden="true"
             className="object-cover grayscale opacity-85 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.025]"
             fill
             sizes="(max-width: 767px) 100vw, 50vw"

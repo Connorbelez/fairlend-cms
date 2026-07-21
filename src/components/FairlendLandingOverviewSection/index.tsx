@@ -441,6 +441,7 @@ function TorontoIllustration() {
       <div className="fairlend-toronto-skyline absolute inset-0">
         <Image
           alt=""
+          aria-hidden="true"
           className="absolute bottom-[-28px] left-[-14%] h-auto w-[160%] max-w-none opacity-[0.82] grayscale [filter:grayscale(1)_contrast(1.12)_brightness(1.02)]"
           data-overview-skyline
           height={1000}
@@ -463,9 +464,9 @@ export function FairlendLandingOverviewSection() {
       data-testid="fairlend-landing-overview-section"
       id="overview"
     >
-      <div className="mx-auto grid w-full max-w-[1672px] gap-12 lg:min-h-[calc(100svh-116px)] lg:grid-cols-2 lg:gap-0 2xl:grid-cols-[minmax(0,1fr)_660px]">
+      <div className="mx-auto grid w-full max-w-[1672px] gap-12 lg:min-h-[calc(100svh-116px)] lg:grid-cols-2 lg:items-start lg:gap-0 2xl:grid-cols-[minmax(0,1fr)_660px]">
         <div
-          className="relative isolate flex min-h-[760px] min-w-0 flex-col overflow-hidden lg:sticky lg:top-[58px] lg:h-[calc(100svh-116px)] lg:min-h-[calc(100svh-116px)] lg:self-start"
+          className="relative isolate flex min-h-[760px] min-w-0 flex-col overflow-hidden lg:sticky lg:top-[58px] lg:min-h-[calc(100svh-116px)] lg:self-start"
           data-overview-who-panel
         >
           <TorontoIllustration />
@@ -603,6 +604,7 @@ export function FairlendLandingOverviewSection() {
           <div className="relative mt-auto block h-[320px] lg:hidden" data-overview-mobile-skyline>
             <Image
               alt=""
+              aria-hidden="true"
               className="object-contain object-bottom opacity-[0.82] grayscale [filter:grayscale(1)_contrast(0.86)_brightness(1.15)]"
               fill
               sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 1023px) calc(100vw - 64px), 0px"

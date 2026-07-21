@@ -1,0 +1,64 @@
+{
+  "generatedOn": "2026-07-28",
+  "totalQualified": 120,
+  "categoryCounts": {
+    "adjacentChannels": 10,
+    "brokerAgentEducation": 15,
+    "builderEducation": 15,
+    "builderGroups": 20,
+    "investorEducation": 15,
+    "investorGroupsAndMeetups": 20,
+    "shortTermRental": 10,
+    "tradeEvents": 15
+  },
+  "primaryTypeCounts": {
+    "ADJACENT_PROFESSIONAL_EDUCATION": 9,
+    "BROKERAGE_TRAINING": 2,
+    "BROKER_EDUCATION": 10,
+    "BUILDER_ASSOCIATION": 13,
+    "BUILDER_MEETUP": 2,
+    "BUILDER_RENOVATOR_GROUP": 7,
+    "CONFERENCE": 9,
+    "CONSTRUCTION_EDUCATION_SERIES": 13,
+    "EXPO": 2,
+    "INVESTOR_RECURRING_GROUP": 20,
+    "INVESTOR_SEMINAR": 3,
+    "INVESTOR_WEBINAR_SERIES": 8,
+    "INVESTOR_WORKSHOP": 4,
+    "OTHER_SPEAKER_CHANNEL": 1,
+    "REAL_ESTATE_BOARD_EDUCATION": 3,
+    "SHORT_TERM_RENTAL_COMMUNITY": 9,
+    "SHORT_TERM_RENTAL_EVENT": 1,
+    "TRADE_SHOW": 4
+  },
+  "tierCounts": {
+    "TIER_A": 114,
+    "TIER_B": 6
+  },
+  "accessClassCounts": {
+    "A_OPEN_APPLICATION": 11,
+    "B_PROGRAM_CONTACT": 42,
+    "C_PROVEN_GUEST_FORMAT": 47,
+    "D_SPONSOR_EDUCATION": 10,
+    "E_ORGANIZER_ROUTE_ONLY": 10
+  },
+  "uniqueOpportunitySeries": 120,
+  "uniqueEventOccurrences": 120,
+  "distinctOrganizations": 96,
+  "sourceCount": 296,
+  "uniqueSourceUrls": 221,
+  "resolvedSourceUrls": 208,
+  "explicitlyInaccessibleSourceUrls": 13,
+  "crmSnapshotCount": 181,
+  "sourceControlledExclusionRecords": 260,
+  "sourceControlledExclusionNames": 260,
+  "withinCorpusDuplicateSeries": 0,
+  "withinCorpusDuplicateOccurrences": 0,
+  "sourceControlledCollisions": 0,
+  "files": [
+    "fairlend-speaker-opportunities-2026-07-28.json",
+    "fairlend-speaker-opportunities-2026-07-28.csv",
+    "fairlend-speaker-opportunities-2026-07-28.md",
+    "fairlend-speaker-opportunities-rejections-watchlist-2026-07-28.md"
+  ]
+}

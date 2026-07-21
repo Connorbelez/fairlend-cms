@@ -1,7 +1,5 @@
-'use client'
-
-import type { ReactElement } from 'react'
-import { HelpCircle, ShieldAlert } from 'lucide-react'
+import type { ReactElement, ReactNode } from 'react'
+import { ChevronDown, HelpCircle, ShieldAlert } from 'lucide-react'
 
 import {
   Accordion,
@@ -9,21 +7,40 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
+import { cn } from '@/utilities/ui'
 
 import './borrower-faq.css'
 
-type FaqItem = {
+export type FairlendGroupedFaqItem = {
   id: string
   question: string
   answer: string
 }
 
-type FaqGroup = {
+export type FairlendGroupedFaqGroup = {
+  id?: string
   title: string
-  items: readonly FaqItem[]
+  summary?: string
+  items: readonly FairlendGroupedFaqItem[]
 }
 
-const faqGroups: readonly FaqGroup[] = [
+type FairlendGroupedFaqProps = {
+  afterHeader?: ReactNode
+  className?: string
+  groupIdPrefix?: string
+  groups: readonly FairlendGroupedFaqGroup[]
+  headingId: string
+  id?: string
+  intro: string
+  kicker: string
+  openFirstQuestion?: boolean
+  showGroupMeta?: boolean
+  sideNote: ReactNode
+  title: string
+  variant?: 'borrower' | 'gardenSuite'
+}
+
+const faqGroups: readonly FairlendGroupedFaqGroup[] = [
   {
     title: 'Fit and process',
     items: [
@@ -97,6 +114,140 @@ const faqGroups: readonly FaqGroup[] = [
 ]
 
 /**
+ * Reusable ruled FAQ register. The borrower section remains the default
+ * variant; Garden Suite financing supplies its own content and visual modifier.
+ */
+export function FairlendGroupedFaq({
+  afterHeader,
+  className,
+  groupIdPrefix = 'faq',
+  groups,
+  headingId,
+  id,
+  intro,
+  kicker,
+  openFirstQuestion = true,
+  showGroupMeta = false,
+  sideNote,
+  title,
+  variant = 'borrower',
+}: FairlendGroupedFaqProps): ReactElement {
+  return (
+    <section
+      aria-labelledby={headingId}
+      className={cn('borrower-faq', variant === 'gardenSuite' && 'garden-suite-faq', className)}
+      data-borrower-faq={variant === 'borrower' ? '' : undefined}
+      data-faq-variant={variant}
+      id={id}
+    >
+      <div className="borrower-faq__inner">
+        <div className="borrower-faq__header">
+          <p className="borrower-faq__kicker">{kicker}</p>
+          <h2 className="borrower-faq__title" id={headingId}>
+            {title}
+          </h2>
+          <p className="borrower-faq__intro">{intro}</p>
+        </div>
+
+        {afterHeader}
+
+        <div className="borrower-faq__content">
+          <div className="borrower-faq__side-note">
+            <ShieldAlert aria-hidden="true" size={20} strokeWidth={1.7} />
+            <p>{sideNote}</p>
+          </div>
+
+          <div
+            className="borrower-faq__groups"
+            id={variant === 'gardenSuite' ? 'garden-suite-faq-groups' : undefined}
+          >
+            {groups.map((group, groupIndex) => (
+              variant === 'gardenSuite' ? (
+                <details
+                  className="borrower-faq__group"
+                  data-faq-group
+                  id={group.id ? `${groupIdPrefix}-${group.id}` : undefined}
+                  key={group.id || group.title}
+                  open={groupIndex === 0}
+                >
+                  <summary className="borrower-faq__group-title">
+                    <HelpCircle aria-hidden="true" size={17} strokeWidth={1.8} />
+                    <span className="borrower-faq__group-heading" role="heading" aria-level={3}>
+                      {group.title}
+                    </span>
+                    {showGroupMeta ? (
+                      <span className="borrower-faq__group-count">
+                        {group.items.length} {group.items.length === 1 ? 'question' : 'questions'}
+                      </span>
+                    ) : null}
+                    <ChevronDown aria-hidden="true" className="borrower-faq__group-chevron" />
+                  </summary>
+                  <div className="borrower-faq__group-body">
+                    {group.summary ? (
+                      <p className="borrower-faq__group-summary">{group.summary}</p>
+                    ) : null}
+                    <div className="borrower-faq__accordion">
+                      {group.items.map((item) => (
+                        <details
+                          className="borrower-faq__item"
+                          data-faq-question
+                          key={item.id}
+                        >
+                          <summary className="borrower-faq__trigger">
+                            <span>{item.question}</span>
+                            <ChevronDown aria-hidden="true" />
+                          </summary>
+                          <div className="borrower-faq__answer">
+                            {item.answer.split('\n\n').map((paragraph) => (
+                              <p key={paragraph}>{paragraph}</p>
+                            ))}
+                          </div>
+                        </details>
+                      ))}
+                    </div>
+                    <a className="borrower-faq__back-to-topics" href="#garden-suite-faq-topics">
+                      Back to topics <span aria-hidden="true">↑</span>
+                    </a>
+                  </div>
+                </details>
+              ) : (
+                <section className="borrower-faq__group" key={group.id || group.title}>
+                  <h3 className="borrower-faq__group-title">
+                    <HelpCircle aria-hidden="true" size={17} strokeWidth={1.8} />
+                    <span>{group.title}</span>
+                  </h3>
+                  <Accordion
+                    className="borrower-faq__accordion"
+                    collapsible
+                    defaultValue={
+                      openFirstQuestion && groupIndex === 0 ? group.items[0]?.id : undefined
+                    }
+                    type="single"
+                  >
+                    {group.items.map((item) => (
+                      <AccordionItem className="borrower-faq__item" key={item.id} value={item.id}>
+                        <AccordionTrigger className="borrower-faq__trigger">
+                          {item.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="borrower-faq__answer">
+                          {item.answer.split('\n\n').map((paragraph) => (
+                            <p key={paragraph}>{paragraph}</p>
+                          ))}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </section>
+              )
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/**
  * Section 8 - FAQ / objections.
  *
  * The hard answers live here: no guaranteed approval, timing qualifiers, total
@@ -104,57 +255,13 @@ const faqGroups: readonly FaqGroup[] = [
  */
 export function FairlendBorrowerFaq(): ReactElement {
   return (
-    <section aria-labelledby="borrower-faq-title" className="borrower-faq" data-borrower-faq>
-      <div className="borrower-faq__inner">
-        <div className="borrower-faq__header">
-          <p className="borrower-faq__kicker">Hard answers</p>
-          <h2 className="borrower-faq__title" id="borrower-faq-title">
-            Questions to ask before taking private money.
-          </h2>
-          <p className="borrower-faq__intro">
-            Private mortgage financing should be understood before it is signed. Start here, then
-            bring your property, deadline, current mortgage, and amount needed to the consultation.
-          </p>
-        </div>
-
-        <div className="borrower-faq__content">
-          <div className="borrower-faq__side-note">
-            <ShieldAlert aria-hidden="true" size={20} strokeWidth={1.7} />
-            <p>
-              A private mortgage is not risk-free and approval is not guaranteed. The point of the
-              review is to make the tradeoffs visible before you decide.
-            </p>
-          </div>
-
-          <div className="borrower-faq__groups">
-            {faqGroups.map((group) => (
-              <section className="borrower-faq__group" key={group.title}>
-                <h3 className="borrower-faq__group-title">
-                  <HelpCircle aria-hidden="true" size={17} strokeWidth={1.8} />
-                  {group.title}
-                </h3>
-                <Accordion
-                  className="borrower-faq__accordion"
-                  collapsible
-                  defaultValue={group.items[0]?.id}
-                  type="single"
-                >
-                  {group.items.map((item) => (
-                    <AccordionItem className="borrower-faq__item" key={item.id} value={item.id}>
-                      <AccordionTrigger className="borrower-faq__trigger">
-                        {item.question}
-                      </AccordionTrigger>
-                      <AccordionContent className="borrower-faq__answer">
-                        {item.answer}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </section>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
+    <FairlendGroupedFaq
+      groups={faqGroups}
+      headingId="borrower-faq-title"
+      intro="Private mortgage financing should be understood before it is signed. Start here, then bring your property, deadline, current mortgage, and amount needed to the consultation."
+      kicker="Hard answers"
+      sideNote="A private mortgage is not risk-free and approval is not guaranteed. The point of the review is to make the tradeoffs visible before you decide."
+      title="Questions to ask before taking private money."
+    />
   )
 }

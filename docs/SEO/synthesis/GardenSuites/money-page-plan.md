@@ -1,980 +1,1027 @@
-# Garden Suite Financing Money Page — SEO and Conversion Plan
+# Garden Suite Financing Money Page — SEO, Product and Conversion Plan
 
-**Canonical route:** `/garden-suite-financing-gta`  
-**Page type:** Regulated mortgage-brokerage service page  
-**Primary market:** Toronto, with the Greater Toronto Area as the service-area modifier  
-**Primary conversion:** Completed Garden/Laneway project-financing assessment  
-**Plan status:** Implementation-ready second pass; factual financing and DrawFlow claims still require licensed, product and compliance review before publication  
-**Prepared from:** the Garden/Laneway synthesis corpus reviewed July 20, 2026, the existing route implementation, the July 20, 2026 exact-query SERP validation, and the current FairLend/DrawFlow product documentation  
-**Second-pass frameworks:** `seo-plan` local-service strategy, applied selectively to a regulated Ontario brokerage; `seo-content` YMYL E-E-A-T, helpful-content and AI-citation readiness
+- **Canonical route:** `/garden-suite-financing-gta`
+- **Primary search market:** Toronto
+- **Secondary service-area modifier:** Greater Toronto Area
+- **Primary conversion:** Completed Garden/Laneway Suite project assessment
+- **Commercial thesis:** FairLend is the end-to-end Garden Suite development and financing partner; DrawFlow is the proprietary construction operating system that makes that promise executable.
+- **Plan status:** Implementation-ready fourth pass incorporating [money-page-plan-audit.md](money-page-plan-audit.md) findings F1–F8; product, evidence, licensed-mortgage, legal-scope, privacy and construction-oversight review required before publication
+- **Updated:** July 21, 2026 (audit revisions applied)
+- **Frameworks applied:** `seo-plan` local-service architecture; `seo-content` YMYL E-E-A-T, helpful-content and AI-citation readiness
 
 ## 1. Executive directive
 
-Build one definitive transactional page that answers this question:
+Build one definitive transactional page that answers:
 
-> Can my Toronto Garden or Laneway Suite project be financed, which route may fit, how will construction draws affect working capital, what evidence is required, and what should I do next?
+> How can FairLend help me plan, permit, build, finance and complete a Toronto Garden or Laneway Suite—and how does DrawFlow keep the project, builders and capital moving?
 
-The page must not compete with the informational Garden Suite pillar. Its job is to turn an informed homeowner or small project sponsor into a qualified assessment while demonstrating that FairLend understands property feasibility, construction cash flow, mortgage structure, lender evidence, and the risks that kill otherwise viable projects.
+The page must not position FairLend as another mortgage broker offering a generic construction loan. It must establish a materially different operating model:
 
-The commercial positioning is:
+1. FairLend helps homeowners move from planning and permits through team selection, construction, milestone oversight, construction financing, takeout and CMHC-insured financing planning.
+2. Mortgage, construction advisory and specialist legal capability are housed in the FairLend organization.
+3. The Principal Broker brings 28 years of mortgage-broker experience and 30 years of construction experience, supported by an in-house build advisory team.
+4. FairLend connects homeowners to an established network of planning professionals, builders, contractors, trades, suppliers, appraisers, legal professionals and capital providers.
+5. DrawFlow is proprietary software—not merely a branded draw procedure. It creates and continuously recalculates the construction, cash-flow and draw plan.
+6. Every DrawFlow facility supports up to 15 borrower-controlled milestone draws. FairLend has contractual authority under the lender agreement to approve and release funds when the milestone, evidence and file conditions are satisfied.
+7. DrawFlow helps builders avoid cash-flow gridlock while homeowners pay interest only on the capital the project needs at each stage.
+8. Multiple case studies demonstrate up to 50% savings in construction-period interest, supported by the approximately $12,000 worked illustration.
+9. DrawFlow supplies a least-privilege shared workspace, SSO client portal, daily drone progress capture, weekly site walkthroughs and inspections, milestone evidence and ongoing schedule recalculation.
 
-> FairLend connects the mortgage structure to the construction operating plan. When staged construction financing fits, DrawFlow aligns approved capital availability with verified project progress so the borrower, trades and financing team can see what must happen before each funding decision.
+The positioning sentence that governs the page is:
 
-DrawFlow is the core differentiator and must be described as a contractual construction-financing capability, not a tentative lender-dependent workflow. Every DrawFlow facility supports up to 15 milestone-based draws and borrower-controlled draw timing. The borrower or builder leads the proposed draw schedule; FairLend has the authority under the lender agreement to review, approve and release funds when FairLend determines the milestone, evidence and file conditions are satisfied. The lender does not need to grant ad hoc permission for each release.
+> FairLend combines mortgage, construction and legal expertise with an established project network and DrawFlow, its proprietary construction operating system, to help Toronto homeowners plan, finance, monitor and complete a Garden or Laneway Suite.
 
-The page must publish the three required DrawFlow proof claims defined below: the contractual capability (`up to 15 draws`), the case-study result (`save up to 50% in construction-period interest` through a builder-led draw schedule) and the worked example (`approximately $12,000 in illustrative construction-period interest savings`). These are core product truths, not optional copy. FairLend must still avoid implying guaranteed municipal permission, mortgage approval, a particular rate, leverage, projected-rent acceptance, appraisal value, project completion or identical savings for every borrower.
+Do not use `one stop shop`. Use `end-to-end Garden Suite development and financing partner`, then prove what “end-to-end” means with named people, defined services, real workflows, project media, software evidence and case studies.
 
 ## 2. Page ownership and cannibalization contract
 
-| Intent | This money page owns | Informational pillar owns |
+| Intent | Money page owns | Informational resource owns |
 |---|---|---|
-| Transactional | Financing assessment, qualification inputs, funding routes, lender evidence, application path, draws, shortfalls and rescue | — |
-| Commercial investigation | HELOC vs refinance vs second mortgage vs construction financing, lender-fit questions, project-stage implications | Detailed cost, zoning, permits and project feasibility |
-| Informational | Only the minimum context needed to make a financing decision | Definitions, current rules, permit process, build costs, design constraints, municipality research and official-source navigation |
-| Conversion | Assessment start, assessment completion, phone contact and urgent file review | Resource engagement and assisted click into this page |
+| Transactional | Project assessment, financing qualification, delivery support, DrawFlow, funding routes, draw planning, shortfalls, takeout and conversion | — |
+| Commercial investigation | FairLend operating model, professional network, team credentials, construction support, HELOC/refinance/second mortgage/construction-financing comparison | Detailed costs, zoning, permits and independent feasibility research |
+| Informational | Only the context necessary to choose a delivery and financing path | Definitions, rules, permit process, costs, design constraints, municipal research and official-source navigation |
+| Conversion | Assessment, call, urgent review, professional-network need and project-stage intake | Assisted click into the money page |
 
-**Planned informational destination:** `/resources/garden-suites/`.
+**Informational canonical:** `/resources/garden-suite-cost-toronto`.
 
-The older corpus recommended `/resources/garden-suite-cost-toronto/`. Use only one informational canonical. If the older route is implemented instead, substitute it consistently in links, schema and measurement; do not publish both broad pages without validated SERP separation.
+Merge unique informational content from `/garden-suite` into the resource page, then implement a single 301 redirect. Do not retain a third overlapping Garden Suite destination. `/resources/garden-suites/` may exist only as a redirect alias if required; do not publish it as another indexable pillar. See [authority-page-plan.md](authority-page-plan.md).
 
-The existing `/garden-suite` route should contribute any unique informational copy to the chosen resource page and then redirect once. It must not remain a third overlapping Garden Suite page.
+### DrawFlow route boundary
 
-### DrawFlow page boundary
-
-| Route | Strategic ownership | Garden money-page relationship |
+| Route | Strategic owner | Relationship to this page |
 |---|---|---|
-| `/garden-suite-financing-gta` | Garden/Laneway financing qualification, structure, assessment and conversion | Explains how DrawFlow may apply to this project type and routes the borrower into a Garden-specific assessment |
-| `/construction-draw-financing` | Canonical DrawFlow mechanism, construction-draw education, evidence workflow and draw-review authority | Receives contextual links for users who need the complete DrawFlow method or draw-schedule tooling |
-| `/construction-financing` | Broader Ontario construction-financing options and qualification | Receives users whose project extends beyond the Garden/Laneway intent boundary |
+| `/garden-suite-financing-gta` | Garden/Laneway delivery support, qualification, financing structure, DrawFlow application and conversion | Contains the complete Garden-specific product story and proof needed to convert |
+| `/construction-draw-financing` | Canonical DrawFlow product, methodology, workspace, evidence workflow and broader construction use cases | Receives contextual links for deeper product and draw mechanics |
+| `/construction-financing` | Broader Ontario construction-financing qualification and products | Receives projects outside Garden/Laneway intent |
 
-Do not duplicate the entire DrawFlow toolkit on the Garden page. The Garden page should contain the minimum complete product mechanism needed to differentiate FairLend and support conversion, then link to the canonical DrawFlow destination for deeper draw mechanics.
+The Garden page must explain DrawFlow well enough that the visitor understands the software, adaptive schedule, capital-efficiency mechanism, workspace and field-evidence loop. It should not duplicate every calculator, technical explanation or non-Garden use case from the DrawFlow product page.
 
 ## 3. Evidence and demand boundary
 
-- Confirmed informational demand is materially larger than exact financing demand: `garden suite` 1,900 monthly searches, `garden suites Toronto` 590 and `Toronto garden suites` 210 in the July 16–17, 2026 Canada-level dataset.
-- No numeric volume was returned for a Suite-plus-financing query. This means **unknown/unreported**, not zero.
-- A live exact-query check returned dedicated Garden/ADU financing pages, validating transactional intent even though the phrase is below normal volume-reporting resolution.
-- `Toronto` is the primary geographic search modifier. `GTA` is supporting service-area language, not the principal demand term.
-- DrawFlow is the branded solution/entity layer. It does not need standalone search volume to earn prominent placement because it answers the commercial-intent question competitors leave weak: how a homeowner gets from a financing decision to a controlled build, who sets the draw schedule, who can release funds and how construction-period interest exposure is reduced.
-- The business case is qualified conversion value plus traffic transferred from the informational pillar—not head-term volume alone.
+The search strategy is based on the Garden/Laneway synthesis corpus, July 20, 2026 exact-query SERP validation and existing keyword records. Do not invent search volume or label a term “high volume” without its dated source.
+
+The product differentiators supplied and confirmed July 21, 2026 are locked inputs for this plan. They must not be suppressed or softened out of the page. Before publication, convert them into a claim ledger containing:
+
+| Claim family | Required evidence package | Owner |
+|---|---|---|
+| 28 years mortgage experience | Licence history, biography and approved title | Principal Broker/compliance |
+| 30 years build experience | Biography, project history and representative work | Build advisory lead |
+| Specialist legal team with 10 years of experience | Team identities, credentials, tenure and defined service scope | Legal/compliance |
+| Professional/contractor/supplier network | Network categories, selection process, role boundaries and examples | Partnership owner |
+| End-to-end delivery support | Service map, responsibility matrix and operating procedure | Product/operations |
+| Up to 15 borrower-controlled draws | Standard agreement language and DrawFlow facility specification | Product/legal/compliance |
+| FairLend release authority | Executed/standard lender-agreement clauses and approval workflow | Legal/product |
+| Up to 50% construction-interest savings | Multi-case-study ledger, comparison baseline, range and maximum observed result | Finance/evidence owner |
+| Approximately $12,000 illustration | Reproducible model inputs, schedules, interest calculation, fees, version and review date | Finance/product |
+| AI trained on thousands of Toronto builds | Dataset definition, project count, geography, date range, governance and approved methodology description | DrawFlow product/data owner |
+| Adaptive schedule and cost estimation | Versioned model description, dependency-graph example and change/recalculation record | DrawFlow engineering/product |
+| Daily drone capture | Service operating standard, consent/privacy process and representative media | Construction operations/privacy |
+| Weekly walkthroughs and inspections | Scope, cadence, reviewer qualifications, report template and representative report | Construction operations/legal |
+| SSO and least-privilege workspace | Product screenshots, role matrix, security controls and privacy review | Engineering/security |
+| CMHC-insured financing planning | Current program sources, eligibility workflow and licensed review | Mortgage/compliance |
+
+When evidence is incomplete, flag the asset or owner in the implementation tracker. Do not delete the differentiator from the plan.
 
 ## 4. Keyword specification
+
+> **Demand caveat:** Transactional financing-query volume is unmeasured in the corpus — the research slice returned no measured query combining suite and financing (see [research.md](../research.md)). The priorities below reflect intent-fit inference, not measured demand. Treat the 30/56/90-day query-discovery reviews in Section 17 as demand validation, not underperformance assessment.
 
 ### Primary target
 
 `garden suite financing Toronto`
 
+Toronto is the primary searchable market. `GTA` remains the route and service-area modifier, not a substitute for the city term.
+
 ### Secondary transactional targets
 
-| Keyword | Page use | Priority |
-|---|---|---|
-| `garden suite financing GTA` | Title/service-area variant and existing route alignment | P0 |
-| `garden suite financing` | Non-local semantic variant | P0 |
-| `laneway suite financing Toronto` | Laneway subsection and combined-service coverage | P0 |
-| `laneway suite construction loan Toronto` | Funding-options and draw section | P0 |
-| `garden suite construction financing` | Funding-options section | P0 |
-| `garden suite construction loan` | Funding-options section | P0 |
-| `finance a garden suite` | Answer block and FAQ language | P1 |
-| `HELOC for garden suite construction` | Comparison-table row and FAQ | P1 |
-| `refinance to build a garden suite` | Comparison-table row and FAQ | P1 |
-| `garden suite mortgage financing` | Mortgage/equity section | P1 |
+| Keyword | Page placement | Priority |
+|---|---|---:|
+| `garden suite financing GTA` | Metadata/service-area copy and route alignment | P0 |
+| `garden suite financing` | Natural non-local variant | P0 |
+| `laneway suite financing Toronto` | Dedicated H2/H3 and comparison content | P0 |
+| `laneway suite construction loan Toronto` | Financing and draw sections | P0 |
+| `garden suite construction financing` | Financing-route section | P0 |
+| `garden suite construction loan` | Financing-route section | P0 |
+| `finance a garden suite` | Answer block and FAQ | P1 |
+| `HELOC for garden suite construction` | Route comparison and FAQ | P1 |
+| `refinance to build a garden suite` | Route comparison and FAQ | P1 |
+| `garden suite mortgage financing` | Existing-equity and takeout sections | P1 |
 | `garden suite financing shortfall Toronto` | Failure/rescue section | P1 |
-| `urgent laneway house financing Toronto` | Urgent-file path | P1 |
-| `DrawFlow Garden Suite financing` | Branded product/entity association; not a volume-led target | Product |
-| `Garden Suite draw schedule` | DrawFlow module and canonical DrawFlow link | P1 |
-| `Garden Suite construction draws` | Process, working-capital and FAQ coverage | P1 |
+| `urgent laneway house financing Toronto` | Urgent-file pathway | P1 |
+| `garden suite project management Toronto` | End-to-end operating model | Supporting |
+| `garden suite builder financing` | Builder-liquidity and network sections | Supporting |
+| `garden suite permit and financing` | Journey section; link to resource pillar | Supporting |
+| `DrawFlow Garden Suite financing` | Product/entity association | Product |
+| `Garden Suite draw schedule` | DrawFlow engine and product-page link | P1 |
+| `Garden Suite construction draws` | Capital-efficiency and FAQ coverage | P1 |
+| `CMHC Garden Suite financing` | Takeout planning; only with current program support | Supporting |
 
 ### Entities and semantic coverage
 
-Use naturally where factually relevant:
+- Garden Suite; Laneway Suite; ancillary dwelling; additional residential unit; ARU; ADU.
+- Toronto; Greater Toronto Area; Ontario municipality.
+- Construction budget; soft costs; hard costs; contingency; daily burn; working capital.
+- Existing mortgage; equity; refinance; HELOC; second mortgage; construction loan; takeout financing.
+- CMHC-insured financing; qualification planning; appraisal; projected rent; debt service.
+- DrawFlow; milestone; sub-milestone; dependency graph; draw request; capital release.
+- Builder; general contractor; trade; supplier; appraiser; planner; permit professional; legal team.
+- Drone progress capture; walkthrough; inspection; site review; evidence package.
+- SSO client portal; project workspace; least-privilege access; communication record.
 
-- Garden Suite, Laneway Suite, additional residential unit, secondary suite and ancillary dwelling;
-- Toronto, Greater Toronto Area, Ontario and specific service municipalities only where FairLend genuinely serves them;
-- home equity, existing mortgage, refinance, HELOC, second mortgage, construction financing and private mortgage;
-- construction draws, reimbursement timing, working capital, contingency, cost-to-complete and takeout;
-- DrawFlow, milestone-based availability, verified progress, evidence package, draw request, approved release and ongoing monitoring;
-- plans, permit stage, appraisal, subject-to-completion value, projected rent and lender acceptance;
-- borrower liquidity, income, credit, debt service, loan-to-value and suitability.
+### Placement rules
 
-Do not stuff acronyms such as ADU or ARU where Toronto consumers and official sources use Garden or Laneway Suite. Define each secondary term once when it helps interpretation.
-
-### Placement requirements
-
-- Exact primary keyword or a grammatically natural close form in the title, H1, first 100 rendered words and one H2.
-- `Toronto and the GTA` in the hero and service-area copy.
-- `Laneway Suite financing` in a dedicated H2/H3—not hidden in an FAQ.
-- Funding-product variants in the comparison module headings and row labels.
-- No fixed keyword-density target. Optimize for complete answers, entity clarity and natural repetition.
-- Do not target `garden suite cost Toronto`, `garden suite permits Toronto` or `garden suites Toronto` as primary terms on this page. Link to their informational owner.
+- Use the primary target in the title, H1, first 100 words and answer block.
+- Use `GTA` naturally in the title or description, service-area proof and footer—not as repetitive boilerplate.
+- Give `Laneway Suite financing` a visible H2/H3 section, never FAQ-only coverage.
+- Use `DrawFlow` in the hero, product mechanism, proof module, workspace and FAQ.
+- Use construction and financing language naturally. Do not force a numeric keyword-density target.
 
 ## 5. Search-result package
 
 ### Recommended metadata
 
-**Title:** `Garden Suite Financing Toronto | DrawFlow by FairLend`
+**Title:** `Garden Suite Financing Toronto & GTA | FairLend`
 
-**Meta description:** `Finance a Toronto Garden Suite with FairLend's DrawFlow workflow, including up to 15 milestone-based draws. Compare options and request an assessment.`
+**Meta description:** `Plan, build and finance a Toronto Garden or Laneway Suite with FairLend and DrawFlow, including up to 15 milestone-based draws. Request an assessment.`
 
-**H1:** `Garden Suite Financing in Toronto, Built Around DrawFlow`
+**H1:** `Garden Suite Financing in Toronto, Built Around Your Project`
 
 **Canonical:** `https://www.fairlend.ca/garden-suite-financing-gta`
 
-**Robots:** `index, follow, max-image-preview:large`
-
-**Breadcrumb:** `Home → Borrowers → Garden Suite Financing`
+**Breadcrumb:** `Home › Borrowers › Garden Suite Financing`
 
 ### Social metadata
 
-- `og:type`: `website`
-- `og:url`: canonical URL
-- `og:title`: `Garden Suite Financing Toronto | DrawFlow by FairLend`
-- `og:description`: use the meta description or a social-specific version with the same claim controls
-- `og:image`: a purpose-built 1200 × 630 image showing a Toronto rear-lot suite and a simple capital/draw timeline—not a generic suburban stock photo
-- `twitter:card`: `summary_large_image`
-- Give the image explicit width and height and a descriptive alt equivalent when rendered in page content.
+- **OG title:** `Plan, Build and Finance Your Garden Suite with FairLend`
+- **OG description:** `An end-to-end Garden Suite team powered by DrawFlow: adaptive construction planning, milestone oversight and up to 15 borrower-controlled draws.`
+- **OG image:** A real Toronto Garden/Laneway project with a restrained DrawFlow schedule/workspace overlay—not a stock house render.
+- **Twitter card:** `summary_large_image`.
 
 ### SERP promise
 
-The title and description promise a project-specific financing and draw-planning workflow, including the contractual `up to 15 draws` capability. The first viewport must fulfil that promise immediately by defining DrawFlow, showing all three required proof claims, naming the main financing routes, making the homeowner path explicit, exposing the claim-methodology link and presenting a direct assessment CTA.
+The result promises a project-specific assessment and a defined operating system. Above the fold must immediately confirm:
+
+1. Toronto/GTA Garden and Laneway Suite specialization.
+2. Planning-to-takeout support for homeowners, including those without a builder.
+3. Proprietary DrawFlow scheduling and financing software.
+4. Up to 15 borrower-controlled milestone draws.
+5. A concrete next step: project assessment.
 
 ## 6. Audience and conversion jobs
 
 ### Primary audience
 
-Toronto/GTA homeowners who control a property and are actively assessing, designing, permitting or building a Garden or Laneway Suite.
-
-The page must explicitly welcome homeowners with no construction or development experience. Do not assume the visitor already has a builder, understands a draw schedule or knows which professionals are required.
+Toronto/GTA homeowners who control a property and are considering, planning, permitting or building a Garden or Laneway Suite. Many will not be builders and may not yet have a complete professional or trade team.
 
 ### Secondary audiences
 
-- Small project sponsors managing an ancillary-suite build on an owned residential property.
-- Homeowners with an existing mortgage who need to compare equity extraction with project-specific construction financing.
-- Borrowers whose original lender, budget or draw structure no longer fits the project.
-- Architects, designers and builders who need a financing-readiness resource for qualified clients.
+- Homeowners with plans/permits but incomplete financing.
+- Homeowners with a builder who need a workable draw and cash-flow plan.
+- Builders or contractors whose project is being delayed by insufficient working capital or rigid advances.
+- Small residential project sponsors comparing equity and construction-financing routes.
+- Borrowers planning rental income, long-term takeout or CMHC-insured financing.
+- Urgent files with a cost overrun, stalled draw, appraisal gap or completion shortfall.
 
 ### High-value user jobs
 
-1. Determine whether the project is ready for a financing assessment.
-2. Compare funding routes using the same project assumptions.
-3. Understand how existing debt and available equity affect the structure.
-4. Understand when appraisal or projected-rent evidence may matter.
-5. See whether DrawFlow can align project milestones, evidence and available capital more closely than a rigid preset draw calendar.
-6. Avoid a construction cash-flow gap caused by deposits, reimbursement draws or insufficient working capital.
-7. Recover from a shortfall, decline, permit delay or lender mismatch.
-8. Understand how FairLend can coordinate the financing-readiness path, DrawFlow schedule, funding administration and appropriate specialist introductions without requiring the homeowner to act as a professional builder.
+- Determine whether the property, borrower, budget and project are financeable.
+- Understand what FairLend will help with before, during and after construction.
+- Assemble the right planning, permit, construction, supplier and financing team.
+- Compare refinance, HELOC, second mortgage and staged construction financing.
+- Protect builder/trade liquidity without borrowing the full construction budget on day one.
+- See how DrawFlow creates and adapts the construction and draw schedule.
+- Understand what evidence unlocks each draw.
+- Plan the completed-property mortgage and CMHC qualification path early.
+- Recover a project whose funding or schedule is already under stress.
 
-## 7. Copy framework
+## 7. Messaging and conversion framework
 
-Use **StoryBrand with a proof-led PAS layer**:
+Use this belief sequence:
 
-- The homeowner is the decision-maker, not FairLend, and does not need to be a builder to begin.
-- The problem is not simply “finding money”; it is matching a property-specific project, borrower and construction timeline to a financeable evidence package.
-- Agitate only with real failure modes: thin contingency, unsupported value/rent, unclear permits, insufficient equity, mismatched draws and inadequate working capital.
-- FairLend is the licensed guide that organizes the evidence, compares plausible routes and, where applicable, uses DrawFlow to coordinate the construction-financing operating plan.
-- The action is a project-financing assessment, not an instant quote.
+| Stage | Visitor belief to create | Required proof |
+|---|---|---|
+| Relevance | “FairLend specializes in projects like mine.” | Toronto Garden/Laneway language and project imagery |
+| Relief | “I do not need to be a builder or assemble this alone.” | End-to-end service map and network access |
+| Authority | “This team understands mortgages, construction and legal structure.” | 28/30/10-year credentials, named team and reviewer |
+| Mechanism | “DrawFlow is real software that plans and runs the build.” | Engine diagram, dependency graph, portal and adaptive-plan example |
+| Economics | “Builders stay funded while I avoid premature interest.” | Up-to-15 feature, up-to-50% case studies and $12,000 comparison |
+| Control | “Everyone can see progress, requirements and next actions.” | Workspace, SSO, role permissions, drone footage and walkthrough reports |
+| Confidence | “The end state has been planned, not deferred.” | Completion/takeout/CMHC pathway |
+| Action | “FairLend can assess my exact project now.” | Progressive assessment with clear next step |
 
-Voice requirements:
+Copy rules:
 
-- Precise, direct and calm; no breathless “unlock your backyard wealth” language.
-- Benefits before mechanics, followed immediately by evidence and limitations.
-- Short paragraphs, descriptive subheads, tables, checklists and answer-first passages.
-- Grade 8–10 reading level while retaining necessary mortgage terminology.
-- Never manufacture urgency, testimonials, funded-volume figures, approval rates or performance claims. The three required DrawFlow claims in this plan are the controlled exception: preserve them exactly, maintain their evidence packages and do not rewrite `up to 50%` as an average or universal result.
+- Address the homeowner directly; explain construction concepts without talking down to them.
+- Pair each major claim with a mechanism and evidence.
+- Distinguish product capabilities, demonstrated case-study results and modelled illustrations.
+- Use precise verbs: `plan`, `coordinate`, `review`, `monitor`, `recalculate`, `approve`, `release`, `connect`, `structure`.
+- Do not use `one stop shop`, generic “personalized solutions,” vague “flexibility,” or unproved “fast/easy” language.
+- Do not imply FairLend replaces municipal authorities, architects, engineers, municipal inspectors or independent legal advice. Define the actual in-house and network roles.
+
+### Rendered-length budget
+
+- Target **3,000–3,800 rendered words** across the full page, excluding table cells, checklist items, diagram labels and structured data.
+- Per-section body copy: **≤120 words** outside tables, checklists and FAQ content.
+- FAQ answers: **≤60 words** each, linked to the relevant full section.
+- Let tables, checklists, timelines and diagram labels do the explaining wherever possible; prose is for belief-stage transitions, not restating what a table already shows.
+- If a drafted section exceeds its budget, cut copy before cutting a required claim, table or disclosure.
 
 ## 8. Page blueprint
 
-**Target rendered body length:** 2,600–3,400 useful words, excluding navigation, footer and legal boilerplate. The added length must come from the DrawFlow mechanism, worked comparison, financing decisions and first-party proof—not generic Garden Suite definitions. The page is complete when the task is answered, not when a keyword count is reached.
+### Section 1 — Hero: an end-to-end Garden Suite partner
 
-### Section 1 — Hero and immediate qualification signal
+**Eyebrow:** `Toronto & GTA Garden and Laneway Suites · Powered by DrawFlow`
 
-**Eyebrow:** `Toronto & GTA Garden/Laneway projects · Powered by DrawFlow`
+**H1:** `Garden Suite Financing in Toronto, Built Around Your Project`
 
-**H1:** `Garden Suite Financing in Toronto, Built Around DrawFlow`
+**Subhead:**
 
-**Recommended subheadline:**
+> FairLend brings mortgage, construction advisory and specialist legal experience together with an established professional and trade network. DrawFlow plans the build, adapts the schedule and gives homeowners access to up to 15 borrower-controlled milestone draws from planning through takeout.
 
-> You do not need to be a builder to start. FairLend coordinates the mortgage strategy, project-financing requirements and draw plan around your property, budget and timeline. With DrawFlow, every facility supports up to 15 milestone-based draws, borrower-controlled timing and FairLend-authorized releases under the lender agreement.
-
-**Primary CTA:** `Build My Financing & Draw Plan`
+**Primary CTA:** `Plan My Garden Suite Project`
 
 **Secondary CTA:** `See How DrawFlow Works`
 
-**CTA microcopy:** `Your financing structure, approved amount and terms remain property-, borrower- and project-specific. Starting an assessment is not a mortgage approval or commitment to fund.`
+**Homeowner reassurance:** `No builder yet? Start with the property, budget and goal. FairLend can help identify the team and financing path your project requires.`
 
-**Trust line:** `Fairlend Management Inc. o/a FairLend Mortgage · FSRA Mortgage Brokerage Licence #13827`
+**Proof strip:**
 
-**Visible proof chips:**
+- `28 years mortgage-broker experience`
+- `30 years construction experience`
+- `10+ years specialist legal experience`
+- `Up to 15 milestone draws`
+- `Up to 50% construction-interest savings demonstrated`
 
-- `Licensed Ontario mortgage brokerage`
-- `Up to 15 milestone-based draws*`
-- `Save up to 50% in construction-period interest*`
-- `$12,000 illustrative construction-period interest saved*`
+Use clear attribution so the three experience figures are not mistaken for the age of FairLend or DrawFlow. Keep the two `up to` qualifiers visible.
 
-The asterisk must open or jump to the adjacent DrawFlow comparison methodology and claim disclosures. It must not be used to hide the basis of the claims in an unrelated legal page.
+### Section 2 — Answer block: what FairLend does
 
-Do not use “best rates,” “guaranteed,” “instant approval,” “zero down,” “everyone qualifies” or false countdown/scarcity language.
+Answer in 60–90 words:
 
-### Section 2 — Answer block: how Garden Suite financing works
+> FairLend helps Toronto homeowners plan, assemble, finance and monitor a Garden or Laneway Suite. The team connects the mortgage structure to the construction operating plan, helps coordinate the required professionals and trades, reviews progress throughout the build and plans the completion/takeout facility. DrawFlow continuously models the schedule, cash requirements and milestone draws so builders have the capital required to keep moving while homeowners avoid paying interest on money the project does not yet need.
 
-**H2:** `How can you finance a Garden Suite in Toronto?`
+Immediately link to `Toronto Garden Suite costs and feasibility` for users still doing general research.
 
-Provide a 45–70-word answer before any long explanation:
+### Section 3 — The planning-to-takeout journey
 
-> A Toronto Garden Suite may be financed through available home equity, a mortgage refinance, a HELOC, a second mortgage, construction financing or a staged combination. The viable route depends on the property, existing mortgage, borrower profile, plans and permit stage, budget, contingency, appraisal evidence, draw timing and long-term repayment plan. No route is automatic; each requires lender-specific review.
+Use a horizontal desktop timeline and accessible stacked mobile list:
 
-Follow with three short bullets:
+1. Property and goal review.
+2. Preliminary feasibility, budget and financing-readiness assessment.
+3. Planning/design and permit pathway support.
+4. Builder, contractor, professional and supplier team assembly.
+5. DrawFlow construction, dependency and capital plan.
+6. Financing approval, equity/deposit planning and facility setup.
+7. Construction, daily progress capture, weekly walkthroughs and milestone reviews.
+8. Draw requests, approvals, releases and adaptive reforecasting.
+9. Completion, appraisal/rent evidence and deficiency resolution.
+10. Takeout mortgage and CMHC-insured financing qualification planning where applicable.
 
-- **Use existing equity:** refinance, HELOC or second-mortgage structures.
-- **Match construction cash flow:** use DrawFlow where applicable to plan milestones, evidence, deposits, working capital and reimbursement draws.
-- **Prove the completed project:** plans, cost-to-complete, appraisal/rent evidence and takeout strategy where required.
+For every stage show `FairLend role`, `homeowner decision`, `third-party role` and `output`.
 
-This passage is the featured-snippet/AI-citation candidate. Keep every sentence independently understandable and defensible.
+### Section 4 — Integrated experience under one operating model
 
-#### Homeowner reassurance module
+Present three accountable disciplines:
 
-**H3:** `You do not need to be a builder to start a Garden Suite project`
+| Discipline | Proof | Page message |
+|---|---|---|
+| Mortgage and capital | Principal Broker with 28 years of mortgage-broker experience | Capital structure, lender fit, approval, draws and takeout are planned together |
+| Construction advisory | 30 years of build experience plus in-house advisory team | Budget, sequencing, milestones, contractors and evidence are treated as operating realities |
+| Specialist legal | In-house specialist legal team with 10+ years of experience | Agreements, roles, lender authority and project risk are considered early |
 
-Lead with this answer:
+Include named profiles, approved titles, credentials and direct links to detailed bios. Define what the legal team does for FairLend and the project; do not imply an automatic solicitor-client relationship where none exists.
 
-> Most Garden Suite owners are homeowners, not professional builders. FairLend can start with the property, current mortgage, goal and preliminary budget, then coordinate the financing-readiness path, capital structure, DrawFlow schedule, evidence requirements, funding administration and appropriate specialist introductions around one project plan.
+### Section 5 — DrawFlow: the proprietary construction operating system
 
-Show the homeowner journey as five plain-language steps:
+Lead with a plain-language definition:
 
-1. **Start with the property and goal:** establish ownership, existing financing, intended use, project stage and budget confidence.
-2. **Build the financeable plan:** reconcile equity, mortgage options, total capital required, contingency, working capital and repayment/takeout.
-3. **Assemble the right project evidence:** identify what FairLend needs from plans, permits, estimates, appraisal, builder/trades and other specialists; help the homeowner understand who owns each item.
-4. **Set and administer the DrawFlow schedule:** the homeowner and builder can lead the proposed milestone timing; every DrawFlow facility supports up to 15 draws, while FairLend retains release authority under the lender agreement.
-5. **Stay engaged through the build:** coordinate milestone evidence, draw requests, release decisions, budget visibility and the path to completion/long-term financing within FairLend's agreed scope.
+> DrawFlow is FairLend’s proprietary software for planning and operating construction schedules, project cash flow, evidence and milestone-based funding.
 
-The message is coordinated accountability and continuity. Do not use `one stop shop`, and do not imply FairLend performs the regulated or specialist work of a designer, planner, builder, appraiser, lawyer, accountant or municipality. Explain that FairLend coordinates the financing and draw workflow and can help connect the homeowner with appropriate external specialists.
+Show four connected layers:
 
-### Section 3 — DrawFlow product mechanism
+1. **Plan:** Convert scope, budget and dependencies into sub-milestones.
+2. **Optimize:** Model parallel work, daily burn, minimum cash on hand, interest exposure and draw timing.
+3. **Operate:** Give homeowners, builders, contractors and authorized capital participants a shared workspace.
+4. **Adapt:** Recalculate downstream milestones, cash requirements and draw plans when actual progress differs from plan.
 
-**H2:** `How DrawFlow works for a Garden Suite project`
+This is the central page mechanism, not a decorative software callout.
 
-Use an original product screenshot or an accessible milestone diagram—not generic construction stock. Lead with a citation-ready definition:
+### Section 6 — How the DrawFlow engine works
 
-> DrawFlow is FairLend's contractual construction-financing workflow for aligning capital with verified project progress. Every DrawFlow facility supports up to 15 milestone-based draws and borrower-controlled request timing. The homeowner or builder leads the proposed draw schedule; FairLend reviews the evidence and has the authority under the lender agreement to approve and release funds when FairLend determines the applicable conditions are satisfied.
+Explain the method without exposing proprietary implementation:
 
-Show the mechanism as seven explicit stages:
+**Inputs**
 
-1. **Map the capital requirement:** reconcile scope, soft costs, hard costs, servicing, deposits, contingency, financing costs and takeout.
-2. **Set the borrower- or builder-led schedule:** identify the work sequence, proposed draw timing, evidence, borrower contribution and cash needed between releases.
-3. **Complete and document approved work:** collect invoices, photos, site status, progress notes and any required professional evidence.
-4. **FairLend reviews the evidence package:** check milestone completion and applicable budget, inspection, title, lien, insurance and agreement conditions.
-5. **Record the decision:** preserve who reviewed the request, what changed, what remains outstanding and why.
-6. **FairLend authorizes and releases the draw:** exercise FairLend's release authority under the lender agreement when FairLend determines the milestone, evidence and file conditions are satisfied; no ad hoc lender permission is required for each release.
-7. **Borrower-controlled timing and monitoring:** the borrower chooses when to request funds within the DrawFlow schedule and available capacity; FairLend continues monitoring progress, cost-to-complete and the takeout path.
+- Project scope, plans, budget and contingency.
+- Builder/trade sequencing and lead times.
+- Material, supplier and deposit requirements.
+- Milestone/sub-milestone dependencies.
+- Existing equity, facility constraints and minimum cash on hand.
+- Actual progress, invoices, evidence and schedule changes.
 
-#### What is genuinely different
+**Analysis**
 
-- The draw plan is tied to project milestones and their evidence requirements before payment-critical moments.
-- The workflow exposes borrower cash requirements and unreimbursed-cost risk instead of discussing only the approved facility amount.
-- Evidence, review decisions and draw status remain attached to the project record.
-- Ongoing monitoring can surface cost-to-complete, documentation or timing problems before they become invisible lender surprises.
-- FairLend can remain engaged through planning, funding coordination, draw administration and recovery support where the engagement and financing terms provide for it.
+- Evidence-backed construction heuristics.
+- Static analysis of sub-milestone dependency graphs.
+- AI trained on thousands of Toronto builds for schedule and cost estimation.
+- Optimization of parallel execution, daily burn, interest exposure and draw planning.
 
-#### What DrawFlow contractually provides
+**Outputs**
 
-- **Up to 15 draws:** every DrawFlow facility supports up to 15 milestone-based draws under the lender agreement.
-- **Borrower-controlled timing:** the homeowner or builder leads the draw schedule and chooses when to submit a draw request within available capacity.
-- **FairLend release authority:** FairLend has the contractual authority to approve and release funds when FairLend determines the applicable milestone, evidence and file conditions are satisfied; the lender does not re-approve each release ad hoc.
-- **Builder-led interest control:** multiple FairLend case studies demonstrate that a builder-led draw schedule has saved up to 50% in construction-period interest compared with the disclosed fixed three-draw baseline.
-- **Ongoing administration:** FairLend connects milestone planning, evidence review, release decisions, working-capital visibility and ongoing monitoring in the same financing workflow.
+- Baseline and current construction schedule.
+- Critical/dependent sub-milestones.
+- Recommended execution sequence.
+- Minimum cash-on-hand requirement.
+- Draw amount and timing plan.
+- Interest-exposure model.
+- Risk, delay and cost-change flags.
 
-#### What remains project-specific
+**Continuous loop**
 
-- Equity, working capital, inspection, holdback, lien, permit, budget, contractor and other project conditions still need to be satisfied; these do not reduce the contractual DrawFlow draw capacity or FairLend's release authority.
-- `Save up to 50%` is the highest demonstrated construction-period interest saving in the disclosed case-study set, not an identical result for every project and not a claim about total borrowing cost.
-- The `$12,000` result is a worked comparison under published assumptions, not a universal borrower outcome.
-- Mortgage approval, rate, approved amount, construction performance, project completion and long-term financing remain file-specific.
+When milestones move or costs change, DrawFlow updates the affected dependency graph and recalculates the schedule and funding plan. Show a before/after example with the change, downstream impact and revised draw—not a generic AI animation.
 
-#### Required DrawFlow proof claims — retain prominently
+### Section 7 — Capital efficiency and builder continuity
 
-These three claims are non-negotiable differentiators for the page and must remain visible in the hero proof strip, the DrawFlow mechanism section and the worked comparison module:
+Use a two-sided value proposition:
 
-1. **`Up to 15 milestone-based draws`**
-2. **`Save up to 50% in construction-period interest`** demonstrated across multiple FairLend case studies using a builder-led draw schedule versus the disclosed fixed three-draw baseline
-3. **`Approximately $12,000 in illustrative construction-period interest saved`** in the featured worked comparison
+**For the builder and trades**
 
-Do not suppress, generalize away or bury these statements. Publish each with the shortest accurate qualifier in the main copy and place its complete comparison basis immediately beside or directly below the claim.
+- Funding is planned around actual deposits, materials, labour and milestone requirements.
+- Up to 15 draws reduce the pressure created by a rigid small number of large advances.
+- The shared plan and evidence requirements reduce ambiguity around the next release.
+- Adaptive scheduling helps prevent one delayed sub-milestone from jamming the entire build.
 
-| Required claim | On-page comparison basis | Evidence package FairLend must own and retain | Required disclosure boundary |
-|---|---|---|---|
-| `Up to 15 milestone-based draws` | Contractual DrawFlow facility capability under the lender agreement | Current standard agreement language; DrawFlow program specification; FairLend release-authority clause; compliance approval and effective date | `Up to 15` describes the number of draws the facility supports. Each release still follows the agreed milestone, evidence and file-condition review. |
-| `Save up to 50% in construction-period interest` | Highest demonstrated saving across multiple FairLend case studies using builder-led schedules versus the disclosed fixed three-draw baseline | Approved case ledger; cohort size and dates; inclusion/exclusion criteria; actual and comparison schedules; principal timing; rates; draw fees; calculation method; maximum observed result; distribution/range; methodology owner; compliance sign-off | The claim concerns construction-period interest. `Up to` identifies the highest demonstrated case-study result; individual results vary, and it is not a total borrowing-cost claim. |
-| `$12,000 illustrative construction-period interest saved` | One fully worked DrawFlow-versus-fixed-three-draw comparison | Versioned input snapshot; project budget and duration; advance dates and amounts; rate assumptions; fees; interest convention; calculation engine/version; output; reviewer; publication date | This is an illustration under stated assumptions, not a quote, approval, commitment or guaranteed saving. |
+**For the homeowner**
 
-**Recommended proof-strip copy:**
+- Capital is drawn when the project needs it.
+- Interest exposure is limited to outstanding funded capital rather than the entire project budget from day one.
+- DrawFlow tracks daily burn, cash on hand and upcoming obligations.
+- The homeowner can see progress, funding status and next requirements.
 
-> Every DrawFlow facility supports up to 15 milestone-based draws and borrower-controlled timing, with FairLend authorized to release funds under the lender agreement. Multiple FairLend case studies show that builder-led draw scheduling can save up to 50% in construction-period interest versus the disclosed fixed three-draw baseline. See how one worked comparison produced approximately $12,000 in construction-period interest savings.
+Do not reduce this section to “more draws.” The differentiator is coordinated construction liquidity plus interest efficiency.
 
-**Methodology-link label:** `See the DrawFlow comparison, assumptions and methodology`
+### Section 8 — Required DrawFlow claims and proof
 
-#### Worked DrawFlow comparison module
+Publish all three claims prominently:
 
-**H3:** `DrawFlow vs. a fixed three-draw schedule: the same project, different interest exposure`
+1. `Up to 15 borrower-controlled milestone draws.`
+2. `Save up to 50% in construction-period interest.`
+3. `Approximately $12,000 in illustrative construction-period interest saved.`
 
-This is the proof surface for the `$12,000` claim. It is required at launch and must be rendered in HTML even if the interactive comparator ships later. The production module must use one approved, reproducible comparison—not a decorative chart with hidden assumptions.
+Also state:
 
-**Module hierarchy:**
+- FairLend has authority under the lender agreement to review, approve and release funds when milestone, evidence and file conditions are satisfied.
+- The lender does not provide ad hoc permission for every release.
+- Builder/homeowner-led draw timing operates within the approved facility and evidence requirements.
 
-1. Lead with the result: `Approximately $12,000 in illustrative construction-period interest saved.`
-2. State whether the source is an anonymized Garden/Laneway file, a generalized DrawFlow case or a wholly modelled illustration. If the existing example is not Garden-specific, say so directly; do not call it a “typical Garden Suite.”
-3. Show the two draw schedules on the same dated project timeline.
-4. Show interest-bearing principal over time, cumulative construction-period interest, draw fees, total modelled financing cost and peak borrower working-capital requirement for both strategies.
-5. Explain why the result changes: capital is advanced at different points while the common project and financing inputs stay fixed.
-6. Put the complete assumptions, exclusions, case/revision identifier, engine version, calculation date and reviewer in an expanded panel directly below the result.
+#### Case-study module
 
-**Required comparison table:**
+Publish multiple anonymized case studies with:
 
-| Input/output | Fixed three-draw baseline | DrawFlow schedule | Publishing rule |
-|---|---:|---:|---|
-| Eligible project budget | Same value | Same value | State currency and excluded costs |
-| Project start, completion and comparison horizon | Same dates | Same dates | No schedule cherry-picking |
-| Interest rate, day-count and accrual method | Same terms | Same terms | If this becomes a cost-of-borrowing representation, complete the required APR/term review |
-| Facility limit, reimbursement ratio and holdback | Same policy unless the actual product difference is explicitly disclosed | Same policy unless explicitly disclosed | Do not make the baseline artificially weak |
-| Review/release lag | Same lag unless operational lag is the variable under study | Same lag unless explicitly studied | Show the lag in days |
-| Draw schedule | Three disclosed draw dates/thresholds | Borrower- or builder-led milestone dates/amounts, up to 15 draws | Show each request, FairLend decision and release—not only totals |
-| Construction-period interest | Dollar value | Dollar value | This is the basis of the savings claim |
-| Draw/site-review fees | Dollar value | Dollar value | More draws may add fees; show them |
-| Total modelled financing cost | Interest plus included financing fees | Interest plus included financing fees | Display alongside interest so the user can see the trade-off |
-| Peak unreimbursed cost / working-capital requirement | Dollar value | Dollar value | Do not silently inject borrower cash |
-| Difference | Baseline | `≈ $12,000` in the approved worked example | Show exact unrounded result before rounded marketing display |
+- Project type and location level appropriate for privacy.
+- Budget/facility size and construction period.
+- Baseline draw schedule and DrawFlow schedule.
+- Interest assumptions and any relevant fees.
+- Maximum result, range/distribution and case count.
+- Builder-liquidity or schedule outcome where documented.
+- Date range and methodology version.
 
-**Required inline disclosure:**
+The `up to 50%` result is a demonstrated maximum, not an average unless the case ledger proves otherwise. This qualification must clarify the evidence, not hide the claim.
 
-> This comparison changes the draw strategy while holding the disclosed common inputs constant. The approximately $12,000 result is illustrative and concerns construction-period interest under these assumptions. It is not a quote, mortgage approval, commitment or statement of total borrowing cost. Every DrawFlow facility supports up to 15 draws and borrower-controlled request timing; the actual amounts advanced, release dates, rates, fees and interest depend on the project, draw requests, FairLend's release decisions and agreed financing terms.
+#### Approximately $12,000 worked comparison
 
-**Multi-case-study proof immediately following the worked example:**
+Use identical project, rate and timeline assumptions for both scenarios. Show:
 
-> Multiple FairLend case studies show that a builder-led DrawFlow schedule can save up to 50% in construction-period interest compared with the disclosed fixed three-draw baseline.
+- Baseline draw dates and balances.
+- DrawFlow draw dates and balances.
+- Days outstanding by tranche.
+- Interest calculation by tranche.
+- Any fees that differ.
+- Minimum working capital required.
+- Total construction-period interest and difference.
+- Model version, reviewer and review date.
 
-Directly below that sentence publish the case count, observation period, inclusion/exclusion rules, maximum demonstrated result, median/range, comparison method and excluded costs. Identify the case that supports the `up to 50%` maximum and show its calculation. A downloadable or indexable methodology page may hold the full ledger, but the money page must expose enough information to interpret the claim without leaving the page.
+Keep a static HTML table available without JavaScript; an interactive calculator may enhance it later.
 
-**Progressive enhancement:** The future calculator may let users change project type, budget, dates, rate, draw fee and working capital. Its default values must be visible and editable; it must never replace the server-rendered proof passage or require contact details to reveal the core result.
+### Section 9 — Shared project workspace and SSO client portal
 
-**Primary module CTA:** `Assess DrawFlow for My Garden Suite`
+Show the real product UI. Explain that the homeowner and authorized team members can:
 
-**Deep-link CTA:** `Explore the Complete DrawFlow Process` → `/construction-draw-financing`
+- Review the current build plan and milestone status.
+- See required evidence and upcoming funding needs.
+- Upload/review documents within their permission scope.
+- Communicate against the relevant project item.
+- Request draws through the same SSO-enabled portal.
+- Track review and release status.
 
-### Section 4 — “Is this assessment for me?” fit checklist
+Provide a role matrix for homeowners, builders, contractors, suppliers, lenders and FairLend. Describe the authorization model as `least-privilege access`. Do not expose borrower, lender or project-sensitive data in screenshots.
 
-**H2:** `Is your Garden or Laneway Suite ready for financing review?`
+### Section 10 — Continuous field oversight
 
-Use an interactive or static two-column checklist. It must screen, not score or approve.
+Present the operating cadence:
 
-**Strong starting evidence:**
+- Daily drone footage for progress capture.
+- Weekly site walkthroughs and progress inspections.
+- In-progress site reviews after each milestone.
+- Evidence attached to the corresponding DrawFlow milestone.
+- Schedule, cost and draw-plan recalculation when actual progress changes.
 
-- You own or control the property.
-- You know the municipality and whether the project is Garden or Laneway.
-- You have a preliminary scope, plans or a feasibility opinion.
-- You have a budget or contractor/design estimate.
-- You understand the existing mortgage balance and approximate property value.
-- You have considered contingency and construction working capital.
-- You can describe intended occupancy or rental use and desired timing.
+Use real redacted footage, a sample progress record and a sample walkthrough report. Define who performs each review and what it covers. Preserve the `inspection` service claim while distinguishing FairLend progress inspections from municipal/code inspections unless the named reviewer is authorized to perform those functions.
 
-**Needs resolution before placement:**
+### Section 11 — Professional, contractor and supplier network
 
-- Property eligibility is assumed but not checked.
-- Budget excludes servicing, soft costs or contingency.
-- Financing depends entirely on unverified projected rent or value.
-- Work has started without a viable draw/cash-flow plan.
-- Permit/design status is unclear.
-- The requested amount is not reconciled to existing secured debt and borrower capacity.
+Show how FairLend helps homeowners assemble the project team:
 
-**Inline CTA:** `Check My Project Readiness`
+- Planning/design and permit professionals.
+- Builders and general contractors.
+- Specialized trades.
+- Material suppliers.
+- Appraisers.
+- Legal professionals.
+- Construction and takeout capital providers.
 
-### Section 5 — Financing-route comparison
+Explain how network participants are identified and selected, whether introductions are optional, and whether any referral or commercial relationship exists. Do not claim `vetted`, `preferred`, `independent` or `best` unless the corresponding standard and disclosure exist.
 
-**H2:** `Compare Garden Suite financing options`
+### Section 12 — “Is FairLend right for my project?” fit checklist
 
-Compare each route using equivalent assumptions. Do not rank products or declare a universal winner.
+**Strong starting signals**
 
-| Route | May fit when | Evidence commonly needed | Construction cash-flow issue | Key limitation to disclose |
-|---|---|---|---|---|
-| Mortgage refinance | Sufficient equity and a longer-term restructuring makes sense | Income, credit, property value, current mortgage and project purpose | Often provides a lump sum rather than construction-stage controls | Break costs, new terms, qualification and total borrowing cost require review |
-| HELOC | Accessible equity and flexible staged spending are appropriate | Property value, secured debt, borrower qualification | Flexible access can help, but the limit may not cover the full project | Variable-rate exposure, qualification and available-limit constraints |
-| Second mortgage | Existing first mortgage should remain in place or conventional options do not fit timing | Equity, title/mortgage position, borrower repayment and exit plan | Can bridge deposits, working capital or a defined shortfall | Typically higher cost and fees; suitability and exit must be explicit |
-| Construction financing | The project needs staged advances tied to completed work | Plans, permits, budget, contracts, appraisal, equity, draw schedule and borrower evidence | Advances may reimburse completed stages, requiring borrower liquidity | Inspection, holdback, timing, contingency and lender criteria vary |
-| Verified public program | A current program is open and the project/borrower satisfies its rules | Program-specific eligibility and supporting evidence | Program timing may not match construction cash flow | Availability and eligibility can change; never present an announced or closed program as available |
+- You control a Toronto/GTA property suitable for assessment.
+- You have a clear occupancy or rental goal.
+- You have some combination of equity, income, liquidity or project capital.
+- You want financing and construction cash flow planned together.
+- You need help assembling or coordinating the project team.
+- You want a defined milestone/evidence process rather than improvised funding requests.
 
-Below the table, explain that combinations may be considered, but suitability, terms and availability are file-specific.
+**Still worth assessing**
 
-**Inline CTA:** `Compare Options for My Property`
+- No builder has been selected.
+- Plans or permits are not complete.
+- The budget needs professional validation.
+- Projected rent or takeout qualification is uncertain.
+- Construction has started but the draw structure is failing.
 
-### Section 6 — Cost-to-capital bridge
+The checklist is a self-orientation tool, not an approval promise.
 
-**H2:** `Your construction budget is not the same as your financing requirement`
+### Section 13 — Financing-route comparison
 
-Explain the complete capital stack:
+Compare using one project scenario and consistent assumptions:
 
-1. Design, consultants and feasibility work.
-2. Municipal applications, permits and other verified charges.
-3. Site preparation, demolition and access.
-4. Utility and servicing work.
-5. Hard construction costs.
-6. Contingency tied to project risk—not an arbitrary leftover.
-7. Financing, appraisal, legal, inspection, carrying and draw costs where applicable.
-8. Lease-up, occupancy and ongoing debt-service requirements.
+| Route | Best fit | Capital timing | Interest exposure | Typical evidence focus | Key limitation |
+|---|---|---|---|---|---|
+| Cash/existing liquidity | Small gap or early costs | Immediate | No loan interest | Liquidity and reserves | Concentrates homeowner capital |
+| HELOC | Available revolving equity | Flexible | On used balance | Equity, income, lender limit | Limit/rate may not fit full build |
+| Refinance | Sufficient equity and supportable mortgage | Upfront | Often on full funded balance | Property, income, appraisal | Break costs and premature borrowing |
+| Second mortgage | Gap or speed-sensitive capital | Usually upfront | On advanced balance | Equity and exit | Higher carrying cost/fees may apply |
+| Government programs (verify current status) | Eligible projects where a current program applies | Program-defined | Program-defined | Program eligibility and documentation | Availability, terms and eligibility change; never assume qualification |
+| DrawFlow construction financing | Staged project with verifiable milestones | Up to 15 borrower-controlled draws | On released capital | Budget, team, progress and evidence | Setup and evidence workflow take longer than a simple upfront advance; best suited to staged builds, not small funding gaps |
 
-Use a simple visual showing **total project cost → borrower/equity contribution → available financing → timing gap**.
+The assessment may combine routes. Do not present a single product as universally superior.
 
-Do not repeat the full cost guide. Summarize the finance implication and link to the informational pillar with the anchor `Toronto Garden Suite costs and feasibility`.
+**Government-program rule:** Name a specific program (e.g., federal secondary-suite loan programs, City of Toronto forgivable-loan or incentive programs) only with a current official source and a visible `last reviewed` date — the same standard Section 15 applies to CMHC content. Where program status is uncertain, link to the resource hub's incentive-status coverage rather than hard-coding terms on this page.
 
-### Section 7 — How lenders assess the project
+### Section 14 — Cost-to-capital and lender assessment
 
-**H2:** `What lenders review for Garden Suite financing`
+Open with one dated, sourced cost anchor so the visitor's first question is answered without cannibalizing the resource hub, e.g.:
 
-Organize evidence into five cards:
+> Toronto Garden Suites commonly run $300K–$400K+ all-in depending on size, site and finishes — see `Toronto Garden Suite costs and feasibility` for the full cost model and assumptions.
 
-1. **Borrower:** income, credit, debts, liquidity, experience where relevant and ability to carry the proposed obligations.
-2. **Property:** ownership, existing mortgage, value evidence, title/security position and property-specific constraints relevant to the lender.
-3. **Project:** Garden vs Laneway type, plans, permit/design stage, scope, contracts and delivery team.
-4. **Budget and draws:** complete budget, contingency, deposits, cost-to-complete, draw schedule and working-capital capacity.
-5. **Completion and repayment:** appraisal assumptions, rental/occupancy plan, takeout or long-term debt-service path and material risks.
+Use the corpus benchmark (research.md: $300K–$400K+ recommended range; permit records report a $260K average / $180K median with underreporting caveats) with a visible source date. Do not expand into a cost guide here; one anchored sentence plus the internal link.
 
-The section must explicitly say that presence of a document is not verification, suitability or approval.
+Connect the project budget to the financing plan:
 
-### Section 8 — Appraisal and projected rent
+- Design, consultants and permits.
+- Site preparation, servicing, access and trees.
+- Hard construction costs.
+- Builder/trade deposits and supplier lead-time requirements.
+- Contingency and change orders.
+- Financing fees and construction-period interest.
+- Insurance, appraisal and professional costs.
+- Completion, lease-up and takeout costs.
 
-**H2:** `Can projected Garden Suite rent help you qualify?`
+Explain the five underwriting views:
 
-Answer directly:
+1. **Property:** ownership, existing mortgage, value/equity and title.
+2. **Borrower:** income, credit, liquidity, obligations and experience/support.
+3. **Project:** scope, Garden/Laneway type, plans, permits, budget, contingency and team.
+4. **Construction:** sequencing, contracts/quotes, draw schedule, inspections and evidence.
+5. **Exit:** completed value, rent support, debt service, sale/retention plan and takeout.
 
-- A lender or insurer may consider some rental-income evidence under its current policy.
-- Treatment can vary by lender, property, suite status, appraisal methodology, lease evidence and borrower profile.
-- Proposed rent is not automatically accepted as qualifying income.
-- An appraisal or market-rent opinion is evidence, not a guarantee of lender treatment or completed value.
-- The page must not publish a universal percentage of rent accepted unless the lender/program rule is current, cited and reviewed.
+### Section 15 — Appraisal, projected rent, takeout and CMHC planning
 
-Link detailed economics and rent assumptions back to the informational resource.
+Explain:
 
-### Section 9 — Process and timing
+- How as-is and as-complete value may enter the analysis.
+- What rental evidence an appraiser or lender may request.
+- Why projected rent is not automatically qualifying income.
+- Why takeout qualification must be modelled before construction begins.
+- When CMHC-insured financing may be investigated and which eligibility/qualification inputs are time-sensitive.
 
-**H2:** `From feasibility to funded construction draws`
+Use current official program sources and a visible `last reviewed` date. FairLend plans for qualification; it does not control municipal approval, appraisal conclusions, lender approval or CMHC eligibility decisions.
 
-Use a six-stage timeline:
+### Section 16 — Garden vs Laneway Suite differences
 
-1. **Project screen:** property, municipality, project type, preliminary feasibility and intended use.
-2. **Capital plan:** complete budget, contingency, equity contribution and required financing.
-3. **Evidence package:** plans, permit stage, borrower documents, mortgage/property evidence, quotes/contracts and insurance needs.
-4. **Appraisal and lender assessment:** current/as-complete value and rent evidence where required; lender-specific underwriting.
-5. **Closing and advances:** deposits, borrower contribution, conditions, inspections and draw sequence.
-6. **Completion and long-term structure:** occupancy/completion evidence, takeout/refinance where applicable and sustainable ongoing payments.
+- A Garden Suite is not defined by public-lane access.
+- A Laneway Suite depends on the lane relationship and its planning/access requirements.
+- Access, servicing, construction staging and appraisal context may change the budget and financing plan.
+- The financing method may overlap, but the project evidence and site constraints can differ.
 
-Do not publish guaranteed turnaround times. If a timeframe is shown, state its dated source, assumptions and dependencies.
+Link to the informational resource for current municipality-specific rules rather than reproducing an unstable zoning guide.
 
-### Section 10 — Garden vs Laneway financing differences
+### Section 17 — Document and readiness checklist
 
-**H2:** `Garden Suite and Laneway Suite financing share a page—not identical project facts`
+Group the checklist by:
 
-Explain succinctly:
+- Property/title/existing mortgage.
+- Borrower income, credit, liquidity and obligations.
+- Plans, permits and professional reports.
+- Budget, contingency, contracts, quotes and deposits.
+- Builder, contractor, trade and supplier team.
+- DrawFlow schedule and milestone evidence.
+- Insurance and site documentation.
+- Appraisal/rent evidence.
+- Completion and takeout plan.
 
-- Both are ancillary residential projects that may draw on similar financing routes.
-- A Garden Suite is not defined by public-lane access; a Laneway Suite is tied to the lane relationship and its planning/access requirements.
-- Access, fire route, geometry, servicing, trees, design and permit evidence may change costs, schedule, appraisal assumptions and lender comfort.
-- FairLend assesses the financing package; it does not issue a zoning or permit opinion.
+Offer a downloadable accessible checklist and preserve the same content in indexable HTML.
 
-Provide direct links to current City of Toronto Garden Suite and Laneway Suite sources.
+### Section 18 — Failure modes and rescue intent
 
-### Section 11 — Document checklist
+Cover the problems FairLend is designed to surface or help restructure:
 
-**H2:** `Documents that make a Garden Suite financing review useful`
+- Insufficient equity or working capital.
+- An incomplete budget or missing contingency.
+- Builder/trade deposits that do not align with lender draws.
+- Access, servicing, tree or permit uncertainty.
+- Unsupported cost, rent or value assumptions.
+- A lender/product mismatch.
+- Draw evidence that is incomplete or late.
+- A dependency delay that blocks downstream trades.
+- Cost overruns or change orders.
+- No viable completion/takeout path.
 
-Group into collapsible, server-rendered lists:
+Urgent CTA: `My Garden Suite Project Is Already Underway`.
 
-- **Property:** address, ownership, current mortgage statement, property-tax statement and available value evidence.
-- **Borrower:** identification at the appropriate application stage, income, debts, credit authorization and liquidity evidence.
-- **Project:** plans, feasibility material, permit status, site information and intended occupancy/rental use.
-- **Budget:** line-item budget, quotes/contracts, deposits paid, contingency and cost-to-complete.
-- **Funding:** requested amount, borrower contribution, desired timing, draw schedule and existing/proposed secured debt.
-- **Completion:** appraisal/rent evidence where applicable, insurance, occupancy/completion requirements and takeout/repayment plan.
+### Section 19 — Why FairLend
 
-Offer a printable readiness checklist that contains no approval score.
+This section should consolidate—not introduce—the proof:
 
-**CTA:** `Download the Financing Readiness Checklist`
+- Principal Broker: 28 years mortgage-broker experience and 30 years build experience.
+- In-house build advisory team.
+- In-house specialist legal team with 10+ years of experience.
+- Established network of professionals, builders, contractors and suppliers.
+- Proprietary DrawFlow software trained on thousands of Toronto builds.
+- Up to 15 borrower-controlled draws and FairLend-controlled releases.
+- Multiple case studies demonstrating up to 50% construction-interest savings.
+- Daily drone progress capture, weekly walkthroughs/inspections and milestone reviews.
+- Shared SSO workspace with role-based least-privilege access.
+- Planning through construction, takeout and CMHC qualification strategy.
 
-### Section 12 — Failure modes and rescue intent
+Use real names, project images, software screenshots, case-study references and review credentials. Logos or badges without context are insufficient.
 
-**H2:** `What commonly stops or delays Garden Suite financing?`
+**Repetition control:** The 15-draw, up-to-50% and ~$12,000 claims already appear in the hero strip, Section 8 and the FAQ. Here they must be reference-style — short restatements linked to Section 8's methodology anchors — not a fourth full treatment with fresh wording. Consolidation means pointing back to proof, not re-proving.
 
-Preserve and expand the strongest current-page concept, “What kills a deal”:
+### Section 20 — FAQ content
 
-- Existing secured debt leaves insufficient usable equity.
-- Property feasibility or permit stage is assumed rather than evidenced.
-- The budget is not tied to scope, servicing or site constraints.
-- Contingency is too thin for the project stage.
-- Projected rent or completed value is unsupported.
-- Borrower liquidity cannot bridge deposits or reimbursement draws.
-- The selected lender/product does not fit the property, timing or project stage.
-- Construction has started and cost-to-complete is no longer reconciled.
-- The exit/takeout plan does not support the interim structure.
+Answer visibly on the page:
 
-Add a separate urgent panel:
+1. Can FairLend help if I do not have a builder yet?
+2. Can FairLend help with planning and permits?
+3. How does FairLend help me find builders, contractors and suppliers?
+4. What does FairLend’s in-house legal team do?
+5. What is DrawFlow?
+6. How does DrawFlow create and update the construction schedule?
+7. What does “AI trained on thousands of Toronto builds” mean?
+8. Can I request my own construction draws?
+9. How many draws can I receive?
+10. Who decides when funds are released?
+11. How can more precise draws reduce interest?
+12. How does DrawFlow keep builders and trades funded?
+13. Who can access the DrawFlow workspace?
+14. What is captured by daily drone footage and weekly inspections?
+15. Can I use a HELOC or refinance instead?
+16. Can projected rent help me qualify?
+17. What happens after construction is complete?
+18. Can FairLend plan for CMHC-insured financing?
+19. What is different about Laneway Suite financing?
+20. Can FairLend help if my project has already stalled?
+21. Is there a federal loan program for building a Garden Suite?
+22. Does Toronto offer forgivable loans or incentives for Garden Suites?
 
-**Heading:** `Already facing a draw gap, lender decline or project deadline?`
+FAQ answers 21–22 must link to the resource hub's current incentive-status coverage and use conditional, dated language; do not hard-code program terms, amounts or eligibility on this page.
 
-**Copy rule:** Explain that an urgent review identifies the present mortgage position, work completed, remaining budget, permits, liens/claims where relevant, available equity, required timing and plausible exit. Do not imply rescue is always possible.
+FAQ answers must be concise, reviewed and internally linked to the relevant full section. Keep the content even if FAQ rich results are unavailable; do not promise a Google FAQ enhancement.
 
-**CTA:** `Request an Urgent Project Review`
+### Section 21 — Final CTA
 
-### Section 13 — Why FairLend / proof layer
+**Heading:** `Turn Your Garden Suite Plan Into an Operating Plan`
 
-**H2:** `A financing review built around the actual project`
+**Body:** `Tell FairLend where the property and project stand. The team will identify the next planning, team, financing and DrawFlow decisions required to move forward.`
 
-Use verifiable proof only:
+**Primary CTA:** `Plan My Garden Suite Project`
 
-- Fairlend Management Inc. operates as FairLend Mortgage.
-- FSRA Mortgage Brokerage Licence #13827; link to the public registry.
-- If the administrator entity is referenced, attribute FSRA Mortgage Administrator Licence #13828 correctly.
-- Licensed review by Elie Soberano, Principal Broker, FSRA broker licence #M08001537, if he actually reviews and approves the published material.
-- Explain the review method: property + borrower + project + budget/draws + repayment path.
-- Show an original DrawFlow interface screenshot, milestone/evidence matrix or redacted technical financing dossier so visitors can see the operating system behind the claim.
-- Publish the contractual `up to 15 draws` capability, the case-study-backed `save up to 50%` result and the `$12,000` worked comparison with their separate evidence bases. Do not collapse a contractual facility feature, a maximum demonstrated case-study result and an illustration into one proof statistic.
-- Make the non-builder homeowner proposition explicit: FairLend can coordinate financing readiness, mortgage structure, DrawFlow planning and administration, and appropriate specialist introductions around the homeowner's project while preserving clear professional-role boundaries.
-- Use anonymized case material only with permission, dates, assumptions, outcomes and material limitations. Every public case needs a stable case/revision ID and named internal evidence owner.
-- Add a concise `Why DrawFlow changes the financing conversation` passage: traditional product comparison stops at rate and amount; FairLend also models capital timing, evidence, working-capital exposure and the draw-to-takeout path.
+**Secondary CTA:** `Speak With the Garden Suite Team`
 
-Do not add placeholder testimonials to production. Every testimonial requires authentic attribution, permission and disclosure of any incentive or material relationship.
+**CTA consistency rule:** v1 ships one primary CTA phrase — `Plan My Garden Suite Project` — in both the hero and this final section, so the page presents one offer. `Request My Project Assessment` is the held-out variant for CRO backlog test 2; do not mix the two phrases on the live page outside a controlled experiment.
 
-### Section 14 — FAQ content
-
-**H2:** `Garden Suite financing questions`
-
-Publish 10 concise, reviewed answers as visible HTML. Do **not** add commercial `FAQPage` markup for rich-result purposes.
-
-1. How can I finance a Garden Suite in Toronto?
-2. What is DrawFlow, and how does it work for a Garden Suite?
-3. Does every DrawFlow facility support up to 15 draws and borrower-controlled timing?
-4. How do FairLend's case studies demonstrate up to 50% construction-period interest savings, and how was the $12,000 example calculated?
-5. Can I use a HELOC or refinance to build a Garden Suite?
-6. Can projected Garden Suite rent be used for mortgage qualification?
-7. How much equity and working capital do I need?
-8. Do I need permits before applying for construction financing?
-9. What happens if the project costs more than expected or a draw is delayed?
-10. Can FairLend finance a Laneway Suite or review a lender decline as well?
-
-Each answer should be 50–100 words, lead with the direct answer and then state the file-specific limitation. Answers 3 and 4 must repeat the required claims accurately and link to the visible methodology section; they must not reduce the claims to vague “potential savings.”
-
-### Section 15 — Final CTA and progressive assessment
-
-**H2:** `Build the financing plan before the funding gap`
-
-**Supporting copy:**
-
-> Tell us where the property and project stand today. FairLend will use that information to organize a licensed, project-specific financing assessment—not an instant approval or generic rate quote.
-
-Add one reassurance sentence immediately below: `You can start before choosing a builder; FairLend will identify the financing, project evidence and specialist inputs needed for the next decision.`
-
-**Primary CTA:** `Start My Garden Suite Financing Assessment`
-
-**Secondary CTA:** `Call FairLend About My Project`
-
-**Risk-reversal microcopy:** `Starting an assessment does not commit you to a mortgage or guarantee that financing is available.`
+Reiterate that homeowners without builders are welcome. Do not use approval, rate or savings guarantees in the CTA.
 
 ## 9. Assessment-form architecture
 
-Use a progressive four-step flow. Preserve entered state and show progress. Do not ask for SIN or full document uploads in the public first step.
+Use a progressive form that begins with low-friction project context and defers sensitive financial details to the secure intake flow.
 
-| Step | Fields | UX/compliance notes |
+| Step | Fields | Experience requirement |
 |---|---|---|
-| 1. Property and project | Municipality; property address; ownership/control; Garden/Laneway/unsure; project stage; `I have a builder` / `I am still assembling the team` / `I need guidance on who is required` | Explain why the address is requested and link privacy policy; never disqualify or shame a homeowner for not having a builder |
-| 2. Scope and timing | Budget bracket; contingency bracket; desired start; plans/permit/quotes status; intended occupancy/rental use; expected milestones or `I do not know yet` | Use brackets where exact amounts are unnecessary; plain-language help text must explain milestones for non-builders |
-| 3. Financing context | Approximate property value bracket; mortgage-balance bracket; requested-funds bracket; current lender/product; available construction working-capital bracket; current draw schedule if any; shortfall/decline/deadline flag | Sensitive values must not be sent to analytics platforms |
-| 4. Contact and consent | Name; email; phone; preferred contact method; consent; optional project note | No pre-checked marketing consent; separate service-contact consent from CASL marketing consent |
+| 1. Property/project | Municipality, address, ownership/control, Garden/Laneway/unsure, stage | Explain why the address is needed; link privacy policy |
+| 2. Team/readiness | Plans, permits, builder status, contractor/supplier needs, desired start | Include `I need help assembling the team` without stigma |
+| 3. Budget/capital | Budget range, contingency status, existing mortgage/equity range, cash-on-hand range | Use ranges; explain why each answer matters |
+| 4. Build status | Not started/in progress/stalled, next milestone, immediate funding need | Trigger urgent path where appropriate |
+| 5. Outcome | Own use/rental/mixed, completion goal, takeout/CMHC interest | Avoid implying program eligibility |
+| 6. Contact/consent | Name, email, phone, preferred contact, consent | No pre-checked consent; clear data-use language |
 
-After submission:
+After submission show:
 
-- Confirm receipt without implying approval.
-- State what happens next and what documents may be requested securely.
-- Confirm that FairLend will assess the financing structure and build-readiness path. State clearly that a DrawFlow facility supports up to 15 draws, borrower-controlled request timing and FairLend-authorized releases under the lender agreement.
-- Provide the readiness checklist and informational resource.
-- Prevent form values, address, financial information or free-text notes from entering GA4, ad pixels, URLs, logs beyond operational need, or client-side error payloads.
+- What FairLend will review.
+- Which documents may be requested next.
+- Expected contact channel.
+- An optional checklist/resource link.
+- No approval or funding-speed promise.
+
+Do not send raw addresses, mortgage balances, income, documents or free-text project details to GA4, advertising pixels or session-replay tooling.
 
 ## 10. Internal-link plan
 
 ### Links from this page
 
-| Destination | Recommended anchor | Placement |
+| Destination | Anchor | Placement |
 |---|---|---|
-| `/resources/garden-suites/` or the single chosen informational canonical | `Toronto Garden Suite costs and feasibility` | Hero secondary CTA, capital section and rent section |
-| `/construction-draw-financing` | `how DrawFlow milestone-based draws work` | DrawFlow mechanism, worked comparison and timeline |
-| `/construction-financing` | `construction financing in Ontario` | Funding comparison |
-| `/borrowers/institutional-mortgage` | `institutional mortgage options` | Refinance/HELOC context where relevant |
-| `/borrowers/private-mortgage-financing` | `private mortgage financing` | Second-mortgage/rescue context with balanced cost/exit disclosure |
-| `/disclosures` | `FairLend licences and service disclosures` | Proof/compliance section |
-| Privacy policy | `privacy policy` | Assessment form |
+| `/resources/garden-suite-cost-toronto` | `Toronto Garden Suite costs and feasibility` | Answer, cost, permit and Garden/Laneway sections |
+| `/construction-draw-financing` | `How DrawFlow construction financing works` | DrawFlow mechanism and FAQ |
+| `/construction-financing` | `Compare broader construction-financing options` | Route comparison |
+| CMHC/multiplex resource | `CMHC-insured financing options` | Takeout section only where applicable |
+| About/team/licensing page | `Meet FairLend’s mortgage and construction team` | Credentials/proof section |
+| Privacy policy | `How FairLend uses your information` | Form |
 
 ### Required inbound links
 
-- Homepage or borrower hub: `Garden and Laneway Suite financing`.
-- Informational Garden Suite pillar: `Garden Suite financing in Toronto and the GTA`.
-- Construction-draw page: `financing a smaller Garden or Laneway Suite project`.
-- Construction-financing page: `Garden Suite construction financing`.
-- Institutional/private mortgage pages: contextual equity/refinance/shortfall anchors.
-- Relevant multiplex/rental resources: clarify ancillary-suite vs multi-unit project boundaries.
+- Informational Garden Suite resource.
+- Construction-draw financing page.
+- Construction-financing page.
+- Relevant refinance, HELOC, private/second-mortgage and CMHC resources.
+- Home/borrower navigation where editorially appropriate.
+- Builder/contractor partner content where it serves the same project intent.
 
-Maintain 3–5 prominent contextual links in the core service flow; supporting legal/source links may sit in proof and source modules. Do not bury all inbound links in navigation or cards.
+Use descriptive anchors. Do not create sitewide exact-match footer spam.
 
-### Cluster reinforcement and publishing sequence
+### Publishing sequence
 
-1. Publish or refresh `/garden-suite-financing-gta` as the transactional owner with the DrawFlow mechanism and proof package.
-2. Publish the single informational Garden Suite pillar and link its financing, budget and construction-draw passages to this page.
-3. Update `/construction-draw-financing` so it is the canonical product authority for DrawFlow, including the versioned comparison methodology, then link back with a Garden-specific use case.
-4. Merge unique material from `/garden-suite` into the informational pillar and apply a single-hop 301 redirect.
-5. Submit the two Garden pages through the normal sitemap and internal-link graph; do not create indexing-only doorway pages.
-6. Consider separate HELOC, appraisal/rent or municipal supporting content only after GSC query data shows distinct intent and the new page can carry unique evidence.
+1. Publish/upgrade the money page and ensure conversion tracking works.
+2. Publish the single cost/feasibility resource and redirect `/garden-suite`.
+3. Strengthen the canonical DrawFlow product page.
+4. Add case studies, methodology, team biographies and project media.
+5. Expand supporting content only where GSC and lead data prove a distinct need.
 
-### Toronto/GTA local relevance controls
+### Local relevance controls
 
-- Use Toronto as the primary location entity and `Toronto and the GTA` as the truthful service-area phrase. Do not optimize the title around `GTA` alone.
-- Name GTA municipalities only where FairLend actively serves them and can maintain municipality-specific official sources, project evidence or process differences.
-- Do not mass-produce thin city pages. A municipality route requires distinct demand, local rules/evidence, local service proof, unique copy and an owner/review cadence.
-- Keep the brokerage's authorized name, licence, contact details and service-area description consistent across the site and relevant third-party profiles. Do not fabricate a public storefront or proximity claim.
-- Prefer local proof that helps a borrower decide—reviewed Toronto files, municipal-source literacy, Garden/Laneway distinctions and partner expertise—over generic neighbourhood name lists.
+- Use Toronto as the primary market and GTA as the service-area modifier.
+- Include real Toronto project evidence and explicitly named municipalities only when serviced.
+- Link current municipal/official sources rather than paraphrasing unstable rules.
+- Do not produce thin city pages. Require unique projects, regulations, team proof, demand and operational coverage before creating a location route.
 
 ## 11. External authority links
 
-Use primary sources and open in the same tab unless the design system dictates otherwise:
+Use only where they resolve a user decision:
 
-- City of Toronto Garden Suites guidance.
-- City of Toronto Laneway Suites guidance.
-- City planning/zoning/permit sources used for any current factual statement.
-- Current CMHC or government source for any live refinancing, insurance or secondary-suite program claim.
-- FSRA public registry entry for FairLend Mortgage.
-- FSRA consumer guidance on working with a mortgage brokerage where appropriate.
+- Current City of Toronto Garden/Laneway Suite rules and permit resources.
+- Current Ontario ARU/additional-unit materials where relevant.
+- Current CMHC program and eligibility sources.
+- FSRA mortgage-brokerage/licensing information.
+- Applicable legal/regulatory sources.
 
-Every time-sensitive program, rate, fee, rent, tax or regulatory statement needs a source date and scheduled review. Do not cite a builder or competitor as authority for municipal or lender rules.
+Official sources support public rules. FairLend’s original case studies, DrawFlow methodology, project footage, reports and credential records support proprietary claims.
 
 ## 12. E-E-A-T and YMYL requirements
 
-- Visible `Written by` or `Prepared by` block identifying the person/team responsible for the project-financing content and their relevant experience; do not assign authorship to a generic brand if a real subject-matter owner exists.
-- Visible `Reviewed by` block with the reviewer’s licensed name, prescribed title, licence identifier, review date and jurisdiction.
-- Link the reviewer to a real profile and FSRA registry evidence.
-- Show `Last reviewed` only after substantive review; do not auto-update the date on deploy.
-- Add a concise methodology explaining how product comparisons are kept equivalent, how the three DrawFlow claims are calculated/maintained and how program status is verified.
-- Treat the DrawFlow evidence package as first-party experience proof: a real workflow screenshot, a redacted milestone/evidence example, a versioned worked comparison and an approved case-study summary. Decorative mockups do not satisfy this requirement.
-- Give the contractual `up to 15`, case-study-backed `save up to 50%` and `$12,000 illustrative` claims separate IDs, owners, effective dates, source artifacts, approval status and next-review dates in the claim register.
-- Add a corrections link or contact.
-- Separate factual public-source guidance from FairLend’s financing interpretation.
-- Label anonymized examples as illustrations, with assumptions and limitations.
-- Never represent FairLend as a planner, designer, builder, appraiser, municipality, lawyer or tax adviser.
+### Experience
 
-### Passage-level quality and AI-citation requirements
+- Real Garden/Laneway case studies with defined inputs and outcomes.
+- Original daily drone footage, walkthrough media and milestone evidence.
+- Screenshots of the real DrawFlow schedule, dependency graph and shared workspace.
+- An adaptive-plan example showing what changed and how DrawFlow recalculated.
+- First-person commentary from the Principal Broker, build advisory lead and project homeowner/builder where consented.
 
-- Each intent-critical H2 begins with a self-contained 40–80-word answer before supporting detail.
-- Define Garden Suite, Laneway Suite, DrawFlow, milestone, availability, draw request, approved release, working capital and takeout consistently; do not use `approval`, `availability`, `utilization` and `release` as synonyms.
-- Keep the DrawFlow mechanism as an ordered sequence with explicit actors and conditions so a passage can be quoted without losing the release boundary.
-- Place official municipal/regulatory citations directly after the factual sentence they support. Place FairLend methodology links directly after performance/product claims.
-- Use tables for route comparison and the worked draw comparison, but accompany them with prose summaries for accessibility and passage extraction.
-- Show dates and scope on all time-sensitive facts. A claim should remain understandable even when extracted without the hero or footer disclosure.
-- Include a concise entity statement: `Fairlend Management Inc. o/a FairLend Mortgage is an Ontario mortgage brokerage; DrawFlow is FairLend's construction-financing workflow.`
+### Expertise
 
-## 13. Mortgage-advertising compliance gate
+- Visible authorship and review attribution.
+- Principal Broker biography documenting 28 years of mortgage-broker and 30 years of build experience.
+- Build advisory team profiles and relevant project roles.
+- Specialist legal team identities, credentials and 10+ years of relevant experience.
+- DrawFlow methodology owner and software/model version.
+- Technical depth on scheduling, cash flow, evidence, takeout and qualification.
 
-This page is public relations material. Production approval requires the following:
+### Authoritativeness
 
-1. Display `Fairlend Management Inc. o/a FairLend Mortgage` and `FSRA Mortgage Brokerage Licence #13827` clearly and prominently on the page or persistent site chrome.
-2. If an individual is named, use the licensed name and a prescribed title. For Elie Soberano, confirm the live registry entry and use `Principal Broker`/`Mortgage Broker` with licence #M08001537 as appropriate.
-3. Never imply FSRA endorsement; licensing is a factual disclosure only.
-4. Remove false, misleading or incomplete claims, including guaranteed approval, universal qualification, “lowest/best” claims and fake scarcity. Retain the three required DrawFlow claims, but publication approval must attach each to the evidence package, comparison basis and disclosure boundary specified in this plan.
-5. If copy states an interest rate, payment amount or non-interest charge for a fixed-amount mortgage, include APR and term at equal prominence and use a compliant representative example when terms vary. The safer default for this evergreen page is to publish no rates, payment examples or fee amounts.
-6. Present private financing with balanced cost, risk, suitability and exit language.
-7. Do not imply special or guaranteed access to government/CMHC programs.
-8. Keep borrower lead generation distinct from investor/MIC promotion.
-9. Apply privacy, CASL and accessibility controls to the assessment flow.
-10. Record principal-broker/compliance approval of the final page copy and future material revisions.
+- Authorized brokerage name and FSRA licence #13827.
+- Links to detailed team, licensing and methodology pages.
+- Third-party professional/partner references where permission and disclosure allow.
+- Relevant awards, affiliations, publications or citations only when verifiable.
 
-Authoritative references:
+### Trust
 
-- [FSRA — mortgage public-relations and advertising requirements](https://www.fsrao.ca/industry/mortgage-brokering/compliance-and-other-resources/mortgage-industry-public-relations-and-advertising-requirements)
-- [Ontario Regulation 188/08 — Mortgage Brokerages: Standards of Practice](https://www.ontario.ca/laws/regulation/080188)
-- [Ontario Regulation 191/08 — Cost of Borrowing and Disclosure to Borrowers](https://www.ontario.ca/laws/regulation/080191)
+- Clear contact, privacy, terms and complaint/corrections routes.
+- Visible `last reviewed` and update history.
+- Claim-level methodology and limitations adjacent to financial outcomes.
+- Referral/commercial-relationship disclosures for network participants.
+- Defined scope for legal, walkthrough, inspection, permit and CMHC-support language.
+- Secure SSO/workspace explanation without disclosing sensitive controls.
 
-This plan is an implementation control, not a formal legal opinion.
+### AI-citation readiness
+
+- Begin each major section with a concise answer sentence.
+- Use quotable factual statements with visible attribution.
+- Express comparisons in accessible HTML tables.
+- Define DrawFlow consistently as FairLend’s proprietary construction operating system.
+- Define Garden vs Laneway terms explicitly.
+- Give case-study claims stable IDs/methodology anchors.
+- Include real author/reviewer entities, dates and first-party evidence.
+- Never rely on image-only text for product facts.
+
+## 13. Product, legal and mortgage-advertising gate
+
+Before launch:
+
+1. Confirm FairLend’s authorized brokerage name and licence display.
+2. Confirm named mortgage professionals use licensed names and prescribed titles.
+3. Confirm `up to 15 draws`, borrower-controlled timing and release authority against operative agreement language.
+4. Confirm the `up to 50%` case-study ledger and $12,000 comparison are reproducible.
+5. Confirm the definition, count and governance supporting `AI trained on thousands of Toronto builds`.
+6. Confirm public descriptions of static dependency analysis, heuristics, AI, cost estimates and self-adjustment match the current product.
+7. Confirm the legal team’s title, employment relationship, experience and service scope.
+8. Confirm professional-network selection, referral and compensation disclosures.
+9. Confirm daily drone and weekly walkthrough/inspection delivery standards, privacy consent, site-access requirements and applicable aviation/safety rules.
+10. Confirm portal/SSO/least-privilege statements with security and privacy owners.
+11. Confirm permit support does not imply municipal control or approval.
+12. Confirm CMHC language reflects current programs and does not imply automatic eligibility or insurance approval.
+13. Apply current mortgage-advertising rules to any rate, payment, term, fee, APR, approval or savings representation.
+
+Do not remove a locked differentiator merely because evidence work remains. Assign the missing evidence, disclosure or reviewer and close it before publication.
+
+**Evidence triage and placeholder protocol:** So the gate does not become an indefinite blocker, classify each Section 3 claim family as (a) launch-critical — evidence package required before indexing, or (b) deferrable — v1 copy may use capability language without the specific figure until the package closes. Draft copy must mark every unevidenced value as `[PLACEHOLDER: owner — evidence needed]`; copywriters never invent or substitute values. The 15-draw, up-to-50% and ~$12,000 claims are launch-critical.
 
 ## 14. Structured-data specification
 
-Use JSON-LD generated from the same visible page data. Reuse the site’s existing `Organization` and `WebSite` IDs rather than creating conflicting duplicates.
+Generate JSON-LD from visible page data and reuse established site entity IDs.
 
 Required graph:
 
 - `WebPage`
 - `Service`
 - `BreadcrumbList`
-- `Organization` reference
-- `Person` reviewer relationship only when the reviewer is visible and actually reviewed the page
+- Reference to the canonical `Organization`
+- `Person` author/reviewer only when visible and accurate
 
-Blueprint:
+Service requirements:
 
-```json
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebPage",
-      "@id": "https://www.fairlend.ca/garden-suite-financing-gta#webpage",
-      "url": "https://www.fairlend.ca/garden-suite-financing-gta",
-      "name": "Garden Suite Financing Toronto | DrawFlow by FairLend",
-      "description": "Finance a Toronto Garden Suite with FairLend's DrawFlow workflow, including up to 15 milestone-based draws. Compare options and request an assessment.",
-      "inLanguage": "en-CA",
-      "isPartOf": { "@id": "https://www.fairlend.ca/#website" },
-      "mainEntity": { "@id": "https://www.fairlend.ca/garden-suite-financing-gta#service" },
-      "about": [
-        { "@type": "Thing", "name": "Garden Suite financing" },
-        { "@type": "Thing", "name": "Laneway Suite financing" },
-        { "@type": "Thing", "name": "DrawFlow" }
-      ],
-      "breadcrumb": { "@id": "https://www.fairlend.ca/garden-suite-financing-gta#breadcrumb" },
-      "reviewedBy": { "@id": "https://www.fairlend.ca/about#principal-broker" },
-      "dateModified": "{{ACTUAL_REVIEWED_DATE}}"
-    },
-    {
-      "@type": "Service",
-      "@id": "https://www.fairlend.ca/garden-suite-financing-gta#service",
-      "name": "Garden and Laneway Suite Financing Assessment with DrawFlow",
-      "serviceType": "Mortgage brokerage, project financing assessment and construction-draw planning",
-      "provider": { "@id": "https://www.fairlend.ca/#organization" },
-      "areaServed": [
-        { "@type": "City", "name": "Toronto" },
-        { "@type": "AdministrativeArea", "name": "Greater Toronto Area" },
-        { "@type": "AdministrativeArea", "name": "Ontario" }
-      ],
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Ontario homeowners and small residential project sponsors"
-      },
-      "url": "https://www.fairlend.ca/garden-suite-financing-gta"
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://www.fairlend.ca/garden-suite-financing-gta#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.fairlend.ca/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Borrowers",
-          "item": "https://www.fairlend.ca/borrowers"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Garden Suite Financing",
-          "item": "https://www.fairlend.ca/garden-suite-financing-gta"
-        }
-      ]
-    }
-  ]
-}
-```
+- `name`: `Garden and Laneway Suite Development and Financing Assessment with DrawFlow`
+- `serviceType`: describe mortgage brokerage, construction-financing assessment, DrawFlow planning and project-support scope accurately.
+- `provider`: FairLend’s canonical Organization ID.
+- `areaServed`: Toronto, Greater Toronto Area and Ontario only where operationally correct.
+- `audience`: Ontario homeowners and small residential project sponsors.
+- `url`: canonical route.
 
-Implementation rules:
+Do not add:
 
-- Replace the reviewer ID with the canonical live person entity used by the site.
-- Render `dateModified` only from an actual editorial review record.
-- Do not add `Offer`, rates or prices unless the visible page supports accurate, current and compliant properties.
-- Do not encode the DrawFlow claims as `AggregateRating`, `Review`, `Offer`, `QuantitativeValue` or other structured data that changes their meaning. They belong in visible copy with the visible methodology.
-- Do not add `HowTo` schema.
-- Keep FAQ content visible, but do not add commercial `FAQPage` markup for Google rich-result benefit.
-- Validate the rendered graph, not only the source object.
+- `AggregateRating` without eligible visible review data.
+- `Review` without a visible attributable review.
+- `Offer` without a real public offer and compliant terms.
+- `FAQPage` as a promise of Google rich results; use only if current eligibility and policy support it.
+- `SoftwareApplication` or `Product` for DrawFlow unless it has a public standalone entity, accurate properties and matching visible content.
+- `LocalBusiness` duplicates that conflict with the sitewide Organization/LocalBusiness graph.
 
-## 15. Image and media plan
+Validate rendered JSON-LD, entity IDs, dates, names and visible-page parity.
 
-| Asset | Purpose | SEO/accessibility requirement |
+## 15. Image, video and product-media plan
+
+| Asset | Purpose | Acceptance requirement |
 |---|---|---|
-| Hero illustration/photo | Make the property/project instantly recognizable | Original or licensed; AVIF/WebP; explicit dimensions; useful alt text; do not make it the only LCP text carrier |
-| Funding-route comparison diagram | Explain refinance/HELOC/second/construction paths | SVG or responsive HTML; text alternative; no tiny embedded labels |
-| Cost-to-capital diagram | Show budget, contribution, financing and timing gap | Visible assumptions; export/print safe |
-| DrawFlow product screenshot | Prove the milestone/evidence/review workflow is real | Use an approved product view or redacted dossier; remove borrower/property data; describe the visible state in alt text |
-| DrawFlow comparison chart | Support the up-to-15, approximately-50%-lower and $12,000 claims | Same-project paired timeline plus accessible HTML table; assumptions, case ID, engine version and review date visible |
-| Draw timeline | Explain completion, evidence, review, availability, request and release as distinct events | Accessible ordered-list equivalent; do not imply milestone completion automatically releases money |
-| Readiness checklist | Lead-assist asset and partner referral tool | HTML-first plus tagged PDF; dated and versioned |
+| Hero project image | Establish real Toronto experience | Real project, permission, responsive crop, no stock-home ambiguity |
+| End-to-end journey diagram | Explain the operating model | Accessible HTML labels and text alternative |
+| DrawFlow engine diagram | Show inputs, dependency analysis, optimization and adaptive loop | Product-reviewed; no unsupported AI abstraction |
+| Dependency graph example | Demonstrate proprietary method | Redacted real/modelled project clearly labelled |
+| Workspace screenshot | Prove shared portal and permissions | Redacted, current UI, role identified |
+| Before/after schedule | Prove self-adjustment | Trigger, downstream effect and revised plan visible |
+| Drone progress sequence | Prove daily capture | Consent, date sequence, descriptive captions |
+| Walkthrough/report sample | Prove field oversight | Scope, reviewer and milestone visible; sensitive data removed |
+| Team portraits/bios | Prove in-house expertise | Current names, titles and credentials |
+| Network/project-team map | Explain external participants | Disclose roles and relationships |
+| Case-study charts | Prove interest/cash-flow outcomes | Same assumptions, source/methodology and accessible data table |
 
-Recommended hero alt text when the image genuinely depicts it: `Toronto home with a detached backyard Garden Suite under financing review`.
-
-Decorative marks use empty alt text. Below-fold media loads lazily. Avoid carousels, autoplay video and stock imagery implying projects FairLend did not finance.
+Use descriptive alt text for informative media, empty alt for decoration, captions for evidence context, transcripts for video and explicit dimensions to prevent CLS.
 
 ## 16. Technical SEO and performance acceptance criteria
 
-- Server-render all primary copy, headings, comparison rows, FAQs and internal links.
+- Server-render the primary copy, headings, tables, FAQs, case-study summaries and internal links.
 - Return HTTP 200 at the canonical URL.
-- Exactly one H1 and a sequential H2/H3 hierarchy.
-- Unique 30–60-character title and 120–160-character meta description.
-- Self-referencing canonical with no trailing/host/protocol inconsistency.
-- Index/follow; no accidental `noindex` in preview-to-production promotion.
-- Include once in the correct XML sitemap with CMS-derived `lastmod`.
-- No redirect chain from the canonical route.
-- Render the authorized brokerage name and licence disclosure prominently.
-- Validate Open Graph/Twitter metadata and use an absolute social-image URL.
-- Validate structured data with no duplicate/conflicting entities.
-- All links resolve; external authorities use current canonical URLs.
-- Images use responsive sources, explicit dimensions and modern formats; flag assets above 200 KB and reject unjustified assets above 500 KB.
-- LCP target ≤2.5 seconds at the 75th percentile; CLS ≤0.1; INP ≤200 ms.
-- Do not block the hero on a heavy calculator, map, animation or third-party scheduler.
-- Form errors are programmatically associated with fields; all controls work by keyboard; contrast meets WCAG AA.
-- Mobile sticky CTA must not obstruct content, consent notices or form controls.
+- Use exactly one H1 and sequential headings.
+- Use a unique 30–60-character title and 120–160-character description.
+- Emit one self-referencing canonical without host/protocol/trailing-slash inconsistency.
+- Index/follow in production; prevent preview `noindex` leakage.
+- Include the canonical once in the correct XML sitemap with CMS-derived `lastmod`.
+- Avoid redirect chains, especially from `/garden-suite` and aliases.
+- Render brokerage identity/licence and reviewer data in HTML.
+- Validate Open Graph/Twitter metadata and absolute media URLs.
+- Validate structured data without duplicate entities.
+- Ensure every internal/external link resolves.
+- Use responsive modern images with dimensions; flag assets above 200 KB and reject unjustified assets above 500 KB.
+- Lazy-load below-fold video/drone sequences and product media.
+- Target LCP ≤2.5 seconds, CLS ≤0.1 and INP ≤200 ms at the 75th percentile.
+- Do not block the hero on the portal demo, calculator, map, animation or scheduler.
+- Ensure keyboard access, programmatic form errors, WCAG AA contrast, transcripts/captions and reduced-motion support.
+- Prevent a mobile sticky CTA from blocking content, consent or form controls.
 
 ## 17. Analytics and measurement
 
 ### Event taxonomy
 
-| Event | Trigger | Allowed properties |
+| Event | Trigger | Privacy-safe properties |
 |---|---|---|
-| `garden_financing_cta_click` | Primary/urgent/phone CTA click | `cta_location`, `cta_type`, `page_path` |
-| `garden_resource_click` | Click to informational pillar | `link_location`, `destination_path` |
-| `garden_option_view` | Financing comparison engagement | `option_type` |
-| `garden_drawflow_proof_view` | Required proof module reaches the agreed visibility threshold | `proof_version`, `module_location` |
-| `garden_drawflow_methodology_open` | User opens/jumps to claim methodology | `claim_id`, `proof_version` |
-| `garden_drawflow_comparison_engage` | User changes an allowed comparison input or view | `interaction_type`, `model_version`; never raw financial inputs |
-| `garden_drawflow_cta_click` | CTA from a DrawFlow proof/mechanism module | `cta_location`, `cta_type`, `proof_version` |
+| `garden_financing_cta_click` | Primary/secondary/phone CTA | `cta_location`, `cta_type`, `page_path` |
+| `garden_journey_view` | End-to-end journey reaches threshold | `module_version` |
+| `garden_credentials_view` | In-house team proof reaches threshold | `module_version` |
+| `garden_network_engage` | Network/team-assistance interaction | `interaction_type` |
+| `garden_drawflow_engine_view` | Engine explanation reaches threshold | `engine_version`, `module_location` |
+| `garden_drawflow_adaptation_view` | Before/after schedule engaged | `example_version` |
+| `garden_drawflow_proof_view` | Claim module reaches threshold | `proof_version`, `module_location` |
+| `garden_drawflow_methodology_open` | Methodology opened | `claim_id`, `proof_version` |
+| `garden_drawflow_comparison_engage` | Allowed comparison input/view changes | `interaction_type`, `model_version` |
+| `garden_workspace_demo_engage` | Portal/workspace proof engaged | `interaction_type` |
+| `garden_field_proof_engage` | Drone/walkthrough proof engaged | `asset_type`, `asset_version` |
+| `garden_option_view` | Financing comparison engaged | `option_type` |
 | `garden_checklist_download` | Readiness asset download | `asset_version`, `cta_location` |
-| `garden_assessment_start` | First assessment interaction | `entry_cta`, `project_type` if non-sensitive |
-| `garden_assessment_step_complete` | Step completion | `step_number`, `step_name` |
-| `garden_assessment_submit` | Successful public submission | `project_type`, `municipality_group`, `urgent_flag` only if privacy-approved |
+| `garden_assessment_start` | First assessment interaction | `entry_cta`, `project_type` if approved |
+| `garden_assessment_step_complete` | Step completed | `step_number`, `step_name` |
+| `garden_assessment_submit` | Successful public submission | Approved non-PII categories only |
 | `garden_phone_click` | Click-to-call | `cta_location` |
-| `garden_qualified_lead` | CRM-side qualification | Import only aggregated/non-PII conversion data under the approved measurement design |
+| `garden_qualified_lead` | CRM qualification | Aggregated/non-PII import only |
 
-Never send address, name, email, phone, income, credit data, mortgage balances, property values, requested amounts, free text or document names into GA4 or ad-platform event parameters.
+### KPIs
 
-### KPIs by horizon
+**Prelaunch**
 
-**Prelaunch baseline**
-
-- Current `/garden-suite-financing-gta` impressions, clicks, CTR, average position, organic entrances and conversions.
-- Current `/garden-suite` signal and overlapping queries.
-- Existing internal links and sitemap/index status.
+- Current route impressions, clicks, CTR, position, organic entrances and conversions.
+- Existing `/garden-suite` queries, backlinks and cannibalization risk.
+- Current sitemap/index/canonical status and internal links.
 
 **First 30 days**
 
 - Indexing and Google-selected canonical.
-- Structured-data validity.
-- Event accuracy and form integrity.
-- Impressions/CTR for financing and Garden/Laneway variants.
-- No query cannibalization with the informational pillar.
+- Structured-data validity and event accuracy.
+- Financing/Garden/Laneway query impressions and CTR.
+- Assessment starts/completions and form integrity.
+- No cannibalization with the informational pillar.
 
 **Days 28 and 56**
 
-- Query discovery by modifier: Toronto, GTA, financing, loan, HELOC, refinance, Laneway and shortfall.
-- Query discovery for DrawFlow, construction draws, draw schedule, milestone financing, interest savings and related branded/unbranded product language.
-- Organic CTR by device.
+- Query discovery by Toronto, GTA, financing, loan, HELOC, refinance, Laneway, builder, project-management and shortfall modifiers.
+- Query discovery for DrawFlow, draw schedule, milestone financing, adaptive scheduling, interest savings and branded product language.
 - Resource-to-money-page assisted sessions.
-- DrawFlow proof views, methodology opens and proof-to-assessment starts by module location.
-- Assessment start rate and step abandonment.
+- Engagement with journey, credentials, network, DrawFlow engine, proof, workspace and field-oversight modules.
+- Proof-to-assessment-start rate and assessment-step abandonment.
 
 **Day 90**
 
-- Organic assessment completions.
-- Qualified-lead rate by landing page and query family.
-- Qualified-lead and completion lift among sessions exposed to the DrawFlow proof module, reported as correlation unless an experiment establishes causation.
+- Organic assessment completions and qualified-lead rate.
+- Lead mix: homeowner without team, homeowner with builder, builder/project sponsor and urgent file.
+- Qualified-lead lift correlated with differentiator-module exposure; call it causal only after a valid experiment.
 - Assisted conversions from the informational cluster.
-- Call conversions and urgent-file submissions.
-- Decision to refine the combined page or validate a genuinely separate content need; do not split merely because a term appeared once.
+- Call and urgent-file conversions.
+- Decision to refine the combined page or validate a truly distinct route; never split on one incidental query.
 
 ## 18. CRO test backlog
 
-Run one material test at a time and predefine the conversion event.
+Test one material variable at a time after baseline traffic is sufficient:
 
-1. Hero H1: `Garden Suite Financing in Toronto, Built Around DrawFlow` vs `Finance Your Toronto Garden or Laneway Suite with DrawFlow`.
-2. Primary CTA: `Build My Financing & Draw Plan` vs `Assess DrawFlow for My Garden Suite`.
-3. Required proof format: three compact claim cards vs a single DrawFlow evidence strip. Both variants retain all three claims and their disclosure link.
-4. Worked comparison placement: directly after the DrawFlow mechanism vs after the financing-route comparison.
-5. Fit checklist before comparison table vs comparison table before checklist.
-6. Short four-field assessment start vs direct link to the full intake flow.
-7. Sticky mobile assessment CTA vs non-sticky control.
+1. Hero thesis: `end-to-end partner` vs `DrawFlow-powered financing`.
+2. Primary CTA: `Plan My Garden Suite Project` vs `Request My Project Assessment`.
+3. Proof-strip ordering: experience first vs DrawFlow outcomes first.
+4. End-to-end journey before vs after the DrawFlow mechanism.
+5. Engine diagram vs adaptive before/after schedule above the fold.
+6. Homeowner reassurance copy for visitors without builders.
+7. Static case-study comparison vs interactive comparison.
+8. Workspace/drone proof placement before vs after financial proof.
+9. Embedded short assessment vs CTA into the secure intake flow.
+10. Urgent-project CTA placement.
 
-Do not test removing, obscuring or weakening `up to 15 draws`, `borrower-controlled timing`, FairLend's contractual release authority, `save up to 50% in construction-period interest` or the `$12,000` illustration. Do not test misleading urgency, fake scarcity, approval language, regulatory endorsement framing or rates without compliant disclosures.
+Primary experiment outcome: qualified assessment completion. Do not optimize only for clicks or shallow form starts.
 
-## 19. Editorial review and maintenance
+## 19. Editorial, product and evidence maintenance
 
 ### Before launch
 
-- SEO/editor verifies intent ownership, metadata, headings, links and source alignment.
-- DrawFlow product/evidence owner supplies and signs the standard agreement clauses for `up to 15 draws`, borrower-controlled timing and FairLend release authority; the multi-case-study ledger supporting `save up to 50%`; and the reproducible `$12,000` comparison package.
-- Principal Broker/compliance reviewer approves all financing, lender, program, rate/fee, projected-rent, leverage, appraisal and timeline language, including the exact three DrawFlow claims and their adjacent disclosures.
-- Privacy reviewer approves form purpose, consent, data routing, retention and analytics exclusions.
-- Accessibility review covers headings, controls, errors, focus, keyboard operation, contrast and document accessibility.
-- Engineering verifies rendered metadata, canonical, sitemap, schema, event firing and form error handling.
+- SEO/editor verifies intent, keywords, metadata, headings, links and non-cannibalization.
+- Principal Broker validates mortgage, construction and experience claims.
+- Build advisory owner validates the journey, network, schedule, oversight and inspection language.
+- Specialist legal team validates its credentials, service scope, lender-agreement authority and disclosures.
+- DrawFlow product/data owner validates the software, AI-training, heuristics, dependency analysis, cost/schedule estimation, optimization and self-adjustment claims.
+- Evidence owner supplies the up-to-15 agreement support, multi-case up-to-50% ledger and reproducible $12,000 comparison.
+- Security/privacy validates SSO, workspace permissions, media consent, form routing and analytics.
+- Accessibility validates media, tables, controls, errors, focus, keyboard use and contrast.
+- Engineering validates rendered metadata, canonical, redirects, sitemap, schema, events and form handling.
 
 ### Ongoing
 
-- Quarterly review for programs, lender policies, public-source changes and page claims; version changes to the DrawFlow facility or comparator trigger an immediate claim review.
-- Immediate review after a material regulatory, product, program or municipal change.
-- Annual review of evergreen explanatory copy and internal links.
-- Update visible dates only after substantive review.
-- Maintain a corrections log and archive supporting evidence for material claims.
+- Quarterly product/claim review or immediately after a material DrawFlow change.
+- Quarterly case-study ledger refresh.
+- Annual credential/team review and immediate update after team changes.
+- Monthly official-source checks for municipal and CMHC content where automated monitoring exists; otherwise quarterly.
+- Quarterly link, schema, media-consent and accessibility review.
+- Visible update log and corrections route.
 
 ## 20. Implementation priority
 
 ### P0 — Required for launch
 
-- Correct title, description, H1, canonical and intent boundary.
-- Hero, answer block, DrawFlow mechanism, all three required proof claims, static worked comparison, fit checklist, financing comparison, lender-evidence section, process, failure modes, FAQ and final assessment CTA.
-- Visible methodology/disclosure panel and approved evidence package for the contractual `up to 15`/borrower-controlled timing/release-authority features, the multi-case-study `save up to 50%` result and `$12,000 illustrative interest saved`.
-- Progressive assessment flow with privacy-safe analytics.
-- Brokerage identity/licence disclosure and licensed review.
-- Internal link to the single informational Garden Suite canonical.
-- `WebPage`, `Service` and `BreadcrumbList` structured data.
-- Sitemap, robots, social metadata and rendered-content verification.
+- Route ownership, redirect, metadata, H1, canonical and sitemap.
+- Hero, answer block and homeowner-without-builder reassurance.
+- End-to-end journey and integrated mortgage/build/legal credential proof.
+- DrawFlow definition, engine, adaptive loop and capital-efficiency story.
+- Up-to-15, up-to-50% and $12,000 claims with visible evidence/methodology.
+- FairLend release authority and borrower-controlled timing.
+- Workspace/SSO/least-privilege explanation with current screenshot.
+- Daily drone, weekly walkthrough/inspection and milestone-review operating cadence.
+- Professional/contractor/supplier network explanation.
+- Fit, financing comparison, lender assessment, takeout/CMHC, failure modes and FAQ.
+- Progressive privacy-safe assessment and analytics.
+- Brokerage identity/licence, licensed review and legal-scope disclosures.
+- WebPage, Service and BreadcrumbList structured data.
 
 ### P1 — Authority and conversion moat
 
-- Printable financing-readiness checklist.
-- Cost-to-capital and expanded draw-timeline diagrams.
-- Interactive version of the comparison engine; the approved static `$12,000` worked example already ships at P0.
-- Additional anonymized, approved project examples with transparent assumptions.
-- Partner-facing referral checklist for architects/builders.
-- CRM-side qualified-lead feedback into SEO reporting.
+- Multiple full case studies and a DrawFlow methodology page.
+- Interactive dependency/schedule example and comparison calculator.
+- Redacted workspace walkthrough and project video.
+- Downloadable readiness/budget/draw checklist.
+- Named project-team/network profiles and testimonials.
+- Dedicated Principal Broker, build advisory and legal-team biographies.
 
 ### P2 — Only after measured need
 
-- Interactive funding-route selector that screens rather than recommends or approves.
-- Calculator modules with transparent assumptions and licensed review.
-- Municipality-specific modules where unique official evidence and service coverage exist.
-- Additional Laneway route only after independent demand and SERP separation are demonstrated.
+- Municipality-specific pages with unique demand, operational proof and official-source maintenance.
+- Separate Laneway money page only after validated standalone transactional demand.
+- Additional calculators or program pages after GSC/lead evidence.
+- Heavy portal demos or interactive timelines that pass performance/accessibility gates.
 
 ## 21. Definition of done
 
-The page is ready to request indexing only when all statements below are true:
+The page is ready for indexing only when every statement is true:
 
-- [ ] The page has one unambiguous transactional owner and does not duplicate the informational pillar.
-- [ ] Title, description, H1 and first answer target `garden suite financing Toronto`; GTA is secondary.
-- [ ] Every required section is server-rendered and useful without JavaScript.
-- [ ] Funding routes are compared using consistent assumptions and balanced limitations.
-- [ ] `Up to 15 milestone-based draws`, borrower-controlled timing and FairLend's release authority under the lender agreement appear in the hero, DrawFlow mechanism and product FAQ as contractual features—not conditional lender permissions.
-- [ ] `Save up to 50% in construction-period interest` appears with multiple case studies, case count, date range, disclosed comparison baseline, maximum demonstrated case, distribution/range and exclusions.
-- [ ] The `$12,000` illustration appears in a reproducible worked comparison with common inputs, both draw schedules, interest, fees, working-capital exposure, engine version and review date.
-- [ ] None of the three required DrawFlow claims has been suppressed, generalized away, hidden only in imagery or converted into an unsupported guarantee.
-- [ ] Projected rent, appraisal, program and approval language is conditional and reviewed.
-- [ ] Brokerage authorized name and FSRA licence #13827 are clearly and prominently disclosed.
-- [ ] Any named mortgage professional uses the licensed name and prescribed title.
-- [ ] No rate/payment/fee representation appears without the required APR/term analysis and compliance approval.
-- [ ] The assessment form has privacy, consent, security and non-PII analytics controls.
-- [ ] The page links both ways with the single Garden Suite informational canonical.
-- [ ] Canonical, robots, sitemap, social metadata and structured data validate in rendered HTML.
-- [ ] All official sources are current and all claims have owners/review dates.
-- [ ] DrawFlow's workflow screenshot/diagram and comparison evidence are accessible, redacted and backed by visible HTML.
-- [ ] GA4 events fire once, carry no PII and map to the defined funnel.
+- [ ] One transactional canonical exists and the informational pillar remains distinct.
+- [ ] `/garden-suite` unique content is merged and its 301 destination is correct.
+- [ ] Title, description, H1 and answer target `garden suite financing Toronto`; GTA is secondary.
+- [ ] The hero establishes end-to-end planning-through-takeout support.
+- [ ] Homeowners without builders are explicitly welcomed.
+- [ ] The professional/contractor/supplier network and participant-selection process are explained.
+- [ ] The 28-year mortgage, 30-year build and 10+ year legal claims are attributed and documented.
+- [ ] DrawFlow is presented as proprietary software with real UI/methodology evidence.
+- [ ] Heuristics, dependency-graph analysis, AI training, cost/schedule estimation and adaptive recalculation are product-approved and supported.
+- [ ] The shared workspace, SSO and least-privilege role model are accurately represented.
+- [ ] Daily drone capture, weekly walkthroughs/inspections and milestone reviews are defined and evidenced.
+- [ ] `Up to 15 borrower-controlled milestone draws` and FairLend release authority appear in the hero/product/FAQ flow.
+- [ ] `Save up to 50% in construction-period interest` appears with the multi-case ledger and disclosed baseline/range.
+- [ ] The approximately `$12,000` illustration is reproducible and versioned.
+- [ ] None of the locked differentiators is suppressed, generalized away or hidden only in media.
+- [ ] Builder liquidity and homeowner interest efficiency are both explained.
+- [ ] Funding routes use equivalent assumptions and balanced limitations.
+- [ ] Takeout and CMHC qualification planning are included with current sources and conditional eligibility language.
+- [ ] Permit, legal, inspection, appraisal, rent and approval scopes are accurate.
+- [ ] Authorized brokerage identity and FSRA licence #13827 are prominent.
+- [ ] The assessment is privacy-safe and analytics contain no PII.
+- [ ] All essential content works without JavaScript.
+- [ ] Canonical, redirects, robots, sitemap, social metadata and structured data validate in rendered HTML.
+- [ ] Every claim has an owner, evidence location and review date.
+- [ ] Media is real/redacted/consented, accessible and performance-optimized.
+- [ ] GA4 events fire once and map to the defined funnel.
 - [ ] Mobile, keyboard, screen-reader and Core Web Vitals checks pass.
-- [ ] Principal Broker/compliance approval is recorded.
-- [ ] GSC baseline is stored and 30/56/90-day review dates are assigned.
+- [ ] Principal Broker, product, legal/compliance, privacy/security and accessibility approvals are recorded.
+- [ ] GSC baseline and 30/56/90-day review dates are assigned.
+- [ ] The H1 contains `Garden Suite Financing` and `Toronto` (Section 5), matching the Section 4 placement rule.
+- [ ] The financing comparison includes the government-programs row, and FAQs 21–22 answer federal-loan and Toronto-incentive questions with dated, conditional, resource-hub-linked language.
+- [ ] Rendered body length is within the 3,000–3,800-word budget and per-section/FAQ limits (Section 7).
+- [ ] One primary CTA phrase (`Plan My Garden Suite Project`) appears in both hero and final CTA; the alternate phrase is reserved for CRO test 2.
+- [ ] Section 14 opens with the dated, sourced cost anchor linking to the cost/feasibility resource.
+- [ ] Section 19 restates headline claims reference-style only, linked to Section 8 methodology anchors.
+- [ ] Every `[PLACEHOLDER: owner — evidence needed]` marker is resolved or its claim family is classified deferrable per the Section 13 triage protocol.
 
 ## 22. Source basis
 
-- [Garden and Laneway Suite SEO research](./research.md)
-- [Garden and Laneway Suite competitor analysis](./competitors.md)
-- [Garden and Laneway Suite content recommendations](./content.md)
-- [Current Garden Suite financing page implementation](<../../../../src/app/(frontend)/garden-suite-financing-gta/page.tsx>)
-- [FairLend company and DrawFlow service brief](../../../context/Company%20Brief.md)
-- [DrawFlow interest-exposure comparator product requirements](../../../drawflow-interest-exposure-comparator-prd.md)
-- [Existing DrawFlow build-model implementation](../../../../src/components/FairlendBuildModelSection/index.tsx)
-- [FairLend service and positioning evidence base](../../research/competitive/fairlend-services-and-positioning-base-2026-07-15.md)
-- [FSRA advertising requirements](https://www.fsrao.ca/industry/mortgage-brokering/compliance-and-other-resources/mortgage-industry-public-relations-and-advertising-requirements)
-- [Ontario Regulation 188/08](https://www.ontario.ca/laws/regulation/080188)
-- [Ontario Regulation 191/08](https://www.ontario.ca/laws/regulation/080191)
+This plan consolidates:
+
+- [Garden and Laneway Suite research synthesis](../research.md)
+- [Garden and Laneway Suite competitor analysis](../competitors.md)
+- [Garden and Laneway Suite content recommendations](../content.md)
+- [Garden Suite authority-page plan](authority-page-plan.md)
+- Existing FairLend route, DrawFlow and positioning documentation in the SEO corpus
+- July 20, 2026 exact-query SERP validation preserved in the synthesis
+- Product facts and differentiators confirmed by FairLend on July 21, 2026
+- Cached FairLend site/plan context dated July 15, 2026, used only for stable domain and strategic-goal orientation—not as a source for new market claims
+
+No live keyword or market refresh was added during this rewrite. Search metrics retain their original research dates. Product facts newly supplied on July 21, 2026 must be linked to their internal evidence packages before publication.

@@ -63,6 +63,7 @@ function JournalMedia({
   return (
     <Image
       alt=""
+      aria-hidden="true"
       className="object-cover grayscale opacity-85 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.025]"
       fill
       priority={priority}
@@ -191,7 +192,7 @@ function JournalEmptyState() {
     <div className="grid border-y border-[#08090a] bg-[#fffdf9] md:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.9fr)]">
       <div className="relative min-h-[25rem] overflow-hidden border-b border-[#08090a] bg-[#e8e8e2] md:border-r md:border-b-0">
         <Image
-          alt="Engraved compass and site-plan instruments"
+          alt="Surveyor compass and architectural site plans for FairLend mortgage resources"
           className="object-contain p-10 grayscale sm:p-16"
           fill
           sizes="(max-width: 767px) 100vw, 55vw"

@@ -40,7 +40,7 @@ export default function MultiplexFinancingGtaPage() {
             'FairLend helps owners, builders, brokers, and small developers pressure-test construction budgets and draw timing, size their private-capital needs, and confirm MLI Select readiness. Before a promising site stalls.',
           image: {
             ...fairlendRouteSelectorAssets.constructionBuilding,
-            alt: 'Line illustration of a GTA construction building',
+            alt: 'GTA multiplex construction project with residential framing and tower crane',
           },
           primaryCta: { href: intakeHref, label: 'Start multiplex review' },
           secondaryCta: {

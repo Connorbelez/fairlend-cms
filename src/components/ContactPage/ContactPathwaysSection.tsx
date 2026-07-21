@@ -18,7 +18,7 @@ export function ContactPathwaysSection() {
 
         <figure className="contact-pathways__figure">
           <Image
-            alt="Engraved view of a Toronto infill housing block"
+            alt="Toronto infill homes and garden suites on a Southern Ontario residential block"
             className="contact-pathways__image"
             height={509}
             loading="lazy"

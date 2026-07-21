@@ -142,7 +142,7 @@ export const discoveryPersonas: Record<FairlendBookingType, DiscoveryPersona> = 
       },
     ],
     heroImage: {
-      alt: 'Toronto skyline rendered in FairLend’s monochromatic ink style',
+      alt: 'Toronto skyline for FairLend real estate financing partner consultations',
       height: 818,
       src: '/assets/partners/partner-toronto-skyline-ink.webp',
       width: 1570,
@@ -250,7 +250,7 @@ export const discoveryPersonas: Record<FairlendBookingType, DiscoveryPersona> = 
       },
     ],
     heroImage: {
-      alt: 'Toronto investment skyline rendered as a monochromatic FairLend engraving',
+      alt: 'Toronto skyline and bridge for private mortgage lender consultations',
       height: 424,
       src: '/assets/fairlend-route-selector/investor-skyline-engraving.webp',
       width: 900,
@@ -357,7 +357,7 @@ export const discoveryPersonas: Record<FairlendBookingType, DiscoveryPersona> = 
       },
     ],
     heroImage: {
-      alt: 'Residential property rendered as a monochromatic FairLend engraving',
+      alt: 'Toronto-area detached home for private and institutional mortgage consultations',
       height: 378,
       src: '/assets/fairlend-route-selector/private-mortgage-house-engraving.webp',
       width: 900,
@@ -464,7 +464,7 @@ export const discoveryPersonas: Record<FairlendBookingType, DiscoveryPersona> = 
       },
     ],
     heroImage: {
-      alt: 'Construction project rendered as a monochromatic FairLend engraving',
+      alt: 'Toronto residential construction site for builder financing consultations',
       height: 452,
       src: '/assets/fairlend-route-selector/construction-building-engraving.webp',
       width: 882,

@@ -103,6 +103,13 @@ export const fairlendPrincipalBrokerJsonLd = (): JsonLdObject => ({
       url: 'https://www.fsrao.ca/',
     },
   },
+  image: {
+    '@type': 'ImageObject',
+    caption: 'Elie Soberano, FairLend founder and principal broker',
+    contentUrl: getCanonicalUrl('/assets/elie-soberano-headshot.webp'),
+    name: 'Elie Soberano — FairLend Founder and Principal Broker',
+    url: getCanonicalUrl('/assets/elie-soberano-headshot.webp'),
+  },
   jobTitle: 'Principal Broker and Founder',
   knowsAbout: [
     'Private mortgage financing',

@@ -1,0 +1,1454 @@
+{
+  "schemaVersion": 1,
+  "profiles": {
+    "shared-direct": {
+      "status": "production",
+      "reuseMode": "direct",
+      "aesthetic": {
+        "family": "FairLend shared money-page system",
+        "density": "medium",
+        "tone": "regulated, direct and technical",
+        "layout": "content-dependent shared block",
+        "background": "inherited",
+        "visualWeight": "medium"
+      },
+      "responsiveBehavior": "Responsive behaviour is contained by the shared component and its documented variants.",
+      "accessibility": [
+        "Uses the shared FairLend focus, semantic and responsive conventions."
+      ],
+      "constraints": [],
+      "compatibleNeighbors": []
+    },
+    "shared-extend": {
+      "status": "production",
+      "reuseMode": "extend",
+      "aesthetic": {
+        "family": "FairLend shared money-page system",
+        "density": "medium",
+        "tone": "regulated, direct and technical",
+        "layout": "content-dependent shared block",
+        "background": "inherited",
+        "visualWeight": "medium"
+      },
+      "responsiveBehavior": "Existing responsive behaviour must be preserved while adding typed content slots or variants.",
+      "accessibility": [
+        "Preserve current semantics, focus behaviour and reduced-motion handling when extending."
+      ],
+      "constraints": [
+        "Extend the existing interface rather than copying the markup into a page-specific component."
+      ],
+      "compatibleNeighbors": []
+    },
+    "legacy-borrower-reference": {
+      "status": "candidate",
+      "reuseMode": "reference-only",
+      "aesthetic": {
+        "family": "FairLend private-mortgage conversion dossier",
+        "density": "medium",
+        "tone": "urgent but accountable",
+        "layout": "route-specific editorial conversion block",
+        "background": "mixed",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Responsive implementation exists, but must be verified outside its original private-mortgage composition.",
+      "accessibility": [
+        "Semantic section structure is present in the source implementation."
+      ],
+      "constraints": [
+        "Hard-coded private-mortgage copy and data.",
+        "No current production page call site was detected; use as a pattern unless extracted and parameterized."
+      ],
+      "compatibleNeighbors": []
+    },
+    "institutional-extract": {
+      "status": "production",
+      "reuseMode": "extract-first",
+      "variants": [],
+      "aesthetic": {
+        "family": "Institutional mortgage policy-file dossier",
+        "density": "medium",
+        "tone": "analytical and policy-led",
+        "layout": "route-specific structured evidence block",
+        "background": "light",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Uses the institutional route's explicit desktop-to-mobile CSS composition.",
+      "accessibility": [
+        "Semantic sections, lists or table roles are present in the route implementation."
+      ],
+      "constraints": [
+        "Coupled to institutional-mortgage.css through im-* selectors.",
+        "Content is imported from the route-local data module or hard-coded in the block.",
+        "Extract styles and typed data before reuse; preserve the institutional route call site."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "editorial",
+        "faq"
+      ]
+    },
+    "private-extract": {
+      "status": "production",
+      "reuseMode": "extract-first",
+      "variants": [],
+      "aesthetic": {
+        "family": "Private mortgage technical file dossier",
+        "density": "medium",
+        "tone": "urgent, candid and risk-aware",
+        "layout": "route-specific structured evidence block",
+        "background": "mixed",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Uses the private-mortgage route's explicit desktop-to-mobile CSS composition.",
+      "accessibility": [
+        "Semantic sections, lists or table roles are present in the route implementation."
+      ],
+      "constraints": [
+        "Coupled to private-mortgage-financing.css through pm-* selectors.",
+        "Content is imported from the route-local data module or hard-coded in the block.",
+        "Extract styles and typed data before reuse; preserve the private-mortgage route call site."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "editorial",
+        "faq"
+      ]
+    }
+  },
+  "blocks": {
+    "fairlend-application-cta": {
+      "profile": "shared-direct",
+      "name": "Application CTA Form",
+      "category": "form",
+      "purpose": "Capture a lightweight application identifier and move a visitor into the established application flow.",
+      "bestFor": [
+        "high-intent inline conversion",
+        "hero or route-reference application start"
+      ],
+      "contentSlots": [
+        "label",
+        "placeholder",
+        "field name",
+        "action label",
+        "submit handler"
+      ],
+      "variants": [
+        "default",
+        "compact"
+      ],
+      "aesthetic": {
+        "layout": "single-field application CTA",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Inline form collapses within the route-reference composition without changing the conversion intent.",
+      "compatibleNeighbors": [
+        "hero",
+        "solution",
+        "cta"
+      ]
+    },
+    "fairlend-borrower-consultation": {
+      "profile": "legacy-borrower-reference",
+      "category": "cta",
+      "purpose": "Close a private-mortgage narrative with consultation conversion and deadline context.",
+      "bestFor": [
+        "urgent consultation close",
+        "private-mortgage conversion"
+      ],
+      "contentSlots": [
+        "fixed heading",
+        "fixed supporting copy",
+        "consultation CTA"
+      ],
+      "variants": []
+    },
+    "fairlend-borrower-cta": {
+      "profile": "shared-direct",
+      "name": "Borrower CTA",
+      "category": "cta",
+      "purpose": "Render the canonical FairLend money-page action with consistent link behaviour and hierarchy.",
+      "bestFor": [
+        "primary conversion",
+        "secondary route navigation",
+        "inline text action"
+      ],
+      "contentSlots": [
+        "label",
+        "href",
+        "anchor or Next Link props"
+      ],
+      "variants": [
+        "primary",
+        "secondary",
+        "text",
+        "large",
+        "medium",
+        "hide arrow"
+      ],
+      "aesthetic": {
+        "layout": "lime or outlined action button",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Maintains a minimum touch target and permits wrapping only at the surrounding layout level.",
+      "compatibleNeighbors": [
+        "hero",
+        "process",
+        "faq",
+        "cta"
+      ]
+    },
+    "fairlend-borrower-differentiators": {
+      "profile": "legacy-borrower-reference",
+      "category": "comparison",
+      "purpose": "Explain the full economics and decision factors behind a private mortgage rather than presenting only rate.",
+      "bestFor": [
+        "total-cost comparison",
+        "commercial objection handling"
+      ],
+      "contentSlots": [
+        "fixed comparison axes",
+        "fixed explanatory copy"
+      ],
+      "variants": []
+    },
+    "fairlend-borrower-faq": {
+      "profile": "legacy-borrower-reference",
+      "category": "faq",
+      "purpose": "Resolve private-mortgage objections through a dedicated accordion question register.",
+      "bestFor": [
+        "private-mortgage FAQ",
+        "late-stage objection handling"
+      ],
+      "contentSlots": [
+        "fixed question groups"
+      ],
+      "variants": []
+    },
+    "fairlend-borrower-hero": {
+      "profile": "legacy-borrower-reference",
+      "category": "hero",
+      "purpose": "Open a deadline-driven private-mortgage page with embedded intake and decision proof.",
+      "bestFor": [
+        "urgent borrower acquisition",
+        "private-mortgage lead capture"
+      ],
+      "contentSlots": [
+        "fixed eyebrow",
+        "fixed heading",
+        "fixed proof signals",
+        "embedded intake"
+      ],
+      "variants": []
+    },
+    "fairlend-borrower-problem": {
+      "profile": "legacy-borrower-reference",
+      "category": "problem",
+      "purpose": "Reframe a fast financing approval as insufficient without complete cost and exit clarity.",
+      "bestFor": [
+        "risk agitation",
+        "cost-and-exit education"
+      ],
+      "contentSlots": [
+        "fixed problem statement",
+        "fixed cost equation"
+      ],
+      "variants": []
+    },
+    "fairlend-borrower-process": {
+      "profile": "legacy-borrower-reference",
+      "category": "process",
+      "purpose": "Visualize the private-mortgage route from initial review through a credible exit.",
+      "bestFor": [
+        "exit-first process",
+        "multi-stage mortgage explanation"
+      ],
+      "contentSlots": [
+        "fixed process steps",
+        "fixed CTA"
+      ],
+      "variants": []
+    },
+    "fairlend-borrower-scenarios": {
+      "profile": "legacy-borrower-reference",
+      "category": "qualification",
+      "purpose": "Route visitors through scenarios where private financing may fit.",
+      "bestFor": [
+        "self-qualification",
+        "scenario routing"
+      ],
+      "contentSlots": [
+        "fixed scenarios",
+        "fixed CTA"
+      ],
+      "variants": []
+    },
+    "fairlend-borrower-solution": {
+      "profile": "legacy-borrower-reference",
+      "category": "solution",
+      "purpose": "Present private-mortgage structures around the borrower's next move and exit path.",
+      "bestFor": [
+        "solution framing",
+        "product-route explanation"
+      ],
+      "contentSlots": [
+        "fixed solution cards",
+        "fixed CTA"
+      ],
+      "variants": []
+    },
+    "fairlend-borrower-trust-proof": {
+      "profile": "legacy-borrower-reference",
+      "category": "proof",
+      "purpose": "Establish principal-broker judgment, local context and operating standards.",
+      "bestFor": [
+        "expertise proof",
+        "regulated-service trust"
+      ],
+      "contentSlots": [
+        "fixed reviewer proof",
+        "fixed standards"
+      ],
+      "variants": []
+    },
+    "fairlend-build-model-section": {
+      "profile": "shared-direct",
+      "category": "calculator",
+      "purpose": "Explain FairLend's build model and DrawFlow through an interactive technical financing dossier.",
+      "bestFor": [
+        "DrawFlow mechanism",
+        "construction financing differentiation",
+        "builder economics"
+      ],
+      "contentSlots": [
+        "embedded build-model states",
+        "DrawFlow comparison",
+        "sensitivity console"
+      ],
+      "variants": [
+        "full build-model introduction",
+        "start with DrawFlow"
+      ],
+      "aesthetic": {
+        "family": "DrawFlow technical financing dossier",
+        "density": "high",
+        "tone": "technical and evidentiary",
+        "layout": "scroll-driven model board and narrative",
+        "background": "mixed",
+        "visualWeight": "dominant"
+      },
+      "responsiveBehavior": "Provides separate desktop board and mobile narrative states; preserve its motion leaf boundaries.",
+      "constraints": [
+        "Content and claims are substantially embedded in the component.",
+        "Heavy visual block; use once per page and do not place beside another dominant interactive section."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "proof",
+        "case-study",
+        "cta"
+      ]
+    },
+    "fairlend-builder-consulting-section": {
+      "profile": "shared-extend",
+      "category": "calculator",
+      "purpose": "Model builder/project economics through an editorial pro-forma and scenario timeline.",
+      "bestFor": [
+        "development feasibility",
+        "builder consulting",
+        "project economics"
+      ],
+      "contentSlots": [
+        "embedded project types",
+        "embedded years",
+        "equation variables",
+        "scenario explanations"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "FairLend builder pro-forma workbook",
+        "density": "high",
+        "tone": "analytical and advisory",
+        "layout": "scroll-driven equation workspace",
+        "background": "mixed",
+        "visualWeight": "dominant"
+      },
+      "constraints": [
+        "Large component with embedded data and bespoke motion; add typed scenario inputs before using different project copy.",
+        "Use once per page."
+      ],
+      "compatibleNeighbors": [
+        "qualification",
+        "answer",
+        "cta"
+      ]
+    },
+    "fairlend-credibility-stats-strip": {
+      "profile": "shared-direct",
+      "name": "Credibility Stats Strip",
+      "category": "proof",
+      "purpose": "Show compact licence, turnaround, or capability proof beneath a financing-route composition.",
+      "bestFor": [
+        "hero-adjacent trust",
+        "route proof"
+      ],
+      "contentSlots": [
+        "icon and label statistics"
+      ],
+      "variants": [
+        "default supplied statistics",
+        "custom statistics"
+      ],
+      "aesthetic": {
+        "layout": "horizontal credibility strip"
+      },
+      "compatibleNeighbors": [
+        "hero",
+        "solution",
+        "answer"
+      ]
+    },
+    "fairlend-editorial-review": {
+      "profile": "shared-direct",
+      "category": "editorial",
+      "purpose": "Publish licensed reviewer identity, review date, methodology and primary sources for YMYL content.",
+      "bestFor": [
+        "mortgage guidance",
+        "YMYL trust",
+        "source transparency"
+      ],
+      "contentSlots": [
+        "date modified",
+        "methodology",
+        "primary sources",
+        "class name"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "family": "FairLend editorial evidence card",
+        "layout": "reviewer and source split",
+        "background": "light"
+      },
+      "compatibleNeighbors": [
+        "answer",
+        "faq",
+        "cta"
+      ]
+    },
+    "fairlend-faq-section": {
+      "profile": "shared-extend",
+      "category": "faq",
+      "purpose": "Render the global FairLend FAQ groups and their existing JSON-LD payload.",
+      "bestFor": [
+        "global FAQ",
+        "homepage objection handling"
+      ],
+      "contentSlots": [
+        "fixed global FAQ groups"
+      ],
+      "variants": [],
+      "constraints": [
+        "FAQ content and JSON-LD are coupled to the global data module.",
+        "Add typed question groups and schema controls before using page-specific commercial FAQs."
+      ],
+      "compatibleNeighbors": [
+        "editorial",
+        "cta"
+      ]
+    },
+    "fairlend-feedback-content-page": {
+      "profile": "shared-direct",
+      "category": "page-composer",
+      "reuseMode": "composer",
+      "purpose": "Assemble a static editorial money/service page from a typed hero, proof, answer, content-section, editorial and final-CTA configuration.",
+      "bestFor": [
+        "SEO service pages",
+        "fast money-page assembly",
+        "server-rendered informational-commercial pages"
+      ],
+      "contentSlots": [
+        "eyebrow",
+        "title",
+        "subtitle",
+        "image",
+        "primary CTA",
+        "secondary CTA",
+        "hero footer (supporting lines, CTA microcopy, text links, disclosures)",
+        "proof items",
+        "geo answer",
+        "panel/checklist/steps/table/faq/custom-content sections",
+        "section anchors and inline section CTAs",
+        "editorial review",
+        "final note",
+        "final microcopy"
+      ],
+      "variants": [
+        "panels section",
+        "checklist section",
+        "steps section",
+        "table section",
+        "faq section",
+        "custom content section",
+        "section CTA with optional secondary",
+        "geo-answer comparison",
+        "editorial review",
+        "final CTA"
+      ],
+      "aesthetic": {
+        "family": "FairLend cream-and-forest editorial money page",
+        "density": "medium",
+        "tone": "direct, evidence-led and local",
+        "layout": "large split hero followed by configurable editorial sections",
+        "background": "light",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Hero collapses to one column; proof, panel, checklist and steps grids reflow at their registered breakpoints; tables scroll horizontally below their minimum width.",
+      "constraints": [
+        "Section bodies support typed panel, checklist, steps, table, faq and custom-content variants; choose the typed slot that matches the section contract before using the custom-content escape hatch.",
+        "The faq variant renders visible HTML only and never emits FAQPage structured data.",
+        "Use typed extensions for comparison, process, case-study or custom-section slots instead of escaping into duplicated page markup."
+      ],
+      "compatibleNeighbors": [
+        "seo"
+      ]
+    },
+    "fairlend-financing-route-copy-panel": {
+      "profile": "shared-direct",
+      "name": "Financing Route Copy Panel",
+      "category": "solution",
+      "purpose": "Present route-specific positioning, explanatory copy and an optional application CTA inside the financing-route system.",
+      "bestFor": [
+        "financing-route explanation",
+        "hero or high-intent solution framing"
+      ],
+      "contentSlots": [
+        "eyebrow",
+        "title",
+        "subtitle",
+        "description",
+        "application CTA"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "layout": "editorial copy panel"
+      },
+      "compatibleNeighbors": [
+        "hero",
+        "proof",
+        "cta"
+      ]
+    },
+    "fairlend-financing-route-header": {
+      "profile": "shared-direct",
+      "name": "Financing Route Header",
+      "category": "page-shell",
+      "purpose": "Render the indexed system header and descriptor for a financing-route block.",
+      "bestFor": [
+        "numbered financing-route sections",
+        "technical page-system continuity"
+      ],
+      "contentSlots": [
+        "index",
+        "section label",
+        "step label",
+        "brand",
+        "descriptor"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "layout": "technical ledger header",
+        "visualWeight": "low"
+      },
+      "compatibleNeighbors": [
+        "hero",
+        "solution",
+        "comparison"
+      ]
+    },
+    "fairlend-financing-route-reference": {
+      "profile": "shared-direct",
+      "name": "Financing Route Reference",
+      "category": "hero",
+      "purpose": "Compose a financing-route hero/feature from header, copy, illustration, inline application CTA and credibility proof.",
+      "bestFor": [
+        "money-page hero",
+        "financing route introduction",
+        "high-intent conversion"
+      ],
+      "contentSlots": [
+        "illustration",
+        "header props",
+        "copy panel props",
+        "inline CTA props",
+        "credibility statistics"
+      ],
+      "variants": [
+        "with inline CTA",
+        "without inline CTA",
+        "custom illustration class"
+      ],
+      "aesthetic": {
+        "family": "FairLend financing-route technical editorial",
+        "density": "medium",
+        "tone": "confident and technical",
+        "layout": "split copy and illustration with evidence footer",
+        "background": "light",
+        "visualWeight": "dominant"
+      },
+      "responsiveBehavior": "Split composition stacks while the inline CTA and credibility strip adapt at registered breakpoints.",
+      "compatibleNeighbors": [
+        "answer",
+        "qualification",
+        "proof"
+      ]
+    },
+    "fairlend-geo-answer-block": {
+      "profile": "shared-direct",
+      "name": "GEO Answer Block",
+      "category": "answer",
+      "purpose": "Publish an answer-first, citation-ready passage with an optional accessible comparison table.",
+      "bestFor": [
+        "featured-snippet answer",
+        "AI citation passage",
+        "definition and comparison"
+      ],
+      "contentSlots": [
+        "eyebrow",
+        "question",
+        "answer",
+        "comparison caption",
+        "comparison columns",
+        "comparison rows"
+      ],
+      "variants": [
+        "answer only",
+        "answer with comparison"
+      ],
+      "aesthetic": {
+        "family": "FairLend editorial evidence card",
+        "layout": "answer passage with optional table",
+        "background": "light"
+      },
+      "responsiveBehavior": "Text remains fluid; comparison table becomes horizontally scrollable below its minimum width.",
+      "compatibleNeighbors": [
+        "hero",
+        "qualification",
+        "comparison",
+        "editorial"
+      ]
+    },
+    "fairlend-inline-application-cta": {
+      "profile": "shared-direct",
+      "name": "Inline Application CTA",
+      "category": "form",
+      "purpose": "Place the compact application CTA over or beside a route illustration at large breakpoints.",
+      "bestFor": [
+        "hero illustration conversion",
+        "desktop inline application start"
+      ],
+      "contentSlots": [
+        "application CTA props",
+        "class name"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "layout": "compact floating application form",
+        "visualWeight": "high"
+      },
+      "constraints": [
+        "Designed as a supporting route-reference element; ensure a mobile conversion path remains visible."
+      ],
+      "compatibleNeighbors": [
+        "hero",
+        "cta"
+      ]
+    },
+    "fairlend-landing-rail": {
+      "profile": "shared-direct",
+      "name": "Landing Rail",
+      "category": "page-shell",
+      "purpose": "Provide the canonical FairLend framed page canvas, side gutters and selectable texture.",
+      "bestFor": [
+        "full money-page shell",
+        "editorial financing dossiers"
+      ],
+      "contentSlots": [
+        "children",
+        "wrapper class",
+        "content class",
+        "gutter texture"
+      ],
+      "variants": [
+        "fabric-of-squares",
+        "grid-noise",
+        "inflicted",
+        "debut-light",
+        "groovepaper"
+      ],
+      "aesthetic": {
+        "layout": "framed full-page content rail",
+        "visualWeight": "low"
+      },
+      "compatibleNeighbors": [
+        "page-composer",
+        "hero"
+      ]
+    },
+    "fairlend-lead-intake": {
+      "profile": "shared-direct",
+      "name": "Lead Intake",
+      "category": "form",
+      "purpose": "Run the established FairLend lead-intake workflow with intent, product, source and page/hero variants.",
+      "bestFor": [
+        "mortgage lead capture",
+        "construction/build intake",
+        "investor intake",
+        "contact conversion"
+      ],
+      "contentSlots": [
+        "intent override",
+        "source override",
+        "mortgage product",
+        "mortgage variant",
+        "investor variant",
+        "rental transaction"
+      ],
+      "variants": [
+        "page",
+        "hero",
+        "private mortgage",
+        "institutional mortgage",
+        "residential mortgage",
+        "rental property",
+        "build",
+        "invest",
+        "contact"
+      ],
+      "aesthetic": {
+        "layout": "progressive conversion form",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Client-side wizard and standard forms adapt to their container; preserve existing field, error and consent behaviour.",
+      "accessibility": [
+        "Existing labels, validation, consent and focus behaviour are part of the interface."
+      ],
+      "constraints": [
+        "Client component with sensitive-data and analytics controls; never fork or duplicate the intake implementation.",
+        "Wrap with Suspense where the existing call pattern requires search parameters."
+      ],
+      "compatibleNeighbors": [
+        "hero",
+        "cta",
+        "faq"
+      ]
+    },
+    "fairlend-registration-disclosure": {
+      "profile": "shared-direct",
+      "name": "Registration Disclosure",
+      "category": "proof",
+      "purpose": "Render FairLend's authorized legal name and licence disclosure consistently.",
+      "bestFor": [
+        "hero licence disclosure",
+        "contact disclosure",
+        "full regulatory disclosure"
+      ],
+      "contentSlots": [
+        "variant",
+        "class name",
+        "HTML section attributes"
+      ],
+      "variants": [
+        "hero",
+        "contact",
+        "full"
+      ],
+      "aesthetic": {
+        "layout": "compact legal disclosure",
+        "visualWeight": "low"
+      },
+      "compatibleNeighbors": [
+        "hero",
+        "form",
+        "cta",
+        "editorial"
+      ]
+    },
+    "fairlend-section-transition": {
+      "profile": "shared-direct",
+      "name": "Section Transition",
+      "category": "transition",
+      "purpose": "Create a controlled visual buffer between incompatible light FairLend section surfaces.",
+      "bestFor": [
+        "cross-family section transition",
+        "spacing and gradient handoff"
+      ],
+      "contentSlots": [
+        "size",
+        "class name",
+        "HTML div attributes"
+      ],
+      "variants": [
+        "comfortable",
+        "spacious"
+      ],
+      "aesthetic": {
+        "layout": "decorative gradient spacer",
+        "visualWeight": "low"
+      },
+      "accessibility": [
+        "Always aria-hidden because it carries no content."
+      ],
+      "compatibleNeighbors": [
+        "hero",
+        "answer",
+        "comparison",
+        "process",
+        "proof"
+      ]
+    },
+    "fairlend-service-seo": {
+      "profile": "shared-direct",
+      "name": "Service SEO Graph",
+      "category": "seo",
+      "purpose": "Render the canonical WebPage, Service and Breadcrumb structured-data graph for a FairLend service route.",
+      "bestFor": [
+        "mortgage service page schema",
+        "money-page structured data"
+      ],
+      "contentSlots": [
+        "name",
+        "description",
+        "path",
+        "service type",
+        "date modified",
+        "principal-broker review flag",
+        "breadcrumb trail override"
+      ],
+      "variants": [
+        "with reviewer",
+        "without reviewer"
+      ],
+      "aesthetic": {
+        "family": "Non-visual SEO infrastructure",
+        "density": "low",
+        "tone": "structured data",
+        "layout": "non-visual",
+        "background": "transparent",
+        "visualWeight": "low"
+      },
+      "responsiveBehavior": "Non-visual server-rendered JSON-LD.",
+      "accessibility": [],
+      "compatibleNeighbors": [
+        "page-shell",
+        "page-composer"
+      ]
+    },
+    "fairlend-talk-to-expert-cta": {
+      "profile": "shared-direct",
+      "name": "Talk-to-Expert CTA",
+      "category": "cta",
+      "purpose": "Render the compact FairLend consultation action for human-assisted conversion.",
+      "bestFor": [
+        "secondary consultation CTA",
+        "expert escalation"
+      ],
+      "contentSlots": [
+        "eyebrow",
+        "label",
+        "href",
+        "link attributes"
+      ],
+      "variants": [],
+      "aesthetic": {
+        "layout": "compact pill consultation action",
+        "visualWeight": "medium"
+      },
+      "compatibleNeighbors": [
+        "qualification",
+        "faq",
+        "cta"
+      ]
+    },
+    "institutional-mortgage-decline-decoder": {
+      "profile": "institutional-extract",
+      "category": "problem",
+      "purpose": "Decode lender declines into specific policy, evidence, structure or timing responses.",
+      "bestFor": [
+        "decline recovery",
+        "diagnostic objection handling"
+      ],
+      "contentSlots": [
+        "heading",
+        "introduction",
+        "diagnostic findings",
+        "responses"
+      ]
+    },
+    "institutional-mortgage-fit-decision": {
+      "profile": "institutional-extract",
+      "category": "comparison",
+      "purpose": "Compare two financing routes across equivalent decision fields and close with a suitability principle.",
+      "bestFor": [
+        "route comparison",
+        "commercial investigation"
+      ],
+      "contentSlots": [
+        "heading",
+        "introduction",
+        "comparison columns",
+        "comparison rows",
+        "decision note"
+      ]
+    },
+    "institutional-mortgage-institutional-cover": {
+      "profile": "institutional-extract",
+      "name": "Institutional Cover",
+      "category": "hero",
+      "purpose": "Open a mortgage money page with local imagery, qualification signals and embedded intake.",
+      "bestFor": [
+        "mortgage money-page hero",
+        "hero intake conversion"
+      ],
+      "contentSlots": [
+        "breadcrumb label",
+        "heading",
+        "lede",
+        "proof signals",
+        "skip link",
+        "embedded intake"
+      ]
+    },
+    "institutional-mortgage-lender-fit-matrix": {
+      "profile": "institutional-extract",
+      "category": "qualification",
+      "purpose": "Explain a multi-factor underwriting decision through a structured evidence matrix.",
+      "bestFor": [
+        "lender criteria",
+        "project qualification",
+        "evidence requirements"
+      ],
+      "contentSlots": [
+        "heading",
+        "introduction",
+        "factor cells",
+        "evidence labels",
+        "annotation"
+      ]
+    },
+    "institutional-mortgage-matching-route": {
+      "profile": "institutional-extract",
+      "category": "process",
+      "purpose": "Present a numbered route from file normalization through closing with a visual source-to-fit network.",
+      "bestFor": [
+        "mortgage process",
+        "evidence-to-decision sequence"
+      ],
+      "contentSlots": [
+        "heading",
+        "introduction",
+        "ordered steps",
+        "network labels"
+      ]
+    },
+    "institutional-mortgage-question-register": {
+      "profile": "institutional-extract",
+      "name": "Institutional Question Register",
+      "category": "faq",
+      "purpose": "Combine a late-stage CTA, disclaimer and accessible accordion FAQ.",
+      "bestFor": [
+        "money-page FAQ",
+        "late-stage conversion and objections"
+      ],
+      "contentSlots": [
+        "heading",
+        "introduction",
+        "CTA",
+        "disclaimer",
+        "questions and answers"
+      ]
+    },
+    "institutional-mortgage-term-sheet": {
+      "profile": "institutional-extract",
+      "category": "comparison",
+      "purpose": "Explain the fields borrowers should compare in a financing commitment or term sheet.",
+      "bestFor": [
+        "offer comparison",
+        "cost and condition education"
+      ],
+      "contentSlots": [
+        "eyebrow",
+        "heading",
+        "introduction",
+        "term rows",
+        "closing principle"
+      ]
+    },
+    "private-mortgage-financing-cost-xray": {
+      "profile": "private-extract",
+      "category": "comparison",
+      "purpose": "Compare rushed financing against a transparent plan across complete cost and risk fields.",
+      "bestFor": [
+        "total-cost comparison",
+        "risk disclosure",
+        "alternative comparison"
+      ],
+      "contentSlots": [
+        "heading",
+        "introduction",
+        "cost equation",
+        "comparison rows",
+        "closing note"
+      ]
+    },
+    "private-mortgage-financing-cover-sheet": {
+      "profile": "private-extract",
+      "name": "Private Mortgage Cover Sheet",
+      "category": "hero",
+      "purpose": "Open an urgent mortgage page with decision questions, proof and embedded intake.",
+      "bestFor": [
+        "high-intent mortgage hero",
+        "deadline-driven intake"
+      ],
+      "contentSlots": [
+        "breadcrumb label",
+        "heading",
+        "lede",
+        "decision questions",
+        "proof points",
+        "embedded intake"
+      ]
+    },
+    "private-mortgage-financing-exit-route": {
+      "profile": "private-extract",
+      "category": "process",
+      "purpose": "Map a financing process backward from maturity and make the exit path explicit.",
+      "bestFor": [
+        "exit-first financing process",
+        "construction takeout path"
+      ],
+      "contentSlots": [
+        "eyebrow",
+        "heading",
+        "introduction",
+        "ordered process steps",
+        "exit options",
+        "closing note"
+      ]
+    },
+    "private-mortgage-financing-incident-board": {
+      "profile": "private-extract",
+      "category": "qualification",
+      "purpose": "Route visitors by the incident or constraint that forced the financing decision.",
+      "bestFor": [
+        "scenario self-identification",
+        "urgent file routing"
+      ],
+      "contentSlots": [
+        "heading",
+        "introduction",
+        "scenario cards",
+        "review inputs"
+      ]
+    },
+    "private-mortgage-financing-judgment-desk": {
+      "profile": "private-extract",
+      "category": "proof",
+      "purpose": "Show professional judgment, whole-file review inputs, local context and operating standards.",
+      "bestFor": [
+        "expertise proof",
+        "review methodology",
+        "local service trust"
+      ],
+      "contentSlots": [
+        "heading",
+        "expert copy",
+        "review register",
+        "local proof",
+        "operating standards"
+      ]
+    },
+    "private-mortgage-financing-question-register": {
+      "profile": "private-extract",
+      "name": "Private Mortgage Question Register",
+      "category": "faq",
+      "purpose": "Resolve financing objections with an accessible question register and closing conversion path.",
+      "bestFor": [
+        "money-page FAQ",
+        "risk and suitability objections"
+      ],
+      "contentSlots": [
+        "heading",
+        "introduction",
+        "questions and answers",
+        "CTA",
+        "disclaimer"
+      ]
+    }
+  },
+  "virtualBlocks": [
+    {
+      "id": "feedback-page-hero",
+      "name": "Feedback Page Hero",
+      "category": "hero",
+      "status": "production",
+      "reuseMode": "composer",
+      "purpose": "Render the configurable split hero embedded in FairlendFeedbackContentPage.",
+      "bestFor": [
+        "SEO money-page hero",
+        "service-page introduction"
+      ],
+      "contentSlots": [
+        "eyebrow",
+        "title",
+        "subtitle",
+        "image",
+        "primary CTA",
+        "secondary CTA",
+        "hero footer",
+        "proof strip"
+      ],
+      "variants": [
+        "with or without either CTA",
+        "with or without proof"
+      ],
+      "aesthetic": {
+        "family": "FairLend cream-and-forest editorial money page",
+        "density": "medium",
+        "tone": "direct and evidence-led",
+        "layout": "large split copy and illustration",
+        "background": "light",
+        "visualWeight": "dominant"
+      },
+      "responsiveBehavior": "Two-column hero stacks on smaller viewports; proof changes from rail to grid.",
+      "accessibility": [
+        "One H1 and explicit image alt text are supplied through the parent configuration."
+      ],
+      "constraints": [
+        "Embedded capability; use through FairlendFeedbackContentPage or extract while preserving all five parent call sites."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "qualification"
+      ],
+      "technical": {
+        "virtual": true,
+        "parentBlockId": "fairlend-feedback-content-page"
+      }
+    },
+    {
+      "id": "feedback-page-proof-strip",
+      "name": "Feedback Page Proof Strip",
+      "category": "proof",
+      "status": "production",
+      "reuseMode": "composer",
+      "purpose": "Render compact proof statements beneath the Feedback Page hero illustration.",
+      "bestFor": [
+        "hero proof",
+        "product claims",
+        "qualification signals"
+      ],
+      "contentSlots": [
+        "proof items"
+      ],
+      "variants": [
+        "one or more proof items"
+      ],
+      "aesthetic": {
+        "family": "FairLend cream-and-forest editorial money page",
+        "density": "medium",
+        "tone": "compact and declarative",
+        "layout": "responsive proof-card strip",
+        "background": "light",
+        "visualWeight": "medium"
+      },
+      "responsiveBehavior": "Proof items reflow between one and three columns according to the parent breakpoints.",
+      "accessibility": [
+        "Proof remains text content rather than image-only content."
+      ],
+      "constraints": [
+        "Embedded in the parent hero and not independently exportable."
+      ],
+      "compatibleNeighbors": [
+        "hero",
+        "answer"
+      ],
+      "technical": {
+        "virtual": true,
+        "parentBlockId": "fairlend-feedback-content-page"
+      }
+    },
+    {
+      "id": "feedback-page-panel-section",
+      "name": "Feedback Page Panel Section",
+      "category": "content-grid",
+      "status": "production",
+      "reuseMode": "composer",
+      "purpose": "Render a section introduction beside a responsive grid of titled explanatory panels.",
+      "bestFor": [
+        "features",
+        "audiences",
+        "evidence categories",
+        "solution pillars"
+      ],
+      "contentSlots": [
+        "kicker",
+        "title",
+        "body",
+        "panel title",
+        "panel body",
+        "panel items"
+      ],
+      "variants": [
+        "two or three-column panel grid"
+      ],
+      "aesthetic": {
+        "family": "FairLend cream-and-forest editorial money page",
+        "density": "medium",
+        "tone": "structured and explanatory",
+        "layout": "section lead beside card grid",
+        "background": "light",
+        "visualWeight": "medium"
+      },
+      "responsiveBehavior": "Lead and panel grid stack; panels reflow from one to three columns.",
+      "accessibility": [
+        "Uses section, H2, H3 and list semantics through the parent composer."
+      ],
+      "constraints": [
+        "Embedded capability; panel body typography assumes short explanatory copy."
+      ],
+      "compatibleNeighbors": [
+        "answer",
+        "checklist",
+        "comparison"
+      ],
+      "technical": {
+        "virtual": true,
+        "parentBlockId": "fairlend-feedback-content-page"
+      }
+    },
+    {
+      "id": "feedback-page-checklist-section",
+      "name": "Feedback Page Checklist Section",
+      "category": "checklist",
+      "status": "production",
+      "reuseMode": "composer",
+      "purpose": "Render a section introduction followed by a responsive checklist of decision or evidence items.",
+      "bestFor": [
+        "document requirements",
+        "qualification checklist",
+        "failure modes",
+        "readiness signals"
+      ],
+      "contentSlots": [
+        "kicker",
+        "title",
+        "body",
+        "checklist items"
+      ],
+      "variants": [
+        "one to three-column checklist"
+      ],
+      "aesthetic": {
+        "family": "FairLend cream-and-forest editorial money page",
+        "density": "medium",
+        "tone": "practical and scannable",
+        "layout": "section lead above checklist grid",
+        "background": "light",
+        "visualWeight": "medium"
+      },
+      "responsiveBehavior": "Checklist reflows from one to three columns with consistent item height and icon treatment.",
+      "accessibility": [
+        "Uses list semantics and decorative icons."
+      ],
+      "constraints": [
+        "Embedded capability; items do not currently support per-item title/body pairs."
+      ],
+      "compatibleNeighbors": [
+        "qualification",
+        "process",
+        "content-grid"
+      ],
+      "technical": {
+        "virtual": true,
+        "parentBlockId": "fairlend-feedback-content-page"
+      }
+    },
+    {
+      "id": "feedback-page-final-cta",
+      "name": "Feedback Page Final CTA",
+      "category": "cta",
+      "status": "production",
+      "reuseMode": "composer",
+      "purpose": "Close a Feedback Page with a dark evidence note and repeat the configured primary action.",
+      "bestFor": [
+        "final conversion",
+        "risk-reversal close"
+      ],
+      "contentSlots": [
+        "final note",
+        "final microcopy",
+        "primary CTA"
+      ],
+      "variants": [
+        "CTA",
+        "decorative arrow when no CTA exists"
+      ],
+      "aesthetic": {
+        "family": "FairLend cream-and-forest editorial money page",
+        "density": "low",
+        "tone": "decisive and accountable",
+        "layout": "dark horizontal closing band",
+        "background": "dark",
+        "visualWeight": "high"
+      },
+      "responsiveBehavior": "Copy and action stack on small screens and align horizontally when space permits.",
+      "accessibility": [
+        "Uses the canonical Borrower CTA and readable text contrast."
+      ],
+      "constraints": [
+        "Embedded capability and tied to the parent primary CTA label/href."
+      ],
+      "compatibleNeighbors": [
+        "editorial",
+        "faq"
+      ],
+      "technical": {
+        "virtual": true,
+        "parentBlockId": "fairlend-feedback-content-page"
+      }
+    },
+    {
+      "status": "production",
+      "reuseMode": "composer",
+      "aesthetic": {
+        "family": "FairLend cream-and-forest editorial money page",
+        "density": "medium",
+        "background": "light",
+        "tone": "ordered and instructional",
+        "layout": "section lead above numbered step grid",
+        "visualWeight": "medium"
+      },
+      "accessibility": [],
+      "compatibleNeighbors": [
+        "answer",
+        "qualification"
+      ],
+      "technical": {
+        "virtual": true,
+        "parentBlockId": "fairlend-feedback-content-page"
+      },
+      "id": "feedback-page-steps-section",
+      "name": "Feedback Page Steps Section",
+      "category": "process",
+      "purpose": "Render numbered process, mechanism or capital-stack stages inside a Feedback Page section.",
+      "bestFor": [
+        "process timelines",
+        "product mechanism stages",
+        "ordered capital or evidence stacks"
+      ],
+      "contentSlots": [
+        "kicker",
+        "title",
+        "body",
+        "step title",
+        "step body"
+      ],
+      "variants": [
+        "one or two-column numbered step grid"
+      ],
+      "responsiveBehavior": "Step grid reflows from one to two columns with stable numeral and title treatment.",
+      "constraints": [
+        "Embedded capability; steps reuse the panel title/body shape with automatic numbering."
+      ]
+    },
+    {
+      "status": "production",
+      "reuseMode": "composer",
+      "aesthetic": {
+        "family": "FairLend cream-and-forest editorial money page",
+        "density": "medium",
+        "background": "light",
+        "tone": "evidentiary and technical",
+        "layout": "section lead above bordered comparison table",
+        "visualWeight": "high"
+      },
+      "accessibility": [],
+      "compatibleNeighbors": [
+        "answer",
+        "qualification"
+      ],
+      "technical": {
+        "virtual": true,
+        "parentBlockId": "fairlend-feedback-content-page"
+      },
+      "id": "feedback-page-table-section",
+      "name": "Feedback Page Table Section",
+      "category": "comparison",
+      "purpose": "Render an accessible comparison or evidence table with an optional disclosure note inside a Feedback Page section.",
+      "bestFor": [
+        "financing-route comparison",
+        "worked proof comparisons",
+        "methodology and disclosure display"
+      ],
+      "contentSlots": [
+        "kicker",
+        "title",
+        "body",
+        "table anchor id",
+        "caption",
+        "label header",
+        "columns",
+        "rows",
+        "disclosure note"
+      ],
+      "variants": [
+        "comparison table with optional note"
+      ],
+      "responsiveBehavior": "Table scrolls horizontally below its minimum width; the note stays inline below.",
+      "constraints": [
+        "Embedded capability; publish claim disclosures in the note slot directly below the table."
+      ]
+    },
+    {
+      "status": "production",
+      "reuseMode": "composer",
+      "aesthetic": {
+        "family": "FairLend cream-and-forest editorial money page",
+        "density": "medium",
+        "background": "light",
+        "tone": "direct and accountable",
+        "layout": "section lead above stacked questions and answers",
+        "visualWeight": "medium"
+      },
+      "accessibility": [],
+      "compatibleNeighbors": [
+        "answer",
+        "qualification"
+      ],
+      "technical": {
+        "virtual": true,
+        "parentBlockId": "fairlend-feedback-content-page"
+      },
+      "id": "feedback-page-faq-section",
+      "name": "Feedback Page FAQ Section",
+      "category": "faq",
+      "purpose": "Render a visible-HTML question register inside a Feedback Page section without emitting FAQPage structured data.",
+      "bestFor": [
+        "commercial money-page FAQs",
+        "visible objection handling"
+      ],
+      "contentSlots": [
+        "kicker",
+        "title",
+        "question",
+        "answer"
+      ],
+      "variants": [
+        "visible question list"
+      ],
+      "responsiveBehavior": "Questions and answers stack full width at all breakpoints.",
+      "constraints": [
+        "Embedded capability; never emits FAQPage markup; answers must stay visible HTML."
+      ]
+    }
+  ]
+}

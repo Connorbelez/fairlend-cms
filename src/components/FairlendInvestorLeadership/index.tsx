@@ -71,7 +71,7 @@ export function FairlendInvestorLeadership(): ReactElement {
           </div>
           <figure className="investor-leadership__ink-plate">
             <Image
-              alt="Halftone architectural plans and key representing disciplined mortgage underwriting"
+              alt="Architectural plans and a property key on a Toronto mortgage underwriting desk"
               fill
               loading="lazy"
               sizes="(max-width: 820px) 90vw, 32vw"

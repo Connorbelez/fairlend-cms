@@ -7,8 +7,8 @@
 | Route | Role | Primary intent | Disposition |
 |---|---|---|---|
 | `/garden-suite-financing-gta` | Transactional Garden/Laneway financing money page | Commercial investigation and qualification | Retain, replace the thin implementation, self-canonicalize, and make it the financing conversion owner. |
-| `/resources/garden-suite-cost-toronto/` | Toronto cost, feasibility, permit, and official-source hub | Informational, local feasibility, cost research | Create as the authoritative resource and tool owner. |
-| `/garden-suite` | Existing thin informational route | Overlapping informational intent | Merge unique content into the resource hub and 301 to `/resources/garden-suite-cost-toronto/`. Remove from sitemap after redirect. |
+| `/resources/garden-suite-cost-toronto` | Toronto cost, feasibility, permit, and official-source hub | Informational, local feasibility, cost research | Create as the authoritative resource and tool owner. The implementation plan is [authority-page-plan.md](authority-page-plan.md). |
+| `/garden-suite` | Existing thin informational route | Overlapping informational intent | Merge unique content into the resource hub and 301 to `/resources/garden-suite-cost-toronto`. Remove from sitemap after redirect. |
 | No standalone Laneway route in v1 | Explicit differentiated sections within both canonical pages | Shared feasibility and financing | Do not create a thin route without validated standalone demand; preserve terminology, permit, access, and financing distinctions within both pages. |
 
 ## Route-decision history and conflicts
@@ -18,7 +18,7 @@
 | Keep `/garden-suite` and `/garden-suite-financing-gta` only if one is an eligibility tool and one is financing; otherwise avoid overlap. | Audit identified both as thin and missing schema/social depth. [S267](../../strategy/seo-audit.md) | Separate the intents through a resource hub and financing owner; do not retain two thin commercial/ambiguous routes. |
 | Replace `/garden-suite-financing-gta`; consolidate `/garden-suite` into `/garden-suite-financing-gta/feasibility`. | Trial page-opportunity decision, high confidence. [S158](../../research/openseo/trial-2026-07-16/deliverables/page-opportunities.csv) | Preserve the two-page intent model, but use the later `/resources/` convention and later cost-hub path. |
 | Refresh existing `/garden-suite` as a P0 service/overview asset. | Landing-services funnel treated it as the target path. [S053](../../research/keyword-and-funnel/landing-services-funnel-2026-07-19/service-opportunities.csv) | Superseded by the stronger consolidation evidence; unique content is retained before redirect. |
-| Create `/resources/garden-suite-cost-toronto/`. | Expansion defines a P1 cost/feasibility model and 25-keyword cluster. [S076](../../research/openseo/expansion-2026-07-17/deliverables/content-asset-map.csv) | Adopt as the informational canonical. |
+| Create `/resources/garden-suite-cost-toronto/`. | Expansion defines a P1 cost/feasibility model and 25-keyword cluster. [S076](../../research/openseo/expansion-2026-07-17/deliverables/content-asset-map.csv) | Adopt as `/resources/garden-suite-cost-toronto`, using the site's no-trailing-slash canonical convention. The later `/resources/garden-suites/` placeholder remains a redirect alias only. |
 | One authoritative financing pillar plus tools/resources; 301 the redundant route. | Editorial/data authority recommendation. [S016](../../authority-and-distribution/content-assets/seo-editorial-data-authority-brainstorm.md) | Adopt. |
 | Include `/garden-suite-financing-gta` in the launch/indexing priority set. | Search-indexing runbook. [S026](../../measurement-and-indexing/fairlend-search-indexing-launch-runbook.md) | Retain as the transactional canonical and indexing priority. |
 
@@ -49,7 +49,7 @@ Help Toronto/GTA homeowners and small project sponsors understand whether an eli
 - **Description:** explain equity, refinance/HELOC/second/construction options, project evidence, and a licensed financing assessment without approval language.
 - **Canonical:** `https://www.fairlend.ca/garden-suite-financing-gta`.
 
-## Informational resource: `/resources/garden-suite-cost-toronto/`
+## Informational resource: `/resources/garden-suite-cost-toronto`
 
 ### Required modules
 
@@ -68,12 +68,12 @@ Help Toronto/GTA homeowners and small project sponsors understand whether an eli
 
 - **Title:** `Toronto Garden Suite Cost & Feasibility Guide | FairLend`.
 - **H1:** `Toronto Garden Suite Cost and Feasibility Guide`.
-- **Canonical:** `https://www.fairlend.ca/resources/garden-suite-cost-toronto/`.
+- **Canonical:** `https://www.fairlend.ca/resources/garden-suite-cost-toronto`.
 
 ## Redirect, canonical, and sitemap rules
 
 - Inventory and merge every unique `/garden-suite` passage before redirecting.
-- Implement one-hop `301 /garden-suite → /resources/garden-suite-cost-toronto/`; update all internal links and remove the old URL from XML and HTML sitemaps.
+- Implement one-hop `301 /garden-suite → /resources/garden-suite-cost-toronto`; update all internal links and remove the old URL from XML and HTML sitemaps. Treat `/garden-suites` and `/resources/garden-suites` as redirect aliases only.
 - Both retained pages self-canonicalize and appear once in the appropriate sitemap with CMS-derived `lastmod`.
 - Do not canonicalize a redirected or materially different page instead of redirecting it.
 - Submit/index only after server-rendered content, metadata, canonicals, schema, internal links, analytics events, and redirect checks pass.

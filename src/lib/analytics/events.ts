@@ -60,6 +60,8 @@ type StepProperties = CommonProperties & {
 }
 
 export interface FairlendAnalyticsEventMap {
+  garden_credentials_view: CommonProperties & { journey_type: 'homeowner_garden_suite' }
+  garden_journey_view: CommonProperties & { journey_type: 'homeowner_garden_suite' }
   fairlend_cta_clicked: CommonProperties & { cta_id: string; cta_location: string }
   fairlend_route_selected: CommonProperties & { journey_type: JourneyType }
   fairlend_intake_started: CommonProperties & { journey_type: JourneyType; form_id: string }
@@ -68,7 +70,10 @@ export interface FairlendAnalyticsEventMap {
   fairlend_intake_step_completed: StepProperties
   fairlend_intake_validation_failed: StepProperties
   fairlend_intake_back_clicked: StepProperties
-  fairlend_intake_partial_submitted: CommonProperties & { journey_type: JourneyType; form_id: string }
+  fairlend_intake_partial_submitted: CommonProperties & {
+    journey_type: JourneyType
+    form_id: string
+  }
   fairlend_lead_submitted: CommonProperties & { journey_type: JourneyType; form_id: string }
   fairlend_lead_submission_failed: CommonProperties & { journey_type: JourneyType; form_id: string }
   fairlend_consultation_scheduler_opened: CommonProperties
@@ -129,8 +134,7 @@ function getBaseProperties(): AnalyticsProperties {
   return {
     ...route,
     schema_version: 1,
-    deployment_environment:
-      process.env.NODE_ENV === 'production' ? 'production' : 'development',
+    deployment_environment: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   }
 }
 
@@ -152,7 +156,9 @@ export function trackFairlendEvent<K extends FairlendEventName>(
   if (process.env.NODE_ENV !== 'production') {
     const removedKeys = getRemovedAnalyticsPropertyKeys(candidateProperties, safeProperties)
     if (removedKeys.length > 0) {
-      console.warn(`[analytics] Removed unsafe properties from ${eventName}: ${removedKeys.join(', ')}`)
+      console.warn(
+        `[analytics] Removed unsafe properties from ${eventName}: ${removedKeys.join(', ')}`,
+      )
     }
   }
   const eventPayload = { event: eventName, ...safeProperties }
@@ -228,7 +234,9 @@ export async function revokeStoredAnalyticsIdentities(): Promise<void> {
   if (typeof window === 'undefined') return
   let tokens: string[] = []
   try {
-    tokens = JSON.parse(window.localStorage.getItem(analyticsRevocationStorageKey) ?? '[]') as string[]
+    tokens = JSON.parse(
+      window.localStorage.getItem(analyticsRevocationStorageKey) ?? '[]',
+    ) as string[]
   } catch {
     tokens = []
   }

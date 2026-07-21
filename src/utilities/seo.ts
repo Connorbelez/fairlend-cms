@@ -57,13 +57,17 @@ const stripTrailingSlash = (value: string) => value.replace(/\/+$/, '')
 const isLocalOrigin = (value: string) => /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(value)
 
 const normalizeCanonicalOrigin = (value: string) => {
-  const url = new URL(value)
+  try {
+    const url = new URL(value)
 
-  if (url.hostname === 'fairlend.ca') {
-    url.hostname = 'www.fairlend.ca'
+    if (url.hostname === 'fairlend.ca') {
+      url.hostname = 'www.fairlend.ca'
+    }
+
+    return stripTrailingSlash(url.toString())
+  } catch (error) {
+    throw new Error(`Invalid FairLend canonical origin: ${value}`, { cause: error })
   }
-
-  return stripTrailingSlash(url.toString())
 }
 
 export const getCanonicalOrigin = () => {
@@ -100,6 +104,7 @@ export const getMediaUrl = (image?: Media | Config['db']['defaultIDType'] | null
 type FairlendMetadataInput = {
   description?: string | null
   image?: string | Media | Config['db']['defaultIDType'] | null
+  imageAlt?: string | null
   index?: boolean
   path?: string
   title?: string | null
@@ -109,6 +114,7 @@ type FairlendMetadataInput = {
 export const buildFairlendMetadata = ({
   description,
   image,
+  imageAlt,
   index = true,
   path = '/',
   title,
@@ -118,6 +124,10 @@ export const buildFairlendMetadata = ({
   const resolvedDescription = description?.trim() || fairlendSeo.defaultDescription
   const canonical = getCanonicalUrl(path)
   const imageUrl = typeof image === 'string' ? getCanonicalUrl(image) : getMediaUrl(image)
+  const resolvedImageAlt =
+    imageAlt?.trim() ||
+    (image && typeof image === 'object' && 'alt' in image ? image.alt?.trim() : '') ||
+    resolvedTitle
 
   return {
     alternates: {
@@ -128,7 +138,7 @@ export const buildFairlendMetadata = ({
       description: resolvedDescription,
       images: [
         {
-          alt: resolvedTitle,
+          alt: resolvedImageAlt,
           height: 630,
           url: imageUrl,
           width: 1200,

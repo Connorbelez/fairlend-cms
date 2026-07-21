@@ -27,7 +27,11 @@ export const Media: CollectionConfig = {
     {
       name: 'alt',
       type: 'text',
-      //required: true,
+      required: true,
+      admin: {
+        description:
+          'Describe the image subject and relevant context in natural language. Include full names for identifiable people; avoid keyword stuffing.',
+      },
     },
     {
       name: 'caption',

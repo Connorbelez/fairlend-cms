@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react'
-import type { ReactNode } from 'react'
+import { Children, cloneElement, isValidElement, type ReactElement, type ReactNode } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 import { Button, type ButtonProps } from '@/components/ui/button'
@@ -41,6 +41,7 @@ type BrutalistCtaButtonProps = Omit<ButtonProps, 'children' | 'size'> &
   }
 
 function BrutalistCtaButton({
+  asChild = false,
   arrowClassName,
   children,
   className,
@@ -49,9 +50,9 @@ function BrutalistCtaButton({
   size,
   ...props
 }: BrutalistCtaButtonProps) {
-  return (
-    <Button className={cn(brutalistCtaButtonVariants({ size }), className)} size="clear" {...props}>
-      <span className={cn('min-w-0 px-5 text-left text-balance', labelClassName)}>{children}</span>
+  const content = (label: ReactNode) => (
+    <>
+      <span className={cn('min-w-0 px-5 text-left text-balance', labelClassName)}>{label}</span>
       <span
         aria-hidden="true"
         className={cn(
@@ -67,6 +68,34 @@ function BrutalistCtaButton({
           />
         )}
       </span>
+    </>
+  )
+
+  if (asChild) {
+    const child = Children.only(children)
+    if (!isValidElement<{ children?: ReactNode }>(child)) {
+      throw new Error('BrutalistCtaButton with asChild requires one valid element.')
+    }
+
+    return (
+      <Button
+        asChild
+        className={cn(brutalistCtaButtonVariants({ size }), className)}
+        size="clear"
+        {...props}
+      >
+        {cloneElement(
+          child as ReactElement<{ children?: ReactNode }>,
+          undefined,
+          content(child.props.children),
+        )}
+      </Button>
+    )
+  }
+
+  return (
+    <Button className={cn(brutalistCtaButtonVariants({ size }), className)} size="clear" {...props}>
+      {content(children)}
     </Button>
   )
 }

@@ -1,0 +1,1 @@
+export { GardenSuiteMoneyPage } from './GardenSuiteMoneyPage'

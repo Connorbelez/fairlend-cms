@@ -25,7 +25,7 @@ import { fairlendPrincipalBrokerClaims } from '@/lib/fairlend-claims'
 import { LeadershipMotion } from './LeadershipMotion.client'
 import './leadership-motion.css'
 
-const leadershipPortraitAsset = '/assets/elie-headshot.webp'
+const leadershipPortraitAsset = '/assets/elie-soberano-headshot.webp'
 const leadershipSceneAsset = '/assets/fairlend-principal-broker-background-halftone-key.webp'
 
 const leadershipProof = [
@@ -1244,12 +1244,13 @@ export function FairlendLeadershipSection() {
               <div className="leadership-portrait-card">
                 <div className="leadership-portrait-media">
                   <Image
-                    alt="Portrait of Elie Soberano, FairLend founder and principal broker"
+                    alt="Elie Soberano, FairLend founder, principal broker and MIC director"
                     decoding="async"
                     fill
                     priority={false}
                     sizes="(max-width: 720px) 42vw, 250px"
                     src={leadershipPortraitAsset}
+                    title="Elie Soberano — FairLend Founder, Principal Broker and MIC Director"
                   />
                 </div>
                 <div className="leadership-portrait-caption">

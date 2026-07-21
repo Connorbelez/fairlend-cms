@@ -24,6 +24,7 @@
 @source '../../components/FairlendLandingHero/FairlendApplicationChoiceChips.client.tsx';
 @source '../../components/FairlendLandingHero/FairlendApplicationForm.client.tsx';
 @source '../../components/FairlendLandingHero/FairlendApplicationIntentTabs.client.tsx';
+@source '../../components/FairlendLandingHero/DrawFlowTaglineCallout.tsx';
 @source '../../components/FairlendLandingHero/FairlendSkylineCanvas.client.tsx';
 @source '../../components/FairlendLandingHero/FairlendSubmissionSuccess.client.tsx';
 @source '../../components/FairlendLandingHero/index.tsx';
@@ -1322,6 +1323,15 @@
     bottom: calc(
       clamp(128px, 16svh, 210px) + var(--hero-stats-height, 0px) + clamp(78px, 7vw, 124px)
     );
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) and (min-height: 973px) and (max-aspect-ratio: 7 / 4) {
+  /* The hero caps at 972px on tall desktop viewports. Anchor the card to that
+     canvas so its viewport-relative offset cannot push it past the clip edge. */
+  [data-fairlend-motion='toronto-hero'] .fairlend-hero-application-card {
+    position: absolute;
+    right: 0;
   }
 }
 

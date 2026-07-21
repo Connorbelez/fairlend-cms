@@ -36,25 +36,25 @@ export type FairlendBuildPropertyTypesProps = {
 export const fairlendBuildPropertyTypesAssets = {
   multiplex: {
     src: '/assets/fairlend-build-property-types/multiplex-building-engraving.webp',
-    alt: 'Architectural engraving of a multiplex building',
+    alt: 'Toronto multiplex building for residential construction financing',
     width: 1164,
     height: 918,
   },
   singleFamily: {
     src: '/assets/fairlend-build-property-types/single-family-house-engraving.webp',
-    alt: 'Architectural engraving of a single-family home',
+    alt: 'Toronto-area single-family home for construction and mortgage financing',
     width: 1212,
     height: 757,
   },
   land: {
     src: '/assets/fairlend-build-property-types/land-parcel-plan-engraving.webp',
-    alt: 'Architectural engraving of a land parcel plan',
+    alt: 'Residential land parcel plan for Toronto construction feasibility review',
     width: 1303,
     height: 744,
   },
   privateMortgage: {
     src: '/assets/fairlend-route-selector/private-mortgage-house-engraving.webp',
-    alt: 'Pen-and-ink engraving of a residential home',
+    alt: 'Toronto-area detached home for private mortgage financing',
     width: 900,
     height: 378,
   },

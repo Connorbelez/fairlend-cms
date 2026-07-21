@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+ 
 import Image from 'next/image'
 import type {
   ComponentPropsWithoutRef,
@@ -141,6 +141,7 @@ export type FairlendServiceCardData = {
   kicker: string
   title: string
   image: string
+  imageAlt: string
   icon: ElementType
   footer: string
   motion: 'investment' | 'mortgage' | 'construction' | 'partners'
@@ -249,7 +250,7 @@ export function FairlendServiceModelCard({
 
       <div className="services-card-media-shell" data-services-media-shell>
         <Image
-          alt=""
+          alt={service.imageAlt}
           decoding="async"
           fill
           loading="lazy"
@@ -357,7 +358,7 @@ export function FairlendFinanceCard({
       render={<a aria-label={`${label} - learn more`} href={href} />}
     >
       <Image
-        alt=""
+        alt={`${label} real estate financing option`}
         data-about-finance-icon
         decoding="async"
         draggable={false}

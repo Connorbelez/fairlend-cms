@@ -1,44 +1,39 @@
 ---
-name: FairLend Root Landing Page
-description: Monochromatic halftone-ink Toronto imagery, underwriting precision, paper fields, and electric-lime route signals for FairLend's canonical brand surface.
+name: FairLend Core Landing Page
+description: A brutalist Toronto lending dossier built from ink, textured paper, rotating field colors, and electric-lime signals.
 colors:
+  electric-lime: '#8DFF00'
   signal-lime: '#96EC18'
-  acid-lime: '#8DFF00'
-  route-lime: '#9CFF00'
-  signal-hover: '#A4FB20'
-  signal-soft: '#E8FF9B'
-  signal-ink: '#203500'
-  paper: '#F8F7F5'
-  surface: '#FBFAF8'
-  route-paper: '#F7F6F1'
-  card-paper: '#FBFAF5'
-  white-paper: '#FFFDF9'
+  lime-soft: '#E8FF9B'
+  lime-ink: '#203500'
+  blueprint-blue: '#002949'
+  field-forest: '#002416'
   ink: '#08090A'
-  ink-deep: '#030405'
-  muted: '#494944'
-  muted-soft: '#6C6C64'
-  rule: '#DEDED8'
-  builder-blueprint: '#002949'
-  builder-forest: '#002416'
+  deep-ink: '#030405'
+  ivory: '#FBFAF7'
+  paper: '#F8F7F5'
+  white-paper: '#FFFDF9'
+  muted-ink: '#494944'
+  paper-rule: '#DEDED8'
 typography:
   display:
     fontFamily: 'var(--font-cormorant), Georgia, serif'
-    fontSize: 'clamp(64px, 5.35vw, 82px)'
+    fontSize: 'clamp(3.25rem, 6vw, 6rem)'
     fontWeight: 600
-    lineHeight: 0.98
+    lineHeight: 0.94
     letterSpacing: '-0.04em'
   headline:
     fontFamily: 'var(--font-cormorant), Georgia, serif'
-    fontSize: 'clamp(52px, 5vw, 72px)'
+    fontSize: 'clamp(2.75rem, 5vw, 4.5rem)'
     fontWeight: 600
-    lineHeight: 0.89
-    letterSpacing: 'normal'
+    lineHeight: 0.95
+    letterSpacing: '-0.035em'
   title:
-    fontFamily: 'var(--font-cormorant), Georgia, serif'
-    fontSize: '27px'
-    fontWeight: 600
-    lineHeight: 0.94
-    letterSpacing: 'normal'
+    fontFamily: 'var(--font-inter), Arial, sans-serif'
+    fontSize: 'clamp(1.5rem, 2.2vw, 2.25rem)'
+    fontWeight: 800
+    lineHeight: 0.95
+    letterSpacing: '-0.025em'
   body:
     fontFamily: 'var(--font-inter), Arial, sans-serif'
     fontSize: '16px'
@@ -46,160 +41,136 @@ typography:
     lineHeight: 1.45
     letterSpacing: 'normal'
   label:
-    fontFamily: 'var(--font-inter), Arial, sans-serif'
-    fontSize: '12px'
+    fontFamily: 'var(--font-oxanium), ui-monospace, monospace'
+    fontSize: '11px'
     fontWeight: 800
     lineHeight: 1
-    letterSpacing: '0.28em'
-  technical-label:
-    fontFamily: 'Oxanium, ui-monospace, monospace'
-    fontSize: '10px'
-    fontWeight: 800
-    lineHeight: 1
-    letterSpacing: '0.16em'
+    letterSpacing: '0.14em'
   technical-display:
     fontFamily: 'League Gothic, Impact, Arial Narrow, sans-serif'
-    fontSize: 'clamp(56px, 8vw, 118px)'
+    fontSize: 'clamp(3.5rem, 8vw, 7.375rem)'
     fontWeight: 400
     lineHeight: 0.86
     letterSpacing: '-0.02em'
 rounded:
-  badge: '5px'
-  arrow: '7px'
-  button: '8px'
-  hero-button: '9px'
+  square: '0px'
+  marker: '4px'
+  control: '8px'
   field: '12px'
-  helper: '14px'
-  card: '18px'
-  section: '24px'
-  hero-bottom: '28px'
+  shell: '18px'
   pill: '9999px'
 spacing:
   touch-target: '44px'
   control-x: '18px'
-  card-inset: '18px'
+  card-inset: 'clamp(18px, 2.25vw, 30px)'
   section-x: 'clamp(20px, 4vw, 56px)'
-  section-y: 'clamp(42px, 6vw, 76px)'
-  hero-x: 'clamp(24px, 4.55vw, 60px)'
+  section-y: 'clamp(54px, 8vw, 112px)'
   landing-gutter: 'clamp(72px, 5.9vw, 112px)'
   landing-frame-max: '1848px'
 components:
   button-primary:
-    backgroundColor: '{colors.signal-lime}'
-    textColor: '{colors.ink-deep}'
-    rounded: '{rounded.hero-button}'
-    padding: '0 20px 0 18px'
-  button-primary-hover:
-    backgroundColor: '{colors.signal-hover}'
-    textColor: '{colors.ink-deep}'
-    rounded: '{rounded.hero-button}'
-    padding: '0 20px 0 18px'
+    backgroundColor: '{colors.electric-lime}'
+    textColor: '{colors.deep-ink}'
+    rounded: '{rounded.control}'
+    padding: '0 20px'
+    height: '48px'
   button-dark:
     backgroundColor: '{colors.ink}'
-    textColor: '{colors.acid-lime}'
-    rounded: '{rounded.pill}'
-    padding: '7px 15px 7px 8px'
-  button-footer:
-    backgroundColor: '{colors.signal-lime}'
-    textColor: '{colors.ink-deep}'
-    rounded: '0px'
+    textColor: '{colors.electric-lime}'
+    rounded: '{rounded.control}'
     padding: '0 20px'
+    height: '48px'
+  callout-lime:
+    backgroundColor: '{colors.electric-lime}'
+    textColor: '{colors.deep-ink}'
+    rounded: '{rounded.square}'
+    padding: '18px 20px'
+  deal-file-card:
+    backgroundColor: '{colors.white-paper}'
+    textColor: '{colors.ink}'
+    rounded: '{rounded.square}'
+    padding: '{spacing.card-inset}'
+  field-board-forest:
+    backgroundColor: '{colors.field-forest}'
+    textColor: '{colors.ivory}'
+    rounded: '{rounded.square}'
+    padding: '{spacing.card-inset}'
   input:
     backgroundColor: '{colors.white-paper}'
     textColor: '{colors.ink}'
-    rounded: '{rounded.field}'
+    rounded: '{rounded.control}'
     padding: '0 16px'
-  nav-item:
-    backgroundColor: 'transparent'
-    textColor: '{colors.ink}'
-    rounded: '{rounded.pill}'
-    padding: '0 13px'
-  chip-active:
-    backgroundColor: '{colors.signal-soft}'
-    textColor: '{colors.signal-ink}'
-    rounded: '{rounded.pill}'
-    padding: '7px 12px'
-  route-card-selected:
-    backgroundColor: '{colors.card-paper}'
-    textColor: '{colors.ink}'
-    rounded: '{rounded.card}'
-    padding: '18px'
-  dossier-card:
-    backgroundColor: '{colors.white-paper}'
-    textColor: '{colors.ink}'
-    rounded: '10px'
-    padding: '12px'
+    height: '48px'
 ---
 
-# Design System: FairLend Root Landing Page
+<!-- markdownlint-disable MD013 MD025 MD036 -->
+
+# Design System: FairLend Core Landing Page
 
 ## Overview
 
-**Creative North Star: "The Toronto Financing Field Guide"**
+**Creative North Star: "The Live Lending Dossier"**
 
-FairLend's canonical brand surface is the root landing page at `/`: a Toronto atlas crossed with a live underwriting and construction dossier. The supplied visual references and root implementation confirm the intended composition—monochromatic halftone and engraved-ink city, construction, property, and portrait imagery; pale paper fields; exacting rules; oversized editorial serif statements; dense practical sans-serif information; and electric lime tracing the path from intent to action. The result feels precise, established, warm, and locally fluent: a specialist who can read both the property and the capital equation.
+The core landing page is a tactile Toronto financing file enlarged to architectural scale. It combines editorial, stippled, half tone ink drawing, severe black rules, practical underwriting language, and electric-lime intervention. The supplied Supacode references define the target: ivory paper spreads, full-bleed blueprint and forest fields, dense but legible deal files, square callout slips, dashed route arrows, and visible offset layers. The page should feel printed, marked up, and actively worked on—not polished into generic fintech glass.
 
-The page is not one repeated template. It moves through distinct but related artifacts: a panoramic Toronto scene, a topographic route chooser, a split lending ledger, a sticky live-deal file, builder and leadership proof, a map-led FAQ, and a structured capital-desk footer. Paper continuity, monochromatic halftone-ink imagery, lime signals, and typography make those worlds one identity. Motion behaves like competent progress through a file—revealing, tracing, funding, and advancing—never like ornamental spectacle.
+The composition alternates between two modes. **Paper mode** uses ivory or white stock, black ink, grayscale engraving, and lime marks. **Field mode** rotates through blueprint blue, electric green, dark forest, and ivory as the visitor advances through the Build Model. These are not independent themes; they are pages in one dossier. Cult UI `BackgroundImageTexture` materials—especially `fabric-of-squares` and `groovepaper`—make every field feel physical while preserving text contrast.
 
-The halftone-ink motif is a mandatory brand primitive, not optional decoration. New marketing sections that contain imagery must begin with black, charcoal, gray, and paper-toned architectural, place, property, construction, map, or portrait material rendered as engraving, stipple, crosshatch, screened photography, or a credible combination of those techniques. Lime is then applied as the functional annotation layer: routes, nodes, verification marks, active states, underlines, focus, and directional cues. Removing the ink treatment and keeping only the palette is a brand regression.
+In addition to paper like textures we use topographical map backgrounds with low opacity with greater opacity near the corners and edges of the page.
 
-This document is deliberately root-only. Its source of truth is `src/app/(frontend)/page.tsx`, the components imported by that file, the root `FrontendChrome`, global root footer, root-scoped CSS, and the supplied screenshots. It does not authorize styles from Payload admin, generic CMS blocks, demo routes, or non-root marketing pages.
+Brutalism is structural rather than careless. Borders are explicit, corners are predominantly square, shadows are hard offsets, labels read like file metadata, and callouts overlap the layout as attached evidence. Refinement comes from disciplined type, exact alignment, meaningful imagery, and controlled density. The visual tension is intentional: Cormorant authority against Inter directness, paper softness against hard frames, monochrome Toronto engraving against saturated lime.
+
+The landing page (/) is the source of truth for the design language. 
 
 **Key Characteristics:**
 
-- Near-white paper canvas with black and charcoal halftone, stipple, crosshatch, and engraved imagery plus fine technical rules.
-- Cormorant Garamond for authority and narrative; Inter for clarity and action.
-- Electric lime as route, state, proof, focus, and conversion signal.
-- Toronto skyline, clouds, topography, parcels, buildings, and deal files as evidence—not decoration.
-- Image regions carry the monochromatic ink texture; interface fields remain clean, flat, and readable.
-- Broad editorial compositions paired with dense, practical financial information.
-- Controlled motion with explicit reduced-motion equivalents.
+- Ink-and-paper base with real halftone, stipple, engraving, and screened Toronto imagery.
+- Electric lime as highlight, action, verification, route, and hard offset—not ambient decoration.
+- Blueprint blue, electric green, dark forest, ink, and ivory fields that rotate with the Build Model narrative.
+- Cult UI paper textures integrated into section and board surfaces with theme-aware blend modes.
+- Brutalist deal-file cards, square callout slips, black rules, and visible offset layers.
+- Dashed arrows and plotted routes that explain direction, sequence, and progress.
+- Editorial serif propositions paired with dense, candid sans-serif underwriting information.
+- Responsive re-composition that retains one dominant idea and one visible action per viewport.
 
-**The Root-Only Source Rule.** When another FairLend surface conflicts with `/`, the root landing page wins. Reuse these actual components and tokens; do not average the whole repository into a diluted hybrid.
+**The Root-Only Source Rule.** When another FairLend surface conflicts with the core landing page, the root implementation and supplied reference images win.
 
-**The Ink-First Brand Rule.** Every image-led root marketing composition must visibly use monochromatic halftone, stipple, crosshatch, screened photography, or engraved linework. A section that uses the right paper and lime colors but omits the ink motif is off-brand and must be revised before implementation.
+**The Worked-Paper Rule.** Texture must make a surface feel printed or handled. It must never reduce readability or become decorative noise floating above controls and body copy.
+
+**The Evidence-First Rule.** Every visual flourish must communicate place, financing structure, progress, proof, or action. If it communicates none of those, remove it.
 
 ## Colors
 
-The palette is high-contrast paper and ink with a rare, unmistakable lime signal. Blueprint and forest appear only when the Build Model changes working context.
+The palette is a controlled full-palette system: paper and ink establish continuity; electric lime marks intervention; blueprint and forest establish distinct working states.
 
 ### Primary
 
-- **FairLend Signal Lime** (`signal-lime`, `#96EC18`): primary application actions, active progress, proof marks, focus states, underlines, and section guidance.
-- **Acid Lime** (`acid-lime`, `#8DFF00`): the sharper chrome and high-energy accent used in the fixed header and selected micro-states.
-- **Route Lime** (`route-lime`, `#9CFF00`): route-selector selection, origin points, card borders, badges, step dots, and arrows.
-- **Signal Hover** (`signal-hover`, `#A4FB20`): the actual hover state for the core hero and footer actions; it brightens rather than darkens.
+- **Electric Lime** (`electric-lime`): the highest-energy field and the canonical brutalist callout fill. Use for Build Model state changes, hard offsets, large evidence slips, and high-priority actions.
+- **Signal Lime** (`signal-lime`): the slightly quieter operational signal used for highlights, underlines, route nodes, focus, verified marks, and repeated interaction states.
+- **Lime Ink** (`lime-ink`): dark green text and icon color on lime surfaces. Pale text is forbidden on lime.
 
 ### Secondary
 
-- **Signal Soft** (`signal-soft`, `#E8FF9B`): icon orbs, active-chip fields, and low-emphasis selection surfaces.
-- **Signal Ink** (`signal-ink`, `#203500`): readable dark green for text and icons sitting near lime. Never place white or pale gray text on lime.
+- **Blueprint Blue** (`blueprint-blue`): the permit, recovery, drawing, and technical-planning field. Pair with ivory type, pale rules, and sparse lime signals.
+- **Field Forest** (`field-forest`): the construction-finance and capital-control field. Pair with ivory type and lime verification.
+- **Lime Soft** (`lime-soft`): a low-emphasis highlight wash for selected chips, marker halos, and inline annotations.
 
 ### Tertiary
 
-- **Builder Blueprint** (`builder-blueprint`, `#002949` sRGB approximation; canonical `oklch(0.275 0.074 247)`): a working-drawing state inside the Build Model only.
-- **Builder Forest** (`builder-forest`, `#002416` sRGB approximation; canonical `oklch(0.228 0.055 166)`): a financing/build-support state inside the Build Model only.
+- **Ink** (`ink`) and **Deep Ink** (`deep-ink`): default type, borders, dark panels, diagram lines, and reversed field states. Deep Ink is for the hardest contrast and attached black evidence cards.
 
 ### Neutral
 
-- **Landing Paper** (`paper`, `#F8F7F5`): the continuous page canvas and hero field.
-- **Chrome Surface** (`surface`, `#FBFAF8`): fixed navigation and elevated paper chrome.
-- **Route Paper** (`route-paper`, `#F7F6F1`): topographic chooser and FAQ field.
-- **Card Paper** (`card-paper`, `#FBFAF5`): route cards and quiet contained surfaces.
-- **White Paper** (`white-paper`, `#FFFDF9`): inputs, dossier sheets, and the brightest internal page.
-- **Ink** (`ink`, `#08090A`): default text, rules at opacity, and icon linework.
-- **Deep Ink** (`ink-deep`, `#030405`): display typography and black action tiles.
-- **Muted Ink** (`muted`, `#494944`): secondary body copy; still dark enough to remain legible on paper.
-- **Soft Muted Ink** (`muted-soft`, `#6C6C64`): tertiary labels and placeholders where the source already uses it.
-- **Paper Rule** (`rule`, `#DEDED8`): structural borders, dividers, and card outlines.
+- **Ivory** (`ivory`): the Build Model's light working field and preferred background for large paper-mode sections.
+- **Paper** (`paper`): the continuous landing canvas and rail center.
+- **White Paper** (`white-paper`): deal-file sheets, fields, and the brightest reading surfaces.
+- **Muted Ink** (`muted-ink`): secondary copy and metadata that must still meet WCAG AA.
+- **Paper Rule** (`paper-rule`): quiet dividers inside light paper surfaces. Exterior card borders remain Ink.
 
-**The Lime Signal Rule.** Lime identifies action, route, active state, or verified proof. It never becomes paragraph text, a full generic section fill, or ambient decoration with no meaning.
+**The Rotating Field Rule.** Build Model chapters may rotate only among Ivory, Blueprint Blue, Electric Lime, Field Forest, and Ink. Each transition must correspond to a real narrative state; never cycle color as decoration.
 
-**The 90/10 Ink-to-Signal Rule.** In image-led compositions, paper plus black/charcoal ink must carry at least 90% of the visual mass. Lime may carry no more than 10% and must encode action, direction, state, or verification; it may not recolor an entire illustration.
+**The Lime Has a Job Rule.** Lime must indicate action, active state, progress, verification, highlighted evidence, or a physical offset layer. A meaningless lime shape is off-brand.
 
-**The Paper Continuity Rule.** Section changes come from material, imagery, density, and rail texture—not from unrelated background colors. The page must still read as one long physical document.
-
-**The Blueprint Exception Rule.** Blueprint and forest are permitted only where the Build Model changes state. They must feel like working-document modes, never like generic blue fintech branding.
+**The Contrast Inversion Rule.** Light fields use Ink; blueprint, forest, and ink fields use Ivory; lime fields use Deep Ink. Never solve contrast by dropping body copy to washed-out gray.
 
 ## Typography
 
@@ -207,149 +178,111 @@ The palette is high-contrast paper and ink with a rare, unmistakable lime signal
 
 **Body Font:** Inter (`var(--font-inter), Arial, sans-serif`)
 
-**Technical Label Font:** Oxanium (`Oxanium, ui-monospace, monospace`)
+**Technical Label Font:** Oxanium (`var(--font-oxanium), ui-monospace, monospace`)
 
 **Technical Display Font:** League Gothic (`League Gothic, Impact, Arial Narrow, sans-serif`)
 
-**Character:** Cormorant supplies established judgment and the visual confidence of a broadsheet or title page. Inter makes financial details, controls, and process language immediate. Oxanium and League Gothic appear inside builder/leadership instruments where the page deliberately becomes a site board or deal ledger; they are not alternate global brand fonts.
+**Character:** Cormorant gives the dossier public authority and the scale of a printed title page. Inter delivers blunt, contemporary clarity for financing products, callouts, and actions. Oxanium and League Gothic are restricted to file metadata, site-board instrumentation, and condensed technical emphasis.
 
 ### Hierarchy
 
-- **Hero Display** (`clamp(64px, 5.35vw, 82px)`, `600`, `0.98`, `-0.04em`): four stacked lines—Fast, Flexible, Fair, Financing for—with the lime underline reserved for “Fair.” Mobile settles at `58px`, then `51px` below `390px`.
-- **Section Display** (`clamp(52px, 5vw, 72px)`, `600`, `0.89`): route decisions and major section propositions. Keep lines balanced and intentionally short.
-- **Overview Display** (`clamp(58px, 5.28vw, 82px)`, `500`, `0.95–1.06`): the source uses exceptionally tight tracking in this one composition. Treat it as an existing art-directed exception, not a reusable default.
-- **Card Title** (`27px`, `600`, `0.94`): compact serif titles within route cards; mobile may rise to `32px` when the card becomes horizontal.
-- **Body** (`16px`, `500`, `1.45`): concise financial explanation with a practical maximum measure of `65–72ch`; denser cards use `13–15px` with proportionate line height.
-- **Proof Stat** (`72px`, serif, `0.82`): isolated evidence only, paired with plain `18px` labels. Do not turn every section into a metric strip.
-- **Label** (`10–12px`, `800`, `0.16–0.28em`, uppercase): route and file metadata. Use only where the interface is genuinely labeling a system, stage, or document.
-- **Technical Display** (`League Gothic`, condensed, uppercase): builder consulting and leadership instrumentation only.
-- **Handwritten Note** (`Architects Daughter`, blue): one hero annotation exception. Never spread handwriting into general headings or body copy.
+- **Display** (`clamp(3.25rem, 6vw, 6rem)`, `600`, `0.94`, `-0.04em`): one dominant proposition per composition. Balance the lines and test every long word for overflow.
+- **Headline** (`clamp(2.75rem, 5vw, 4.5rem)`, `600`, `0.95`, `-0.035em`): section propositions and major state narratives.
+- **Brutalist Title** (`clamp(1.5rem, 2.2vw, 2.25rem)`, `800`, `0.95`, uppercase when short): deal-file names, callout claims, and high-contrast card headings.
+- **Body** (`16px`, `500`, `1.45`): candid financial explanation. Cap long prose around `65–72ch`; card copy may compress to `14–15px` without becoming gray or faint.
+- **Label** (`11px`, `800`, `0.14em`, uppercase): file numbers, board states, process stages, and genuine system metadata. It is not a decorative eyebrow for every section.
+- **Technical Display** (`League Gothic`, condensed, uppercase): only builder consulting, Build Model instrumentation, and oversized numeric or status language.
 
-**The Two-Register Rule.** Cormorant tells the story; Inter explains and operates it. Oxanium and League Gothic are compartmentalized technical voices, never general-purpose decoration.
+Inline emphasis may use a lime marker wash, lime underline, or heavier weight. The mark should look applied to the page, slightly irregular in width, while the glyphs remain crisp and readable.
 
-**The Tight-but-Legible Rule.** New display work never tracks tighter than `-0.04em`. Existing tighter overview treatments are locked compositions, not precedents.
+**The Two-Register Rule.** Cormorant proposes; Inter explains and acts. Oxanium and League Gothic label the machine. Never let all four compete in one small component.
+
+**The Tight-but-Legible Rule.** Display tracking never goes tighter than `-0.04em`. Headings must use balanced wrapping and remain inside their container at every breakpoint.
 
 ## Elevation
 
-Depth comes from stacked paper, thin rules, restrained state shadows, and one functional translucent navigation layer. Most surfaces remain flat until hierarchy or interaction requires lift. The fixed header's blur is a deliberate readability treatment over moving page content; it is not permission for decorative glass cards elsewhere.
+Elevation is printmaking, not atmosphere. Paper sheets separate through one-pixel Ink borders, small hard-offset shadows, overlapping slips, and occasional stacked-sheet edges. Soft ambient shadows are reserved for floating navigation and interaction feedback; they do not define the core brutalist card language.
 
 ### Shadow Vocabulary
 
-- **Landing Section** (`0 22px 58px rgb(8 9 10 / 7%)`): root-scoped proof and model panels.
-- **Hero CTA** (`0 10px 24px rgb(118 205 0 / 12%)`): lime conversion action; hover rises to `0 14px 32px rgb(118 205 0 / 18%)`.
-- **Header Shell** (`0 18px 54px rgb(17 18 18 / 7%)` plus a white inset highlight): the fixed navigation floating over the hero.
-- **Route Card** (`0 18px 42px rgb(27 25 18 / 5%)`): almost-flat default paper.
-- **Route Card Hover** (`0 24px 52px rgb(27 25 18 / 8%)`): paired with a restrained `-4px` lift when motion is allowed.
-- **Selected Route** (`0 22px 48px rgb(138 255 0 / 14%), inset 0 0 0 1px rgb(156 255 0 / 24%)`): selection evidence, not general decoration.
-- **Build Model Board** (`0 24px 80px var(--bm-shadow)`): one large physical dossier held above the page during sticky scroll.
-- **Avatar** (`0 6px 14px rgb(0 0 0 / 8%)`): enough separation for overlapping grayscale portraits.
-- **Footer Panel** (`0 28px 80px rgb(8 9 10 / 8%)` plus inset white highlight): terminal desk-like paper slab.
+- **File Offset** (`4px 4px 0 rgb(8 9 10 / 22%)`): default deal-file sheet resting above another sheet.
+- **Lime Offset** (`6px 6px 0 #8DFF00`): selected dark cards, authority files, and high-value evidence panels.
+- **Board Offset** (`9px 9px 0 var(--bm-board-offset)`): the sticky Build Model board; its offset changes with the active field.
+- **Pressed Offset** (`2px 2px 0 currentColor`): active state for small brutalist controls where the element visibly compresses.
+- **Navigation Lift** (`0 18px 54px rgb(17 18 18 / 7%)`): the one soft shell floating over moving page content.
 
-**The Layered Evidence Rule.** Borders describe paper edges; shadows describe a real layer or active state. A wide shadow on every bordered box destroys the document metaphor.
+**The Hard-Edge Rule.** Deal files and callouts use a border or a hard offset. Never pair a one-pixel border with a decorative soft shadow wider than `8px` blur.
 
-**The One Elevated State Rule.** Within a component group, only the active or sticky object earns the strongest shadow. Siblings remain quiet.
+**The Attached Evidence Rule.** Overlapping callouts must appear physically attached to the composition through alignment, offset, or a connecting rule. They may not float randomly in unused space.
 
 ## Components
 
-### Landing Rail and Material Frame
+### Landing Rail and Textured Fields
 
-The page is organized as a maximum `1848px` three-column rail: textured gutters on both sides and a centered content field. Desktop gutters breathe from `72px` to `112px`; below `768px` the rail becomes a single full-width block. One-pixel separators and `8px` cross-dots mark section joins. `fabric-of-squares`, `grid-noise`, `inflicted`, `debut-light`, and `groovepaper` are low-opacity material changes, never foreground patterns.
+The desktop page sits in a maximum `1848px` rail with textured gutters and a centered content field. Gutters use low-opacity Cult UI textures such as `fabric-of-squares`, `grid-noise`, and `inflicted`; Build Model boards and comparison sheets use `fabric-of-squares` and `groovepaper`. Light themes blend texture with `multiply`; dark blueprint, forest, and ink themes invert it and blend with `screen`. Texture remains below content, never above interactive elements. Below `768px`, the rail becomes a full-width single column and section padding replaces the gutters.
 
 ### Navigation
 
-The root uses the fixed `DirectionalHoverHeader`, not the generic CMS header. Its `62px` paper shell is `18px` rounded, inset from the viewport by `clamp(16px, 2.9vw, 32px)` vertically and the hero gutter horizontally. Desktop items are `44px` minimum pill targets. The black phone/action control uses acid-lime text and a lime phone disc. Menus support hover direction, keyboard focus, and a full mobile state; focus is a visible `2px` outline with `3px` offset.
+The fixed root header remains the only softly elevated shell. It uses paper, Ink, and lime action contrast while the page beneath rotates fields. Desktop targets are at least `44px`; mobile navigation becomes a deliberate full state rather than squeezing the desktop row. Focus is always visible with a high-contrast `2px` outline and offset.
 
-### Buttons
+### Buttons and Inputs
 
-- **Primary:** signal-lime, deep-ink text, `9px` hero radius, `55px` height, and a black `30px` arrow tile. It lifts `2px` on hover and brightens to Signal Hover.
-- **Route Primary:** full-width, `44px` height, `8px` radius, `13px` semibold copy, lime fill, and black arrow box. Active state compresses to `0.985`.
-- **Dark Expert Action:** black pill with acid-lime copy and a lime circular phone icon. It is compact, high-contrast proof of human access.
-- **Footer Submit:** deliberately square (`0px` radius), `48px` high, lime fill. The hard edge belongs to the footer's capital-desk grid and must not replace rounded hero controls.
-- **Focus:** black or lime `2–3px` ring with visible offset, chosen for contrast against the local paper.
+- **Primary Action:** Electric Lime or Signal Lime with Deep Ink, a compact `8px` radius, minimum `44px` height, and a black arrow tile or explicit direction glyph.
+- **Dark Action:** Ink with Electric Lime, used on light paper and lime fields.
+- **Brutalist Action:** square or `4px` corners, full Ink border, hard offset, and a `1–2px` press on active.
+- **Input:** White Paper, Ink border, `8–12px` corners, dark placeholder, and a three-part focus treatment: lime border, visible ring, and preserved label.
 
-### Inputs and Application Panel
+### Deal-File Cards
 
-Hero fields are bright paper with a `12px` radius, `1px` rule, `46–52px` height, `14–15px` text, and dark placeholders. Focus shifts the border to Signal Lime and adds `0 0 0 3px rgb(150 236 24 / 18%)`. The desktop application panel docks over the skyline; on smaller screens it enters the document flow without losing the three Build / Invest / Get a mortgage tabs or the visible first action.
+Deal-file cards are the canonical repeated container. They use square corners, a full Ink outline, White Paper fill, sparse internal rules, a file number, condensed uppercase title, one engraved subject, one highlighted phrase, and an “Open deal file” action anchored to the bottom. Repetition is permitted because each card is an actual catalogued financing file; vary internal evidence and image placement rather than turning the page into generic icon cards.
 
-### Chips and Labels
+### Brutalist Callout Cards
 
-Build Model variables are compact uppercase Oxanium pills with a full `1px` outline and true pill radius. Active chips use a lime-tinted field and Signal Ink; inactive chips remain paper with muted text. Badges such as “Popular” are small rectangular flags (`5px` radius), not oversized pills.
+Callouts are attached slips for consequential facts: savings, rental income, qualification criteria, verified status, or “with FairLend / without FairLend” comparisons. Use Electric Lime or Ink, a `1–2px` border, square corners, hard offset, blunt Inter type, and compact hierarchy. They may overlap a card edge or bridge a grid seam when the relationship is clear. One callout should dominate; do not scatter badges everywhere.
 
-### Cards and Containers
+### Dashed Route Arrows
 
-- **Route Card:** `18px` radius, `18px` inset, `520px` desktop minimum height, paper translucency, a single rule, and monochrome illustration. Each card contains an icon orb, serif title, direct description, benefits, image, four-stage track, and one CTA. Selection is redundant—lime border, badge, active dot, and primary CTA—but never changes the card's size.
-- **Dossier Card:** `10px` radius, `12px` inset, precise rule, stacked/rotated paper sheets, serif file title, Oxanium metadata, and one evidence visualization. Only the active sheet becomes fully opaque and aligned.
-- **Overview Finance Cell:** thin ruled rectangles with lime index and arrow, monochrome building/bridge engraving, uppercase sans title, and concise copy. They read as a ledger rather than a generic icon-card grid.
-- **Audience Card:** restrained `1px` rule and small top accent; used only to contrast experienced and first-time builders.
+Dashed arrows are a signature navigation primitive. They connect source to destination across hero, route selector, and process sections; their curve must clear copy and card faces. Use a black dashed line on ivory and lime on dark fields, with a visible origin node and decisive arrowhead. Animation draws from origin to destination once, then rests. Under reduced motion, render the final complete route immediately.
 
 ### Monochromatic Halftone Ink Imagery
 
-This is the root brand's signature visual component. It applies to Toronto skylines, construction sites, buildings, parcels, maps, infrastructure, portrait media, and placeholder portrait wells.
+Toronto skylines, buildings, construction sites, property types, maps, and portraits use halftone, stipple, crosshatch, engraving, or screened grayscale. Art must retain a recognizable subject at mobile sizes. Lime overlays may underline, route, verify, or mark a node but must not recolor the full illustration. Texture belongs inside the image or its intentional paper field; never apply a global grain layer over text and controls.
 
-- **Source priority:** reuse the established root raster assets first, including the Toronto skyline, route-selector engravings, property-type engravings, construction imagery, maps, and existing portrait assets. Generate or source new imagery only when the required subject does not exist.
-- **Ink treatment:** convert or art-direct imagery into black, charcoal, gray, and paper tones using halftone dots, stippling, crosshatching, screened photography, etched contours, or engraved linework. Preserve enough midtone separation that structure remains legible at mobile sizes.
-- **Interface boundary:** contain texture inside image, illustration, mask, or intentionally art-directed atmospheric regions. Keep body-copy fields, controls, and reading surfaces clean; never cover the entire interface with a noise or grain overlay to imitate halftone.
-- **Lime annotation:** overlay Signal Lime only as a route, node, endpoint, check, active edge, focus marker, underline, or directional cue. Lime must read as information placed on top of ink, never as the ink itself.
-- **Portraits and placeholders:** real portraits render in controlled grayscale/halftone. Missing portraits use deliberate monochromatic ink fields or architectural crops with initials and replacement-ready aspect ratios—never synthetic faces, generic silhouettes, or empty gray boxes.
-- **Responsive crop:** preserve one recognizable subject, architectural edge, or face at every breakpoint. Recompose the crop on narrow screens rather than shrinking a dense desktop engraving into illegibility.
+### Build Model Board
 
-**The Halftone Is Content Rule.** The ink motif must describe a real FairLend subject—Toronto, property, construction, capital flow, documentation, or people. It may not degrade into arbitrary dots, decorative grain, or a generic vintage filter.
+The Build Model is the strongest expression of the system: a sticky brutalist authority file with a full border, `9px` hard offset, layered dossier tabs, variable chips, a progress rail, and one high-priority CTA. Narrative progression rotates the entire field among Ivory, Electric Lime, Field Forest, Ink, and Blueprint Blue. Background color and text change together over `820ms cubic-bezier(0.22, 1, 0.36, 1)`; content swaps use brief blur and translation without ever hiding the default render. On mobile, sticky choreography linearizes while preserving the current state, texture, and CTA.
 
-### Landing Hero
+### Motion and Responsiveness
 
-The hero is the brand's first impression: a full-viewport near-white field with a black engraved Toronto waterfront and CN Tower, layered halftone clouds, a single dashed lime route, left-anchored four-line serif promise, evidence stats, financing-path deck, consultation and expert actions, application entry, and grayscale trust portraits. The skyline is evidence of local expertise, not a decorative wallpaper. The financing deck begins readable and settles into a stacked interactive file; reduced motion shows the final state without auto-rotation or blur.
+Motion must reveal a route, advance a file, verify a state, or physically compress a control. Use exponential ease-out curves; no bounce or elastic motion. Every animation has a `prefers-reduced-motion` final state. On narrow screens, overlap becomes stack, wide deal-file grids become one readable column, and dashed routes shorten or recompose rather than shrinking into clutter.
 
-### Route Selector
-
-The route chooser sits on a quiet topographic field with one dashed black arc and lime origin. Its non-interactive dashed route arrow renders above the card surfaces so the animated path remains visible as it reaches a route. Five cards present construction financing, private mortgage, institutional mortgage, investing, and partner paths. On desktop, the section fills the standard landing-page content rail inside the same left and right gutters used throughout the page, with no additional inner max-width. Construction financing anchors a large two-row card with prominent copy, a lower-right engraving, and the full process; beside it, a 2×2 grid of compact horizontal supporting routes retains benefits, right-anchored engravings, compact timelines, and pinned actions. On mobile, each card becomes a scannable block and the consultation helper closes the choice architecture.
-
-### Landing Overview
-
-The overview pairs an oversized licensing/private-lending statement and annotated Toronto skyline with a ruled six-cell financing matrix. Lime behaves like highlighter, underline, index, and direction arrow. The composition is asymmetric, dense, and editorial without pretending to be a magazine: every flourish supports credibility, product range, or local fluency.
-
-### Build Model
-
-The Build Model is a sticky-scroll live-deal file, not a marketing card. A bordered board holds status, count, title, dossier sheets, variable chips, and a seven-stage progress track while the narrative advances through Intent, DrawFlow, Plan, Finance, Build Support, the Unf*ck Contingency Program, and Takeout before resolving into Outcome. The default ivory state matches the page; blueprint, forest, and ink states mark real changes in working context. Theme transitions use `820ms cubic-bezier(0.22, 1, 0.36, 1)`; text swaps use a restrained `150ms` blur/translate. On mobile the board and narrative linearize without hiding the current state.
-
-### Builder Consulting, Leadership, FAQ, and Footer
-
-These later sections retain the same paper, ink, lime, rail, and imagery system while increasing technical density. Builder and leadership may use League Gothic and Oxanium because they behave like site signage and underwriting instrumentation. FAQ returns to route-paper and map logic, with a recalculated SVG path connecting accordion content. The footer resolves the page as a structured capital desk: squared grid cells, serif closing proposition, lime square submit action, regulatory disclosure, navigation columns, and controlled motion.
-
-**The Motion Means Progress Rule.** Motion may reveal a route, move a boat in its sailing direction, advance a file, select a card, trace a line, or expose proof. It may not make the map, skyline, or financial process feel like a toy. Every transform-heavy behavior has a reduced-motion final state.
+**The Motion Means Progress Rule.** If motion cannot be described with a financing verb—trace, open, compare, verify, advance, fund, or complete—it does not belong.
 
 ## Do's and Don'ts
 
-### Do:
+### Do
 
-- **Do** treat `/` and its imported root components as the brand source of truth.
-- **Do** preserve the sequence: header, hero, route selector, overview, Build Model, builder consulting, leadership, FAQ, and footer.
-- **Do** use real Toronto skyline, topographic, parcel, construction, property, and deal-file imagery as primary brand material.
-- **Do** make monochromatic halftone, stipple, crosshatch, screened-photography, or engraved linework visibly dominant in every image-led marketing section; reserve color for lime signals and controlled Build Model modes.
-- **Do** treat lime as an annotation over ink—routes, nodes, verification marks, active edges, focus, and direction—not as a replacement for the monochromatic illustration.
-- **Do** keep halftone texture inside meaningful image and illustration regions while keeping reading and control surfaces clean.
-- **Do** pair Cormorant authority with Inter clarity; keep Oxanium and League Gothic inside technical sections.
-- **Do** keep application entry visible, compact, labeled, and usable at every viewport.
-- **Do** preserve semantic headings, keyboard focus, minimum `44px` touch targets where practical, WCAG AA contrast, and reduced-motion alternatives.
-- **Do** use lime redundantly for meaningful selected states: color plus border, label, icon, or progress treatment.
-- **Do** keep body copy dark on paper and cap long measures around `65–72ch`.
-- **Do** adapt or reuse the actual root components before creating any new brand primitive.
+- **Do** treat the supplied Supacode screenshots and the `/` implementation as the visual source of truth.
+- **Do** rotate Blueprint Blue, Electric Lime, Field Forest, Ink, and Ivory only when the Build Model's narrative state changes.
+- **Do** use Cult UI `BackgroundImageTexture` variants as real paper material with theme-aware opacity, inversion, and blend mode.
+- **Do** retain black rules, square corners, hard offsets, overlapping evidence slips, and blunt callout typography.
+- **Do** use dashed arrows to communicate a real route, handoff, or sequence; give every path an origin and destination.
+- **Do** keep monochromatic Toronto and property imagery visibly engraved, stippled, screened, or halftoned.
+- **Do** reserve lime for action, highlight, verification, progress, and physical offset.
+- **Do** maintain WCAG AA contrast, semantic headings, visible focus, `44px` touch targets where practical, and reduced-motion equivalents.
+- **Do** keep one dominant proposition and one obvious next action per viewport.
+- **Do** recompose dense desktop cards for mobile instead of scaling the entire composition down.
 
-### Don't:
+### Don't
 
-- **Don't** use navy-and-gold bank cliches.
-- **Don't** produce generic AI finance landing pages.
-- **Don't** use decorative glassmorphism for its own sake; the fixed header is the sole functional translucent-chrome exception.
-- **Don't** add city labels or pins that compete with the offer.
-- **Don't** ship cramped hero type; new display tracking stops at `-0.04em`, and headings must be tested for overflow.
-- **Don't** allow over-wrapped card labels; change the measure, scale, or responsive composition.
-- **Don't** use motion that makes the map feel like a toy.
-- **Don't** turn lime into paragraph text, a generic full-section background, or meaningless glow.
-- **Don't** ship an image-led root marketing section without a visible monochromatic halftone/engraved-ink treatment; matching the palette alone is insufficient.
-- **Don't** replace the ink motif with full-colour stock photography, generic flat vectors, pastel 3D renders, unprocessed grayscale photos, or empty neutral placeholders.
-- **Don't** tint an entire skyline, building, portrait, or construction illustration lime; lime is a sparse functional annotation layer.
-- **Don't** simulate the motif with a global grain/noise overlay. Halftone must belong to the depicted subject and remain outside core reading surfaces.
-- **Don't** introduce generic fintech blue; blueprint and forest belong only to Build Model state changes.
-- **Don't** replace the root's real raster/engraved assets with hand-drawn SVG doodles, generic line icons, or decorative CSS geometry.
-- **Don't** repeat a tiny uppercase eyebrow above every heading. Labels must identify a real route, file, phase, or technical system.
-- **Don't** build an endless identical card grid. Cards are reserved for genuine comparison, file, or evidence structures.
-- **Don't** add gradient text, decorative side-stripe borders, diagonal stripe fills, or arbitrary `32px+` card radii.
+- **Don't** use navy-and-gold bank cliches or generic AI finance landing-page grammar.
+- **Don't** soften the brutalist file system into glass cards, pill-heavy SaaS UI, or border-plus-wide-shadow ghost cards.
+- **Don't** use the blue, lime, forest, ink, and ivory fields as an automatic carousel or decorative color cycle.
+- **Don't** put texture above body copy, form controls, or focus indicators; worked paper must remain readable.
+- **Don't** scatter tiny uppercase eyebrows above every heading. File labels must identify a real route, stage, artifact, or status.
+- **Don't** turn every fact into a callout. One attached evidence slip is stronger than a field of badges.
+- **Don't** use dashed arrows as filler, route them through text, or animate them endlessly.
+- **Don't** recolor an entire skyline, portrait, or building lime; lime annotates monochrome ink.
+- **Don't** replace real imagery with hand-drawn SVG doodles, generic flat vectors, pastel 3D renders, or decorative CSS geometry.
+- **Don't** add gradient text, decorative side stripes, repeating diagonal stripes, decorative grid overlays, or arbitrary `32px+` card radii.
+- **Don't** ship cramped display type, over-wrapped card labels, horizontal scrolling, or motion that makes the map and financing process feel like a toy.
