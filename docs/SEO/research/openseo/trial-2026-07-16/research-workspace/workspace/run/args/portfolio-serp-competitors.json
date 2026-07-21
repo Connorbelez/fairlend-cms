@@ -1,0 +1,18 @@
+{
+  "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+  "keywords": [
+    "mli select",
+    "multiplex construction financing",
+    "garden suite financing",
+    "laneway suite financing",
+    "construction financing",
+    "construction draw mortgage",
+    "mortgage broker for realtors"
+  ],
+  "resultTypes": ["organic", "featured_snippet", "local_pack"],
+  "excludeDomains": ["fairlend.ca"],
+  "includeSubdomains": true,
+  "sortBy": "visibility",
+  "limit": 30,
+  "offset": 0
+}

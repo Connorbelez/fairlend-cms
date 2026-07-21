@@ -144,7 +144,8 @@ export const Posts: CollectionConfig = {
               }),
               label: false,
               validate: (value, { siblingData }) => {
-                const contentMode = (siblingData as { contentMode?: string } | undefined)?.contentMode
+                const contentMode = (siblingData as { contentMode?: string } | undefined)
+                  ?.contentMode
                 if (contentMode === 'moneyPage') return true
                 return value ? true : 'Article posts require content.'
               },
@@ -236,10 +237,13 @@ export const Posts: CollectionConfig = {
       name: 'authors',
       type: 'relationship',
       admin: {
+        description:
+          'Every release requires at least one author with a complete name, official title, and mini bio.',
         position: 'sidebar',
       },
       hasMany: true,
       relationTo: 'users',
+      required: true,
     },
     // This field is only used to populate the user data via the `populateAuthors` hook
     // This is because the `user` collection has access control locked to protect user privacy
@@ -262,6 +266,14 @@ export const Posts: CollectionConfig = {
         {
           name: 'name',
           type: 'text',
+        },
+        {
+          name: 'officialTitle',
+          type: 'text',
+        },
+        {
+          name: 'bio',
+          type: 'textarea',
         },
       ],
     },

@@ -29,7 +29,7 @@ Routes found:
 | `/investing/private-mortgage-lending` | Investor hero/primer/rate/protection/platform/portal/opportunities/fractional/regulator/process/leadership/fit/FAQ/final CTA | Many section CSS imports and icon-heavy sections. |
 | `/partners` | Partner hero/program/who-for/lifecycle/bridge sections | Large referenced lifecycle WebP assets. |
 | `/start/builder` | `DrawflowIntake` | Largest page-level JS/CSS hydration risk. |
-| `/intake` | `FairlendIntakeRouter` | Client-routing and intake dependency risk. |
+| `/construction-financing` | `FairlendIntakeRouter` | Client-routing and intake dependency risk. |
 | `/garden-suite`, `/garden-suite-financing-gta`, `/construction-draw-financing`, `/multiplex-financing-gta`, `/affordable-sustainable-rental-housing` | `FairlendFeedbackContentPage` with route selector assets | Lower route JS, but still receives global chrome/analytics costs. |
 | `/cmhc-mli-select-multiplex-financing`, `/resources/construction-draws-small-builders` | Under-construction/content pages | Low page-specific cost, still affected by global chrome. |
 | `/:slug` | Payload page renderer: `RenderHero`, `RenderBlocks`, `LivePreviewListener` | CMS depth/cache and block-level client island risk. |
@@ -523,7 +523,7 @@ Expected result: lower first-load JS and less main-thread contention on every ro
 4. Split home page animation controllers from static sections.
 5. Lazy-mount GSAP/ScrollTrigger only near viewport.
 
-Expected result: major improvements to `/`, `/start/builder`, and `/intake`.
+Expected result: major improvements to `/`, `/start/builder`, and `/construction-financing`.
 
 ### Phase 3: Clean assets and CSS
 
@@ -585,4 +585,3 @@ After implementing fixes, run these in a branch where builds/tests are allowed:
 4. Confirm analytics scripts do not load before consent/eligibility.
 5. Confirm no production page requests `http://localhost:8400/live.js`.
 6. Confirm all production images above the fold have correct `sizes`, dimensions, and priority only when they are actual LCP candidates.
-

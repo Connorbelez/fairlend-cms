@@ -19,7 +19,8 @@ type HeaderNavLink = HeaderNavItem['link']
 
 const bookingTriggerHref = '#book-consultation'
 const legacyPrivateMortgageHref = '/borrowers/private-mortgage-financing'
-const privateMortgageIntakeHref = '/intake?intent=mortgage&source=header-nav-private-mortgage'
+const privateMortgageIntakeHref =
+  '/construction-financing?intent=mortgage&source=header-nav-private-mortgage'
 const rentalPropertyAcquisitionIntakeHref = buildFairlendMortgageHref(
   fairlendRentalPropertyAcquisitionHeaderSource,
 )
@@ -29,7 +30,7 @@ const rentalPropertyRefinanceIntakeHref = buildFairlendMortgageHref(
 
 const polishedHeaderHrefs = new Set([
   '/',
-  '/intake',
+  '/construction-financing',
   privateMortgageIntakeHref,
   rentalPropertyAcquisitionIntakeHref,
   rentalPropertyRefinanceIntakeHref,
@@ -134,8 +135,8 @@ function normalizeHeaderUrl(url?: string | null): string | null {
     return normalized
   }
 
-  if (normalized.startsWith('/intake?')) {
-    return '/intake'
+  if (normalized.startsWith('/construction-financing?')) {
+    return '/construction-financing'
   }
 
   return headerAnchorFallbacks.get(normalized) ?? normalized

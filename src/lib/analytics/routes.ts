@@ -40,7 +40,7 @@ export function classifyFairlendRoute(input: string): {
   if (page_path.startsWith('/partners')) {
     return { content_group: 'partners', page_path, page_type: 'partner' }
   }
-  if (page_path === '/intake' || page_path.startsWith('/start/')) {
+  if (page_path === '/construction-financing' || page_path.startsWith('/start/')) {
     return { content_group: 'conversion', page_path, page_type: 'intake' }
   }
   if (page_path === '/contact') {

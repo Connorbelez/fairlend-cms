@@ -10,7 +10,7 @@ const selectableChipVariants = cva('', {
       true: 'is-selected',
     },
     variant: {
-      builder: 'bp-chip-option',
+      builder: 'bp-chip-option fairlend-choice-pill',
       mortgage: 'fl-mortgage-chip-option',
     },
   },

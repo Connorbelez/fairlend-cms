@@ -29,6 +29,10 @@ const inlineLinks = [
   { href: 'https://www.priv.gc.ca', text: 'www.priv.gc.ca' },
   { href: 'http://youradchoices.ca/', text: 'http://youradchoices.ca/' },
   { href: 'https://tools.google.com/dlpage/gaoptout', text: 'Google Analytics opt-out page' },
+  {
+    href: 'https://vercel.com/docs/analytics/privacy-policy',
+    text: 'Vercel analytics privacy information',
+  },
   { href: 'https://adssettings.google.com/', text: 'Google’s Ads Preferences Manager' },
   { href: 'https://youradchoices.ca/choices/', text: 'DAAC opt-out page' },
   { href: 'tel:+16474391232', text: '647-439-1232' },
@@ -335,6 +339,11 @@ const policyBlocks = [
   },
   {
     type: 'list',
+    text: '**Vercel Web Analytics and Speed Insights:** We use Vercel Web Analytics and Speed Insights on public website pages to measure anonymous aggregate page visits, referrers, bounce rate, device and browser categories, approximate geography, website performance, active-engagement milestones, and whether an intake form was started or successfully submitted. This measurement is always active, does not use cookies, and is not associated with an identified person or FairLend customer record. We remove query strings and fragments from page URLs and do not send form answers, contact details, financial or property values, uploaded-document details, or FairLend database identifiers to Vercel. Intake events contain only the form type and journey category. See the Vercel analytics privacy information for more detail.',
+    level: 1,
+  },
+  {
+    type: 'list',
     text: '**Google Analytics:** We may use Google Analytics, which allows us to see information on user website activities including, but not limited to, page views, source and time spent on our website. Where used, this information is depersonalized and is displayed as numbers, meaning that it cannot be tracked back to individuals. You may opt-out of our use of Google Analytics by visiting the Google Analytics opt-out page.',
     level: 1,
   },
@@ -439,7 +448,7 @@ const policyBlocks = [
   },
   {
     type: 'paragraph',
-    text: 'FairLend will review and update its policies and procedures as required to keep current with rules and regulations, new technologies, standards and customer concerns. Our privacy policy may therefore change from time to time. We will post any privacy policy changes on our website and, if the changes are material, we will provide a more prominent notice. This privacy policy was last updated on July 8, 2026.',
+    text: 'FairLend will review and update its policies and procedures as required to keep current with rules and regulations, new technologies, standards and customer concerns. Our privacy policy may therefore change from time to time. We will post any privacy policy changes on our website and, if the changes are material, we will provide a more prominent notice. This privacy policy was last updated on July 20, 2026.',
   },
   {
     type: 'paragraph',
@@ -632,7 +641,7 @@ export default function FairlendPrivacyPolicyPage() {
             <dl className="mt-5 space-y-4 text-sm">
               <div>
                 <dt className="font-bold text-[#090909]">Last updated</dt>
-                <dd className="mt-1 text-[#5a5a52]">July 14, 2026</dd>
+                <dd className="mt-1 text-[#5a5a52]">July 20, 2026</dd>
               </div>
               <div>
                 <dt className="font-bold text-[#090909]">Administrator licence</dt>

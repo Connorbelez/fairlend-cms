@@ -1,0 +1,117 @@
+{
+  "package": "traffic-prioritized-five-layer-funnel-2026-07-20",
+  "preparedDate": "2026-07-20",
+  "market": "Ontario with Toronto/GTA emphasis",
+  "scope": [
+    "garden suites",
+    "laneway suites",
+    "construction lending",
+    "multiplex lending",
+    "MLI Select",
+    "sitewide supporting opportunities"
+  ],
+  "counts": {
+    "keywords": 85,
+    "keywordsWithObservedVolume": 46,
+    "keywordsWithUnknownVolume": 39,
+    "canonicalPageClusters": 12,
+    "existingRouteClusters": 6,
+    "proposedRouteClusters": 5,
+    "cmsRouteRequiringConfirmation": 1,
+    "byLayer": {
+      "L1": 12,
+      "L2": 16,
+      "L3": 15,
+      "L4": 29,
+      "L5": 13
+    },
+    "byPriority": {
+      "P0": 65,
+      "P1": 18,
+      "P2": 2
+    }
+  },
+  "layerDefinitions": {
+    "L1": "awareness-education",
+    "L2": "project-feasibility",
+    "L3": "planning-comparison",
+    "L4": "financing-qualification",
+    "L5": "immediate-transaction-problem"
+  },
+  "topObservedTerms": [
+    {
+      "keyword": "mortgage calculator",
+      "monthlySearches": 368000,
+      "qualification": "qualified-high-difficulty",
+      "targetPath": "/calculators"
+    },
+    {
+      "keyword": "toronto building permit",
+      "monthlySearches": 2400,
+      "qualification": "authority-support",
+      "targetPath": "/resources/toronto-permit-zoning-navigator"
+    },
+    {
+      "keyword": "garden suite",
+      "monthlySearches": 1900,
+      "qualification": "ambiguous-secondary",
+      "targetPath": "/garden-suite"
+    },
+    {
+      "keyword": "MLI Select",
+      "monthlySearches": 1600,
+      "qualification": "qualified-authority-led",
+      "targetPath": "/mli-select"
+    },
+    {
+      "keyword": "mortgage broker Toronto",
+      "monthlySearches": 1300,
+      "qualification": "qualified-broad",
+      "targetPath": "/borrowers"
+    },
+    {
+      "keyword": "construction financing",
+      "monthlySearches": 880,
+      "qualification": "qualified-primary",
+      "targetPath": "/construction-financing-ontario"
+    },
+    {
+      "keyword": "garden suites Toronto",
+      "monthlySearches": 590,
+      "qualification": "qualified-primary",
+      "targetPath": "/garden-suite"
+    },
+    {
+      "keyword": "construction mortgage",
+      "monthlySearches": 590,
+      "qualification": "qualified-primary",
+      "targetPath": "/construction-financing-ontario"
+    }
+  ],
+  "primaryDecisions": [
+    "Preserve dated source packages and publish an overlay rather than rewriting historical evidence.",
+    "Use observed traffic only after intent geography authority and business-fit qualification.",
+    "Keep each keyword in one funnel layer and map it to one canonical URL.",
+    "Use the existing /construction-draw-financing route as the canonical draw schedule and tool page.",
+    "Separate garden and multiplex feasibility pages from their transactional financing pages.",
+    "Separate MLI Select requirements and points intent from financing advisory intent.",
+    "Create a distinct L5 construction rescue page for declines stopped draws shortfalls and failed take-outs.",
+    "Do not sum close-synonym search volumes into a market estimate."
+  ],
+  "metricCaveat": "Observed search volume and difficulty are dated July 16-17 repository snapshots. Blank volume means unavailable or not returned and never means zero.",
+  "sources": [
+    "research/openseo/trial-2026-07-16/deliverables/keyword-universe.csv",
+    "research/openseo/expansion-2026-07-17/deliverables/keyword-universe.csv",
+    "research/keyword-and-funnel/landing-services-funnel-2026-07-19/keyword-universe.csv",
+    "research/keyword-and-funnel/mortgage-borrower-strategy-2026-07-20/keyword-universe.csv",
+    "research/keyword-and-funnel/keyword-cluster-validation-2026-07-20/page-cluster-map.csv"
+  ],
+  "deliverables": [
+    "README.md",
+    "five-layer-funnel-report.md",
+    "traffic-prioritized-keyword-universe.csv",
+    "page-cluster-map.csv",
+    "coverage-qa.csv",
+    "research-summary.json"
+  ]
+}

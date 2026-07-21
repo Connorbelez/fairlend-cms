@@ -3,14 +3,14 @@
 The existing-rental cards on the homepage share the mortgage intake route while selecting a
 dedicated `rental-property` wizard:
 
-- Acquisition: `/intake?intent=mortgage&source=landing-overview-acquisition-existing-rental-properties`
-- Refinance: `/intake?intent=mortgage&source=landing-overview-refinancing-existing-rental-properties`
+- Acquisition: `/construction-financing?intent=mortgage&source=landing-overview-acquisition-existing-rental-properties`
+- Refinance: `/construction-financing?intent=mortgage&source=landing-overview-refinancing-existing-rental-properties`
 
 The header's **Financing → Refinancing & acquisitions** column exposes both branches with
 header-specific attribution:
 
-- Acquisition: `/intake?intent=mortgage&source=header-nav-acquisition-existing-rental-properties`
-- Refinance: `/intake?intent=mortgage&source=header-nav-refinancing-existing-rental-properties`
+- Acquisition: `/construction-financing?intent=mortgage&source=header-nav-acquisition-existing-rental-properties`
+- Refinance: `/construction-financing?intent=mortgage&source=header-nav-refinancing-existing-rental-properties`
 
 The source preselects the transaction but does not lock it. Acquisition and refinance drafts use
 separate local-storage keys so a saved file from one homepage card cannot override the other.

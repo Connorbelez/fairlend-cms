@@ -405,11 +405,16 @@ export interface Post {
     description?: string | null;
   };
   publishedAt?: string | null;
-  authors?: (number | User)[] | null;
+  /**
+   * Every release requires at least one author with a complete name, official title, and mini bio.
+   */
+  authors: (number | User)[];
   populatedAuthors?:
     | {
         id?: string | null;
         name?: string | null;
+        officialTitle?: string | null;
+        bio?: string | null;
       }[]
     | null;
   /**
@@ -1413,7 +1418,15 @@ export interface Category {
  */
 export interface User {
   id: number;
-  name?: string | null;
+  name: string;
+  /**
+   * The author’s current public-facing professional title. This appears on every attributed post and in Person structured data.
+   */
+  officialTitle: string;
+  /**
+   * A concise public biography establishing the author’s relevant experience and expertise.
+   */
+  bio: string;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -4111,6 +4124,8 @@ export interface PostsSelect<T extends boolean = true> {
     | {
         id?: T;
         name?: T;
+        officialTitle?: T;
+        bio?: T;
       };
   generateSlug?: T;
   slug?: T;
@@ -4350,6 +4365,8 @@ export interface FairlendConsultationBookingsSelect<T extends boolean = true> {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
+  officialTitle?: T;
+  bio?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

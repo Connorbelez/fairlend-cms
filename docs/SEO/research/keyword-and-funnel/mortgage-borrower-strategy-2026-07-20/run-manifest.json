@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-07-20",
+  "objective": "Ontario borrower keyword research, five-layer clustering, Google validation, content proposal, and interactive visual brief",
+  "inputs": [
+    "FairLend site/repo inventory",
+    "Authenticated GSC UI",
+    "Authenticated GA4 UI",
+    "Answer Socrates question discovery",
+    "Current web SERP evidence",
+    "Prior FairLend SEO research"
+  ],
+  "outputs": [
+    "mortgage-borrower-keyword-research-and-strategy.md",
+    "keyword-universe.csv",
+    "keyword-demand-and-ranking-validation.csv",
+    "page-cluster-map.csv",
+    "question-bank.csv",
+    "evidence-ledger.csv",
+    "service-opportunity-matrix.csv",
+    "90-day-roadmap.md",
+    "coverage-qa.csv",
+    "research-summary.json",
+    "/Users/connor/.agent/diagrams/fairlend-mortgage-borrower-seo-strategy.html"
+  ],
+  "limitations": [
+    "No callable market-volume provider",
+    "Small first-party sample",
+    "No bulk exact Google rank tracker",
+    "Zero GA4 key events"
+  ],
+  "qaStatus": "PASS",
+  "competitiveLandscape": {
+    "observedAt": "2026-07-20",
+    "queryCount": 160,
+    "clusterCount": 18,
+    "resultReferenceCount": 800,
+    "domainCount": 221,
+    "outputs": [
+      "competitive-keyword-outranking-strategy.csv",
+      "competitive-cluster-landscape.csv",
+      "competitor-domain-landscape.csv",
+      "competitive-coverage-qa.csv",
+      "competitive-landscape-and-outranking-strategy.md",
+      "competitive-landscape-summary.json",
+      "fairlend-competitive-outranking-strategy.html",
+      "live-serp-scan-2026-07-20.json",
+      "/Users/connor/.agent/diagrams/fairlend-competitive-outranking-strategy.html"
+    ],
+    "qaStatus": "PASS"
+  }
+}

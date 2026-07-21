@@ -156,11 +156,11 @@ function byText(pattern, parentDepth = 0, fallbackSelector) {
   }
 }
 
-const mortgageRoute = '/intake?intent=mortgage&source=issue-evidence'
+  const mortgageRoute = '/construction-financing?intent=mortgage&source=issue-evidence'
 const rentalAcquisitionRoute =
-  '/intake?intent=mortgage&source=landing-overview-acquisition-existing-rental-properties'
+    '/construction-financing?intent=mortgage&source=landing-overview-acquisition-existing-rental-properties'
 const rentalRefinanceRoute =
-  '/intake?intent=mortgage&source=landing-overview-refinancing-existing-rental-properties'
+    '/construction-financing?intent=mortgage&source=landing-overview-refinancing-existing-rental-properties'
 const builderRoute =
   '/start/builder?intent=build&projectScope=multiplex-financing&source=issue-evidence'
 

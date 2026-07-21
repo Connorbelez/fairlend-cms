@@ -1,6 +1,7 @@
 'use client'
 
 import type React from 'react'
+import { createPortal } from 'react-dom'
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
 
 import { cn } from '@/utilities/ui'
@@ -23,6 +24,15 @@ type AddressDetails = {
   postalAddress?: unknown
 }
 
+type AutocompleteMenuPlacement = 'above-anchor' | 'below-input'
+
+type AboveAnchorPosition = {
+  bottom: number
+  left: number
+  maxHeight: number
+  width: number
+}
+
 interface GoogleAddressAutocompleteProps {
   ariaDescribedBy?: string
   autoComplete?: React.InputHTMLAttributes<HTMLInputElement>['autoComplete']
@@ -33,6 +43,8 @@ interface GoogleAddressAutocompleteProps {
   inputMode?: React.HTMLAttributes<HTMLInputElement>['inputMode']
   label?: React.ReactNode
   labelClassName?: string
+  menuAnchor?: HTMLElement | null
+  menuPlacement?: AutocompleteMenuPlacement
   name?: string
   onChange: (value: string, meta?: AddressChangeMeta) => void
   onOpenChange?: (open: boolean) => void
@@ -57,6 +69,8 @@ export function GoogleAddressAutocomplete({
   inputMode,
   label,
   labelClassName,
+  menuAnchor,
+  menuPlacement = 'below-input',
   name,
   onChange,
   onOpenChange,
@@ -77,13 +91,69 @@ export function GoogleAddressAutocomplete({
   const [isResolving, setIsResolving] = useState(false)
   const [suggestions, setSuggestions] = useState<AddressSuggestion[]>([])
   const [error, setError] = useState<string | null>(null)
+  const [aboveAnchorPosition, setAboveAnchorPosition] = useState<AboveAnchorPosition | null>(
+    null,
+  )
   const sessionTokenRef = useRef<string>(createAutocompleteSessionToken())
   const trimmedValue = value.trim()
   const isOpen = isFocused && (suggestions.length > 0 || isLoading || Boolean(error))
+  const shouldPortalAboveAnchor = menuPlacement === 'above-anchor' && Boolean(menuAnchor)
 
   useEffect(() => {
     onOpenChange?.(isOpen)
   }, [isOpen, onOpenChange])
+
+  useEffect(() => {
+    if (!isOpen || !shouldPortalAboveAnchor) {
+      return
+    }
+
+    const anchor = menuAnchor
+    if (!anchor) return
+
+    let animationFrame = 0
+    const updatePosition = () => {
+      const rect = anchor.getBoundingClientRect()
+      const viewportTop = window.visualViewport?.offsetTop ?? 0
+      const viewportPadding = 8
+      const menuGap = 8
+      const availableHeight = Math.max(48, rect.top - viewportTop - menuGap - viewportPadding)
+      const width = Math.min(rect.width, window.innerWidth - viewportPadding * 2)
+      const left = Math.min(
+        Math.max(viewportPadding, rect.left),
+        Math.max(viewportPadding, window.innerWidth - width - viewportPadding),
+      )
+
+      setAboveAnchorPosition({
+        bottom: Math.max(viewportPadding, window.innerHeight - rect.top + menuGap),
+        left,
+        maxHeight: Math.min(264, availableHeight),
+        width,
+      })
+    }
+    const schedulePositionUpdate = () => {
+      window.cancelAnimationFrame(animationFrame)
+      animationFrame = window.requestAnimationFrame(updatePosition)
+    }
+
+    updatePosition()
+    window.addEventListener('resize', schedulePositionUpdate)
+    window.addEventListener('scroll', schedulePositionUpdate, true)
+    window.visualViewport?.addEventListener('resize', schedulePositionUpdate)
+    window.visualViewport?.addEventListener('scroll', schedulePositionUpdate)
+
+    const resizeObserver = new ResizeObserver(schedulePositionUpdate)
+    resizeObserver.observe(anchor)
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame)
+      window.removeEventListener('resize', schedulePositionUpdate)
+      window.removeEventListener('scroll', schedulePositionUpdate, true)
+      window.visualViewport?.removeEventListener('resize', schedulePositionUpdate)
+      window.visualViewport?.removeEventListener('scroll', schedulePositionUpdate)
+      resizeObserver.disconnect()
+    }
+  }, [isOpen, menuAnchor, shouldPortalAboveAnchor])
 
   useEffect(() => {
     if (trimmedValue.length < 3 || disabled) {
@@ -248,6 +318,84 @@ export function GoogleAddressAutocomplete({
     value,
   }
 
+  const autocompleteMenu = isOpen ? (
+    <div
+      className={cn(
+        'max-h-[min(264px,42svh)] overflow-x-hidden overflow-y-auto overscroll-contain rounded-xl border border-slate-200 bg-white text-left shadow-[0_20px_44px_rgb(15_23_42/16%)] motion-safe:animate-[autocompleteMenuIn_200ms_cubic-bezier(0.22,1,0.36,1)_both]',
+        shouldPortalAboveAnchor
+          ? 'fixed z-[70] origin-bottom'
+          : 'absolute top-[calc(100%+8px)] right-0 left-0 z-50 origin-top',
+      )}
+      data-placement={shouldPortalAboveAnchor ? 'above-anchor' : 'below-input'}
+      data-slot="autocomplete-menu"
+      style={
+        shouldPortalAboveAnchor && aboveAnchorPosition
+          ? {
+              bottom: aboveAnchorPosition.bottom,
+              left: aboveAnchorPosition.left,
+              maxHeight: aboveAnchorPosition.maxHeight,
+              width: aboveAnchorPosition.width,
+            }
+          : undefined
+      }
+    >
+      {isLoading || isResolving ? (
+        <div
+          className="px-4 py-3 text-sm font-semibold text-slate-500"
+          data-slot="autocomplete-status"
+        >
+          {isResolving ? 'Confirming address...' : 'Searching addresses...'}
+        </div>
+      ) : null}
+
+      {!isLoading && !isResolving && error ? (
+        <div
+          className="px-4 py-3 text-sm font-semibold text-slate-500"
+          data-slot="autocomplete-status"
+        >
+          Address suggestions are unavailable. You can still continue.
+        </div>
+      ) : null}
+
+      {!isLoading && !isResolving && !error && suggestions.length > 0 ? (
+        <ul id={listboxId} role="listbox">
+          {suggestions.map((suggestion, index) => (
+            <li
+              aria-selected={activeIndex === index}
+              className={cn(
+                'cursor-pointer px-4 py-3 transition hover:bg-slate-50',
+                activeIndex === index && 'bg-slate-50',
+              )}
+              id={`${listboxId}-option-${index}`}
+              key={suggestion.id}
+              onMouseDown={(event) => {
+                event.preventDefault()
+                void selectSuggestion(suggestion)
+              }}
+              role="option"
+            >
+              <span className="block text-sm font-extrabold text-slate-900">
+                {suggestion.mainText}
+              </span>
+              {suggestion.secondaryText ? (
+                <span className="mt-0.5 block text-xs font-semibold text-slate-500">
+                  {suggestion.secondaryText}
+                </span>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </div>
+  ) : null
+
+  const renderedAutocompleteMenu =
+    shouldPortalAboveAnchor && aboveAnchorPosition && typeof document !== 'undefined'
+      ? createPortal(autocompleteMenu, document.body)
+      : shouldPortalAboveAnchor
+        ? null
+        : autocompleteMenu
+
   return (
     <div className={cn('grid min-w-0 gap-2', className)}>
       {label ? (
@@ -274,60 +422,7 @@ export function GoogleAddressAutocomplete({
           </button>
         ) : null}
 
-        {isOpen ? (
-          <div
-            className="absolute top-[calc(100%+8px)] right-0 left-0 z-50 overflow-hidden rounded-xl border border-slate-200 bg-white text-left shadow-[0_20px_44px_rgb(15_23_42/16%)]"
-            data-slot="autocomplete-menu"
-          >
-            {isLoading || isResolving ? (
-              <div
-                className="px-4 py-3 text-sm font-semibold text-slate-500"
-                data-slot="autocomplete-status"
-              >
-                {isResolving ? 'Confirming address...' : 'Searching addresses...'}
-              </div>
-            ) : null}
-
-            {!isLoading && !isResolving && error ? (
-              <div
-                className="px-4 py-3 text-sm font-semibold text-slate-500"
-                data-slot="autocomplete-status"
-              >
-                Address suggestions are unavailable. You can still continue.
-              </div>
-            ) : null}
-
-            {!isLoading && !isResolving && !error && suggestions.length > 0 ? (
-              <ul id={listboxId} role="listbox">
-                {suggestions.map((suggestion, index) => (
-                  <li
-                    aria-selected={activeIndex === index}
-                    className={cn(
-                      'cursor-pointer px-4 py-3 transition hover:bg-slate-50',
-                      activeIndex === index && 'bg-slate-50',
-                    )}
-                    id={`${listboxId}-option-${index}`}
-                    key={suggestion.id}
-                    onMouseDown={(event) => {
-                      event.preventDefault()
-                      void selectSuggestion(suggestion)
-                    }}
-                    role="option"
-                  >
-                    <span className="block text-sm font-extrabold text-slate-900">
-                      {suggestion.mainText}
-                    </span>
-                    {suggestion.secondaryText ? (
-                      <span className="mt-0.5 block text-xs font-semibold text-slate-500">
-                        {suggestion.secondaryText}
-                      </span>
-                    ) : null}
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </div>
-        ) : null}
+        {renderedAutocompleteMenu}
       </div>
     </div>
   )

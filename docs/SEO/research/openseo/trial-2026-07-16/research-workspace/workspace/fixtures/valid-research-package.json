@@ -1,0 +1,277 @@
+{
+  "contractVersion": "1.0.0",
+  "packageId": "fairlend-openseo-trial-fixture",
+  "generatedAt": "2026-07-16T12:00:00-04:00",
+  "manifest": {
+    "runId": "fixture-run",
+    "status": "scaffold-only",
+    "market": {
+      "country": "CA",
+      "language": "en",
+      "primaryLocation": "Toronto, Ontario, Canada",
+      "secondaryLocation": "Greater Toronto Area, Ontario, Canada"
+    },
+    "budget": {
+      "currency": "USD",
+      "hardCeiling": 0.9,
+      "spent": 0,
+      "committed": 0,
+      "remaining": 0.9
+    },
+    "authorization": {
+      "siteMode": "read-only",
+      "cmsMode": "read-only",
+      "repositorySourceMode": "read-only",
+      "platformMode": "read-only",
+      "externalAccountMode": "read-only",
+      "allowedWrites": ["research-artifacts"]
+    },
+    "mutations": [],
+    "contentBoundary": "requirements-only",
+    "tools": [],
+    "sourceObservationRefs": ["source-observation-approved-contract"]
+  },
+  "sourceObservations": [
+    {
+      "id": "source-observation-approved-contract",
+      "sourceType": "user-supplied",
+      "sourceTitle": "FairLend OpenSEO trial research contract",
+      "sourceLocator": "/Users/connor/Dev/fairlend-cms/output/seo-research/fairlend-openseo-trial-research-contract.md",
+      "capturedAt": "2026-07-16T12:00:00-04:00",
+      "observationAnchor": "section-5-workstream-a",
+      "excerpt": "Five-plus-unit multiplex and MLI Select is an approved representative workstream.",
+      "confidence": "high"
+    },
+    {
+      "id": "source-observation-live-sitemap",
+      "sourceType": "live-site",
+      "sourceTitle": "FairLend pages sitemap",
+      "sourceLocator": "https://www.fairlend.ca/pages-sitemap.xml",
+      "capturedAt": "2026-07-16T12:00:00-04:00",
+      "observationAnchor": "urlset",
+      "excerpt": "The live pages sitemap advertised 17 canonical HTTPS URLs.",
+      "confidence": "high"
+    },
+    {
+      "id": "source-observation-audit-page-3",
+      "sourceType": "supplied-audit",
+      "sourceTitle": "FairLend SEO Audit and Strategy Report",
+      "sourceLocator": "/Users/connor/Dev/fairlend-cms/output/seo-audit-fairlend-ca-2026-07-14/www-fairlend-ca-audit-20260715-013111/FairLend-SEO-Audit-2026-07-14.pdf#page=3",
+      "capturedAt": "2026-07-16T12:00:00-04:00",
+      "observationAnchor": "executive-summary",
+      "excerpt": "The audit scored SEO health at 79 and found no critical crawl or indexing blocker.",
+      "confidence": "high"
+    },
+    {
+      "id": "source-observation-fixture-only",
+      "sourceType": "fixture",
+      "sourceTitle": "Contract validation fixture",
+      "sourceLocator": "fixture://valid-research-package",
+      "capturedAt": "2026-07-16T12:00:00-04:00",
+      "observationAnchor": "representative-records",
+      "excerpt": "Representative records validate shape only and contain no paid market evidence.",
+      "confidence": "low"
+    }
+  ],
+  "siteInventory": [
+    {
+      "id": "site-home",
+      "url": "https://www.fairlend.ca/",
+      "sitemap": "pages",
+      "lastmod": "2026-07-14",
+      "expectedCanonical": null,
+      "httpStatus": null,
+      "indexability": "unknown",
+      "sourceObservationRefs": ["source-observation-live-sitemap"]
+    }
+  ],
+  "auditFindings": [
+    {
+      "id": "audit-health-foundation",
+      "category": "technical",
+      "severity": "observation",
+      "status": "point-in-time",
+      "finding": "The supplied audit reported a healthy technical foundation and no critical crawl or indexing blocker.",
+      "observedAt": "2026-07-14T21:31:00-04:00",
+      "sourceObservationRefs": ["source-observation-audit-page-3"]
+    }
+  ],
+  "keywords": [
+    {
+      "id": "keyword-multiplex-construction-financing-toronto",
+      "query": "multiplex construction financing toronto",
+      "normalizedQuery": "multiplex construction financing toronto",
+      "seedConcept": "five-plus-unit-multiplex",
+      "clusterId": "cluster-five-plus-unit-financing",
+      "persona": "build-to-hold-mli-select-developer",
+      "personaDetail": null,
+      "personaTier": "tier-1",
+      "financingTrigger": "construction-financing",
+      "lifecycleStages": ["construction-financing-draws"],
+      "funnelHeadline": "buying-signal",
+      "funnelStage": "financing-qualification",
+      "geography": "toronto",
+      "intent": "transactional",
+      "relevanceDisposition": "include",
+      "exclusionReason": "not-excluded-qualified-project-financing-fit",
+      "observedAt": "2026-07-16T12:00:00-04:00",
+      "metrics": {
+        "dataStatus": "fixture-only",
+        "monthlySearches": null,
+        "cpc": null,
+        "paidCompetition": null,
+        "difficulty": null,
+        "trend": []
+      },
+      "serpFeatures": [],
+      "leadCaptureScore": {
+        "intentUrgency": 20,
+        "qualifiedLeadFit": 20,
+        "strategicFit": 15,
+        "localFit": 10,
+        "commercialEvidence": 0,
+        "attainability": 0,
+        "conversionClarity": 5,
+        "evidenceConfidence": 0,
+        "total": 70
+      },
+      "authorityBuildScore": {
+        "researchDemand": 0,
+        "topicalImportance": 15,
+        "aiCitationOpportunity": 0,
+        "originalExpertise": 15,
+        "internalLinkValue": 10,
+        "linkworthiness": 0,
+        "attainability": 0,
+        "evidenceConfidence": 0,
+        "total": 40
+      },
+      "confidence": "low",
+      "sourceObservationRefs": ["source-observation-fixture-only"]
+    }
+  ],
+  "clusters": [
+    {
+      "id": "cluster-five-plus-unit-financing",
+      "name": "Five-plus-unit construction financing",
+      "workstream": "five-plus-unit-multiplex-mli-select",
+      "primaryKeywordId": "keyword-multiplex-construction-financing-toronto",
+      "keywordIds": ["keyword-multiplex-construction-financing-toronto"],
+      "pageBoundaryStatus": "unvalidated",
+      "confidence": "low",
+      "sourceObservationRefs": ["source-observation-fixture-only"]
+    }
+  ],
+  "serpEvidence": [
+    {
+      "id": "serp-fixture-five-plus-unit",
+      "queryId": "keyword-multiplex-construction-financing-toronto",
+      "location": "Toronto, Ontario, Canada",
+      "device": "mobile",
+      "observedAt": "2026-07-16T12:00:00-04:00",
+      "dataStatus": "fixture-only",
+      "resultUrls": [],
+      "features": [],
+      "interpretation": "No SERP conclusion is permitted from fixture-only data.",
+      "confidence": "low",
+      "sourceObservationRefs": ["source-observation-fixture-only"]
+    }
+  ],
+  "competitors": [
+    {
+      "id": "competitor-fixture",
+      "name": "Fixture competitor",
+      "competitorType": "search",
+      "domain": "example.invalid",
+      "relevantClusterIds": ["cluster-five-plus-unit-financing"],
+      "observation": "Fixture only; not a market finding.",
+      "confidence": "low",
+      "sourceObservationRefs": ["source-observation-fixture-only"]
+    }
+  ],
+  "pageOpportunities": [
+    {
+      "id": "opportunity-five-plus-unit-financing",
+      "topic": "Five-plus-unit construction financing",
+      "persona": "build-to-hold-mli-select-developer",
+      "personaDetail": null,
+      "personaTier": "tier-1",
+      "financingTrigger": "construction-financing",
+      "clusterIds": ["cluster-five-plus-unit-financing"],
+      "lifecycleStages": ["construction-financing-draws"],
+      "funnelHeadline": "buying-signal",
+      "funnelStage": "financing-qualification",
+      "intent": "transactional",
+      "urlDisposition": "proposed-new",
+      "existingUrl": null,
+      "proposedUrl": "/multiplex-financing/five-plus-units",
+      "pageType": "money-page",
+      "primaryConversion": "project-financing-assessment",
+      "qualificationExpectations": ["Identified GTA project or acquisition target", "Documented equity, budget, experience, and exit path"],
+      "localEvidence": ["source-observation-fixture-only"],
+      "competitorIds": ["competitor-fixture"],
+      "aiQuestionIds": ["ai-question-fixture-mli-select"],
+      "internalLinkRole": "commercial-pillar",
+      "requiredOriginalEvidence": ["Current underwriting criteria", "Current official program sources"],
+      "claimIds": ["claim-drawflow-fifty-percent"],
+      "cannibalizationDependencies": ["site-home"],
+      "leadCaptureScore": 70,
+      "authorityBuildScore": 40,
+      "confidence": "low",
+      "recommendedPriority": "high",
+      "nextHumanDecision": "Validate with live metrics and SERP overlap before approving a page.",
+      "sourceObservationRefs": ["source-observation-fixture-only"]
+    }
+  ],
+  "aiQuestions": [
+    {
+      "id": "ai-question-fixture-mli-select",
+      "question": "How should construction financing be coordinated with a five-plus-unit takeout strategy?",
+      "clusterId": "cluster-five-plus-unit-financing",
+      "sourceKind": "synthetic-fixture",
+      "volumeClaimed": false,
+      "requiredEvidence": ["Current official program requirements", "Qualified reviewer input"],
+      "confidence": "low",
+      "sourceObservationRefs": ["source-observation-fixture-only"]
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim-drawflow-fifty-percent",
+      "claim": "DrawFlow case studies support up to 50% interest savings under specific comparison assumptions.",
+      "status": "provisional-unverified",
+      "allowedUsage": "research-only",
+      "requiredEvidence": ["Underlying case files", "Reproducible calculation", "Compliance approval"],
+      "owner": "FairLend Principal Broker",
+      "reviewBy": null,
+      "confidence": "low",
+      "sourceObservationRefs": ["source-observation-approved-contract"]
+    }
+  ],
+  "briefs": [
+    {
+      "id": "brief-five-plus-unit-financing",
+      "opportunityId": "opportunity-five-plus-unit-financing",
+      "contentBoundary": "requirements-only",
+      "pagePurpose": "REQUIREMENT: Specify the evidence and decisions a future five-plus-unit financing page must cover.",
+      "audience": "REQUIREMENT: Address build-to-hold developers evaluating construction-to-takeout financing.",
+      "problemTrigger": "REQUIREMENT: Address the need for a financing plan that preserves a viable long-term takeout path.",
+      "sectionRequirements": [
+        {
+          "id": "section-eligibility",
+          "headingRequirement": "REQUIREMENT: State the user decision this section resolves; do not supply final copy.",
+          "questions": ["QUESTION: What project facts determine initial financing fit?"],
+          "evidenceNeeded": ["EVIDENCE: Current underwriting criteria", "EVIDENCE: Current official program sources"]
+        }
+      ],
+      "ctaSpecification": "REQUIREMENT: Route qualified prospects to the project-financing assessment.",
+      "internalLinkRequirements": ["REQUIREMENT: Connect to acquisition, construction draws, and takeout strategy nodes."],
+      "schemaOpportunities": ["REQUIREMENT: Evaluate Service and BreadcrumbList schema."],
+      "approvalRequirements": ["REQUIREMENT: Obtain Principal Broker and Compliance approval."],
+      "successMeasures": ["REQUIREMENT: Measure qualified assessment starts attributed to the opportunity."],
+      "confidence": "low",
+      "sourceObservationRefs": ["source-observation-fixture-only"]
+    }
+  ],
+  "spendEvents": []
+}

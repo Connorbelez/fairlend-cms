@@ -1,0 +1,8 @@
+{
+  "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+  "seeds": [
+    {"seed": "MLI Select requirements", "locationCode": 2124, "languageCode": "en"}
+  ],
+  "resultLimit": 150,
+  "includeClickstreamData": false
+}

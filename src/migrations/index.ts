@@ -1,3 +1,5 @@
+import type { Migration } from 'payload'
+
 import * as migration_20260409_155721_initial from './20260409_155721_initial'
 import * as migration_20260622_000000_fairlend_leads from './20260622_000000_fairlend_leads'
 import * as migration_20260704_000000_fairlend_leads_admin from './20260704_000000_fairlend_leads_admin'
@@ -14,6 +16,31 @@ import * as migration_20260714_130000_twenty_intake_model from './20260714_13000
 import * as migration_20260714_140000_search_readiness from './20260714_140000_search_readiness'
 import * as migration_20260714_150000_campaign_journey_analytics from './20260714_150000_campaign_journey_analytics'
 import * as migration_20260714_160000_posthog_analytics_consent from './20260714_160000_posthog_analytics_consent'
+import * as migration_20260720_120000_blog_author_attribution from './20260720_120000_blog_author_attribution'
+import * as migration_20260720_130000_blog_author_post_fields from './20260720_130000_blog_author_post_fields'
+
+const defineMigration = <UpArgs, DownArgs>(
+  name: string,
+  migration: {
+    down: (args: DownArgs) => Promise<void>
+    up: (args: UpArgs) => Promise<void>
+  },
+): Migration => ({
+  down: (args) => migration.down(args as DownArgs),
+  name,
+  up: (args) => migration.up(args as UpArgs),
+})
+
+export const productionMigrations: Migration[] = [
+  defineMigration(
+    '20260720_120000_blog_author_attribution',
+    migration_20260720_120000_blog_author_attribution,
+  ),
+  defineMigration(
+    '20260720_130000_blog_author_post_fields',
+    migration_20260720_130000_blog_author_post_fields,
+  ),
+]
 
 export const migrations = [
   {
@@ -96,4 +123,5 @@ export const migrations = [
     down: migration_20260714_160000_posthog_analytics_consent.down,
     name: '20260714_160000_posthog_analytics_consent',
   },
+  ...productionMigrations,
 ]

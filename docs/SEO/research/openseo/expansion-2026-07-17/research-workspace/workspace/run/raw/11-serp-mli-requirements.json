@@ -1,0 +1,189 @@
+{
+  "capturedAt": "2026-07-17T06:39:47.150Z",
+  "tool": "get_serp_results",
+  "args": {
+    "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+    "queries": [
+      {
+        "keyword": "cmhc mli select requirements",
+        "locationCode": 1002451,
+        "languageCode": "en"
+      }
+    ]
+  },
+  "data": {
+    "results": [
+      {
+        "keyword": "cmhc mli select requirements",
+        "ok": true,
+        "items": [
+          {
+            "type": "organic",
+            "rank": 1,
+            "title": "MLI Select",
+            "url": "https://www.cmhc-schl.gc.ca/professionals/project-funding-and-mortgage-financing/mortgage-loan-insurance/multi-unit-insurance/mliselect",
+            "domain": "www.cmhc-schl.gc.ca",
+            "description": "Nov 15, 2024 — To be eligible your project must have a minimum of 5 units except retirement homes where a minimum of 50 units/beds is required. Non-residential ... Read more"
+          },
+          {
+            "type": "organic",
+            "rank": 2,
+            "title": "CMHC's MLI Select",
+            "url": "https://assets.cmhc-schl.gc.ca/sites/cmhc/professional/project-funding-and-mortgage-financing/mortgage-loan-insurance/multi-unit-insurance/mliselect/mli-select.pdf",
+            "domain": "assets.cmhc-schl.gc.ca",
+            "description": "The borrower must have minimum net worth equal to at least 25% of the loan amount being requested, with a minimum of $100,000."
+          },
+          {
+            "type": "ai_overview",
+            "rank": 3,
+            "title": null,
+            "url": null,
+            "domain": null,
+            "description": null
+          },
+          {
+            "type": "people_also_ask",
+            "rank": 4,
+            "title": null,
+            "url": null,
+            "domain": null,
+            "description": null
+          },
+          {
+            "type": "video",
+            "rank": 5,
+            "title": null,
+            "url": null,
+            "domain": null,
+            "description": null
+          },
+          {
+            "type": "organic",
+            "rank": 6,
+            "title": "MLI Select - Energy efficiency",
+            "url": "https://buildingexpert.ca/efficiency/mli-select/",
+            "domain": "buildingexpert.ca",
+            "description": "New Buildings: Level 1 (20 points) – At least 20% better than the NECB/NBC requirements. Level 2 (35 points) – At least 25% better than the NECB/NBC  ..."
+          },
+          {
+            "type": "organic",
+            "rank": 7,
+            "title": "Understanding MLI Select: Construction Process",
+            "url": "https://www.mcap.com/blog/understanding-mli-select-construction-process",
+            "domain": "www.mcap.com",
+            "description": "Jan 9, 2025 — CMHC requires 50% labour/material and 50% performance bonding on all major contracts. The process is typically one draw every month,"
+          },
+          {
+            "type": "organic",
+            "rank": 8,
+            "title": "Mortgage Loan Insurance for Multi-Unit & Rental Housing",
+            "url": "https://www.cmhc-schl.gc.ca/professionals/project-funding-and-mortgage-financing/mortgage-loan-insurance/multi-unit-insurance",
+            "domain": "www.cmhc-schl.gc.ca",
+            "description": "MLI Select. Access reduced premiums and longer amortization periods based on your client's level of commitment to affordability, accessibility and climate ... Read more"
+          },
+          {
+            "type": "organic",
+            "rank": 9,
+            "title": "CMHC MLI Select: Rates, Points & 95% Financing (2026)",
+            "url": "https://lendcity.ca/blog/cmhc-mli-select-multifamily-guide/",
+            "domain": "lendcity.ca",
+            "description": "6 days ago — MLI Select requires a minimum 5-unit multi-family residential property and projects must accumulate 50+ points (with 100+ points needed for ..."
+          },
+          {
+            "type": "organic",
+            "rank": 10,
+            "title": "CMHC MLI Select Financing",
+            "url": "https://sb-llp.com/knowledge-bank/cmhc-mli-select-financing-what-developers-investors-need-to-know",
+            "domain": "sb-llp.com",
+            "description": "Oct 23, 2025 — Why MLI Select? Flexible Financing for Impactful Housing · Amortization periods up to 50 years · Loan-to-value ratios up to 95% · Reduced debt ... Read more"
+          },
+          {
+            "type": "organic",
+            "rank": 11,
+            "title": "CMHC MLI Select Program: Eligibility, Benefits & Application",
+            "url": "https://www.gta-homes.com/cmhc-mli-select-program/",
+            "domain": "www.gta-homes.com",
+            "description": "There must be at least five rental units in the same building and on the same lot, and they must meet the main criteria for affordability, energy efficiency, ... Read more"
+          },
+          {
+            "type": "related_searches",
+            "rank": 12,
+            "title": null,
+            "url": null,
+            "domain": null,
+            "description": null
+          },
+          {
+            "type": "organic",
+            "rank": 13,
+            "title": "CMHC MLI Select Program : r/RealEstateCanada",
+            "url": "https://www.reddit.com/r/RealEstateCanada/comments/1ck6zxd/cmhc_mli_select_program/",
+            "domain": "www.reddit.com",
+            "description": "Working my way through a multi family project in central Alberta using the MLI Select program from CMHC. It seems like the requirements keep changing. Read more"
+          },
+          {
+            "type": "organic",
+            "rank": 14,
+            "title": "CMHC MLI Select: Providing Insight and a Framework",
+            "url": "https://www.canadaici.com/insights/cmhc-mli-select/",
+            "domain": "www.canadaici.com",
+            "description": "A wider application criteria within a streamlined process · Ability to acquire and refinance existing assets within MLI Select programming · Expansion of benefits ... Read more"
+          },
+          {
+            "type": "organic",
+            "rank": 15,
+            "title": "Multi-unit CMHC MLI Select - Required Documentation Guide",
+            "url": "https://assets.cmhc-schl.gc.ca/sites/cmhc/professional/project-funding-and-mortgage-financing/mortgage-loan-insurance/multi-unit-insurance/mliselect/mli-select-required-document-en.pdf?rev=9ae87665-d723-4a2e-9d41-878d139d0d99",
+            "domain": "assets.cmhc-schl.gc.ca",
+            "description": "The Approved Lender must submit to CMHC Underwriting documentation, including a signed attestation, provided by the borrower that demonstrates the borrower's ... Read more"
+          },
+          {
+            "type": "organic",
+            "rank": 16,
+            "title": "Mastering the CMHC MLI Select Application",
+            "url": "https://www.exitrealtymatrix.com/blog/mastering-the-cmhc-mli-select-application/",
+            "domain": "www.exitrealtymatrix.com",
+            "description": "This guide will walk you through the CMHC MLI Select application process step by step, from understanding the program's value to preparing key documentation. Read more"
+          },
+          {
+            "type": "organic",
+            "rank": 17,
+            "title": "CMHC Lending Program Update",
+            "url": "https://www.cmls.ca/cmhc-lending-program-update-nov",
+            "domain": "www.cmls.ca",
+            "description": "Nov 28, 2025 — For the MLI Select product, energy efficiency commitments for new construction applications are assessed against the National Building Code (NBC) ... Read more"
+          },
+          {
+            "type": "organic",
+            "rank": 18,
+            "title": "Your Ultimate Guide to CMHC's MLI Select Program",
+            "url": "https://www.aspirepeakproperties.com/post/cmhc-mli-select-program-guide",
+            "domain": "www.aspirepeakproperties.com",
+            "description": "Mar 8, 2025 — Applying for MLI Select is as straightforward as it gets. Start by downloading the MLI Select Required Documentation Guide and attestation forms ... Read more"
+          },
+          {
+            "type": "organic",
+            "rank": 19,
+            "title": "How to best benefit from the MLI Select program?",
+            "url": "https://legault-dubois.ca/mli-select/?lang=en",
+            "domain": "legault-dubois.ca",
+            "description": "For a project to earn 100 affordability points, at least 25% of the units must be offered at no more than 30% of the applicable median income. In this case, for ... Read more"
+          },
+          {
+            "type": "organic",
+            "rank": 20,
+            "title": "Maximizing CMHC MLI Select Benefits for Alberta Investors",
+            "url": "https://newhomesalberta.ca/common-questions-about-the-mli-select-program-in-alberta/",
+            "domain": "newhomesalberta.ca",
+            "description": "What are the key criteria for qualifying for MLI Select? · Net worth requirement (25% of property value) · Liquidity requirement (10% of property value in liquid ... Read more"
+          }
+        ]
+      }
+    ],
+    "meta": {
+      "organizationId": "delegated-local-admin",
+      "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+      "url": "http://127.0.0.1:3001/p/7a3d4821-d03c-4be6-aaba-293df92d8ca8/keywords"
+    }
+  }
+}

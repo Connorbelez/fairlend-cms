@@ -21,6 +21,7 @@ import {
   analyticsConsentCookieName,
   analyticsConsentStateEventName,
   analyticsConsentStorageKey,
+  analyticsInternalStorageKey,
   hasConfiguredAnalytics,
   hasGoogleDestination,
   type AnalyticsConsent,
@@ -47,7 +48,6 @@ type PostHogClient = (typeof import('posthog-js'))['default']
 let posthogClient: PostHogClient | null = null
 let posthogInitialized = false
 let posthogLoadPromise: Promise<PostHogClient> | null = null
-const internalAnalyticsStorageKey = 'fairlend.analytics-internal.v1'
 
 function loadPostHog(): Promise<PostHogClient> {
   posthogLoadPromise ??= import('posthog-js').then(({ default: client }) => {
@@ -270,7 +270,7 @@ export function AnalyticsProvider(): React.ReactElement | null {
           loaded: (client) => {
             window.posthog = client
             const isInternalUser =
-              window.localStorage.getItem(internalAnalyticsStorageKey) === 'true'
+              window.localStorage.getItem(analyticsInternalStorageKey) === 'true'
             client.register({
               $internal_or_test_user: isInternalUser,
               deployment_environment: 'production',
@@ -334,7 +334,7 @@ export function AnalyticsProvider(): React.ReactElement | null {
     const internalFlag = new URLSearchParams(searchParamsString).get('analytics_internal')
     const isInternalUser =
       internalFlag === '1' ||
-      (internalFlag !== '0' && window.localStorage.getItem(internalAnalyticsStorageKey) === 'true')
+      (internalFlag !== '0' && window.localStorage.getItem(analyticsInternalStorageKey) === 'true')
 
     if (effectiveConsent.analytics) {
       if (analyticsConfig.posthogKey && posthogReady && posthogClient) {
@@ -368,12 +368,12 @@ export function AnalyticsProvider(): React.ReactElement | null {
     if (!hasLoadedPreference) return
     const internalFlag = searchParams.get('analytics_internal')
     if (internalFlag === '1') {
-      window.localStorage.setItem(internalAnalyticsStorageKey, 'true')
+      window.localStorage.setItem(analyticsInternalStorageKey, 'true')
       if (posthogReady && posthogClient) {
         posthogClient.register({ $internal_or_test_user: true, is_internal_user: true })
       }
     } else if (internalFlag === '0') {
-      window.localStorage.removeItem(internalAnalyticsStorageKey)
+      window.localStorage.removeItem(analyticsInternalStorageKey)
       if (posthogReady && posthogClient) {
         posthogClient.register({ $internal_or_test_user: false, is_internal_user: false })
       }
@@ -544,7 +544,8 @@ export function AnalyticsProvider(): React.ReactElement | null {
               className="mt-1 break-words text-xs leading-5 font-semibold text-[#34403d] sm:text-sm sm:leading-6"
               id="fairlend-consent-description"
             >
-              Optional analytics and advertising stay off unless you allow them.
+              Anonymous traffic and performance measurement is always on. Optional behavioral
+              analytics and advertising stay off unless you allow them.
             </p>
           </div>
           <div className="grid w-full shrink-0 grid-cols-3 gap-2 sm:w-auto">
@@ -596,17 +597,18 @@ export function AnalyticsProvider(): React.ReactElement | null {
           <DialogHeader>
             <DialogTitle>Privacy preferences</DialogTitle>
             <DialogDescription>
-              Required site behavior is always on. Optional analytics and retargeting can be changed
-              separately.
+              Anonymous aggregate traffic and performance measurement is always on and cookie-free.
+              Optional behavioral analytics and retargeting can be changed separately.
             </DialogDescription>
           </DialogHeader>
 
           <div className="grid gap-4 py-2">
             <div className="flex items-center justify-between gap-5 rounded-lg border border-[#e6d8c9] bg-white/70 p-4">
               <div>
-                <Label htmlFor="fairlend-consent-analytics">Analytics</Label>
+                <Label htmlFor="fairlend-consent-analytics">Behavioral analytics</Label>
                 <p className="mt-1 text-sm text-[#5f6a63]">
-                  Pageviews, funnels, click behavior, heatmaps, and replay diagnostics.
+                  Consented funnels, click behavior, heatmaps, session replay, and linked journey
+                  diagnostics.
                 </p>
               </div>
               <Switch

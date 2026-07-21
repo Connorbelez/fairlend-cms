@@ -1,0 +1,20 @@
+{
+  "title": "FairLend SEO Master Report",
+  "identifier": "lively-canvas-ridge",
+  "verified": true,
+  "dashboardUrl": "https://superb-curlew-883.convex.site/",
+  "viewerUrl": "https://superb-curlew-883.convex.site/#/prototype/lively-canvas-ridge",
+  "entryUrl": "https://superb-curlew-883.convex.site/p/lively-canvas-ridge/index.html",
+  "metadataUrl": "https://superb-curlew-883.convex.site/p/lively-canvas-ridge/prototype.json",
+  "pageUrls": [
+    "https://superb-curlew-883.convex.site/p/lively-canvas-ridge/index.html"
+  ],
+  "localVisualPath": "/Users/connor/.agent/diagrams/fairlend-seo-master-report/index.html",
+  "workspaceMarkdownPath": "/Users/connor/Dev/fairlend-cms/docs/SEO/master-report/fairlend-seo-master-report-2026-07-20/fairlend-seo-master-report.md",
+  "workspaceHtmlPath": "/Users/connor/Dev/fairlend-cms/docs/SEO/master-report/fairlend-seo-master-report-2026-07-20/fairlend-seo-master-report.html",
+  "markdownSha256": "1156996c69b5b89c6c347eb09553e69655aad2c8aee92234732fcf4141abeb1e",
+  "htmlSha256": "3247553c5c2afaf4f982a289a2730abfe8c09c0d10fee9227993eca7218885cf",
+  "coverageQa": "13/13 PASS",
+  "rendererLossless": true,
+  "publishedAt": "2026-07-20"
+}

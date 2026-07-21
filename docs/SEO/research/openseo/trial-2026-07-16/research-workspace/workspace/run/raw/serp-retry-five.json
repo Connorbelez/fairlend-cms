@@ -1,0 +1,28 @@
+{
+  "capturedAt": "2026-07-17T03:39:12.027Z",
+  "tool": "get_serp_results",
+  "args": {
+    "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+    "queries": [
+      {
+        "keyword": "multiplex construction financing Toronto",
+        "locationCode": 2124,
+        "languageCode": "en"
+      }
+    ]
+  },
+  "data": {
+    "results": [
+      {
+        "keyword": "multiplex construction financing Toronto",
+        "ok": false,
+        "error": "The operation was aborted due to timeout"
+      }
+    ],
+    "meta": {
+      "organizationId": "delegated-local-admin",
+      "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+      "url": "http://127.0.0.1:3001/p/7a3d4821-d03c-4be6-aaba-293df92d8ca8/keywords"
+    }
+  }
+}

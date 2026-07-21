@@ -3,7 +3,7 @@
 import { ArrowRight, LoaderCircle, MapPin } from 'lucide-react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useRouter } from 'next/navigation'
-import { FormEvent, useCallback, useRef, useState } from 'react'
+import { FormEvent, useCallback, useEffect, useRef, useState } from 'react'
 
 import { GoogleAddressAutocomplete } from '@/components/address/GoogleAddressAutocomplete'
 import { Button } from '@/components/ui/button'
@@ -25,9 +25,11 @@ import {
   trackLeadFailed,
   type LeadSubmissionResponse,
 } from '@/lib/analytics/events'
+import { buildFairlendIntakeHref, fairlendProjectScopeOptions } from '@/lib/fairlend-intake'
 import { cn } from '@/utilities/ui'
 
 import { fairlendApplicationId } from './application-target'
+import { DrawFlowTaglineCallout } from './DrawFlowTaglineCallout'
 import {
   FairlendApplicationIntentTabs,
   fairlendApplicationIntents,
@@ -40,6 +42,7 @@ import {
 import { FairlendSubmissionSuccess } from './FairlendSubmissionSuccess.client'
 
 type FormTab = FairlendApplicationIntent
+type BuildStage = 'address' | 'details'
 
 const INVESTMENT_AMOUNT_OPTIONS: readonly FairlendApplicationChoice[] = [
   { label: '$50K – $250K', value: '$50K – $250K' },
@@ -110,7 +113,7 @@ const applicationPanelVariants = {
 const TAB_META: Record<FormTab, { description: string; heading: string; submitLabel: string }> = {
   build: {
     description: 'Tell us where you are building.',
-    heading: 'Start your application',
+    heading: 'See if your property qualifies',
     submitLabel: 'Start build application',
   },
   invest: {
@@ -126,7 +129,13 @@ const TAB_META: Record<FormTab, { description: string; heading: string; submitLa
 }
 
 type FormValues = {
-  build: { address: string }
+  build: {
+    address: string
+    email: string
+    name: string
+    phone: string
+    projectScope: string
+  }
   invest: { name: string; email: string; phone: string; amount: string; focus: string }
   mortgage: {
     name: string
@@ -141,7 +150,7 @@ type FormValues = {
 }
 
 const INITIAL_VALUES: FormValues = {
-  build: { address: '' },
+  build: { address: '', email: '', name: '', phone: '', projectScope: '' },
   invest: { name: '', email: '', phone: '', amount: '', focus: '' },
   mortgage: {
     name: '',
@@ -174,25 +183,185 @@ const compactFieldsGridClassName =
 const currencyAdornmentClassName =
   'pointer-events-none absolute top-1/2 left-[clamp(14px,1vw,16px)] -translate-y-1/2 text-[clamp(14px,0.95vw,15px)] font-bold text-[#586562]'
 
+async function persistHomepageBuildLead(
+  values: FormValues['build'],
+  leadId?: string | null,
+): Promise<LeadSubmissionResponse | null> {
+  try {
+    const address = values.address.trim()
+    const email = values.email.trim()
+    const name = values.name.trim()
+    const phone = values.phone.trim()
+    const projectScope = values.projectScope.trim()
+    const response = await fetch('/api/leads', {
+      body: JSON.stringify({
+        address,
+        email,
+        id: leadId || undefined,
+        intake: {
+          completionStatus: 'partial',
+          homepageValue: address,
+          projectScope,
+        },
+        intent: 'build',
+        name,
+        phone,
+        source: 'homepage-build-application-form',
+        status: 'started',
+      }),
+      headers: { 'content-type': 'application/json' },
+      method: 'POST',
+    })
+
+    if (!response.ok) return null
+
+    return (await response.json()) as LeadSubmissionResponse
+  } catch {
+    return null
+  }
+}
+
+function readBuildFormValues(
+  form: HTMLFormElement | null,
+  current: FormValues['build'],
+): FormValues['build'] {
+  if (!form) return current
+
+  const formData = new FormData(form)
+  const readString = (name: string, fallback: string): string => {
+    const value = formData.get(name)
+    return typeof value === 'string' ? value : fallback
+  }
+
+  return {
+    ...current,
+    email: readString('email', current.email),
+    name: readString('name', current.name),
+    phone: readString('phone', current.phone),
+    projectScope: readString('projectScope', current.projectScope),
+  }
+}
+
+function haveEqualBuildValues(first: FormValues['build'], second: FormValues['build']): boolean {
+  return (
+    first.address === second.address &&
+    first.email === second.email &&
+    first.name === second.name &&
+    first.phone === second.phone &&
+    first.projectScope === second.projectScope
+  )
+}
+
 export function FairlendApplicationForm() {
   const router = useRouter()
   const shouldReduceMotion = useReducedMotion()
   const [activeTab, setActiveTab] = useState<FormTab>('build')
+  const [buildStage, setBuildStage] = useState<BuildStage>('address')
+  const [buildSaveState, setBuildSaveState] = useState<'idle' | 'saving' | 'saved'>('idle')
   const [tabDirection, setTabDirection] = useState(0)
   const [values, setValues] = useState<FormValues>(INITIAL_VALUES)
   const [submitError, setSubmitError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submittedTab, setSubmittedTab] = useState<FormTab | null>(null)
   const [isAddressAutocompleteOpen, setIsAddressAutocompleteOpen] = useState(false)
+  const [isCompactViewport, setIsCompactViewport] = useState(false)
+  const [applicationCardElement, setApplicationCardElement] = useState<HTMLElement | null>(null)
   const activeInputRef = useRef<HTMLInputElement>(null)
+  const applicationFormRef = useRef<HTMLFormElement>(null)
+  const buildLeadIdRef = useRef<string | null>(null)
+  const buildAutosavePromiseRef = useRef<Promise<LeadSubmissionResponse | null> | null>(null)
+  const buildAutosaveTimeoutRef = useRef<number | null>(null)
+  const didTrackBuildStartRef = useRef(false)
 
   const activeMeta = TAB_META[activeTab]
-  const shouldLiftForAutocomplete = activeTab !== 'invest' && isAddressAutocompleteOpen
+  const shouldPlaceBuildAutocompleteAboveCard = activeTab === 'build' && isCompactViewport
+  const shouldLiftForAutocomplete =
+    activeTab !== 'invest' && isAddressAutocompleteOpen && !shouldPlaceBuildAutocompleteAboveCard
   const showDirectSuccess =
     submittedTab === activeTab && (activeTab === 'invest' || activeTab === 'mortgage')
   const hasContactError = submitError === CONTACT_REQUIRED_ERROR
   const shouldAskForMortgageBalance =
     activeTab === 'mortgage' && MORTGAGE_PRODUCTS_REQUIRING_BALANCE.has(values.mortgage.product)
+
+  useEffect(() => {
+    const compactViewport = window.matchMedia('(max-width: 1279px)')
+    const syncCompactViewport = () => setIsCompactViewport(compactViewport.matches)
+
+    syncCompactViewport()
+    compactViewport.addEventListener('change', syncCompactViewport)
+
+    return () => compactViewport.removeEventListener('change', syncCompactViewport)
+  }, [])
+
+  const syncBuildAutofill = useCallback(() => {
+    setValues((current) => {
+      const nextBuildValues = readBuildFormValues(applicationFormRef.current, current.build)
+      if (haveEqualBuildValues(current.build, nextBuildValues)) return current
+
+      return { ...current, build: nextBuildValues }
+    })
+  }, [])
+
+  useEffect(() => {
+    if (buildStage !== 'details' || activeTab !== 'build') return
+
+    const delays = shouldReduceMotion ? [0, 150] : [0, 350, 1000]
+    const timeouts = delays.map((delay) => window.setTimeout(syncBuildAutofill, delay))
+
+    return () => timeouts.forEach((timeout) => window.clearTimeout(timeout))
+  }, [activeTab, buildStage, shouldReduceMotion, syncBuildAutofill])
+
+  useEffect(() => {
+    if (buildStage !== 'details') return
+
+    const hasDetails = Boolean(
+      values.build.projectScope.trim() ||
+      values.build.name.trim() ||
+      values.build.phone.trim() ||
+      values.build.email.trim(),
+    )
+    if (!hasDetails) return
+
+    const timeout = window.setTimeout(() => {
+      buildAutosaveTimeoutRef.current = null
+      setBuildSaveState('saving')
+      const previousPromise = buildAutosavePromiseRef.current
+      const promise = (async () => {
+        if (previousPromise) {
+          const previousResult = await previousPromise
+          if (previousResult?.id) {
+            buildLeadIdRef.current = previousResult.id
+          }
+        }
+
+        return persistHomepageBuildLead(values.build, buildLeadIdRef.current)
+      })()
+      buildAutosavePromiseRef.current = promise
+      void promise
+        .then((result) => {
+          if (result?.id) {
+            buildLeadIdRef.current = result.id
+            setSubmitError('')
+            setBuildSaveState('saved')
+          } else {
+            setBuildSaveState('idle')
+          }
+        })
+        .finally(() => {
+          if (buildAutosavePromiseRef.current === promise) {
+            buildAutosavePromiseRef.current = null
+          }
+        })
+    }, 500)
+    buildAutosaveTimeoutRef.current = timeout
+
+    return () => {
+      window.clearTimeout(timeout)
+      if (buildAutosaveTimeoutRef.current === timeout) {
+        buildAutosaveTimeoutRef.current = null
+      }
+    }
+  }, [buildStage, values.build])
 
   const handleSelectTab = useCallback(
     (value: FormTab) => {
@@ -223,6 +392,21 @@ export function FairlendApplicationForm() {
     })
   }
 
+  function updateBuildFieldFromForm<Key extends keyof FormValues['build']>(
+    key: Key,
+    value: FormValues['build'][Key],
+  ): void {
+    setSubmittedTab(null)
+    setSubmitError('')
+    setValues((current) => {
+      const autofilledValues = readBuildFormValues(applicationFormRef.current, current.build)
+      return {
+        ...current,
+        build: { ...autofilledValues, [key]: value },
+      }
+    })
+  }
+
   function clearTransientStatus() {
     setSubmittedTab(null)
     setSubmitError('')
@@ -232,12 +416,106 @@ export function FairlendApplicationForm() {
     event.preventDefault()
 
     if (activeTab === 'build') {
-      const address = values.build.address.trim()
+      const submittedBuildValues =
+        buildStage === 'details'
+          ? readBuildFormValues(applicationFormRef.current, values.build)
+          : values.build
+      if (!haveEqualBuildValues(values.build, submittedBuildValues)) {
+        setField('build', submittedBuildValues)
+      }
+
+      const address = submittedBuildValues.address.trim()
       if (!address) {
         const target = activeInputRef.current ?? document.getElementById('fairlend-build')
         target?.focus()
         return
       }
+
+      if (buildStage === 'details') {
+        const requiredBuildFields: Array<[keyof FormValues['build'], string]> = [
+          ['projectScope', '[name="projectScope"]'],
+          ['name', '#fairlend-build-name'],
+          ['phone', '#fairlend-build-phone'],
+          ['email', '#fairlend-build-email'],
+        ]
+        const missingField = requiredBuildFields.find(([key]) => !submittedBuildValues[key].trim())
+        if (missingField) {
+          document.querySelector<HTMLElement>(missingField[1])?.focus()
+          return
+        }
+      }
+
+      setIsSubmitting(true)
+      setSubmitError('')
+
+      if (!didTrackBuildStartRef.current) {
+        didTrackBuildStartRef.current = true
+        trackFairlendEvent('fairlend_intake_started', {
+          form_id: 'fairlend_homepage_build',
+          journey_type: 'builder',
+          source: 'homepage-build-application-form',
+        })
+      }
+
+      if (buildAutosaveTimeoutRef.current !== null) {
+        window.clearTimeout(buildAutosaveTimeoutRef.current)
+        buildAutosaveTimeoutRef.current = null
+      }
+
+      if (buildStage === 'address') {
+        const promise = persistHomepageBuildLead(submittedBuildValues, buildLeadIdRef.current)
+        buildAutosavePromiseRef.current = promise
+        setBuildSaveState('saving')
+        setBuildStage('details')
+        setIsSubmitting(false)
+        void promise
+          .then((result) => {
+            if (result?.id) {
+              buildLeadIdRef.current = result.id
+              setSubmitError('')
+              setBuildSaveState('saved')
+            } else {
+              setSubmitError('We could not save this yet, but you can continue.')
+              setBuildSaveState('idle')
+            }
+          })
+          .finally(() => {
+            if (buildAutosavePromiseRef.current === promise) {
+              buildAutosavePromiseRef.current = null
+            }
+          })
+        return
+      }
+
+      if (buildAutosavePromiseRef.current) {
+        const autosaveResult = await buildAutosavePromiseRef.current
+        if (autosaveResult?.id) {
+          buildLeadIdRef.current = autosaveResult.id
+        }
+      }
+
+      const result = await persistHomepageBuildLead(submittedBuildValues, buildLeadIdRef.current)
+      if (result?.id) {
+        buildLeadIdRef.current = result.id
+        setBuildSaveState('saved')
+      } else {
+        setSubmitError('We could not save this yet, but you can continue.')
+      }
+      setIsSubmitting(false)
+
+      router.push(
+        buildFairlendIntakeHref({
+          address: submittedBuildValues.address,
+          email: submittedBuildValues.email,
+          intent: 'build',
+          leadId: result?.id ?? buildLeadIdRef.current,
+          name: submittedBuildValues.name,
+          phone: submittedBuildValues.phone,
+          projectScope: submittedBuildValues.projectScope,
+          source: 'homepage-build-application-form',
+        }),
+      )
+      return
     }
 
     if (activeTab === 'invest' || activeTab === 'mortgage') {
@@ -264,25 +542,14 @@ export function FairlendApplicationForm() {
       source: `homepage-${activeTab}-application-form`,
     })
 
-    let leadId: string | undefined
-    const isDirectLeadIntake = activeTab === 'invest' || activeTab === 'mortgage'
     const body: Record<string, unknown> = {
-      analyticsContext: isDirectLeadIntake ? getAnalyticsContext() : undefined,
+      analyticsContext: getAnalyticsContext(),
       intent: activeTab,
       source: `homepage-${activeTab}-application-form`,
-      status: isDirectLeadIntake ? 'submitted' : 'started',
+      status: 'submitted',
     }
-    let routeAddress = ''
-    let routeName = ''
-    let routeEmail = ''
-    let routePhone = ''
 
-    if (activeTab === 'build') {
-      const address = values.build.address.trim()
-      body.address = address
-      body.intake = { homepageValue: address }
-      routeAddress = address
-    } else if (activeTab === 'invest') {
+    if (activeTab === 'invest') {
       const { name, email, phone, amount, focus } = values.invest
       const trimmedName = name.trim()
       const trimmedEmail = email.trim()
@@ -291,9 +558,6 @@ export function FairlendApplicationForm() {
       body.email = trimmedEmail
       body.phone = trimmedPhone
       body.intake = { investmentAmount: amount.trim(), investmentFocus: focus }
-      routeName = trimmedName
-      routeEmail = trimmedEmail
-      routePhone = trimmedPhone
     } else {
       const { name, email, phone, address, product, amount, currentMortgage, timeline } =
         values.mortgage
@@ -315,10 +579,6 @@ export function FairlendApplicationForm() {
         mortgageProduct: MORTGAGE_PRODUCT_LANES[product],
         timeline,
       }
-      routeAddress = trimmedAddress
-      routeName = trimmedName
-      routeEmail = trimmedEmail
-      routePhone = trimmedPhone
     }
 
     try {
@@ -330,15 +590,12 @@ export function FairlendApplicationForm() {
 
       if (response.ok) {
         const payload = (await response.json()) as LeadSubmissionResponse
-        leadId = payload.id
-        if (isDirectLeadIntake) {
-          completeLeadAnalytics(payload, {
-            completion_status: 'complete',
-            form_id: formId,
-            journey_type: journeyType,
-            source: `homepage-${activeTab}-application-form`,
-          })
-        }
+        completeLeadAnalytics(payload, {
+          completion_status: 'complete',
+          form_id: formId,
+          journey_type: journeyType,
+          source: `homepage-${activeTab}-application-form`,
+        })
       } else {
         trackLeadFailed({
           failure_type: 'http',
@@ -346,14 +603,8 @@ export function FairlendApplicationForm() {
           journey_type: journeyType,
           source: `homepage-${activeTab}-application-form`,
         })
-        setSubmitError(
-          isDirectLeadIntake
-            ? 'We could not submit this. Please try again.'
-            : 'We could not save this yet, but you can continue.',
-        )
-        if (isDirectLeadIntake) {
-          return
-        }
+        setSubmitError('We could not submit this. Please try again.')
+        return
       }
     } catch {
       trackLeadFailed({
@@ -362,35 +613,13 @@ export function FairlendApplicationForm() {
         journey_type: journeyType,
         source: `homepage-${activeTab}-application-form`,
       })
-      setSubmitError(
-        isDirectLeadIntake
-          ? 'We could not submit this. Please try again.'
-          : 'We could not save this yet, but you can continue.',
-      )
-      if (isDirectLeadIntake) {
-        return
-      }
+      setSubmitError('We could not submit this. Please try again.')
+      return
     } finally {
       setIsSubmitting(false)
     }
 
     setSubmittedTab(activeTab)
-
-    if (isDirectLeadIntake) {
-      return
-    }
-
-    const params = new URLSearchParams({
-      intent: activeTab,
-      source: `homepage-${activeTab}-application-form`,
-    })
-    if (leadId) params.set('leadId', leadId)
-    if (routeAddress) params.set('address', routeAddress)
-    if (routeName) params.set('name', routeName)
-    if (routeEmail) params.set('email', routeEmail)
-    if (routePhone) params.set('phone', routePhone)
-
-    router.push(`/intake?${params.toString()}`)
   }
 
   return (
@@ -400,15 +629,23 @@ export function FairlendApplicationForm() {
         shouldLiftForAutocomplete &&
           'bottom-[calc(5.45%+var(--hero-stats-height,0px)+clamp(78px,7vw,124px))] hero-tablet-landscape:bottom-[calc(clamp(34px,5svh,64px)+clamp(78px,7vw,124px))] hero-tablet-landscape-short:bottom-[calc(18px+clamp(60px,9vw,96px))] hero-landscape:bottom-[calc(clamp(18px,1.8vw,32px)+clamp(78px,7vw,124px))] hero-tablet:bottom-auto hero-portrait-wide:bottom-auto hero-mobile:bottom-auto',
       )}
-      data-autocomplete-open={shouldLiftForAutocomplete ? 'true' : 'false'}
+      data-active-tab={activeTab}
+      data-autocomplete-open={isAddressAutocompleteOpen ? 'true' : 'false'}
+      data-autocomplete-placement={
+        shouldPlaceBuildAutocompleteAboveCard ? 'above-card' : 'below-input'
+      }
       data-testid="fairlend-application-form"
       id={fairlendApplicationId}
+      ref={setApplicationCardElement}
       tabIndex={-1}
     >
+      {activeTab === 'build' ? (
+        <DrawFlowTaglineCallout className="absolute top-0 left-0 z-20 -translate-x-3 -translate-y-[calc(100%-6px)]" />
+      ) : null}
       <FairlendApplicationIntentTabs
         className={cn(
           'rounded-[inherit] hero-landscape:bg-transparent',
-          shouldLiftForAutocomplete ? 'overflow-visible' : 'overflow-hidden',
+          isAddressAutocompleteOpen ? 'overflow-visible' : 'overflow-hidden',
         )}
         onValueChange={handleSelectTab}
         reduceMotion={shouldReduceMotion ?? false}
@@ -442,7 +679,12 @@ export function FairlendApplicationForm() {
               variants={applicationPanelVariants}
             >
               <h2>{activeMeta.heading}</h2>
-              <form className="m-0" onSubmit={handleSubmit}>
+              <form
+                autoComplete="on"
+                className="m-0"
+                onSubmit={handleSubmit}
+                ref={applicationFormRef}
+              >
                 <input name="intent" type="hidden" value={activeTab} />
                 <span className={visuallyHiddenClassName} id={`fairlend-${activeTab}-description`}>
                   {activeMeta.description}
@@ -473,46 +715,199 @@ export function FairlendApplicationForm() {
                       }
                     >
                       {activeTab === 'build' ? (
-                        <>
-                          <label className={visuallyHiddenClassName} htmlFor="fairlend-build">
-                            Property address
-                          </label>
-                          <div className="grid h-[clamp(52px,3.45vw,58px)] min-w-0 grid-cols-[22px_minmax(0,1fr)_44px] items-center gap-[10px] rounded-[12px] border border-[#dededb] bg-[rgb(255_253_249/92%)] py-0 pr-[clamp(7px,0.5vw,8px)] pl-[clamp(15px,1.15vw,19px)] transition-[border-color,box-shadow] duration-[220ms] ease-[var(--hero-ease-quint)] focus-within:border-[#96ec18] focus-within:shadow-[0_0_0_3px_rgb(150_236_24/18%),0_10px_22px_rgb(5_5_6/5%)] [&>svg]:size-[20px] [&>svg]:text-[#111c20] hero-tablet:h-[clamp(50px,6.8vw,58px)] hero-tablet:grid-cols-[22px_minmax(0,1fr)_44px] hero-tablet:pl-4 hero-tablet-landscape-short:h-[46px] hero-tablet-landscape-short:grid-cols-[20px_minmax(0,1fr)_40px] hero-tablet-landscape-short:pl-3.5 hero-mobile:h-[clamp(48px,13vw,52px)] hero-mobile:grid-cols-[20px_minmax(0,1fr)_44px] hero-mobile:pl-3.5 hero-landscape:ml-0 hero-landscape:mr-0 hero-landscape:h-[58px] hero-landscape:grid-cols-[48px_minmax(0,1fr)_58px] hero-landscape:gap-0 hero-landscape:rounded-none hero-landscape:border-[var(--landing-gutter-line)] hero-landscape:bg-[rgb(255_255_255/52%)] hero-landscape:p-0 hero-landscape:shadow-none hero-landscape:[&>svg]:mx-auto hero-landscape:[&>svg]:size-[24px] hero-landscape:[&>svg]:text-[#111c20] hero-landscape:[&>svg]:stroke-[2.1]">
-                            <MapPin aria-hidden="true" />
-                            <GoogleAddressAutocomplete
-                              ariaDescribedBy="fairlend-build-description fairlend-build-status"
-                              autoComplete="section-build street-address"
-                              className="contents"
-                              id="fairlend-build"
-                              inputClassName="h-[clamp(48px,3.25vw,54px)] w-full min-w-0 border-0 bg-transparent p-0 text-[15px] text-[#15201f] shadow-none placeholder:text-[#586562] focus-visible:ring-0 focus-visible:shadow-none focus-visible:outline-none hero-tablet:h-11 hero-tablet:text-[clamp(13px,1.85vw,15px)] hero-mobile:h-11 hero-mobile:text-[clamp(12px,3.4vw,14px)] hero-landscape:h-[56px] hero-landscape:px-[16px] hero-landscape:text-[20px] hero-landscape:font-medium hero-landscape:placeholder:text-[#586562]"
-                              inputMode="text"
-                              name="buildAddress"
-                              onChange={(nextValue) => {
-                                clearTransientStatus()
-                                setField('build', { address: nextValue })
-                              }}
-                              onOpenChange={handleAddressAutocompleteOpenChange}
-                              placeholder="Property address"
-                              required
-                              type="text"
-                              value={values.build.address}
-                            />
-                            <Button
-                              aria-label={activeMeta.submitLabel}
-                              className="relative isolate size-11 overflow-visible rounded-full bg-[#96ec18] text-[#101010] shadow-[0_0_0_3px_rgb(255_253_247/96%),0_10px_20px_rgb(118_205_0/18%)] transition-[background-color,box-shadow,transform,filter] duration-[260ms] ease-[var(--hero-ease-quint)] before:absolute before:inset-[-9px] before:z-[-1] before:rounded-full before:bg-[radial-gradient(circle,rgb(150_236_24/34%)_0%,rgb(150_236_24/14%)_42%,transparent_72%)] before:opacity-80 before:blur-[2px] before:content-[''] hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-[#a4fb20] hover:shadow-[0_0_0_3px_rgb(255_253_247/98%),0_0_0_8px_rgb(150_236_24/15%),0_18px_30px_rgb(118_205_0/22%)] active:translate-y-0 active:scale-[0.97] motion-safe:before:animate-[applicationCtaHalo_2200ms_var(--hero-ease-out)_infinite] [&_svg]:size-6 hero-tablet:size-11 hero-tablet-landscape-short:size-10 hero-tablet-landscape-short:before:inset-[-7px] hero-mobile:size-11 hero-mobile:before:inset-[-7px] hero-landscape:size-[58px] hero-landscape:rounded-none hero-landscape:border-l hero-landscape:border-[var(--landing-gutter-line)] hero-landscape:shadow-none hero-landscape:before:hidden hero-landscape:hover:shadow-none hero-landscape:[&_svg]:size-[34px] hero-landscape:[&_svg]:stroke-[1.8]"
-                              data-fairlend-application-submit
-                              disabled={isSubmitting}
-                              size="icon"
-                              type="submit"
+                        <AnimatePresence initial={false} mode="wait">
+                          {buildStage === 'address' ? (
+                            <motion.div
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={shouldReduceMotion ? undefined : { opacity: 0, x: -24 }}
+                              initial={shouldReduceMotion ? false : { opacity: 0, x: 24 }}
+                              key="build-address"
+                              transition={
+                                shouldReduceMotion
+                                  ? { duration: 0 }
+                                  : { duration: 0.28, ease: [0.22, 1, 0.36, 1] }
+                              }
                             >
-                              <ArrowRight
-                                aria-hidden="true"
-                                className="size-6 hero-landscape:size-[34px]"
-                                strokeWidth={1.8}
+                              <label className={visuallyHiddenClassName} htmlFor="fairlend-build">
+                                Property address
+                              </label>
+                              <div className="grid h-[clamp(52px,3.45vw,58px)] min-w-0 grid-cols-[22px_minmax(0,1fr)_44px] items-center gap-[10px] rounded-[12px] border border-[#dededb] bg-[rgb(255_253_249/92%)] py-0 pr-[clamp(7px,0.5vw,8px)] pl-[clamp(15px,1.15vw,19px)] transition-[border-color,box-shadow] duration-[220ms] ease-[var(--hero-ease-quint)] focus-within:border-[#96ec18] focus-within:shadow-[0_0_0_3px_rgb(150_236_24/18%),0_10px_22px_rgb(5_5_6/5%)] [&>svg]:size-[20px] [&>svg]:text-[#111c20] hero-tablet:h-[clamp(50px,6.8vw,58px)] hero-tablet:grid-cols-[22px_minmax(0,1fr)_44px] hero-tablet:pl-4 hero-tablet-landscape-short:h-[46px] hero-tablet-landscape-short:grid-cols-[20px_minmax(0,1fr)_40px] hero-tablet-landscape-short:pl-3.5 hero-mobile:h-[clamp(48px,13vw,52px)] hero-mobile:grid-cols-[20px_minmax(0,1fr)_44px] hero-mobile:pl-3.5 hero-landscape:ml-0 hero-landscape:mr-0 hero-landscape:h-[58px] hero-landscape:grid-cols-[48px_minmax(0,1fr)_58px] hero-landscape:gap-0 hero-landscape:rounded-none hero-landscape:border-[var(--landing-gutter-line)] hero-landscape:bg-[rgb(255_255_255/52%)] hero-landscape:p-0 hero-landscape:shadow-none hero-landscape:[&>svg]:mx-auto hero-landscape:[&>svg]:size-[24px] hero-landscape:[&>svg]:text-[#111c20] hero-landscape:[&>svg]:stroke-[2.1]">
+                                <MapPin aria-hidden="true" />
+                                <GoogleAddressAutocomplete
+                                  ariaDescribedBy="fairlend-build-description fairlend-build-status"
+                                  autoComplete="section-build street-address"
+                                  className="contents"
+                                  id="fairlend-build"
+                                  inputClassName="h-[clamp(48px,3.25vw,54px)] w-full min-w-0 border-0 bg-transparent p-0 text-[15px] text-[#15201f] shadow-none placeholder:text-[#586562] focus-visible:ring-0 focus-visible:shadow-none focus-visible:outline-none hero-tablet:h-11 hero-tablet:text-[clamp(13px,1.85vw,15px)] hero-mobile:h-11 hero-mobile:text-[clamp(12px,3.4vw,14px)] hero-landscape:h-[56px] hero-landscape:px-[16px] hero-landscape:text-[20px] hero-landscape:font-medium hero-landscape:placeholder:text-[#586562]"
+                                  inputMode="text"
+                                  menuAnchor={applicationCardElement}
+                                  menuPlacement={
+                                    shouldPlaceBuildAutocompleteAboveCard
+                                      ? 'above-anchor'
+                                      : 'below-input'
+                                  }
+                                  name="buildAddress"
+                                  onChange={(nextValue) => {
+                                    clearTransientStatus()
+                                    setField('build', { address: nextValue })
+                                  }}
+                                  onOpenChange={handleAddressAutocompleteOpenChange}
+                                  placeholder="Property address"
+                                  required
+                                  type="text"
+                                  value={values.build.address}
+                                />
+                                <Button
+                                  aria-label="Continue to build details"
+                                  className="relative isolate size-11 overflow-visible rounded-full bg-[#96ec18] text-[#101010] shadow-[0_0_0_3px_rgb(255_253_247/96%),0_10px_20px_rgb(118_205_0/18%)] transition-[background-color,box-shadow,transform,filter] duration-[260ms] ease-[var(--hero-ease-quint)] before:absolute before:inset-[-9px] before:z-[-1] before:rounded-full before:bg-[radial-gradient(circle,rgb(150_236_24/34%)_0%,rgb(150_236_24/14%)_42%,transparent_72%)] before:opacity-80 before:blur-[2px] before:content-[''] hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-[#a4fb20] hover:shadow-[0_0_0_3px_rgb(255_253_247/98%),0_0_0_8px_rgb(150_236_24/15%),0_18px_30px_rgb(118_205_0/22%)] active:translate-y-0 active:scale-[0.97] motion-safe:before:animate-[applicationCtaHalo_2200ms_var(--hero-ease-out)_infinite] [&_svg]:size-6 hero-tablet:size-11 hero-tablet-landscape-short:size-10 hero-tablet-landscape-short:before:inset-[-7px] hero-mobile:size-11 hero-mobile:before:inset-[-7px] hero-landscape:size-[58px] hero-landscape:rounded-none hero-landscape:border-l hero-landscape:border-[var(--landing-gutter-line)] hero-landscape:shadow-none hero-landscape:before:hidden hero-landscape:hover:shadow-none hero-landscape:[&_svg]:size-[34px] hero-landscape:[&_svg]:stroke-[1.8]"
+                                  data-fairlend-application-submit
+                                  disabled={isSubmitting}
+                                  size="icon"
+                                  type="submit"
+                                >
+                                  <ArrowRight
+                                    aria-hidden="true"
+                                    className="size-6 hero-landscape:size-[34px]"
+                                    strokeWidth={1.8}
+                                  />
+                                </Button>
+                              </div>
+                            </motion.div>
+                          ) : (
+                            <motion.div
+                              animate={{ opacity: 1, x: 0 }}
+                              className={fieldsStackClassName}
+                              exit={shouldReduceMotion ? undefined : { opacity: 0, x: -24 }}
+                              initial={shouldReduceMotion ? false : { opacity: 0, x: 24 }}
+                              key="build-details"
+                              transition={
+                                shouldReduceMotion
+                                  ? { duration: 0 }
+                                  : { duration: 0.32, ease: [0.22, 1, 0.36, 1] }
+                              }
+                            >
+                              <FairlendApplicationChoiceChips
+                                describedBy="fairlend-build-description fairlend-build-status"
+                                legend="Build type"
+                                name="projectScope"
+                                onValueChange={(nextValue) => {
+                                  updateBuildFieldFromForm('projectScope', nextValue)
+                                }}
+                                options={fairlendProjectScopeOptions}
+                                required
+                                value={values.build.projectScope}
                               />
-                            </Button>
-                          </div>
-                        </>
+
+                              <div className={compactFieldsGridClassName}>
+                                <div className={fieldRowClassName}>
+                                  <Label
+                                    className={fieldLabelClassName}
+                                    htmlFor="fairlend-build-name"
+                                  >
+                                    Name
+                                  </Label>
+                                  <Input
+                                    aria-describedby="fairlend-build-description fairlend-build-status"
+                                    autoComplete="name"
+                                    autoFocus
+                                    className={fieldInputClassName}
+                                    id="fairlend-build-name"
+                                    name="name"
+                                    onBlur={syncBuildAutofill}
+                                    onChange={(event) => {
+                                      updateBuildFieldFromForm('name', event.target.value)
+                                    }}
+                                    placeholder="Full name"
+                                    required
+                                    type="text"
+                                    value={values.build.name}
+                                  />
+                                </div>
+                                <div className={fieldRowClassName}>
+                                  <Label
+                                    className={fieldLabelClassName}
+                                    htmlFor="fairlend-build-phone"
+                                  >
+                                    Phone number
+                                  </Label>
+                                  <Input
+                                    aria-describedby="fairlend-build-description fairlend-build-status"
+                                    autoComplete="tel"
+                                    className={fieldInputClassName}
+                                    id="fairlend-build-phone"
+                                    inputMode="tel"
+                                    name="phone"
+                                    onBlur={syncBuildAutofill}
+                                    onChange={(event) => {
+                                      updateBuildFieldFromForm('phone', event.target.value)
+                                    }}
+                                    placeholder="(555) 555-5555"
+                                    required
+                                    type="tel"
+                                    value={values.build.phone}
+                                  />
+                                </div>
+                                <div className={cn(fieldRowClassName, 'col-span-full')}>
+                                  <Label
+                                    className={fieldLabelClassName}
+                                    htmlFor="fairlend-build-email"
+                                  >
+                                    Email
+                                  </Label>
+                                  <Input
+                                    aria-describedby="fairlend-build-description fairlend-build-status"
+                                    autoComplete="email"
+                                    className={fieldInputClassName}
+                                    id="fairlend-build-email"
+                                    inputMode="email"
+                                    name="email"
+                                    onBlur={syncBuildAutofill}
+                                    onChange={(event) => {
+                                      updateBuildFieldFromForm('email', event.target.value)
+                                    }}
+                                    placeholder="you@example.com"
+                                    required
+                                    type="email"
+                                    value={values.build.email}
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="flex min-h-11 items-center justify-between gap-3">
+                                <button
+                                  className="min-h-11 text-left text-xs font-bold text-[#4f5a58] underline decoration-[#96ec18] decoration-2 underline-offset-4 transition-colors hover:text-[#111] focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#111]"
+                                  onClick={() => {
+                                    setBuildStage('address')
+                                    setSubmitError('')
+                                  }}
+                                  type="button"
+                                >
+                                  Change address
+                                </button>
+                                <span
+                                  aria-live="polite"
+                                  className="ml-auto text-xs font-bold text-[#5b6663]"
+                                >
+                                  {buildSaveState === 'saving'
+                                    ? 'Saving…'
+                                    : buildSaveState === 'saved'
+                                      ? 'Saved'
+                                      : 'Saved as you go'}
+                                </span>
+                                <Button
+                                  aria-label="Continue to the full build intake"
+                                  className="size-11 shrink-0 rounded-full bg-[#96ec18] text-[#101010] shadow-[0_6px_12px_rgb(118_205_0/20%)] transition-[background-color,transform] duration-200 ease-[var(--hero-ease-quint)] hover:-translate-y-0.5 hover:bg-[#a4fb20] active:translate-y-0 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[#111] [&_svg]:size-6"
+                                  data-fairlend-application-submit
+                                  disabled={isSubmitting}
+                                  size="icon"
+                                  type="submit"
+                                >
+                                  <ArrowRight aria-hidden="true" strokeWidth={1.8} />
+                                </Button>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       ) : activeTab === 'invest' ? (
                         <div className={fieldsStackClassName}>
                           <div className={fieldRowClassName}>

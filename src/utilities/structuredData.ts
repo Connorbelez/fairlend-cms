@@ -10,6 +10,12 @@ type BreadcrumbItem = {
 
 type JsonLdObject = Record<string, unknown>
 
+export type StructuredArticleAuthor = {
+  bio?: string
+  name: string
+  officialTitle?: string
+}
+
 type WebPageType = 'ContactPage' | 'ProfilePage' | 'WebPage'
 
 const defaultAreaServed = [
@@ -109,15 +115,28 @@ export const fairlendPrincipalBrokerJsonLd = (): JsonLdObject => ({
   worksFor: { '@id': organizationId() },
 })
 
-export const buildPersonJsonLd = ({ name }: { name: string }): JsonLdObject =>
-  personId(name) === principalBrokerId()
-    ? fairlendPrincipalBrokerJsonLd()
-    : {
-        '@context': 'https://schema.org',
-        '@id': personId(name),
-        '@type': 'Person',
-        name,
-      }
+export const buildPersonJsonLd = ({
+  bio,
+  name,
+  officialTitle,
+}: StructuredArticleAuthor): JsonLdObject => {
+  const person =
+    personId(name) === principalBrokerId()
+      ? fairlendPrincipalBrokerJsonLd()
+      : {
+          '@context': 'https://schema.org',
+          '@id': personId(name),
+          '@type': 'Person',
+          name,
+          worksFor: { '@id': organizationId() },
+        }
+
+  return {
+    ...person,
+    ...(bio ? { description: bio } : {}),
+    ...(officialTitle ? { jobTitle: officialTitle } : {}),
+  }
+}
 
 export const fairlendWebsiteJsonLd = (): JsonLdObject => ({
   '@context': 'https://schema.org',
@@ -267,7 +286,7 @@ export const buildHomepageOfferCatalogJsonLd = (): JsonLdObject => {
 }
 
 export const buildArticleJsonLd = ({
-  authorNames = [],
+  authors = [],
   dateModified,
   datePublished,
   description,
@@ -275,7 +294,7 @@ export const buildArticleJsonLd = ({
   path,
   title,
 }: {
-  authorNames?: string[]
+  authors?: StructuredArticleAuthor[]
   dateModified?: string | null
   datePublished?: string | null
   description: string
@@ -287,8 +306,8 @@ export const buildArticleJsonLd = ({
   '@id': getSchemaNodeId(path, 'article'),
   '@type': 'BlogPosting',
   author:
-    authorNames.length > 0
-      ? authorNames.map((name) => ({ '@id': buildPersonJsonLd({ name })['@id'] }))
+    authors.length > 0
+      ? authors.map((author) => ({ '@id': buildPersonJsonLd(author)['@id'] }))
       : { '@id': organizationId() },
   ...(dateModified || datePublished ? { dateModified: dateModified || datePublished } : {}),
   ...(datePublished || dateModified ? { datePublished: datePublished || dateModified } : {}),

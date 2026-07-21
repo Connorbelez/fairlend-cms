@@ -268,6 +268,18 @@
     }
   }
 
+  @keyframes autocompleteMenuIn {
+    from {
+      opacity: 0;
+      transform: translateY(-6px) scale(0.985);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
   @keyframes heroFoliageGrowIn {
     from {
       opacity: 0;
@@ -1168,33 +1180,135 @@
   top: auto;
 }
 
+@media (min-width: 577px) and (max-width: 767px) {
+  [data-fairlend-motion='toronto-hero'] .fairlend-toronto-hero-canvas {
+    height: auto !important;
+    min-height: 100svh !important;
+    padding-bottom: clamp(40px, 7svh, 64px) !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-toronto-mobile-application] {
+    position: relative;
+    z-index: 20;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    width: 100%;
+    margin-top: clamp(16px, 2vw, 24px);
+  }
+
+  [data-fairlend-motion='toronto-hero']
+    [data-toronto-mobile-application]
+    .fairlend-hero-application-card {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px),
+  (min-width: 1024px) and (max-width: 1279px) and (orientation: portrait) {
+  [data-fairlend-motion='toronto-hero'] .fairlend-toronto-hero-canvas {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(340px, 1fr);
+    column-gap: clamp(24px, 4vw, 48px);
+    align-items: start;
+    height: auto !important;
+    min-height: 100svh !important;
+    padding-bottom: clamp(40px, 7svh, 64px) !important;
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-toronto-hero-copy] {
+    grid-row: 1;
+    grid-column: 1;
+    width: 100%;
+    max-width: 466px;
+    margin-top: clamp(64px, 8svh, 80px);
+  }
+
+  [data-fairlend-motion='toronto-hero'] [data-toronto-mobile-application] {
+    position: relative;
+    z-index: 20;
+    display: grid;
+    grid-row: 1;
+    grid-column: 2;
+    grid-template-columns: minmax(0, 1fr);
+    align-self: start;
+    gap: 16px;
+    width: 100%;
+    margin-top: clamp(64px, 8svh, 80px);
+  }
+
+  [data-fairlend-motion='toronto-hero']
+    [data-toronto-mobile-application]
+    .fairlend-hero-application-card {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 1280px) and (orientation: portrait) {
+  [data-fairlend-motion='toronto-hero'] .fairlend-toronto-hero-canvas {
+    height: auto !important;
+    min-height: 100svh !important;
+    padding-bottom: clamp(40px, 7svh, 64px) !important;
+  }
+}
+
 @media (min-width: 1024px) and (max-width: 1279px) and (orientation: landscape) {
-  .fairlend-hero-application-card {
+  [data-fairlend-motion='toronto-hero'] [data-toronto-mobile-application] {
     position: absolute;
-    top: auto;
-    right: 0;
-    bottom: clamp(190px, 22svh, 260px);
+    right: clamp(24px, 4.55vw, 60px);
+    bottom: clamp(28px, 4svh, 48px);
     left: auto;
+    z-index: 20;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
     width: min(43vw, 520px);
-    min-width: 430px;
+    min-width: 0;
     max-width: calc(100vw - 48px);
+    margin-top: 0;
+    transition: bottom 300ms ease;
+  }
+
+  [data-fairlend-motion='toronto-hero']
+    [data-toronto-mobile-application]
+    .fairlend-hero-application-card {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
     margin-top: 0;
   }
 
-  .fairlend-hero-application-card[data-autocomplete-open='true'] {
-    bottom: calc(clamp(190px, 22svh, 260px) + clamp(78px, 7vw, 124px));
+  [data-fairlend-motion='toronto-hero']
+    [data-toronto-mobile-application]:has(
+      .fairlend-hero-application-card[data-active-tab='mortgage'][data-autocomplete-open='true']
+    ) {
+    bottom: calc(clamp(28px, 4svh, 48px) + clamp(78px, 7vw, 124px));
   }
 }
 
 @media (min-width: 1024px) and (max-width: 1279px) and (orientation: landscape) and (max-height: 780px) {
-  .fairlend-hero-application-card {
-    bottom: clamp(130px, 20svh, 170px);
+  [data-fairlend-motion='toronto-hero'] [data-toronto-mobile-application] {
+    bottom: 18px;
     width: min(42vw, 500px);
-    min-width: 410px;
   }
 
-  .fairlend-hero-application-card[data-autocomplete-open='true'] {
-    bottom: calc(clamp(130px, 20svh, 170px) + clamp(60px, 9vw, 96px));
+  [data-fairlend-motion='toronto-hero']
+    [data-toronto-mobile-application]:has(
+      .fairlend-hero-application-card[data-active-tab='mortgage'][data-autocomplete-open='true']
+    ) {
+    bottom: calc(18px + clamp(60px, 9vw, 96px));
   }
 }
 
@@ -1632,6 +1746,12 @@
     z-index: 20 !important;
   }
 
+  [data-fairlend-motion='toronto-hero']
+    [data-toronto-mobile-application]:has([data-autocomplete-open='true']) {
+    /* Keep the risen card and its autocomplete menu above the offering deck. */
+    z-index: 40 !important;
+  }
+
   [data-fairlend-motion='toronto-hero'] [data-toronto-mobile-application] .fairlend-toronto-copy {
     animation: none !important;
     opacity: 1 !important;
@@ -1639,7 +1759,26 @@
 
   [data-fairlend-motion='toronto-hero'] [data-testid='fairlend-application-form'] {
     max-width: calc(100vw - 40px) !important;
-    overflow: hidden !important;
+    overflow: visible !important;
+  }
+
+  /* Keep the autocomplete layer above the card. Compact Build suggestions are
+     portaled above the stationary card; Mortgage retains its existing lift. */
+  [data-fairlend-motion='toronto-hero']
+    [data-testid='fairlend-application-form'][data-autocomplete-open='true'] {
+    overflow: visible !important;
+  }
+
+  @media (max-width: 1023px), (max-width: 1279px) and (orientation: portrait) {
+    /* Mortgage still rises to make room for its below-input suggestions. */
+    [data-fairlend-motion='toronto-hero'] [data-testid='fairlend-application-form'] {
+      top: 0;
+    }
+
+    [data-fairlend-motion='toronto-hero']
+      [data-testid='fairlend-application-form'][data-active-tab='mortgage'][data-autocomplete-open='true'] {
+      top: calc(-1 * clamp(160px, 34svh, 264px));
+    }
   }
 
   [data-fairlend-motion='toronto-hero'] [data-testid='fairlend-application-form'] [role='tablist'] {

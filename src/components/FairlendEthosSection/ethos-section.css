@@ -1731,7 +1731,7 @@
 
   .fairlend-ethos__proof-docket {
     width: calc(100% - 1rem);
-    margin: 0;
+    margin: 1.5rem 0 0;
     padding: 2.5rem 1.25rem 1.75rem;
     box-shadow: 5px 5px 0 var(--ethos-signal);
   }

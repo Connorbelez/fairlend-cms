@@ -1,0 +1,189 @@
+{
+  "capturedAt": "2026-07-17T06:39:13.086Z",
+  "tool": "get_serp_results",
+  "args": {
+    "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+    "queries": [
+      {
+        "keyword": "garden suite cost toronto",
+        "locationCode": 1002451,
+        "languageCode": "en"
+      }
+    ]
+  },
+  "data": {
+    "results": [
+      {
+        "keyword": "garden suite cost toronto",
+        "ok": true,
+        "items": [
+          {
+            "type": "ai_overview",
+            "rank": 1,
+            "title": null,
+            "url": null,
+            "domain": null,
+            "description": null
+          },
+          {
+            "type": "organic",
+            "rank": 2,
+            "title": "Garden Suites: cost effective? : r/TorontoRealEstate",
+            "url": "https://www.reddit.com/r/TorontoRealEstate/comments/vzeubg/garden_suites_cost_effective/",
+            "domain": "www.reddit.com",
+            "description": "What are your thoughts on garden suites now becoming legal?\n\nSome of the restrictions include that it can only be a single unit (obviously) and up to 645 ..."
+          },
+          {
+            "type": "organic",
+            "rank": 3,
+            "title": "Garden Suite Cost Toronto | Build Price, Permits & ROI",
+            "url": "https://mbc.homes/garden_suite_cost_toronto/",
+            "domain": "mbc.homes",
+            "description": "From ≈ $250,000 for a simple, one-bed detached backyard unit on a qualifying Toronto lot. Up to $550,000 + (and often higher) for custom designs,"
+          },
+          {
+            "type": "people_also_ask",
+            "rank": 4,
+            "title": null,
+            "url": null,
+            "domain": null,
+            "description": null
+          },
+          {
+            "type": "organic",
+            "rank": 5,
+            "title": "Garden Suite Cost in Toronto: 2025 Guide",
+            "url": "https://gardensuitehome.ca/garden-suite-cost-in-toronto/",
+            "domain": "gardensuitehome.ca",
+            "description": "Aug 13, 2025 — Expect to budget $235,000–$315,000 for a typical unit, with possible savings from modular builds or incentives. Around CAD 333–417 per sq ft ..."
+          },
+          {
+            "type": "discussions_and_forums",
+            "rank": 6,
+            "title": "Discussions and forums",
+            "url": null,
+            "domain": null,
+            "description": null
+          },
+          {
+            "type": "organic",
+            "rank": 7,
+            "title": "How Much Does a Garden Suite Cost in Toronto? (2026 ...",
+            "url": "https://konstruction.ca/blog/garden-suite-cost-toronto",
+            "domain": "konstruction.ca",
+            "description": "Apr 18, 2026 — A Toronto garden suite costs $275,000–$550,000 all-in for a 400–1,076 sq ft build, or roughly $400–$650 per square foot in 2026. Read more"
+          },
+          {
+            "type": "video",
+            "rank": 8,
+            "title": null,
+            "url": null,
+            "domain": null,
+            "description": null
+          },
+          {
+            "type": "organic",
+            "rank": 9,
+            "title": "A Comprehensive Guide to Building a Garden Suite in Toronto",
+            "url": "https://gardensuitestoronto.com/blog/building-a-garden-suite-toronto/",
+            "domain": "gardensuitestoronto.com",
+            "description": "Prices range due to size and designs, but the average is $150,000-$200,000. $425,000-550,000. Building a garden suite can cost upwards of $300,000+, depending ..."
+          },
+          {
+            "type": "organic",
+            "rank": 10,
+            "title": "Garden Suite Cost Calculator — BVM Homes",
+            "url": "https://www.bvmcontracting.com/blog/garden-suite-cost-calculator",
+            "domain": "www.bvmcontracting.com",
+            "description": "Jan 14, 2026 — You can expect each unit to be between $1,000-$2,000 per unit for supply and install. In-floor heating is possible but will be more of a nice- ..."
+          },
+          {
+            "type": "organic",
+            "rank": 11,
+            "title": "What are the costs associated with building a garden suite ...",
+            "url": "https://www.facebook.com/groups/150305318784222/posts/1713791655768906/",
+            "domain": "www.facebook.com",
+            "description": "What should I budget for drawing up plans and getting a permit? Architeral drawings, engineering stamp, mechanical drawings etc…Is this the “soft” ..."
+          },
+          {
+            "type": "related_searches",
+            "rank": 12,
+            "title": null,
+            "url": null,
+            "domain": null,
+            "description": null
+          },
+          {
+            "type": "knowledge_graph",
+            "rank": 1,
+            "title": "Garden Suites Toronto",
+            "url": "https://gardensuitestoronto.com/",
+            "domain": null,
+            "description": "From Garden Suites Toronto \"Garden Suites Toronto specializes in design build services for detached accessory dwelling units generally located in the rear yard of a detached house, semi-detached house, townhouse, or other low-rise dwelling.\n\nA garden suite, known by many... More"
+          },
+          {
+            "type": "google_reviews",
+            "rank": 2,
+            "title": null,
+            "url": null,
+            "domain": null,
+            "description": null
+          },
+          {
+            "type": "organic",
+            "rank": 13,
+            "title": "Garden Suite Cost Toronto 2026 | Per Sq Ft & Permits",
+            "url": "https://maserat.ca/blog/laneway-and-garden-suite-cost-toronto/",
+            "domain": "maserat.ca",
+            "description": "Apr 14, 2026 — Garden suites cost $400–$550 per square foot for construction depending on finish level. A typical 600 sqft garden suite runs $240,000–$330,000 ... Read more"
+          },
+          {
+            "type": "organic",
+            "rank": 14,
+            "title": "Additional Costs When Building a Garden Suite in Toronto",
+            "url": "https://vigohouse.ca/additional-costs-when-building-a-garden-suite-in-toronto/",
+            "domain": "vigohouse.ca",
+            "description": "Oct 25, 2024 — Estimated Total Additional Costs · Survey: $1,500 – $3,000 · Zoning certificate: $1,500 – $6,000 · Building permit: $2,640 – $4,000 ... Read more"
+          },
+          {
+            "type": "organic",
+            "rank": 15,
+            "title": "Toronto Garden Suite Cost: What It Really Takes to Build ...",
+            "url": "https://bridge.broker/home-improvement/toronto-garden-suite-cost/",
+            "domain": "bridge.broker",
+            "description": "Mar 13, 2026 — In summary: Toronto garden suites typically cost between $300–$600 per square foot when accounting for construction, permits, servicing, and ... Read more"
+          },
+          {
+            "type": "organic",
+            "rank": 16,
+            "title": "How Much Does It Cost to Build a Garden Suite in Toronto in ...",
+            "url": "https://renotec.ca/how-much-it-costs-to-build-a-garden-suite/",
+            "domain": "renotec.ca",
+            "description": "Most garden suites in Toronto cost between $250,000 and $450,000+, depending on the size, design, site conditions, permits, utility work, and finishes. Read more"
+          },
+          {
+            "type": "organic",
+            "rank": 17,
+            "title": "Garden Suite Cost Toronto - Your Complete Budgeting Guide",
+            "url": "https://landsignal.ai/blog/garden-suite-cost-toronto/",
+            "domain": "landsignal.ai",
+            "description": "May 3, 2025 — Current Garden Suite Cost Toronto figures show construction averaging $250-$450 per square foot, though smaller units (under 600 square feet) typically command ... Read more"
+          },
+          {
+            "type": "organic",
+            "rank": 18,
+            "title": "Will Prefab Garden Suites Help Toronto's Housing Affordability?",
+            "url": "https://storeys.com/toronto-prefab-garden-suites/",
+            "domain": "storeys.com",
+            "description": "Feb 14, 2024 — BLOKK garden suites, however, start at just $85K for a basic studio model – something that just may be enough to motivate homeowners. “We're ... Read more"
+          }
+        ]
+      }
+    ],
+    "meta": {
+      "organizationId": "delegated-local-admin",
+      "projectId": "7a3d4821-d03c-4be6-aaba-293df92d8ca8",
+      "url": "http://127.0.0.1:3001/p/7a3d4821-d03c-4be6-aaba-293df92d8ca8/keywords"
+    }
+  }
+}

@@ -4,8 +4,6 @@ import type { LucideIcon } from 'lucide-react'
 import {
   ArrowLeft,
   ArrowRight,
-  BriefcaseBusiness,
-  Building,
   Building2,
   CalendarClock,
   CalendarDays,
@@ -13,7 +11,6 @@ import {
   ChevronDown,
   ClipboardList,
   Clock3,
-  FileClock,
   FilePenLine,
   FileText,
   House,
@@ -34,31 +31,24 @@ import {
 import Link from 'next/link'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
-import type { ReactElement } from 'react'
+import type { CSSProperties, ReactElement } from 'react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
 
 import './buildpath.css'
 
 import { GoogleAddressAutocomplete } from '@/components/address/GoogleAddressAutocomplete'
+import { FairlendBuildModelSection } from '@/components/FairlendBuildModelSection'
+import { FairlendApplicationChoiceChips } from '@/components/FairlendLandingHero/FairlendApplicationChoiceChips.client'
+import { FairlendLandingRail } from '@/components/FairlendLandingRail'
 import { BrutalistCtaButton } from '@/components/ui/brutalist-cta-button'
 import { Card } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Frame } from '@/components/ui/frame'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { SelectableChip } from '@/components/ui/selectable-chip'
+import { Slider } from '@/components/ui/slider'
 import {
-  Timeline,
-  TimelineConnector,
-  TimelineContent,
-  TimelineDescription,
-  TimelineDot,
-  TimelineHeader,
-  TimelineItem,
-  TimelineTitle,
-} from '@/components/ui/timeline'
-import {
-  buildFairlendConsultationHref,
   buildFairlendIntakeHref,
   fairlendProjectScopeOptions,
   getFairlendProjectScopeLabel,
@@ -80,7 +70,6 @@ const buildProgressPolishedImage = `${intakeAssetBase}/Build Progress Polished-o
 const buildProgressStructureImage = `${intakeAssetBase}/Build Progress Structure-optimized.webp`
 const blueprintImage = `${intakeAssetBase}/Landing Page Blueprint.webp`
 const backgroundImage = `${intakeAssetBase}/Landing Page Hero Background.webp`
-const milestoneBlueprintStackImage = `${intakeAssetBase}/Milestone Blueprint Stack Trimmed.webp`
 const multiplexImage = `${intakeAssetBase}/Multiplex Transparent Asset.webp`
 const sitePlanBlueprintFieldImage = `${intakeAssetBase}/Property Site Plan Blueprint Field-optimized.webp`
 const sitePlanForegroundImage = `${intakeAssetBase}/Property Site Plan Foreground-optimized.webp`
@@ -100,201 +89,7 @@ const trustItems = [
   },
 ] as const
 
-const extractedSqueezeAssetBase = '/assets/builders-squeezed-extracted'
-
-const rigidDrawNotes = [
-  {
-    alt: 'Draw 1 released note',
-    className: 'is-draw-1',
-    src: `${extractedSqueezeAssetBase}/draw-note-1-upfront.webp`,
-  },
-  {
-    alt: 'Draw 2 released note',
-    className: 'is-draw-2',
-    src: `${extractedSqueezeAssetBase}/draw-note-2-midpoint.webp`,
-  },
-  {
-    alt: 'Draw 3 released note',
-    className: 'is-draw-3',
-    src: `${extractedSqueezeAssetBase}/draw-note-3-final.webp`,
-  },
-] as const
-
-const milestoneUnlocksForSqueeze = [
-  {
-    amount: '$220,000',
-    className: 'is-foundation',
-    label: 'Foundation Complete',
-    src: `${extractedSqueezeAssetBase}/unlock-tag-foundation-220k.svg`,
-  },
-  {
-    amount: '$250,000',
-    className: 'is-framing',
-    label: 'Framing Complete',
-    src: `${extractedSqueezeAssetBase}/unlock-tag-framing-250k.svg`,
-  },
-  {
-    amount: '$180,000',
-    className: 'is-roof',
-    label: 'Roof Complete',
-    src: `${extractedSqueezeAssetBase}/unlock-tag-roof-180k.svg`,
-  },
-  {
-    amount: '$210,000',
-    className: 'is-dry-in',
-    label: 'Dry-In Complete',
-    src: `${extractedSqueezeAssetBase}/unlock-tag-dry-in-210k.svg`,
-  },
-  {
-    amount: '$200,000',
-    className: 'is-interiors',
-    label: 'Interiors Complete',
-    src: `${extractedSqueezeAssetBase}/unlock-tag-interiors-200k.svg`,
-  },
-  {
-    amount: '$300,000',
-    className: 'is-final',
-    label: 'Final Inspection',
-    src: `${extractedSqueezeAssetBase}/unlock-tag-final-300k.svg`,
-  },
-] as const
-
-const cashGapRisks = [
-  {
-    body: "Upfront draws fund tomorrow's expenses today.",
-    icon: 'cash-out-too-early.svg',
-    title: 'Capital out too early',
-  },
-  {
-    body: 'Locked-up funds earn nothing while you keep building.',
-    icon: 'idle-cash-clock-coin.svg',
-    title: 'Idle cash sits unused',
-  },
-  {
-    body: "Bills don't wait for bank schedules, and gaps cost more.",
-    icon: 'broken-chain.svg',
-    title: 'Gaps before next draw',
-  },
-] as const
-
-const approvedWorkBenefits = [
-  {
-    body: 'Funds release when approved milestones are met.',
-    icon: 'right-time-calendar-check.svg',
-    title: 'Right capital, right time',
-  },
-  {
-    body: 'Keep money working in your build, not sitting in the bank.',
-    icon: 'stronger-cash-flow-chart.svg',
-    title: 'Stronger cash flow',
-  },
-  {
-    body: 'Fewer surprises. More control. Better project outcomes.',
-    icon: 'build-confidence-shield.svg',
-    title: 'Build with confidence',
-  },
-] as const
-
-const fairlendSystemSteps: ReadonlyArray<{
-  icon: LucideIcon
-  label: string
-  title: string
-  body: string
-}> = [
-  {
-    body: 'Run a structured review across CMHC requirements, project docs, permits, budget, timeline, and borrower readiness.',
-    icon: ClipboardList,
-    label: '01',
-    title: 'CMHC readiness checklist',
-  },
-  {
-    body: 'Convert the build story into a lender-readable package with the risks, mitigants, evidence, and draw logic surfaced.',
-    icon: FileText,
-    label: '02',
-    title: 'Good underwriting narrative',
-  },
-  {
-    body: 'Experienced consultants pressure-test order of work, schedule, budget, dependencies, and the most efficient draw plan.',
-    icon: Users,
-    label: '03',
-    title: 'Build and draw planning session',
-  },
-  {
-    body: 'Completed, approved milestones unlock draw availability that builders can request when they actually need capital.',
-    icon: Landmark,
-    label: '04',
-    title: 'On-demand milestone draws',
-  },
-  {
-    body: 'Dedicated site-visit staff verify progress, gather evidence, and keep approval context moving instead of buried in email.',
-    icon: MapPin,
-    label: '05',
-    title: 'Site visits and evidence',
-  },
-  {
-    body: 'When the build stalls, we can help find practical fixes, including access to reliable, cost-effective contractors.',
-    icon: Wrench,
-    label: '06',
-    title: 'Unstuck support network',
-  },
-] as const
-
-const referralMoments = [
-  'Before the builder locks budget, trades, or construction sequence',
-  'Before the CMHC insurance package starts bouncing between parties',
-  'When a broker sees a good project with a messy file',
-  'When drawings, scope, or contractor pricing may affect fundability',
-  'When a build is stuck because cash, evidence, or trades are out of sync',
-] as const
-
-const propertyStatusOptions: Array<{
-  icon: LucideIcon
-  label: string
-  value: string
-}> = [
-  {
-    icon: House,
-    label: 'I/we own the property',
-    value: 'I/we own it',
-  },
-  {
-    icon: Landmark,
-    label: 'Related entity owns it',
-    value: 'Related entity owns it',
-  },
-  {
-    icon: FilePenLine,
-    label: 'Firm purchase agreement signed',
-    value: 'Firm purchase agreement signed',
-  },
-  {
-    icon: FileClock,
-    label: 'Conditional purchase agreement signed',
-    value: 'Conditional purchase agreement signed',
-  },
-  {
-    icon: FileText,
-    label: 'Offer / LOI submitted',
-    value: 'Offer / LOI submitted',
-  },
-  {
-    icon: BriefcaseBusiness,
-    label: 'Under negotiation',
-    value: 'Under negotiation',
-  },
-  {
-    icon: Search,
-    label: 'Property identified, no control yet',
-    value: 'Property identified, no control yet',
-  },
-  {
-    icon: MapPin,
-    label: 'No specific property yet',
-    value: 'No specific property yet',
-  },
-] as const
-
-const TOTAL_STEPS = 7
+const TOTAL_STEPS = 6
 const HOMEOWNER_TOTAL_STEPS = 3
 const builderStepKeys = [
   'route',
@@ -302,14 +97,13 @@ const builderStepKeys = [
   'build_profile',
   'financing_path',
   'capital_snapshot',
-  'execution_readiness',
   'contact',
 ] as const
 const homeownerStepKeys = ['property_suite', 'financing_readiness', 'contact'] as const
 const gardenSuiteProjectScopeLabel =
   getFairlendProjectScopeLabel('garden-laneway-suites') || 'Garden & laneway suites'
 
-type WizardStep = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+type WizardStep = 1 | 2 | 3 | 4 | 5 | 6 | 7
 type HomeownerStep = 1 | 2 | 3 | 4
 
 interface IntakeAnswers {
@@ -393,8 +187,8 @@ function scrollToBuildPathSection(sectionId: string): void {
 const defaultAnswers: IntakeAnswers = {
   address: '',
   buildPermitFileName: '',
-  siteControl: 'I/we own it',
-  buildType: 'Multiplex / small rental build',
+  siteControl: '',
+  buildType: 'Multi-plex',
   unitCount: '5-6',
   projectStage: 'Permit submitted',
   financingNeeds: ['Construction financing', 'Bridge to CMHC financing'],
@@ -402,9 +196,9 @@ const defaultAnswers: IntakeAnswers = {
   requestedLoan: '$2.5M-$5M',
   projectCost: '$5M-$10M',
   borrowerEquity: '$1M-$2.5M',
-  projectTeam: ['Builder / general contractor', 'Architect / designer'],
-  borrowerExperience: 'Owns/manages rental properties',
-  contactRole: 'Developer',
+  projectTeam: [],
+  borrowerExperience: '',
+  contactRole: '',
   termsAccepted: false,
   name: '',
   email: '',
@@ -442,15 +236,13 @@ const projectScopeOptions = fairlendProjectScopeOptions.map((option, index) => (
 }))
 
 const buildTypeOptions = [
-  { icon: Building, label: 'New residential construction' },
-  { icon: Layers3, label: 'Multiplex / small rental build' },
-  { icon: ArrowRight, label: 'Addition or conversion to add units' },
-  { icon: Wrench, label: 'Major renovation / repositioning' },
-  { icon: Landmark, label: 'Existing rental refinance' },
-  { icon: Check, label: 'Completion take-out' },
-  { icon: MapPin, label: 'Land acquisition before construction' },
-  { icon: Building2, label: 'Mixed-use project' },
-  { icon: Search, label: 'Not sure' },
+  { label: 'Single Family', value: 'Single Family' },
+  { label: 'Renovation', value: 'Renovation' },
+  { label: 'Multi-plex', value: 'Multi-plex' },
+  { label: 'Garden suite', value: 'Garden suite' },
+  { label: 'Refinance', value: 'Refinance' },
+  { label: 'Land', value: 'Land' },
+  { label: 'Other / unsure', value: 'Other / unsure' },
 ] as const
 
 const unitCountOptions = ['1', '2', '3-4', '5-6', '7-10', '11-20', '21-50', '51+', 'Not sure']
@@ -495,7 +287,17 @@ const financingTimelineOptions = [
   '3-6 months',
   '6-12 months',
   'No deadline yet / exploratory',
-]
+] as const
+
+const financingTimelineScaleLabels = [
+  'Now',
+  '15–30d',
+  '31–60d',
+  '61–90d',
+  '3–6mo',
+  '6–12mo',
+  'Explore',
+] as const
 
 const loanRangeOptions = [
   'Under $500K',
@@ -518,46 +320,6 @@ const equityRangeOptions = [
   '$5M+',
   'Equity is mostly in the property / land',
   'Not sure',
-]
-
-const teamOptions = [
-  'Builder / general contractor',
-  'Architect / designer',
-  'Planner / permit consultant',
-  'Engineer',
-  'Quantity surveyor',
-  'Appraiser',
-  'Mortgage broker',
-  'Realtor',
-  'Lawyer',
-  'Accountant',
-  'Property manager',
-  'None yet',
-  'Other',
-]
-
-const experienceOptions = [
-  'Experienced builder/developer',
-  'Owns/manages rental properties',
-  'Completed similar construction projects',
-  'Completed smaller renovation/build projects',
-  'First project, but experienced team is involved',
-  'First project, no experienced team yet',
-  'Not sure',
-]
-
-const contactRoleOptions = [
-  'Borrower / property owner',
-  'Developer',
-  'Builder / general contractor',
-  'Mortgage broker',
-  'Realtor',
-  'Architect / designer',
-  'Planner / permit consultant',
-  'Investor / capital partner',
-  'Lawyer / accountant',
-  'Property manager',
-  'Other advisor',
 ]
 
 const homeownerOwnershipOptions = [
@@ -617,7 +379,7 @@ const homeownerTimelineOptions = [
   'Later / exploring',
 ] as const
 
-const stepVisuals: Record<2 | 3 | 4 | 5 | 6 | 7 | 8, StepVisual> = {
+const stepVisuals: Record<2 | 3 | 4 | 5 | 6 | 7, StepVisual> = {
   2: {
     image: buildProgressFoundationImage,
     label: 'Site identified',
@@ -644,17 +406,11 @@ const stepVisuals: Record<2 | 3 | 4 | 5 | 6 | 7 | 8, StepVisual> = {
   },
   6: {
     image: buildProgressPolishedImage,
-    label: 'Execution team',
-    title: 'Team on site',
-    summary: ['Builder', 'Architect', 'Rental experience'],
-  },
-  7: {
-    image: buildProgressPolishedImage,
     label: 'Review ready',
     title: 'Lights on',
     summary: ['Contact route', 'No credit check', 'No obligation'],
   },
-  8: {
+  7: {
     image: buildProgressPolishedImage,
     label: 'Project received',
     title: 'Finished profile',
@@ -698,7 +454,10 @@ export function DrawflowIntake({
 function BuilderDrawflowIntake(): ReactElement {
   const searchParams = useSearchParams()
   const initialAddress = searchParams.get('address')?.trim() ?? ''
+  const initialEmail = searchParams.get('email')?.trim() ?? ''
   const initialLeadId = searchParams.get('leadId')?.trim() ?? null
+  const initialName = searchParams.get('name')?.trim() ?? ''
+  const initialPhone = searchParams.get('phone')?.trim() ?? ''
   const initialProjectScope = getFairlendProjectScopeLabel(searchParams.get('projectScope'))
   const source = searchParams.get('source')?.trim() || 'drawflow-intake'
   const [step, setStep] = useState<WizardStep>(() =>
@@ -707,6 +466,9 @@ function BuilderDrawflowIntake(): ReactElement {
   const [answers, setAnswers] = useState<IntakeAnswers>(() => ({
     ...defaultAnswers,
     address: initialAddress,
+    email: initialEmail,
+    name: initialName,
+    phone: initialPhone,
     projectScope: initialProjectScope,
   }))
   const [leadId, setLeadId] = useState<string | null>(initialLeadId)
@@ -715,7 +477,7 @@ function BuilderDrawflowIntake(): ReactElement {
   const hasHydratedFromEntryRef = useRef(false)
   const didTrackJourneyStartRef = useRef(false)
   const isFormStep = step > 1
-  const isSuccessStep = step === 8
+  const isSuccessStep = step === 7
 
   useEffect(() => {
     try {
@@ -733,7 +495,10 @@ function BuilderDrawflowIntake(): ReactElement {
     hasHydratedFromEntryRef.current = true
 
     const incomingAddress = searchParams.get('address')?.trim()
+    const incomingEmail = searchParams.get('email')?.trim()
     const incomingLeadId = searchParams.get('leadId')?.trim()
+    const incomingName = searchParams.get('name')?.trim()
+    const incomingPhone = searchParams.get('phone')?.trim()
     const incomingProjectScope = getFairlendProjectScopeLabel(searchParams.get('projectScope'))
 
     const timeout = window.setTimeout(() => {
@@ -745,13 +510,29 @@ function BuilderDrawflowIntake(): ReactElement {
             ...current,
             ...parsedAnswers,
             address: incomingAddress || current.address || parsedAnswers.address || '',
+            borrowerExperience: '',
+            contactRole: '',
+            email: incomingEmail || current.email || parsedAnswers.email || '',
+            name: incomingName || current.name || parsedAnswers.name || '',
+            phone: incomingPhone || current.phone || parsedAnswers.phone || '',
+            projectTeam: [],
             projectScope:
               incomingProjectScope || current.projectScope || parsedAnswers.projectScope || '',
+            siteControl: '',
           }))
-        } else if (incomingAddress || incomingProjectScope) {
+        } else if (
+          incomingAddress ||
+          incomingEmail ||
+          incomingName ||
+          incomingPhone ||
+          incomingProjectScope
+        ) {
           setAnswers((current) => ({
             ...current,
             address: incomingAddress || current.address,
+            email: incomingEmail || current.email,
+            name: incomingName || current.name,
+            phone: incomingPhone || current.phone,
             projectScope: incomingProjectScope || current.projectScope,
           }))
         }
@@ -763,10 +544,19 @@ function BuilderDrawflowIntake(): ReactElement {
           window.localStorage.setItem(leadIdStorageKey, nextLeadId)
         }
       } catch {
-        if (incomingAddress || incomingProjectScope) {
+        if (
+          incomingAddress ||
+          incomingEmail ||
+          incomingName ||
+          incomingPhone ||
+          incomingProjectScope
+        ) {
           setAnswers((current) => ({
             ...current,
             address: incomingAddress || current.address,
+            email: incomingEmail || current.email,
+            name: incomingName || current.name,
+            phone: incomingPhone || current.phone,
             projectScope: incomingProjectScope || current.projectScope,
           }))
         }
@@ -896,7 +686,7 @@ function BuilderDrawflowIntake(): ReactElement {
       journey_type: 'builder',
       source,
     })
-    runIntakeStepTransition(() => setStep(8))
+    runIntakeStepTransition(() => setStep(7))
   }, [answers, leadId, source, step])
 
   const goBack = (): void => {
@@ -936,7 +726,7 @@ function BuilderDrawflowIntake(): ReactElement {
       total_steps: TOTAL_STEPS,
     })
     runIntakeStepTransition(() => {
-      setStep((current) => Math.min(current + 1, 8) as WizardStep)
+      setStep((current) => Math.min(current + 1, 7) as WizardStep)
     })
   }
 
@@ -982,7 +772,7 @@ function BuilderDrawflowIntake(): ReactElement {
                 })
               }}
               onBack={() => {
-                runIntakeStepTransition(() => setStep(7))
+                runIntakeStepTransition(() => setStep(6))
               }}
               leadId={leadId}
               summaryItems={summaryItems}
@@ -994,7 +784,7 @@ function BuilderDrawflowIntake(): ReactElement {
                 onBack={goBack}
                 onContinue={() => {
                   if (answers.buildPermitFileName) {
-                    runIntakeStepTransition(() => setStep(7))
+                    runIntakeStepTransition(() => setStep(6))
                     return
                   }
                   goForward()
@@ -1005,7 +795,7 @@ function BuilderDrawflowIntake(): ReactElement {
               <BuildPathWizardStep
                 answers={answers}
                 onBack={goBack}
-                onContinue={step === 7 ? () => void submitProjectLead() : goForward}
+                onContinue={step === 6 ? () => void submitProjectLead() : goForward}
                 isSubmitting={isSubmitting}
                 submitError={submitError}
                 step={step}
@@ -1015,7 +805,7 @@ function BuilderDrawflowIntake(): ReactElement {
             )
           ) : (
             <BuildPathHeroStart
-              onExplore={() => scrollToBuildPathSection('features')}
+              onExplore={() => scrollToBuildPathSection('build-model')}
               onStart={() => {
                 runIntakeStepTransition(() => setStep(2))
               }}
@@ -1023,18 +813,12 @@ function BuilderDrawflowIntake(): ReactElement {
           )}
         </section>
         {!isFormStep && (
-          <>
-            <CapitalFeatureSection
-              onStart={() => {
-                runIntakeStepTransition(() => setStep(2))
-              }}
-            />
-            <BuildPathLandingSections
-              onStart={() => {
-                runIntakeStepTransition(() => setStep(2))
-              }}
-            />
-          </>
+          <FairlendLandingRail
+            contentClassName="overflow-visible!"
+            gutterTexture="fabric-of-squares"
+          >
+            <FairlendBuildModelSection startWithDrawFlow />
+          </FairlendLandingRail>
         )}
       </Frame>
     </main>
@@ -1044,12 +828,18 @@ function BuilderDrawflowIntake(): ReactElement {
 function GardenSuiteHomeownerIntake(): ReactElement {
   const searchParams = useSearchParams()
   const initialAddress = searchParams.get('address')?.trim() ?? ''
+  const initialEmail = searchParams.get('email')?.trim() ?? ''
   const initialLeadId = searchParams.get('leadId')?.trim() ?? null
+  const initialName = searchParams.get('name')?.trim() ?? ''
+  const initialPhone = searchParams.get('phone')?.trim() ?? ''
   const source = searchParams.get('source')?.trim() || 'garden-suite-homeowner-intake'
   const [step, setStep] = useState<HomeownerStep>(1)
   const [answers, setAnswers] = useState<HomeownerIntakeAnswers>(() => ({
     ...defaultHomeownerAnswers,
     address: initialAddress,
+    email: initialEmail,
+    name: initialName,
+    phone: initialPhone,
   }))
   const [leadId, setLeadId] = useState<string | null>(initialLeadId)
   const [hasHydratedDraft, setHasHydratedDraft] = useState(false)
@@ -1061,7 +851,10 @@ function GardenSuiteHomeownerIntake(): ReactElement {
 
   useEffect(() => {
     const incomingAddress = searchParams.get('address')?.trim() ?? ''
+    const incomingEmail = searchParams.get('email')?.trim() ?? ''
     const incomingLeadId = searchParams.get('leadId')?.trim() ?? null
+    const incomingName = searchParams.get('name')?.trim() ?? ''
+    const incomingPhone = searchParams.get('phone')?.trim() ?? ''
 
     const timeout = window.setTimeout(() => {
       try {
@@ -1073,7 +866,18 @@ function GardenSuiteHomeownerIntake(): ReactElement {
             ...current,
             ...parsedAnswers,
             address: incomingAddress || parsedAnswers.address || current.address,
+            email: incomingEmail || parsedAnswers.email || current.email,
+            name: incomingName || parsedAnswers.name || current.name,
+            phone: incomingPhone || parsedAnswers.phone || current.phone,
             projectScope: gardenSuiteProjectScopeLabel,
+          }))
+        } else if (incomingAddress || incomingEmail || incomingName || incomingPhone) {
+          setAnswers((current) => ({
+            ...current,
+            address: incomingAddress || current.address,
+            email: incomingEmail || current.email,
+            name: incomingName || current.name,
+            phone: incomingPhone || current.phone,
           }))
         }
 
@@ -1084,8 +888,14 @@ function GardenSuiteHomeownerIntake(): ReactElement {
           window.localStorage.setItem(homeownerLeadIdStorageKey, nextLeadId)
         }
       } catch {
-        if (incomingAddress) {
-          setAnswers((current) => ({ ...current, address: incomingAddress }))
+        if (incomingAddress || incomingEmail || incomingName || incomingPhone) {
+          setAnswers((current) => ({
+            ...current,
+            address: incomingAddress || current.address,
+            email: incomingEmail || current.email,
+            name: incomingName || current.name,
+            phone: incomingPhone || current.phone,
+          }))
         }
         if (incomingLeadId) {
           setLeadId(incomingLeadId)
@@ -1611,7 +1421,11 @@ function HomeownerPropertyStep({
                 const active = answers.siteControl === option.label
                 return (
                   <Card
-                    className={active ? 'bp-status-option is-selected' : 'bp-status-option'}
+                    className={
+                      active
+                        ? 'bp-status-option fairlend-choice-pill is-selected'
+                        : 'bp-status-option fairlend-choice-pill'
+                    }
                     key={option.label}
                     render={
                       <button
@@ -1641,7 +1455,11 @@ function HomeownerPropertyStep({
                   const active = answers.occupancy === option.label
                   return (
                     <Card
-                      className={active ? 'bp-status-option is-selected' : 'bp-status-option'}
+                      className={
+                        active
+                          ? 'bp-status-option fairlend-choice-pill is-selected'
+                          : 'bp-status-option fairlend-choice-pill'
+                      }
                       key={option.label}
                       render={
                         <button
@@ -1685,7 +1503,12 @@ function HomeownerPropertyStep({
             </p>
           ) : null}
 
-          <BrutalistCtaButton className="mt-[14px]" onClick={onContinue} size="compact" type="button">
+          <BrutalistCtaButton
+            className="mt-[14px]"
+            onClick={onContinue}
+            size="compact"
+            type="button"
+          >
             Continue
           </BrutalistCtaButton>
 
@@ -1921,7 +1744,7 @@ function BuildPathPropertyStep({
     <div className="bp-form-stage">
       <BuildPathSitePlanPanel />
 
-      <Card className="bp-form-panel">
+      <Card className="bp-form-panel bp-builder-journey-panel">
         <div className="bp-form-content">
           <p className="bp-form-kicker">Property / site details</p>
           <h1 id="bp-form-title">Where is the build?</h1>
@@ -1930,105 +1753,83 @@ function BuildPathPropertyStep({
             financing options.
           </p>
 
-          <GoogleAddressAutocomplete
-            className="bp-address-field bp-address-autocomplete"
-            id="intake-property-address"
-            label="Project property address"
-            onChange={(nextAddress) => updateAnswer('address', nextAddress)}
-            onPlaceSelect={(_suggestion, details) => {
-              if (details?.formattedAddress) {
-                updateAnswer('address', details.formattedAddress)
-              }
-            }}
-            placeholder="Start typing the project address"
-            testId="intake-property-address-input"
-            value={answers.address}
-          />
+          <div className="bp-wizard-fields bp-property-step-fields">
+            <GoogleAddressAutocomplete
+              className="bp-address-field bp-address-autocomplete"
+              id="intake-property-address"
+              label="Project property address"
+              onChange={(nextAddress) => updateAnswer('address', nextAddress)}
+              onPlaceSelect={(_suggestion, details) => {
+                if (details?.formattedAddress) {
+                  updateAnswer('address', details.formattedAddress)
+                }
+              }}
+              placeholder="Start typing the project address"
+              testId="intake-property-address-input"
+              value={answers.address}
+            />
 
-          <fieldset className="bp-project-scope-fieldset">
-            <legend>What are you looking to finance?</legend>
-            <p id="intake-project-scope-description">
-              Choose the option that best matches the scope of your project.
-            </p>
-            <RadioGroup
-              aria-describedby="intake-project-scope-description"
-              aria-label="Project financing scope"
-              className="bp-project-scope-grid"
-              name="projectScope"
-              onValueChange={(value) => updateAnswer('projectScope', value)}
-              required
-              value={answers.projectScope}
-            >
-              {projectScopeOptions.map((option) => {
-                const Icon = option.icon
+            <fieldset className="bp-project-scope-fieldset">
+              <legend>What are you looking to finance?</legend>
+              <p id="intake-project-scope-description">
+                Choose the option that best matches the scope of your project.
+              </p>
+              <RadioGroup
+                aria-describedby="intake-project-scope-description"
+                aria-label="Project financing scope"
+                className="bp-project-scope-grid"
+                name="projectScope"
+                onValueChange={(value) => updateAnswer('projectScope', value)}
+                required
+                value={answers.projectScope}
+              >
+                {projectScopeOptions.map((option) => {
+                  const Icon = option.icon
 
-                return (
-                  <label className="bp-project-scope-option" key={option.value}>
-                    <RadioGroupItem
-                      className="bp-project-scope-radio"
-                      id={`intake-project-scope-${option.value}`}
-                      value={option.label}
-                    />
-                    <Icon aria-hidden="true" className="bp-project-scope-icon" strokeWidth={1.8} />
-                    <span>{option.label}</span>
-                  </label>
-                )
-              })}
-            </RadioGroup>
-          </fieldset>
-
-          <fieldset className="bp-status-fieldset">
-            <legend>Current property status</legend>
-            <div className="bp-status-grid">
-              {propertyStatusOptions.map((option) => {
-                const Icon = option.icon
-                return (
-                  <Card
-                    className={
-                      answers.siteControl === option.value
-                        ? 'bp-status-option is-selected'
-                        : 'bp-status-option'
-                    }
-                    key={option.label}
-                    render={
-                      <button
-                        aria-pressed={answers.siteControl === option.value}
-                        onClick={() => updateAnswer('siteControl', option.value)}
-                        type="button"
+                  return (
+                    <label
+                      className="bp-project-scope-option fairlend-choice-pill"
+                      key={option.value}
+                    >
+                      <RadioGroupItem
+                        className="bp-project-scope-radio"
+                        id={`intake-project-scope-${option.value}`}
+                        value={option.label}
                       />
-                    }
-                  >
-                    <OptionCardIcon icon={Icon} />
-                    <span>{option.label}</span>
-                    {answers.siteControl === option.value ? (
-                      <Check aria-hidden="true" className="bp-status-check" strokeWidth={2} />
-                    ) : null}
-                  </Card>
-                )
-              })}
-            </div>
-          </fieldset>
+                      <Icon
+                        aria-hidden="true"
+                        className="bp-project-scope-icon"
+                        strokeWidth={1.8}
+                      />
+                      <span>{option.label}</span>
+                    </label>
+                  )
+                })}
+              </RadioGroup>
+            </fieldset>
 
-          <BuildPermitDisclosure
-            fileName={answers.buildPermitFileName}
-            onClear={() => updateAnswer('buildPermitFileName', '')}
-            onFileSelected={(fileName) => updateAnswer('buildPermitFileName', fileName)}
-          />
+            <BuildPermitDisclosure
+              fileName={answers.buildPermitFileName}
+              onClear={() => updateAnswer('buildPermitFileName', '')}
+              onFileSelected={(fileName) => updateAnswer('buildPermitFileName', fileName)}
+            />
+          </div>
 
-          <BrutalistCtaButton
-            className="mt-[14px]"
-            disabled={!answers.projectScope || !answers.siteControl}
-            onClick={onContinue}
-            size="compact"
-            type="button"
-          >
-            Continue
-          </BrutalistCtaButton>
+          <div className="bp-wizard-actions">
+            <BrutalistCtaButton
+              disabled={!answers.projectScope}
+              onClick={onContinue}
+              size="compact"
+              type="button"
+            >
+              Continue
+            </BrutalistCtaButton>
 
-          <button className="bp-form-back" onClick={onBack} type="button">
-            <ArrowLeft aria-hidden="true" strokeWidth={1.8} />
-            Back
-          </button>
+            <button className="bp-form-back" onClick={onBack} type="button">
+              <ArrowLeft aria-hidden="true" strokeWidth={1.8} />
+              Back
+            </button>
+          </div>
         </div>
       </Card>
     </div>
@@ -2060,7 +1861,7 @@ function BuildPathWizardStep({
     <div className="bp-form-stage bp-wizard-stage">
       <BuildPathVisualPanel answers={answers} step={step} summaryItems={summaryItems} />
 
-      <Card className="bp-form-panel bp-wizard-panel">
+      <Card className="bp-form-panel bp-wizard-panel bp-builder-journey-panel">
         <div className="bp-form-content" key={step}>
           <p className="bp-form-kicker">{content.kicker}</p>
           <h1 id="bp-form-title">{content.title}</h1>
@@ -2075,7 +1876,7 @@ function BuildPathWizardStep({
               size="compact"
               type="button"
             >
-              {step === 7 ? (isSubmitting ? 'Submitting...' : 'Submit project') : 'Continue'}
+              {step === 6 ? (isSubmitting ? 'Submitting...' : 'Submit project') : 'Continue'}
             </BrutalistCtaButton>
 
             <button className="bp-form-back" onClick={onBack} type="button">
@@ -2109,20 +1910,14 @@ function getWizardStepContent(
           'Shape the project profile so we can separate construction, bridge, and take-out paths early.',
         fields: (
           <>
-            <FieldGroup label="Project type">
-              <div className="bp-option-grid bp-option-grid-three">
-                {buildTypeOptions.map((option) => (
-                  <SelectableCard
-                    active={answers.buildType === option.label}
-                    icon={option.icon}
-                    key={option.label}
-                    onClick={() => updateAnswer('buildType', option.label)}
-                  >
-                    {option.label}
-                  </SelectableCard>
-                ))}
-              </div>
-            </FieldGroup>
+            <FairlendApplicationChoiceChips
+              legend="Project type"
+              name="buildType"
+              onValueChange={(value) => updateAnswer('buildType', value)}
+              options={buildTypeOptions}
+              required
+              value={answers.buildType}
+            />
 
             <FieldGroup label="Units after completion">
               <div className="bp-chip-grid">
@@ -2182,18 +1977,10 @@ function getWizardStepContent(
             </FieldGroup>
 
             <FieldGroup label="When do you need funding or guidance?">
-              <div className="bp-option-grid">
-                {financingTimelineOptions.map((option) => (
-                  <SelectableCard
-                    active={answers.financingTimeline === option}
-                    icon={CalendarClock}
-                    key={option}
-                    onClick={() => updateAnswer('financingTimeline', option)}
-                  >
-                    {option}
-                  </SelectableCard>
-                ))}
-              </div>
+              <FinancingTimelineSlider
+                onValueChange={(value) => updateAnswer('financingTimeline', value)}
+                value={answers.financingTimeline}
+              />
             </FieldGroup>
           </>
         ),
@@ -2252,67 +2039,12 @@ function getWizardStepContent(
       }
     case 6:
       return {
-        kicker: 'Execution readiness',
-        title: 'Who is already on the project?',
-        subtitle:
-          'The team picture helps a lender understand how quickly the build can move from plan to verifiable progress.',
-        fields: (
-          <>
-            <FieldGroup label="Project team">
-              <div className="bp-chip-grid bp-chip-grid-dense">
-                {teamOptions.map((option) => (
-                  <SelectableChip
-                    active={answers.projectTeam.includes(option)}
-                    key={option}
-                    onClick={() =>
-                      updateAnswer('projectTeam', toggleMultiValue(answers.projectTeam, option))
-                    }
-                  >
-                    {option}
-                  </SelectableChip>
-                ))}
-              </div>
-            </FieldGroup>
-
-            <FieldGroup label="Borrower or project experience">
-              <div className="bp-option-grid bp-option-grid-experience">
-                {experienceOptions.map((option) => (
-                  <SelectableCard
-                    active={answers.borrowerExperience === option}
-                    icon={Users}
-                    key={option}
-                    onClick={() => updateAnswer('borrowerExperience', option)}
-                  >
-                    {option}
-                  </SelectableCard>
-                ))}
-              </div>
-            </FieldGroup>
-          </>
-        ),
-      }
-    case 7:
-      return {
         kicker: 'Review contact',
         title: 'Where should we send the next step?',
         subtitle:
           'A DrawFlow reviewer can use this profile to point you toward suitable construction, bridge, or take-out financing options.',
         fields: (
           <>
-            <FieldGroup label="Your role">
-              <div className="bp-chip-grid bp-chip-grid-dense">
-                {contactRoleOptions.map((option) => (
-                  <SelectableChip
-                    active={answers.contactRole === option}
-                    key={option}
-                    onClick={() => updateAnswer('contactRole', option)}
-                  >
-                    {option}
-                  </SelectableChip>
-                ))}
-              </div>
-            </FieldGroup>
-
             <div className="bp-contact-grid">
               <TextField
                 icon={User}
@@ -2397,7 +2129,7 @@ function BuildPathVisualPanel({
   const visual = isHomeowner
     ? homeownerStepVisuals[step as keyof typeof homeownerStepVisuals]
     : stepVisuals[(step > 1 ? step : 2) as keyof typeof stepVisuals]
-  const splitSummary = !isHomeowner && step >= 4 && step <= 7
+  const splitSummary = !isHomeowner && step >= 4 && step <= 6
   const bottomSummaryItems = summaryItems.slice(0, 5)
   const topSummaryItems = isHomeowner
     ? summaryItems.slice(5, 9)
@@ -2463,13 +2195,11 @@ function BuildPathVisualPanel({
 function getVisualTopSummaryItems(step: WizardStep, summaryItems: string[]): string[] {
   switch (step) {
     case 4:
-      return summaryItems.slice(5, 8)
+      return summaryItems.slice(4, 7)
     case 5:
-      return summaryItems.slice(5, 11)
+      return summaryItems.slice(4, 10)
     case 6:
-      return summaryItems.slice(8, 13)
-    case 7:
-      return summaryItems.slice(9, 14)
+      return summaryItems.slice(8, 11)
     default:
       return []
   }
@@ -2509,9 +2239,9 @@ function BuildPathSuccessStep({
 
   return (
     <div className="bp-form-stage bp-wizard-stage">
-      <BuildPathVisualPanel answers={answers} step={8} summaryItems={summaryItems} />
+      <BuildPathVisualPanel answers={answers} step={7} summaryItems={summaryItems} />
 
-      <Card className="bp-form-panel bp-wizard-panel bp-success-panel">
+      <Card className="bp-form-panel bp-wizard-panel bp-builder-journey-panel bp-success-panel">
         <p className="bp-form-kicker">Project received</p>
         <h1 id="bp-form-title">Your build profile is ready.</h1>
         <p className="bp-form-subtitle">
@@ -2636,6 +2366,62 @@ function HomeownerSuccessStep({
   )
 }
 
+function FinancingTimelineSlider({
+  onValueChange,
+  value,
+}: {
+  onValueChange: (value: string) => void
+  value: string
+}): ReactElement {
+  const fallbackIndex = financingTimelineOptions.indexOf('31-60 days')
+  const matchedIndex = financingTimelineOptions.indexOf(
+    value as (typeof financingTimelineOptions)[number],
+  )
+  const selectedIndex = matchedIndex >= 0 ? matchedIndex : fallbackIndex
+  const selectedValue = financingTimelineOptions[selectedIndex]
+
+  return (
+    <div className="bp-timeline-slider">
+      <output className="bp-timeline-slider-readout">
+        <CalendarClock aria-hidden="true" strokeWidth={1.8} />
+        <span>Selected timing</span>
+        <strong>{selectedValue}</strong>
+      </output>
+
+      <Slider
+        className="bp-timeline-slider-control"
+        max={financingTimelineOptions.length - 1}
+        min={0}
+        onValueChange={([nextIndex]) => {
+          const nextValue = financingTimelineOptions[Math.round(nextIndex ?? selectedIndex)]
+          if (nextValue) onValueChange(nextValue)
+        }}
+        step={1}
+        thumbLabel="Funding or guidance timeline"
+        thumbValueText={selectedValue}
+        value={[selectedIndex]}
+      />
+
+      <div aria-hidden="true" className="bp-timeline-slider-scale">
+        {financingTimelineScaleLabels.map((label, index) => (
+          <span
+            className={index === selectedIndex ? 'is-selected' : undefined}
+            key={label}
+            style={
+              {
+                '--bp-timeline-position': `${(index / (financingTimelineScaleLabels.length - 1)) * 100}%`,
+              } as CSSProperties
+            }
+          >
+            <i />
+            {label}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function FieldGroup({ children, label }: { children: ReactElement; label: string }): ReactElement {
   return (
     <section className="bp-field-group">
@@ -2724,7 +2510,9 @@ function SelectableCard({
   return (
     <Card
       className={
-        active ? 'bp-status-option bp-select-card is-selected' : 'bp-status-option bp-select-card'
+        active
+          ? 'bp-status-option bp-select-card fairlend-choice-pill is-selected'
+          : 'bp-status-option bp-select-card fairlend-choice-pill'
       }
       render={<button aria-pressed={active} onClick={onClick} type="button" />}
     >
@@ -2795,10 +2583,7 @@ function toggleMultiValue(values: string[], value: string): string[] {
   return [...values.filter((item) => item !== 'None yet' && item !== 'Not sure'), value]
 }
 
-function validateHomeownerStep(
-  step: HomeownerStep,
-  answers: HomeownerIntakeAnswers,
-): string {
+function validateHomeownerStep(step: HomeownerStep, answers: HomeownerIntakeAnswers): string {
   if (step === 1) {
     if (!answers.siteControl) {
       return 'Choose your connection to the property.'
@@ -2937,8 +2722,12 @@ async function persistLeadDraft({
         id: leadId ?? undefined,
         intake: {
           ...answers,
+          borrowerExperience: '',
           completionStatus: 'complete',
+          contactRole: '',
           notes: answers.notes,
+          projectTeam: [],
+          siteControl: '',
         },
         intent: 'build',
         name: answers.name,
@@ -2969,16 +2758,9 @@ function isValidIntakeEmail(value: string): boolean {
 function buildProjectSummary(answers: IntakeAnswers): string[] {
   const primaryNeed = answers.financingNeeds[0] ?? 'Financing path'
   const secondaryNeed = answers.financingNeeds[1]
-  const teamSummary =
-    answers.projectTeam.length > 0
-      ? `${answers.projectTeam[0]}${
-          answers.projectTeam.length > 1 ? ` + ${answers.projectTeam.length - 1} more` : ''
-        }`
-      : 'Team pending'
   return [
     answers.address || 'Property details pending',
     answers.projectScope || 'Project scope pending',
-    answers.siteControl,
     answers.buildType,
     `${answers.unitCount} units`,
     answers.projectStage,
@@ -2988,9 +2770,6 @@ function buildProjectSummary(answers: IntakeAnswers): string[] {
     `${answers.requestedLoan} request`,
     `${answers.projectCost} total cost`,
     `${answers.borrowerEquity} equity`,
-    teamSummary,
-    answers.borrowerExperience,
-    answers.contactRole,
   ].filter(Boolean)
 }
 
@@ -3011,611 +2790,4 @@ function buildHomeownerSummary(answers: HomeownerIntakeAnswers): string[] {
     answers.approximateEquity || 'Contribution pending',
     answers.timeline || 'Timing pending',
   ].filter(Boolean)
-}
-
-function BuildPathLandingSections({ onStart }: { onStart: () => void }): ReactElement {
-  return (
-    <div className="bp-landing" id="features">
-      <BuilderSqueezeSection />
-      <FairLendOperatingSystemSection />
-      <StartWithPropertySection onStart={onStart} />
-    </div>
-  )
-}
-
-function CapitalFeatureSection({ onStart }: { onStart: () => void }): ReactElement {
-  const milestoneUnlocks = [
-    {
-      amount: '$0',
-      id: 'foundation',
-      percent: 0,
-      status: 'Starting point',
-      title: 'Foundation',
-    },
-    {
-      amount: '$520,000',
-      id: 'framing',
-      percent: 25,
-      status: 'After approval',
-      title: 'Framing',
-    },
-    {
-      amount: '$1,050,000',
-      id: 'roof',
-      percent: 50,
-      status: 'After approval',
-      title: 'Roof',
-    },
-    {
-      amount: '$1,620,000',
-      id: 'interior',
-      percent: 75,
-      status: 'After approval',
-      title: 'Interior',
-    },
-    {
-      amount: '$2,150,000',
-      id: 'completion',
-      percent: 100,
-      status: 'After approval',
-      title: 'Completion',
-    },
-  ] as const
-
-  const advisorHref = buildFairlendConsultationHref('builder-capital-feature-advisor')
-
-  return (
-    <section aria-labelledby="bp-workflow-title" className="bp-capital-feature">
-      <div className="bp-capital-feature-copy">
-        <span>Milestone-backed draw room</span>
-        <h2 id="bp-workflow-title">Available capital rises with approved work.</h2>
-        <p>
-          DrawFlow turns your construction roadmap into release-ready capital. Each approved
-          milestone expands the amount you can draw, without forcing interest on idle funds.
-        </p>
-        <div className="bp-capital-feature-actions">
-          <BrutalistCtaButton onClick={onStart} type="button">
-            Check my project&apos;s financeability
-          </BrutalistCtaButton>
-          <p className="bp-capital-action-note">
-            Answer a few project questions and receive a clear review path.
-          </p>
-          <Link className="bp-capital-advisor-link" href={advisorHref}>
-            Talk to a DrawFlow advisor
-            <ArrowRight aria-hidden="true" strokeWidth={1.8} />
-          </Link>
-        </div>
-        <p className="bp-capital-feature-note">
-          These amounts illustrate how availability can expand as work is completed and approved.
-          Every release still requires milestone evidence, lender review, and administrator
-          approval.
-        </p>
-      </div>
-
-      <div className="bp-capital-scale">
-        <p className="bp-capital-scale-label">Capital unlocks as approved work rises ↑</p>
-        <Timeline asChild className="bp-capital-milestone-timeline">
-          <ol aria-label="Illustrative capital unlocks from foundation through completion">
-            {milestoneUnlocks.map((milestone) => (
-              <TimelineItem
-                asChild
-                className="bp-capital-milestone-item"
-                data-status={milestone.id === 'foundation' ? 'starting' : 'projected'}
-                key={milestone.id}
-              >
-                <li>
-                  <TimelineDot aria-hidden="true" className="bp-capital-milestone-dot">
-                    <span />
-                  </TimelineDot>
-                  <TimelineConnector
-                    aria-hidden="true"
-                    className="bp-capital-milestone-connector"
-                  />
-                  <TimelineContent className="bp-capital-milestone-content">
-                    <TimelineHeader className="bp-capital-milestone-header">
-                      <TimelineTitle>{milestone.title}</TimelineTitle>
-                      <data value={milestone.percent / 100}>{milestone.percent}%</data>
-                      <span className="bp-capital-milestone-status">{milestone.status}</span>
-                    </TimelineHeader>
-                    <TimelineDescription asChild>
-                      <Card className="bp-capital-milestone-card">
-                        <strong>{milestone.amount}</strong>
-                        <span>Illustrative availability</span>
-                        <i aria-hidden="true" className="bp-capital-unlock-bar">
-                          <em style={{ width: `${milestone.percent}%` }} />
-                        </i>
-                      </Card>
-                    </TimelineDescription>
-                  </TimelineContent>
-                </li>
-              </TimelineItem>
-            ))}
-          </ol>
-        </Timeline>
-      </div>
-
-      <div aria-hidden="true" className="bp-capital-feature-art">
-        <Image
-          alt=""
-          aria-hidden="true"
-          className="bp-capital-feature-stack"
-          decoding="async"
-          height={1456}
-          loading="lazy"
-          src={milestoneBlueprintStackImage}
-          width={641}
-        />
-        <span className="bp-capital-dimension bp-capital-dimension-height">64&apos;-0&quot;</span>
-        <span className="bp-capital-dimension bp-capital-dimension-width">120&apos;-0&quot;</span>
-      </div>
-
-      <ul aria-label="Draw plan benefits" className="bp-capital-feature-stats">
-        {[
-          [
-            'No forced draw calendar',
-            'Request capital when approved work and project timing call for it.',
-          ],
-          [
-            'One-business-day review target',
-            'Complete draw requests are targeted for review within one business day.',
-          ],
-          [
-            'Advisor-built evidence plan',
-            'Know what proof each milestone needs before the next draw.',
-          ],
-        ].map(([title, detail]) => (
-          <li key={title}>
-            <Check aria-hidden="true" strokeWidth={2} />
-            <span>
-              <strong>{title}</strong>
-              <small>{detail}</small>
-            </span>
-          </li>
-        ))}
-      </ul>
-    </section>
-  )
-}
-
-function BuilderSqueezeSection(): ReactElement {
-  return (
-    <section
-      aria-labelledby="bp-squeeze-title"
-      className="bp-landing-section bp-squeeze"
-      id="financing-options"
-    >
-      <div className="bp-squeeze-stage">
-        <BlueprintDraftingGrid />
-
-        <div aria-label="DrawFlow by FairLend" className="bp-squeeze-brand">
-          <Image
-            alt=""
-            aria-hidden="true"
-            height={57}
-            src={`${extractedSqueezeAssetBase}/drawflow-logo-lockup.webp`}
-            width={193}
-          />
-        </div>
-
-        <Image
-          alt=""
-          aria-hidden="true"
-          className="bp-squeeze-stamp"
-          height={138}
-          src={`${extractedSqueezeAssetBase}/build-smarter-stamp.webp`}
-          width={272}
-        />
-
-        <div className="bp-squeeze-hero-copy">
-          <p className="bp-squeeze-kicker">The Problem</p>
-          <h2 id="bp-squeeze-title">Why builders get squeezed</h2>
-          <p>
-            Capital should follow the work,
-            <span>not a rigid draw calendar.</span>
-          </p>
-        </div>
-
-        <div aria-label="Rigid three draw schedule" className="bp-rigid-plan">
-          <div className="bp-rigid-heading">
-            <h3>Rigid 3-Draw Schedule</h3>
-            <p>Capital doesn&apos;t match the real build.</p>
-          </div>
-          <div aria-hidden="true" className="bp-cash-stress-legend">
-            <span />
-            <p>
-              Cash stress
-              <small>(too early or too late)</small>
-            </p>
-          </div>
-          <Image
-            alt=""
-            aria-hidden="true"
-            className="bp-rigid-axis"
-            height={62}
-            src={`${extractedSqueezeAssetBase}/rigid-schedule-axis.svg`}
-            unoptimized
-            width={700}
-          />
-          <Image
-            alt=""
-            aria-hidden="true"
-            className="bp-cash-stress-curve-mobile"
-            height={105}
-            src={`${extractedSqueezeAssetBase}/cash-stress-dashed-curve.svg`}
-            unoptimized
-            width={735}
-          />
-          {rigidDrawNotes.map((note) => (
-            <Image
-              alt={note.alt}
-              className={`bp-rigid-note ${note.className}`}
-              decoding="async"
-              height={
-                note.className === 'is-draw-2' ? 170 : note.className === 'is-draw-1' ? 176 : 174
-              }
-              key={note.alt}
-              src={note.src}
-              width={note.className === 'is-draw-1' ? 134 : 132}
-            />
-          ))}
-          <div className="bp-rigid-callouts">
-            <p>
-              <Image
-                alt=""
-                aria-hidden="true"
-                height={32}
-                src={`${extractedSqueezeAssetBase}/warning-triangle.svg`}
-                unoptimized
-                width={32}
-              />
-              <span>Cash leaves early before costs hit.</span>
-            </p>
-            <p>
-              <Image
-                alt=""
-                aria-hidden="true"
-                height={32}
-                src={`${extractedSqueezeAssetBase}/warning-triangle.svg`}
-                unoptimized
-                width={32}
-              />
-              <span>Money sits idle while work continues.</span>
-            </p>
-            <p>
-              <Image
-                alt=""
-                aria-hidden="true"
-                height={32}
-                src={`${extractedSqueezeAssetBase}/warning-triangle.svg`}
-                unoptimized
-                width={32}
-              />
-              <span>Gaps appear before the next draw.</span>
-            </p>
-          </div>
-        </div>
-
-        <svg
-          aria-hidden="true"
-          className="bp-capital-continuum"
-          focusable="false"
-          viewBox="0 0 1672 941"
-        >
-          <path
-            className="bp-capital-continuum-risk-line"
-            d="M126.5 598.4 C231.9 602.3 274.9 611.1 356.8 599.4 S475.9 583.8 583.2 598.4 C690.5 613 780 590 831 590"
-          />
-          <path
-            className="bp-capital-continuum-line"
-            d="M831 590 C852 590 862 587 875 576 C894 560 898 529 921 510 C939 496 956 487 962 481 C987 477 1007 474 1028 471 C1074 466 1103 455 1151 449 C1198 444 1248 444 1275 446 C1338 449 1379 448 1390 449 C1441 451 1483 454 1511 457 C1534 459 1556 461 1582 461"
-          />
-          <g className="bp-capital-continuum-checks">
-            <circle cx="962" cy="481" r="15" />
-            <circle cx="1028" cy="471" r="15" />
-            <circle cx="1151" cy="449" r="15" />
-            <circle cx="1275" cy="446" r="15" />
-            <circle cx="1390" cy="449" r="15" />
-            <circle cx="1511" cy="457" r="15" />
-          </g>
-          <g className="bp-capital-continuum-ticks">
-            <path d="m955 480 7 7 14-15" />
-            <path d="m1021 470 7 7 14-15" />
-            <path d="m1144 448 7 7 14-15" />
-            <path d="m1268 445 7 7 14-15" />
-            <path d="m1383 448 7 7 14-15" />
-            <path d="m1504 456 7 7 14-15" />
-          </g>
-        </svg>
-
-        <div
-          aria-label="Milestone draw plan with capital unlocked by approved progress"
-          className="bp-milestone-plan"
-        >
-          <div className="bp-milestone-heading">
-            <h3>Milestone Draw Plan</h3>
-            <p>Capital follows approved progress.</p>
-          </div>
-          <div aria-hidden="true" className="bp-aligned-legend">
-            <span />
-            <p>
-              Aligned capital
-              <small>(when work needs it)</small>
-            </p>
-          </div>
-          <Image
-            alt=""
-            aria-hidden="true"
-            className="bp-milestone-blueprint"
-            height={184}
-            src={`${extractedSqueezeAssetBase}/modern-home-blueprint.webp`}
-            width={654}
-          />
-          {milestoneUnlocksForSqueeze.map((milestone) => (
-            <div className={`bp-milestone-node ${milestone.className}`} key={milestone.label}>
-              <Image
-                alt={`${milestone.label} unlock tag ${milestone.amount}`}
-                height={70}
-                src={milestone.src}
-                width={100}
-              />
-              <span>{milestone.label}</span>
-            </div>
-          ))}
-        </div>
-
-        <Image
-          alt=""
-          aria-hidden="true"
-          className="bp-left-blueprint"
-          height={194}
-          src={`${extractedSqueezeAssetBase}/left-building-blueprint.webp`}
-          width={170}
-        />
-
-        <div className="bp-squeeze-bottom">
-          <div className="bp-squeeze-panel bp-squeeze-panel-risk">
-            <div className="bp-squeeze-panel-title">
-              <Image
-                alt=""
-                aria-hidden="true"
-                height={32}
-                src={`${extractedSqueezeAssetBase}/warning-triangle.svg`}
-                unoptimized
-                width={32}
-              />
-              <h3>Cash Gap Risk</h3>
-            </div>
-            <div className="bp-squeeze-panel-items">
-              {cashGapRisks.map((item) => (
-                <article className="bp-squeeze-panel-item" key={item.title}>
-                  <Image
-                    alt=""
-                    aria-hidden="true"
-                    height={32}
-                    src={`${extractedSqueezeAssetBase}/${item.icon}`}
-                    unoptimized={item.icon.endsWith('.svg')}
-                    width={32}
-                  />
-                  <div>
-                    <h4>{item.title}</h4>
-                    <p>{item.body}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-
-          <Image
-            alt=""
-            aria-hidden="true"
-            className="bp-squeeze-handoff"
-            height={64}
-            src={`${extractedSqueezeAssetBase}/handoff-arrow-circle.svg`}
-            unoptimized
-            width={64}
-          />
-
-          <div className="bp-squeeze-panel bp-squeeze-panel-approved">
-            <div className="bp-squeeze-panel-title">
-              <Image
-                alt=""
-                aria-hidden="true"
-                height={32}
-                src={`${extractedSqueezeAssetBase}/approved-check-circle.svg`}
-                unoptimized
-                width={32}
-              />
-              <h3>Capital Unlocks With Approved Work</h3>
-            </div>
-            <div className="bp-squeeze-panel-items">
-              {approvedWorkBenefits.map((item) => (
-                <article className="bp-squeeze-panel-item" key={item.title}>
-                  <Image
-                    alt=""
-                    aria-hidden="true"
-                    height={32}
-                    src={`${extractedSqueezeAssetBase}/${item.icon}`}
-                    unoptimized={item.icon.endsWith('.svg')}
-                    width={32}
-                  />
-                  <div>
-                    <h4>{item.title}</h4>
-                    <p>{item.body}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function BlueprintDraftingGrid(): ReactElement {
-  const minorVerticalLines = Array.from({ length: 21 }, (_, index) => index * 5)
-  const minorHorizontalLines = Array.from({ length: 12 }, (_, index) => index * 9)
-
-  return (
-    <svg
-      aria-hidden="true"
-      className="bp-squeeze-drafting-grid"
-      focusable="false"
-      preserveAspectRatio="none"
-      viewBox="0 0 1672 941"
-    >
-      <g className="bp-squeeze-minor-grid">
-        {minorVerticalLines.map((percent) => (
-          <path d={`M ${percent * 16.72} 24 V 918`} key={`v-${percent}`} />
-        ))}
-        {minorHorizontalLines.map((percent) => (
-          <path d={`M 22 ${percent * 9.41} H 1650`} key={`h-${percent}`} />
-        ))}
-      </g>
-
-      <g className="bp-squeeze-major-guides">
-        <path d="M 28 24 H 1644" />
-        <path d="M 28 920 H 1644" />
-        <path d="M 28 24 V 920" />
-        <path d="M 1644 24 V 920" />
-        <path className="bp-squeeze-timeline-divider" d="M 836 326 V 707" />
-        <path d="M 130 411 V 699" />
-        <path d="M 1612 457 V 714" />
-        <path d="M 130 424 H 0" />
-        <path d="M 1612 457 H 1672" />
-        <path d="M 835 707 H 1612" />
-      </g>
-
-      <g className="bp-squeeze-crop-marks">
-        <path d="M 14 24 H 42 M 28 10 V 52" />
-        <path d="M 1630 24 H 1658 M 1644 10 V 52" />
-        <path d="M 14 920 H 42 M 28 890 V 934" />
-        <path d="M 1630 920 H 1658 M 1644 890 V 934" />
-        <path d="M 116 424 H 140 M 130 410 V 438" />
-        <path d="M 1598 714 H 1626 M 1612 690 V 728" />
-        <path d="M 1598 457 H 1626 M 1612 440 V 474" />
-      </g>
-
-      <text className="bp-squeeze-dimension is-left" x="38" y="420">
-        24&apos;-0&quot;
-      </text>
-      <text
-        className="bp-squeeze-dimension is-right"
-        transform="rotate(-90 1619 628)"
-        x="1619"
-        y="628"
-      >
-        26&apos;-0&quot;
-      </text>
-    </svg>
-  )
-}
-
-function FairLendOperatingSystemSection(): ReactElement {
-  return (
-    <section aria-labelledby="bp-system-title" className="bp-landing-section bp-operating-system">
-      <div className="bp-system-copy">
-        <span>FairLend operating model</span>
-        <h2 id="bp-system-title">
-          Multiplex financing, planning, and field verification in one motion.
-        </h2>
-        <p>
-          The offer is not just a loan and not just software. FairLend combines financing, CMHC
-          readiness, experienced build planning, milestone draw controls, site visits, and practical
-          help when the project gets stuck.
-        </p>
-      </div>
-
-      <div className="bp-system-board">
-        <div aria-hidden="true" className="bp-system-rail">
-          <span />
-          <span />
-          <span />
-        </div>
-        <div className="bp-system-steps">
-          {fairlendSystemSteps.map((step) => {
-            const Icon = step.icon
-            return (
-              <Card className="bp-system-step" key={step.title}>
-                <small>{step.label}</small>
-                <span className="bp-system-step-icon">
-                  <Icon aria-hidden="true" strokeWidth={1.7} />
-                </span>
-                <div>
-                  <h3>{step.title}</h3>
-                  <p>{step.body}</p>
-                </div>
-              </Card>
-            )
-          })}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function StartWithPropertySection({ onStart }: { onStart: () => void }): ReactElement {
-  return (
-    <section aria-labelledby="bp-start-title" className="bp-landing-section bp-start bp-referral">
-      <div aria-hidden="true" className="bp-start-drawing" />
-      <div className="bp-start-copy">
-        <span>Bring us in early</span>
-        <h2 id="bp-start-title">Send the build before it gets expensive to fix.</h2>
-        <p>
-          FairLend sits down with the builder and their advisors, runs the CMHC and underwriting
-          checks, pressure-tests the plan, and turns approved work into on-demand draw availability.
-        </p>
-        <ul>
-          {[
-            'Multiplex build financing for CMHC-insured projects',
-            'Consultant-led schedule, budget, and draw planning',
-            'Site visits, evidence, and practical unstuck support',
-          ].map((item) => (
-            <li key={item}>
-              <Check aria-hidden="true" strokeWidth={2} />
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <Card className="bp-start-form bp-referral-panel">
-        <div className="bp-referral-panel-heading">
-          <p>Best referral moments</p>
-          <strong>When the project is still flexible enough to save.</strong>
-        </div>
-        <ul className="bp-referral-moments">
-          {referralMoments.map((moment) => (
-            <li key={moment}>
-              <ArrowRight aria-hidden="true" strokeWidth={1.8} />
-              <span>{moment}</span>
-            </li>
-          ))}
-        </ul>
-        <div className="bp-start-actions">
-          <BrutalistCtaButton
-            className="w-[250px] max-[560px]:w-full"
-            onClick={onStart}
-            size="referral"
-            type="button"
-          >
-            Start a build review
-          </BrutalistCtaButton>
-          <button className="bp-start-call" onClick={onStart} type="button">
-            Refer a builder
-            <ArrowRight aria-hidden="true" strokeWidth={1.7} />
-          </button>
-        </div>
-        <p className="bp-referral-note">
-          Referral-friendly: you stay the smart early advisor. We handle financeability, draw
-          planning, site verification, and capital execution.
-        </p>
-      </Card>
-
-      <div aria-hidden="true" className="bp-real-projects-stamp">
-        <span>CMHC</span>
-        <strong>Multiplex</strong>
-      </div>
-    </section>
-  )
 }

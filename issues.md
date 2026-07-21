@@ -730,7 +730,7 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 | ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-037 before](docs/issue-evidence/tickets/FL-WEB-037-before.png) | ![FL-WEB-037 after](docs/issue-evidence/tickets/FL-WEB-037-after.png) |
 
-- **Reference section:** `/intake` → Mortgage intake → “What would you like this mortgage to solve?”
+- **Reference section:** `/construction-financing` → Mortgage intake → “What would you like this mortgage to solve?”
 - **Transcript:** `01:23:46–01:24:16`
 - **Cleaned quote:** “Add refinance, bridge loan, and a mortgage business-purpose loan option to the mortgage-purpose field.”
 - **Surrounding context:** “Use equity in my property” was considered too broad to make these common intents discoverable.
@@ -748,7 +748,7 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 | ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-038 before](docs/issue-evidence/tickets/FL-WEB-038-before.png) | ![FL-WEB-038 after](docs/issue-evidence/tickets/FL-WEB-038-after.png) |
 
-- **Reference section:** Homepage → What We Finance; route content; `/intake` mortgage-purpose field
+- **Reference section:** Homepage → What We Finance; route content; `/construction-financing` mortgage-purpose field
 - **Transcript:** `01:24:17–01:26:17`
 - **Cleaned quote:** “Add Home Equity Line of Credit (HELOC) under What We Finance, add the route on the landing page, and add it to ‘What would you like this mortgage to solve?’ Use the name people recognize: HELOC.”
 - **Surrounding context:** The group clarified that a HELOC should be discoverable as its own familiar mortgage-purpose option.
@@ -767,7 +767,7 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 | ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-039 before](docs/issue-evidence/tickets/FL-WEB-039-before.png) | ![FL-WEB-039 after](docs/issue-evidence/tickets/FL-WEB-039-after.png) |
 
-- **Reference section:** `/intake` → Mortgage intake → “What does the financing need to cover?”
+- **Reference section:** `/construction-financing` → Mortgage intake → “What does the financing need to cover?”
 - **Transcript:** `01:27:11–01:28:29`
 - **Cleaned quote:** “Change ‘additional liens’ to ‘additional debt.’ A lien is property-specific, but clients may use financing to pay a mortgage, car loan, other loan, or credit-card debt.”
 - **Surrounding context:** The current label is both too narrow and technically misleading for common consolidation use cases.
@@ -785,7 +785,7 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 | ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-040 before](docs/issue-evidence/tickets/FL-WEB-040-before.png) | ![FL-WEB-040 after](docs/issue-evidence/tickets/FL-WEB-040-after.png) |
 
-- **Reference section:** `/intake` → Core mortgage intake → Step 4 of 5
+- **Reference section:** `/construction-financing` → Core mortgage intake → Step 4 of 5
 - **Transcript:** `01:29:29–01:29:58`
 - **Cleaned quote:** “Remove ‘How do you expect to repay the mortgage?’ entirely; it is not necessary in this intake.”
 - **Surrounding context:** Both partners agreed timing/other captured context made the question redundant.
@@ -803,7 +803,7 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 | ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-041 before](docs/issue-evidence/tickets/FL-WEB-041-before.png) | ![FL-WEB-041 after](docs/issue-evidence/tickets/FL-WEB-041-after.png) |
 
-- **Reference section:** `/intake` → route hero / entry panel
+- **Reference section:** `/construction-financing` → route hero / entry panel
 - **Transcript:** `01:30:16–01:30:34`
 - **Cleaned quote:** “Fix the button alignment and overlapping elements in the hero section of the intake route.”
 - **Surrounding context:** The defect was visible on a partner’s device and affected the primary start-project-review action.
@@ -839,7 +839,7 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 | ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-043 before](docs/issue-evidence/tickets/FL-WEB-043-before.png) | ![FL-WEB-043 after](docs/issue-evidence/tickets/FL-WEB-043-after.png) |
 
-- **Reference section:** `/intake` → Construction financing intake → “What are you looking to finance?”
+- **Reference section:** `/construction-financing` → Construction financing intake → “What are you looking to finance?”
 - **Transcript:** `01:31:27–01:31:49`
 - **Cleaned quote:** “The ‘What are you looking to finance?’ field is missing Single-Family Residence.”
 - **Surrounding context:** The option was identified during a live walkthrough of the construction intake.
@@ -857,7 +857,7 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 | ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-044 before](docs/issue-evidence/tickets/FL-WEB-044-before.png) | ![FL-WEB-044 after](docs/issue-evidence/tickets/FL-WEB-044-after.png) |
 
-- **Reference section:** `/intake` → Rental property acquisition/refinance → property type/details
+- **Reference section:** `/construction-financing` → Rental property acquisition/refinance → property type/details
 - **Transcript:** `01:34:11–01:34:35`
 - **Cleaned quote:** “Do not require number of residential units globally. Show it only for student/rooming house, other existing rental, or mixed-use with residential units.”
 - **Surrounding context:** The field is irrelevant for property types without residential units and should not be a hard question.
@@ -875,7 +875,7 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 | ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-045 before](docs/issue-evidence/tickets/FL-WEB-045-before.png) | ![FL-WEB-045 after](docs/issue-evidence/tickets/FL-WEB-045-after.png) |
 
-- **Reference section:** `/intake` → Acquisition/refinance of existing rental properties → Step 3 of 5
+- **Reference section:** `/construction-financing` → Acquisition/refinance of existing rental properties → Step 3 of 5
 - **Transcript:** `01:34:48–01:35:08`
 - **Cleaned quote:** “For amount required, estimated current value, and current mortgage balance, use a range-based radio-chip interface instead of free text.”
 - **Surrounding context:** The goal is faster completion and normalized lead data, not false numeric precision.
@@ -894,7 +894,7 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 | ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-046 before](docs/issue-evidence/tickets/FL-WEB-046-before.png) | ![FL-WEB-046 after](docs/issue-evidence/tickets/FL-WEB-046-after.png) |
 
-- **Reference section:** `/intake` → Rental property intake → Step 3 of 5 → other liens/lenders/encumbrances
+- **Reference section:** `/construction-financing` → Rental property intake → Step 3 of 5 → other liens/lenders/encumbrances
 - **Transcript:** `01:35:42–01:36:41`
 - **Cleaned quote:** “All debts count for mortgage affordability. Add Other Debt alongside other lenders, liens, and encumbrances so unsecured obligations can be rolled into the plan.”
 - **Surrounding context:** The example was a borrower with substantial unsecured debt whose monthly payments affect affordability.
@@ -952,7 +952,7 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 | ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-049 before](docs/issue-evidence/tickets/FL-WEB-049-before.png) | ![FL-WEB-049 after](docs/issue-evidence/tickets/FL-WEB-049-after.png) |
 
-- **Reference section:** `/intake` → Construction financing intake → Current Property Status step
+- **Reference section:** `/construction-financing` → Construction financing intake → Current Property Status step
 - **Transcript:** `01:32:03–01:32:37`
 - **Cleaned quote:** “There is no next button on this step, and there is a weird white box at the top. Restore the button and remove the box.”
 - **Surrounding context:** This appeared immediately after adding Single-Family Residence during the live construction-intake walkthrough. The missing control blocks forward progress.
@@ -971,7 +971,7 @@ Last updated: 2026-07-13. Verification combines matched before/after captures, t
 | ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![FL-WEB-050 before](docs/issue-evidence/tickets/FL-WEB-050-before.png) | ![FL-WEB-050 after](docs/issue-evidence/tickets/FL-WEB-050-after.png) |
 
-- **Reference section:** `/intake` → long-form mortgage, construction, and rental variants
+- **Reference section:** `/construction-financing` → long-form mortgage, construction, and rental variants
 - **Transcript:** `01:36:48–01:39:03`
 - **Cleaned quote:** “Give users both routes: collect as much structured information as possible, but once the mandatory minimum is complete, offer ‘Skip and submit’ so the form does not tire them out.”
 - **Surrounding context:** The group approved retaining the detailed application path while allowing qualified leads to stop early. A full document/application portal was separately deferred until after launch.
