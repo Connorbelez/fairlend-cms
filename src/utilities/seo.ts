@@ -14,27 +14,33 @@ export const fairlendSeo = {
 
 /**
  * Stable, square brand icons used by browsers and search engines.
- *
- * Google Search requires a 1:1 favicon. Keep the general-purpose FairLend logo
- * out of this list because its 244x240 viewBox is not square.
+ * The version query invalidates aggressively cached browser favicons when the
+ * artwork changes while preserving the conventional /favicon.ico fallback.
  */
 export const fairlendIcons = {
+  apple: [
+    {
+      sizes: '180x180',
+      type: 'image/png',
+      url: '/apple-touch-icon.png?v=2',
+    },
+  ],
   icon: [
     {
       sizes: 'any',
       type: 'image/svg+xml',
-      url: '/favicon.svg',
+      url: '/favicon.svg?v=2',
     },
     {
       sizes: '48x48',
       type: 'image/x-icon',
-      url: '/favicon.ico',
+      url: '/favicon.ico?v=2',
     },
   ],
   shortcut: [
     {
       type: 'image/x-icon',
-      url: '/favicon.ico',
+      url: '/favicon.ico?v=2',
     },
   ],
 } satisfies Metadata['icons']
