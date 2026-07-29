@@ -36,12 +36,12 @@ const polishedHeaderHrefs = new Set([
   rentalPropertyRefinanceIntakeHref,
   '/investing/private-mortgage-lending',
   '/partners',
+  '/garden-suite-financing-gta',
 ])
 
 const headerAnchorFallbacks = new Map([
   ['/affordable-sustainable-rental-housing', '/#services'],
   ['/construction-draw-financing', '/#builder-consulting'],
-  ['/garden-suite-financing-gta', '/#services'],
   ['/multiplex-financing-gta', '/#services'],
   ['/posts', '/#questions'],
   ['/search', '/#questions'],

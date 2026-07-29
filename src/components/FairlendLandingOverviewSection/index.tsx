@@ -150,11 +150,7 @@ export const financeItems = [
     code: '07',
     copy: 'Backyard and laneway homes financed by a team that knows permits, budgets, and timelines.',
     emphasis: { action: 'highlight', phrase: 'knows permits, budgets, and timelines' },
-    href: buildFairlendIntakeHref({
-      intent: 'build',
-      projectScope: 'garden-laneway-suites',
-      source: 'landing-overview-garden-laneway-suites',
-    }),
+    href: '/garden-suite-financing-gta',
     image: overviewAssets.gardenSuitesIcon,
     title: 'Garden & Laneway Suites',
   },

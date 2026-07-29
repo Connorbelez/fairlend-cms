@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { FairlendFeedbackContentPage } from '@/components/FairlendFeedbackContentPage'
 import { fairlendRouteSelectorAssets } from '@/components/FairlendRouteSelector/assets'
 import { FairlendServiceSeo } from '@/components/SEO/FairlendRouteSeo'
@@ -43,6 +45,17 @@ export default function AffordableSustainableRentalHousingPage() {
           },
           primaryCta: { href: intakeHref, label: 'Review rental project' },
           secondaryCta: { href: '/multiplex-financing-gta', label: 'Multiplex financing' },
+          heroFooter: (
+            <p className="m-0 text-sm leading-6 font-semibold text-[#41524b]">
+              For smaller detached rental projects,{' '}
+              <Link
+                className="font-black text-[#315a12] underline decoration-[#315a12] underline-offset-4"
+                href="/garden-suite-financing-gta"
+              >
+                explore Garden Suite financing.
+              </Link>
+            </p>
+          ),
           proof: ['Affordability', 'Operating resilience', 'Construction feasibility'],
           geoAnswer: {
             question: 'What makes a rental housing project financeable?',

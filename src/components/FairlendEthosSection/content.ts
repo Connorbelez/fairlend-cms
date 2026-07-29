@@ -81,6 +81,7 @@ export const HOUSING_TYPES = [
     asset: '/assets/about-webp/webp/finance-icon-garden-suites.webp',
     code: '02',
     label: 'Garden + laneway suites',
+    href: '/garden-suite-financing-gta',
   },
   {
     asset: '/assets/about-webp/webp/finance-icon-purpose-built-rentals.webp',

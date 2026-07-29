@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { FairlendFeedbackContentPage } from '@/components/FairlendFeedbackContentPage'
 import { fairlendRouteSelectorAssets } from '@/components/FairlendRouteSelector/assets'
 import { FairlendServiceSeo } from '@/components/SEO/FairlendRouteSeo'
@@ -47,6 +49,17 @@ export default function ConstructionDrawFinancingPage() {
             href: '/borrowers',
             label: 'Compare financing routes',
           },
+          heroFooter: (
+            <p className="m-0 text-sm leading-6 font-semibold text-[#41524b]">
+              Building a detached rental?{' '}
+              <Link
+                className="font-black text-[#315a12] underline decoration-[#315a12] underline-offset-4"
+                href="/garden-suite-financing-gta"
+              >
+                See Garden Suite financing and milestone draws.
+              </Link>
+            </p>
+          ),
           proof: ['Work first', 'Evidence next', 'Admin approval'],
           geoAnswer: {
             question: 'How does construction draw financing work?',

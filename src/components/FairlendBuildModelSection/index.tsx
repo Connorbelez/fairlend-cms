@@ -649,7 +649,14 @@ function StationStep({ station }: { station: Station }) {
 function DrawFlowStep() {
   return (
     <ScrollStep state={drawFlowState} className="bm-drawflow-step">
-      <DrawFlowDossierCard />
+      <DrawFlowDossierCard
+        cta={{
+          href: '/garden-suite-financing-gta',
+          id: 'garden-suite-financing-page',
+          label: 'See Garden Suite financing',
+          location: 'homepage-build-model-drawflow',
+        }}
+      />
     </ScrollStep>
   )
 }

@@ -97,11 +97,7 @@ export const fairlendRouteChoices = [
     ],
     steps: ['Assess', 'Plan', 'Build', 'Rent'],
     ctaLabel: 'Check My Property',
-    href: buildFairlendIntakeHref({
-      intent: 'build',
-      projectScope: 'garden-laneway-suites',
-      source: 'route-selector-garden-laneway-suites',
-    }),
+    href: '/garden-suite-financing-gta',
     icon: HousePlus,
     illustration: fairlendRouteSelectorAssets.gardenSuite,
     badge: 'Garden + laneway',

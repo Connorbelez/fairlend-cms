@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { FairlendFeedbackContentPage } from '@/components/FairlendFeedbackContentPage'
 import { fairlendRouteSelectorAssets } from '@/components/FairlendRouteSelector/assets'
 import { FairlendServiceSeo } from '@/components/SEO/FairlendRouteSeo'
@@ -47,6 +49,17 @@ export default function MultiplexFinancingGtaPage() {
             href: '/construction-financing?intent=contact&source=multiplex-question',
             label: 'Talk to FairLend',
           },
+          heroFooter: (
+            <p className="m-0 text-sm leading-6 font-semibold text-[#41524b]">
+              Comparing housing forms?{' '}
+              <Link
+                className="font-black text-[#315a12] underline decoration-[#315a12] underline-offset-4"
+                href="/garden-suite-financing-gta"
+              >
+                Review Garden and Laneway Suite financing.
+              </Link>
+            </p>
+          ),
           proof: [
             'Toronto and GTA sites',
             '3-unit conversions, fourplexes and sixplexes',

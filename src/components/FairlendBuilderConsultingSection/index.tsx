@@ -409,6 +409,11 @@ function BuilderCopy({ year }: { year: BuilderYear }) {
         <span>{state.headlineBottom}</span>
       </h2>
       <p className="builder-subheadline">{state.subheadline}</p>
+      {year === '2026' ? (
+        <Link className="builder-related-link" href="/garden-suite-financing-gta">
+          Garden Suite financing <ArrowRight aria-hidden="true" className="size-4" />
+        </Link>
+      ) : null}
       <div className="builder-action-block">
         <p className="builder-state-label">
           <strong>{state.label}</strong>
@@ -862,6 +867,11 @@ function MobileScrollState() {
               <span>{states[year].headlineBottom}</span>
             </h2>
             <p className="builder-subheadline">{states[year].subheadline}</p>
+            {year === '2026' ? (
+              <Link className="builder-related-link" href="/garden-suite-financing-gta">
+                Garden Suite financing <ArrowRight aria-hidden="true" className="size-4" />
+              </Link>
+            ) : null}
           </div>
         ))}
       </div>
@@ -987,6 +997,31 @@ function BuilderConsultingStyles() {
         font-size: clamp(1.35rem, 1.75vw, 2rem);
         font-weight: 600;
         line-height: 1.06;
+      }
+
+      .builder-related-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        width: fit-content;
+        margin-top: 0.8rem;
+        color: var(--builder-blue);
+        font-size: 0.72rem;
+        font-weight: 850;
+        letter-spacing: 0.08em;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.2rem;
+        text-transform: uppercase;
+      }
+
+      .builder-related-link:hover {
+        color: var(--builder-coral);
+      }
+
+      .builder-related-link:focus-visible {
+        outline: 3px solid oklch(0.52 0.145 255 / 72%);
+        outline-offset: 4px;
       }
 
       .builder-state-label {

@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import type { ReactElement } from 'react'
 
 import { ETHOS_COPY, HOUSING_TYPES } from '../content'
@@ -41,7 +42,16 @@ export function HousingOpportunityBlock(): ReactElement {
                 </div>
                 <figcaption>
                   <span>{housingType.code}</span>
-                  {housingType.label}
+                  {'href' in housingType && housingType.href ? (
+                    <Link
+                      className="underline decoration-[#315a12] underline-offset-4 hover:text-[#315a12] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#315a12]"
+                      href={housingType.href}
+                    >
+                      {housingType.label}
+                    </Link>
+                  ) : (
+                    housingType.label
+                  )}
                 </figcaption>
               </figure>
             </li>
