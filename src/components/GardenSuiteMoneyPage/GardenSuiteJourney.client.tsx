@@ -470,18 +470,25 @@ function JourneyStagePanel({
         'bg-[var(--ledger-paper)] text-[var(--ledger-ink)]',
         compact
           ? 'overflow-hidden border-0'
-          : 'min-h-full overflow-visible border border-[var(--ledger-rule)]',
+          : 'h-full min-h-0 overflow-hidden border border-[var(--ledger-rule)]',
       )}
       style={getPaletteStyle(palette)}
     >
       <BackgroundImageTexture
-        className="min-h-full [&>div:last-child]:min-h-full"
+        className={cn(
+          compact
+            ? 'min-h-full [&>div:last-child]:min-h-full'
+            : 'h-full min-h-0 [&>div:last-child]:h-full [&>div:last-child]:min-h-0',
+        )}
         opacity={0.16}
         variant="inflicted"
       >
         <article
           aria-hidden={!active}
-          className="grid min-h-full xl:grid-cols-[minmax(180px,.55fr)_minmax(500px,1.7fr)_minmax(300px,.9fr)]"
+          className={cn(
+            'grid xl:grid-cols-[minmax(180px,.55fr)_minmax(500px,1.7fr)_minmax(300px,.9fr)]',
+            compact ? 'min-h-full' : 'h-full min-h-0',
+          )}
         >
           <div
             className={cn(
@@ -503,7 +510,7 @@ function JourneyStagePanel({
             </div>
           </div>
 
-          <div className="flex min-w-0 flex-col px-[clamp(24px,4vw,56px)] pt-[clamp(24px,4vw,56px)] pb-[clamp(14px,2vw,24px)]">
+          <div className="flex min-h-0 min-w-0 flex-col overflow-hidden px-[clamp(24px,4vw,56px)] pt-[clamp(24px,4vw,56px)] pb-[clamp(14px,2vw,24px)]">
             <div className="grid gap-5 border-b-2 border-[var(--ledger-ink)] pb-6 md:grid-cols-[1fr_auto] md:items-end">
               <div>
                 <p
@@ -521,7 +528,12 @@ function JourneyStagePanel({
               <p className="max-w-[30ch] text-base leading-relaxed font-semibold">{stage.short}</p>
             </div>
 
-            <div className="grid flex-1 items-stretch gap-4 py-6 md:grid-cols-2">
+            <div
+              className={cn(
+                'grid flex-1 items-stretch gap-4 py-6 md:grid-cols-2',
+                !compact && 'min-h-0 overflow-y-auto [scrollbar-gutter:stable]',
+              )}
+            >
               <JourneyComparisonPanel
                 active={active}
                 comparison={stage.without}
@@ -782,7 +794,7 @@ export function GardenSuiteJourney() {
                   <div
                     aria-hidden={index !== active}
                     aria-labelledby={`garden-suite-journey-tab-${index + 1}`}
-                    className="h-full w-1/4 shrink-0 overflow-y-auto p-4 [scrollbar-gutter:stable] focus-visible:outline-[3px] focus-visible:outline-offset-[-3px] focus-visible:outline-[var(--ledger-accent)]"
+                    className="h-full min-h-0 w-1/4 shrink-0 overflow-hidden p-4 focus-visible:outline-[3px] focus-visible:outline-offset-[-3px] focus-visible:outline-[var(--ledger-accent)]"
                     id={`garden-suite-journey-panel-${index + 1}`}
                     key={stage.title}
                     role="tabpanel"
